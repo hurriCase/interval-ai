@@ -2,20 +2,23 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-internal sealed class CustomMenu : MonoBehaviour
+namespace Client.Editor
 {
-    private const string SceneFolder = "Assets/Client/Scenes/";
-
-    [MenuItem("Project/Scenes/First")]
-    public static void OpenFirstScene() => OpenScene("First");
-
-    [MenuItem("Project/Scenes/Main")]
-    public static void OpenMainScene() => OpenScene("Main");
-
-    private static void OpenScene(string sceneName)
+    internal sealed class CustomMenu : MonoBehaviour
     {
-        var scenePath = $"{SceneFolder}{sceneName}.unity";
+        private const string SceneFolder = "Assets/Client/Scenes/";
 
-        EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Single);
+        [MenuItem("Project/Scenes/First")]
+        public static void OpenFirstScene() => OpenScene("First");
+
+        [MenuItem("Project/Scenes/Main")]
+        public static void OpenMainScene() => OpenScene("Main");
+
+        private static void OpenScene(string sceneName)
+        {
+            var scenePath = $"{SceneFolder}{sceneName}.unity";
+
+            EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Single);
+        }
     }
 }
