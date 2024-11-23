@@ -10,7 +10,7 @@ namespace Client.Scripts.UI.Base
 
         private readonly HashSet<WindowBase> _createdWindows = new HashSet<WindowBase>();
 
-        private void Start()
+        internal void Init()
         {
             foreach (var window in _windowPrefabs)
             {
