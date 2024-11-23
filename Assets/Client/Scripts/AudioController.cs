@@ -7,15 +7,19 @@ namespace Client.Scripts
     internal sealed class AudioController : SingletonDontDestroyOnLoad<AudioController>
     {
         [SerializeField, RequiredField] private AudioSource _musicSource;
-        [SerializeField, RequiredField] private GameObject _effectsSource;
+        [SerializeField, RequiredField] private AudioSource _effectsSource;
 
         [SerializeField, RequiredField] private AudioClip[] _musicClip;
 
-        internal void PlayMusic(float volume = 1f)
+        internal void PlayMusic(float volume = 1f) => PlaySound(_musicSource, GetRandomClip(_musicClip), volume);
+
+        internal void PlayEffect(AudioClip clip, float volume = 1f) => PlaySound(_effectsSource, clip, volume);
+
+        private void PlaySound(AudioSource source, AudioClip clip, float volume = 1f)
         {
-            _musicSource.volume = volume;
-            _musicSource.clip = GetRandomClip(_musicClip);
-            _musicSource.Play();
+            source.clip = clip;
+            source.volume = volume;
+            source.Play();
         }
 
         private AudioClip GetRandomClip(AudioClip[] clips)
