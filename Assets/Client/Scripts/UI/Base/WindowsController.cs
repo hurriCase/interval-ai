@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using Client.Scripts.Patterns;
 using UnityEngine;
 
-namespace Client.Scripts.UI
+namespace Client.Scripts.UI.Base
 {
-    internal class WindowsController : SingletonMonoBehaviour<WindowsController>
+    internal class WindowsController : SingletonMonoBehaviour<WindowsController> 
     {
         [SerializeField] private GameObject[] _windowPrefabs;
 
-        private readonly List<GameObject> _windows = new List<GameObject>();
+        private readonly HashSet<WindowBase> _createdWindows = new HashSet<WindowBase>();
 
         private void Start()
         {
@@ -17,19 +17,20 @@ namespace Client.Scripts.UI
                 var createdWindow = Instantiate(window, transform);
 
                 createdWindow.SetActive(false);
-
-                _windows.Add(createdWindow);
+                
+                if (createdWindow.TryGetComponent<WindowBase>(out var windowBase))
+                    _createdWindows.Add(windowBase);
             }
         }
 
-        internal void OpenWindow(WindowBase window)
+        internal void OpenWindow<T>() where T : WindowBase
         {
-            foreach (var createdWindow in _windows)
+            foreach (var createdWindow in _createdWindows)
             {
-                if (createdWindow.TryGetComponent<WindowBase>(out var windowBase))
-                    window.gameObject.SetActive(windowBase == window);
-                else if (window.CanHide is false)
-                    window.gameObject.SetActive(false);
+                if (createdWindow.GetType() == typeof(T))
+                    createdWindow.gameObject.SetActive(true);
+                else if (createdWindow.CanHide)
+                    createdWindow.gameObject.SetActive(false);
             }
         }
     }

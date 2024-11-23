@@ -1,6 +1,9 @@
+using Client.Scripts.UI.Base;
 using UnityEngine;
 
-internal sealed class SentencesWindow : MonoBehaviour
+namespace Client.Scripts.UI.MainWindows
 {
-
+    internal sealed class SentencesWindow : WindowBase
+    {
+    }
 }

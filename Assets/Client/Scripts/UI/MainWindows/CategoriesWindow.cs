@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace Client.Scripts.UI.MainWindows
 {
-    internal sealed class LearnWordsWindow : WindowBase
+    internal sealed class CategoriesWindow : WindowBase
     {
-        
+
     }
 }

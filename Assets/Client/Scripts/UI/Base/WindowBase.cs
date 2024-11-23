@@ -1,12 +1,14 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-namespace Client.Scripts.UI
+namespace Client.Scripts.UI.Base
 {
-    internal abstract class WindowBase : MonoBehaviour
+    [Serializable]
+    public abstract class WindowBase : MonoBehaviour
     {
-        internal bool CanHide { get; set; }
+        internal bool CanHide { get; set; } = true;
 
-        internal void Show(WindowBase type) => WindowsController.Instance.OpenWindow(type);
+        internal static void Show<T>() where T : WindowBase => WindowsController.Instance.OpenWindow<T>();
 
         internal void Hide() => gameObject.SetActive(false);
     }
