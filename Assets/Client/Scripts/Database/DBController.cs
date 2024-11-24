@@ -35,8 +35,8 @@ namespace Client.Scripts.Database
         {
             try
             {
-                string json = JsonUtility.ToJson(data);
-                await _dbReference.Child(path).SetRawJsonValueAsync(json);
+                var dataToWrite = data as string ?? JsonUtility.ToJson(data);
+                await _dbReference.Child(path).SetRawJsonValueAsync(dataToWrite);
                 Debug.Log($"Data written successfully to {path}");
             }
             catch (Exception e)
@@ -66,17 +66,23 @@ namespace Client.Scripts.Database
         {
             try
             {
-                DataSnapshot snapshot = await _dbReference.Child(path).GetValueAsync();
+                var snapshot = await _dbReference.Child(path).GetValueAsync();
                 if (snapshot.Exists)
                 {
+                    // Handle different types of data
+                    if (typeof(T) == typeof(string))
+                    {
+                        // If we're expecting a string, return it directly
+                        return (T)(object)snapshot.GetValue(true).ToString();
+                    }
+
+                    // For complex objects, use JSON parsing
                     var json = snapshot.GetRawJsonValue();
                     return JsonUtility.FromJson<T>(json);
                 }
-                else
-                {
-                    Debug.Log($"No data exists at {path}");
-                    return default(T);
-                }
+
+                Debug.Log($"No data exists at {path}");
+                return default;
             }
             catch (Exception e)
             {
@@ -103,7 +109,7 @@ namespace Client.Scripts.Database
         // Listen for real-time updates
         public void ListenForValueChanged<T>(string path, Action<T> onValueChanged)
         {
-            _dbReference.Child(path).ValueChanged += (object sender, ValueChangedEventArgs args) =>
+            _dbReference.Child(path).ValueChanged += (_, args) =>
             {
                 if (args.DatabaseError != null)
                 {
@@ -111,12 +117,11 @@ namespace Client.Scripts.Database
                     return;
                 }
 
-                if (args.Snapshot != null && args.Snapshot.Exists)
-                {
-                    var json = args.Snapshot.GetRawJsonValue();
-                    var value = JsonUtility.FromJson<T>(json);
-                    onValueChanged?.Invoke(value);
-                }
+                if (args.Snapshot == null || args.Snapshot.Exists is false) return;
+                
+                var json = args.Snapshot.GetRawJsonValue();
+                var value = JsonUtility.FromJson<T>(json);
+                onValueChanged?.Invoke(value);
             };
         }
 
