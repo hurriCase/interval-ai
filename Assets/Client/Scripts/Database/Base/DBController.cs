@@ -13,6 +13,10 @@ namespace Client.Scripts.Database
     {
         private DatabaseReference _dbReference;
 
+        public IDBController DBReference { get; set; }
+
+        public string UserId { get; set; }
+
         internal async Task Init()
         {
             try

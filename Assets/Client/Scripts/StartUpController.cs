@@ -1,6 +1,5 @@
 using System;
 using Client.Scripts.Database;
-using Client.Scripts.Database.Vocabulary;
 using UnityEngine;
 
 namespace Client.Scripts
@@ -13,9 +12,9 @@ namespace Client.Scripts
             try
             {
                 AudioController.Instance.PlayMusic();
+                //TODO: Create DI
                 await DBController.Instance.Init();
-                //TODO: Replace with real userID
-                await VocabularyController.Init(DBController.Instance, "1");
+                await VocabularyController.Init();
             }
             catch (Exception e)
             {
