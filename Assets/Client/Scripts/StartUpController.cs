@@ -1,7 +1,6 @@
+using System;
 using Client.Scripts.Database;
-using Client.Scripts.UI.Base;
-using Client.Scripts.UI.MainWindows;
-using Unity.VisualScripting;
+using Client.Scripts.Database.Vocabulary;
 using UnityEngine;
 
 namespace Client.Scripts
@@ -9,10 +8,19 @@ namespace Client.Scripts
     internal sealed class StartUpController : MonoBehaviour
     {
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        private static void OnBeforeSceneLoadRuntimeMethod()
+        private static async void OnBeforeSceneLoadRuntimeMethod()
         {
-            AudioController.Instance.PlayMusic();
-            DBController.Instance.Init();
+            try
+            {
+                AudioController.Instance.PlayMusic();
+                await DBController.Instance.Init();
+                //TODO: Replace with real userID
+                await VocabularyController.Init(DBController.Instance, "1");
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+            }
         }
     }
 }
