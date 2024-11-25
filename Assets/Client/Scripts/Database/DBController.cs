@@ -9,7 +9,7 @@ using UnityEngine;
 namespace Client.Scripts.Database
 {
     [Resource("P_DBController", "DontDestroyOnLoad/P_DBController")]
-    internal sealed class DBController : SingletonDontDestroyOnLoad<DBController>
+    internal sealed class DBController : SingletonDontDestroyOnLoad<DBController>, IDBController
     {
         private DatabaseReference _dbReference;
 
@@ -17,10 +17,8 @@ namespace Client.Scripts.Database
         {
             try
             {
-                // Make sure all necessary dependencies are available
                 await FirebaseApp.CheckAndFixDependenciesAsync();
-            
-                // Get the root reference location of the database
+
                 _dbReference = FirebaseDatabase.DefaultInstance.RootReference;
                 Debug.Log("Firebase initialized successfully!");
             }
@@ -30,7 +28,6 @@ namespace Client.Scripts.Database
             }
         }
 
-        // Write data to specified path
         public async Task WriteData<T>(string path, T data)
         {
             try
@@ -46,7 +43,6 @@ namespace Client.Scripts.Database
             }
         }
 
-        // Update specific fields at path
         public async Task UpdateData(string path, Dictionary<string, object> data)
         {
             try
@@ -61,7 +57,6 @@ namespace Client.Scripts.Database
             }
         }
 
-        // Read data from specified path
         public async Task<T> ReadData<T>(string path)
         {
             try
@@ -69,14 +64,9 @@ namespace Client.Scripts.Database
                 var snapshot = await _dbReference.Child(path).GetValueAsync();
                 if (snapshot.Exists)
                 {
-                    // Handle different types of data
                     if (typeof(T) == typeof(string))
-                    {
-                        // If we're expecting a string, return it directly
                         return (T)(object)snapshot.GetValue(true).ToString();
-                    }
 
-                    // For complex objects, use JSON parsing
                     var json = snapshot.GetRawJsonValue();
                     return JsonUtility.FromJson<T>(json);
                 }
@@ -91,7 +81,6 @@ namespace Client.Scripts.Database
             }
         }
 
-        // Delete data at specified path
         public async Task DeleteData(string path)
         {
             try
@@ -106,7 +95,6 @@ namespace Client.Scripts.Database
             }
         }
 
-        // Listen for real-time updates
         public void ListenForValueChanged<T>(string path, Action<T> onValueChanged)
         {
             _dbReference.Child(path).ValueChanged += (_, args) =>
@@ -118,17 +106,13 @@ namespace Client.Scripts.Database
                 }
 
                 if (args.Snapshot == null || args.Snapshot.Exists is false) return;
-                
+
                 var json = args.Snapshot.GetRawJsonValue();
                 var value = JsonUtility.FromJson<T>(json);
                 onValueChanged?.Invoke(value);
             };
         }
 
-        // Stop listening for updates
-        public void StopListening(string path)
-        {
-            _dbReference.Child(path).ValueChanged -= null;
-        }
+        public void StopListening(string path) => _dbReference.Child(path).ValueChanged -= null;
     }
 }
