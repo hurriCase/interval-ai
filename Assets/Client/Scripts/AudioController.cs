@@ -15,14 +15,14 @@ namespace Client.Scripts
 
         internal void PlayEffect(AudioClip clip, float volume = 1f) => PlaySound(_effectsSource, clip, volume);
 
-        private void PlaySound(AudioSource source, AudioClip clip, float volume = 1f)
+        private static void PlaySound(AudioSource source, AudioClip clip, float volume = 1f)
         {
             source.clip = clip;
             source.volume = volume;
             source.Play();
         }
 
-        private AudioClip GetRandomClip(AudioClip[] clips)
+        private static AudioClip GetRandomClip(AudioClip[] clips)
         {
             return clips[Random.Range(0, clips.Length)];
         }
