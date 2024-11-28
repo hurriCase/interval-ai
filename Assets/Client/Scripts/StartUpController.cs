@@ -1,5 +1,7 @@
-using System;
-using Client.Scripts.Database;
+using Client.Scripts.Database.Base;
+using Client.Scripts.Database.Controllers;
+using Client.Scripts.Patterns.DI.Base;
+using Client.Scripts.Patterns.DI.Services;
 using UnityEngine;
 
 namespace Client.Scripts
@@ -9,17 +11,22 @@ namespace Client.Scripts
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static async void OnBeforeSceneLoadRuntimeMethod()
         {
-            try
-            {
-                AudioController.Instance.PlayMusic();
-                //TODO: Create DI
-                await DBController.Instance.Init();
-                await VocabularyController.Init();
-            }
-            catch (Exception e)
-            {
-                Debug.Log(e);
-            }
+            DIContainer.RegisterSingleton<IAudioController>(AudioController.Instance);
+            DIContainer.Register<IDBController>(() => new DBController());
+            DIContainer.Register<IVocabularyEntityController>(() => new VocabularyEntityController());
+            DIContainer.Register<IUserEntityController>(() => new UserEntityController());
+
+            var audioController = DIContainer.Resolve<IAudioController>();
+            audioController.PlayMusic();
+
+            var dbController = DIContainer.Resolve<IDBController>();
+            await dbController.Init();
+
+            var vocabularyController = DIContainer.Resolve<IVocabularyEntityController>();
+            await vocabularyController.Init();
+
+            var userController = DIContainer.Resolve<IUserEntityController>();
+            await userController.Init();
         }
     }
 }

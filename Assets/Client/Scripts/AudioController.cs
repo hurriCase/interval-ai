@@ -1,19 +1,21 @@
 ﻿using Client.Scripts.Patterns;
+using Client.Scripts.Patterns.DI.Services;
+using Client.Scripts.Patterns.Singletons;
 using UnityEngine;
 
 namespace Client.Scripts
 {
     [Resource("P_AudioManager", "DontDestroyOnLoad/P_AudioManager")]
-    internal sealed class AudioController : SingletonDontDestroyOnLoad<AudioController>
+    internal sealed class AudioController : SingletonMonoBehaviour<AudioController>, IAudioController
     {
         [SerializeField, RequiredField] private AudioSource _musicSource;
         [SerializeField, RequiredField] private AudioSource _effectsSource;
 
         [SerializeField, RequiredField] private AudioClip[] _musicClip;
 
-        internal void PlayMusic(float volume = 1f) => PlaySound(_musicSource, GetRandomClip(_musicClip), volume);
+        public void PlayMusic(float volume = 1f) => PlaySound(_musicSource, GetRandomClip(_musicClip), volume);
 
-        internal void PlayEffect(AudioClip clip, float volume = 1f) => PlaySound(_effectsSource, clip, volume);
+        public void PlayEffect(AudioClip clip, float volume = 1f) => PlaySound(_effectsSource, clip, volume);
 
         private static void PlaySound(AudioSource source, AudioClip clip, float volume = 1f)
         {
