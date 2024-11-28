@@ -1,29 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Client.Scripts.Database.Base;
 
-namespace Client.Scripts.Database.Vocabulary
+namespace Client.Scripts.Database.Entities
 {
-    internal sealed class WordEntityData
-    {
-        public string CategoryId { get; set; }
-        public string NativeWord { get; set; }
-        public string LearningWord { get; set; }
-        public string Transcription { get; set; }
-        public List<Example> Examples { get; set; } = new();
-        public bool IsDefault { get; set; }
-
-        public sealed class Example
-        {
-            public string NativeSentence { get; set; }
-            public string LearningSentence { get; set; }
-        }
-    }
-
     internal sealed class WordEntity : DataBaseEntity<WordEntityData>, IInitializable
     {
-        protected override string GetPath(string userId) => $"user_words/{userId}";
-
         internal List<EntityData<WordEntityData>> GetWordsForReview(
             Dictionary<string, EntityData<ProgressEntityData>> userProgress,
             Dictionary<string, EntityData<CategoryEntityData>> categories)
@@ -46,6 +29,24 @@ namespace Client.Scripts.Database.Vocabulary
             }
 
             return wordsForReview;
+        }
+
+        protected override string GetPath(string userId) => $"user_words/{userId}";
+    }
+
+    internal sealed class WordEntityData
+    {
+        internal string CategoryId { get; set; }
+        internal string NativeWord { get; set; }
+        internal string LearningWord { get; set; }
+        internal string Transcription { get; set; }
+        internal List<Example> Examples { get; set; } = new();
+        internal bool IsDefault { get; set; }
+
+        internal abstract class Example
+        {
+            internal string NativeSentence { get; set; }
+            internal string LearningSentence { get; set; }
         }
     }
 }

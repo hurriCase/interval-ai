@@ -1,23 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Client.Scripts.Database.Base;
 using UnityEngine;
 
-namespace Client.Scripts.Database.Vocabulary
+namespace Client.Scripts.Database.Entities
 {
-    internal sealed class CategoryEntityData
-    {
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public List<EntityData<WordEntityData>> Words { get; set; } = new();
-        public bool IsDefault { get; set; }
-    }
-
     internal sealed class CategoryEntity : DataBaseEntity<CategoryEntityData>, IInitializable
     {
-        protected override string GetPath(string userId) => $"user_categories/{userId}";
-
-
         internal void AddWord(EntityData<CategoryEntityData> category, EntityData<WordEntityData> word)
         {
             if (Entities.ContainsKey(category.Id) is false)
@@ -25,7 +15,7 @@ namespace Client.Scripts.Database.Vocabulary
                 Debug.LogWarning($"[CategoryEntity::AddWord] There is no category with name: {category.Data.Title}");
                 return;
             }
-        
+
             category.Data.Words.Add(word);
         }
 
@@ -49,5 +39,15 @@ namespace Client.Scripts.Database.Vocabulary
                 Debug.LogError($"Error loading entities: {e.Message}");
             }
         }
+
+        protected override string GetPath(string userId) => $"user_categories/{userId}";
+    }
+
+    internal sealed class CategoryEntityData
+    {
+        internal string Title { get; set; }
+        internal string Description { get; set; }
+        internal List<EntityData<WordEntityData>> Words { get; set; } = new();
+        internal bool IsDefault { get; set; }
     }
 }

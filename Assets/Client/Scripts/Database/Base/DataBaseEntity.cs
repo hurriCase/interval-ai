@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Client.Scripts.Patterns.DI.Services;
 using UnityEngine;
 
-namespace Client.Scripts.Database
+namespace Client.Scripts.Database.Base
 {
     internal abstract class DataBaseEntity<TData> where TData : class, new()
     {
+        protected Dictionary<string, EntityData<TData>> Entities { get; set; } = new();
         protected IDBController dbController;
         protected string userId;
-        
-        protected Dictionary<string, EntityData<TData>> Entities { get; set; } = new();
-
-        protected virtual string GetPath(string userId) => string.Empty;
 
         public virtual async Task Init(IDBController dbController, string userId)
         {
@@ -22,7 +20,7 @@ namespace Client.Scripts.Database
             await LoadEntity();
         }
 
-        internal virtual async Task<EntityData<TData>> CreateEntity(TData data)
+        protected virtual async Task<EntityData<TData>> CreateEntity(TData data)
         {
             var entityData = new EntityData<TData>
             {
@@ -45,7 +43,8 @@ namespace Client.Scripts.Database
         {
             try
             {
-                var loadedEntities = await dbController.ReadData<Dictionary<string, EntityData<TData>>>(GetPath(userId));
+                var loadedEntities =
+                    await dbController.ReadData<Dictionary<string, EntityData<TData>>>(GetPath(userId));
                 if (loadedEntities != null)
                 {
                     Entities = loadedEntities;
@@ -56,16 +55,18 @@ namespace Client.Scripts.Database
                 Debug.LogError($"Error loading entities: {e.Message}");
             }
         }
+
+        protected virtual string GetPath(string userId) => string.Empty;
     }
-    
+
     internal class EntityData<T> where T : class
     {
-        public string Id { get; set; } = Guid.NewGuid().ToString();
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
-        public T Data { get; set; }
+        internal string Id { get; set; } = Guid.NewGuid().ToString();
+        internal DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        internal DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+        internal T Data { get; set; }
     }
-    
+
     internal interface IInitializable
     {
         Task Init(IDBController dbController, string userId);

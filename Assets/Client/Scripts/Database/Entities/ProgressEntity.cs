@@ -1,22 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Client.Scripts.Database.Base;
 
-namespace Client.Scripts.Database.Vocabulary
+namespace Client.Scripts.Database.Entities
 {
-    internal sealed class ProgressEntityData
-    {
-        public string WordId { get; set; }
-        public int RepetitionStage { get; set; }
-        public int TotalReviews { get; set; }
-        public int CorrectReviews { get; set; }
-        public DateTime LastReviewDate { get; set; }
-        public DateTime NextReviewDate { get; set; }
-    }
-
     internal sealed class ProgressEntity : DataBaseEntity<ProgressEntityData>, IInitializable
     {
-        protected override string GetPath(string userId) => $"user_progress/{userId}";
-
         internal async Task UpdateWordProgress(string wordId, bool wasCorrect)
         {
             var repetitionStage = wasCorrect ? 1 : 0;
@@ -32,6 +21,7 @@ namespace Client.Scripts.Database.Vocabulary
             await CreateEntity(progressData);
         }
 
+        //TODO:<dmitriy.sukharev> Make that user can change intervals
         private static DateTime CalculateNextReviewDate(int repetitionStage)
         {
             var hoursToAdd = repetitionStage switch
@@ -47,5 +37,17 @@ namespace Client.Scripts.Database.Vocabulary
 
             return DateTime.UtcNow.AddHours(hoursToAdd);
         }
+
+        protected override string GetPath(string userId) => $"user_progress/{userId}";
+    }
+
+    internal sealed class ProgressEntityData
+    {
+        internal string WordId { get; set; }
+        internal int RepetitionStage { get; set; }
+        internal int TotalReviews { get; set; }
+        internal int CorrectReviews { get; set; }
+        internal DateTime LastReviewDate { get; set; }
+        internal DateTime NextReviewDate { get; set; }
     }
 }

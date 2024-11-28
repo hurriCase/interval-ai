@@ -1,23 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Client.Scripts.Patterns;
+using Client.Scripts.Patterns.DI.Base;
+using Client.Scripts.Patterns.DI.Services;
 using Firebase;
 using Firebase.Database;
 using UnityEngine;
 
-namespace Client.Scripts.Database
+namespace Client.Scripts.Database.Base
 {
-    [Resource("P_DBController", "DontDestroyOnLoad/P_DBController")]
-    internal sealed class DBController : SingletonDontDestroyOnLoad<DBController>, IDBController
+    internal sealed class DBController : IDBController
     {
         private DatabaseReference _dbReference;
+        public string UserID { get; set; }
 
-        public IDBController DBReference { get; set; }
-
-        public string UserId { get; set; }
-
-        internal async Task Init()
+        public async Task Init()
         {
             try
             {
@@ -99,7 +96,7 @@ namespace Client.Scripts.Database
             }
         }
 
-        public void ListenForValueChanged<T>(string path, Action<T> onValueChanged)
+        internal void ListenForValueChanged<T>(string path, Action<T> onValueChanged)
         {
             _dbReference.Child(path).ValueChanged += (_, args) =>
             {
@@ -117,6 +114,6 @@ namespace Client.Scripts.Database
             };
         }
 
-        public void StopListening(string path) => _dbReference.Child(path).ValueChanged -= null;
+        internal void StopListening(string path) => _dbReference.Child(path).ValueChanged -= null;
     }
 }
