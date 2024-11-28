@@ -2,11 +2,12 @@
 using UnityEngine;
 
 // ReSharper disable StaticMemberInGenericType
-namespace Client.Scripts.Patterns
+namespace Client.Scripts.Patterns.Singletons
 {
-    internal abstract class SingletonDontDestroyOnLoad<T> : MonoBehaviour where T : MonoBehaviour
+    internal abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBehaviour
     {
         private static bool _isCreated;
+        private static bool _isDontDestroyOnload;
 
         private static T _instance;
 
@@ -14,7 +15,10 @@ namespace Client.Scripts.Patterns
         {
             get
             {
-                if (_isCreated is false)
+                if (Attribute.IsDefined(typeof(T), typeof(ResourceAttribute)))
+                    _isDontDestroyOnload = true;
+
+                if (_isCreated is false && _isDontDestroyOnload)
                     CreateInstance();
 
                 return _instance;
@@ -23,7 +27,18 @@ namespace Client.Scripts.Patterns
 
         private void Awake()
         {
-            DontDestroyOnLoad(gameObject);
+            if (_isDontDestroyOnload)
+                DontDestroyOnLoad(gameObject);
+            else
+            {
+                if (Instance)
+                {
+                    Destroy(gameObject);
+                    return;
+                }
+
+                _instance = this as T;
+            }
 
             OnAwake();
         }
