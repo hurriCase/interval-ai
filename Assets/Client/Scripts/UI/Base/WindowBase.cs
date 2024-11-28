@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Client.Scripts.UI.Base
 {
     [Serializable]
-    public abstract class WindowBase : MonoBehaviour
+    internal abstract class WindowBase : MonoBehaviour
     {
         internal bool CanHide { get; set; } = true;
 

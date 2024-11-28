@@ -4,7 +4,7 @@ using Client.Scripts.Patterns;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Client.Editor
+namespace Client.Scripts.Editor
 {
     public static class RequiredFieldsValidator
     {

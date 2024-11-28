@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Client.Scripts.Patterns
+namespace Client.Scripts
 {
     internal static class PrefabLoader
     {

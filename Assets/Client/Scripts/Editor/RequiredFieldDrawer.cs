@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Client.Editor
+namespace Client.Scripts.Editor
 {
     [CustomPropertyDrawer(typeof(RequiredField))]
     public sealed class RequiredFieldDrawer : PropertyDrawer

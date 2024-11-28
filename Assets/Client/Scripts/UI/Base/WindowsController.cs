@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using Client.Scripts.Patterns;
+using Client.Scripts.Patterns.Singletons;
 using UnityEngine;
 
 namespace Client.Scripts.UI.Base
 {
-    internal class WindowsController : SingletonMonoBehaviour<WindowsController> 
+    internal class WindowsController : SingletonMonoBehaviour<WindowsController>
     {
         [SerializeField] private GameObject[] _windowPrefabs;
 
@@ -17,7 +17,7 @@ namespace Client.Scripts.UI.Base
                 var createdWindow = Instantiate(window, transform);
 
                 createdWindow.SetActive(false);
-                
+
                 if (createdWindow.TryGetComponent<WindowBase>(out var windowBase))
                     _createdWindows.Add(windowBase);
             }

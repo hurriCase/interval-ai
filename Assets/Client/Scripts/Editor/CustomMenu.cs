@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-namespace Client.Editor
+namespace Client.Scripts.Editor
 {
     internal sealed class CustomMenu : MonoBehaviour
     {

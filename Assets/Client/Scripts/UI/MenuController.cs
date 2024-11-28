@@ -13,4 +13,3 @@ namespace Client.Scripts.UI
         public void OpenSettingsWindow() => WindowsController.Instance.OpenWindow<SettingsWindow>();
     }
 }
-    
