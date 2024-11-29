@@ -62,9 +62,16 @@ namespace Client.Scripts.Patterns.DI.Base
         protected Injectable() => DependencyInjector.InjectDependencies(this);
     }
 
-    internal abstract class InjectableBehaviour : SingletonMonoBehaviour<InjectableBehaviour>
+    internal abstract class InjectableBehaviour : MonoBehaviour
     {
-        protected virtual void Awake() => DependencyInjector.InjectDependencies(this);
+        protected virtual void Awake()
+        {
+            DependencyInjector.InjectDependencies(this);
+
+            OnAwake();
+        }
+
+        protected virtual void OnAwake() { }
     }
 
     //TODO:<dmitriy.sukharev> Try to find a better solution

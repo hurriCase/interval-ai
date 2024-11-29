@@ -32,10 +32,7 @@ namespace Client.Scripts.Patterns.Singletons
             else
             {
                 if (Instance)
-                {
                     Destroy(gameObject);
-                    return;
-                }
 
                 _instance = this as T;
             }

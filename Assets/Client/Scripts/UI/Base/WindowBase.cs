@@ -1,10 +1,10 @@
 ﻿using System;
-using UnityEngine;
+using Client.Scripts.Patterns.DI.Base;
 
 namespace Client.Scripts.UI.Base
 {
     [Serializable]
-    internal abstract class WindowBase : MonoBehaviour
+    internal abstract class WindowBase : InjectableBehaviour
     {
         internal bool CanHide { get; set; } = true;
 
