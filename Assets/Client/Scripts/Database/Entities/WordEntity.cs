@@ -5,7 +5,7 @@ using Client.Scripts.Database.Base;
 
 namespace Client.Scripts.Database.Entities
 {
-    internal sealed class WordEntity : DataBaseEntity<WordEntityData>, IInitializable
+    internal sealed class WordEntity : DataBaseEntity<WordEntityData>
     {
         internal List<EntityData<WordEntityData>> GetWordsForReview(
             Dictionary<string, EntityData<ProgressEntityData>> userProgress,

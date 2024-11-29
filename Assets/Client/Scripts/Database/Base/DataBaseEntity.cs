@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Client.Scripts.Database.Base
 {
-    internal abstract class DataBaseEntity<TData> where TData : class, new()
+    internal abstract class DataBaseEntity<TData> : IInitializable where TData : class, new()
     {
         protected Dictionary<string, EntityData<TData>> Entities { get; set; } = new();
         protected IDBController dbController;

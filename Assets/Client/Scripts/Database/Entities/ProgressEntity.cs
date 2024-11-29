@@ -4,7 +4,7 @@ using Client.Scripts.Database.Base;
 
 namespace Client.Scripts.Database.Entities
 {
-    internal sealed class ProgressEntity : DataBaseEntity<ProgressEntityData>, IInitializable
+    internal sealed class ProgressEntity : DataBaseEntity<ProgressEntityData>
     {
         internal async Task UpdateWordProgress(string wordId, bool wasCorrect)
         {

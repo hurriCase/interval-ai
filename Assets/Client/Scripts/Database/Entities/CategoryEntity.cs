@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Client.Scripts.Database.Entities
 {
-    internal sealed class CategoryEntity : DataBaseEntity<CategoryEntityData>, IInitializable
+    internal sealed class CategoryEntity : DataBaseEntity<CategoryEntityData>
     {
         internal void AddWord(EntityData<CategoryEntityData> category, EntityData<WordEntityData> word)
         {
