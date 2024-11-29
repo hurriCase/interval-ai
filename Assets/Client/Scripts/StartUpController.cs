@@ -11,6 +11,7 @@ namespace Client.Scripts
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static async void OnBeforeSceneLoadRuntimeMethod()
         {
+            FireBaseStep.FireBaseInit();
             DIContainer.RegisterSingleton<IAudioController>(AudioController.Instance);
             DIContainer.Register<IDBController>(() => new DBController());
             DIContainer.Register<IEntityController>(() => new EntityController());
