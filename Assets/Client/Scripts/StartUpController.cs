@@ -19,10 +19,10 @@ namespace Client.Scripts
             audioController.PlayMusic();
 
             var dbController = DIContainer.Resolve<IDBController>();
-            await dbController.Init();
+            await dbController.InitAsync();
 
             var entityController = DIContainer.Resolve<IEntityController>();
-            await entityController.Init();
+            await entityController.InitAsync();
         }
     }
 }

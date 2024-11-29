@@ -5,7 +5,7 @@ using Client.Scripts.Database.Base;
 
 namespace Client.Scripts.Database.Entities
 {
-    internal sealed class WordEntity : DataBaseEntity<WordEntityData>
+    internal sealed class WordEntity : DBEntityBase<WordEntityData>
     {
         internal List<EntityData<WordEntityData>> GetWordsForReview(
             Dictionary<string, EntityData<ProgressEntityData>> userProgress,
@@ -31,7 +31,7 @@ namespace Client.Scripts.Database.Entities
             return wordsForReview;
         }
 
-        protected override string GetPath(string userId) => $"user_words/{userId}";
+        protected override string GetPath() => "user_words";
     }
 
     internal sealed class WordEntityData

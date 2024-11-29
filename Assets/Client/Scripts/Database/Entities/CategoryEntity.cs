@@ -6,31 +6,20 @@ using UnityEngine;
 
 namespace Client.Scripts.Database.Entities
 {
-    internal sealed class CategoryEntity : DataBaseEntity<CategoryEntityData>
+    internal sealed class CategoryEntity : DBEntityBase<CategoryEntityData>
     {
-        internal void AddWord(EntityData<CategoryEntityData> category, EntityData<WordEntityData> word)
-        {
-            if (Entities.ContainsKey(category.Id) is false)
-            {
-                Debug.LogWarning($"[CategoryEntity::AddWord] There is no category with name: {category.Data.Title}");
-                return;
-            }
-
-            category.Data.Words.Add(word);
-        }
-
-        protected override async Task LoadEntity()
+        public override async Task LoadEntityAsync()
         {
             try
             {
                 var customCategory =
-                    await dbController.ReadData<Dictionary<string, EntityData<CategoryEntityData>>>(GetPath(userId));
+                    await dbController.ReadDataAsync<Dictionary<string, EntityData<CategoryEntityData>>>(GetPath());
                 if (customCategory != null)
                     Entities = customCategory;
 
                 var globalCategory =
                     await dbController
-                        .ReadData<Dictionary<string, EntityData<CategoryEntityData>>>("global_categories");
+                        .ReadDataAsync<Dictionary<string, EntityData<CategoryEntityData>>>("global_categories");
                 if (globalCategory != null)
                     Entities = globalCategory;
             }
@@ -40,7 +29,7 @@ namespace Client.Scripts.Database.Entities
             }
         }
 
-        protected override string GetPath(string userId) => $"user_categories/{userId}";
+        protected override string GetPath() => "user_categories";
     }
 
     internal sealed class CategoryEntityData

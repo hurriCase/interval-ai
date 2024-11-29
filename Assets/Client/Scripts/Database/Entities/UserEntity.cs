@@ -2,9 +2,9 @@
 
 namespace Client.Scripts.Database.Entities
 {
-    internal sealed class UserEntity : DataBaseEntity<UserEntityData>
+    internal sealed class UserEntity : DBEntityBase<UserEntityData>
     {
-        protected override string GetPath(string userId) => $"Users/{userId}";
+        protected override string GetPath() => "users";
     }
 
     internal sealed class UserEntityData

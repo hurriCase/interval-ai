@@ -4,7 +4,7 @@ using Client.Scripts.Database.Base;
 
 namespace Client.Scripts.Database.Entities
 {
-    internal sealed class ProgressEntity : DataBaseEntity<ProgressEntityData>
+    internal sealed class ProgressEntity : DBEntityBase<ProgressEntityData>
     {
         internal async Task UpdateWordProgress(string wordId, bool wasCorrect)
         {
@@ -18,7 +18,7 @@ namespace Client.Scripts.Database.Entities
                 NextReviewDate = CalculateNextReviewDate(repetitionStage)
             };
 
-            await CreateEntity(progressData);
+            await CreateEntityAsync(progressData);
         }
 
         //TODO:<dmitriy.sukharev> Make that user can change intervals
@@ -38,7 +38,7 @@ namespace Client.Scripts.Database.Entities
             return DateTime.UtcNow.AddHours(hoursToAdd);
         }
 
-        protected override string GetPath(string userId) => $"user_progress/{userId}";
+        protected override string GetPath() => "user_progress";
     }
 
     internal sealed class ProgressEntityData

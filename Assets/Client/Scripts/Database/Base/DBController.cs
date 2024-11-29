@@ -1,26 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Client.Scripts.Patterns.DI.Base;
 using Client.Scripts.Patterns.DI.Services;
 using Firebase;
 using Firebase.Database;
+using Firebase.Extensions;
 using UnityEngine;
 
 namespace Client.Scripts.Database.Base
 {
     internal sealed class DBController : IDBController
     {
-        private DatabaseReference _dbReference;
         public string UserID { get; set; }
+        private DatabaseReference _dbReference;
 
-        public async Task Init()
+        public async Task InitAsync()
         {
             try
             {
-                await FirebaseApp.CheckAndFixDependenciesAsync();
+                await FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task =>
+                {
+                    var dependencyStatus = task.Result;
+                    if (dependencyStatus == DependencyStatus.Available)
+                        _dbReference = FirebaseDatabase.DefaultInstance.RootReference;
+                    else
+                        Debug.LogError($"Could not resolve all Firebase dependencies: {dependencyStatus}");
+                });
 
-                _dbReference = FirebaseDatabase.DefaultInstance.RootReference;
                 Debug.Log("Firebase initialized successfully!");
             }
             catch (Exception e)
@@ -29,12 +35,12 @@ namespace Client.Scripts.Database.Base
             }
         }
 
-        public async Task WriteData<T>(string path, T data)
+        public async Task WriteDataAsync<T>(string path, T data)
         {
             try
             {
                 var dataToWrite = data as string ?? JsonUtility.ToJson(data);
-                await _dbReference.Child(path).SetRawJsonValueAsync(dataToWrite);
+                await GetDBPath(path).SetRawJsonValueAsync(dataToWrite);
                 Debug.Log($"Data written successfully to {path}");
             }
             catch (Exception e)
@@ -44,11 +50,12 @@ namespace Client.Scripts.Database.Base
             }
         }
 
-        public async Task UpdateData(string path, Dictionary<string, object> data)
+        public async Task UpdateDataAsync<TData>(string path, Dictionary<string, TData> data)
         {
             try
             {
-                await _dbReference.Child(path).UpdateChildrenAsync(data);
+                //TODO:<dmitriy.sukharev> Test this
+                await GetDBPath(path).UpdateChildrenAsync((IDictionary<string, object>)data);
                 Debug.Log($"Data updated successfully at {path}");
             }
             catch (Exception e)
@@ -58,11 +65,11 @@ namespace Client.Scripts.Database.Base
             }
         }
 
-        public async Task<T> ReadData<T>(string path)
+        public async Task<T> ReadDataAsync<T>(string path)
         {
             try
             {
-                var snapshot = await _dbReference.Child(path).GetValueAsync();
+                var snapshot = await GetDBPath(path).GetValueAsync();
                 if (snapshot.Exists)
                 {
                     if (typeof(T) == typeof(string))
@@ -82,11 +89,11 @@ namespace Client.Scripts.Database.Base
             }
         }
 
-        public async Task DeleteData(string path)
+        public async Task DeleteDataAsync(string path)
         {
             try
             {
-                await _dbReference.Child(path).RemoveValueAsync();
+                await GetDBPath(path).RemoveValueAsync();
                 Debug.Log($"Data deleted successfully from {path}");
             }
             catch (Exception e)
@@ -98,7 +105,7 @@ namespace Client.Scripts.Database.Base
 
         internal void ListenForValueChanged<T>(string path, Action<T> onValueChanged)
         {
-            _dbReference.Child(path).ValueChanged += (_, args) =>
+            GetDBPath(path).ValueChanged += (_, args) =>
             {
                 if (args.DatabaseError != null)
                 {
@@ -114,6 +121,8 @@ namespace Client.Scripts.Database.Base
             };
         }
 
-        internal void StopListening(string path) => _dbReference.Child(path).ValueChanged -= null;
+        private DatabaseReference GetDBPath(string path) => _dbReference.Child(UserID).Child(path);
+
+        internal void StopListening(string path) => GetDBPath(path).ValueChanged -= null;
     }
 }
