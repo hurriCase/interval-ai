@@ -5,6 +5,7 @@ using Client.Scripts.Database.Base;
 using Client.Scripts.Database.Entities;
 using Client.Scripts.Patterns.DI.Base;
 using Client.Scripts.Patterns.DI.Services;
+using UnityEngine;
 
 namespace Client.Scripts.Database
 {
@@ -30,60 +31,60 @@ namespace Client.Scripts.Database
         private async Task RegisterEntityAsync<TEntity>(IEntity<TEntity> entity, EntityData<TEntity> data)
             where TEntity : class
         {
-            await entity.InitAsync(_dbController, _dbController.UserID);
+            await entity.LoadEntityAsync();
             _entities[typeof(TEntity)] = entity;
             _entityData[typeof(TEntity)] = data;
         }
 
-        public IEntity<TSpecificData> GetEntity<TEntity, TSpecificData>()
-            where TEntity : IEntity<TSpecificData>
-            where TSpecificData : class
+        public IEntity<TData> GetEntity<TEntity, TData>()
+            where TEntity : IEntity<TData>
+            where TData : class
         {
-            if (_entities.TryGetValue(typeof(TSpecificData), out var entity))
-                return (IEntity<TSpecificData>)entity;
+            if (_entities.TryGetValue(typeof(TData), out var entity))
+                return (IEntity<TData>)entity;
 
-            throw new InvalidOperationException($"Entity of type {typeof(TSpecificData)} not found");
+            Debug.LogWarning($"[EntityController::GetEntity] Entity of type {typeof(TData)} not found");
+            return null;
         }
 
-        public EntityData<TSpecificData> GetEntityData<TSpecificData>()
-            where TSpecificData : class
+        public EntityData<TData> GetEntityData<TData>()
+            where TData : class
         {
-            if (_entityData.TryGetValue(typeof(TSpecificData), out var entityData))
-                return (EntityData<TSpecificData>)entityData;
+            if (_entityData.TryGetValue(typeof(TData), out var entityData))
+                return (EntityData<TData>)entityData;
 
-            throw new InvalidOperationException($"EntityData of type {typeof(TSpecificData)} not found");
+            Debug.LogWarning($"[EntityController::GetEntityData] EntityData of type {typeof(TData)} not found");
+            return null;
         }
 
-        public async Task<EntityData<TSpecificData>> CreateEntity<TEntity, TSpecificData>(TEntity entity,
-            TSpecificData entityData)
-            where TSpecificData : class, new()
-            where TEntity : IEntity<TSpecificData>
+        public async Task<EntityData<TData>> CreateEntity<TEntity, TData>(TEntity entity,
+            TData entityData)
+            where TData : class, new()
+            where TEntity : IEntity<TData>
         {
             OnCreatedEntity?.Invoke();
-            return entityData != null
-                ? await entity.CreateEntityAsync(entityData)
-                : null;
+            return await entity.CreateEntityAsync(entityData);
         }
 
-        public async Task<EntityData<TSpecificData>> ReadEntity<TEntity, TSpecificData>(IEntity<TSpecificData> entity)
+        public async Task<EntityData<TData>> ReadEntity<TEntity, TData>(IEntity<TData> entity)
             where TEntity : class
-            where TSpecificData : class
+            where TData : class
         {
             OnReadEntity?.Invoke();
             return await entity.ReadEntityAsync();
         }
 
-        public async Task<EntityData<TSpecificData>> UpdateEntity<TSpecificData>(IEntity<TSpecificData> entity,
-            EntityData<TSpecificData> entityData)
-            where TSpecificData : class
+        public async Task<EntityData<TData>> UpdateEntity<TData>(IEntity<TData> entity,
+            EntityData<TData> entityData)
+            where TData : class
         {
             OnUpdatedEntity?.Invoke();
             return await entity.UpdateEntityAsync(entityData);
         }
 
-        public async Task<EntityData<TSpecificData>> DeleteEntity<TSpecificData>(IEntity<TSpecificData> entity,
-            EntityData<TSpecificData> entityData)
-            where TSpecificData : class
+        public async Task<EntityData<TData>> DeleteEntity<TData>(IEntity<TData> entity,
+            EntityData<TData> entityData)
+            where TData : class
         {
             OnDeletedEntity?.Invoke();
             return await entity.DeleteEntityAsync(entityData);

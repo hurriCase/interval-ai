@@ -25,7 +25,7 @@ namespace Client.Scripts.Database.Entities
             }
             catch (Exception e)
             {
-                Debug.LogError($"Error loading entities: {e.Message}");
+                Debug.LogError($"[CategoryEntity::LoadEntityAsync] Error loading entities: {e.Message}");
             }
         }
 
