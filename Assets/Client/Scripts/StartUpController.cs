@@ -1,5 +1,5 @@
+using Client.Scripts.Database;
 using Client.Scripts.Database.Base;
-using Client.Scripts.Database.Controllers;
 using Client.Scripts.Patterns.DI.Base;
 using Client.Scripts.Patterns.DI.Services;
 using UnityEngine;
@@ -13,8 +13,7 @@ namespace Client.Scripts
         {
             DIContainer.RegisterSingleton<IAudioController>(AudioController.Instance);
             DIContainer.Register<IDBController>(() => new DBController());
-            DIContainer.Register<IVocabularyEntityController>(() => new VocabularyEntityController());
-            DIContainer.Register<IUserEntityController>(() => new UserEntityController());
+            DIContainer.Register<IEntityController>(() => new EntityController());
 
             var audioController = DIContainer.Resolve<IAudioController>();
             audioController.PlayMusic();
@@ -22,11 +21,8 @@ namespace Client.Scripts
             var dbController = DIContainer.Resolve<IDBController>();
             await dbController.Init();
 
-            var vocabularyController = DIContainer.Resolve<IVocabularyEntityController>();
-            await vocabularyController.Init();
-
-            var userController = DIContainer.Resolve<IUserEntityController>();
-            await userController.Init();
+            var entityController = DIContainer.Resolve<IEntityController>();
+            await entityController.Init();
         }
     }
 }
