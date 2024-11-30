@@ -25,14 +25,16 @@ namespace Client.Scripts.Database.Base
                     if (dependencyStatus == DependencyStatus.Available)
                         _dbReference = FirebaseDatabase.DefaultInstance.RootReference;
                     else
-                        Debug.LogError($"Could not resolve all Firebase dependencies: {dependencyStatus}");
+                        Debug.LogError(
+                            "[DBController::InitAsync] " +
+                            $"Could not resolve all Firebase dependencies: {dependencyStatus}");
                 });
 
-                Debug.Log("Firebase initialized successfully!");
+                Debug.Log($"[DBController::InitAsync] FirebaseDatabase initialized successfully!");
             }
             catch (Exception e)
             {
-                Debug.LogError($"Failed to initialize Firebase: {e.Message}");
+                Debug.LogError($"[DBController::InitAsync] Failed to initialize FirebaseDatabase: {e.Message}");
             }
         }
 
@@ -42,11 +44,11 @@ namespace Client.Scripts.Database.Base
             {
                 var dataToWrite = data as string ?? JsonUtility.ToJson(data);
                 await GetDBPath(path).SetRawJsonValueAsync(dataToWrite);
-                Debug.Log($"Data written successfully to {path}");
+                Debug.Log($"[DBController::WriteDataAsync] Data written successfully to {path}");
             }
             catch (Exception e)
             {
-                Debug.LogError($"Error writing data: {e.Message}");
+                Debug.LogError($"[DBController::WriteDataAsync] Error writing data: {e.Message}");
                 throw;
             }
         }
@@ -57,11 +59,11 @@ namespace Client.Scripts.Database.Base
             {
                 //TODO:<dmitriy.sukharev> Test this
                 await GetDBPath(path).UpdateChildrenAsync((IDictionary<string, object>)data);
-                Debug.Log($"Data updated successfully at {path}");
+                Debug.Log($"[DBController::UpdateDataAsync] Data updated successfully at {path}");
             }
             catch (Exception e)
             {
-                Debug.LogError($"Error updating data: {e.Message}");
+                Debug.LogError($"[DBController::UpdateDataAsync] Error updating data: {e.Message}");
                 throw;
             }
         }
@@ -80,12 +82,12 @@ namespace Client.Scripts.Database.Base
                     return JsonUtility.FromJson<T>(json);
                 }
 
-                Debug.Log($"No data exists at {path}");
+                Debug.Log($"[DBController::ReadDataAsync] No data exists at {path}");
                 return default;
             }
             catch (Exception e)
             {
-                Debug.LogError($"Error reading data: {e.Message}");
+                Debug.LogError($"[DBController::ReadDataAsync] Error reading data: {e.Message}");
                 throw;
             }
         }
@@ -95,11 +97,11 @@ namespace Client.Scripts.Database.Base
             try
             {
                 await GetDBPath(path).RemoveValueAsync();
-                Debug.Log($"Data deleted successfully from {path}");
+                Debug.Log($"[DBController::DeleteDataAsync] Data deleted successfully from {path}");
             }
             catch (Exception e)
             {
-                Debug.LogError($"Error deleting data: {e.Message}");
+                Debug.LogError($"[DBController::DeleteDataAsync] Error deleting data: {e.Message}");
                 throw;
             }
         }
@@ -110,7 +112,8 @@ namespace Client.Scripts.Database.Base
             {
                 if (args.DatabaseError != null)
                 {
-                    Debug.LogError($"Error listening to data: {args.DatabaseError.Message}");
+                    Debug.LogError("[DBController::ListenForValueChanged] " +
+                                   $"Error listening to data: {args.DatabaseError.Message}");
                     return;
                 }
 

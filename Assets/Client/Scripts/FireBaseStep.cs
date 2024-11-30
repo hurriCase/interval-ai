@@ -15,18 +15,13 @@ namespace Client.Scripts
                 var dependencyStatus = task.Result;
                 if (dependencyStatus == DependencyStatus.Available)
                 {
-                    // Create and hold a reference to your FirebaseApp,
-                    // where app is a Firebase.FirebaseApp property of your application class.
                     FirebaseApp = FirebaseApp.DefaultInstance;
 
-                    // Set a flag here to indicate whether Firebase is ready to use by your app.
+                    Debug.Log($"[FireBaseStep::FireBaseInit] FireBase is initialized");
                 }
                 else
-                {
-                    Debug.LogError($"Could not resolve all Firebase dependencies: {dependencyStatus}");
-
-                    // Firebase Unity SDK is not safe to use here.
-                }
+                    Debug.LogError("[FireBaseStep::FireBaseInit] " +
+                                   $"Could not resolve all Firebase dependencies: {dependencyStatus}");
             });
         }
     }
