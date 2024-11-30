@@ -8,10 +8,13 @@ namespace Client.Scripts.Editor
     {
         private const string SceneFolder = "Assets/Client/Scenes/";
 
-        [MenuItem("Project/Scenes/First")]
-        public static void OpenFirstScene() => OpenScene("First");
+        [MenuItem("Project/Scenes/StartUp", priority = 0)]
+        public static void OpenStartUpScene() => OpenScene("StartUp");
 
-        [MenuItem("Project/Scenes/Main")]
+        [MenuItem("Project/Scenes/Login", priority = 1)]
+        public static void OpenLoginScene() => OpenScene("Login");
+        
+        [MenuItem("Project/Scenes/Main", priority = 2)]
         public static void OpenMainScene() => OpenScene("Main");
 
         private static void OpenScene(string sceneName)
