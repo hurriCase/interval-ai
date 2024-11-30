@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Client.Scripts
 {
-    [Resource("P_AudioManager", "DontDestroyOnLoad/P_AudioManager")]
+    [Resource("P_AudioManager")]
     internal sealed class AudioController : SingletonMonoBehaviour<AudioController>, IAudioController
     {
         [SerializeField, RequiredField] private AudioSource _musicSource;

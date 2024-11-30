@@ -8,10 +8,12 @@ namespace Client.Scripts.Patterns
         internal string Name { get; }
         internal string Path { get; }
 
-        internal ResourceAttribute(string name, string path)
+        private readonly string _defaultPath = "DontDestroyOnLoad/";
+
+        internal ResourceAttribute(string name)
         {
             Name = name;
-            Path = path;
+            Path = _defaultPath + name;
         }
     }
 }
