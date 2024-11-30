@@ -6,7 +6,6 @@ namespace Client.Scripts.UI
 {
     internal sealed class MenuController : MonoBehaviour
     {
-        public void OpenMainWindow() => WindowsController.Instance.OpenWindow<MainWindow>();
         public void OpenCategoriesWindow() => WindowsController.Instance.OpenWindow<CategoriesWindow>();
         public void OpenLearnWordsWindow() => WindowsController.Instance.OpenWindow<LearnWordsWindow>();
         public void OpenSentencesWindow() => WindowsController.Instance.OpenWindow<SentencesWindow>();

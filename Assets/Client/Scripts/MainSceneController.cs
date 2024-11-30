@@ -9,7 +9,7 @@ namespace Client.Scripts
         private void Start()
         {
             WindowsController.Instance.Init();
-            WindowsController.Instance.OpenWindow<MainWindow>();
+            WindowsController.Instance.OpenWindow<LearnWordsWindow>();
         }
     }
 }
