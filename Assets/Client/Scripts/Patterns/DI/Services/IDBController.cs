@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Threading.Tasks;
 
 namespace Client.Scripts.Patterns.DI.Services
@@ -9,7 +10,9 @@ namespace Client.Scripts.Patterns.DI.Services
         Task InitAsync();
         Task<T> ReadDataAsync<T>(string path);
         Task WriteDataAsync<T>(string path, T data);
-        Task UpdateDataAsync<TData>(string path, Dictionary<string, TData> data);
+        Task UpdateDataAsync<TData>(string path, ConcurrentDictionary<string, TData> data);
         Task DeleteDataAsync(string path);
+        void ListenForValueChanged<T>(string path, Action<T> onValueChanged);
+        void StopListening(string path);
     }
 }

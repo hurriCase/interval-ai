@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using Client.Scripts.Database.Base;
@@ -8,8 +9,8 @@ namespace Client.Scripts.Database.Entities
     internal sealed class WordEntity : DBEntityBase<WordEntityData>
     {
         internal List<EntityData<WordEntityData>> GetWordsForReview(
-            Dictionary<string, EntityData<ProgressEntityData>> userProgress,
-            Dictionary<string, EntityData<CategoryEntityData>> categories)
+            ConcurrentDictionary<string, EntityData<ProgressEntityData>> userProgress,
+            ConcurrentDictionary<string, EntityData<CategoryEntityData>> categories)
         {
             var now = DateTime.UtcNow;
             var wordsForReview = new List<EntityData<WordEntityData>>();

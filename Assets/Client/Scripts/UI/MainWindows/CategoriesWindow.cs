@@ -1,9 +1,10 @@
-using System.Collections.Generic;
+using System.Linq;
 using Client.Scripts.Database;
 using Client.Scripts.Database.Base;
 using Client.Scripts.Database.Entities;
 using Client.Scripts.Patterns.DI.Base;
 using Client.Scripts.UI.Base;
+using UnityEngine;
 
 namespace Client.Scripts.UI.MainWindows
 {
@@ -11,32 +12,33 @@ namespace Client.Scripts.UI.MainWindows
     {
         [Inject] private IEntityController _entityController;
 
-        //TODO:<dmitriy.sukharev> Made for test
+        //TODO:<dmitriy.sukharev> Is made for test
         private void Start()
         {
-            _entityController.CreateEntity(new CategoryEntity(), new CategoryEntityData
-            {
-                Title = "Test",
-                Description = "Test",
-                Words = new List<EntityData<WordEntityData>>(),
-                IsDefault = true
-            });
-
-            _entityController.ReadEntity<CategoryEntity, CategoryEntityData>(
-                _entityController.GetEntity<CategoryEntity, CategoryEntityData>());
-
-            _entityController.UpdateEntity(
-                _entityController.GetEntity<CategoryEntity, CategoryEntityData>(),
-                new EntityData<CategoryEntityData>
+            _entityController.CreateEntityAsync(
+                new CategoryEntityData
                 {
-                    CreatedAt = default,
-                    UpdatedAt = default,
-                    Data = null
+                    Title = "Test 1",
+                    Description = null,
+                    Words = null,
+                    IsDefault = false
                 });
 
-            _entityController.DeleteEntity(
-                _entityController.GetEntity<CategoryEntity, CategoryEntityData>(),
-                _entityController.GetEntityData<CategoryEntityData>());
+            _entityController.ReadEntityAsync<CategoryEntityData>();
+
+            var id = _entityController.FindEntitiesAsync<EntityData<CategoryEntityData>>(
+                entity => entity.Data.IsDefault)?.First().Id;
+
+            _entityController.UpdateEntityAsync(
+                new CategoryEntityData
+                {
+                    Title = "Test 2",
+                    Description = null,
+                    Words = null,
+                    IsDefault = false
+                });
+
+            _entityController.DeleteEntityAsync<CategoryEntityData>(id);
         }
     }
 }

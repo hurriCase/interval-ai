@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Client.Scripts.Patterns.DI.Base;
@@ -9,19 +10,46 @@ namespace Client.Scripts.Database.Base
 {
     internal abstract class DBEntityBase<TData> : Injectable, IEntity<TData> where TData : class, new()
     {
-        public Dictionary<string, EntityData<TData>> Entities { get; set; } = new();
+        public ConcurrentDictionary<string, EntityData<TData>> Entities { get; set; } = new();
 
         [Inject] protected IDBController dbController;
+
+        public virtual async Task InitAsync()
+        {
+            try
+            {
+                var loadedEntities = await dbController
+                    .ReadDataAsync<Dictionary<string, EntityData<TData>>>(GetPath());
+
+                if (loadedEntities != null)
+                {
+                    Entities.Clear();
+
+                    foreach (var entity in loadedEntities)
+                    {
+                        Entities[entity.Key] = entity.Value;
+                        dbController.ListenForValueChanged<Dictionary<string, EntityData<TData>>>(
+                            GetPath(),
+                            (_) => entity.Value.UpdatedAt = DateTime.Now
+                        );
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning($"[DBEntityBase::LoadEntityAsync] Error loading entities: {e.Message}");
+            }
+        }
 
         public virtual async Task<EntityData<TData>> CreateEntityAsync(TData data)
         {
             var entityData = new EntityData<TData>
             {
-                Data = data
+                Data = data,
+                UpdatedAt = DateTime.UtcNow
             };
 
             Entities[entityData.Id] = entityData;
-            entityData.UpdatedAt = DateTime.UtcNow;
             await dbController.WriteDataAsync(GetPath(), Entities);
 
             return entityData;
@@ -31,14 +59,14 @@ namespace Client.Scripts.Database.Base
 
         public async Task<EntityData<TData>> UpdateEntityAsync(EntityData<TData> entity)
         {
-            if (Entities.TryGetValue(entity.Id, out _) is false)
+            if (Entities.ContainsKey(entity.Id) is false)
             {
                 Debug.LogError($"[DBEntityBase::UpdateEntityAsync] Entity {entity.Id} does not exist");
-                return await Task.FromResult<EntityData<TData>>(null);
+                return null;
             }
 
-            Entities[entity.Id] = entity;
             entity.UpdatedAt = DateTime.UtcNow;
+            Entities[entity.Id] = entity;
             await dbController.UpdateDataAsync(GetPath(), Entities);
 
             return entity;
@@ -49,7 +77,7 @@ namespace Client.Scripts.Database.Base
             if (Entities.TryGetValue(data.Id, out var entityData) is false)
             {
                 Debug.LogError($"[DBEntityBase::DeleteEntityAsync] Entity {data.Id} does not exist");
-                return await Task.FromResult<EntityData<TData>>(null);
+                return null;
             }
 
             entityData.UpdatedAt = DateTime.UtcNow;
@@ -60,23 +88,6 @@ namespace Client.Scripts.Database.Base
             return entityData;
         }
 
-
-        public virtual async Task LoadEntityAsync()
-        {
-            try
-            {
-                var loadedEntities =
-                    await dbController.ReadDataAsync<Dictionary<string, EntityData<TData>>>(GetPath());
-                if (loadedEntities != null)
-                    Entities = loadedEntities;
-            }
-            catch (Exception e)
-            {
-                Debug.LogWarning($"[DBEntityBase::LoadEntityAsync] Error loading entities: {e.Message}");
-            }
-        }
-
-        public IEnumerable<EntityData<TData>> GetAllEntities() => Entities.Values;
 
         protected virtual string GetPath() => string.Empty;
     }
@@ -91,10 +102,11 @@ namespace Client.Scripts.Database.Base
 
     internal interface IEntity<TData> where TData : class
     {
+        ConcurrentDictionary<string, EntityData<TData>> Entities { get; set; }
         Task<EntityData<TData>> CreateEntityAsync(TData data);
         Task<EntityData<TData>> ReadEntityAsync();
         Task<EntityData<TData>> UpdateEntityAsync(EntityData<TData> entity);
         Task<EntityData<TData>> DeleteEntityAsync(EntityData<TData> entity);
-        Task LoadEntityAsync();
+        Task InitAsync();
     }
 }

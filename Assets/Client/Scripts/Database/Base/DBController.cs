@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Client.Scripts.Patterns.DI.Services;
@@ -50,7 +51,7 @@ namespace Client.Scripts.Database.Base
             }
         }
 
-        public async Task UpdateDataAsync<TData>(string path, Dictionary<string, TData> data)
+        public async Task UpdateDataAsync<TData>(string path, ConcurrentDictionary<string, TData> data)
         {
             try
             {
@@ -103,7 +104,7 @@ namespace Client.Scripts.Database.Base
             }
         }
 
-        internal void ListenForValueChanged<T>(string path, Action<T> onValueChanged)
+        public void ListenForValueChanged<T>(string path, Action<T> onValueChanged)
         {
             GetDBPath(path).ValueChanged += (_, args) =>
             {
@@ -121,8 +122,8 @@ namespace Client.Scripts.Database.Base
             };
         }
 
-        private DatabaseReference GetDBPath(string path) => _dbReference.Child(UserID).Child(path);
+        public void StopListening(string path) => GetDBPath(path).ValueChanged -= null;
 
-        internal void StopListening(string path) => GetDBPath(path).ValueChanged -= null;
+        private DatabaseReference GetDBPath(string path) => _dbReference.Child(UserID).Child(path);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Client.Scripts.Database.Base;
@@ -8,18 +9,18 @@ namespace Client.Scripts.Database.Entities
 {
     internal sealed class CategoryEntity : DBEntityBase<CategoryEntityData>
     {
-        public override async Task LoadEntityAsync()
+        public override async Task InitAsync()
         {
             try
             {
                 var customCategory =
-                    await dbController.ReadDataAsync<Dictionary<string, EntityData<CategoryEntityData>>>(GetPath());
+                    await dbController.ReadDataAsync<ConcurrentDictionary<string, EntityData<CategoryEntityData>>>(GetPath());
                 if (customCategory != null)
                     Entities = customCategory;
 
                 var globalCategory =
                     await dbController
-                        .ReadDataAsync<Dictionary<string, EntityData<CategoryEntityData>>>("global_categories");
+                        .ReadDataAsync<ConcurrentDictionary<string, EntityData<CategoryEntityData>>>("global_categories");
                 if (globalCategory != null)
                     Entities = globalCategory;
             }
