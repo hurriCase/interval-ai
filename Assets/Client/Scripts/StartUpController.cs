@@ -24,6 +24,8 @@ namespace Client.Scripts
 
             var entityController = DIContainer.Resolve<IEntityController>();
             await entityController.InitAsync();
+
+            await SceneLoader.LoadLoginScene();
         }
     }
 }
