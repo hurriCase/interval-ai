@@ -1,7 +1,4 @@
-using Client.Scripts.Database;
-using Client.Scripts.Database.Base;
-using Client.Scripts.Patterns.DI.Base;
-using Client.Scripts.Patterns.DI.Services;
+using Client.Scripts.Steps;
 using UnityEngine;
 
 namespace Client.Scripts
@@ -11,21 +8,30 @@ namespace Client.Scripts
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static async void OnBeforeSceneLoadRuntimeMethod()
         {
-            FireBaseStep.FireBaseInit();
-            DIContainer.RegisterSingleton<IAudioController>(AudioController.Instance);
-            DIContainer.Register<IDBController>(() => new DBController());
-            DIContainer.Register<IEntityController>(() => new EntityController());
+            var diStep = new DIStep();
+            diStep.OnCompleted += ShowStep;
+            await diStep.Execute(0);
 
-            var audioController = DIContainer.Resolve<IAudioController>();
-            audioController.PlayMusic();
+            var steps = new IStep[]
+            {
+                new DBStep(),
+                new SceneContextStep(),
+                new FireBaseStep()
+            };
 
-            var dbController = DIContainer.Resolve<IDBController>();
-            await dbController.InitAsync();
-
-            var entityController = DIContainer.Resolve<IEntityController>();
-            await entityController.InitAsync();
+            for (var i = 0; i < steps.Length; i++)
+            {
+                steps[i].OnCompleted += ShowStep;
+                await steps[i].Execute(i + 1);
+            }
 
             await SceneLoader.LoadLoginScene();
+        }
+
+        //TODO:<dmitriy.sukharev> temporary solution
+        private static void ShowStep(int step, string stepName)
+        {
+            Debug.Log($"[StartUpController::ShowStep] {step} step is initialized at {stepName}");
         }
     }
 }

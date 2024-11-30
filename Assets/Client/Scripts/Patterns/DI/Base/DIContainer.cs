@@ -13,7 +13,8 @@ namespace Client.Scripts.Patterns.DI.Base
         {
             var type = typeof(T);
             if (_services.ContainsKey(type))
-                Debug.LogWarning($"Service {type.Name} is already registered. Overwriting.");
+                Debug.LogWarning("[DIContainer::RegisterSingleton] " +
+                                 $"Service {type.Name} is already registered. Overwriting.");
 
             _services[type] = instance;
         }
@@ -33,7 +34,7 @@ namespace Client.Scripts.Patterns.DI.Base
                 return resolvedInstance;
             }
 
-            throw new InvalidOperationException($"No registration for type {type.Name}");
+            throw new InvalidOperationException($"[DIContainer::Resolve] No registration for type {type.Name}");
         }
 
         internal static T Resolve<T>() => (T)Resolve(typeof(T));
