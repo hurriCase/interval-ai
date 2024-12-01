@@ -8,7 +8,7 @@ namespace Client.Scripts.UI.Base
     {
         [SerializeField] private GameObject[] _windowPrefabs;
 
-        private readonly HashSet<WindowBase> _createdWindows = new HashSet<WindowBase>();
+        private readonly HashSet<WindowBase> _createdWindows = new();
 
         internal void Init()
         {

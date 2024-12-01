@@ -6,6 +6,10 @@ namespace Client.Scripts.DB
 {
     internal interface IEntityController
     {
+        event Action<Type> OnEntityCreated;
+        event Action<Type> OnEntityRead;
+        event Action<Type> OnEntityUpdated;
+        event Action<Type> OnEntityDeleted;
         Task InitAsync();
         Task<bool> ExistsAsync<TData>() where TData : class;
         Task<EntityResult<TData>> CreateEntityAsync<TData>(TData data) where TData : class;
@@ -22,17 +26,23 @@ namespace Client.Scripts.DB
         internal string ErrorMessage { get; set; }
         internal Exception Exception { get; set; }
 
-        internal static EntityResult<TData> Success(TData data) => new()
+        internal static EntityResult<TData> Success(TData data)
         {
-            IsSuccess = true,
-            Data = data
-        };
+            return new EntityResult<TData>
+            {
+                IsSuccess = true,
+                Data = data
+            };
+        }
 
-        internal static EntityResult<TData> Failure(string message, Exception ex = null) => new()
+        internal static EntityResult<TData> Failure(string message, Exception ex = null)
         {
-            IsSuccess = false,
-            ErrorMessage = message,
-            Exception = ex
-        };
+            return new EntityResult<TData>
+            {
+                IsSuccess = false,
+                ErrorMessage = message,
+                Exception = ex
+            };
+        }
     }
 }

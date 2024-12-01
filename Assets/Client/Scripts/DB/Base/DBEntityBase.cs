@@ -30,7 +30,7 @@ namespace Client.Scripts.DB.Base
                         Entities[entity.Key] = entity.Value;
                         dbController.ListenForValueChanged<Dictionary<string, EntityData<TData>>>(
                             GetPath(),
-                            (_) => entity.Value.UpdatedAt = DateTime.Now
+                            _ => entity.Value.UpdatedAt = DateTime.Now
                         );
                     }
                 }

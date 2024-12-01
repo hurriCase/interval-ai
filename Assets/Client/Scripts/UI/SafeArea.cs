@@ -17,10 +17,7 @@ namespace Client.Scripts.UI
 
         private void Update()
         {
-            if (Screen.orientation != _lastOrientation)
-            {
-                Setup();
-            }
+            if (Screen.orientation != _lastOrientation) Setup();
         }
 
         private void Setup()
@@ -30,7 +27,7 @@ namespace Client.Scripts.UI
             var safeArea = Screen.safeArea;
             var anchorMin = safeArea.position;
 
-            Vector2 offsetMax = new Vector2(Screen.width, Screen.height) - (safeArea.size + safeArea.position);
+            var offsetMax = new Vector2(Screen.width, Screen.height) - (safeArea.size + safeArea.position);
             if (_horizontalSymmetry)
             {
                 if (anchorMin.x < offsetMax.x)
@@ -41,9 +38,7 @@ namespace Client.Scripts.UI
                 else
                 {
                     if (anchorMin.x > offsetMax.x)
-                    {
                         safeArea.size = new Vector2(safeArea.size.x - anchorMin.x, safeArea.size.y);
-                    }
                 }
             }
 
@@ -57,9 +52,7 @@ namespace Client.Scripts.UI
                 else
                 {
                     if (anchorMin.y > offsetMax.y)
-                    {
                         safeArea.size = new Vector2(safeArea.size.x, safeArea.size.y - anchorMin.y);
-                    }
                 }
             }
 

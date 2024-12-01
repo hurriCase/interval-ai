@@ -9,8 +9,7 @@ namespace Client.Scripts.Patterns.DI.Base
 {
     internal static class DependencyInjector
     {
-        private static readonly ConcurrentDictionary<Type, FieldInfo[]> _fieldCache
-            = new ConcurrentDictionary<Type, FieldInfo[]>();
+        private static readonly ConcurrentDictionary<Type, FieldInfo[]> _fieldCache = new();
 
         internal static void InjectDependencies(object target)
         {
@@ -33,7 +32,7 @@ namespace Client.Scripts.Patterns.DI.Base
                 catch (Exception e)
                 {
                     Debug.LogError(
-                        $"Dependency Injection Failed: " +
+                        "Dependency Injection Failed: " +
                         $"Type: {targetType.Name}, " +
                         $"Field: {field.Name}, " +
                         $"Error: {e.Message}");

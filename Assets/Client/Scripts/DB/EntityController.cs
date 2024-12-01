@@ -15,15 +15,14 @@ namespace Client.Scripts.DB
 {
     internal class EntityController : Injectable, IEntityController
     {
-        [Inject] private IDBController _dbController;
-
         private readonly ConcurrentDictionary<Type, object> _entities = new();
         private readonly ConcurrentDictionary<Type, object> _entityData = new();
+        [Inject] private IDBController _dbController;
 
-        internal event Action<Type> OnEntityCreated;
-        internal event Action<Type> OnEntityRead;
-        internal event Action<Type> OnEntityUpdated;
-        internal event Action<Type> OnEntityDeleted;
+        public event Action<Type> OnEntityCreated;
+        public event Action<Type> OnEntityRead;
+        public event Action<Type> OnEntityUpdated;
+        public event Action<Type> OnEntityDeleted;
 
         public async Task InitAsync()
         {
@@ -37,27 +36,6 @@ namespace Client.Scripts.DB
 
             var registrationTasks = entityRegistrations.Select(RegisterEntityAsync);
             await Task.WhenAll(registrationTasks);
-        }
-
-        private async Task RegisterEntityAsync((Type Type, object Entity) registration)
-        {
-            try
-            {
-                var loadMethod = registration.Entity.GetType()
-                    .GetMethod("LoadEntityAsync", BindingFlags.Public | BindingFlags.Instance);
-
-                if (loadMethod != null)
-                    await (Task)loadMethod.Invoke(registration.Entity, null);
-
-                _entities[registration.Type] = registration.Entity;
-                _entityData[registration.Type] = Activator.CreateInstance(
-                    typeof(EntityData<>).MakeGenericType(registration.Type)
-                );
-            }
-            catch (Exception ex)
-            {
-                Debug.LogError($"Failed to register entity {registration.Type}: {ex.Message}");
-            }
         }
 
         public async Task<bool> ExistsAsync<TData>() where TData : class
@@ -79,7 +57,7 @@ namespace Client.Scripts.DB
                     return EntityResult<TData>.Failure("Entity type not registered");
 
                 var createdEntity = await entity.CreateEntityAsync(data);
-                
+
                 OnEntityCreated?.Invoke(typeof(TData));
 
                 return createdEntity != null
@@ -152,7 +130,7 @@ namespace Client.Scripts.DB
                 var entity = GetEntity<TData>();
                 if (entity == null)
                     return EntityResult<TData>.Failure("Entity type not registered");
-                
+
                 var entityToDelete = entity.Entities?.Values
                     .FirstOrDefault(e => e.Id == id);
 
@@ -176,12 +154,33 @@ namespace Client.Scripts.DB
             var entity = GetEntity<TData>();
             if (entity == null)
                 return Enumerable.Empty<TData>();
-            
+
             return entity.Entities?
                        .Values
                        .Select(e => e.Data)
                        .Where(predicate)
                    ?? Enumerable.Empty<TData>();
+        }
+
+        private async Task RegisterEntityAsync((Type Type, object Entity) registration)
+        {
+            try
+            {
+                var loadMethod = registration.Entity.GetType()
+                    .GetMethod("LoadEntityAsync", BindingFlags.Public | BindingFlags.Instance);
+
+                if (loadMethod != null)
+                    await (Task)loadMethod.Invoke(registration.Entity, null);
+
+                _entities[registration.Type] = registration.Entity;
+                _entityData[registration.Type] = Activator.CreateInstance(
+                    typeof(EntityData<>).MakeGenericType(registration.Type)
+                );
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Failed to register entity {registration.Type}: {ex.Message}");
+            }
         }
 
         private IEntity<TData> GetEntity<TData>() where TData : class

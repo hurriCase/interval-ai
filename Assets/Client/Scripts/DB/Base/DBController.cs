@@ -35,7 +35,7 @@ namespace Client.Scripts.DB.Base
                 });
 
                 _isInited = true;
-                Debug.Log($"[DBController::InitAsync] FirebaseDatabase initialized successfully!");
+                Debug.Log("[DBController::InitAsync] FirebaseDatabase initialized successfully!");
             }
             catch (Exception e)
             {
@@ -169,7 +169,7 @@ namespace Client.Scripts.DB.Base
         private bool ValidateDB()
         {
             if (_isInited is false)
-                Debug.LogError($"[DBController::ValidateDB] DBController not initialized but you're trying to access");
+                Debug.LogError("[DBController::ValidateDB] DBController not initialized but you're trying to access");
 
             return _isInited;
         }

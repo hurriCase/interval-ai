@@ -6,8 +6,8 @@ namespace Client.Scripts.Patterns.DI.Base
 {
     internal static class DIContainer
     {
-        private static readonly Dictionary<Type, object> _services = new Dictionary<Type, object>();
-        private static readonly Dictionary<Type, Func<object>> _serviceFactories = new Dictionary<Type, Func<object>>();
+        private static readonly Dictionary<Type, object> _services = new();
+        private static readonly Dictionary<Type, Func<object>> _serviceFactories = new();
 
         internal static void RegisterSingleton<T>(T instance)
         {

@@ -8,7 +8,7 @@ namespace Client.Scripts.Patterns.ResourceLoader
         private static void MakePersistent()
         {
             var components = ResourceLoader.LoadAllDontDestroy<DontDestroyOnLoadComponent>();
-            
+
             foreach (var component in components)
             {
                 var instance = Instantiate(component);
