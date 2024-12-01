@@ -14,9 +14,13 @@ namespace Client.Scripts.DB.Base
     {
         public string UserID { get; set; }
         private DatabaseReference _dbReference;
+        private bool _isInited;
 
         public async Task InitAsync()
         {
+            if (_isInited)
+                return;
+
             try
             {
                 await FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task =>
@@ -30,6 +34,7 @@ namespace Client.Scripts.DB.Base
                             $"Could not resolve all Firebase dependencies: {dependencyStatus}");
                 });
 
+                _isInited = true;
                 Debug.Log($"[DBController::InitAsync] FirebaseDatabase initialized successfully!");
             }
             catch (Exception e)
@@ -38,13 +43,17 @@ namespace Client.Scripts.DB.Base
             }
         }
 
-        public async Task WriteDataAsync<T>(string path, T data)
+        public async Task<T> WriteDataAsync<T>(string path, T data)
         {
+            if (ValidateDB() is false)
+                return default;
+
             try
             {
                 var dataToWrite = data as string ?? JsonUtility.ToJson(data);
                 await GetDBPath(path).SetRawJsonValueAsync(dataToWrite);
                 Debug.Log($"[DBController::WriteDataAsync] Data written successfully to {path}");
+                return data;
             }
             catch (Exception e)
             {
@@ -55,6 +64,9 @@ namespace Client.Scripts.DB.Base
 
         public async Task UpdateDataAsync<TData>(string path, ConcurrentDictionary<string, TData> data)
         {
+            if (ValidateDB() is false)
+                return;
+
             try
             {
                 //TODO:<dmitriy.sukharev> Test this
@@ -70,6 +82,9 @@ namespace Client.Scripts.DB.Base
 
         public async Task<T> ReadDataAsync<T>(string path)
         {
+            if (ValidateDB() is false)
+                return default;
+
             try
             {
                 var snapshot = await GetDBPath(path).GetValueAsync();
@@ -94,6 +109,15 @@ namespace Client.Scripts.DB.Base
 
         public async Task DeleteDataAsync(string path)
         {
+            if (ValidateDB() is false)
+                return;
+
+            if (_isInited is false)
+            {
+                Debug.LogError("[DBController::WriteDataAsync] DBController not initialized!");
+                return;
+            }
+
             try
             {
                 await GetDBPath(path).RemoveValueAsync();
@@ -108,6 +132,15 @@ namespace Client.Scripts.DB.Base
 
         public void ListenForValueChanged<T>(string path, Action<T> onValueChanged)
         {
+            if (ValidateDB() is false)
+                return;
+
+            if (_isInited is false)
+            {
+                Debug.LogError("[DBController::WriteDataAsync] DBController not initialized!");
+                return;
+            }
+
             GetDBPath(path).ValueChanged += (_, args) =>
             {
                 if (args.DatabaseError != null)
@@ -125,7 +158,21 @@ namespace Client.Scripts.DB.Base
             };
         }
 
-        public void StopListening(string path) => GetDBPath(path).ValueChanged -= null;
+        public void StopListening(string path)
+        {
+            if (ValidateDB() is false)
+                return;
+
+            GetDBPath(path).ValueChanged -= null;
+        }
+
+        private bool ValidateDB()
+        {
+            if (_isInited is false)
+                Debug.LogError($"[DBController::ValidateDB] DBController not initialized but you're trying to access");
+
+            return _isInited;
+        }
 
         private DatabaseReference GetDBPath(string path) => _dbReference.Child(UserID).Child(path);
     }
