@@ -4,9 +4,9 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-namespace Tests.DBTests
+namespace Client.Tests.Editor.DBTests
 {
-    public class DBControllerTests
+    internal class DBControllerTests
     {
         private DBController _controller;
         private const string TestPath = "test/path";
