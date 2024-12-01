@@ -2,7 +2,7 @@ using Client.Scripts.UI.Base;
 using Client.Scripts.UI.MainWindows;
 using UnityEngine;
 
-namespace Client.Scripts
+namespace Client.Scripts.UI
 {
     internal sealed class MainSceneController : MonoBehaviour
     {

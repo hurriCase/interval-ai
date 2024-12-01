@@ -4,7 +4,7 @@ using Client.Scripts.DB;
 using Client.Scripts.Patterns.DI.Base;
 using Client.Scripts.Patterns.DI.Services;
 
-namespace Client.Scripts.Steps
+namespace Client.Scripts.Core.StartUp.Steps
 {
     internal sealed class DBStep : Injectable, IStep
     {

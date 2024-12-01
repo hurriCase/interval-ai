@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Client.Scripts.Steps
+namespace Client.Scripts.Core.StartUp
 {
     public interface IStep
     {

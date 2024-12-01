@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Client.Scripts.Patterns.DI.Base;
 using Client.Scripts.Patterns.DI.Services;
 
-namespace Client.Scripts.Steps
+namespace Client.Scripts.Core.StartUp.Steps
 {
     internal sealed class SceneContextStep : Injectable, IStep
     {

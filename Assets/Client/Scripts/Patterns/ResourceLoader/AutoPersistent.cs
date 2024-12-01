@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Client.Scripts.ResourceLoader
+namespace Client.Scripts.Patterns.ResourceLoader
 {
     internal class AutoPersistent : MonoBehaviour
     {

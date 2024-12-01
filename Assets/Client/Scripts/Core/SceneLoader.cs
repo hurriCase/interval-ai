@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Client.Scripts
+namespace Client.Scripts.Core
 {
     internal static class SceneLoader
     {

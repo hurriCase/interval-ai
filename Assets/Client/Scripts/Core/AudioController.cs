@@ -3,7 +3,7 @@ using Client.Scripts.Patterns.DI.Services;
 using Client.Scripts.Patterns.Singletons;
 using UnityEngine;
 
-namespace Client.Scripts
+namespace Client.Scripts.Core
 {
     [Resource("P_AudioManager")]
     internal sealed class AudioController : SingletonMonoBehaviour<AudioController>, IAudioController

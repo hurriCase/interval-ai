@@ -1,7 +1,7 @@
-using Client.Scripts.Steps;
+using Client.Scripts.Core.StartUp.Steps;
 using UnityEngine;
 
-namespace Client.Scripts
+namespace Client.Scripts.Core.StartUp
 {
     internal sealed class StartUpController : MonoBehaviour
     {

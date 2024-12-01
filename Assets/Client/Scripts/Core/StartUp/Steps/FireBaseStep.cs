@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Client.Scripts.Steps;
 using Firebase;
 using UnityEngine;
 
-namespace Client.Scripts
+namespace Client.Scripts.Core.StartUp.Steps
 {
     internal sealed class FireBaseStep : IStep
     {

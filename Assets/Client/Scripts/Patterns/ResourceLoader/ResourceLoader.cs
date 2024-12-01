@@ -1,9 +1,9 @@
 ﻿using System;
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Client.Scripts.ResourceLoader
+namespace Client.Scripts.Patterns.ResourceLoader
 {
     internal static class ResourceLoader
     {

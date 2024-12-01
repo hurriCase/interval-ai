@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace UI
+namespace Client.Scripts.UI
 {
     [RequireComponent(typeof(RectTransform))]
     internal class SafeArea : MonoBehaviour
