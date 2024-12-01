@@ -8,7 +8,7 @@ using Firebase.Database;
 using Firebase.Extensions;
 using UnityEngine;
 
-namespace Client.Scripts.Database.Base
+namespace Client.Scripts.DB.Base
 {
     internal sealed class DBController : IDBController
     {

@@ -1,7 +1,7 @@
 using System.Linq;
-using Client.Scripts.Database;
-using Client.Scripts.Database.Base;
-using Client.Scripts.Database.Entities;
+using Client.Scripts.DB;
+using Client.Scripts.DB.Base;
+using Client.Scripts.DB.Entities;
 using Client.Scripts.Patterns.DI.Base;
 using Client.Scripts.UI.Base;
 using UnityEngine;

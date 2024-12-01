@@ -6,7 +6,7 @@ using Client.Scripts.Patterns.DI.Base;
 using Client.Scripts.Patterns.DI.Services;
 using UnityEngine;
 
-namespace Client.Scripts.Database.Base
+namespace Client.Scripts.DB.Base
 {
     internal abstract class DBEntityBase<TData> : Injectable, IEntity<TData> where TData : class, new()
     {

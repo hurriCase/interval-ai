@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Client.Scripts.Database.Base;
+using Client.Scripts.DB.Base;
 
-namespace Client.Scripts.Database.Entities
+namespace Client.Scripts.DB.Entities
 {
     internal sealed class ProgressEntity : DBEntityBase<ProgressEntityData>
     {

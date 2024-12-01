@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Client.Scripts.Database.Base;
-using Client.Scripts.Database.Entities;
+using Client.Scripts.DB.Base;
+using Client.Scripts.DB.Entities;
 using Client.Scripts.Patterns.DI.Base;
 using Client.Scripts.Patterns.DI.Services;
 using UnityEngine;
 using Exception = System.Exception;
 
-namespace Client.Scripts.Database
+namespace Client.Scripts.DB
 {
     internal class EntityController : Injectable, IEntityController
     {

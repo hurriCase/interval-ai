@@ -2,10 +2,10 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Client.Scripts.Database.Base;
+using Client.Scripts.DB.Base;
 using UnityEngine;
 
-namespace Client.Scripts.Database.Entities
+namespace Client.Scripts.DB.Entities
 {
     internal sealed class CategoryEntity : DBEntityBase<CategoryEntityData>
     {
