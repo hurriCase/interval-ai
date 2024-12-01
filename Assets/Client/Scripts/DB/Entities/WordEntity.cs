@@ -35,6 +35,7 @@ namespace Client.Scripts.DB.Entities
         protected override string GetPath() => "user_words";
     }
 
+    [Serializable]
     internal sealed class WordEntityData
     {
         internal string CategoryId { get; set; }
@@ -44,6 +45,7 @@ namespace Client.Scripts.DB.Entities
         internal List<Example> Examples { get; set; } = new();
         internal bool IsDefault { get; set; }
 
+        [Serializable]
         internal abstract class Example
         {
             internal string NativeSentence { get; set; }

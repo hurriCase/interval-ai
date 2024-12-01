@@ -14,13 +14,15 @@ namespace Client.Scripts.DB.Entities
             try
             {
                 var customCategory =
-                    await dbController.ReadDataAsync<ConcurrentDictionary<string, EntityData<CategoryEntityData>>>(GetPath());
+                    await dbController.ReadDataAsync<ConcurrentDictionary<string, EntityData<CategoryEntityData>>>(
+                        GetPath());
                 if (customCategory != null)
                     Entities = customCategory;
 
                 var globalCategory =
                     await dbController
-                        .ReadDataAsync<ConcurrentDictionary<string, EntityData<CategoryEntityData>>>("global_categories");
+                        .ReadDataAsync<ConcurrentDictionary<string, EntityData<CategoryEntityData>>>(
+                            "global_categories");
                 if (globalCategory != null)
                     Entities = globalCategory;
             }
@@ -33,6 +35,7 @@ namespace Client.Scripts.DB.Entities
         protected override string GetPath() => "user_categories";
     }
 
+    [Serializable]
     internal sealed class CategoryEntityData
     {
         internal string Title { get; set; }

@@ -41,6 +41,7 @@ namespace Client.Scripts.DB.Entities
         protected override string GetPath() => "user_progress";
     }
 
+    [Serializable]
     internal sealed class ProgressEntityData
     {
         internal string WordId { get; set; }

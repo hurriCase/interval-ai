@@ -1,4 +1,5 @@
-﻿using Client.Scripts.DB.Base;
+﻿using System;
+using Client.Scripts.DB.Base;
 
 namespace Client.Scripts.DB.Entities
 {
@@ -7,6 +8,7 @@ namespace Client.Scripts.DB.Entities
         protected override string GetPath() => "users";
     }
 
+    [Serializable]
     internal sealed class UserEntityData
     {
         internal string UserName { get; set; }
