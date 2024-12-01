@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Client.Scripts.Patterns.DI.Base;
 using Client.Scripts.Patterns.DI.Services;
+using UnityEngine;
 
 namespace Client.Scripts.Core.StartUp.Steps
 {
@@ -13,9 +14,18 @@ namespace Client.Scripts.Core.StartUp.Steps
 
         public Task Execute(int step)
         {
-            _audioController.PlayMusic();
+            try
+            {
+                _audioController.PlayMusic();
 
-            OnCompleted?.Invoke(step, GetType().Name);
+                OnCompleted?.Invoke(step, GetType().Name);
+                return Task.CompletedTask;
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"[DIStep::Execute] {GetType().Name} step initialization is failed: {e.Message}");
+            }
+
             return Task.CompletedTask;
         }
     }

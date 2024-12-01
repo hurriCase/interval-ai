@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Client.Scripts.DB;
 using Client.Scripts.Patterns.DI.Base;
 using Client.Scripts.Patterns.DI.Services;
+using UnityEngine;
 
 namespace Client.Scripts.Core.StartUp.Steps
 {
@@ -15,10 +16,17 @@ namespace Client.Scripts.Core.StartUp.Steps
 
         public async Task Execute(int step)
         {
-            await _dbController.InitAsync();
-            await _entityController.InitAsync();
+            try
+            {
+                await _dbController.InitAsync();
+                await _entityController.InitAsync();
 
-            OnCompleted?.Invoke(step, GetType().Name);
+                OnCompleted?.Invoke(step, GetType().Name);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"[DBStep::Execute] {GetType().Name} step initialization is failed: {e.Message}");
+            }
         }
     }
 }

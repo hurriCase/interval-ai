@@ -14,19 +14,25 @@ namespace Client.Scripts.Core.StartUp.Steps
         //TODO:<dmitriy.sukharev> I don't understand why is it necessary
         public async Task Execute(int step)
         {
-            var dependencyStatus = await FirebaseApp.CheckAndFixDependenciesAsync();
-
-            if (dependencyStatus == DependencyStatus.Available)
+            try
             {
-                FirebaseApp = FirebaseApp.DefaultInstance;
+                var dependencyStatus = await FirebaseApp.CheckAndFixDependenciesAsync();
 
-                Debug.Log($"[FireBaseStep::FireBaseInit] FireBase is initialized");
+                if (dependencyStatus == DependencyStatus.Available)
+                {
+                    FirebaseApp = FirebaseApp.DefaultInstance;
+
+                    OnCompleted?.Invoke(step, GetType().Name);
+                    Debug.Log("[FireBaseStep::FireBaseInit] FireBase is initialized");
+                }
+                else
+                    throw new Exception("[FireBaseStep::FireBaseInit] " +
+                                        $"Could not resolve all Firebase dependencies: {dependencyStatus}");
             }
-            else
-                Debug.LogError("[FireBaseStep::FireBaseInit] " +
-                               $"Could not resolve all Firebase dependencies: {dependencyStatus}");
-
-            OnCompleted?.Invoke(step, GetType().Name);
+            catch (Exception e)
+            {
+                Debug.LogError($"[DIStep::Execute] {GetType().Name} step initialization is failed: {e.Message}");
+            }
         }
     }
 }
