@@ -25,7 +25,9 @@ namespace Client.Scripts
                 await steps[i].Execute(i + 1);
             }
 
-            await SceneLoader.LoadLoginScene();
+            //TODO:<dmitriy.sukharev> think about how to better load scene
+            //TODO:to prevent scene load from not startup scene
+            //await SceneLoader.LoadLoginScene();
         }
 
         //TODO:<dmitriy.sukharev> temporary solution
