@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Client.Scripts.Database
+namespace Client.Scripts.DB
 {
     internal interface IEntityController
     {
