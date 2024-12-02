@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using Client.Scripts.DB.Base;
+using UnityEngine;
 
 namespace Client.Scripts.DB.Entities
 {
@@ -36,20 +37,20 @@ namespace Client.Scripts.DB.Entities
     }
 
     [Serializable]
-    internal sealed class WordEntityData
+    internal struct WordEntityData
     {
-        internal string CategoryId { get; set; }
-        internal string NativeWord { get; set; }
-        internal string LearningWord { get; set; }
-        internal string Transcription { get; set; }
-        internal List<Example> Examples { get; set; } = new();
-        internal bool IsDefault { get; set; }
+        [field: SerializeField] public string CategoryId { get; set; }
+        [field: SerializeField] public string NativeWord { get; set; }
+        [field: SerializeField] public string LearningWord { get; set; }
+        [field: SerializeField] public string Transcription { get; set; }
+        [field: SerializeField] public List<Example> Examples { get; set; }
+        [field: SerializeField] public bool IsDefault { get; set; }
 
         [Serializable]
-        internal abstract class Example
+        internal struct Example
         {
-            internal string NativeSentence { get; set; }
-            internal string LearningSentence { get; set; }
+            [field: SerializeField] public string NativeSentence { get; set; }
+            [field: SerializeField] public string LearningSentence { get; set; }
         }
     }
 }

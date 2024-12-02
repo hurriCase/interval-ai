@@ -38,7 +38,7 @@ namespace Client.Scripts.DB
             await Task.WhenAll(registrationTasks);
         }
 
-        public async Task<bool> ExistsAsync<TData>() where TData : class
+        public async Task<bool> ExistsAsync<TData>() where TData : struct
         {
             var entity = GetEntity<TData>();
             if (entity == null)
@@ -48,7 +48,7 @@ namespace Client.Scripts.DB
             return existingData?.Data != null;
         }
 
-        public async Task<EntityResult<TData>> CreateEntityAsync<TData>(TData data) where TData : class
+        public async Task<EntityResult<TData>> CreateEntityAsync<TData>(TData data) where TData : struct
         {
             try
             {
@@ -70,7 +70,7 @@ namespace Client.Scripts.DB
             }
         }
 
-        public async Task<EntityResult<TData>> ReadEntityAsync<TData>() where TData : class
+        public async Task<EntityResult<TData>> ReadEntityAsync<TData>() where TData : struct
         {
             try
             {
@@ -92,7 +92,7 @@ namespace Client.Scripts.DB
             }
         }
 
-        public async Task<EntityResult<TData>> UpdateEntityAsync<TData>(TData data) where TData : class
+        public async Task<EntityResult<TData>> UpdateEntityAsync<TData>(TData data) where TData : struct
         {
             try
             {
@@ -123,7 +123,7 @@ namespace Client.Scripts.DB
         }
 
         //TODO:<dmitriy.sukharev> test
-        public async Task<EntityResult<TData>> DeleteEntityAsync<TData>(string id) where TData : class
+        public async Task<EntityResult<TData>> DeleteEntityAsync<TData>(string id) where TData : struct
         {
             try
             {
@@ -149,7 +149,7 @@ namespace Client.Scripts.DB
         }
 
         public IEnumerable<TData> FindEntitiesAsync<TData>(Func<TData, bool> predicate)
-            where TData : class
+            where TData : struct
         {
             var entity = GetEntity<TData>();
             if (entity == null)
@@ -183,7 +183,7 @@ namespace Client.Scripts.DB
             }
         }
 
-        private IEntity<TData> GetEntity<TData>() where TData : class
+        private IEntity<TData> GetEntity<TData>() where TData : struct
         {
             return _entities.TryGetValue(typeof(TData), out var entityObj)
                 ? entityObj as IEntity<TData>

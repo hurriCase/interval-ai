@@ -1,5 +1,6 @@
 ﻿using System;
 using Client.Scripts.DB.Base;
+using UnityEngine;
 
 namespace Client.Scripts.DB.Entities
 {
@@ -9,10 +10,10 @@ namespace Client.Scripts.DB.Entities
     }
 
     [Serializable]
-    internal sealed class UserEntityData
+    internal struct UserEntityData
     {
-        internal string UserName { get; set; }
-        internal string Password { get; set; }
-        internal string Email { get; set; }
+        [field: SerializeField] public string UserName { get; set; }
+        [field: SerializeField] public string Password { get; set; }
+        [field: SerializeField] public string Email { get; set; }
     }
 }

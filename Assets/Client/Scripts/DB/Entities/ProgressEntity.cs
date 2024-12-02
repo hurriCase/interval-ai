@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Client.Scripts.DB.Base;
+using UnityEngine;
 
 namespace Client.Scripts.DB.Entities
 {
@@ -42,13 +43,13 @@ namespace Client.Scripts.DB.Entities
     }
 
     [Serializable]
-    internal sealed class ProgressEntityData
+    internal struct ProgressEntityData
     {
-        internal string WordId { get; set; }
-        internal int RepetitionStage { get; set; }
-        internal int TotalReviews { get; set; }
-        internal int CorrectReviews { get; set; }
-        internal DateTime LastReviewDate { get; set; }
-        internal DateTime NextReviewDate { get; set; }
+        [field: SerializeField] public string WordId { get; set; }
+        [field: SerializeField] public int RepetitionStage { get; set; }
+        [field: SerializeField] public int TotalReviews { get; set; }
+        [field: SerializeField] public int CorrectReviews { get; set; }
+        [field: SerializeField] public DateTime LastReviewDate { get; set; }
+        [field: SerializeField] public DateTime NextReviewDate { get; set; }
     }
 }
