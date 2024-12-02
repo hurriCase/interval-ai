@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Client.Scripts.DB.Base;
+using Client.Scripts.DB.Entities;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -33,7 +34,7 @@ namespace Client.Tests.Editor.DBTests
         }
 
         [Test]
-        public async Task WriteData_WhenInitializedAndValid_ShouldSucceed()
+        public async Task WriteString_WhenInitializedAndValid_ShouldSucceed()
         {
             // Arrange
             var testData = "test";
@@ -48,7 +49,27 @@ namespace Client.Tests.Editor.DBTests
         }
 
         [Test]
-        public async Task ReadData_AfterWrite_ShouldReturnSameData()
+        public async Task WriteJsonData_WhenInitializedAndValid_ShouldSucceed()
+        {
+            // Arrange
+            var testData = new UserEntityData
+            {
+                UserName = "testUser",
+                Password = "testPassword",
+                Email = "testEmail"
+            };
+            await _controller.InitAsync();
+            _controller.UserID = "testUserJson";
+
+            // Act
+            var result = await _controller.WriteDataAsync(TestPath, testData);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(testData));
+        }
+
+        [Test]
+        public async Task ReadString_AfterWrite_ShouldReturnSameData()
         {
             // Arrange
             var testData = "test";
@@ -64,7 +85,28 @@ namespace Client.Tests.Editor.DBTests
         }
 
         [Test]
-        public async Task DeleteData_ShouldRemoveData()
+        public async Task ReadJsonData_AfterWrite_ShouldReturnSameJsonData()
+        {
+            // Arrange
+            var testData = new UserEntityData
+            {
+                UserName = "testUser",
+                Password = "testPassword",
+                Email = "testEmail"
+            };
+            await _controller.InitAsync();
+            _controller.UserID = "testUserJson";
+
+            // Act
+            await _controller.WriteDataAsync(TestPath, testData);
+            var result = await _controller.ReadDataAsync<UserEntityData>(TestPath);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(testData));
+        }
+
+        [Test]
+        public async Task DeleteString_ShouldRemoveData()
         {
             // Arrange
             var testData = "test";
@@ -80,6 +122,30 @@ namespace Client.Tests.Editor.DBTests
 
             // Assert
             Assert.That(afterDelete, Is.EqualTo(default(string)));
+        }
+
+        [Test]
+        public async Task DeleteJsonData_ShouldRemoveData()
+        {
+            // Arrange
+            var testData = new UserEntityData
+            {
+                UserName = "testUser",
+                Password = "testPassword",
+                Email = "testEmail"
+            };
+            await _controller.InitAsync();
+            _controller.UserID = "testUserJson";
+            await _controller.WriteDataAsync(TestPath, testData);
+            var beforeDelete = await _controller.ReadDataAsync<UserEntityData>(TestPath);
+            Assert.That(beforeDelete, Is.EqualTo(testData));
+
+            // Act
+            await _controller.DeleteDataAsync(TestPath);
+            var afterDelete = await _controller.ReadDataAsync<UserEntityData>(TestPath);
+
+            // Assert
+            Assert.That(afterDelete, Is.EqualTo(default(UserEntityData)));
         }
 
         [TearDown]
