@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Client.Scripts.DB.Base
 {
-    internal abstract class DBEntityBase<TData> : Injectable, IEntity<TData> where TData : struct
+    internal abstract class DBEntityBase<TData> : Injectable, IEntity<TData> where TData : class, new()
     {
         public ConcurrentDictionary<string, EntityData<TData>> Entities { get; set; } = new();
 
@@ -50,7 +50,7 @@ namespace Client.Scripts.DB.Base
             };
 
             Entities[entityData.Id] = entityData;
-            await dbController.WriteDataAsync(GetPath(), entityData);
+            await dbController.WriteDataAsync(GetPath(), Entities);
 
             return entityData;
         }
@@ -92,17 +92,15 @@ namespace Client.Scripts.DB.Base
         protected virtual string GetPath() => string.Empty;
     }
 
-    [Serializable]
-    internal class EntityData<TData> where TData : struct
+    internal class EntityData<TData> where TData : class
     {
-        //TODO:<dmitriy.sukharev> Change to normal id
-        [field: SerializeField] public string Id { get; set; } = "1";
-        [field: SerializeField] public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        [field: SerializeField] public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
-        [field: SerializeField] public TData Data { get; set; }
+        internal string Id { get; } = Guid.NewGuid().ToString();
+        internal DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        internal DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+        internal TData Data { get; set; }
     }
 
-    internal interface IEntity<TData> where TData : struct
+    internal interface IEntity<TData> where TData : class
     {
         ConcurrentDictionary<string, EntityData<TData>> Entities { get; set; }
         Task<EntityData<TData>> CreateEntityAsync(TData data);

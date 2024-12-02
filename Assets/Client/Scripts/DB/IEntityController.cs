@@ -11,19 +11,19 @@ namespace Client.Scripts.DB
         event Action<Type> OnEntityUpdated;
         event Action<Type> OnEntityDeleted;
         Task InitAsync();
-        Task<bool> ExistsAsync<TData>() where TData : struct;
-        Task<EntityResult<TData>> CreateEntityAsync<TData>(TData data) where TData : struct;
-        Task<EntityResult<TData>> ReadEntityAsync<TData>() where TData : struct;
-        Task<EntityResult<TData>> UpdateEntityAsync<TData>(TData data) where TData : struct;
-        Task<EntityResult<TData>> DeleteEntityAsync<TData>(string id) where TData : struct;
-        IEnumerable<TData> FindEntitiesAsync<TData>(Func<TData, bool> predicate) where TData : struct;
+        Task<bool> ExistsAsync<TData>() where TData : class;
+        Task<EntityResult<TData>> CreateEntityAsync<TData>(TData data) where TData : class;
+        Task<EntityResult<TData>> ReadEntityAsync<TData>() where TData : class;
+        Task<EntityResult<TData>> UpdateEntityAsync<TData>(TData data) where TData : class;
+        Task<EntityResult<TData>> DeleteEntityAsync<TData>(string id) where TData : class;
+        IEnumerable<TData> FindEntitiesAsync<TData>(Func<TData, bool> predicate) where TData : class;
     }
 
-    internal struct EntityResult<TData> where TData : struct
+    internal sealed class EntityResult<TData> where TData : class
     {
-        internal bool IsSuccess { get; private set; }
-        internal TData Data { get; private set; }
-        internal string ErrorMessage { get; private set; }
+        internal bool IsSuccess { get; set; }
+        internal TData Data { get; set; }
+        internal string ErrorMessage { get; set; }
         internal Exception Exception { get; set; }
 
         internal static EntityResult<TData> Success(TData data)

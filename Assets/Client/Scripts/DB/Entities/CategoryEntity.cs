@@ -36,11 +36,11 @@ namespace Client.Scripts.DB.Entities
     }
 
     [Serializable]
-    internal struct CategoryEntityData
+    internal sealed class CategoryEntityData
     {
-        [field: SerializeField] public string Title { get; set; }
-        [field: SerializeField] public string Description { get; set; }
-        [field: SerializeField] public List<EntityData<WordEntityData>> Words { get; set; }
-        [field: SerializeField] public bool IsDefault { get; set; }
+        internal string Title { get; set; }
+        internal string Description { get; set; }
+        internal List<EntityData<WordEntityData>> Words { get; set; } = new();
+        internal bool IsDefault { get; set; }
     }
 }
