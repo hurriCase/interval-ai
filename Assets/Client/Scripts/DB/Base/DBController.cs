@@ -48,16 +48,25 @@ namespace Client.Scripts.DB.Base
             if (ValidateDB() is false)
                 return default;
 
+            var dataToWrite = "";
             try
             {
-                var dataToWrite = data as string ?? JsonUtility.ToJson(data);
-                await GetDBPath(path).SetRawJsonValueAsync(dataToWrite);
+                if (data is string)
+                    await GetDBPath(path).SetValueAsync(data);
+                else
+                {
+                    dataToWrite = JsonUtility.ToJson(data);
+                    await GetDBPath(path).SetRawJsonValueAsync(dataToWrite);
+                }
+
                 Debug.Log($"[DBController::WriteDataAsync] Data written successfully to {path}");
                 return data;
             }
             catch (Exception e)
             {
-                Debug.LogError($"[DBController::WriteDataAsync] Error writing data: {e.Message}");
+                Debug.LogError($"[DBController::WriteDataAsync] Error writing data: {dataToWrite} " +
+                               $"at path {path} " +
+                               $"with error: {e.Message}");
                 throw;
             }
         }
@@ -75,7 +84,9 @@ namespace Client.Scripts.DB.Base
             }
             catch (Exception e)
             {
-                Debug.LogError($"[DBController::UpdateDataAsync] Error updating data: {e.Message}");
+                Debug.LogError($"[DBController::UpdateDataAsync] Error updating data: {data} " +
+                               $"at path {path} " +
+                               $"with error: {e.Message}");
                 throw;
             }
         }
@@ -92,9 +103,11 @@ namespace Client.Scripts.DB.Base
                 {
                     if (typeof(T) == typeof(string))
                         return (T)(object)snapshot.GetValue(true).ToString();
+                    ;
 
                     var json = snapshot.GetRawJsonValue();
                     return JsonUtility.FromJson<T>(json);
+                    ;
                 }
 
                 Debug.Log($"[DBController::ReadDataAsync] No data exists at {path}");
@@ -102,7 +115,10 @@ namespace Client.Scripts.DB.Base
             }
             catch (Exception e)
             {
-                Debug.LogError($"[DBController::ReadDataAsync] Error reading data: {e.Message}");
+                Debug.LogError("[DBController::ReadDataAsync] Error reading data:" +
+                               $"for Entity type: {typeof(T)} " +
+                               $"at path {path} " +
+                               $"with error: {e.Message}");
                 throw;
             }
         }
@@ -125,7 +141,9 @@ namespace Client.Scripts.DB.Base
             }
             catch (Exception e)
             {
-                Debug.LogError($"[DBController::DeleteDataAsync] Error deleting data: {e.Message}");
+                Debug.LogError("[DBController::DeleteDataAsync] Error deleting data" +
+                               $"at path {path} " +
+                               $"with error: {e.Message}");
                 throw;
             }
         }
