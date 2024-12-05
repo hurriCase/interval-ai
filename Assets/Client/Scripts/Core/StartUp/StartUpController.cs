@@ -5,9 +5,14 @@ namespace Client.Scripts.Core.StartUp
 {
     internal sealed class StartUpController : MonoBehaviour
     {
+        internal static bool IsInited { get; private set; }
+
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static async void OnBeforeSceneLoadRuntimeMethod()
         {
+            if (IsInited)
+                return;
+
             var diStep = new DIStep();
             diStep.OnCompleted += ShowStep;
             await diStep.Execute(0);
@@ -24,6 +29,8 @@ namespace Client.Scripts.Core.StartUp
                 steps[i].OnCompleted += ShowStep;
                 await steps[i].Execute(i + 1);
             }
+
+            IsInited = true;
 
             //TODO:<dmitriy.sukharev> think about how to better load scene
             //TODO:to prevent scene load from not startup scene
