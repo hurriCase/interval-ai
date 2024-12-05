@@ -7,17 +7,17 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-namespace Client.Tests.Runtime.InitializationTests
+namespace Client.Tests.Runtime
 {
     internal sealed class InitializationTests
     {
         private static IEnumerable<TestCaseData> GetStepTypes()
         {
             var assembly = typeof(IStep).Assembly;
-        
+
             var stepTypes = assembly.GetTypes()
-                .Where(t => typeof(IStep).IsAssignableFrom(t) && 
-                            !t.IsInterface && 
+                .Where(t => typeof(IStep).IsAssignableFrom(t) &&
+                            !t.IsInterface &&
                             !t.IsAbstract);
 
             foreach (var type in stepTypes)
@@ -49,7 +49,7 @@ namespace Client.Tests.Runtime.InitializationTests
                 Debug.LogError($"Task failed with exception: {task.Exception.InnerException?.Message}");
                 Assert.Fail($"Task threw an exception: {task.Exception.InnerException?.Message}");
             }
-        
+
             Assert.That(task.IsFaulted, Is.False, $"{step.Name} failed with an exception");
             Assert.That(task.IsCanceled, Is.False, $"{step.Name} was cancelled");
             Assert.That(task.IsCompletedSuccessfully, Is.True, $"{step.Name} did not complete successfully");
