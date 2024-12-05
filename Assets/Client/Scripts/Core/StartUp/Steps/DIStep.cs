@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Client.Scripts.DB;
-using Client.Scripts.DB.Base;
+using Client.Scripts.DB.DBControllers;
+using Client.Scripts.DB.Entities.EntityController;
 using Client.Scripts.Patterns.DI.Base;
 using Client.Scripts.Patterns.DI.Services;
 using UnityEngine;
@@ -32,7 +32,7 @@ namespace Client.Scripts.Core.StartUp.Steps
         private void RegisterServices()
         {
             DIContainer.RegisterSingleton<IAudioController>(AudioController.Instance);
-            DIContainer.Register<IDBController>(() => new DBController());
+            DIContainer.Register<IDBController>(() => new FireBaseDB());
             DIContainer.Register<IEntityController>(() => new EntityController());
         }
     }

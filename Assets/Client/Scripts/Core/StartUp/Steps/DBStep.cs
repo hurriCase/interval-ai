@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Client.Scripts.DB;
+using Client.Scripts.DB.Entities.EntityController;
 using Client.Scripts.Patterns.DI.Base;
 using Client.Scripts.Patterns.DI.Services;
 using UnityEngine;
@@ -18,7 +18,8 @@ namespace Client.Scripts.Core.StartUp.Steps
         {
             try
             {
-                await _dbController.InitAsync();
+                //TODO:<dmitriy.sukharev> Take user from auth
+                await _dbController.InitAsync("testUser");
                 await _entityController.InitAsync();
 
                 OnCompleted?.Invoke(step, GetType().Name);
