@@ -1,6 +1,6 @@
 ﻿using System;
 using Client.Scripts.DB.Entities.Base.Validation;
-using Unity.Plastic.Newtonsoft.Json;
+using Newtonsoft.Json;
 
 namespace Client.Scripts.DB.Entities.UserEntity
 {
