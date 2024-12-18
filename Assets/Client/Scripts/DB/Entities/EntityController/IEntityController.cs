@@ -29,8 +29,8 @@ namespace Client.Scripts.DB.Entities.EntityController
             where TEntity : IEntity<TContent>
             where TContent : class;
 
-        EntryData<TContent>[] FindEntriesAsync<TEntity, TContent>
-            (Func<TContent, bool> predicate)
+        EntryData<TContent>[] FindEntries<TEntity, TContent>
+            (Func<EntryData<TContent>, bool> predicate)
             where TEntity : IEntity<TContent>
             where TContent : class;
 

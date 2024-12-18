@@ -132,7 +132,7 @@ namespace Client.Scripts.DB.Entities.Base
 
             entry.UpdatedAt = DateTime.UtcNow;
             Entries[entry.Id] = entry;
-            await dbController.UpdateDataAsync(GetEntryPath(entry.Id), entry.Content);
+            await dbController.UpdateDataAsync(GetEntryPath(entry.Id), entry);
 
             return entry;
         }

@@ -177,8 +177,8 @@ namespace Client.Scripts.DB.Entities.EntityController
             }
         }
 
-        public EntryData<TContent>[] FindEntriesAsync<TEntity, TContent>
-            (Func<TContent, bool> predicate)
+        public EntryData<TContent>[] FindEntries<TEntity, TContent>
+            (Func<EntryData<TContent>, bool> predicate)
             where TEntity : IEntity<TContent>
             where TContent : class
         {
@@ -188,7 +188,7 @@ namespace Client.Scripts.DB.Entities.EntityController
             var entity = GetEntity<TEntity, TContent>();
 
             return entity?.Entries?.Values
-                .Where(entry => predicate(entry.Content))
+                .Where(predicate)
                 .ToArray();
         }
 

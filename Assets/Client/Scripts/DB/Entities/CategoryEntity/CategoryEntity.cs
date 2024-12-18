@@ -24,8 +24,7 @@ namespace Client.Scripts.DB.Entities.CategoryEntity
                     foreach (var (id, categoryData) in loadedCustomCategories)
                     {
                         Entries[id] = categoryData;
-
-                        dbController.ListenForValueChanged<Dictionary<string, EntryData<CategoryEntryContent>>>(
+                        dbController.ListenForValueChanged<EntryData<CategoryEntryContent>>(
                             GetEntryPath(id),
                             _ => categoryData.UpdatedAt = DateTime.Now
                         );
@@ -41,7 +40,7 @@ namespace Client.Scripts.DB.Entities.CategoryEntity
                     {
                         Entries[id] = categoryData;
 
-                        dbController.ListenForValueChanged<Dictionary<string, EntryData<CategoryEntryContent>>>(
+                        dbController.ListenForValueChanged<EntryData<CategoryEntryContent>>(
                             GetEntryPath(id),
                             _ => categoryData.UpdatedAt = DateTime.Now
                         );

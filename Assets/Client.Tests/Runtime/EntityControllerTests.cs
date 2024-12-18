@@ -49,7 +49,7 @@ namespace Client.Tests.Runtime
         private IEnumerator ClearAllEntities()
         {
             var userEntries
-                = _entityController.FindEntriesAsync<UserEntity, UserEntryContent>(_ => true);
+                = _entityController.FindEntries<UserEntity, UserEntryContent>(_ => true);
 
             if (userEntries != null)
             {
@@ -61,7 +61,7 @@ namespace Client.Tests.Runtime
             }
 
             var categoryEntries = _entityController
-                .FindEntriesAsync<CategoryEntity, CategoryEntryContent>(_ => true);
+                .FindEntries<CategoryEntity, CategoryEntryContent>(_ => true);
 
             if (userEntries != null)
             {
@@ -74,7 +74,7 @@ namespace Client.Tests.Runtime
             }
 
             var wordEntries = _entityController
-                .FindEntriesAsync<WordEntity, WordEntryContent>(_ => true);
+                .FindEntries<WordEntity, WordEntryContent>(_ => true);
 
             if (wordEntries != null)
             {
@@ -86,7 +86,7 @@ namespace Client.Tests.Runtime
             }
 
             var progressEntries = _entityController
-                .FindEntriesAsync<ProgressEntity, ProgressEntryContent>(_ => true);
+                .FindEntries<ProgressEntity, ProgressEntryContent>(_ => true);
 
             if (progressEntries != null)
             {
@@ -443,8 +443,8 @@ namespace Client.Tests.Runtime
 
             // Act
             var results = _entityController
-                .FindEntriesAsync<WordEntity, WordEntryContent>(
-                    w => w.LearningWord.Contains("Bonjour")
+                .FindEntries<WordEntity, WordEntryContent>(
+                    w => w.Content.LearningWord.Contains("Bonjour")
                 );
 
             // Assert with detailed logging
