@@ -72,20 +72,9 @@ namespace Client.Scripts.Patterns.DI.Base
 
         protected virtual void OnAwake() { }
     }
-
-    //TODO:<dmitriy.sukharev> Try to find a better solution
-    internal abstract class InjectableSingletonBehaviour<T> : SingletonMonoBehaviour<T>
-        where T : MonoBehaviour
+    
+    internal interface IInjectable
     {
-        private void InjectDependencies() => DependencyInjector.InjectDependencies(this);
-
-        private void Start()
-        {
-            InjectDependencies();
-
-            OnStart();
-        }
-
-        protected virtual void OnStart() { }
+        void InjectDependencies();
     }
 }
