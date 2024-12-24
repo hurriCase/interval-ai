@@ -1,62 +1,53 @@
-﻿using UnityEditor;
+﻿using Assets.SimpleLocalization.Scripts;
+using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Assets.SimpleLocalization.Scripts.Editor
+namespace Client.Scripts.Editor.Localization
 {
-    public class LocalizationSettingsWindow : EditorWindow
+    internal class LocalizationSettingsWindow : EditorWindow
     {
         private static SerializedObject _serializedObject;
 
         private static LocalizationSettings Settings => LocalizationSettings.Instance;
 
-        [MenuItem("Window/◆ Simple Localization/Settings")]
-        public static void ShowWindow()
+        [MenuItem("Project/Localization/Settings")]
+        internal static void ShowWindow()
         {
             GetWindow<LocalizationSettingsWindow>("Localization Settings");
         }
 
-        [MenuItem("Window/◆ Simple Localization/Reset")]
-        public static void ResetSettings()
+        [MenuItem("Project/Localization/Reset")]
+        internal static void ResetSettings()
         {
-            if (EditorUtility.DisplayDialog("Simple Localization", "Do you want to reset settings?", "Yes", "No"))
+            if (EditorUtility.DisplayDialog(
+                    "Simple Localization",
+                    "Do you want to reset settings?",
+                    "Yes",
+                    "No"))
             {
                 LocalizationSettings.Instance.Reset();
             }
         }
 
-        [MenuItem("Window/◆ Simple Localization/Help")]
-        public static void Help()
-        {
-            Application.OpenURL("https://github.com/hippogamesunity/SimpleLocalization/wiki");
-        }
-
-        public void OnGUI()
-        {
-            MakeSettingsWindow();
-        }
-        
         private void MakeSettingsWindow()
         {
             minSize = new Vector2(300, 500);
             Settings.DisplayHelp();
             Settings.TableId = EditorGUILayout.TextField("Table Id", Settings.TableId, GUILayout.MinWidth(200));
             DisplaySheets();
-            Settings.SaveFolder = EditorGUILayout.ObjectField("Save Folder", Settings.SaveFolder, typeof(Object), false);
+            Settings.SaveFolder =
+                EditorGUILayout.ObjectField("Save Folder", Settings.SaveFolder, typeof(Object), false);
             Settings.DisplayButtons();
             Settings.DisplayWarnings();
         }
 
         private static void DisplaySheets()
         {
-            if (_serializedObject == null || _serializedObject.targetObject == null)
-            {
+            if (_serializedObject == null || _serializedObject.targetObject is null)
                 _serializedObject = new SerializedObject(Settings);
-            }
             else
-            {
                 _serializedObject.Update();
-            }
 
             var property = _serializedObject.FindProperty("Sheets");
 
@@ -70,7 +61,7 @@ namespace Assets.SimpleLocalization.Scripts.Editor
                 var length = property.intValue;
 
                 property.Next(true);
-                
+
                 Settings.Sheets.Clear();
 
                 var lastIndex = length - 1;
@@ -84,14 +75,17 @@ namespace Assets.SimpleLocalization.Scripts.Editor
                         TextAsset = property.FindPropertyRelative("TextAsset").objectReferenceValue as TextAsset
                     });
 
-                    if (i < lastIndex)
-                    {
+                    if (i < lastIndex) 
                         property.Next(false);
-                    }
                 }
             }
 
             _serializedObject.ApplyModifiedProperties();
+        }
+
+        private void OnGUI()
+        {
+            MakeSettingsWindow();
         }
     }
 }

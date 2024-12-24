@@ -9,15 +9,15 @@ namespace Assets.SimpleLocalization.Scripts
     [RequireComponent(typeof(Text))]
     public class LocalizedText : MonoBehaviour
     {
-        public string LocalizationKey;
+        internal string LocalizationKey { get; private set; }
 
-        public void Start()
+        private void Start()
         {
             Localize();
             LocalizationManager.OnLocalizationChanged += Localize;
         }
 
-        public void OnDestroy()
+        private void OnDestroy()
         {
             LocalizationManager.OnLocalizationChanged -= Localize;
         }

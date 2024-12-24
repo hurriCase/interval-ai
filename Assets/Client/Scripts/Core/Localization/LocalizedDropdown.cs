@@ -7,17 +7,17 @@ namespace Assets.SimpleLocalization.Scripts
 	/// Localize dropdown component.
 	/// </summary>
     [RequireComponent(typeof(Dropdown))]
-    public class LocalizedDropdown : MonoBehaviour
+    internal class LocalizedDropdown : MonoBehaviour
     {
-        public string[] LocalizationKeys;
+	    internal string[] LocalizationKeys { get; private set; }
 
-        public void Start()
+	    internal void Start()
         {
             Localize();
             LocalizationManager.OnLocalizationChanged += Localize;
         }
 
-        public void OnDestroy()
+	    internal void OnDestroy()
         {
             LocalizationManager.OnLocalizationChanged -= Localize;
         }
@@ -26,15 +26,11 @@ namespace Assets.SimpleLocalization.Scripts
         {
 	        var dropdown = GetComponent<Dropdown>();
 
-			for (var i = 0; i < LocalizationKeys.Length; i++)
-	        {
-		        dropdown.options[i].text = LocalizationManager.Localize(LocalizationKeys[i]);
-	        }
+			for (var i = 0; i < LocalizationKeys.Length; i++) 
+				dropdown.options[i].text = LocalizationManager.Localize(LocalizationKeys[i]);
 
-	        if (dropdown.value < LocalizationKeys.Length)
-	        {
-		        dropdown.captionText.text = LocalizationManager.Localize(LocalizationKeys[dropdown.value]);
-	        }
+			if (dropdown.value < LocalizationKeys.Length) 
+				dropdown.captionText.text = LocalizationManager.Localize(LocalizationKeys[dropdown.value]);
         }
     }
 }
