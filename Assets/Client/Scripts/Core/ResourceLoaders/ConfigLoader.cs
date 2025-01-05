@@ -1,0 +1,30 @@
+﻿using System;
+using Client.Scripts.Patterns.ResourceLoader;
+using UnityEngine;
+
+namespace Client.Scripts.Core
+{
+    internal sealed class ConfigLoader : ResourceLoaderBase<ScriptableObject>
+    {
+        private static readonly ConfigLoader _instance = new();
+        protected override string BasePath => "Configs/";
+
+        internal static T LoadConfig<T>(string path) where T : ScriptableObject =>
+            _instance.Load(path) as T;
+
+        internal static bool TryLoadConfig<T>(string path, out T config) where T : ScriptableObject
+        {
+            if (_instance.TryLoad(path, out var resource))
+            {
+                config = resource as T;
+                return config is not null;
+            }
+
+            config = null;
+            return false;
+        }
+
+        internal static T[] LoadAllConfigs<T>(string subfolder = "") where T : ScriptableObject =>
+            Array.ConvertAll(_instance.LoadAll(subfolder), obj => obj as T);
+    }
+}
