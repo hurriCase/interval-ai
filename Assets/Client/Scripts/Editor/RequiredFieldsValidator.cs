@@ -21,7 +21,7 @@ namespace Client.Scripts.Editor
 
                 foreach (var field in fields)
                 {
-                    var attribute = field.GetCustomAttribute<RequiredField>();
+                    var attribute = field.GetCustomAttribute<RequiredFieldAttribute>();
 
                     if (attribute != null)
                     {

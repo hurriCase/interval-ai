@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Client.Scripts.Editor
 {
-    [CustomPropertyDrawer(typeof(RequiredField))]
+    [CustomPropertyDrawer(typeof(RequiredFieldAttribute))]
     public sealed class RequiredFieldDrawer : PropertyDrawer
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
