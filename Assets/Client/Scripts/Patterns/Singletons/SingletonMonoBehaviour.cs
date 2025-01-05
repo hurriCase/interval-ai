@@ -1,4 +1,5 @@
 ﻿using System;
+using Client.Scripts.Patterns.DI.Base;
 using UnityEngine;
 
 // ReSharper disable StaticMemberInGenericType
@@ -25,7 +26,7 @@ namespace Client.Scripts.Patterns.Singletons
             }
         }
 
-        private void Awake()
+        protected virtual void Awake()
         {
             if (_isDontDestroyOnload)
                 DontDestroyOnLoad(gameObject);
@@ -36,11 +37,16 @@ namespace Client.Scripts.Patterns.Singletons
 
                 _instance = this as T;
             }
-
-            OnAwake();
         }
 
-        protected virtual void OnAwake() { }
+        protected virtual void OnDestroy()
+        {
+            if (_instance == this)
+            {
+                _instance = null;
+                DIContainer.ClearSingletonDependency<T>();
+            }
+        }
 
         private static void CreateInstance()
         {

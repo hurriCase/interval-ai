@@ -39,6 +39,11 @@ namespace Client.Scripts.Patterns.DI.Base
 
         internal static T Resolve<T>() => (T)Resolve(typeof(T));
 
+        internal static void ClearSingletonDependency<T>()
+        {
+            _services.Remove(typeof(T));
+        }
+
         internal static void Clear()
         {
             _services.Clear();
