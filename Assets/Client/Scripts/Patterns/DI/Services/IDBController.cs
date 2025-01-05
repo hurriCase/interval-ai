@@ -7,7 +7,7 @@ namespace Client.Scripts.Patterns.DI.Services
     {
         Task InitAsync(string userId);
         Task<T> ReadDataAsync<T>(string path);
-        Task<string> WriteDataAsync<T>(string path, T data);
+        Task<T> WriteDataAsync<T>(string path, T data);
         Task UpdateDataAsync<TData>(string path, TData data);
         Task DeleteDataAsync(string path);
         void ListenForValueChanged<T>(string path, Action<T> onValueChanged);

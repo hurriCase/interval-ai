@@ -49,7 +49,7 @@ namespace Client.Scripts.DB.DBControllers
             }
         }
 
-        public async Task<string> WriteDataAsync<TData>(string path, TData data)
+        public async Task<TData> WriteDataAsync<TData>(string path, TData data)
         {
             if (CheckDBInit() is false)
                 return default;
@@ -68,7 +68,7 @@ namespace Client.Scripts.DB.DBControllers
                     await GetDBPath(path).SetRawJsonValueAsync(dataToWrite);
                 }
 
-                return dataToWrite;
+                return data;
             }
             catch (Exception e)
             {
