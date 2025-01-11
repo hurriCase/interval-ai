@@ -5,23 +5,23 @@ using Client.Scripts.Core.AiController;
 using Client.Scripts.DB.DBControllers;
 using Client.Scripts.Patterns.Extensions;
 using System;
+using Client.Scripts.Patterns.DI.Services;
 
 namespace Client.Scripts.Editor
 {
     internal sealed class AISettingsWindow : EditorWindow
     {
         private GenerativeModel _settings;
-        private FireBaseDB _dbController;
+        private FireBaseRepository _repositoryController;
         private Vector2 _scrollPosition;
         private bool _showAdvancedSettings;
         private bool _isLoading = true;
         private bool _isSaving;
-        private const string TextModelPath = "ai_settings";
 
         private string[] _mimeTypeNames;
         private ResponseMimeType[] _mimeTypeValues;
 
-        [MenuItem("Project/AI Settings")]
+        [MenuItem("Project/AI Settings", priority = 4)]
         public static void ShowWindow()
         {
             var window = GetWindow<AISettingsWindow>();
@@ -40,19 +40,22 @@ namespace Client.Scripts.Editor
             _mimeTypeValues = (ResponseMimeType[])Enum.GetValues(typeof(ResponseMimeType));
             _mimeTypeNames = new string[_mimeTypeValues.Length];
 
-            for (var i = 0; i < _mimeTypeValues.Length; i++) 
+            for (var i = 0; i < _mimeTypeValues.Length; i++)
                 _mimeTypeNames[i] = _mimeTypeValues[i].GetJsonPropertyName();
         }
 
         private async void InitializeSettings()
         {
             _isLoading = true;
-            _dbController = new FireBaseDB();
+            _repositoryController = new FireBaseRepository();
 
             try
             {
-                await _dbController.InitAsync(SystemInfo.deviceUniqueIdentifier);
-                _settings = await _dbController.ReadDataAsync<GenerativeModel>(TextModelPath) ?? new GenerativeModel();
+                await _repositoryController.InitAsync();
+                _settings =
+                    await _repositoryController.ReadDataAsync<GenerativeModel>(DataType.Configs,
+                        DBConfig.Instance.AIConfigPath)
+                    ?? new GenerativeModel();
             }
             catch (Exception e)
             {
@@ -87,7 +90,7 @@ namespace Client.Scripts.Editor
 
             EditorGUILayout.EndScrollView();
 
-            if (_isSaving) 
+            if (_isSaving)
                 EditorGUILayout.HelpBox("Saving settings...", MessageType.Info);
         }
 
@@ -121,7 +124,7 @@ namespace Client.Scripts.Editor
                     EditorGUILayout.LabelField(
                         new GUIContent("Stop Sequences", "List of sequences where the model should stop generating"));
 
-                    if (config.StopSequences == null) 
+                    if (config.StopSequences == null)
                         config.StopSequences = Array.Empty<string>();
 
                     if (GUILayout.Button("Add Stop Sequence"))
@@ -198,7 +201,7 @@ namespace Client.Scripts.Editor
                         var logprobs = EditorGUILayout.IntField(
                             new GUIContent("Log Probs Count", "Number of most probable tokens to return per position"),
                             config.Logprobs ?? 3);
-                        if (EditorGUI.EndChangeCheck() && config.ResponseLogprobs) 
+                        if (EditorGUI.EndChangeCheck() && config.ResponseLogprobs)
                             config.Logprobs = logprobs;
                     }
 
@@ -215,7 +218,7 @@ namespace Client.Scripts.Editor
             GUILayout.FlexibleSpace();
 
             GUI.enabled = !_isSaving;
-            if (GUILayout.Button("Save Settings", GUILayout.Width(120), GUILayout.Height(30))) 
+            if (GUILayout.Button("Save Settings", GUILayout.Width(120), GUILayout.Height(30)))
                 SaveSettingsAsync();
 
             GUI.enabled = true;
@@ -231,7 +234,7 @@ namespace Client.Scripts.Editor
             _isSaving = true;
             try
             {
-                await _dbController.WriteDataAsync(TextModelPath, _settings);
+                await _repositoryController.WriteDataAsync(DataType.Configs, DBConfig.Instance.AIConfigPath, _settings);
                 Debug.Log("[AISettingsWindow::SaveSettingsAsync] AI Settings saved successfully!");
                 ShowNotification(new GUIContent("Settings saved successfully!"));
             }
