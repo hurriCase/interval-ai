@@ -22,9 +22,9 @@ namespace Client.Scripts.Core.StartUp.Steps
             try
             {
                 await _offlineRepository.InitAsync();
+                _userDataController.Init();
                 await _cloudRepository.InitAsync();
                 await _entityController.InitAsync();
-                _userDataController.Init();
 
                 OnCompleted?.Invoke(step, GetType().Name);
             }

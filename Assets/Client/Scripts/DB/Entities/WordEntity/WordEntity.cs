@@ -14,7 +14,7 @@ namespace Client.Scripts.DB.Entities.WordEntity
 
         internal List<EntryData<WordEntryContent>> GetWordsForReview(
             ConcurrentDictionary<string, EntryData<ProgressEntryContent>> userProgress,
-            ConcurrentDictionary<string, EntryData<CategoryEntryContent>> categories)
+            ConcurrentDictionary<string, EntryData<UserCategoryEntryContent>> categories)
         {
             var now = DateTime.UtcNow;
             var wordsForReview = new List<EntryData<WordEntryContent>>();

@@ -124,26 +124,13 @@ namespace Client.Scripts.DB.DBControllers
             return _isInited;
         }
 
-        private string GetFullPath(DataType dataType, string path)
-        {
-            switch (dataType)
+        private string GetFullPath(DataType dataType, string path) =>
+            dataType switch
             {
-                case DataType.None:
-                    return path;
-
-                case DataType.User:
-                    var userPath = DBConfig.Instance.UserPath;
-                    var userId = UserData.Instance.UserID;
-                    return $"{userPath}/{userId}/{path}";
-
-                case DataType.Configs:
-                    var configsPath = DBConfig.Instance.ConfigsPath;
-                    return $"{configsPath}/{path}";
-
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(dataType), dataType, null);
-            }
-        }
+                DataType.User => $"{DBConfig.Instance.UserPath}/{UserData.Instance.UserID}/{path}",
+                DataType.Configs => $"{DBConfig.Instance.ConfigsPath}/{path}",
+                _ => throw new ArgumentOutOfRangeException(nameof(dataType), dataType, null)
+            };
 
         private void NotifyListeners(string path, object value)
         {

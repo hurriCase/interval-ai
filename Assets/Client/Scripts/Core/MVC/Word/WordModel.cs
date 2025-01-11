@@ -17,7 +17,7 @@ namespace Client.Scripts.Core.MVC.Word
         {
             get
             {
-                var categoryTitle = _entityController.FindEntries<CategoryEntity, CategoryEntryContent>(
+                var categoryTitle = _entityController.FindEntries<UserCategoryEntity, UserCategoryEntryContent>(
                         category => category.Id == Data.Content.CategoryId).FirstOrDefault()
                     ?.Content.Title;
                 return categoryTitle;

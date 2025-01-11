@@ -45,7 +45,7 @@ namespace Client.Scripts.DB.Entities.Base
             try
             {
                 var loadedEntries = await cloudRepository
-                    .ReadDataAsync<Dictionary<string, EntryData<TContent>>>(DataType.User, GetEntryPath());
+                    .LoadDataAsync<Dictionary<string, EntryData<TContent>>>(DataType.User, GetEntryPath());
 
                 if (loadedEntries != null)
                 {

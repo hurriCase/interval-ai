@@ -11,12 +11,10 @@ using UnityEngine;
 
 namespace Client.Scripts.DB.DBControllers
 {
-    internal sealed class FireBaseRepository : ICloudRepository
+    internal sealed class CloudRepository : ICloudRepository
     {
         private DatabaseReference _dbReference;
         private bool _isInited;
-
-        public string UserID { get; set; }
 
         public async Task InitAsync()
         {
@@ -43,6 +41,45 @@ namespace Client.Scripts.DB.DBControllers
             catch (Exception e)
             {
                 Debug.LogError($"[FireBaseDB::InitAsync] Failed to initialize FirebaseDatabase: {e.Message}");
+            }
+        }
+
+        public async Task<TData> LoadDataAsync<TData>(DataType dataType, string path)
+        {
+            if (CheckDBInit() is false)
+                return default;
+
+            try
+            {
+                var snapshot = await GetDBPath(dataType, path).GetValueAsync();
+                if (snapshot.Exists is false)
+                {
+                    Debug.Log($"[FireBaseDB::LoadDataAsync] No data exists at {path}");
+                    return default;
+                }
+
+                var json = snapshot.GetRawJsonValue();
+
+                if (typeof(TData) == typeof(Dictionary<,>))
+                {
+                    var keyType = typeof(TData).GetGenericArguments()[0];
+                    var valueType = typeof(TData).GetGenericArguments()[1];
+                    var dictionaryType = typeof(Dictionary<,>).MakeGenericType(keyType, valueType);
+
+                    var dictionary = Activator.CreateInstance(dictionaryType);
+                    var data = JsonConvert.DeserializeObject(json, valueType);
+
+                    dictionaryType.GetMethod("Add")?.Invoke(dictionary, new[] { snapshot.Key, data });
+
+                    return (TData)(object)dictionaryType;
+                }
+
+                return JsonConvert.DeserializeObject<TData>(json);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"[FireBaseRepository::LoadDataAsync] Error loading data at {path}: {e.Message}");
+                return default;
             }
         }
 
@@ -220,9 +257,6 @@ namespace Client.Scripts.DB.DBControllers
         {
             switch (dataType)
             {
-                case DataType.None:
-                    return _dbReference.Child(path);
-
                 case DataType.User:
                     var userPath = DBConfig.Instance.UserPath;
                     var userID = UserData.Instance.UserID;

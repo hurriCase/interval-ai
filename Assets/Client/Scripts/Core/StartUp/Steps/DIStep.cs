@@ -34,7 +34,7 @@ namespace Client.Scripts.Core.StartUp.Steps
         private void RegisterServices()
         {
             DIContainer.RegisterSingleton<IAudioController>(AudioController.Instance);
-            DIContainer.Register<ICloudRepository>(() => new FireBaseRepository());
+            DIContainer.Register<ICloudRepository>(() => new CloudRepository());
             DIContainer.Register<IOfflineRepository>(() => new PlayerPrefsRepository());
             DIContainer.Register<IEntityController>(() => new EntityController());
             DIContainer.Register<IUserDataController>(() => new UserDataController());

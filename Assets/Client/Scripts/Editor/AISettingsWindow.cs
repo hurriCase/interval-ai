@@ -12,7 +12,7 @@ namespace Client.Scripts.Editor
     internal sealed class AISettingsWindow : EditorWindow
     {
         private GenerativeModel _settings;
-        private FireBaseRepository _repositoryController;
+        private CloudRepository _repositoryController;
         private Vector2 _scrollPosition;
         private bool _showAdvancedSettings;
         private bool _isLoading = true;
@@ -47,7 +47,7 @@ namespace Client.Scripts.Editor
         private async void InitializeSettings()
         {
             _isLoading = true;
-            _repositoryController = new FireBaseRepository();
+            _repositoryController = new CloudRepository();
 
             try
             {

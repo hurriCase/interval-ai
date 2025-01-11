@@ -29,9 +29,9 @@ namespace Client.Scripts.DB.Entities.EntityController
             try
             {
                 //TODO:<dmitriy.sukharev> refactor
-                var categoryEntity = new CategoryEntity.CategoryEntity();
+                var categoryEntity = new CategoryEntity.UserCategoryEntity();
                 await categoryEntity.InitAsync();
-                _entities[typeof(CategoryEntity.CategoryEntity)] = categoryEntity;
+                _entities[typeof(CategoryEntity.UserCategoryEntity)] = categoryEntity;
                 var userEntity = new UserEntity.UserEntity();
                 await userEntity.InitAsync();
                 _entities[typeof(UserEntity.UserEntity)] = userEntity;

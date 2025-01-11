@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Client.Scripts.Core;
 using Client.Scripts.DB.Entities.Base;
 using Client.Scripts.DB.Entities.CategoryEntity;
 using Client.Scripts.DB.Entities.ProgressEntity;
@@ -17,11 +18,14 @@ namespace Client.Tests.Runtime
     internal class EntityBaseTests : Injectable
     {
         private readonly List<EntryData<UserEntryContent>> _createdUserEntities = new();
-        private readonly List<EntryData<CategoryEntryContent>> _createdCategoryEntities = new();
+        private readonly List<EntryData<UserCategoryEntryContent>> _createdUserCategoryEntities = new();
+        private readonly List<EntryData<GlobalCategoryEntryContent>> _createdGlobalCategoryEntities = new();
         private readonly List<EntryData<WordEntryContent>> _createdWordEntities = new();
         private readonly List<EntryData<ProgressEntryContent>> _createdProgressEntities = new();
+        
         private UserEntity _userEntity;
-        private CategoryEntity _categoryEntity;
+        private UserCategoryEntity _userCategoryEntity;
+        private GlobalCategoryEntity _globalCategoryEntity;
         private WordEntity _wordEntity;
         private ProgressEntity _progressEntity;
 
@@ -29,7 +33,8 @@ namespace Client.Tests.Runtime
         public void OneTimeSetUp()
         {
             _userEntity = new UserEntity();
-            _categoryEntity = new CategoryEntity();
+            _userCategoryEntity = new UserCategoryEntity();
+            _globalCategoryEntity = new GlobalCategoryEntity();
             _wordEntity = new WordEntity();
             _progressEntity = new ProgressEntity();
 
@@ -40,7 +45,8 @@ namespace Client.Tests.Runtime
         public IEnumerator Setup()
         {
             yield return _userEntity.InitAsync().WaitForTask();
-            yield return _categoryEntity.InitAsync().WaitForTask();
+            yield return _userCategoryEntity.InitAsync().WaitForTask();
+            yield return _globalCategoryEntity.InitAsync().WaitForTask();
             yield return _wordEntity.InitAsync().WaitForTask();
             yield return _progressEntity.InitAsync().WaitForTask();
 
@@ -50,12 +56,18 @@ namespace Client.Tests.Runtime
         [UnityTearDown]
         public IEnumerator Cleanup()
         {
+            if (AppConfig.Instance.CleanUpTests is false)
+                yield break;
+
             foreach (var entity in _createdUserEntities)
                 yield return _userEntity.DeleteEntryAsync(entity).WaitForTask();
 
-            foreach (var entity in _createdCategoryEntities)
-                yield return _categoryEntity.DeleteEntryAsync(entity).WaitForTask();
+            foreach (var entity in _createdUserCategoryEntities)
+                yield return _userCategoryEntity.DeleteEntryAsync(entity).WaitForTask();
 
+            foreach (var entity in _createdGlobalCategoryEntities)
+                yield return _globalCategoryEntity.DeleteEntryAsync(entity).WaitForTask();
+            
             foreach (var entity in _createdWordEntities)
                 yield return _wordEntity.DeleteEntryAsync(entity).WaitForTask();
 
@@ -63,7 +75,8 @@ namespace Client.Tests.Runtime
                 yield return _progressEntity.DeleteEntryAsync(entity).WaitForTask();
 
             _createdUserEntities.Clear();
-            _createdCategoryEntities.Clear();
+            _createdUserCategoryEntities.Clear();
+            _createdGlobalCategoryEntities.Clear();
             _createdWordEntities.Clear();
             _createdProgressEntities.Clear();
         }
@@ -238,24 +251,23 @@ namespace Client.Tests.Runtime
         public IEnumerator UpdateEntity_WithValidData_ShouldSucceed()
         {
             // Arrange
-            var categoryData = new CategoryEntryContent
+            var categoryData = new UserCategoryEntryContent
             {
                 Title = "Original",
                 Description = "Test category",
-                IsDefault = false
             };
 
-            var createTask = _categoryEntity.CreateEntryAsync(categoryData);
+            var createTask = _userCategoryEntity.CreateEntryAsync(categoryData);
             yield return createTask.WaitForTask();
 
             var entity = createTask.Result;
             Assert.That(entity, Is.Not.Null);
 
-            _createdCategoryEntities.Add(entity);
+            _createdUserCategoryEntities.Add(entity);
             entity.Content.Title = "Updated";
 
             // Act
-            var updateTask = _categoryEntity.UpdateEntryAsync(entity);
+            var updateTask = _userCategoryEntity.UpdateEntryAsync(entity);
             yield return updateTask.WaitForTask();
 
             // Assert
@@ -312,14 +324,13 @@ namespace Client.Tests.Runtime
         public IEnumerator DeleteEntity_ExistingEntity_ShouldSucceed()
         {
             // Arrange
-            var categoryData = new CategoryEntryContent
+            var categoryData = new UserCategoryEntryContent
             {
                 Title = "ToDelete",
                 Description = "Test category",
-                IsDefault = false
             };
 
-            var createTask = _categoryEntity.CreateEntryAsync(categoryData);
+            var createTask = _userCategoryEntity.CreateEntryAsync(categoryData);
             yield return createTask.WaitForTask();
 
             var entity = createTask.Result;
@@ -328,11 +339,11 @@ namespace Client.Tests.Runtime
             Assert.That(entity, Is.Not.Null);
 
             // Act
-            var deleteTask = _categoryEntity.DeleteEntryAsync(entity);
+            var deleteTask = _userCategoryEntity.DeleteEntryAsync(entity);
             yield return deleteTask.WaitForTask();
 
             // Assert
-            Assert.That(_categoryEntity.Entries.Count, Is.EqualTo(0));
+            Assert.That(_userCategoryEntity.Entries.Count, Is.EqualTo(0));
         }
 
         #endregion

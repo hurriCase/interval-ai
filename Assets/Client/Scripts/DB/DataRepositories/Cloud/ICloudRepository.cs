@@ -6,11 +6,12 @@ namespace Client.Scripts.Patterns.DI.Services
     internal interface ICloudRepository
     {
         Task InitAsync();
-        Task<T> ReadDataAsync<T>(DataType dataType, string path);
-        Task<T> WriteDataAsync<T>(DataType dataType, string path, T data);
+        Task<TData> LoadDataAsync<TData>(DataType dataType, string path);
+        Task<TData> ReadDataAsync<TData>(DataType dataType, string path);
+        Task<TData> WriteDataAsync<TData>(DataType dataType, string path, TData data);
         Task UpdateDataAsync<TData>(DataType dataType, string path, TData data);
         Task DeleteDataAsync(DataType dataType, string path);
-        void ListenForValueChanged<T>(DataType dataType, string path, Action<T> onValueChanged);
+        void ListenForValueChanged<TData>(DataType dataType, string path, Action<TData> onValueChanged);
         void StopListening(DataType dataType, string path);
     }
 }

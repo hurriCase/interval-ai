@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Client.Scripts.Core;
 using Client.Scripts.Core.StartUp;
 using Client.Scripts.DB.Entities.Base;
 using Client.Scripts.DB.Entities.CategoryEntity;
@@ -48,6 +49,9 @@ namespace Client.Tests.Runtime
 
         private IEnumerator ClearAllEntities()
         {
+            if (AppConfig.Instance.CleanUpTests is false)
+                yield break;
+
             var userEntries
                 = _entityController.FindEntries<UserEntity, UserEntryContent>(_ => true);
 
@@ -61,14 +65,14 @@ namespace Client.Tests.Runtime
             }
 
             var categoryEntries = _entityController
-                .FindEntries<CategoryEntity, CategoryEntryContent>(_ => true);
+                .FindEntries<UserCategoryEntity, UserCategoryEntryContent>(_ => true);
 
             if (userEntries != null)
             {
                 foreach (var entry in categoryEntries)
                 {
                     var deleteTask = _entityController
-                        .DeleteEntryAsync<CategoryEntity, CategoryEntryContent>(entry.Id);
+                        .DeleteEntryAsync<UserCategoryEntity, UserCategoryEntryContent>(entry.Id);
                     yield return deleteTask.WaitForTask();
                 }
             }
@@ -125,10 +129,10 @@ namespace Client.Tests.Runtime
             ).Returns(null).SetName("UserEntity_Create");
 
             yield return new TestCaseData(
-                new TestParams<CategoryEntity, CategoryEntryContent>
+                new TestParams<UserCategoryEntity, UserCategoryEntryContent>
                 {
-                    EntityType = typeof(CategoryEntity),
-                    Content = new CategoryEntryContent
+                    EntityType = typeof(UserCategoryEntity),
+                    Content = new UserCategoryEntryContent
                     {
                         Title = "Test Category",
                         Description = "Test Description"
@@ -187,10 +191,10 @@ namespace Client.Tests.Runtime
                     "Email: Expected string but got null, " +
                     "Email: Value cannot be null");
             yield return new TestCaseData(
-                    new TestParams<CategoryEntity, CategoryEntryContent>
+                    new TestParams<UserCategoryEntity, UserCategoryEntryContent>
                     {
-                        EntityType = typeof(CategoryEntity),
-                        Content = new CategoryEntryContent
+                        EntityType = typeof(UserCategoryEntity),
+                        Content = new UserCategoryEntryContent
                         {
                             Description = "Test Description"
                         }
@@ -294,19 +298,19 @@ namespace Client.Tests.Runtime
         public IEnumerator ReadEntity_AfterCreation_ShouldReturnData()
         {
             // Arrange
-            var categoryData = new CategoryEntryContent
+            var categoryData = new UserCategoryEntryContent
             {
                 Title = "Test Category",
                 Description = "Test Description",
-                IsDefault = false
             };
 
-            var createTask = _entityController.CreateEntryAsync<CategoryEntity, CategoryEntryContent>(categoryData);
+            var createTask =
+                _entityController.CreateEntryAsync<UserCategoryEntity, UserCategoryEntryContent>(categoryData);
             yield return createTask.WaitForTask();
 
             // Act
             var readTask = _entityController
-                .ReadEntryAsync<CategoryEntity, CategoryEntryContent>(createTask.Result.EntryData.Id);
+                .ReadEntryAsync<UserCategoryEntity, UserCategoryEntryContent>(createTask.Result.EntryData.Id);
             yield return readTask.WaitForTask();
 
             var result = readTask.Result;

@@ -4,12 +4,12 @@ using Client.Scripts.MVC.Base;
 
 namespace Client.Scripts.MVC.Categories
 {
-    internal class CategoryModel : ModelBase<CategoryEntryContent>
+    internal class CategoryModel : ModelBase<UserCategoryEntryContent>
     {
         internal string Title => Data.Content.Title;
         internal string Description => Data.Content.Description;
         internal int WordCount => Data.Content.Words?.Count ?? 0;
 
-        internal CategoryModel(EntryData<CategoryEntryContent> data) : base(data) { }
+        internal CategoryModel(EntryData<UserCategoryEntryContent> data) : base(data) { }
     }
 }
