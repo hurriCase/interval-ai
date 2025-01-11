@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Client.Scripts.Core.StartUp.Steps;
 using UnityEngine;
 
@@ -6,42 +8,53 @@ namespace Client.Scripts.Core.StartUp
     internal sealed class StartUpController : MonoBehaviour
     {
         internal static bool IsInited { get; private set; }
+        internal static event Action OnInitializationCompleted;
+
+        private static readonly IReadOnlyList<Type> _stepTypes = new List<Type>
+        {
+            typeof(DIStep),
+            typeof(DataStep),
+            typeof(AIStep),
+            typeof(SceneContextStep),
+            typeof(FireBaseStep)
+        };
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        private static async void OnBeforeSceneLoadRuntimeMethod()
+        private static async void InitializeApplication()
         {
             if (IsInited)
                 return;
 
-            var diStep = new DIStep();
-            diStep.OnCompleted += ShowStep;
-            await diStep.Execute(0);
-
-            var steps = new IStep[]
+            try
             {
-                new DataStep(),
-                new AIStep(),
-                new SceneContextStep(),
-                new FireBaseStep()
-            };
+                var stepFactory = new StepFactory();
 
-            for (var i = 0; i < steps.Length; i++)
-            {
-                steps[i].OnCompleted += ShowStep;
-                await steps[i].Execute(i + 1);
+                for (var i = 0; i < _stepTypes.Count; i++)
+                {
+                    var step = stepFactory.CreateStep(_stepTypes[i]);
+                    step.OnStepCompleted += LogStepCompletion;
+                    await step.Execute(i);
+                }
+                
+                IsInited = true;
+                
+                OnInitializationCompleted?.Invoke();
             }
-
-            IsInited = true;
-
-            //TODO:<dmitriy.sukharev> think about how to better load scene
-            //TODO:to prevent scene load from not startup scene
-            //await SceneLoader.LoadLoginScene();
+            catch (Exception e)
+            {
+                Debug.LogError($"[StartUpController::InitializeApplication] Initialization failed, with error: {e.Message}");
+                throw;
+            }
         }
 
-        //TODO:<dmitriy.sukharev> temporary solution
-        private static void ShowStep(int step, string stepName)
+        private static void LogStepCompletion(int step, string stepName)
         {
-            Debug.Log($"[StartUpController::ShowStep] {step} step is initialized at {stepName}");
+            Debug.Log($"[StartUpController::LogStepCompletion] Step {step} completed: {stepName}");
+        }
+
+        private void OnDestroy()
+        {
+            OnInitializationCompleted = null;
         }
     }
 }

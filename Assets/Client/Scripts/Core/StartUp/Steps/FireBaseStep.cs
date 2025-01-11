@@ -9,7 +9,7 @@ namespace Client.Scripts.Core.StartUp.Steps
     {
         internal static FirebaseApp FirebaseApp { get; private set; }
 
-        public event Action<int, string> OnCompleted;
+        public event Action<int, string> OnStepCompleted;
 
         //TODO:<dmitriy.sukharev> I don't understand why is it necessary
         public async Task Execute(int step)
@@ -22,7 +22,7 @@ namespace Client.Scripts.Core.StartUp.Steps
                 {
                     FirebaseApp = FirebaseApp.DefaultInstance;
 
-                    OnCompleted?.Invoke(step, GetType().Name);
+                    OnStepCompleted?.Invoke(step, GetType().Name);
                     Debug.Log("[FireBaseStep::FireBaseInit] FireBase is initialized");
                 }
                 else

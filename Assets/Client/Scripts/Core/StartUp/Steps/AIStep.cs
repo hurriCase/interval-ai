@@ -10,7 +10,7 @@ namespace Client.Scripts.Core.StartUp.Steps
     {
         [Inject] private IAIController _aiController;
 
-        public event Action<int, string> OnCompleted;
+        public event Action<int, string> OnStepCompleted;
 
         public async Task Execute(int step)
         {
@@ -18,7 +18,7 @@ namespace Client.Scripts.Core.StartUp.Steps
             {
                 await _aiController.InitAsync();
 
-                OnCompleted?.Invoke(step, GetType().Name);
+                OnStepCompleted?.Invoke(step, GetType().Name);
             }
             catch (Exception e)
             {

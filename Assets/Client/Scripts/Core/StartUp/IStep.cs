@@ -5,7 +5,7 @@ namespace Client.Scripts.Core.StartUp
 {
     public interface IStep
     {
-        event Action<int, string> OnCompleted;
+        event Action<int, string> OnStepCompleted;
         Task Execute(int step);
     }
 }

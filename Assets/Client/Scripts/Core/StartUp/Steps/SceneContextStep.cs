@@ -10,7 +10,7 @@ namespace Client.Scripts.Core.StartUp.Steps
     {
         [Inject] private IAudioController _audioController;
 
-        public event Action<int, string> OnCompleted;
+        public event Action<int, string> OnStepCompleted;
 
         public Task Execute(int step)
         {
@@ -18,7 +18,7 @@ namespace Client.Scripts.Core.StartUp.Steps
             {
                 _audioController.PlayMusic();
 
-                OnCompleted?.Invoke(step, GetType().Name);
+                OnStepCompleted?.Invoke(step, GetType().Name);
                 return Task.CompletedTask;
             }
             catch (Exception e)
