@@ -9,7 +9,7 @@ namespace Client.Scripts.Patterns.DI.Services
     {
         Task InitAsync();
         Task<string> SendPromptAsync(string prompt, GenerationConfig config = null);
-        Task<string> SendChatMessageAsync(string message, bool stream = false);
-        void ClearChatHistory(List<ChatRequest> initialHistory = null);
+        Task<string> SendChatMessageAsync(string message);
+        Task ClearChatHistoryAsync(Content[] initialHistory = null);
     }
 }
