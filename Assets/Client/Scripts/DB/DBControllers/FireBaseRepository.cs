@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Client.Scripts.Core;
 using Client.Scripts.Patterns.DI.Services;
 using Firebase;
 using Firebase.Database;
@@ -10,16 +11,14 @@ using UnityEngine;
 
 namespace Client.Scripts.DB.DBControllers
 {
-    internal sealed class FireBaseDB : IDBController
+    internal sealed class FireBaseRepository : ICloudRepository
     {
-        private const string UserFolderName = "users";
-
         private DatabaseReference _dbReference;
         private bool _isInited;
 
         public string UserID { get; set; }
 
-        public async Task InitAsync(string userID)
+        public async Task InitAsync()
         {
             if (_isInited)
                 return;
@@ -37,8 +36,6 @@ namespace Client.Scripts.DB.DBControllers
                             $"Could not resolve all Firebase dependencies: {dependencyStatus}");
                 });
 
-                UserID = userID;
-
                 _isInited = true;
 
                 Debug.Log("[FireBaseDB::InitAsync] FirebaseDatabase initialized successfully!");
@@ -49,7 +46,7 @@ namespace Client.Scripts.DB.DBControllers
             }
         }
 
-        public async Task<TData> WriteDataAsync<TData>(string path, TData data)
+        public async Task<TData> WriteDataAsync<TData>(DataType dataType, string path, TData data)
         {
             if (CheckDBInit() is false)
                 return default;
@@ -60,12 +57,12 @@ namespace Client.Scripts.DB.DBControllers
                 if (data is string str)
                 {
                     dataToWrite = str;
-                    await GetDBPath(path).SetValueAsync(data);
+                    await GetDBPath(dataType, path).SetValueAsync(data);
                 }
                 else
                 {
                     dataToWrite = JsonConvert.SerializeObject(data);
-                    await GetDBPath(path).SetRawJsonValueAsync(dataToWrite);
+                    await GetDBPath(dataType, path).SetRawJsonValueAsync(dataToWrite);
                 }
 
                 return data;
@@ -79,7 +76,7 @@ namespace Client.Scripts.DB.DBControllers
             }
         }
 
-        public async Task UpdateDataAsync<TData>(string path, TData data)
+        public async Task UpdateDataAsync<TData>(DataType dataType, string path, TData data)
         {
             if (CheckDBInit() is false)
                 return;
@@ -87,11 +84,11 @@ namespace Client.Scripts.DB.DBControllers
             try
             {
                 if (data is string str)
-                    await GetDBPath(path).SetValueAsync(str);
+                    await GetDBPath(dataType, path).SetValueAsync(str);
                 else
                 {
                     var json = JsonConvert.SerializeObject(data);
-                    await GetDBPath(path).SetRawJsonValueAsync(json);
+                    await GetDBPath(dataType, path).SetRawJsonValueAsync(json);
                 }
 
                 Debug.Log($"[FireBaseDB::UpdateDataAsync] Data updated successfully at {path}");
@@ -105,14 +102,14 @@ namespace Client.Scripts.DB.DBControllers
             }
         }
 
-        public async Task<TData> ReadDataAsync<TData>(string path)
+        public async Task<TData> ReadDataAsync<TData>(DataType dataType, string path)
         {
             if (CheckDBInit() is false)
                 return default;
 
             try
             {
-                var snapshot = await GetDBPath(path).GetValueAsync();
+                var snapshot = await GetDBPath(dataType, path).GetValueAsync();
                 if (snapshot.Exists is false)
                 {
                     Debug.Log($"[FireBaseDB::ReadDataAsync] No data exists at {path}");
@@ -147,15 +144,15 @@ namespace Client.Scripts.DB.DBControllers
             }
         }
 
-        public async Task DeleteDataAsync(string path)
+        public async Task DeleteDataAsync(DataType dataType, string path)
         {
             if (CheckDBInit() is false)
                 return;
 
             try
             {
-                StopListening(path);
-                await GetDBPath(path).RemoveValueAsync();
+                StopListening(dataType, path);
+                await GetDBPath(dataType, path).RemoveValueAsync();
                 Debug.Log($"[FireBaseDB::DeleteDataAsync] Data deleted successfully from {path}");
             }
             catch (Exception e)
@@ -167,7 +164,7 @@ namespace Client.Scripts.DB.DBControllers
             }
         }
 
-        public void ListenForValueChanged<TData>(string path, Action<TData> onValueChanged)
+        public void ListenForValueChanged<TData>(DataType dataType, string path, Action<TData> onValueChanged)
         {
             if (CheckDBInit() is false)
                 return;
@@ -178,7 +175,7 @@ namespace Client.Scripts.DB.DBControllers
                 return;
             }
 
-            GetDBPath(path).ValueChanged += (_, args) =>
+            GetDBPath(dataType, path).ValueChanged += (_, args) =>
             {
                 if (args.DatabaseError != null)
                 {
@@ -203,12 +200,12 @@ namespace Client.Scripts.DB.DBControllers
             };
         }
 
-        public void StopListening(string path)
+        public void StopListening(DataType dataType, string path)
         {
             if (CheckDBInit() is false)
                 return;
 
-            GetDBPath(path).ValueChanged -= null;
+            GetDBPath(dataType, path).ValueChanged -= null;
         }
 
         private bool CheckDBInit()
@@ -219,7 +216,25 @@ namespace Client.Scripts.DB.DBControllers
             return _isInited;
         }
 
-        private DatabaseReference GetDBPath(string path) =>
-            _dbReference.Child(UserFolderName).Child(UserID).Child(path);
+        private DatabaseReference GetDBPath(DataType dataType, string path)
+        {
+            switch (dataType)
+            {
+                case DataType.None:
+                    return _dbReference.Child(path);
+
+                case DataType.User:
+                    var userPath = DBConfig.Instance.UserPath;
+                    var userID = UserData.Instance.UserID;
+                    return _dbReference.Child(userPath).Child(userID).Child(path);
+
+                case DataType.Configs:
+                    var configsPath = DBConfig.Instance.ConfigsPath;
+                    return _dbReference.Child(configsPath);
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(dataType), dataType, null);
+            }
+        }
     }
 }

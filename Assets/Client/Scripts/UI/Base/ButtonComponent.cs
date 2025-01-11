@@ -10,7 +10,7 @@ namespace Client.Scripts.UI
     {
         [SerializeField] private AudioClip _clickSound;
         [Inject] private IAudioController _audioController;
-        [Inject] private IDBController _dbController;
+        [Inject] private ICloudRepository _cloudRepository;
 
         internal event Action OnClick;
 

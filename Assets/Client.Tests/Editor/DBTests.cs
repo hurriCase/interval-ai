@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Client.Scripts.DB.DBControllers;
 using Client.Scripts.DB.Entities.UserEntity;
+using Client.Scripts.Patterns.DI.Services;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using UnityEngine;
@@ -8,15 +9,15 @@ using UnityEngine.TestTools;
 
 namespace Client.Tests.Editor
 {
-    internal class FireBaseDBTests
+    internal sealed class FireBaseRepositoryTests
     {
-        private FireBaseDB _controller;
-        private const string TestPath = "test/path";
+        private FireBaseRepository _controller;
+        private string TestPath => DBConfig.Instance.TestsPath;
 
         [SetUp]
         public void Setup()
         {
-            _controller = new FireBaseDB();
+            _controller = new FireBaseRepository();
         }
 
         #region Write Tests
@@ -31,7 +32,7 @@ namespace Client.Tests.Editor
                 "[FireBaseDB::CheckDBInit] FireBaseDB not initialized but you're trying to access");
 
             // Act
-            var result = await _controller.WriteDataAsync(TestPath, testData);
+            var result = await _controller.WriteDataAsync(DataType.User, TestPath, testData);
 
 
             // Assert
@@ -43,10 +44,10 @@ namespace Client.Tests.Editor
         {
             // Arrange
             var testData = "test";
-            await _controller.InitAsync("testUser");
+            await _controller.InitAsync();
 
             // Act
-            var result = await _controller.WriteDataAsync(TestPath, testData);
+            var result = await _controller.WriteDataAsync(DataType.User, TestPath, testData);
 
             // Assert
             Assert.That(result, Is.EqualTo(testData));
@@ -62,12 +63,12 @@ namespace Client.Tests.Editor
                 Password = "testPassword",
                 Email = "testEmail"
             };
-            await _controller.InitAsync("testUser");
+            await _controller.InitAsync();
             _controller.UserID = "testUserJson";
             var json = JsonConvert.SerializeObject(testData);
 
             // Act
-            var result = await _controller.WriteDataAsync(TestPath, testData);
+            var result = await _controller.WriteDataAsync(DataType.User, TestPath, testData);
 
             // Assert
             Assert.That(result, Is.EqualTo(json));
@@ -82,12 +83,12 @@ namespace Client.Tests.Editor
         {
             // Arrange
             var testData = "test";
-            await _controller.InitAsync("testUser");
+            await _controller.InitAsync();
             _controller.UserID = "testUser";
 
             // Act
-            await _controller.WriteDataAsync(TestPath, testData);
-            var result = await _controller.ReadDataAsync<string>(TestPath);
+            await _controller.WriteDataAsync(DataType.User, TestPath, testData);
+            var result = await _controller.ReadDataAsync<string>(DataType.User, TestPath);
 
             // Assert
             Assert.That(result, Is.EqualTo(testData));
@@ -103,12 +104,12 @@ namespace Client.Tests.Editor
                 Password = "testPassword",
                 Email = "testEmail"
             };
-            await _controller.InitAsync("testUser");
+            await _controller.InitAsync();
             _controller.UserID = "testUserJson";
 
             // Act
-            await _controller.WriteDataAsync(TestPath, testData);
-            var result = await _controller.ReadDataAsync<UserEntryContent>(TestPath);
+            await _controller.WriteDataAsync(DataType.User, TestPath, testData);
+            var result = await _controller.ReadDataAsync<UserEntryContent>(DataType.User, TestPath);
 
             // Assert
             Assert.That(result.UserName, Is.EqualTo(testData.UserName));
@@ -125,20 +126,20 @@ namespace Client.Tests.Editor
         {
             // Arrange
             var testData = "test";
-            await _controller.InitAsync("testUser");
+            await _controller.InitAsync();
             _controller.UserID = "testUser";
 
             // Act
-            await _controller.WriteDataAsync(TestPath, testData);
-            var readDataBeforeUpdate = await _controller.ReadDataAsync<string>(TestPath);
+            await _controller.WriteDataAsync(DataType.User, TestPath, testData);
+            var readDataBeforeUpdate = await _controller.ReadDataAsync<string>(DataType.User, TestPath);
 
             // Assert
             Assert.That(readDataBeforeUpdate, Is.EqualTo(testData));
 
             // Act
             var newData = "newData";
-            await _controller.UpdateDataAsync(TestPath, newData);
-            var readDataAfterUpdate = await _controller.ReadDataAsync<string>(TestPath);
+            await _controller.UpdateDataAsync(DataType.User, TestPath, newData);
+            var readDataAfterUpdate = await _controller.ReadDataAsync<string>(DataType.User, TestPath);
 
             // Assert
             Assert.That(readDataAfterUpdate, Is.EqualTo(newData));
@@ -154,12 +155,12 @@ namespace Client.Tests.Editor
                 Password = "testPassword",
                 Email = "testEmail"
             };
-            await _controller.InitAsync("testUser");
+            await _controller.InitAsync();
             _controller.UserID = "testUser";
 
             // Act
-            await _controller.WriteDataAsync(TestPath, testData);
-            var readDataBeforeUpdate = await _controller.ReadDataAsync<UserEntryContent>(TestPath);
+            await _controller.WriteDataAsync(DataType.User, TestPath, testData);
+            var readDataBeforeUpdate = await _controller.ReadDataAsync<UserEntryContent>(DataType.User, TestPath);
 
             // Assert
             Assert.That(readDataBeforeUpdate.UserName, Is.EqualTo("testUser"));
@@ -168,8 +169,8 @@ namespace Client.Tests.Editor
 
             // Act
             readDataBeforeUpdate.UserName = "newData";
-            await _controller.UpdateDataAsync(TestPath, readDataBeforeUpdate);
-            var readDataAfterUpdate = await _controller.ReadDataAsync<UserEntryContent>(TestPath);
+            await _controller.UpdateDataAsync(DataType.User, TestPath, readDataBeforeUpdate);
+            var readDataAfterUpdate = await _controller.ReadDataAsync<UserEntryContent>(DataType.User, TestPath);
 
             // Assert
             Assert.That(readDataAfterUpdate.UserName, Is.EqualTo("newData"));
@@ -186,17 +187,17 @@ namespace Client.Tests.Editor
         {
             // Arrange
             var testData = "test";
-            await _controller.InitAsync("testUser");
+            await _controller.InitAsync();
             _controller.UserID = "testUser";
-            await _controller.WriteDataAsync(TestPath, testData);
-            var beforeDelete = await _controller.ReadDataAsync<string>(TestPath);
+            await _controller.WriteDataAsync(DataType.User, TestPath, testData);
+            var beforeDelete = await _controller.ReadDataAsync<string>(DataType.User, TestPath);
 
             // Assert
             Assert.That(beforeDelete, Is.EqualTo(testData));
 
             // Act
-            await _controller.DeleteDataAsync(TestPath);
-            var afterDelete = await _controller.ReadDataAsync<string>(TestPath);
+            await _controller.DeleteDataAsync(DataType.User, TestPath);
+            var afterDelete = await _controller.ReadDataAsync<string>(DataType.User, TestPath);
 
             // Assert
             Assert.That(afterDelete, Is.EqualTo(default(string)));
@@ -212,12 +213,12 @@ namespace Client.Tests.Editor
                 Password = "testPassword",
                 Email = "testEmail"
             };
-            await _controller.InitAsync("testUser");
+            await _controller.InitAsync();
             _controller.UserID = "testUserJson";
 
             // Act
-            await _controller.WriteDataAsync(TestPath, testData);
-            var beforeDelete = await _controller.ReadDataAsync<UserEntryContent>(TestPath);
+            await _controller.WriteDataAsync(DataType.User, TestPath, testData);
+            var beforeDelete = await _controller.ReadDataAsync<UserEntryContent>(DataType.User, TestPath);
 
             // Assert
             Assert.That(beforeDelete.UserName, Is.EqualTo(testData.UserName));
@@ -225,8 +226,8 @@ namespace Client.Tests.Editor
             Assert.That(beforeDelete.Email, Is.EqualTo(testData.Email));
 
             // Act
-            await _controller.DeleteDataAsync(TestPath);
-            var afterDelete = await _controller.ReadDataAsync<UserEntryContent>(TestPath);
+            await _controller.DeleteDataAsync(DataType.User, TestPath);
+            var afterDelete = await _controller.ReadDataAsync<UserEntryContent>(DataType.User, TestPath);
 
             // Assert
             Assert.That(afterDelete, Is.EqualTo(null));
@@ -238,7 +239,7 @@ namespace Client.Tests.Editor
         public async Task Cleanup()
         {
             if (_controller.UserID != null)
-                await _controller.DeleteDataAsync(TestPath);
+                await _controller.DeleteDataAsync(DataType.User, TestPath);
         }
     }
 }

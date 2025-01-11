@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Client.Scripts.DB.Entities.Base;
+using Client.Scripts.Patterns.DI.Services;
 using UnityEngine;
 using Exception = System.Exception;
 
@@ -15,8 +16,8 @@ namespace Client.Scripts.DB.Entities.CategoryEntity
         {
             try
             {
-                var loadedCustomCategories = await dbController
-                    .ReadDataAsync<Dictionary<string, EntryData<CategoryEntryContent>>>(GetEntryPath(string.Empty));
+                var loadedCustomCategories = await cloudRepository
+                    .ReadDataAsync<Dictionary<string, EntryData<CategoryEntryContent>>>(DataType.User, GetEntryPath());
                 if (loadedCustomCategories != null)
                 {
                     Entries.Clear();
@@ -24,15 +25,17 @@ namespace Client.Scripts.DB.Entities.CategoryEntity
                     foreach (var (id, categoryData) in loadedCustomCategories)
                     {
                         Entries[id] = categoryData;
-                        dbController.ListenForValueChanged<EntryData<CategoryEntryContent>>(
+                        cloudRepository.ListenForValueChanged<EntryData<CategoryEntryContent>>(
+                            DataType.User,
                             GetEntryPath(id),
                             _ => categoryData.UpdatedAt = DateTime.Now
                         );
                     }
                 }
 
-                var loadedGlobalCategories = await dbController
+                var loadedGlobalCategories = await cloudRepository
                     .ReadDataAsync<Dictionary<string, EntryData<CategoryEntryContent>>>(
+                        DataType.User,
                         GetEntryPath("global_categories"));
                 if (loadedGlobalCategories != null)
                 {
@@ -40,7 +43,8 @@ namespace Client.Scripts.DB.Entities.CategoryEntity
                     {
                         Entries[id] = categoryData;
 
-                        dbController.ListenForValueChanged<EntryData<CategoryEntryContent>>(
+                        cloudRepository.ListenForValueChanged<EntryData<CategoryEntryContent>>(
+                            DataType.User,
                             GetEntryPath(id),
                             _ => categoryData.UpdatedAt = DateTime.Now
                         );

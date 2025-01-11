@@ -13,7 +13,7 @@ namespace Client.Scripts.DB.Entities.Base
 {
     internal abstract class EntityBase<TContent> : Injectable, IEntity<TContent> where TContent : class, new()
     {
-        [Inject] protected IDBController dbController;
+        [Inject] protected ICloudRepository cloudRepository;
 
         public ConcurrentDictionary<string, EntryData<TContent>> Entries { get; set; } = new();
         protected abstract string EntityPath { get; }
@@ -44,8 +44,8 @@ namespace Client.Scripts.DB.Entities.Base
         {
             try
             {
-                var loadedEntries = await dbController
-                    .ReadDataAsync<Dictionary<string, EntryData<TContent>>>(GetEntryPath(string.Empty));
+                var loadedEntries = await cloudRepository
+                    .ReadDataAsync<Dictionary<string, EntryData<TContent>>>(DataType.User, GetEntryPath());
 
                 if (loadedEntries != null)
                 {
@@ -54,7 +54,8 @@ namespace Client.Scripts.DB.Entities.Base
                     foreach (var (id, entryData) in loadedEntries)
                     {
                         Entries[id] = entryData;
-                        dbController.ListenForValueChanged<EntryData<TContent>>(
+                        cloudRepository.ListenForValueChanged<EntryData<TContent>>(
+                            DataType.User,
                             GetEntryPath(entryData.Id),
                             _ => entryData.UpdatedAt = DateTime.Now
                         );
@@ -94,7 +95,7 @@ namespace Client.Scripts.DB.Entities.Base
             };
 
             Entries[entryData.Id] = entryData;
-            await dbController.WriteDataAsync(GetEntryPath(entryData.Id), entryData);
+            await cloudRepository.WriteDataAsync(DataType.User, GetEntryPath(entryData.Id), entryData);
 
             return entryData;
         }
@@ -102,7 +103,7 @@ namespace Client.Scripts.DB.Entities.Base
         public async Task<EntryData<TContent>> ReadEntryAsync(string id) =>
             CheckEntityBaseInit() is false
                 ? null
-                : await dbController.ReadDataAsync<EntryData<TContent>>(GetEntryPath(id));
+                : await cloudRepository.ReadDataAsync<EntryData<TContent>>(DataType.User, GetEntryPath(id));
 
         public async Task<EntryData<TContent>> UpdateEntryAsync(EntryData<TContent> entry)
         {
@@ -132,7 +133,7 @@ namespace Client.Scripts.DB.Entities.Base
 
             entry.UpdatedAt = DateTime.UtcNow;
             Entries[entry.Id] = entry;
-            await dbController.UpdateDataAsync(GetEntryPath(entry.Id), entry);
+            await cloudRepository.UpdateDataAsync(DataType.User, GetEntryPath(entry.Id), entry);
 
             return entry;
         }
@@ -148,7 +149,7 @@ namespace Client.Scripts.DB.Entities.Base
                 return null;
             }
 
-            await dbController.DeleteDataAsync(GetEntryPath(entryData.Id));
+            await cloudRepository.DeleteDataAsync(DataType.User, GetEntryPath(entryData.Id));
 
             return entryData;
         }
@@ -186,7 +187,7 @@ namespace Client.Scripts.DB.Entities.Base
             return _isInited;
         }
 
-        protected string GetEntryPath(string id, string entityPath = null)
-            => $"{entityPath ?? EntityPath}{(string.IsNullOrEmpty(id) ? "" : "/" + id)}";
+        protected string GetEntryPath(string id = null, string entityPath = null)
+            => $"{entityPath ?? EntityPath}{(id is null ? "" : "/" + id)}";
     }
 }

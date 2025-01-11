@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Client.Scripts.Core.AiController;
+using Client.Scripts.Core.SignIn;
 using Client.Scripts.DB.DBControllers;
 using Client.Scripts.DB.Entities.EntityController;
 using Client.Scripts.Patterns.DI.Base;
@@ -33,7 +34,8 @@ namespace Client.Scripts.Core.StartUp.Steps
         private void RegisterServices()
         {
             DIContainer.RegisterSingleton<IAudioController>(AudioController.Instance);
-            DIContainer.Register<IDBController>(() => new FireBaseDB());
+            DIContainer.Register<ICloudRepository>(() => new FireBaseRepository());
+            DIContainer.Register<IOfflineRepository>(() => new PlayerPrefsRepository());
             DIContainer.Register<IEntityController>(() => new EntityController());
             DIContainer.Register<IUserDataController>(() => new UserDataController());
             DIContainer.Register<IAIController>(() => new GeminiAPI());

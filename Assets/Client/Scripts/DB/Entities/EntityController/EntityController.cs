@@ -12,7 +12,7 @@ namespace Client.Scripts.DB.Entities.EntityController
 {
     internal class EntityController : Injectable, IEntityController
     {
-        [Inject] private IDBController _dbController;
+        [Inject] private ICloudRepository _cloudRepository;
         private readonly ConcurrentDictionary<Type, object> _entities = new();
         private bool _isInited;
 

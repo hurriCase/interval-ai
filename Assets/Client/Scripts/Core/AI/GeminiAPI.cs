@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine.Networking;
 using System.Text;
 using Client.Scripts.Core.AI;
+using Client.Scripts.DB.DBControllers;
 using Client.Scripts.Patterns.DI.Base;
 using Client.Scripts.Patterns.DI.Services;
 using Client.Scripts.Patterns.Extensions;
@@ -15,10 +16,7 @@ namespace Client.Scripts.Core.AiController
 {
     internal sealed class GeminiAPI : Injectable, IAIController
     {
-        [Inject] private IDBController _dbController;
-
-        private const string ChatHistoryPath = "ai_chat_history";
-        private const string TextModelPath = "ai_settings";
+        [Inject] private ICloudRepository _cloudRepository;
 
         private GenerativeModel _textModel;
         private Content[] _chatHistory;
@@ -59,15 +57,11 @@ namespace Client.Scripts.Core.AiController
             return ParseResponse(response);
         }
 
-        public void ClearChatHistory(List<ChatRequest> initialHistory = null)
-        {
-            _chatHistory = Array.Empty<Content>();
-        }
-
-        public async Task<string> SendChatMessageAsync(string message, bool stream = false)
+        public async Task<string> SendChatMessageAsync(string message)
         {
             var userContent = GetContent(Role.User, message);
 
+            Debug.LogWarning($"[GeminiAPI::SendChatMessageAsync]_chatHistory.Length {_chatHistory.Length}");
             var contentsList = new List<Content>(_chatHistory)
             {
                 userContent
@@ -95,9 +89,22 @@ namespace Client.Scripts.Core.AiController
             return parsedResponse;
         }
 
-        private Content GetContent(Role role, string text)
+        public async Task ClearChatHistoryAsync(Content[] initialHistory = null)
         {
-            return new Content
+            try
+            {
+                await _cloudRepository.DeleteDataAsync(DataType.User, DBConfig.Instance.AIChatHistoryPath);
+                _chatHistory = initialHistory ?? Array.Empty<Content>();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"[GeminiAPI::LoadChatHistoryAsync] Failed to clean chat history: {e.Message}");
+                _chatHistory = initialHistory ?? Array.Empty<Content>();
+            }
+        }
+
+        private Content GetContent(Role role, string text) =>
+            new()
             {
                 Role = role.GetJsonPropertyName(),
                 Parts = new[]
@@ -105,7 +112,6 @@ namespace Client.Scripts.Core.AiController
                     new Part { Text = text }
                 }
             };
-        }
 
         private async Task<string> SendRequestAsync(ChatRequest data)
         {
@@ -170,7 +176,9 @@ namespace Client.Scripts.Core.AiController
         {
             try
             {
-                _chatHistory = await _dbController.ReadDataAsync<Content[]>(ChatHistoryPath) ?? Array.Empty<Content>();
+                _chatHistory =
+                    await _cloudRepository.ReadDataAsync<Content[]>(DataType.User, DBConfig.Instance.AIChatHistoryPath)
+                    ?? Array.Empty<Content>();
             }
             catch (Exception e)
             {
@@ -183,7 +191,7 @@ namespace Client.Scripts.Core.AiController
         {
             try
             {
-                await _dbController.WriteDataAsync(ChatHistoryPath, _chatHistory);
+                await _cloudRepository.WriteDataAsync(DataType.User, DBConfig.Instance.AIChatHistoryPath, _chatHistory);
             }
             catch (Exception e)
             {
@@ -195,8 +203,10 @@ namespace Client.Scripts.Core.AiController
         {
             try
             {
-                _textModel = await _dbController.ReadDataAsync<GenerativeModel>(TextModelPath)
-                             ?? await _dbController.WriteDataAsync(TextModelPath, new GenerativeModel());
+                _textModel =
+                    await _cloudRepository.ReadDataAsync<GenerativeModel>(DataType.Configs,
+                        DBConfig.Instance.AIConfigPath) ?? await _cloudRepository.WriteDataAsync(DataType.Configs,
+                        DBConfig.Instance.AIConfigPath, new GenerativeModel());
             }
             catch (Exception e)
             {
