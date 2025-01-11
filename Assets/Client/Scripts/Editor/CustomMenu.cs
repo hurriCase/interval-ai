@@ -26,7 +26,7 @@ namespace Client.Scripts.Editor
         [MenuItem("Project/Configs/DBConfig", priority = 6)]
         public static void SelectDBConfig() => Selection.activeObject = DBConfig.Instance;
 
-        [MenuItem("Project/Data/UseData", priority = 7)]
+        [MenuItem("Project/Data/UserData", priority = 7)]
         public static void SelectUserData() => Selection.activeObject = UserData.Instance;
 
         private static void OpenScene(string sceneName)
