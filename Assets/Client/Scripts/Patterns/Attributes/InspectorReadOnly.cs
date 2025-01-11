@@ -3,11 +3,11 @@
 using UnityEditor;
 #endif
 
-internal sealed class ReadOnlyAttribute : PropertyAttribute { }
+internal sealed class InspectorReadOnlyAttribute : PropertyAttribute { }
 
 #if UNITY_EDITOR
-[CustomPropertyDrawer(typeof(ReadOnlyAttribute))]
-public class ReadOnlyDrawer : PropertyDrawer
+[CustomPropertyDrawer(typeof(InspectorReadOnlyAttribute))]
+public class InspectorReadOnlyDrawer : PropertyDrawer
 {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
