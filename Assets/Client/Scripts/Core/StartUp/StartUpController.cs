@@ -19,7 +19,7 @@ namespace Client.Scripts.Core.StartUp
 
             var steps = new IStep[]
             {
-                new DBStep(),
+                new DataStep(),
                 new AIStep(),
                 new SceneContextStep(),
                 new FireBaseStep()

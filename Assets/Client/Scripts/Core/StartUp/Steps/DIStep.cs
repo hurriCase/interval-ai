@@ -35,7 +35,13 @@ namespace Client.Scripts.Core.StartUp.Steps
             DIContainer.RegisterSingleton<IAudioController>(AudioController.Instance);
             DIContainer.Register<IDBController>(() => new FireBaseDB());
             DIContainer.Register<IEntityController>(() => new EntityController());
+            DIContainer.Register<IUserDataController>(() => new UserDataController());
             DIContainer.Register<IAIController>(() => new GeminiAPI());
+#if UNITY_EDITOR
+            DIContainer.Register<IAuthorizationController>(() => new UnitySignInController());
+#else
+            DIContainer.Register<IAuthorizationController>(() => new GoogleSignInController());
+#endif
         }
     }
 }
