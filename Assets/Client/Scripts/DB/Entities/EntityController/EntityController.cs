@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Linq;
 using System.Threading.Tasks;
 using Client.Scripts.DB.Entities.Base;
+using Client.Scripts.DB.Entities.CategoryEntity;
 using Client.Scripts.Patterns.DI.Base;
 using Client.Scripts.Patterns.DI.Services;
 using UnityEngine;
@@ -29,9 +30,9 @@ namespace Client.Scripts.DB.Entities.EntityController
             try
             {
                 //TODO:<dmitriy.sukharev> refactor
-                var categoryEntity = new CategoryEntity.UserCategoryEntity();
+                var categoryEntity = new UserCategoryEntity();
                 await categoryEntity.InitAsync();
-                _entities[typeof(CategoryEntity.UserCategoryEntity)] = categoryEntity;
+                _entities[typeof(UserCategoryEntity)] = categoryEntity;
                 var userEntity = new UserEntity.UserEntity();
                 await userEntity.InitAsync();
                 _entities[typeof(UserEntity.UserEntity)] = userEntity;

@@ -21,7 +21,6 @@ namespace Client.Scripts.DB.Entities.CategoryEntity
                         DataType.User,
                         GetEntryPath());
                 if (loadedGlobalCategories != null)
-                {
                     foreach (var (id, categoryData) in loadedGlobalCategories)
                     {
                         Entries[id] = categoryData;
@@ -32,7 +31,6 @@ namespace Client.Scripts.DB.Entities.CategoryEntity
                             _ => categoryData.UpdatedAt = DateTime.Now
                         );
                     }
-                }
             }
             catch (Exception e)
             {

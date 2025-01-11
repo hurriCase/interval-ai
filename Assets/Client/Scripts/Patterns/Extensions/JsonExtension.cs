@@ -2,7 +2,6 @@
 using System.Linq;
 using Newtonsoft.Json;
 
-
 namespace Client.Scripts.Patterns.Extensions
 {
     internal static class JsonExtension

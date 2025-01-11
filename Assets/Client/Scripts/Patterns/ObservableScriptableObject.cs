@@ -7,7 +7,7 @@ namespace Client.Scripts.Patterns
     {
         public event Action<T> OnValueChanged;
 
-        protected void NotifyValueChanged(T value) 
+        protected void NotifyValueChanged(T value)
             => OnValueChanged?.Invoke(value);
     }
 }

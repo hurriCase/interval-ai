@@ -76,15 +76,15 @@ namespace Client.Scripts.Patterns.ResourceLoader
         {
             var fullPath = GetFullPath(path);
             var cacheKey = GetCacheKey(fullPath);
-            
+
             _resourceCache.Remove(cacheKey);
             _resourceArrayCache.Remove(cacheKey);
         }
 
-        private string GetFullPath(string path) => 
+        private string GetFullPath(string path) =>
             string.IsNullOrEmpty(path) ? BasePath : $"{BasePath}{path}";
 
-        private string GetCacheKey(string path) => 
+        private string GetCacheKey(string path) =>
             $"{typeof(TResource).Name}:{ValidatePath(path)}";
 
         private static string ValidatePath(string path)

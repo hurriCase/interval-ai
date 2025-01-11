@@ -21,9 +21,11 @@ namespace Assets.SimpleLocalization.Scripts
     internal class LocalizationSettings : ScriptableObject
     {
         /// <summary>
-        /// Table Id on Google Sheets.
-        /// Let's say your table has the following URL https://docs.google.com/spreadsheets/d/1RvKY3VE_y5FPhEECCa5dv4F7REJ7rBtGzQg9Z_B_DE4/edit#gid=331980525
-        /// In this case, Table Id is "1RvKY3VE_y5FPhEECCa5dv4F7REJ7rBtGzQg9Z_B_DE4" and Sheet Id is "331980525" (the gid parameter).
+        ///     Table Id on Google Sheets.
+        ///     Let's say your table has the following URL
+        ///     https://docs.google.com/spreadsheets/d/1RvKY3VE_y5FPhEECCa5dv4F7REJ7rBtGzQg9Z_B_DE4/edit#gid=331980525
+        ///     In this case, Table Id is "1RvKY3VE_y5FPhEECCa5dv4F7REJ7rBtGzQg9Z_B_DE4" and Sheet Id is "331980525" (the gid
+        ///     parameter).
         /// </summary>
         public string TableId { get; set; }
 
@@ -198,9 +200,7 @@ namespace Assets.SimpleLocalization.Scripts
 
                 if (EditorUtility.DisplayCancelableProgressBar("Resolving sheets...", "Executing Google App Script...",
                         1))
-                {
                     yield break;
-                }
 
                 yield return request.SendWebRequest();
 
@@ -232,9 +232,7 @@ namespace Assets.SimpleLocalization.Scripts
                         $"{Sheets.Count} sheets resolved: {string.Join(", ", Sheets.Select(i => i.Name))}.", "OK");
                 }
                 else
-                {
                     throw new Exception(request.error);
-                }
             }
         }
 
@@ -242,7 +240,8 @@ namespace Assets.SimpleLocalization.Scripts
         {
             var matches = Regex.Matches(request.downloadHandler.text, @">(?<Message>.+?)<\/div>");
 
-            if (matches.Count == 0 && request.downloadHandler.text.Contains("Google Script ERROR:") is false) return null;
+            if (matches.Count == 0 && request.downloadHandler.text.Contains("Google Script ERROR:") is false)
+                return null;
 
             var error = matches.Count > 0
                 ? matches[1].Groups["Message"].Value.Replace("quot;", "")

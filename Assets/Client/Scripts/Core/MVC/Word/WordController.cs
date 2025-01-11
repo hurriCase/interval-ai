@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Client.Scripts.DB.Entities.Base;
-using Client.Scripts.DB.Entities.WordEntity;
 using Client.Scripts.DB.Entities.EntityController;
+using Client.Scripts.DB.Entities.WordEntity;
 using Client.Scripts.MVC.Base;
 
 namespace Client.Scripts.Core.MVC.Word
@@ -27,9 +27,6 @@ namespace Client.Scripts.Core.MVC.Word
             return await CreateEntry(content);
         }
 
-        protected override WordModel CreateModel(EntryData<WordEntryContent> data)
-        {
-            return new WordModel(data);
-        }
+        protected override WordModel CreateModel(EntryData<WordEntryContent> data) => new(data);
     }
 }

@@ -1,8 +1,8 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 using Client.Scripts.Core;
 using Client.Scripts.Core.SignIn;
 using Client.Scripts.Patterns.DI.Base;
+using UnityEngine;
 
 internal sealed class UnitySignInController : Injectable, IAuthorizationController
 {
@@ -47,7 +47,7 @@ internal sealed class UnitySignInController : Injectable, IAuthorizationControll
         }
         catch (Exception e)
         {
-            Debug.LogError($"[UnitySignInController::HandleSuccessfulSignIn] " +
+            Debug.LogError("[UnitySignInController::HandleSuccessfulSignIn] " +
                            $"Failed to signed in with mock user, with error: {e.Message}");
         }
     }

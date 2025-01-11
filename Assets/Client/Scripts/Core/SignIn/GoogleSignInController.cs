@@ -1,9 +1,9 @@
-using UnityEngine;
 using System.Threading.Tasks;
 using Client.Scripts.Core;
 using Client.Scripts.Core.SignIn;
 using Client.Scripts.Patterns.DI.Base;
 using Google;
+using UnityEngine;
 
 internal sealed class GoogleSignInController : Injectable, IAuthorizationController
 {

@@ -6,9 +6,6 @@ namespace Client.Scripts.MVC.Base
     {
         internal EntryData<TContent> Data { get; private set; }
 
-        protected ModelBase(EntryData<TContent> data)
-        {
-            Data = data;
-        }
+        protected ModelBase(EntryData<TContent> data) => Data = data;
     }
 }

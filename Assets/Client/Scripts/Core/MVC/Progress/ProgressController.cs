@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Client.Scripts.DB.Entities.Base;
-using Client.Scripts.DB.Entities.ProgressEntity;
 using Client.Scripts.DB.Entities.EntityController;
+using Client.Scripts.DB.Entities.ProgressEntity;
 using Client.Scripts.MVC.Base;
 
 namespace Client.Scripts.Core.MVC.Progress
@@ -27,9 +27,6 @@ namespace Client.Scripts.Core.MVC.Progress
             return await CreateEntry(content);
         }
 
-        protected override ProgressModel CreateModel(EntryData<ProgressEntryContent> data)
-        {
-            return new ProgressModel(data);
-        }
+        protected override ProgressModel CreateModel(EntryData<ProgressEntryContent> data) => new(data);
     }
 }

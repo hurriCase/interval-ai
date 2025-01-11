@@ -30,9 +30,6 @@ namespace Client.Scripts.Core
             source.Play();
         }
 
-        private static AudioClip GetRandomClip(AudioClip[] clips)
-        {
-            return clips[Random.Range(0, clips.Length)];
-        }
+        private static AudioClip GetRandomClip(AudioClip[] clips) => clips[Random.Range(0, clips.Length)];
     }
 }

@@ -2,7 +2,6 @@
 using System.Collections.Concurrent;
 using System.Linq;
 using System.Reflection;
-using Client.Scripts.Patterns.Singletons;
 using UnityEngine;
 
 namespace Client.Scripts.Patterns.DI.Base
@@ -72,7 +71,7 @@ namespace Client.Scripts.Patterns.DI.Base
 
         protected virtual void OnAwake() { }
     }
-    
+
     internal interface IInjectable
     {
         void InjectDependencies();

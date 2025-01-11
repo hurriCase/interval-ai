@@ -1,8 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Client.Scripts.DB.Entities.Base;
-using Client.Scripts.DB.Entities.UserEntity;
 using Client.Scripts.DB.Entities.EntityController;
+using Client.Scripts.DB.Entities.UserEntity;
 using Client.Scripts.MVC.Base;
 
 namespace Client.Scripts.Core.MVC.User
@@ -12,7 +11,7 @@ namespace Client.Scripts.Core.MVC.User
         public UserController(IEntityController entityController, IView<UserModel> view)
             : base(entityController, view) { }
 
-        protected override UserModel CreateModel(EntryData<UserEntryContent> data) 
+        protected override UserModel CreateModel(EntryData<UserEntryContent> data)
             => new(data);
 
         public async Task<bool> CreateUser(string userName, string password, string email)

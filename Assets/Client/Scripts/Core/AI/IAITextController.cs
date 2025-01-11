@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Client.Scripts.Core.AiController;
 
 namespace Client.Scripts.Patterns.DI.Services

@@ -34,14 +34,15 @@ namespace Client.Scripts.Core.StartUp
                     step.OnStepCompleted += LogStepCompletion;
                     await step.Execute(i);
                 }
-                
+
                 IsInited = true;
-                
+
                 OnInitializationCompleted?.Invoke();
             }
             catch (Exception e)
             {
-                Debug.LogError($"[StartUpController::InitializeApplication] Initialization failed, with error: {e.Message}");
+                Debug.LogError(
+                    $"[StartUpController::InitializeApplication] Initialization failed, with error: {e.Message}");
                 throw;
             }
         }

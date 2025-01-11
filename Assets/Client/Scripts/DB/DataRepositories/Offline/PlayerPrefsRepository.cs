@@ -67,11 +67,10 @@ namespace Client.Scripts.DB.DBControllers
             }
         }
 
-        public Task UpdateDataAsync<TData>(DataType dataType, string path, TData data)
-        {
+        public Task UpdateDataAsync<TData>(DataType dataType, string path, TData data) =>
+
             // In PlayerPrefs, Update is same as Write since we're overwriting the value
-            return WriteDataAsync(dataType, path, data);
-        }
+            WriteDataAsync(dataType, path, data);
 
         public Task DeleteDataAsync(DataType dataType, string path)
         {

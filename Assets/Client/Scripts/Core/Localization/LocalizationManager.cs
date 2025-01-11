@@ -7,12 +7,12 @@ using UnityEngine;
 namespace Assets.SimpleLocalization.Scripts
 {
     /// <summary>
-    /// Localization manager.
+    ///     Localization manager.
     /// </summary>
     internal static class LocalizationManager
     {
         /// <summary>
-        /// Fired when localization changed.
+        ///     Fired when localization changed.
         /// </summary>
         internal static event Action OnLocalizationChanged = () => { };
 
@@ -20,7 +20,7 @@ namespace Assets.SimpleLocalization.Scripts
         private static string _language = "English";
 
         /// <summary>
-        /// Get or set language.
+        ///     Get or set language.
         /// </summary>
         private static string Language
         {
@@ -33,12 +33,12 @@ namespace Assets.SimpleLocalization.Scripts
         }
 
         /// <summary>
-        /// Set default language.
+        ///     Set default language.
         /// </summary>
         private static void AutoLanguage() => Language = "English";
 
         /// <summary>
-        /// Read localization spreadsheets.
+        ///     Read localization spreadsheets.
         /// </summary>
         private static void Read()
         {
@@ -59,12 +59,8 @@ namespace Assets.SimpleLocalization.Scripts
                 }
 
                 for (var i = 1; i < languages.Count; i++)
-                {
                     if (!Dictionary.ContainsKey(languages[i]))
-                    {
                         Dictionary.Add(languages[i], new Dictionary<string, string>());
-                    }
-                }
 
                 for (var i = 1; i < lines.Count; i++)
                 {
@@ -84,13 +80,9 @@ namespace Assets.SimpleLocalization.Scripts
                     for (var j = 1; j < languages.Count; j++)
                     {
                         if (Dictionary[languages[j]].ContainsKey(key))
-                        {
                             Debug.LogError($"Duplicated key `{key}` in `{sheet.Name}`.");
-                        }
                         else
-                        {
                             Dictionary[languages[j]].Add(key, columns[j]);
-                        }
                     }
                 }
             }
@@ -99,22 +91,17 @@ namespace Assets.SimpleLocalization.Scripts
         }
 
         /// <summary>
-        /// Check if a key exists in localization.
+        ///     Check if a key exists in localization.
         /// </summary>
-        internal static bool HasKey(string localizationKey)
-        {
-            return Dictionary.ContainsKey(Language) && Dictionary[Language].ContainsKey(localizationKey);
-        }
+        internal static bool HasKey(string localizationKey) =>
+            Dictionary.ContainsKey(Language) && Dictionary[Language].ContainsKey(localizationKey);
 
         /// <summary>
-        /// Get localized value by localization key.
+        ///     Get localized value by localization key.
         /// </summary>
         internal static string Localize(string localizationKey)
         {
-            if (Dictionary.Count == 0)
-            {
-                Read();
-            }
+            if (Dictionary.Count == 0) Read();
 
             if (Dictionary.ContainsKey(Language) is false)
                 throw new KeyNotFoundException("Language not found: " + Language);
@@ -135,7 +122,7 @@ namespace Assets.SimpleLocalization.Scripts
         }
 
         /// <summary>
-        /// Get localized value by localization key.
+        ///     Get localized value by localization key.
         /// </summary>
         internal static string Localize(string localizationKey, params object[] args)
         {

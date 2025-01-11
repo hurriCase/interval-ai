@@ -185,7 +185,6 @@ namespace Client.Scripts.DB.DataRepositories.Cloud
             var registration = docRef.Listen(snapshot =>
             {
                 if (snapshot.Exists)
-                {
                     try
                     {
                         var dictionary = snapshot.ConvertTo<Dictionary<string, object>>();
@@ -198,7 +197,6 @@ namespace Client.Scripts.DB.DataRepositories.Cloud
                         Debug.LogError(
                             $"[FirestoreRepository::ListenForValueChanged] Deserialization error: {e.Message}");
                     }
-                }
             });
 
             _listeners[listenerKey] = registration;

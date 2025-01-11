@@ -9,10 +9,10 @@ namespace Client.Scripts.Core.AiController
         [Tooltip("List of sequences where the model should stop generating further tokens")]
         [JsonProperty("stopSequences")]
         internal string[] StopSequences { get; set; }
-        
+
         [JsonProperty("responseMimeType")]
         internal string ResponseMimeTypeString => ResponseMimeType.GetJsonPropertyName();
-        
+
         [Tooltip("Specifies the format of the response (e.g. 'text/plain', 'application/json')")]
         [JsonIgnore]
         internal ResponseMimeType ResponseMimeType { get; set; }
@@ -55,8 +55,8 @@ namespace Client.Scripts.Core.AiController
 
         [Tooltip("Number of most probable tokens to return per position")]
         [JsonProperty("logprobs", NullValueHandling = NullValueHandling.Ignore)]
-        internal int? Logprobs 
-        { 
+        internal int? Logprobs
+        {
             get => ResponseLogprobs ? _logprobs : null;
             set => _logprobs = value ?? 3;
         }

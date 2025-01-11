@@ -3,9 +3,9 @@ using UnityEngine.UI;
 
 namespace Assets.SimpleLocalization.Scripts
 {
-	/// <summary>
-	/// Localize text component.
-	/// </summary>
+    /// <summary>
+    ///     Localize text component.
+    /// </summary>
     [RequireComponent(typeof(Text))]
     public class LocalizedText : MonoBehaviour
     {

@@ -25,9 +25,7 @@ namespace Client.Scripts.Editor.Localization
                     "Do you want to reset settings?",
                     "Yes",
                     "No"))
-            {
                 LocalizationSettings.Instance.Reset();
-            }
         }
 
         private void MakeSettingsWindow()
@@ -75,7 +73,7 @@ namespace Client.Scripts.Editor.Localization
                         TextAsset = property.FindPropertyRelative("TextAsset").objectReferenceValue as TextAsset
                     });
 
-                    if (i < lastIndex) 
+                    if (i < lastIndex)
                         property.Next(false);
                 }
             }

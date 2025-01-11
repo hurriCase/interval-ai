@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Client.Scripts.Editor.Localization
 {
     /// <summary>
-    /// Adds "Sync" button to LocalizationSync script.
+    ///     Adds "Sync" button to LocalizationSync script.
     /// </summary>
     [CustomEditor(typeof(LocalizationSync))]
     public class LocalizationSyncEditor : UnityEditor.Editor

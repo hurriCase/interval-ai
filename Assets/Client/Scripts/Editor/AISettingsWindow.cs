@@ -1,11 +1,11 @@
-﻿using UnityEngine;
-using UnityEditor;
+﻿using System;
 using Client.Scripts.Core.AI;
 using Client.Scripts.Core.AiController;
 using Client.Scripts.DB.DBControllers;
-using Client.Scripts.Patterns.Extensions;
-using System;
 using Client.Scripts.Patterns.DI.Services;
+using Client.Scripts.Patterns.Extensions;
+using UnityEditor;
+using UnityEngine;
 
 namespace Client.Scripts.Editor
 {

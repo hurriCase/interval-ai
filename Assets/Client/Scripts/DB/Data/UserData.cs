@@ -9,9 +9,9 @@ namespace Client.Scripts.Core
         internal static UserData Instance => _instance ?? (_instance = DataLoader.LoadUserData<UserData>());
         private static UserData _instance;
 
-        [SerializeField, InspectorReadOnly] private string _userId;
-        [SerializeField, InspectorReadOnly] private string _temporaryGuestId;
-        [SerializeField, InspectorReadOnly] private LogInType _logInType;
+        [SerializeField] [InspectorReadOnly] private string _userId;
+        [SerializeField] [InspectorReadOnly] private string _temporaryGuestId;
+        [SerializeField] [InspectorReadOnly] private LogInType _logInType;
 
         public string UserID
         {

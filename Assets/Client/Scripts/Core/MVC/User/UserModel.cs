@@ -1,5 +1,4 @@
-﻿using System;
-using Client.Scripts.DB.Entities.Base;
+﻿using Client.Scripts.DB.Entities.Base;
 using Client.Scripts.DB.Entities.UserEntity;
 using Client.Scripts.MVC.Base;
 
