@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace Client.Scripts.Core
 {
-    internal sealed class ConfigLoader : ResourceLoaderBase<ScriptableObject>
+    internal sealed class DataLoader : ResourceLoaderBase<ScriptableObject>
     {
-        private static readonly ConfigLoader _instance = new();
-        protected override string BasePath => "Configs/";
+        private static readonly DataLoader _instance = new();
+        protected override string BasePath => "Data/";
 
         internal static T LoadConfig<T>(string path) where T : ScriptableObject =>
             _instance.Load(path) as T;
@@ -26,5 +26,7 @@ namespace Client.Scripts.Core
 
         internal static T[] LoadAllConfigs<T>(string subfolder = "") where T : ScriptableObject =>
             Array.ConvertAll(_instance.LoadAll(subfolder), obj => obj as T);
+
+        internal static T LoadUserData<T>() where T : ScriptableObject => LoadConfig<T>("UserData");
     }
 }
