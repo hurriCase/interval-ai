@@ -56,15 +56,13 @@ namespace Client.Scripts.Core
             LogInType = dto.LogInType;
         }
 
-        internal UserDataDTO ToDTO()
-        {
-            return new UserDataDTO
+        internal UserDataDTO ToDTO() =>
+            new()
             {
                 UserID = UserID,
                 TemporaryGuestId = TemporaryGuestId,
                 LogInType = LogInType
             };
-        }
     }
 
     [Serializable]

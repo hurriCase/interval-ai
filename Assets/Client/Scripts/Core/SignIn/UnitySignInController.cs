@@ -22,7 +22,10 @@ internal sealed class UnitySignInController : Injectable, IAuthorizationControll
     public void SignOut()
     {
         Debug.Log("[DevAuthController::SignOut] Development sign out");
+
         _mockUserId = null;
+
+        _userDataController.InitAsGuest();
     }
 
     private async void HandleSuccessfulSignIn()
@@ -32,9 +35,7 @@ internal sealed class UnitySignInController : Injectable, IAuthorizationControll
             var wasGuest = UserData.Instance.LogInType == LogInType.Guest;
 
             if (wasGuest)
-            {
                 await _userDataController.TransitionFromGuestToAuthenticated(_mockUserId);
-            }
             else
             {
                 UserData.Instance.LogInType = LogInType.GoogleSignIn;
