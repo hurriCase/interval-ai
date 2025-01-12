@@ -9,28 +9,39 @@ namespace Client.Scripts.DB.Entities.Word
     internal sealed class WordEntryContent
     {
         [JsonProperty("categoryId")]
-        [Required]
+        [Validation]
         public string CategoryId { get; set; }
 
         [JsonProperty("nativeWord")]
-        [StringLength(1, 100)]
-        [Required]
+        [Validation]
         public string NativeWord { get; set; }
 
         [JsonProperty("learningWord")]
-        [StringLength(1, 100)]
-        [Required]
+        [Validation]
         public string LearningWord { get; set; }
 
-        [JsonProperty("transcription")] public string Transcription { get; set; }
-        [JsonProperty("examples")] public List<Example> Examples { get; set; } = new();
-        [JsonProperty("isDefault")] public bool IsDefault { get; set; }
+        [JsonProperty("transcription")]
+        [Validation]
+        public string Transcription { get; set; }
+
+        [JsonProperty("examples")]
+        [Validation]
+        public List<Example> Examples { get; set; } = new();
+
+        [JsonProperty("isDefault")]
+        [Validation]
+        public bool IsDefault { get; set; }
 
         [Serializable]
         internal sealed class Example
         {
-            [JsonProperty("nativeSentence")] public string NativeSentence { get; set; }
-            [JsonProperty("learningSentence")] public string LearningSentence { get; set; }
+            [JsonProperty("nativeSentence")]
+            [Validation]
+            public string NativeSentence { get; set; }
+
+            [JsonProperty("learningSentence")]
+            [Validation]
+            public string LearningSentence { get; set; }
         }
     }
 }

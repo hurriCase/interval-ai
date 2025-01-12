@@ -16,6 +16,7 @@ namespace Client.Scripts.DB.Entities.Base
         where TContent : class, new()
     {
         [Inject] protected ICloudRepository cloudRepository;
+        [Inject] protected IEntityValidationController entityValidationController;
 
         public ConcurrentDictionary<string, EntryData<TContent>> Entries { get; set; } = new();
         protected abstract string EntityPath { get; }
@@ -75,7 +76,7 @@ namespace Client.Scripts.DB.Entities.Base
             if (CheckEntityBaseInit() is false)
                 return null;
 
-            var validation = ValidateEntryContent(content);
+            var validation = entityValidationController.ValidateEntityContent(GetType().Name, content);
             if (validation.IsValid is false)
             {
                 Debug.LogError("[EntityBase::CreateEntryAsync] Validation failed:" +
@@ -112,7 +113,7 @@ namespace Client.Scripts.DB.Entities.Base
             if (CheckEntityBaseInit() is false)
                 return null;
 
-            var validation = ValidateEntryContent(entry.Content);
+            var validation = entityValidationController.ValidateEntityContent(GetType().Name, entry.Content);
             if (validation.IsValid is false)
             {
                 Debug.LogError("[EntityBase::UpdateEntryAsync] Validation failed:" +
@@ -154,30 +155,6 @@ namespace Client.Scripts.DB.Entities.Base
             await cloudRepository.DeleteDataAsync(DataType.User, GetEntryPath(entryData.Id));
 
             return entryData;
-        }
-
-        private ValidationResult ValidateEntryContent(TContent content)
-        {
-            if (CheckEntityBaseInit() is false)
-                return null;
-
-            var properties = typeof(TContent).GetProperties();
-            var result = new ValidationResult();
-            foreach (var prop in properties)
-            {
-                var value = prop.GetValue(content);
-                var validationAttributes =
-                    prop.GetCustomAttributes<ValidationAttributeBase>();
-
-                foreach (var attribute in validationAttributes)
-                {
-                    var (isValid, error) = attribute.Validate(value);
-                    if (!isValid)
-                        result.Errors.Add($"{prop.Name}: {error}");
-                }
-            }
-
-            return result;
         }
 
         private bool CheckEntityBaseInit()

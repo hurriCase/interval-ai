@@ -1,5 +1,6 @@
 using Client.Scripts.Core;
 using Client.Scripts.DB.Data;
+using Client.Scripts.DB.Entities.Base.Validation;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -23,10 +24,13 @@ namespace Client.Scripts.Editor
         [MenuItem("Project/Configs/AppConfig", priority = 5)]
         public static void SelectAppConfig() => Selection.activeObject = AppConfig.Instance;
 
-        [MenuItem("Project/Configs/DBConfig", priority = 6)]
+        [MenuItem("Project/Configs/DBConfig", priority = 5)]
         public static void SelectDBConfig() => Selection.activeObject = DBConfig.Instance;
 
-        [MenuItem("Project/Data/UserData", priority = 7)]
+        [MenuItem("Project/Configs/EntityValidationConfig", priority = 5)]
+        public static void SelectEntityValidationConfig() => Selection.activeObject = EntityValidationConfig.Instance;
+
+        [MenuItem("Project/Data/UserData", priority = 6)]
         public static void SelectUserData() => Selection.activeObject = UserData.Instance;
 
         private static void OpenScene(string sceneName)

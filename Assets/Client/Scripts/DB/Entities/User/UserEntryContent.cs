@@ -8,18 +8,13 @@ namespace Client.Scripts.DB.Entities.User
     internal sealed class UserEntryContent
     {
         [JsonProperty("userName")]
-        [StringLength(1, 25)]
-        [Required]
+        [Validation]
         public string UserName { get; set; }
 
         [JsonProperty("password")]
-        [StringLength(6, 25)]
-        [Required]
+        [Validation]
         public string Password { get; set; }
 
-        [JsonProperty("email")]
-        [StringLength(5, 100)]
-        [Required]
-        public string Email { get; set; }
+        [JsonProperty("email")] [Validation] public string Email { get; set; }
     }
 }

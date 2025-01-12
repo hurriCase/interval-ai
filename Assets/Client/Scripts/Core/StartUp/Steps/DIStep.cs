@@ -6,6 +6,7 @@ using Client.Scripts.Core.SignIn;
 using Client.Scripts.DB.Data;
 using Client.Scripts.DB.DataRepositories.Cloud;
 using Client.Scripts.DB.DataRepositories.Offline;
+using Client.Scripts.DB.Entities.Base.Validation;
 using Client.Scripts.DB.Entities.EntityController;
 using Client.Scripts.Patterns.DI.Base;
 using UnityEngine;
@@ -36,11 +37,12 @@ namespace Client.Scripts.Core.StartUp.Steps
         private void RegisterServices()
         {
             DIContainer.RegisterSingleton<IAudioController>(AudioController.Instance);
-            DIContainer.Register<ICloudRepository>(() => new CloudRepository());
+            DIContainer.Register<ICloudRepository>(() => new FireBaseRepository());
             DIContainer.Register<IOfflineRepository>(() => new PlayerPrefsRepository());
             DIContainer.Register<IEntityController>(() => new EntityController());
             DIContainer.Register<IUserDataController>(() => new UserDataController());
             DIContainer.Register<IAIController>(() => new GeminiAPI());
+            DIContainer.Register<IEntityValidationController>(() => new EntityValidationController());
 #if UNITY_EDITOR
             DIContainer.Register<IAuthorizationController>(() => new UnitySignInController());
 #else

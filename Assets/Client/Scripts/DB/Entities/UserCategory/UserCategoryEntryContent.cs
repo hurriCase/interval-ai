@@ -10,15 +10,12 @@ namespace Client.Scripts.DB.Entities.UserCategory
     [Serializable]
     internal sealed class UserCategoryEntryContent
     {
-        [JsonProperty("title")]
-        [StringLength(3, 50)]
-        [Required]
-        public string Title { get; set; }
+        [JsonProperty("title")] [Validation] public string Title { get; set; }
 
         [JsonProperty("description")]
-        [StringLength(3, 250)]
+        [Validation]
         public string Description { get; set; }
 
-        [JsonProperty("words")] public List<EntryData<WordEntryContent>> Words { get; set; } = new();
+        [JsonProperty("words")] [Validation] public List<EntryData<WordEntryContent>> Words { get; set; } = new();
     }
 }

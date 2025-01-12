@@ -28,5 +28,8 @@ namespace Client.Scripts.Patterns.ResourceLoader.ConfigLoader
 
         internal static T LoadAppConfig<T>() where T : ScriptableObject => LoadConfig<T>("AppConfig");
         internal static T LoadDBConfig<T>() where T : ScriptableObject => LoadConfig<T>("DBConfig");
+
+        internal static T LoadEntityValidationConfig<T>() where T : ScriptableObject =>
+            LoadConfig<T>("EntityValidationConfig");
     }
 }
