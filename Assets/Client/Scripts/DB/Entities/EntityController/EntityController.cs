@@ -1,26 +1,27 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Client.Scripts.DB.DataRepositories.Cloud;
 using Client.Scripts.DB.Entities.Base;
-using Client.Scripts.DB.Entities.CategoryEntity;
 using Client.Scripts.Patterns.DI.Base;
-using Client.Scripts.Patterns.DI.Services;
 using UnityEngine;
 using Exception = System.Exception;
 
 namespace Client.Scripts.DB.Entities.EntityController
 {
-    internal class EntityController : Injectable, IEntityController
+    internal sealed class EntityController : Injectable, IEntityController
     {
         [Inject] private ICloudRepository _cloudRepository;
-        private readonly ConcurrentDictionary<Type, object> _entities = new();
+
+        private ConcurrentDictionary<Type, object> _entities = new();
         private bool _isInited;
 
-        public event Action<Type> OnEntryCreated;
-        public event Action<Type> OnEntryRead;
-        public event Action<Type> OnEntryUpdated;
-        public event Action<Type> OnEntryDeleted;
+        public event Action<Type, object> OnEntryCreated;
+        public event Action<Type, object> OnEntryRead;
+        public event Action<Type, object> OnEntryUpdated;
+        public event Action<Type, object> OnEntryDeleted;
 
         public async Task InitAsync()
         {
@@ -29,19 +30,7 @@ namespace Client.Scripts.DB.Entities.EntityController
 
             try
             {
-                //TODO:<dmitriy.sukharev> refactor
-                var categoryEntity = new UserCategoryEntity();
-                await categoryEntity.InitAsync();
-                _entities[typeof(UserCategoryEntity)] = categoryEntity;
-                var userEntity = new UserEntity.UserEntity();
-                await userEntity.InitAsync();
-                _entities[typeof(UserEntity.UserEntity)] = userEntity;
-                var wordEntity = new WordEntity.WordEntity();
-                await wordEntity.InitAsync();
-                _entities[typeof(WordEntity.WordEntity)] = wordEntity;
-                var progressEntity = new ProgressEntity.ProgressEntity();
-                await progressEntity.InitAsync();
-                _entities[typeof(ProgressEntity.ProgressEntity)] = progressEntity;
+                _entities = await EntityFactory.CreateEntitiesAsync();
 
                 _isInited = true;
 
@@ -69,7 +58,7 @@ namespace Client.Scripts.DB.Entities.EntityController
 
                 var createdEntry = await entity.CreateEntryAsync(content);
 
-                OnEntryCreated?.Invoke(typeof(TContent));
+                OnEntryCreated?.Invoke(typeof(TEntity), createdEntry.Content);
 
                 return createdEntry != null
                     ? EntityResult<TContent>.Success(createdEntry)
@@ -99,7 +88,7 @@ namespace Client.Scripts.DB.Entities.EntityController
 
                 var readEntry = await entity.ReadEntryAsync(id);
 
-                OnEntryRead?.Invoke(typeof(TContent));
+                OnEntryRead?.Invoke(typeof(TEntity), readEntry.Content);
 
                 return readEntry != null
                     ? EntityResult<TContent>.Success(readEntry)
@@ -131,7 +120,7 @@ namespace Client.Scripts.DB.Entities.EntityController
 
                 var updatedEntry = await entity.UpdateEntryAsync(entry);
 
-                OnEntryUpdated?.Invoke(typeof(TContent));
+                OnEntryUpdated?.Invoke(typeof(TEntity), updatedEntry.Content);
 
                 return updatedEntry != null
                     ? EntityResult<TContent>.Success(updatedEntry)
@@ -159,12 +148,11 @@ namespace Client.Scripts.DB.Entities.EntityController
                     return EntityResult<TContent>.Failure("[EntityController::DeleteEntryAsync] " +
                                                           "Entity type not registered");
 
-                var entryToDelete = entity.Entries?.Values
-                    .FirstOrDefault(e => e.Id == id);
+                var entryToDelete = FindEntryById<TEntity, TContent>(id);
 
                 var deletedEntity = await entity.DeleteEntryAsync(entryToDelete);
 
-                OnEntryDeleted?.Invoke(typeof(TContent));
+                OnEntryDeleted?.Invoke(typeof(TEntity), deletedEntity.Content);
 
                 return deletedEntity != null
                     ? EntityResult<TContent>.Success(deletedEntity)
@@ -191,6 +179,18 @@ namespace Client.Scripts.DB.Entities.EntityController
             return entity?.Entries?.Values
                 .Where(predicate)
                 .ToArray();
+        }
+
+        public EntryData<TContent> FindEntryById<TEntity, TContent>(string id)
+            where TEntity : IEntity<TContent>
+            where TContent : class
+        {
+            if (CheckEntityControllerInit() is false)
+                return null;
+
+            var entity = GetEntity<TEntity, TContent>();
+
+            return entity?.Entries?.GetValueOrDefault(id);
         }
 
         public async Task<bool> ExistsAsync<TEntity, TContent>(string id)

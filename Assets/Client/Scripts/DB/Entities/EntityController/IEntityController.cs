@@ -6,10 +6,10 @@ namespace Client.Scripts.DB.Entities.EntityController
 {
     internal interface IEntityController
     {
-        event Action<Type> OnEntryCreated;
-        event Action<Type> OnEntryRead;
-        event Action<Type> OnEntryUpdated;
-        event Action<Type> OnEntryDeleted;
+        event Action<Type, object> OnEntryCreated;
+        event Action<Type, object> OnEntryRead;
+        event Action<Type, object> OnEntryUpdated;
+        event Action<Type, object> OnEntryDeleted;
         Task InitAsync();
 
         Task<EntityResult<TContent>> CreateEntryAsync<TEntity, TContent>(TContent content)
@@ -31,6 +31,10 @@ namespace Client.Scripts.DB.Entities.EntityController
 
         EntryData<TContent>[] FindEntries<TEntity, TContent>
             (Func<EntryData<TContent>, bool> predicate)
+            where TEntity : IEntity<TContent>
+            where TContent : class;
+
+        EntryData<TContent> FindEntryById<TEntity, TContent>(string id)
             where TEntity : IEntity<TContent>
             where TContent : class;
 
