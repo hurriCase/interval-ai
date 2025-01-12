@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Client.Scripts.DB.Data;
 using Client.Scripts.DB.Entities.Base;
-using Client.Scripts.Patterns.DI.Services;
 using UnityEngine;
 using Exception = System.Exception;
 
-namespace Client.Scripts.DB.Entities.CategoryEntity
+namespace Client.Scripts.DB.Entities.UserCategory
 {
     internal sealed class UserCategoryEntity : EntityBase<UserCategoryEntryContent>
     {

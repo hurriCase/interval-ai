@@ -21,16 +21,16 @@ namespace Client.Scripts.Core.StartUp
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static async void InitializeApplication()
         {
-            if (IsInited)
-                return;
-
             try
             {
+                if (IsInited)
+                    return;
+
                 var stepFactory = new StepFactory();
 
                 for (var i = 0; i < _stepTypes.Count; i++)
                 {
-                    var step = stepFactory.CreateStep(_stepTypes[i]);
+                    var step = StepFactory.CreateStep(_stepTypes[i]);
                     step.OnStepCompleted += LogStepCompletion;
                     await step.Execute(i);
                 }

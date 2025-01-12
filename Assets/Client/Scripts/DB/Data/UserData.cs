@@ -1,8 +1,10 @@
 ﻿using System;
 using Client.Scripts.Patterns;
+using Client.Scripts.Patterns.Attributes;
+using Client.Scripts.Patterns.ResourceLoader.DataLoader;
 using UnityEngine;
 
-namespace Client.Scripts.Core
+namespace Client.Scripts.DB.Data
 {
     internal sealed class UserData : ObservableScriptableObject<UserData>
     {

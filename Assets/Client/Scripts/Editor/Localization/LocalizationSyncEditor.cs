@@ -1,4 +1,4 @@
-﻿using Assets.SimpleLocalization.Scripts;
+﻿using Client.Scripts.Core.Localization;
 using UnityEditor;
 using UnityEngine;
 
@@ -8,7 +8,7 @@ namespace Client.Scripts.Editor.Localization
     ///     Adds "Sync" button to LocalizationSync script.
     /// </summary>
     [CustomEditor(typeof(LocalizationSync))]
-    public class LocalizationSyncEditor : UnityEditor.Editor
+    public sealed class LocalizationSyncEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {

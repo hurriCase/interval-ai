@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Client.Scripts.DB.Entities.Base;
 using Client.Scripts.DB.Entities.EntityController;
 
-namespace Client.Scripts.MVC.Base
+namespace Client.Scripts.Core.MVC.Base
 {
     internal abstract class ControllerBase<TEntity, TContent, TModel>
         where TEntity : IEntity<TContent>
@@ -47,7 +47,7 @@ namespace Client.Scripts.MVC.Base
 
         protected abstract TModel CreateModel(EntryData<TContent> data);
 
-        private void OnEntryChanged(Type type)
+        private void OnEntryChanged(Type type, object content)
         {
             if (type != typeof(TContent)) return;
             RefreshView();
@@ -56,7 +56,7 @@ namespace Client.Scripts.MVC.Base
         private void RefreshView()
         {
             _view.ClearView();
-            var entries = _entityController.FindEntries<TEntity, TContent>(entry => true);
+            var entries = _entityController.FindEntries<TEntity, TContent>(_ => true);
 
             if (entries == null) return;
 

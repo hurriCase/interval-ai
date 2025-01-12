@@ -1,10 +1,11 @@
 using System;
+using Client.Scripts.Core.Audio;
+using Client.Scripts.DB.DataRepositories.Cloud;
 using Client.Scripts.Patterns.DI.Base;
-using Client.Scripts.Patterns.DI.Services;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Client.Scripts.UI
+namespace Client.Scripts.UI.Base
 {
     internal sealed class ButtonComponent : InjectableBehaviour, IPointerClickHandler
     {

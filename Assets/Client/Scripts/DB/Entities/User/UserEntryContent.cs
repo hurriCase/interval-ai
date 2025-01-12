@@ -2,7 +2,7 @@
 using Client.Scripts.DB.Entities.Base.Validation;
 using Newtonsoft.Json;
 
-namespace Client.Scripts.DB.Entities.UserEntity
+namespace Client.Scripts.DB.Entities.User
 {
     [Serializable]
     internal sealed class UserEntryContent

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Client.Scripts.DB.DBControllers;
+using Client.Scripts.DB.DataRepositories.Cloud;
+using Client.Scripts.DB.DataRepositories.Offline;
 using Client.Scripts.Patterns.DI.Base;
-using Client.Scripts.Patterns.DI.Services;
 using UnityEngine;
 
-namespace Client.Scripts.Core
+namespace Client.Scripts.DB.Data
 {
     internal sealed class UserDataController : Injectable, IUserDataController
     {

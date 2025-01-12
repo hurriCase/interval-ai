@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Client.Scripts.Patterns
+namespace Client.Scripts.Patterns.Attributes
 {
     [AttributeUsage(AttributeTargets.Class)]
     internal sealed class ResourceAttribute : Attribute

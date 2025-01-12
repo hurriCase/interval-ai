@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Client.Scripts.MVC.Categories
+namespace Client.Scripts.Core.MVC.Category
 {
     internal class CategoryItemView : MonoBehaviour
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Assets.SimpleLocalization.Scripts
+namespace Client.Scripts.Core.Localization
 {
     [Serializable]
     internal class Sheet

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Client.Scripts.Core;
 using Client.Scripts.DB.Entities.Base;
-using Client.Scripts.DB.Entities.CategoryEntity;
+using Client.Scripts.DB.Entities.GlobalCategory;
 using Client.Scripts.DB.Entities.ProgressEntity;
-using Client.Scripts.DB.Entities.UserEntity;
-using Client.Scripts.DB.Entities.WordEntity;
+using Client.Scripts.DB.Entities.User;
+using Client.Scripts.DB.Entities.UserCategory;
+using Client.Scripts.DB.Entities.Word;
 using Client.Scripts.Patterns.DI.Base;
 using Client.Scripts.Patterns.Extensions;
 using NUnit.Framework;
@@ -15,14 +16,14 @@ using UnityEngine.TestTools;
 
 namespace Client.Tests.Runtime
 {
-    internal class EntityBaseTests : Injectable
+    internal sealed class EntityBaseTests : Injectable
     {
         private readonly List<EntryData<UserEntryContent>> _createdUserEntities = new();
         private readonly List<EntryData<UserCategoryEntryContent>> _createdUserCategoryEntities = new();
         private readonly List<EntryData<GlobalCategoryEntryContent>> _createdGlobalCategoryEntities = new();
         private readonly List<EntryData<WordEntryContent>> _createdWordEntities = new();
         private readonly List<EntryData<ProgressEntryContent>> _createdProgressEntities = new();
-        
+
         private UserEntity _userEntity;
         private UserCategoryEntity _userCategoryEntity;
         private GlobalCategoryEntity _globalCategoryEntity;
@@ -67,7 +68,7 @@ namespace Client.Tests.Runtime
 
             foreach (var entity in _createdGlobalCategoryEntities)
                 yield return _globalCategoryEntity.DeleteEntryAsync(entity).WaitForTask();
-            
+
             foreach (var entity in _createdWordEntities)
                 yield return _wordEntity.DeleteEntryAsync(entity).WaitForTask();
 

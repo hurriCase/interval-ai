@@ -1,8 +1,8 @@
-﻿using Client.Scripts.DB.Entities.Base;
-using Client.Scripts.DB.Entities.CategoryEntity;
-using Client.Scripts.MVC.Base;
+﻿using Client.Scripts.Core.MVC.Base;
+using Client.Scripts.DB.Entities.Base;
+using Client.Scripts.DB.Entities.UserCategory;
 
-namespace Client.Scripts.MVC.Categories
+namespace Client.Scripts.Core.MVC.Category
 {
     internal class CategoryModel : ModelBase<UserCategoryEntryContent>
     {

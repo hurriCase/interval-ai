@@ -1,8 +1,6 @@
 ﻿using System.Threading.Tasks;
-using Client.Scripts.Core.AiController;
 
-namespace Client.Scripts.Patterns.DI.Services
-
+namespace Client.Scripts.Core.AI
 {
     internal interface IAIController
     {

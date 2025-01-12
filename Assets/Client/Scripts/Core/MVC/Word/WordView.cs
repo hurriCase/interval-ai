@@ -1,9 +1,9 @@
-﻿using Client.Scripts.MVC.Base;
+﻿using Client.Scripts.Core.MVC.Base;
 using UnityEngine;
 
 namespace Client.Scripts.Core.MVC.Word
 {
-    internal class WordView : MonoBehaviour, IView<WordModel>
+    internal sealed class WordView : MonoBehaviour, IView<WordModel>
     {
         [SerializeField] private Transform _wordContainer;
         [SerializeField] private GameObject _wordItemPrefab;

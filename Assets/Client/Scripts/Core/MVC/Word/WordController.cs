@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Client.Scripts.Core.MVC.Base;
 using Client.Scripts.DB.Entities.Base;
 using Client.Scripts.DB.Entities.EntityController;
-using Client.Scripts.DB.Entities.WordEntity;
-using Client.Scripts.MVC.Base;
+using Client.Scripts.DB.Entities.Word;
 
 namespace Client.Scripts.Core.MVC.Word
 {
-    internal class WordController : ControllerBase<WordEntity, WordEntryContent, WordModel>
+    internal sealed class WordController : ControllerBase<WordEntity, WordEntryContent, WordModel>
     {
         internal WordController(IEntityController entityController, IView<WordModel> view)
             : base(entityController, view) { }

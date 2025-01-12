@@ -1,8 +1,7 @@
 ﻿using System;
 using Client.Scripts.Core.AI;
-using Client.Scripts.Core.AiController;
-using Client.Scripts.DB.DBControllers;
-using Client.Scripts.Patterns.DI.Services;
+using Client.Scripts.DB.Data;
+using Client.Scripts.DB.DataRepositories.Cloud;
 using Client.Scripts.Patterns.Extensions;
 using UnityEditor;
 using UnityEngine;

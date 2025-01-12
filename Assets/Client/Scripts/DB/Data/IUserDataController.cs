@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace Client.Scripts.Core
+namespace Client.Scripts.DB.Data
 {
     internal interface IUserDataController
     {

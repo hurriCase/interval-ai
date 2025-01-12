@@ -1,6 +1,6 @@
 ﻿using Client.Scripts.DB.Entities.Base;
 
-namespace Client.Scripts.MVC.Base
+namespace Client.Scripts.Core.MVC.Base
 {
     internal abstract class ModelBase<TContent> where TContent : class
     {

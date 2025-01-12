@@ -1,6 +1,7 @@
 using System;
 using System.Reflection;
 using Client.Scripts.Patterns;
+using Client.Scripts.Patterns.Attributes;
 using UnityEngine;
 using Object = UnityEngine.Object;
 

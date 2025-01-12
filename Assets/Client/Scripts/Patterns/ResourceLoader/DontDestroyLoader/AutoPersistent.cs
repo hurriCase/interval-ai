@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using Client.Scripts.Core;
 using UnityEngine;
 
-namespace Client.Scripts.Patterns.ResourceLoader
+namespace Client.Scripts.Patterns.ResourceLoader.DontDestroyLoader
 {
     internal sealed class AutoPersistent : MonoBehaviour
     {

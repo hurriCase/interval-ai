@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using Client.Scripts.Core;
 using Client.Scripts.Core.StartUp;
 using Client.Scripts.DB.Entities.Base;
-using Client.Scripts.DB.Entities.CategoryEntity;
 using Client.Scripts.DB.Entities.EntityController;
 using Client.Scripts.DB.Entities.ProgressEntity;
-using Client.Scripts.DB.Entities.UserEntity;
-using Client.Scripts.DB.Entities.WordEntity;
+using Client.Scripts.DB.Entities.User;
+using Client.Scripts.DB.Entities.UserCategory;
+using Client.Scripts.DB.Entities.Word;
 using Client.Scripts.Patterns.DI.Base;
 using Client.Scripts.Patterns.Extensions;
 using NUnit.Framework;
@@ -17,7 +17,7 @@ using UnityEngine.TestTools;
 
 namespace Client.Tests.Runtime
 {
-    internal class EntityControllerTests : Injectable
+    internal sealed class EntityControllerTests : Injectable
     {
         [Inject] private IEntityController _entityController;
 
@@ -103,7 +103,7 @@ namespace Client.Tests.Runtime
             }
         }
 
-        public class TestParams<TEntity, TContent>
+        public sealed class TestParams<TEntity, TContent>
             where TEntity : IEntity<TContent>
             where TContent : class
         {
@@ -461,7 +461,7 @@ namespace Client.Tests.Runtime
         {
             // Arrange
             var eventTriggered = false;
-            _entityController.OnEntryCreated += _ => eventTriggered = true;
+            _entityController.OnEntryCreated += (_, _) => eventTriggered = true;
 
             var userData = new UserEntryContent
             {

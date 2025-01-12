@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Client.Scripts.Core.MVC.User
 {
-    internal class UserItemView : MonoBehaviour
+    internal sealed class UserItemView : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _userNameText;
         [SerializeField] private TextMeshProUGUI _passwordText;

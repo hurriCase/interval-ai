@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Client.Scripts.DB.Entities.Base.Validation;
 using Newtonsoft.Json;
 
-namespace Client.Scripts.DB.Entities.WordEntity
+namespace Client.Scripts.DB.Entities.Word
 {
     [Serializable]
     internal sealed class WordEntryContent

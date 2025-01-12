@@ -5,17 +5,13 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
+using Unity.EditorCoroutines.Editor;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
 using Object = UnityEngine.Object;
 
-#if UNITY_EDITOR
-using UnityEditor;
-using Unity.EditorCoroutines.Editor;
-
-#endif
-
-namespace Assets.SimpleLocalization.Scripts
+namespace Client.Scripts.Core.Localization
 {
     [CreateAssetMenu(fileName = "LocalizationSettings", menuName = "Localization/Settings")]
     internal class LocalizationSettings : ScriptableObject

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Client.Scripts.DB.Data;
 
-namespace Client.Scripts.Patterns.DI.Services
+namespace Client.Scripts.DB.DataRepositories.Cloud
 {
     internal interface ICloudRepository
     {

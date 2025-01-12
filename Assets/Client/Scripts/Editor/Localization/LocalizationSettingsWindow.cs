@@ -1,11 +1,11 @@
-﻿using Assets.SimpleLocalization.Scripts;
+﻿using Client.Scripts.Core.Localization;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace Client.Scripts.Editor.Localization
 {
-    internal class LocalizationSettingsWindow : EditorWindow
+    internal sealed class LocalizationSettingsWindow : EditorWindow
     {
         private static SerializedObject _serializedObject;
 

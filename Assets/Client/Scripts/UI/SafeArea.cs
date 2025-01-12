@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Client.Scripts.UI
 {
     [RequireComponent(typeof(RectTransform))]
-    internal class SafeArea : MonoBehaviour
+    internal sealed class SafeArea : MonoBehaviour
     {
         [SerializeField] private bool _verticalSymmetry = true;
         [SerializeField] private bool _horizontalSymmetry = true;

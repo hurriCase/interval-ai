@@ -1,7 +1,7 @@
-﻿using Client.Scripts.MVC.Base;
+﻿using Client.Scripts.Core.MVC.Base;
 using UnityEngine;
 
-namespace Client.Scripts.MVC.Categories
+namespace Client.Scripts.Core.MVC.Category
 {
     internal class CategoryView : MonoBehaviour, IView<CategoryModel>
     {

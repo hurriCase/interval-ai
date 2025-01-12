@@ -3,7 +3,7 @@
 namespace Client.Scripts.DB.Entities.Base.Validation
 {
     [AttributeUsage(AttributeTargets.Property)]
-    internal class RequiredAttribute : ValidationAttributeBase
+    internal sealed class RequiredAttribute : ValidationAttributeBase
     {
         internal override (bool isValid, string error) Validate(object value)
         {

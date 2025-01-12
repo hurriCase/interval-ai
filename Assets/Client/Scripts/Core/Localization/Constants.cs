@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Assets.SimpleLocalization.Scripts
+namespace Client.Scripts.Core.Localization
 {
     internal static class Constants
     {

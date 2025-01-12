@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.SimpleLocalization.Scripts
+namespace Client.Scripts.Core.Localization
 {
     /// <summary>
     ///     Localize text component.

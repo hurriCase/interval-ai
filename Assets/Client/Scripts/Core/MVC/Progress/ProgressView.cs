@@ -1,9 +1,9 @@
-﻿using Client.Scripts.MVC.Base;
+﻿using Client.Scripts.Core.MVC.Base;
 using UnityEngine;
 
 namespace Client.Scripts.Core.MVC.Progress
 {
-    internal class ProgressView : MonoBehaviour, IView<ProgressModel>
+    internal sealed class ProgressView : MonoBehaviour, IView<ProgressModel>
     {
         [SerializeField] private Transform _progressContainer;
         [SerializeField] private GameObject _progressItemPrefab;

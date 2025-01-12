@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Client.Scripts.Core.MVC.Base;
 using Client.Scripts.DB.Entities.Base;
-using Client.Scripts.DB.Entities.CategoryEntity;
 using Client.Scripts.DB.Entities.EntityController;
-using Client.Scripts.DB.Entities.WordEntity;
-using Client.Scripts.MVC.Base;
+using Client.Scripts.DB.Entities.UserCategory;
+using Client.Scripts.DB.Entities.Word;
 using Client.Scripts.Patterns.DI.Base;
 
 namespace Client.Scripts.Core.MVC.Word
 {
-    internal class WordModel : ModelBase<WordEntryContent>
+    internal sealed class WordModel : ModelBase<WordEntryContent>
     {
         [Inject] private IEntityController _entityController;
 

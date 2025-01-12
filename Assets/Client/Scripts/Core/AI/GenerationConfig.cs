@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using UnityEngine;
 
-namespace Client.Scripts.Core.AiController
+namespace Client.Scripts.Core.AI
 {
     internal sealed class GenerationConfig
     {

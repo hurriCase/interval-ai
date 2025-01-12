@@ -1,4 +1,5 @@
 ﻿using Client.Scripts.Patterns;
+using Client.Scripts.Patterns.Attributes;
 using UnityEditor;
 using UnityEngine;
 

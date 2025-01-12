@@ -1,7 +1,7 @@
-﻿using Client.Scripts.Core;
+﻿using Client.Scripts.Patterns.ResourceLoader.ConfigLoader;
 using UnityEngine;
 
-namespace Client.Scripts.DB.DBControllers
+namespace Client.Scripts.DB.Data
 {
     internal sealed class DBConfig : ScriptableObject
     {

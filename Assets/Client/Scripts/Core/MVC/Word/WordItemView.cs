@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Client.Scripts.Core.MVC.Word
 {
-    internal class WordItemView : MonoBehaviour
+    internal sealed class WordItemView : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _wordCategoryText;
         [SerializeField] private TextMeshProUGUI _nativeWordText;

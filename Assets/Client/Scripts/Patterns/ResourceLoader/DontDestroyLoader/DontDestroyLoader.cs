@@ -1,7 +1,6 @@
-﻿using Client.Scripts.Patterns.ResourceLoader;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Client.Scripts.Core
+namespace Client.Scripts.Patterns.ResourceLoader.DontDestroyLoader
 {
     internal sealed class DontDestroyLoader : ResourceLoaderBase<GameObject>
     {

@@ -1,8 +1,7 @@
 ﻿using System;
-using Client.Scripts.Patterns.ResourceLoader;
 using UnityEngine;
 
-namespace Client.Scripts.Core
+namespace Client.Scripts.Patterns.ResourceLoader.ConfigLoader
 {
     internal sealed class ConfigLoader : ResourceLoaderBase<ScriptableObject>
     {

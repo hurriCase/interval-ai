@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-namespace Assets.SimpleLocalization.Scripts
+namespace Client.Scripts.Core.Localization
 {
     /// <summary>
     ///     Localization manager.
@@ -59,8 +59,10 @@ namespace Assets.SimpleLocalization.Scripts
                 }
 
                 for (var i = 1; i < languages.Count; i++)
+                {
                     if (!Dictionary.ContainsKey(languages[i]))
                         Dictionary.Add(languages[i], new Dictionary<string, string>());
+                }
 
                 for (var i = 1; i < lines.Count; i++)
                 {

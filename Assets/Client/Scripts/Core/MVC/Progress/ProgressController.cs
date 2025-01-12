@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Client.Scripts.Core.MVC.Base;
 using Client.Scripts.DB.Entities.Base;
 using Client.Scripts.DB.Entities.EntityController;
 using Client.Scripts.DB.Entities.ProgressEntity;
-using Client.Scripts.MVC.Base;
 
 namespace Client.Scripts.Core.MVC.Progress
 {

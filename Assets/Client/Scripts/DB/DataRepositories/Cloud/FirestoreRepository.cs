@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Client.Scripts.Core;
-using Client.Scripts.DB.DBControllers;
-using Client.Scripts.Patterns.DI.Services;
+using Client.Scripts.DB.Data;
 using Firebase;
 using Firebase.Extensions;
 using Firebase.Firestore;

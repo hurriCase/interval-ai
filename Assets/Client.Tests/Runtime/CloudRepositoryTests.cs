@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Client.Scripts.Core;
-using Client.Scripts.DB.DBControllers;
-using Client.Scripts.DB.Entities.UserEntity;
+using Client.Scripts.DB.Data;
+using Client.Scripts.DB.DataRepositories.Cloud;
+using Client.Scripts.DB.Entities.User;
 using Client.Scripts.Patterns.DI.Base;
-using Client.Scripts.Patterns.DI.Services;
 using NUnit.Framework;
 
 namespace Client.Tests.Runtime

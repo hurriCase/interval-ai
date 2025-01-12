@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.SimpleLocalization.Scripts
+namespace Client.Scripts.Core.Localization
 {
-	/// <summary>
-	///     Localize dropdown component.
-	/// </summary>
-	[RequireComponent(typeof(Dropdown))]
+    /// <summary>
+    ///     Localize dropdown component.
+    /// </summary>
+    [RequireComponent(typeof(Dropdown))]
     internal class LocalizedDropdown : MonoBehaviour
     {
         internal string[] LocalizationKeys { get; private set; }

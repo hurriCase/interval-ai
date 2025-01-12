@@ -1,7 +1,7 @@
 ﻿using System.Collections;
+using Client.Scripts.Core.AI;
 using Client.Scripts.Core.StartUp;
 using Client.Scripts.Patterns.DI.Base;
-using Client.Scripts.Patterns.DI.Services;
 using Client.Scripts.Patterns.Extensions;
 using NUnit.Framework;
 using UnityEngine;

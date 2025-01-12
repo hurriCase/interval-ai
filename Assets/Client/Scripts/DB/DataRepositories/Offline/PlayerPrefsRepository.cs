@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Client.Scripts.Core;
-using Client.Scripts.Patterns.DI.Services;
+using Client.Scripts.DB.Data;
 using Newtonsoft.Json;
 using UnityEngine;
 
-namespace Client.Scripts.DB.DBControllers
+namespace Client.Scripts.DB.DataRepositories.Offline
 {
     internal sealed class PlayerPrefsRepository : IOfflineRepository
     {

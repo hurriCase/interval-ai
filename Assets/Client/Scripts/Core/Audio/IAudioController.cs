@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Client.Scripts.Patterns.DI.Services
+namespace Client.Scripts.Core.Audio
 {
     internal interface IAudioController
     {

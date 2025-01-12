@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using Client.Scripts.DB.Entities.Base;
 using Client.Scripts.DB.Entities.Base.Validation;
-using Client.Scripts.DB.Entities.WordEntity;
+using Client.Scripts.DB.Entities.Word;
 using Newtonsoft.Json;
 
-namespace Client.Scripts.DB.Entities.CategoryEntity
+namespace Client.Scripts.DB.Entities.GlobalCategory
 {
     [Serializable]
     internal sealed class GlobalCategoryEntryContent

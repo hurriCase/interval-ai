@@ -1,5 +1,5 @@
 using Client.Scripts.Core;
-using Client.Scripts.DB.DBControllers;
+using Client.Scripts.DB.Data;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;

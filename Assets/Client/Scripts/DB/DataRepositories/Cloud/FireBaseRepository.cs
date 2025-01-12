@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Client.Scripts.Core;
-using Client.Scripts.Patterns.DI.Services;
+using Client.Scripts.DB.Data;
 using Firebase;
 using Firebase.Database;
 using Firebase.Extensions;
 using Newtonsoft.Json;
 using UnityEngine;
 
-namespace Client.Scripts.DB.DBControllers
+namespace Client.Scripts.DB.DataRepositories.Cloud
 {
     internal sealed class CloudRepository : ICloudRepository
     {

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Client.Scripts.UI.Base
 {
-    internal class WindowsController : SingletonMonoBehaviour<WindowsController>
+    internal sealed class WindowsController : SingletonMonoBehaviour<WindowsController>
     {
         [SerializeField] private GameObject[] _windowPrefabs;
 

@@ -1,12 +1,12 @@
 ﻿using System.Threading.Tasks;
+using Client.Scripts.Core.MVC.Base;
 using Client.Scripts.DB.Entities.Base;
 using Client.Scripts.DB.Entities.EntityController;
-using Client.Scripts.DB.Entities.UserEntity;
-using Client.Scripts.MVC.Base;
+using Client.Scripts.DB.Entities.User;
 
 namespace Client.Scripts.Core.MVC.User
 {
-    internal class UserController : ControllerBase<UserEntity, UserEntryContent, UserModel>
+    internal sealed class UserController : ControllerBase<UserEntity, UserEntryContent, UserModel>
     {
         public UserController(IEntityController entityController, IView<UserModel> view)
             : base(entityController, view) { }

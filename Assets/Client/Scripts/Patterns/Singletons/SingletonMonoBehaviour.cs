@@ -1,4 +1,5 @@
 ﻿using System;
+using Client.Scripts.Patterns.Attributes;
 using Client.Scripts.Patterns.DI.Base;
 using UnityEngine;
 

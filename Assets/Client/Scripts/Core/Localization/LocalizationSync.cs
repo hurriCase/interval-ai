@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using Object = UnityEngine.Object;
 
-namespace Assets.SimpleLocalization.Scripts
+namespace Client.Scripts.Core.Localization
 {
     /// <summary>
     ///     Downloads sheets from Google Sheet and saves them to Resources.

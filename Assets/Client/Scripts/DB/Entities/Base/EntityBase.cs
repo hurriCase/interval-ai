@@ -4,14 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Client.Scripts.DB.Data;
+using Client.Scripts.DB.DataRepositories.Cloud;
 using Client.Scripts.DB.Entities.Base.Validation;
 using Client.Scripts.Patterns.DI.Base;
-using Client.Scripts.Patterns.DI.Services;
 using UnityEngine;
 
 namespace Client.Scripts.DB.Entities.Base
 {
-    internal abstract class EntityBase<TContent> : Injectable, IEntity<TContent> where TContent : class, new()
+    internal abstract class EntityBase<TContent> : Injectable, IEntity<TContent>
+        where TContent : class, new()
     {
         [Inject] protected ICloudRepository cloudRepository;
 

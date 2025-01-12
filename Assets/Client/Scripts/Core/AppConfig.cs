@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Client.Scripts.Patterns.ResourceLoader.ConfigLoader;
+using UnityEngine;
 
 namespace Client.Scripts.Core
 {

@@ -1,9 +1,9 @@
-﻿using Client.Scripts.MVC.Base;
+﻿using Client.Scripts.Core.MVC.Base;
 using UnityEngine;
 
 namespace Client.Scripts.Core.MVC.User
 {
-    internal class UserView : MonoBehaviour, IView<UserModel>
+    internal sealed class UserView : MonoBehaviour, IView<UserModel>
     {
         [SerializeField] private Transform _userContainer;
         [SerializeField] private GameObject _userItemPrefab;

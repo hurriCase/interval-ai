@@ -53,7 +53,7 @@ namespace Client.Scripts.Patterns.DI.Base
     }
 
     [AttributeUsage(AttributeTargets.Field)]
-    internal class InjectAttribute : Attribute { }
+    internal sealed class InjectAttribute : Attribute { }
 
     internal abstract class Injectable
     {

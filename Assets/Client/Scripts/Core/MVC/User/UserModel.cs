@@ -1,10 +1,10 @@
-﻿using Client.Scripts.DB.Entities.Base;
-using Client.Scripts.DB.Entities.UserEntity;
-using Client.Scripts.MVC.Base;
+﻿using Client.Scripts.Core.MVC.Base;
+using Client.Scripts.DB.Entities.Base;
+using Client.Scripts.DB.Entities.User;
 
 namespace Client.Scripts.Core.MVC.User
 {
-    internal class UserModel : ModelBase<UserEntryContent>
+    internal sealed class UserModel : ModelBase<UserEntryContent>
     {
         internal string UserName => Data.Content.UserName;
         internal string Password => Data.Content.Password;

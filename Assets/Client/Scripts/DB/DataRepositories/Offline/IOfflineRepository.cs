@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Client.Scripts.Patterns.DI.Services;
+using Client.Scripts.DB.Data;
 
-namespace Client.Scripts.DB.DBControllers
+namespace Client.Scripts.DB.DataRepositories.Offline
 {
     internal interface IOfflineRepository
     {

@@ -3,5 +3,5 @@
 namespace Client.Scripts.DB.Entities.Base
 {
     [AttributeUsage(AttributeTargets.Class)]
-    internal class SingleInstanceEntryAttribute : Attribute { }
+    internal sealed class SingleInstanceEntryAttribute : Attribute { }
 }
