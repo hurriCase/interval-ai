@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Client.Scripts.DB.Entities.Base;
 
-namespace Client.Scripts.DB.Entities.ProgressEntity
+namespace Client.Scripts.DB.Entities.Progress
 {
     [SingleInstanceEntry]
     internal sealed class ProgressEntity : EntityBase<ProgressEntryContent>

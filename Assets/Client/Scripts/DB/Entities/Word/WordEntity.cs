@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using Client.Scripts.DB.Entities.Base;
-using Client.Scripts.DB.Entities.ProgressEntity;
+using Client.Scripts.DB.Entities.Progress;
 using Client.Scripts.DB.Entities.UserCategory;
 
 namespace Client.Scripts.DB.Entities.Word

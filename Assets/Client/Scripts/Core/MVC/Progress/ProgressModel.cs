@@ -1,7 +1,7 @@
 ﻿using System;
 using Client.Scripts.Core.MVC.Base;
 using Client.Scripts.DB.Entities.Base;
-using Client.Scripts.DB.Entities.ProgressEntity;
+using Client.Scripts.DB.Entities.Progress;
 
 namespace Client.Scripts.Core.MVC.Progress
 {

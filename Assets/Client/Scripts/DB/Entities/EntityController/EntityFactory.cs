@@ -3,10 +3,11 @@ using System.Collections.Concurrent;
 using System.Threading.Tasks;
 using Client.Scripts.DB.Entities.Base;
 using Client.Scripts.DB.Entities.GlobalCategory;
-using Client.Scripts.DB.Entities.ProgressEntity;
+using Client.Scripts.DB.Entities.Progress;
 using Client.Scripts.DB.Entities.User;
 using Client.Scripts.DB.Entities.UserCategory;
 using Client.Scripts.DB.Entities.Word;
+
 
 namespace Client.Scripts.DB.Entities.EntityController
 {
@@ -18,9 +19,9 @@ namespace Client.Scripts.DB.Entities.EntityController
         {
             await AddEntity<UserCategoryEntity, UserCategoryEntryContent>();
             await AddEntity<GlobalCategoryEntity, GlobalCategoryEntryContent>();
-            await AddEntity<User.UserEntity, UserEntryContent>();
-            await AddEntity<Word.WordEntity, WordEntryContent>();
-            await AddEntity<ProgressEntity.ProgressEntity, ProgressEntryContent>();
+            await AddEntity<UserEntity, UserEntryContent>();
+            await AddEntity<WordEntity, WordEntryContent>();
+            await AddEntity<ProgressEntity, ProgressEntryContent>();
 
             return _entities;
         }

@@ -4,7 +4,7 @@ using System.Linq;
 using Client.Scripts.Core;
 using Client.Scripts.DB.Entities.Base;
 using Client.Scripts.DB.Entities.GlobalCategory;
-using Client.Scripts.DB.Entities.ProgressEntity;
+using Client.Scripts.DB.Entities.Progress;
 using Client.Scripts.DB.Entities.User;
 using Client.Scripts.DB.Entities.UserCategory;
 using Client.Scripts.DB.Entities.Word;
