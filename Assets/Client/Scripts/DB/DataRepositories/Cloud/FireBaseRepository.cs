@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Client.Scripts.DB.DataRepositories.Cloud
 {
-    internal sealed class CloudRepository : ICloudRepository
+    internal sealed class FireBaseRepository : ICloudRepository
     {
         private DatabaseReference _dbReference;
         private bool _isInited;
@@ -59,6 +59,7 @@ namespace Client.Scripts.DB.DataRepositories.Cloud
 
                 var json = snapshot.GetRawJsonValue();
 
+                //TODO: Refactor
                 if (typeof(TData) == typeof(Dictionary<,>))
                 {
                     var keyType = typeof(TData).GetGenericArguments()[0];
@@ -90,6 +91,7 @@ namespace Client.Scripts.DB.DataRepositories.Cloud
             var dataToWrite = "";
             try
             {
+                //TODO: Refactor
                 if (data is string str)
                 {
                     dataToWrite = str;
@@ -98,6 +100,7 @@ namespace Client.Scripts.DB.DataRepositories.Cloud
                 else
                 {
                     dataToWrite = JsonConvert.SerializeObject(data);
+
                     await GetDBPath(dataType, path).SetRawJsonValueAsync(dataToWrite);
                 }
 
@@ -263,7 +266,11 @@ namespace Client.Scripts.DB.DataRepositories.Cloud
 
                 case DataType.Configs:
                     var configsPath = DBConfig.Instance.ConfigsPath;
-                    return _dbReference.Child(configsPath);
+                    return _dbReference.Child(configsPath).Child(path);
+
+                case DataType.Tests:
+                    var testsPath = DBConfig.Instance.TestsPath;
+                    return _dbReference.Child(testsPath).Child(path);
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(dataType), dataType, null);

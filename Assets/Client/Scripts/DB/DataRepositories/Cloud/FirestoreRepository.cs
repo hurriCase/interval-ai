@@ -10,6 +10,7 @@ using UnityEngine;
 
 namespace Client.Scripts.DB.DataRepositories.Cloud
 {
+    //TODO: Fix nested data saving, currently this db doesn't work
     internal sealed class FirestoreRepository : ICloudRepository
     {
         private FirebaseFirestore _firestoreInstance;
