@@ -5,7 +5,7 @@ using Client.Scripts.DB.Entities.Base;
 using Client.Scripts.DB.Entities.EntityController;
 using Client.Scripts.DB.Entities.UserCategory;
 using Client.Scripts.DB.Entities.Word;
-using Client.Scripts.Patterns.DI.Base;
+using Client.Scripts.Patterns.Attributes;
 
 namespace Client.Scripts.Core.MVC.Word
 {

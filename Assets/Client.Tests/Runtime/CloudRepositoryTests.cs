@@ -4,7 +4,8 @@ using Client.Scripts.Core;
 using Client.Scripts.DB.Data;
 using Client.Scripts.DB.DataRepositories.Cloud;
 using Client.Scripts.DB.Entities.User;
-using Client.Scripts.Patterns.DI.Base;
+using Client.Scripts.Patterns.Attributes;
+using Client.Scripts.Patterns.DI;
 using NUnit.Framework;
 
 namespace Client.Tests.Runtime

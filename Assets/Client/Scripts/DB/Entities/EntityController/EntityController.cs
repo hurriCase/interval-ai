@@ -5,13 +5,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Client.Scripts.DB.DataRepositories.Cloud;
 using Client.Scripts.DB.Entities.Base;
-using Client.Scripts.Patterns.DI.Base;
+using Client.Scripts.Patterns.Attributes;
+using Client.Scripts.Patterns.DI;
+using Client.Scripts.Patterns.Singletons;
 using UnityEngine;
 using Exception = System.Exception;
 
 namespace Client.Scripts.DB.Entities.EntityController
 {
-    internal sealed class EntityController : Injectable, IEntityController
+    internal sealed class EntityController : Singleton<EntityController>, IInjectable, IEntityController
     {
         [Inject] private ICloudRepository _cloudRepository;
 
@@ -30,6 +32,8 @@ namespace Client.Scripts.DB.Entities.EntityController
 
             try
             {
+                InjectDependencies();
+
                 _entities = await EntityFactory.CreateEntitiesAsync();
 
                 _isInited = true;
@@ -227,6 +231,11 @@ namespace Client.Scripts.DB.Entities.EntityController
                                "EntityController not initialized but you're trying to access");
 
             return _isInited;
+        }
+
+        public void InjectDependencies()
+        {
+            DependencyInjector.InjectDependencies(this);
         }
     }
 }

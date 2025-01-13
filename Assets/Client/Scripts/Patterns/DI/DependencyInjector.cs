@@ -2,14 +2,22 @@
 using System.Collections.Concurrent;
 using System.Linq;
 using System.Reflection;
+using Client.Scripts.Patterns.Attributes;
 using UnityEngine;
 
-namespace Client.Scripts.Patterns.DI.Base
+namespace Client.Scripts.Patterns.DI
 {
+    /// <summary>
+    ///     Provides dependency injection functionality for objects with injectable fields.
+    /// </summary>
     internal static class DependencyInjector
     {
         private static readonly ConcurrentDictionary<Type, FieldInfo[]> _fieldCache = new();
 
+        /// <summary>
+        ///     Injects dependencies into the target object's injectable fields.
+        /// </summary>
+        /// <param name="target">The target object to inject dependencies into.</param>
         internal static void InjectDependencies(object target)
         {
             if (target == null) return;
@@ -50,30 +58,5 @@ namespace Client.Scripts.Patterns.DI.Base
                     .ToArray()
             );
         }
-    }
-
-    [AttributeUsage(AttributeTargets.Field)]
-    internal sealed class InjectAttribute : Attribute { }
-
-    internal abstract class Injectable
-    {
-        protected Injectable() => DependencyInjector.InjectDependencies(this);
-    }
-
-    internal abstract class InjectableBehaviour : MonoBehaviour
-    {
-        protected virtual void Awake()
-        {
-            DependencyInjector.InjectDependencies(this);
-
-            OnAwake();
-        }
-
-        protected virtual void OnAwake() { }
-    }
-
-    internal interface IInjectable
-    {
-        void InjectDependencies();
     }
 }

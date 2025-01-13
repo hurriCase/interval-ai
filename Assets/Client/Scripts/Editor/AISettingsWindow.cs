@@ -2,16 +2,18 @@
 using Client.Scripts.Core.AI;
 using Client.Scripts.DB.Data;
 using Client.Scripts.DB.DataRepositories.Cloud;
+using Client.Scripts.Patterns.Attributes;
 using Client.Scripts.Patterns.Extensions;
 using UnityEditor;
 using UnityEngine;
 
 namespace Client.Scripts.Editor
 {
-    internal sealed class AISettingsWindow : EditorWindow
+    internal sealed class AISettingsWindow : InjectableEditorWindow
     {
+        [Inject] private ICloudRepository _repositoryController;
+
         private GenerativeModel _settings;
-        private CloudRepository _repositoryController;
         private Vector2 _scrollPosition;
         private bool _showAdvancedSettings;
         private bool _isLoading = true;
@@ -46,7 +48,6 @@ namespace Client.Scripts.Editor
         private async void InitializeSettings()
         {
             _isLoading = true;
-            _repositoryController = new CloudRepository();
 
             try
             {

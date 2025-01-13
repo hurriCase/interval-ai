@@ -8,7 +8,6 @@ using Client.Scripts.DB.Entities.User;
 using Client.Scripts.DB.Entities.UserCategory;
 using Client.Scripts.DB.Entities.Word;
 
-
 namespace Client.Scripts.DB.Entities.EntityController
 {
     internal static class EntityFactory

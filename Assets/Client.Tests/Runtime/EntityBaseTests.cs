@@ -8,7 +8,7 @@ using Client.Scripts.DB.Entities.Progress;
 using Client.Scripts.DB.Entities.User;
 using Client.Scripts.DB.Entities.UserCategory;
 using Client.Scripts.DB.Entities.Word;
-using Client.Scripts.Patterns.DI.Base;
+using Client.Scripts.Patterns.DI;
 using Client.Scripts.Patterns.Extensions;
 using NUnit.Framework;
 using UnityEngine;

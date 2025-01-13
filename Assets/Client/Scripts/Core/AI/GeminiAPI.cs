@@ -5,15 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using Client.Scripts.DB.Data;
 using Client.Scripts.DB.DataRepositories.Cloud;
-using Client.Scripts.Patterns.DI.Base;
+using Client.Scripts.Patterns.Attributes;
+using Client.Scripts.Patterns.DI;
 using Client.Scripts.Patterns.Extensions;
+using Client.Scripts.Patterns.Singletons;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Networking;
 
 namespace Client.Scripts.Core.AI
 {
-    internal sealed class GeminiAPI : Injectable, IAIController
+    internal sealed class GeminiAPI : Singleton<GeminiAPI>, IInjectable, IAIController
     {
         [Inject] private ICloudRepository _cloudRepository;
 
@@ -27,6 +29,8 @@ namespace Client.Scripts.Core.AI
             {
                 if (_isInited)
                     return;
+
+                InjectDependencies();
 
                 await LoadGenerativeModelAsync();
                 await LoadChatHistoryAsync();
@@ -212,6 +216,11 @@ namespace Client.Scripts.Core.AI
                 Debug.LogError($"[GeminiAPI::LoadGenerativeModelAsync] Failed to load chat history: {e.Message}");
                 _textModel = new GenerativeModel();
             }
+        }
+
+        public void InjectDependencies()
+        {
+            DependencyInjector.InjectDependencies(this);
         }
     }
 

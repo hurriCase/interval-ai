@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Client.Scripts.DB.Data;
+using Client.Scripts.Patterns.Singletons;
 using Newtonsoft.Json;
 using UnityEngine;
 
 namespace Client.Scripts.DB.DataRepositories.Offline
 {
-    internal sealed class PlayerPrefsRepository : IOfflineRepository
+    internal sealed class PlayerPrefsRepository : Singleton<PlayerPrefsRepository>, IOfflineRepository
     {
         private readonly Dictionary<string, List<Action<object>>> _listeners = new();
         private bool _isInited;

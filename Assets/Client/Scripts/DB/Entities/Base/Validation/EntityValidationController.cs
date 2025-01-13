@@ -4,14 +4,22 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Client.Scripts.DB.Data;
 using Client.Scripts.DB.DataRepositories.Cloud;
-using Client.Scripts.Patterns.DI.Base;
+using Client.Scripts.Patterns.Attributes;
+using Client.Scripts.Patterns.DI;
+using Client.Scripts.Patterns.Singletons;
 using UnityEngine;
 
 namespace Client.Scripts.DB.Entities.Base.Validation
 {
-    internal sealed class EntityValidationController : Injectable, IEntityValidationController
+    internal sealed class EntityValidationController : Singleton<EntityValidationController>, IInjectable,
+        IEntityValidationController
     {
         [Inject] private ICloudRepository _cloudRepository;
+
+        public EntityValidationController()
+        {
+            InjectDependencies();
+        }
 
         private Dictionary<string, List<ValidationRule>> EntityRules
         {
@@ -131,5 +139,10 @@ namespace Client.Scripts.DB.Entities.Base.Validation
 
         private static bool IsNumeric(object value) =>
             value is sbyte or byte or short or ushort or int or uint or long or ulong or float or double or decimal;
+
+        public void InjectDependencies()
+        {
+            DependencyInjector.InjectDependencies(this);
+        }
     }
 }

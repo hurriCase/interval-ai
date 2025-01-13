@@ -1,7 +1,8 @@
 using System;
 using Client.Scripts.Core.Audio;
 using Client.Scripts.DB.DataRepositories.Cloud;
-using Client.Scripts.Patterns.DI.Base;
+using Client.Scripts.Patterns.Attributes;
+using Client.Scripts.Patterns.DI;
 using UnityEngine;
 using UnityEngine.EventSystems;
 

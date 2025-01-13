@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Client.Scripts.DB.Data;
+using Client.Scripts.Patterns.Singletons;
 using Firebase;
 using Firebase.Database;
 using Firebase.Extensions;
@@ -10,7 +11,7 @@ using UnityEngine;
 
 namespace Client.Scripts.DB.DataRepositories.Cloud
 {
-    internal sealed class FireBaseRepository : ICloudRepository
+    internal sealed class FireBaseRepository : Singleton<FireBaseRepository>, ICloudRepository
     {
         private DatabaseReference _dbReference;
         private bool _isInited;

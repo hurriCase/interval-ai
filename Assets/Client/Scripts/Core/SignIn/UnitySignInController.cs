@@ -1,15 +1,23 @@
 ﻿using System;
 using Client.Scripts.DB.Data;
-using Client.Scripts.Patterns.DI.Base;
+using Client.Scripts.Patterns.Attributes;
+using Client.Scripts.Patterns.DI;
+using Client.Scripts.Patterns.Singletons;
 using UnityEngine;
 
 namespace Client.Scripts.Core.SignIn
 {
-    internal sealed class UnitySignInController : Injectable, IAuthorizationController
+    internal sealed class UnitySignInController : Singleton<UnitySignInController>, IInjectable,
+        IAuthorizationController
     {
         [Inject] private readonly IUserDataController _userDataController;
 
         private string _mockUserId;
+
+        public UnitySignInController()
+        {
+            InjectDependencies();
+        }
 
         public void SignIn()
         {
@@ -51,6 +59,11 @@ namespace Client.Scripts.Core.SignIn
                 Debug.LogError("[UnitySignInController::HandleSuccessfulSignIn] " +
                                $"Failed to signed in with mock user, with error: {e.Message}");
             }
+        }
+
+        public void InjectDependencies()
+        {
+            DependencyInjector.InjectDependencies(this);
         }
     }
 }

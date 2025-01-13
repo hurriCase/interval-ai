@@ -2,12 +2,14 @@
 using System.Threading.Tasks;
 using Client.Scripts.DB.DataRepositories.Cloud;
 using Client.Scripts.DB.DataRepositories.Offline;
-using Client.Scripts.Patterns.DI.Base;
+using Client.Scripts.Patterns.Attributes;
+using Client.Scripts.Patterns.DI;
+using Client.Scripts.Patterns.Singletons;
 using UnityEngine;
 
 namespace Client.Scripts.DB.Data
 {
-    internal sealed class UserDataController : Injectable, IUserDataController
+    internal sealed class UserDataController : Singleton<UserDataController>, IInjectable, IUserDataController
     {
         [Inject] private IOfflineRepository _offlineRepository;
         [Inject] private ICloudRepository _cloudRepository;
@@ -20,6 +22,8 @@ namespace Client.Scripts.DB.Data
             try
             {
                 if (_isInited) return;
+
+                InjectDependencies();
 
                 UserData.Instance.OnValueChanged += SaveUserData;
 
@@ -148,6 +152,11 @@ namespace Client.Scripts.DB.Data
         {
             var userDataDTO = data.ToDTO();
             _offlineRepository.WriteDataAsync(DataType.User, DBConfig.Instance.UserDataPath, userDataDTO);
+        }
+
+        public void InjectDependencies()
+        {
+            DependencyInjector.InjectDependencies(this);
         }
     }
 

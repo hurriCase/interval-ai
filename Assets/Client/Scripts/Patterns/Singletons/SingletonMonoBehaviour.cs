@@ -1,6 +1,6 @@
 ﻿using System;
 using Client.Scripts.Patterns.Attributes;
-using Client.Scripts.Patterns.DI.Base;
+using Client.Scripts.Patterns.DI;
 using UnityEngine;
 
 // ReSharper disable StaticMemberInGenericType

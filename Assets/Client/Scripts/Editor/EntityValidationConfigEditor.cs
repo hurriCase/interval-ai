@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Client.Scripts.DB.Entities.Base.Validation;
-using Client.Scripts.Patterns.DI.Base;
+using Client.Scripts.Patterns.DI;
 using UnityEditor;
 using UnityEngine;
 

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Client.Scripts.Core.AI;
-using Client.Scripts.Patterns.DI.Base;
+using Client.Scripts.Patterns.Attributes;
+using Client.Scripts.Patterns.DI;
 using UnityEngine;
 
 namespace Client.Scripts.Core.StartUp.Steps

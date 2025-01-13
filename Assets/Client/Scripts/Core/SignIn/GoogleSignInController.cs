@@ -1,14 +1,22 @@
 using System.Threading.Tasks;
 using Client.Scripts.DB.Data;
-using Client.Scripts.Patterns.DI.Base;
+using Client.Scripts.Patterns.Attributes;
+using Client.Scripts.Patterns.DI;
+using Client.Scripts.Patterns.Singletons;
 using Google;
 using UnityEngine;
 
 namespace Client.Scripts.Core.SignIn
 {
-    internal sealed class GoogleSignInController : Injectable, IAuthorizationController
+    internal sealed class GoogleSignInController : Singleton<GoogleSignInController>, IInjectable,
+        IAuthorizationController
     {
         [Inject] private readonly IUserDataController _userDataController;
+
+        public GoogleSignInController()
+        {
+            InjectDependencies();
+        }
 
         public void SignIn()
         {
@@ -76,6 +84,11 @@ namespace Client.Scripts.Core.SignIn
 
             if (string.IsNullOrEmpty(UserData.Instance.UserID))
                 _userDataController.InitAsGuest();
+        }
+
+        public void InjectDependencies()
+        {
+            DependencyInjector.InjectDependencies(this);
         }
     }
 }
