@@ -37,8 +37,6 @@ namespace Client.Tests.Runtime
                 yield return null;
             }
 
-            Debug.Log("[EntityControllerTests::OneTimeSetUp] Scene loaded, RuntimeInitialize methods executed");
-
             yield return ClearAllEntities();
         }
 

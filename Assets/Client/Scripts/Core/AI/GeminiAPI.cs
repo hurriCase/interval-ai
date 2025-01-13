@@ -64,7 +64,6 @@ namespace Client.Scripts.Core.AI
         {
             var userContent = GetContent(Role.User, message);
 
-            Debug.LogWarning($"[GeminiAPI::SendChatMessageAsync]_chatHistory.Length {_chatHistory.Length}");
             var contentsList = new List<Content>(_chatHistory)
             {
                 userContent

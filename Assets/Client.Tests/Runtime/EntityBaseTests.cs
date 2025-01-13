@@ -50,8 +50,6 @@ namespace Client.Tests.Runtime
             yield return _globalCategoryEntity.InitAsync().WaitForTask();
             yield return _wordEntity.InitAsync().WaitForTask();
             yield return _progressEntity.InitAsync().WaitForTask();
-
-            Debug.Log("[EntityControllerTests::OneTimeSetUp] Scene loaded, RuntimeInitialize methods executed");
         }
 
         [UnityTearDown]
