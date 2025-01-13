@@ -1,10 +1,9 @@
 ﻿using Client.Scripts.Core;
 using Client.Scripts.Patterns.DI;
-using UnityEditor;
 
 namespace Client.Scripts.Editor
 {
-    internal class InjectableEditorWindow : EditorWindow
+    internal class InjectableEditor : UnityEditor.Editor
     {
         protected virtual void OnEnable()
         {

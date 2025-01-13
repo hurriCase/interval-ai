@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Client.Scripts.DB.Entities.Base.Validation;
-using Client.Scripts.Patterns.DI;
+using Client.Scripts.Patterns.Attributes;
 using UnityEditor;
 using UnityEngine;
 
 namespace Client.Scripts.Editor
 {
     [CustomEditor(typeof(EntityValidationConfig))]
-    internal sealed class EntityValidationConfigEditor : UnityEditor.Editor, IInjectable
+    internal sealed class EntityValidationConfigEditor : InjectableEditor
     {
-        //TODO: Fix this
-        private readonly EntityValidationController _entityValidationController = new();
+        [Inject] private IEntityValidationController _entityValidationController;
 
         private Dictionary<string, List<ValidationRule>> EntityRules => EntityValidationConfig.Instance.EntityRules;
 
@@ -24,9 +23,10 @@ namespace Client.Scripts.Editor
 
         private List<Type> _entityTypes;
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
-            InjectDependencies();
+            base.OnEnable();
+
             InitializeEntityTypes();
             InitializeCloudData();
         }
@@ -278,11 +278,6 @@ namespace Client.Scripts.Editor
         private void AddEntity(string entityName)
         {
             EntityRules[entityName] = new List<ValidationRule>();
-        }
-
-        public void InjectDependencies()
-        {
-            DependencyInjector.InjectDependencies(this);
         }
     }
 }

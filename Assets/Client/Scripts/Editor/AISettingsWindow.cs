@@ -30,8 +30,10 @@ namespace Client.Scripts.Editor
             window.minSize = new Vector2(400, 600);
         }
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
+
             InitializeMimeTypes();
             InitializeSettings();
         }

@@ -20,11 +20,7 @@ namespace Client.Scripts.Patterns.DI
         internal static void RegisterSingleton<T>(T instance)
         {
             var type = typeof(T);
-            if (_services.ContainsKey(type))
-                Debug.LogWarning("[DIContainer::RegisterSingleton] " +
-                                 $"Service {type.Name} is already registered. Overwriting.");
-
-            _services[type] = instance;
+            _services.TryAdd(type, instance);
         }
 
         /// <summary>
