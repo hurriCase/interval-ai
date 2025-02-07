@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Client.Scripts.Core.MVC.Category
 {
-    internal class CategoryItemView : MonoBehaviour
+    internal sealed class CategoryItemView : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _titleText;
         [SerializeField] private TextMeshProUGUI _descriptionText;

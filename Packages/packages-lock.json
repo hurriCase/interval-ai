@@ -1,5 +1,55 @@
 {
   "dependencies": {
+    "com.firsttry.assetloader": {
+      "version": "https://github.com/hurriCase/AssetLoader.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "6707e317cdb3b84b8f0fafbefa81bfd2f66e8004"
+    },
+    "com.firsttry.customattributes": {
+      "version": "https://github.com/hurriCase/CustomAttributes.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "d3995b48fe17ede25685b8014ceefc350de7140b"
+    },
+    "com.firsttry.customclasses": {
+      "version": "https://github.com/hurriCase/CustomClasses.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.firsttry.dependencyinjection": "1.0.1",
+        "com.firsttry.assetloader": "1.0.2"
+      },
+      "hash": "35a1c6ee3a43901ac9c0da40147dfcb6189664d5"
+    },
+    "com.firsttry.customextensions": {
+      "version": "https://github.com/hurriCase/CustomExtensions.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.nuget.newtonsoft-json": "3.2.1"
+      },
+      "hash": "e2f69a37ba37718a39f14c14eccdc5da4425a132"
+    },
+    "com.firsttry.custommenu": {
+      "version": "https://github.com/hurriCase/CustomMenu.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.firsttry.assetloader": "1.2.1",
+        "com.firsttry.customextensions": "1.1.0"
+      },
+      "hash": "f307de6236e1e37d45f87abe5f59ceea4ac4e297"
+    },
+    "com.firsttry.dependencyinjection": {
+      "version": "https://github.com/hurriCase/DependencyInjection.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "f08fe459b0c83a043928be61d147f2c8d0dc2283"
+    },
     "com.unity.2d.animation": {
       "version": "10.1.4",
       "depth": 1,

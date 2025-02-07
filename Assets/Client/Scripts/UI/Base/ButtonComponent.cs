@@ -1,8 +1,8 @@
 using System;
 using Client.Scripts.Core.Audio;
 using Client.Scripts.DB.DataRepositories.Cloud;
-using Client.Scripts.Patterns.Attributes;
-using Client.Scripts.Patterns.DI;
+using DependencyInjection.Runtime.InjectableMarkers;
+using DependencyInjection.Runtime.InjectionBase;
 using UnityEngine;
 using UnityEngine.EventSystems;
 

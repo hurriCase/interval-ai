@@ -12,6 +12,7 @@ namespace Client.Scripts.Core.StartUp
 
         private static readonly IReadOnlyList<Type> _stepTypes = new List<Type>
         {
+            typeof(AssetLoaderStep),
             typeof(DIStep),
             typeof(DataStep),
             typeof(AIStep),
@@ -25,8 +26,6 @@ namespace Client.Scripts.Core.StartUp
             {
                 if (IsInited)
                     return;
-
-                var stepFactory = new StepFactory();
 
                 for (var i = 0; i < _stepTypes.Count; i++)
                 {

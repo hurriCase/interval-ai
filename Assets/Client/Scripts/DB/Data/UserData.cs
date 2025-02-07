@@ -1,14 +1,15 @@
 ﻿using System;
-using Client.Scripts.Patterns;
-using Client.Scripts.Patterns.Attributes;
-using Client.Scripts.Patterns.ResourceLoader.DataLoader;
+using AssetLoader.Runtime;
+using CustomAttributes.Runtime.Attributes;
+using CustomClasses.Runtime;
 using UnityEngine;
 
 namespace Client.Scripts.DB.Data
 {
+    [Resource("Assets/Resource/Data", "UserData", "Data")]
     internal sealed class UserData : ObservableScriptableObject<UserData>
     {
-        internal static UserData Instance => _instance ?? (_instance = DataLoader.LoadUserData<UserData>());
+        internal static UserData Instance => _instance ?? (_instance = ResourceLoader<UserData>.Load());
         private static UserData _instance;
 
         [SerializeField] [InspectorReadOnly] private string _userId;

@@ -4,8 +4,8 @@ using Client.Scripts.DB.Data;
 using Client.Scripts.DB.DataRepositories.Cloud;
 using Client.Scripts.DB.DataRepositories.Offline;
 using Client.Scripts.DB.Entities.EntityController;
-using Client.Scripts.Patterns.Attributes;
-using Client.Scripts.Patterns.DI;
+using DependencyInjection.Runtime.InjectableMarkers;
+using DependencyInjection.Runtime.InjectionBase;
 using UnityEngine;
 
 namespace Client.Scripts.Core.StartUp.Steps

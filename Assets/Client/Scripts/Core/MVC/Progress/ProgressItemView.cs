@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Client.Scripts.Core.MVC.Progress
 {
-    internal class ProgressItemView : MonoBehaviour
+    internal sealed class ProgressItemView : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _repetitionStageText;
         [SerializeField] private TextMeshProUGUI _totalReviewsText;

@@ -2,8 +2,9 @@
 using Client.Scripts.Core.AI;
 using Client.Scripts.DB.Data;
 using Client.Scripts.DB.DataRepositories.Cloud;
-using Client.Scripts.Patterns.Attributes;
-using Client.Scripts.Patterns.Extensions;
+using CustomExtensions.Runtime;
+using DependencyInjection.Editor;
+using DependencyInjection.Runtime.InjectionBase;
 using UnityEditor;
 using UnityEngine;
 

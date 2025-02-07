@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Client.Scripts.DB.Entities.Base.Validation;
-using Client.Scripts.Patterns.Attributes;
+using DependencyInjection.Editor;
+using DependencyInjection.Runtime.InjectionBase;
 using UnityEditor;
 using UnityEngine;
 

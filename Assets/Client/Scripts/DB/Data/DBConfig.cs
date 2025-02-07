@@ -1,13 +1,12 @@
-﻿using Client.Scripts.Patterns.ResourceLoader.ConfigLoader;
+﻿using AssetLoader.Runtime;
+using CustomClasses.Runtime.Singletons;
 using UnityEngine;
 
 namespace Client.Scripts.DB.Data
 {
-    internal sealed class DBConfig : ScriptableObject
+    [Resource("Assets/Resources/Configs", "DBConfig", "Configs")]
+    internal sealed class DBConfig : SingletonScriptableObject<DBConfig>
     {
-        internal static DBConfig Instance => _instance ?? (_instance = ConfigLoader.LoadDBConfig<DBConfig>());
-        private static DBConfig _instance;
-
         [field: SerializeField] internal string UserPath { get; private set; } = "users";
         [field: SerializeField] internal string UserDataPath { get; private set; } = "user_data";
         [field: SerializeField] internal string ConfigsPath { get; private set; } = "configs";

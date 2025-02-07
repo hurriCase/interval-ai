@@ -1,17 +1,12 @@
 ﻿using System.Collections.Generic;
-using Client.Scripts.Patterns.ResourceLoader.ConfigLoader;
-using UnityEngine;
+using AssetLoader.Runtime;
+using CustomClasses.Runtime.Singletons;
 
 namespace Client.Scripts.DB.Entities.Base.Validation
 {
-    [CreateAssetMenu(fileName = "EntityValidationConfig", menuName = "Configs/EntityValidationConfig")]
-    internal sealed class EntityValidationConfig : ScriptableObject
+    [Resource("Assets/Resources/Configs", "EntityValidationConfig", "Configs")]
+    internal sealed class EntityValidationConfig : SingletonScriptableObject<EntityValidationConfig>
     {
-        internal static EntityValidationConfig Instance
-            => _instance ?? (_instance = ConfigLoader.LoadEntityValidationConfig<EntityValidationConfig>());
-
-        private static EntityValidationConfig _instance;
-
         internal Dictionary<string, List<ValidationRule>> EntityRules { get; set; } = new();
     }
 }

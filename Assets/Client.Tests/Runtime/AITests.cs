@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using Client.Scripts.Core.AI;
 using Client.Scripts.Core.StartUp;
-using Client.Scripts.Patterns.Attributes;
-using Client.Scripts.Patterns.DI;
-using Client.Scripts.Patterns.Extensions;
+using CustomExtensions.Runtime;
+using DependencyInjection.Runtime.InjectableMarkers;
+using DependencyInjection.Runtime.InjectionBase;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;

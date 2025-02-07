@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Client.Scripts.Core.AI;
-using Client.Scripts.Patterns.Attributes;
-using Client.Scripts.Patterns.DI;
+using DependencyInjection.Runtime.InjectableMarkers;
+using DependencyInjection.Runtime.InjectionBase;
 using UnityEngine;
 
 namespace Client.Scripts.Core.StartUp.Steps
