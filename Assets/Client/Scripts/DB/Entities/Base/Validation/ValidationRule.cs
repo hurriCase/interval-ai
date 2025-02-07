@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Client.Scripts.Patterns.Extensions;
+using CustomExtensions.Runtime;
 using Newtonsoft.Json;
 
 namespace Client.Scripts.DB.Entities.Base.Validation

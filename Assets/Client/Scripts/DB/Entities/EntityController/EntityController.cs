@@ -5,9 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Client.Scripts.DB.DataRepositories.Cloud;
 using Client.Scripts.DB.Entities.Base;
-using Client.Scripts.Patterns.Attributes;
-using Client.Scripts.Patterns.DI;
-using Client.Scripts.Patterns.Singletons;
+using CustomClasses.Runtime.Singletons;
+using DependencyInjection.Runtime.InjectableMarkers;
+using DependencyInjection.Runtime.InjectionBase;
 using UnityEngine;
 using Exception = System.Exception;
 

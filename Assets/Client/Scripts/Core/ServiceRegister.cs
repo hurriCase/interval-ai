@@ -6,30 +6,31 @@ using Client.Scripts.DB.DataRepositories.Cloud;
 using Client.Scripts.DB.DataRepositories.Offline;
 using Client.Scripts.DB.Entities.Base.Validation;
 using Client.Scripts.DB.Entities.EntityController;
-using Client.Scripts.Patterns.DI;
+using DependencyInjection.Runtime;
+using DependencyInjection.Runtime.InjectionBase.Service;
 
 namespace Client.Scripts.Core
 {
-    internal static class ServiceRegister
+    internal sealed class ServiceRegister : ServiceRegisterBase
     {
-        internal static void RegisterSceneServices()
+        protected override void ConfigureStaticServices()
         {
-            DIContainer.RegisterSingleton<IAudioController>(AudioController.Instance);
+            DIContainer.RegisterSingleton<ICloudRepository, FireBaseRepository>();
+            DIContainer.RegisterSingleton<IOfflineRepository, PlayerPrefsRepository>();
+            DIContainer.RegisterSingleton<IEntityController, EntityController>();
+            DIContainer.RegisterSingleton<IUserDataController, UserDataController>();
+            DIContainer.RegisterSingleton<IAIController, GeminiAPI>();
+            DIContainer.RegisterSingleton<IEntityValidationController, EntityValidationController>();
+#if UNITY_EDITOR
+            DIContainer.RegisterSingleton<IAuthorizationController, UnitySignInController>();
+#else
+            DIContainer.RegisterSingleton<IAuthorizationController, GoogleSignInController>();
+#endif
         }
 
-        internal static void RegisterRegularServices()
+        protected override void ConfigureRuntimeServices()
         {
-            DIContainer.RegisterSingleton<ICloudRepository>(FireBaseRepository.Instance);
-            DIContainer.RegisterSingleton<IOfflineRepository>(PlayerPrefsRepository.Instance);
-            DIContainer.RegisterSingleton<IEntityController>(EntityController.Instance);
-            DIContainer.RegisterSingleton<IUserDataController>(UserDataController.Instance);
-            DIContainer.RegisterSingleton<IAIController>(GeminiAPI.Instance);
-            DIContainer.RegisterSingleton<IEntityValidationController>(EntityValidationController.Instance);
-#if UNITY_EDITOR
-            DIContainer.RegisterSingleton<IAuthorizationController>(UnitySignInController.Instance);
-#else
-            DIContainer.RegisterSingleton<IAuthorizationController>(GoogleSignInController.Instance);
-#endif
+            DIContainer.RegisterSingleton<IAudioController>(AudioController.Instance);
         }
     }
 }

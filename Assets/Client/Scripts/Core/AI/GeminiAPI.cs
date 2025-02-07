@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Client.Scripts.DB.Data;
 using Client.Scripts.DB.DataRepositories.Cloud;
-using Client.Scripts.Patterns.Attributes;
-using Client.Scripts.Patterns.DI;
-using Client.Scripts.Patterns.Extensions;
-using Client.Scripts.Patterns.Singletons;
+using CustomClasses.Runtime.Singletons;
+using CustomExtensions.Runtime;
+using DependencyInjection.Runtime.InjectableMarkers;
+using DependencyInjection.Runtime.InjectionBase;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -79,14 +79,14 @@ namespace Client.Scripts.Core.AI
 
             var parsedResponse = ParseResponse(response);
 
-            if (string.IsNullOrEmpty(parsedResponse) is false)
-            {
-                var botContent = GetContent(Role.Model, parsedResponse);
+            if (string.IsNullOrEmpty(parsedResponse))
+                return parsedResponse;
 
-                contentsList.Add(botContent);
-                _chatHistory = contentsList.ToArray();
-                await SaveChatHistoryAsync();
-            }
+            var botContent = GetContent(Role.Model, parsedResponse);
+
+            contentsList.Add(botContent);
+            _chatHistory = contentsList.ToArray();
+            await SaveChatHistoryAsync();
 
             return parsedResponse;
         }

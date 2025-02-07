@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Client.Scripts.Core.MVC.Category
 {
-    internal class CategoryView : MonoBehaviour, IView<CategoryModel>
+    internal sealed class CategoryView : MonoBehaviour, IView<CategoryModel>
     {
         [SerializeField] private Transform _categoryContainer;
         [SerializeField] private GameObject _categoryItemPrefab;
@@ -15,7 +15,8 @@ namespace Client.Scripts.Core.MVC.Category
         public void UpdateView(CategoryModel model)
         {
             var item = Instantiate(_categoryItemPrefab, _categoryContainer);
-            if (!item.TryGetComponent<CategoryItemView>(out var categoryItem)) return;
+            if (item.TryGetComponent<CategoryItemView>(out var categoryItem) is false)
+                return;
 
             categoryItem.Init(model, _controller);
         }

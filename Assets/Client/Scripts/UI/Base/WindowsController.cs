@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using Client.Scripts.Patterns.Singletons;
+using CustomClasses.Runtime.Singletons;
 using UnityEngine;
 
 namespace Client.Scripts.UI.Base
 {
-    internal sealed class WindowsController : SingletonMonoBehaviour<WindowsController>
+    internal sealed class WindowsController : SingletonBehaviour<WindowsController>
     {
         [SerializeField] private GameObject[] _windowPrefabs;
 

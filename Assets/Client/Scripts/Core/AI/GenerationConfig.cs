@@ -1,4 +1,4 @@
-﻿using Client.Scripts.Patterns.Extensions;
+﻿using CustomExtensions.Runtime;
 using Newtonsoft.Json;
 using UnityEngine;
 

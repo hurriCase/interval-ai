@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using Client.Scripts.DB.Data;
 using Client.Scripts.DB.DataRepositories.Cloud;
 using Client.Scripts.DB.Entities.Base.Validation;
-using Client.Scripts.Patterns.Attributes;
-using Client.Scripts.Patterns.DI;
+using DependencyInjection.Runtime.InjectableMarkers;
+using DependencyInjection.Runtime.InjectionBase;
 using UnityEngine;
 
 namespace Client.Scripts.DB.Entities.Base
@@ -36,11 +36,11 @@ namespace Client.Scripts.DB.Entities.Base
 
                 _isInited = true;
 
-                Debug.Log("[EntityBase::InitAsync] EntityBase is initialized");
+                Debug.Log($"[{GetType().Name}::InitAsync] EntityBase is initialized");
             }
             catch (Exception e)
             {
-                Debug.LogWarning($"[EntityBase::InitAsync] Error loading entries: {e.Message}");
+                Debug.LogWarning($"[{GetType().Name}::InitAsync] Error loading entries: {e.Message}");
             }
         }
 
@@ -68,7 +68,7 @@ namespace Client.Scripts.DB.Entities.Base
             }
             catch (Exception e)
             {
-                Debug.LogWarning($"[EntityBase::LoadEntryAsync] Error loading entries: {e.Message}");
+                Debug.LogWarning($"[{GetType().Name}::LoadEntryAsync] Error loading entries: {e.Message}");
             }
         }
 
@@ -80,7 +80,7 @@ namespace Client.Scripts.DB.Entities.Base
             var validation = entityValidationController.ValidateEntityContent(GetType().Name, content);
             if (validation.IsValid is false)
             {
-                Debug.LogError("[EntityBase::CreateEntryAsync] Validation failed:" +
+                Debug.LogError($"[{GetType().Name}::CreateEntryAsync] Validation failed:" +
                                $" {string.Join(", ", validation.Errors)}");
                 return null;
             }
@@ -88,7 +88,7 @@ namespace Client.Scripts.DB.Entities.Base
             if (IsSingleInstance && Entries.Any())
             {
                 Debug.LogError(
-                    $"[EntityBase::CreateEntryAsync] Cannot create multiple instances of {GetType().Name}");
+                    $"[{GetType().Name}::CreateEntryAsync] Cannot create multiple instances of {GetType().Name}");
                 return null;
             }
 
@@ -117,21 +117,21 @@ namespace Client.Scripts.DB.Entities.Base
             var validation = entityValidationController.ValidateEntityContent(GetType().Name, entry.Content);
             if (validation.IsValid is false)
             {
-                Debug.LogError("[EntityBase::UpdateEntryAsync] Validation failed:" +
+                Debug.LogError($"[{GetType().Name}::UpdateEntryAsync] Validation failed:" +
                                $" {string.Join(", ", validation.Errors)}");
                 return null;
             }
 
             if (Entries.ContainsKey(entry.Id) is false)
             {
-                Debug.LogError($"[EntityBase::UpdateEntryAsync] Entry {entry.Id} does not exist");
+                Debug.LogError($"[{GetType().Name}::UpdateEntryAsync] Entry {entry.Id} does not exist");
                 return null;
             }
 
             if (IsSingleInstance && entry.Id != Entries.First().Key)
             {
                 Debug.LogError(
-                    $"[EntityBase::UpdateEntryAsync] Cannot update different instance of {GetType().Name}");
+                    $"[{GetType().Name}::UpdateEntryAsync] Cannot update different instance of {GetType().Name}");
                 return null;
             }
 
@@ -149,7 +149,7 @@ namespace Client.Scripts.DB.Entities.Base
 
             if (Entries.TryRemove(data.Id, out var entryData) is false)
             {
-                Debug.LogError($"[EntityBase::DeleteEntryAsync] Entry {data.Id} does not exist");
+                Debug.LogError($"[{GetType().Name}::DeleteEntryAsync] Entry {data.Id} does not exist");
                 return null;
             }
 
@@ -161,8 +161,8 @@ namespace Client.Scripts.DB.Entities.Base
         private bool CheckEntityBaseInit()
         {
             if (_isInited is false)
-                Debug.LogError("[EntityBase::CheckEntityBaseInit] " +
-                               "EntityBase not initialized but you're trying to access");
+                Debug.LogError($"[{GetType().Name}::CheckEntityBaseInit] " +
+                               $"{GetType().Name} not initialized but you're trying to access");
 
             return _isInited;
         }

@@ -4,8 +4,8 @@ using Client.Scripts.Core;
 using Client.Scripts.DB.Data;
 using Client.Scripts.DB.DataRepositories.Cloud;
 using Client.Scripts.DB.Entities.User;
-using Client.Scripts.Patterns.Attributes;
-using Client.Scripts.Patterns.DI;
+using DependencyInjection.Runtime.InjectableMarkers;
+using DependencyInjection.Runtime.InjectionBase;
 using NUnit.Framework;
 
 namespace Client.Tests.Runtime

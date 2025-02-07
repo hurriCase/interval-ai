@@ -1,11 +1,12 @@
-﻿using Client.Scripts.Patterns.Attributes;
-using Client.Scripts.Patterns.Singletons;
+﻿using AssetLoader.Runtime;
+using CustomAttributes.Runtime.Attributes;
+using CustomClasses.Runtime.Singletons;
 using UnityEngine;
 
 namespace Client.Scripts.Core.Audio
 {
-    [Resource("P_AudioController")]
-    internal sealed class AudioController : SingletonMonoBehaviour<AudioController>, IAudioController
+    [Resource(resourcePath: "DontDestroyOnLoad", name: "P_AudioController")]
+    internal sealed class AudioController : PersistentSingletonBehavior<AudioController>, IAudioController
     {
         [SerializeField] [RequiredField] private AudioSource _musicSource;
         [SerializeField] [RequiredField] private AudioSource _effectsSource;

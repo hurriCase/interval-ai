@@ -1,5 +1,6 @@
 ﻿using Client.Scripts.Core.SignIn;
-using Client.Scripts.Patterns.DI.Base;
+using DependencyInjection.Runtime.InjectableMarkers;
+using DependencyInjection.Runtime.InjectionBase;
 
 namespace Client.Scripts.UI
 {

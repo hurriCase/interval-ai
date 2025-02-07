@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using Client.Scripts.DB.Data;
-using Client.Scripts.Patterns.Attributes;
-using Client.Scripts.Patterns.DI;
-using Client.Scripts.Patterns.Singletons;
+using CustomClasses.Runtime.Singletons;
+using DependencyInjection.Runtime.InjectableMarkers;
+using DependencyInjection.Runtime.InjectionBase;
 using Google;
 using UnityEngine;
 

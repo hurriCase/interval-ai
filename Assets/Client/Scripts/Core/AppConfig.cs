@@ -1,12 +1,13 @@
-﻿using Client.Scripts.Patterns.ResourceLoader.ConfigLoader;
+﻿using AssetLoader.Runtime;
+using CustomClasses.Runtime.Singletons;
 using UnityEngine;
 
 namespace Client.Scripts.Core
 {
-    internal sealed class AppConfig : ScriptableObject
+    [Resource("Assets/Resources", "AppConfig")]
+    public sealed class AppConfig : SingletonScriptableObject<AppConfig>
     {
-        internal static AppConfig Instance => _instance ?? (_instance = ConfigLoader.LoadAppConfig<AppConfig>());
-        private static AppConfig _instance;
+        [field: SerializeField] internal Platform Platform { get; private set; }
 
         [field: SerializeField]
         internal string WebClientId { get; private set; }
@@ -14,5 +15,12 @@ namespace Client.Scripts.Core
 
         [field: SerializeField] internal string SceneFolder { get; private set; } = "Assets/Client/Scenes/";
         [field: SerializeField] internal bool CleanUpTests { get; private set; } = true;
+    }
+
+    public enum Platform
+    {
+        UnityEditor,
+        Android,
+        Ios
     }
 }
