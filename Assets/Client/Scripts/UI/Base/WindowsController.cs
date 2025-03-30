@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using Client.Scripts.UI.Base.UITypes;
 using CustomClasses.Runtime.Singletons;
 using UnityEngine;
 
@@ -8,7 +10,9 @@ namespace Client.Scripts.UI.Base
     {
         [SerializeField] private GameObject[] _windowPrefabs;
 
-        private readonly HashSet<WindowBase> _createdWindows = new();
+        private readonly HashSet<UIBase<WindowType>> _createdWindows = new();
+        private readonly HashSet<UIBase<ScreenType>> _createdScreens = new();
+        private readonly Stack<UIBase<WindowType>> _openedWindows = new();
 
         internal void Init()
         {
@@ -16,22 +20,45 @@ namespace Client.Scripts.UI.Base
             {
                 var createdWindow = Instantiate(window, transform);
 
-                createdWindow.SetActive(false);
-
-                if (createdWindow.TryGetComponent<WindowBase>(out var windowBase))
+                if (createdWindow.TryGetComponent<UIBase<WindowType>>(out var windowBase))
+                {
                     _createdWindows.Add(windowBase);
+                    windowBase.Hide();
+                }
+
+                if (createdWindow.TryGetComponent<UIBase<ScreenType>>(out var screenBase) is false)
+                    continue;
+
+                _createdScreens.Add(screenBase);
+                screenBase.Hide();
             }
         }
 
-        internal void OpenWindow<T>() where T : WindowBase
+        internal void OpenWindowByType(WindowType windowType)
         {
-            foreach (var createdWindow in _createdWindows)
-            {
-                if (createdWindow.GetType() == typeof(T))
-                    createdWindow.gameObject.SetActive(true);
-                else if (createdWindow.CanHide)
-                    createdWindow.gameObject.SetActive(false);
-            }
+            var requestedScreen
+                = _createdWindows.FirstOrDefault(screen => screen.UIType == windowType);
+
+            if (!requestedScreen)
+                return;
+
+            requestedScreen.Show();
+            _openedWindows.Push(requestedScreen);
+        }
+
+        internal void CloseTopWindow()
+        {
+            var topWindow = _openedWindows.Pop();
+            topWindow.Hide();
+        }
+
+        internal void OpenScreenByType(ScreenType screenType)
+        {
+            var requestedScreen
+                = _createdScreens.FirstOrDefault(screen => screen.UIType == screenType);
+
+            if (requestedScreen)
+                requestedScreen.Show();
         }
     }
 }

@@ -6,13 +6,14 @@ using DependencyInjection.Runtime.InjectionBase;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Client.Scripts.UI.Base
+namespace Client.Scripts.UI.Base.Button
 {
     internal sealed class ButtonComponent : InjectableBehaviour, IPointerClickHandler
     {
-        [SerializeField] private AudioClip _clickSound;
         [Inject] private IAudioController _audioController;
         [Inject] private ICloudRepository _cloudRepository;
+
+        [SerializeField] private AudioClip _clickSound;
 
         internal event Action OnClick;
 
