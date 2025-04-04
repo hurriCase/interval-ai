@@ -17,7 +17,8 @@ namespace Client.Scripts.UI
 
         private void Update()
         {
-            if (Screen.orientation != _lastOrientation) Setup();
+            if (Screen.orientation != _lastOrientation)
+                Setup();
         }
 
         private void Setup()

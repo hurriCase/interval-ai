@@ -12,7 +12,9 @@ namespace Client.Scripts.UI.Base
 
         private readonly HashSet<UIBase<WindowType>> _createdWindows = new();
         private readonly HashSet<UIBase<ScreenType>> _createdScreens = new();
-        private readonly Stack<UIBase<WindowType>> _openedWindows = new();
+        private readonly Stack<UIBase<WindowType>> _previousOpenedWindows = new();
+
+        private UIBase<WindowType> _previousOpenedWindow;
 
         internal void Init()
         {
@@ -23,6 +25,7 @@ namespace Client.Scripts.UI.Base
                 if (createdWindow.TryGetComponent<UIBase<WindowType>>(out var windowBase))
                 {
                     _createdWindows.Add(windowBase);
+                    windowBase.OnHideWindow += CloseWindow;
                     windowBase.Hide();
                 }
 
@@ -34,6 +37,14 @@ namespace Client.Scripts.UI.Base
             }
         }
 
+        private void CloseWindow()
+        {
+            if (_previousOpenedWindows.TryPop(out var previousWindow) is false)
+                return;
+
+            previousWindow.Show();
+        }
+
         internal void OpenWindowByType(WindowType windowType)
         {
             var requestedScreen
@@ -43,13 +54,12 @@ namespace Client.Scripts.UI.Base
                 return;
 
             requestedScreen.Show();
-            _openedWindows.Push(requestedScreen);
-        }
 
-        internal void CloseTopWindow()
-        {
-            var topWindow = _openedWindows.Pop();
-            topWindow.Hide();
+            if (!_previousOpenedWindow)
+                return;
+
+            _previousOpenedWindows.Push(_previousOpenedWindow);
+            _previousOpenedWindow = requestedScreen;
         }
 
         internal void OpenScreenByType(ScreenType screenType)
@@ -59,6 +69,14 @@ namespace Client.Scripts.UI.Base
 
             if (requestedScreen)
                 requestedScreen.Show();
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            foreach (var window in _createdWindows)
+                window.OnHideWindow -= CloseWindow;
         }
     }
 }

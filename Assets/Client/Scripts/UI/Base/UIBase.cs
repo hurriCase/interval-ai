@@ -27,9 +27,8 @@ namespace Client.Scripts.UI.Base
 
         internal void Hide()
         {
-            Tween.Alpha(_canvasGroup, endValue: 0f, _animationDuration);
-
-            //.OnComplete(this, ui => ui);
+            Tween.Alpha(_canvasGroup, endValue: 0f, _animationDuration)
+                .OnComplete(this, ui => ui.OnHideWindow?.Invoke());
         }
     }
 }
