@@ -8,10 +8,10 @@ namespace Client.Scripts.UI.Base.Theme
     [RequireComponent(typeof(Image))]
     internal class ImageThemeComponent : MonoBehaviour
     {
-        [field: SerializeField] internal bool UseSolidColor { get; private set; } = true;
-        [field: SerializeField] internal bool UseGradientColor { get; private set; }
+        [field: SerializeField] internal ColorType ColorType { get; set; }
         [field: SerializeField] internal ThemeSolidColor ThemeSolidColor { get; set; }
         [field: SerializeField] internal ThemeGradientColor ThemeGradientColor { get; set; }
+        [field: SerializeField] internal SharedColor ThemeSharedColor { get; set; }
 
         [SerializeField] private Image _targetImage;
 
@@ -52,9 +52,16 @@ namespace Client.Scripts.UI.Base.Theme
 
         private void ApplyColorToImage()
         {
-            switch (UseSolidColor)
+            switch (ColorType)
             {
-                case true:
+                case ColorType.Shared:
+                    if (_targetImage.material)
+                        _targetImage.material = null;
+
+                    _targetImage.color = ThemeSharedColor.Color;
+                    break;
+
+                case ColorType.SolidColor:
                     if (_targetImage.material)
                         _targetImage.material = null;
 
@@ -66,11 +73,14 @@ namespace Client.Scripts.UI.Base.Theme
                     };
                     break;
 
-                case false:
+                case ColorType.Gradient:
                     _gradientMaterial ??= new Material(ShaderReferences.Instance.GradientShader);
 
                     ApplyGradientToImage(_targetImage);
                     break;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 

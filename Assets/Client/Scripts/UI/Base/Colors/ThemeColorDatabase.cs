@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AssetLoader.Runtime;
-using Client.Scripts.UI.Base.Colors.Base;
+using Client.Scripts.UI.Base.Theme;
 using CustomClasses.Runtime.Singletons;
 using UnityEngine;
 
 namespace Client.Scripts.UI.Base.Colors
 {
-    [Resource("Assets/Client/Scriptables/Resources/UI", nameof(ThemeColorDatabase), "UI")]
+    [Resource("Assets/Client/Scriptables/Resources/UI/Theme", nameof(ThemeColorDatabase), "UI/Theme")]
     internal sealed class ThemeColorDatabase : SingletonScriptableObject<ThemeColorDatabase>
     {
         [field: SerializeField] internal List<ThemeSolidColor> SolidColors { get; private set; }
@@ -26,9 +27,14 @@ namespace Client.Scripts.UI.Base.Colors
             return names;
         }
 
-        internal int GetSolidColorIndexByName(string name) => SolidColors.FindIndex(color => color.Name == name);
-
-        internal int GetGradientColorIndexByName(string name) => GradientColors.FindIndex(color => color.Name == name);
+        internal int GetColorIndexByName(string name, ColorType colorType) =>
+            colorType switch
+            {
+                ColorType.Shared => SharedColor.FindIndex(color => color.Name == name),
+                ColorType.SolidColor => SolidColors.FindIndex(color => color.Name == name),
+                ColorType.Gradient => GradientColors.FindIndex(color => color.Name == name),
+                _ => throw new ArgumentOutOfRangeException(nameof(colorType), colorType, null)
+            };
 
         private List<TColor> GetColorList<TColor>() where TColor : IThemeColor
         {
@@ -36,6 +42,7 @@ namespace Client.Scripts.UI.Base.Colors
             {
                 var type when type == typeof(ThemeSolidColor) => SolidColors as List<TColor>,
                 var type when type == typeof(ThemeGradientColor) => GradientColors as List<TColor>,
+                var type when type == typeof(SharedColor) => SharedColor as List<TColor>,
                 _ => null
             };
         }

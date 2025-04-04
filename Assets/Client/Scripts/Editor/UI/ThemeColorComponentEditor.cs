@@ -1,6 +1,6 @@
-﻿using Client.Scripts.Editor.EditorCustomization;
+﻿using System;
+using Client.Scripts.Editor.EditorCustomization;
 using Client.Scripts.UI.Base.Colors;
-using Client.Scripts.UI.Base.Colors.Base;
 using Client.Scripts.UI.Base.Theme;
 using CustomExtensions.Editor;
 using UnityEditor;
@@ -13,62 +13,55 @@ namespace Client.Scripts.Editor.UI
         private ThemeColorDatabase ThemeColorDatabase => ThemeColorDatabase.Instance;
         private ThemeHandler ThemeHandler => ThemeHandler.Instance;
 
-        private SerializedProperty _useSolidColorProperty;
-        private SerializedProperty _useGradientColorProperty;
+        private ImageThemeComponent _imageThemeComponent;
 
-        private SerializedProperty _themeSolidColorProperty;
-        private SerializedProperty _themeGradientColorProperty;
+        private SerializedProperty _currentSharedColorNameProperty;
         private SerializedProperty _currentSolidColorNameProperty;
         private SerializedProperty _currentGradientColorNameProperty;
-
-        private string[] _solidColorNames;
-        private string[] _gradientColorNames;
-
         private int _solidColorIndex;
         private int _gradientColorIndex;
-
+        private int _sharedColorIndex;
         private bool _previewDarkTheme;
 
         protected override void OnEnable()
         {
             base.OnEnable();
 
-            _useSolidColorProperty = serializedObject.FindField(nameof(ImageThemeComponent.UseSolidColor));
-            _useGradientColorProperty = serializedObject.FindField(nameof(ImageThemeComponent.UseGradientColor));
-            _themeSolidColorProperty = serializedObject.FindField(nameof(ImageThemeComponent.ThemeSolidColor));
-            _themeGradientColorProperty = serializedObject.FindField(nameof(ImageThemeComponent.ThemeGradientColor));
+            _imageThemeComponent = (ImageThemeComponent)target;
 
-            _solidColorNames = ThemeColorDatabase.GetColorNames<ThemeSolidColor>();
-            _gradientColorNames = ThemeColorDatabase.GetColorNames<ThemeGradientColor>();
+            InitializeColorProperty(nameof(ImageThemeComponent.ThemeSharedColor), ColorType.Shared,
+                out _currentSharedColorNameProperty, out _sharedColorIndex);
 
-            _currentSolidColorNameProperty = _themeSolidColorProperty.FindFieldRelative(nameof(ThemeSolidColor.Name));
-            var solidColorIndex = ThemeColorDatabase.GetSolidColorIndexByName(_currentSolidColorNameProperty.stringValue);
-            _solidColorIndex = solidColorIndex == -1 ? 0 : solidColorIndex;
+            InitializeColorProperty(nameof(ImageThemeComponent.ThemeSolidColor), ColorType.SolidColor,
+                out _currentSolidColorNameProperty, out _solidColorIndex);
 
-            _currentGradientColorNameProperty = _themeGradientColorProperty.FindFieldRelative(nameof(ThemeSolidColor.Name));
-            var gradientColorIndex =
-                ThemeColorDatabase.GetGradientColorIndexByName(_currentGradientColorNameProperty.stringValue);
-            _gradientColorIndex = gradientColorIndex == -1 ? 0 : gradientColorIndex;
+            InitializeColorProperty(nameof(ImageThemeComponent.ThemeGradientColor), ColorType.Gradient,
+                out _currentGradientColorNameProperty, out _gradientColorIndex);
+        }
+
+        private void InitializeColorProperty(string propertyName, ColorType colorType,
+            out SerializedProperty colorNameProperty, out int colorIndex)
+        {
+            var colorProperty = serializedObject.FindField(propertyName);
+            colorNameProperty = colorProperty.FindFieldRelative(nameof(IThemeColor.Name));
+            var currentColorIndex = ThemeColorDatabase.GetColorIndexByName(colorNameProperty.stringValue, colorType);
+            colorIndex = currentColorIndex == -1 ? 0 : currentColorIndex;
         }
 
         protected override void DrawCustomSections()
         {
             DrawFoldoutSection("Theme Settings", () =>
             {
-                DrawColorTypeSelectors();
+                DrawColorTypeProperty();
                 DrawThemeToggle();
-                DrawColorSelectors();
+                DrawColorSelector();
             });
         }
 
-        private void DrawColorTypeSelectors()
+        private void DrawColorTypeProperty()
         {
-            EditorGUILayoutExtensions.DrawPanel(() =>
-            {
-                EditorGUILayoutExtensions.DrawExclusiveSelection(_useSolidColorProperty, _useGradientColorProperty);
-
-                serializedObject.ApplyModifiedProperties();
-            });
+            var colorType = EditorGUILayoutExtensions.DrawEnumField("Color Type", _imageThemeComponent.ColorType);
+            _imageThemeComponent.ColorType = (ColorType)colorType;
         }
 
         private void DrawThemeToggle()
@@ -77,7 +70,6 @@ namespace Client.Scripts.Editor.UI
             {
                 string[] themeLabels = { "Light Theme", "Dark Theme" };
                 var selectedTheme = _previewDarkTheme ? 1 : 0;
-
                 var newSelectedTheme = EditorGUILayoutExtensions.DrawToggleButtonGroup(themeLabels, selectedTheme);
 
                 if (newSelectedTheme == selectedTheme)
@@ -88,111 +80,73 @@ namespace Client.Scripts.Editor.UI
             });
         }
 
-        private void DrawColorSelectors()
+        private void DrawColorSelector()
         {
-            EditorGUILayoutExtensions.DrawSectionHeader("Color Selection");
-
-            EditorGUILayoutExtensions.DrawPanel(() =>
-            {
-                if (_useSolidColorProperty.boolValue)
-                    DrawColorSelector<ThemeSolidColor>();
-                else if (_useGradientColorProperty.boolValue)
-                    DrawColorSelector<ThemeGradientColor>();
-            });
-        }
-
-        private void DrawColorSelector<TColor>() where TColor : IThemeColor
-        {
-            var isSolidColor = typeof(TColor) == typeof(ThemeSolidColor);
-            var fieldName = isSolidColor ? "Color" : "Gradient";
-            var colorNameProp = isSolidColor ? _currentSolidColorNameProperty : _currentGradientColorNameProperty;
-            var colorNames = isSolidColor ? _solidColorNames : _gradientColorNames;
-
-            var currentIndex = isSolidColor ? _solidColorIndex : _gradientColorIndex;
+            var (property, names, index) = GetColorSelectorData(_imageThemeComponent.ColorType);
 
             EditorGUILayoutExtensions.DrawBoxedSection("Color", () =>
             {
-                var newIndex = EditorGUILayoutExtensions.DrawDropdown(fieldName, currentIndex, colorNames);
+                var newIndex =
+                    EditorGUILayoutExtensions.DrawDropdown(nameof(_imageThemeComponent.ColorType), index, names);
 
-                var themeComponent = (ImageThemeComponent)target;
-                if (isSolidColor)
-                {
-                    themeComponent.ThemeSolidColor = ThemeColorDatabase.SolidColors[newIndex];
-                    _solidColorIndex = newIndex;
-                }
-                else
-                {
-                    themeComponent.ThemeGradientColor = ThemeColorDatabase.GradientColors[newIndex];
-                    _gradientColorIndex = newIndex;
-                }
-
-                colorNameProp.stringValue = isSolidColor switch
-                {
-                    true when ThemeColorDatabase.SolidColors.Count > newIndex => ThemeColorDatabase
-                        .SolidColors[newIndex]
-                        .Name,
-                    false when ThemeColorDatabase.GradientColors.Count > newIndex => ThemeColorDatabase
-                        .GradientColors[newIndex].Name,
-                    _ => colorNameProp.stringValue
-                };
-
-                switch (isSolidColor)
-                {
-                    case true:
-                    {
-                        DrawSolidColorField(newIndex, ThemeHandler.CurrentTheme);
-                        break;
-                    }
-                    case false:
-                    {
-                        DrawGradientField(newIndex, ThemeHandler.CurrentTheme);
-                        break;
-                    }
-                }
+                UpdateColorAndPreview(_imageThemeComponent.ColorType, newIndex, property);
             });
         }
 
-        private void DrawSolidColorField(int newIndex, ColorTheme colorTheme)
-        {
-            var selectedGradient = ThemeColorDatabase.SolidColors[newIndex];
-
-            ValidateColor(selectedGradient.Name);
-
-            switch (colorTheme)
+        private (SerializedProperty, string[], int) GetColorSelectorData(ColorType colorType) =>
+            colorType switch
             {
-                case ColorTheme.Light:
-                    EditorGUILayoutExtensions.DrawColorField("Preview", selectedGradient.LightThemeColor);
-                    break;
+                ColorType.Shared => (_currentSharedColorNameProperty, ThemeColorDatabase.GetColorNames<SharedColor>(),
+                    _sharedColorIndex),
+                ColorType.SolidColor => (_currentSolidColorNameProperty,
+                    ThemeColorDatabase.GetColorNames<ThemeSolidColor>(), _solidColorIndex),
+                ColorType.Gradient => (_currentGradientColorNameProperty,
+                    ThemeColorDatabase.GetColorNames<ThemeGradientColor>(), _gradientColorIndex),
+                _ => throw new ArgumentOutOfRangeException()
+            };
 
-                case ColorTheme.Dark:
-                    EditorGUILayoutExtensions.DrawColorField("Preview", selectedGradient.DarkThemeColor);
-                    break;
-            }
-        }
-
-        private void DrawGradientField(int newIndex, ColorTheme colorTheme)
+        private void UpdateColorAndPreview(ColorType colorType, int newIndex, SerializedProperty colorNameProperty)
         {
-            var selectedGradient = ThemeColorDatabase.GradientColors[newIndex];
-
-            ValidateColor(selectedGradient.Name);
-
-            switch (colorTheme)
+            switch (colorType)
             {
-                case ColorTheme.Light:
-                    EditorGUILayoutExtensions.DrawGradientField("Preview", selectedGradient.LightThemeColor);
+                case ColorType.Shared:
+                    var sharedColor = ThemeColorDatabase.SharedColor[newIndex];
+                    _imageThemeComponent.ThemeSharedColor = sharedColor;
+                    _sharedColorIndex = newIndex;
+                    colorNameProperty.stringValue = sharedColor.Name;
+
+                    EditorGUILayoutExtensions.DrawColorField("Preview", sharedColor.Color);
                     break;
 
-                case ColorTheme.Dark:
-                    EditorGUILayoutExtensions.DrawGradientField("Preview", selectedGradient.DarkThemeColor);
+                case ColorType.SolidColor:
+                    var solidColor = ThemeColorDatabase.SolidColors[newIndex];
+                    _imageThemeComponent.ThemeSolidColor = solidColor;
+                    _solidColorIndex = newIndex;
+                    colorNameProperty.stringValue = solidColor.Name;
+
+                    var previewSolidColor = ThemeHandler.CurrentTheme == ColorTheme.Light
+                        ? solidColor.LightThemeColor
+                        : solidColor.DarkThemeColor;
+
+                    EditorGUILayoutExtensions.DrawColorField("Preview", previewSolidColor);
                     break;
+
+                case ColorType.Gradient:
+                    var gradientColor = ThemeColorDatabase.GradientColors[newIndex];
+                    _imageThemeComponent.ThemeGradientColor = gradientColor;
+                    _gradientColorIndex = newIndex;
+                    colorNameProperty.stringValue = gradientColor.Name;
+
+                    var previewGradient = ThemeHandler.CurrentTheme == ColorTheme.Light
+                        ? gradientColor.LightThemeColor
+                        : gradientColor.DarkThemeColor;
+
+                    EditorGUILayoutExtensions.DrawGradientField("Preview", previewGradient);
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
-        }
-
-        private void ValidateColor(string colorName)
-        {
-            if (string.IsNullOrWhiteSpace(colorName))
-                EditorGUILayoutExtensions.DrawErrorBox(
-                    "This gradient doesn't have a name specified. Gradient names are required for proper theme switching.");
         }
     }
 }

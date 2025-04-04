@@ -1,9 +1,13 @@
 ﻿using System;
-using Client.Scripts.UI.Base.Colors.Base;
 using UnityEngine;
 
 namespace Client.Scripts.UI.Base.Colors
 {
     [Serializable]
-    internal sealed class ThemeSolidColor : ThemeColorBase<Color> { }
+    internal struct ThemeSolidColor : IThemeColor
+    {
+        [field: SerializeField] public string Name { get; private set; }
+        [field: SerializeField] internal Color LightThemeColor { get; private set; }
+        [field: SerializeField] internal Color DarkThemeColor { get; private set; }
+    }
 }

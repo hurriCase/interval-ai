@@ -124,6 +124,14 @@ namespace Client.Scripts.Editor.EditorCustomization
             return result;
         }
 
+        internal static Enum DrawEnumField(string label, Enum @enum)
+        {
+            EditorGUILayout.BeginHorizontal();
+            var enumValue = EditorGUILayout.EnumPopup(label, @enum);
+            EditorGUILayout.EndHorizontal();
+            return enumValue;
+        }
+
         /// <summary>
         /// Creates a warning message box with consistent styling
         /// </summary>
@@ -157,12 +165,11 @@ namespace Client.Scripts.Editor.EditorCustomization
         /// <summary>
         /// Creates a gradient field
         /// </summary>
-        internal static Gradient DrawGradientField(string label, Gradient color)
+        internal static void DrawGradientField(string label, Gradient color)
         {
             EditorGUILayout.Space(Settings.ColorFieldSpacing);
-            var newGradientValue = EditorGUILayout.GradientField(label, color, GUILayout.Height(Settings.ColorFieldHeight));
+            EditorGUILayout.GradientField(label, color, GUILayout.Height(Settings.ColorFieldHeight));
             EditorGUILayout.Space(Settings.ColorFieldSpacing);
-            return newGradientValue;
         }
 
         /// <summary>

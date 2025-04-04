@@ -4,9 +4,9 @@ using UnityEngine;
 namespace Client.Scripts.UI.Base.Colors
 {
     [Serializable]
-    internal sealed class SharedColor
+    internal struct SharedColor : IThemeColor
     {
-        [field: SerializeField] internal string Name { get; private set; }
+        [field: SerializeField] public string Name { get; private set; }
         [field: SerializeField] internal Color Color { get; private set; }
     }
 }

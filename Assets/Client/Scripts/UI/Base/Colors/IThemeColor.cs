@@ -1,4 +1,4 @@
-﻿namespace Client.Scripts.UI.Base.Colors.Base
+﻿namespace Client.Scripts.UI.Base.Colors
 {
     internal interface IThemeColor
     {
