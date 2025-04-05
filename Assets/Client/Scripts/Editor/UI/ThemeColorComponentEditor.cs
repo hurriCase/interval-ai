@@ -62,6 +62,8 @@ namespace Client.Scripts.Editor.UI
         {
             var colorType = EditorGUILayoutExtensions.DrawEnumField("Color Type", _imageThemeComponent.ColorType);
             _imageThemeComponent.ColorType = (ColorType)colorType;
+
+            _imageThemeComponent.ApplyColorToImage();
         }
 
         private void DrawThemeToggle()
@@ -76,7 +78,9 @@ namespace Client.Scripts.Editor.UI
                     return;
 
                 _previewDarkTheme = newSelectedTheme == 1;
-                ThemeHandler.SetTheme(_previewDarkTheme ? ColorTheme.Dark : ColorTheme.Light);
+                ThemeHandler.CurrentTheme = _previewDarkTheme ? ColorTheme.Dark : ColorTheme.Light;
+
+                _imageThemeComponent.ApplyColorToImage();
             });
         }
 
@@ -147,6 +151,8 @@ namespace Client.Scripts.Editor.UI
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+
+            _imageThemeComponent.ApplyColorToImage();
         }
     }
 }

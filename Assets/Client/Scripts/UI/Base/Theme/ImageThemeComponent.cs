@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 namespace Client.Scripts.UI.Base.Theme
 {
+    [ExecuteInEditMode]
     [RequireComponent(typeof(Image))]
     internal class ImageThemeComponent : MonoBehaviour
     {
@@ -16,7 +17,6 @@ namespace Client.Scripts.UI.Base.Theme
         [SerializeField] private Image _targetImage;
 
         private ThemeHandler ThemeHandler => ThemeHandler.Instance;
-        private ColorTheme CurrentTheme => ThemeHandler.CurrentTheme;
 
         private static readonly int _gradientStartColorProperty = Shader.PropertyToID("_GradientStartColor");
         private static readonly int _gradientEndColorProperty = Shader.PropertyToID("_GradientEndColor");
@@ -24,23 +24,15 @@ namespace Client.Scripts.UI.Base.Theme
 
         private Material _gradientMaterial;
 
-        protected virtual void OnValidate()
+        protected virtual void OnEnable()
         {
             _targetImage ??= GetComponent<Image>();
 
             ApplyColorToImage();
         }
 
-        protected virtual void Awake()
-        {
-            ThemeHandler.OnThemeChanged += ApplyColorToImage;
-            ApplyColorToImage();
-        }
-
         protected virtual void OnDestroy()
         {
-            ThemeHandler.OnThemeChanged -= ApplyColorToImage;
-
             if (!_gradientMaterial)
                 return;
 
@@ -50,7 +42,7 @@ namespace Client.Scripts.UI.Base.Theme
                 DestroyImmediate(_gradientMaterial);
         }
 
-        private void ApplyColorToImage()
+        internal void ApplyColorToImage()
         {
             switch (ColorType)
             {
@@ -65,7 +57,7 @@ namespace Client.Scripts.UI.Base.Theme
                     if (_targetImage.material)
                         _targetImage.material = null;
 
-                    _targetImage.color = CurrentTheme switch
+                    _targetImage.color = ThemeHandler.CurrentTheme switch
                     {
                         ColorTheme.Light => ThemeSolidColor.LightThemeColor,
                         ColorTheme.Dark => ThemeSolidColor.DarkThemeColor,
@@ -74,9 +66,14 @@ namespace Client.Scripts.UI.Base.Theme
                     break;
 
                 case ColorType.Gradient:
-                    _gradientMaterial ??= new Material(ShaderReferences.Instance.GradientShader);
+                    var gradient = ThemeHandler.CurrentTheme switch
+                    {
+                        ColorTheme.Light => ThemeGradientColor.LightThemeColor,
+                        ColorTheme.Dark => ThemeGradientColor.DarkThemeColor,
+                        _ => throw new ArgumentOutOfRangeException()
+                    };
 
-                    ApplyGradientToImage(_targetImage);
+                    ApplyGradientToImage(_targetImage, gradient);
                     break;
 
                 default:
@@ -84,14 +81,9 @@ namespace Client.Scripts.UI.Base.Theme
             }
         }
 
-        private void ApplyGradientToImage(Image targetImage, float direction = 0f)
+        private void ApplyGradientToImage(Image targetImage, Gradient gradient, float direction = 0f)
         {
-            var gradient = CurrentTheme switch
-            {
-                ColorTheme.Light => ThemeGradientColor.LightThemeColor,
-                ColorTheme.Dark => ThemeGradientColor.DarkThemeColor,
-                _ => throw new ArgumentOutOfRangeException()
-            };
+            _gradientMaterial ??= new Material(ShaderReferences.Instance.GradientShader);
 
             targetImage.material = _gradientMaterial;
 

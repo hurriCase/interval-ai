@@ -37,7 +37,7 @@ namespace Client.Scripts.Editor.UI
                 var targetTheme = _editingLightTheme ? ColorTheme.Light : ColorTheme.Dark;
 
                 if (_themeHandler && _themeHandler.CurrentTheme != targetTheme)
-                    _themeHandler.SetTheme(targetTheme);
+                    _themeHandler.CurrentTheme = targetTheme;
             });
 
             serializedObject.ApplyModifiedProperties();
