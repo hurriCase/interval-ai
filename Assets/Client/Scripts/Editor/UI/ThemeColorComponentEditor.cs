@@ -101,7 +101,7 @@ namespace Client.Scripts.Editor.UI
                 var newIndex =
                     EditorGUILayoutExtensions.DrawDropdown(nameof(_themeComponent.ColorType), index, names);
 
-                if (newIndex != _solidColorIndex)
+                if (newIndex != index)
                     UpdateColorAndPreview(_themeComponent.ColorType, newIndex, property);
             });
         }

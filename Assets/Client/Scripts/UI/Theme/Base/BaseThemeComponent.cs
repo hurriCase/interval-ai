@@ -7,7 +7,7 @@ namespace Client.Scripts.UI.Theme.Base
     [ExecuteInEditMode]
     internal abstract class BaseThemeComponent<T> : MonoBehaviour, IBaseThemeComponent where T : Component
     {
-        [field: SerializeField] public ColorType ColorType { get; set; }
+        [field: SerializeField] public ColorType ColorType { get; set; } = ColorType.SolidColor;
         [field: SerializeField] public ThemeSolidColor ThemeSolidColor { get; set; }
         [field: SerializeField] public ThemeGradientColor ThemeGradientColor { get; set; }
         [field: SerializeField] public ThemeSharedColor ThemeSharedColor { get; set; }

@@ -6,8 +6,8 @@ using UnityEngine;
 namespace Client.Scripts.UI.Theme.Components
 {
     [ExecuteInEditMode]
-    [RequireComponent(typeof(TMP_Text))]
-    internal sealed class TextThemeComponent : BaseThemeComponent<TMP_Text>
+    [RequireComponent(typeof(TextMeshProUGUI))]
+    internal sealed class TextThemeComponent : BaseThemeComponent<TextMeshProUGUI>
     {
         public override void ApplyColor()
         {
