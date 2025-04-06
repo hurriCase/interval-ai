@@ -65,6 +65,13 @@ namespace CustomMenu.Scripts.Editor
             Selection.activeObject = asset;
         }
 
+        [MenuItem("--Project--/Reference/Theme Color Database", priority = 6)]
+        private static void SelectAssetThemeColorDatabase()
+        {
+            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Client/Scriptables/Resources/UI/Theme/ThemeColorDatabase.asset");
+            Selection.activeObject = asset;
+        }
+
         [MenuItem("--Project--/Delete All Player Prefs", priority = 20)]
         private static void DeleteAllPlayerPrefs()
         {
