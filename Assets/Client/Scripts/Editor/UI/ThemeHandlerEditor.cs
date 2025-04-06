@@ -1,5 +1,5 @@
 ﻿using Client.Scripts.Editor.EditorCustomization;
-using Client.Scripts.UI.Base.Theme;
+using Client.Scripts.UI.Theme.Base;
 using UnityEditor;
 
 namespace Client.Scripts.Editor.UI
@@ -33,10 +33,10 @@ namespace Client.Scripts.Editor.UI
 
                 _editingLightTheme = newSelectedTheme == 0;
 
-                var targetTheme = _editingLightTheme ? ColorTheme.Light : ColorTheme.Dark;
+                var targetTheme = _editingLightTheme ? ThemeType.Light : ThemeType.Dark;
 
-                if (_themeHandler && _themeHandler.CurrentTheme != targetTheme)
-                    _themeHandler.CurrentTheme = targetTheme;
+                if (_themeHandler && _themeHandler.CurrentThemeType != targetTheme)
+                    _themeHandler.CurrentThemeType = targetTheme;
             });
 
             serializedObject.ApplyModifiedProperties();

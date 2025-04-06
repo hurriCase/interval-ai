@@ -1,7 +1,7 @@
 ﻿using System;
 using Client.Scripts.Editor.EditorCustomization;
-using Client.Scripts.UI.Base.Colors;
-using Client.Scripts.UI.Base.Theme;
+using Client.Scripts.UI.Theme.Base;
+using Client.Scripts.UI.Theme.ThemeColors;
 using CustomExtensions.Editor;
 using UnityEditor;
 
@@ -85,7 +85,7 @@ namespace Client.Scripts.Editor.UI
                     return;
 
                 _previewDarkTheme = newSelectedTheme == 1;
-                ThemeHandler.CurrentTheme = _previewDarkTheme ? ColorTheme.Dark : ColorTheme.Light;
+                ThemeHandler.CurrentThemeType = _previewDarkTheme ? ThemeType.Dark : ThemeType.Light;
 
                 _themeComponent.ApplyColor();
                 EditorUtility.SetDirty(target);
@@ -109,7 +109,7 @@ namespace Client.Scripts.Editor.UI
         private (SerializedProperty, string[], int) GetColorSelectorData(ColorType colorType) =>
             colorType switch
             {
-                ColorType.Shared => (_currentSharedColorNameProperty, ThemeColorDatabase.GetColorNames<SharedColor>(),
+                ColorType.Shared => (_currentSharedColorNameProperty, ThemeColorDatabase.GetColorNames<ThemeSharedColor>(),
                     _sharedColorIndex),
                 ColorType.SolidColor => (_currentSolidColorNameProperty,
                     ThemeColorDatabase.GetColorNames<ThemeSolidColor>(), _solidColorIndex),
@@ -137,7 +137,7 @@ namespace Client.Scripts.Editor.UI
                     _solidColorIndex = newIndex;
                     colorNameProperty.stringValue = solidColor.Name;
 
-                    var previewSolidColor = ThemeHandler.CurrentTheme == ColorTheme.Light
+                    var previewSolidColor = ThemeHandler.CurrentThemeType == ThemeType.Light
                         ? solidColor.LightThemeColor
                         : solidColor.DarkThemeColor;
 
@@ -150,7 +150,7 @@ namespace Client.Scripts.Editor.UI
                     _gradientColorIndex = newIndex;
                     colorNameProperty.stringValue = gradientColor.Name;
 
-                    var previewGradient = ThemeHandler.CurrentTheme == ColorTheme.Light
+                    var previewGradient = ThemeHandler.CurrentThemeType == ThemeType.Light
                         ? gradientColor.LightThemeColor
                         : gradientColor.DarkThemeColor;
 
