@@ -1,6 +1,5 @@
 ﻿using Client.Scripts.Editor.EditorCustomization;
 using Client.Scripts.UI.Base.Theme;
-using CustomExtensions.Editor;
 using UnityEditor;
 
 namespace Client.Scripts.Editor.UI

@@ -1,5 +1,4 @@
 ﻿using System;
-using Client.Scripts.UI.Base.Colors;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,73 +6,28 @@ namespace Client.Scripts.UI.Base.Theme
 {
     [ExecuteInEditMode]
     [RequireComponent(typeof(Image))]
-    internal class ImageThemeComponent : MonoBehaviour
+    internal sealed class ImageThemeComponent : BaseThemeComponent<Image>
     {
-        [field: SerializeField] internal ColorType ColorType { get; set; }
-        [field: SerializeField] internal ThemeSolidColor ThemeSolidColor { get; set; }
-        [field: SerializeField] internal ThemeGradientColor ThemeGradientColor { get; set; }
-        [field: SerializeField] internal SharedColor ThemeSharedColor { get; set; }
-
-        [SerializeField] private Image _targetImage;
-
-        private ThemeHandler ThemeHandler => ThemeHandler.Instance;
-
-        private static readonly int _gradientStartColorProperty = Shader.PropertyToID("_GradientStartColor");
-        private static readonly int _gradientEndColorProperty = Shader.PropertyToID("_GradientEndColor");
-        private static readonly int _gradientDirectionProperty = Shader.PropertyToID("_GradientDirection");
-
-        private Material _gradientMaterial;
-
-        protected virtual void OnEnable()
-        {
-            _targetImage ??= GetComponent<Image>();
-
-            ApplyColorToImage();
-        }
-
-        protected virtual void OnDestroy()
-        {
-            if (!_gradientMaterial)
-                return;
-
-            if (Application.isPlaying)
-                Destroy(_gradientMaterial);
-            else
-                DestroyImmediate(_gradientMaterial);
-        }
-
-        internal void ApplyColorToImage()
+        public override void ApplyColor()
         {
             switch (ColorType)
             {
                 case ColorType.Shared:
-                    if (_targetImage.material)
-                        _targetImage.material = null;
+                    if (_targetComponent.material)
+                        _targetComponent.material = null;
 
-                    _targetImage.color = ThemeSharedColor.Color;
+                    _targetComponent.color = ThemeSharedColor.Color;
                     break;
 
                 case ColorType.SolidColor:
-                    if (_targetImage.material)
-                        _targetImage.material = null;
+                    if (_targetComponent.material)
+                        _targetComponent.material = null;
 
-                    _targetImage.color = ThemeHandler.CurrentTheme switch
-                    {
-                        ColorTheme.Light => ThemeSolidColor.LightThemeColor,
-                        ColorTheme.Dark => ThemeSolidColor.DarkThemeColor,
-                        _ => throw new ArgumentOutOfRangeException()
-                    };
+                    _targetComponent.color = GetCurrentSolidColor();
                     break;
 
                 case ColorType.Gradient:
-                    var gradient = ThemeHandler.CurrentTheme switch
-                    {
-                        ColorTheme.Light => ThemeGradientColor.LightThemeColor,
-                        ColorTheme.Dark => ThemeGradientColor.DarkThemeColor,
-                        _ => throw new ArgumentOutOfRangeException()
-                    };
-
-                    ApplyGradientToImage(_targetImage, gradient);
+                    ApplyGradientToImage(_targetComponent, GetCurrentGradient());
                     break;
 
                 default:
@@ -83,17 +37,17 @@ namespace Client.Scripts.UI.Base.Theme
 
         private void ApplyGradientToImage(Image targetImage, Gradient gradient, float direction = 0f)
         {
-            _gradientMaterial ??= new Material(ShaderReferences.Instance.GradientShader);
+            gradientMaterial ??= new Material(ShaderReferences.Instance.GradientShader);
 
-            targetImage.material = _gradientMaterial;
+            targetImage.material = gradientMaterial;
 
-            if (_gradientMaterial && gradient.colorKeys.Length >= 2)
+            if (gradientMaterial && gradient.colorKeys.Length >= 2)
             {
                 targetImage.color = Color.white;
 
-                _gradientMaterial.SetColor(_gradientStartColorProperty, gradient.colorKeys[0].color);
-                _gradientMaterial.SetColor(_gradientEndColorProperty, gradient.colorKeys[^1].color);
-                _gradientMaterial.SetFloat(_gradientDirectionProperty, direction);
+                gradientMaterial.SetColor(_gradientStartColorProperty, gradient.colorKeys[0].color);
+                gradientMaterial.SetColor(_gradientEndColorProperty, gradient.colorKeys[^1].color);
+                gradientMaterial.SetFloat(_gradientDirectionProperty, direction);
 
                 targetImage.SetMaterialDirty();
             }

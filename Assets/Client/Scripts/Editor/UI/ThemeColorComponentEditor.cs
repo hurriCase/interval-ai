@@ -7,13 +7,13 @@ using UnityEditor;
 
 namespace Client.Scripts.Editor.UI
 {
-    [CustomEditor(typeof(ImageThemeComponent), true)]
+    [CustomEditor(typeof(BaseThemeComponent<>), true)]
     internal sealed class ThemeColorComponentEditorBase : EditorBase
     {
         private ThemeColorDatabase ThemeColorDatabase => ThemeColorDatabase.Instance;
         private ThemeHandler ThemeHandler => ThemeHandler.Instance;
 
-        private ImageThemeComponent _imageThemeComponent;
+        private IBaseThemeComponent _themeComponent;
 
         private SerializedProperty _currentSharedColorNameProperty;
         private SerializedProperty _currentSolidColorNameProperty;
@@ -27,15 +27,18 @@ namespace Client.Scripts.Editor.UI
         {
             base.OnEnable();
 
-            _imageThemeComponent = (ImageThemeComponent)target;
+            _themeComponent = target as IBaseThemeComponent;
 
-            InitializeColorProperty(nameof(ImageThemeComponent.ThemeSharedColor), ColorType.Shared,
+            if (_themeComponent == null)
+                return;
+
+            InitializeColorProperty("ThemeSharedColor", ColorType.Shared,
                 out _currentSharedColorNameProperty, out _sharedColorIndex);
 
-            InitializeColorProperty(nameof(ImageThemeComponent.ThemeSolidColor), ColorType.SolidColor,
+            InitializeColorProperty("ThemeSolidColor", ColorType.SolidColor,
                 out _currentSolidColorNameProperty, out _solidColorIndex);
 
-            InitializeColorProperty(nameof(ImageThemeComponent.ThemeGradientColor), ColorType.Gradient,
+            InitializeColorProperty("ThemeGradientColor", ColorType.Gradient,
                 out _currentGradientColorNameProperty, out _gradientColorIndex);
         }
 
@@ -60,10 +63,14 @@ namespace Client.Scripts.Editor.UI
 
         private void DrawColorTypeProperty()
         {
-            var colorType = EditorGUILayoutExtensions.DrawEnumField("Color Type", _imageThemeComponent.ColorType);
-            _imageThemeComponent.ColorType = (ColorType)colorType;
+            var colorType = (ColorType)EditorGUILayoutExtensions.DrawEnumField("Color Type", _themeComponent.ColorType);
 
-            _imageThemeComponent.ApplyColorToImage();
+            if (_themeComponent.ColorType == colorType)
+                return;
+
+            _themeComponent.ColorType = colorType;
+            _themeComponent.ApplyColor();
+            EditorUtility.SetDirty(target);
         }
 
         private void DrawThemeToggle()
@@ -80,20 +87,22 @@ namespace Client.Scripts.Editor.UI
                 _previewDarkTheme = newSelectedTheme == 1;
                 ThemeHandler.CurrentTheme = _previewDarkTheme ? ColorTheme.Dark : ColorTheme.Light;
 
-                _imageThemeComponent.ApplyColorToImage();
+                _themeComponent.ApplyColor();
+                EditorUtility.SetDirty(target);
             });
         }
 
         private void DrawColorSelector()
         {
-            var (property, names, index) = GetColorSelectorData(_imageThemeComponent.ColorType);
+            var (property, names, index) = GetColorSelectorData(_themeComponent.ColorType);
 
             EditorGUILayoutExtensions.DrawBoxedSection("Color", () =>
             {
                 var newIndex =
-                    EditorGUILayoutExtensions.DrawDropdown(nameof(_imageThemeComponent.ColorType), index, names);
+                    EditorGUILayoutExtensions.DrawDropdown(nameof(_themeComponent.ColorType), index, names);
 
-                UpdateColorAndPreview(_imageThemeComponent.ColorType, newIndex, property);
+                if (newIndex != _solidColorIndex)
+                    UpdateColorAndPreview(_themeComponent.ColorType, newIndex, property);
             });
         }
 
@@ -115,7 +124,7 @@ namespace Client.Scripts.Editor.UI
             {
                 case ColorType.Shared:
                     var sharedColor = ThemeColorDatabase.SharedColor[newIndex];
-                    _imageThemeComponent.ThemeSharedColor = sharedColor;
+                    _themeComponent.ThemeSharedColor = sharedColor;
                     _sharedColorIndex = newIndex;
                     colorNameProperty.stringValue = sharedColor.Name;
 
@@ -124,7 +133,7 @@ namespace Client.Scripts.Editor.UI
 
                 case ColorType.SolidColor:
                     var solidColor = ThemeColorDatabase.SolidColors[newIndex];
-                    _imageThemeComponent.ThemeSolidColor = solidColor;
+                    _themeComponent.ThemeSolidColor = solidColor;
                     _solidColorIndex = newIndex;
                     colorNameProperty.stringValue = solidColor.Name;
 
@@ -137,7 +146,7 @@ namespace Client.Scripts.Editor.UI
 
                 case ColorType.Gradient:
                     var gradientColor = ThemeColorDatabase.GradientColors[newIndex];
-                    _imageThemeComponent.ThemeGradientColor = gradientColor;
+                    _themeComponent.ThemeGradientColor = gradientColor;
                     _gradientColorIndex = newIndex;
                     colorNameProperty.stringValue = gradientColor.Name;
 
@@ -152,7 +161,8 @@ namespace Client.Scripts.Editor.UI
                     throw new ArgumentOutOfRangeException();
             }
 
-            _imageThemeComponent.ApplyColorToImage();
+            _themeComponent.ApplyColor();
+            EditorUtility.SetDirty(target);
         }
     }
 }
