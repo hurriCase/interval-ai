@@ -2,7 +2,7 @@ namespace Client.Scripts.UI.Theme.Base
 {
     internal enum ThemeType
     {
-        Light,
-        Dark
+        Light = 0,
+        Dark = 1
     }
 }

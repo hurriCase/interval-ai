@@ -69,7 +69,8 @@ namespace Client.Scripts.Editor.UI
                 return;
 
             _themeComponent.ColorType = colorType;
-            _themeComponent.ApplyColor();
+            _themeComponent.OnApplyColor();
+
             EditorUtility.SetDirty(target);
         }
 
@@ -87,7 +88,7 @@ namespace Client.Scripts.Editor.UI
                 _previewDarkTheme = newSelectedTheme == 1;
                 ThemeHandler.CurrentThemeType = _previewDarkTheme ? ThemeType.Dark : ThemeType.Light;
 
-                _themeComponent.ApplyColor();
+                _themeComponent.OnApplyColor();
                 EditorUtility.SetDirty(target);
             });
         }
@@ -161,7 +162,7 @@ namespace Client.Scripts.Editor.UI
                     throw new ArgumentOutOfRangeException();
             }
 
-            _themeComponent.ApplyColor();
+            _themeComponent.OnApplyColor();
             EditorUtility.SetDirty(target);
         }
     }

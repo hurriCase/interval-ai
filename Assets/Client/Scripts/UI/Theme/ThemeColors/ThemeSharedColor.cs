@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Client.Scripts.UI.Theme.ThemeColors
 {
     [Serializable]
-    internal struct ThemeSharedColor : IThemeColor
+    internal sealed class ThemeSharedColor : IThemeColor
     {
         [field: SerializeField] public string Name { get; private set; }
         [field: SerializeField] internal Color Color { get; private set; }

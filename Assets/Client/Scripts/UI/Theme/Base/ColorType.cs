@@ -3,7 +3,7 @@
     internal enum ColorType
     {
         Shared = 0,
-        SolidColor,
-        Gradient
+        SolidColor = 1,
+        Gradient = 2
     }
 }

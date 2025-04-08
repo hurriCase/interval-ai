@@ -10,51 +10,46 @@ namespace Client.Scripts.UI.Theme.Components
     [RequireComponent(typeof(Image))]
     internal sealed class ImageThemeComponent : BaseThemeComponent<Image>
     {
-        public override void ApplyColor()
+        protected override bool ShouldUpdateColor()
         {
             switch (ColorType)
             {
                 case ColorType.Shared:
-                    if (_targetComponent.material)
-                        _targetComponent.material = null;
-
-                    _targetComponent.color = ThemeSharedColor.Color;
-                    break;
+                    return _targetComponent.color != ThemeSharedColor.Color;
 
                 case ColorType.SolidColor:
-                    if (_targetComponent.material)
-                        _targetComponent.material = null;
-
-                    _targetComponent.color = GetCurrentSolidColor();
-                    break;
+                    return _targetComponent.color != GetCurrentSolidColor();
 
                 case ColorType.Gradient:
-                    ApplyGradientToImage(_targetComponent, GetCurrentGradient());
-                    break;
+                    _targetComponent.CompareGradient(GetCurrentGradient());
+                    return true;
 
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
 
-        private void ApplyGradientToImage(Image targetImage, Gradient gradient, float direction = 0f)
+        protected override void ApplyColor()
         {
-            gradientMaterial ??= new Material(ShaderReferences.Instance.GradientShader);
-
-            targetImage.material = gradientMaterial;
-
-            if (gradientMaterial && gradient.colorKeys.Length >= 2)
+            switch (ColorType)
             {
-                targetImage.color = Color.white;
+                case ColorType.Shared:
+                    _targetComponent.material = null;
+                    _targetComponent.color = ThemeSharedColor.Color;
+                    break;
 
-                gradientMaterial.SetColor(_gradientStartColorProperty, gradient.colorKeys[0].color);
-                gradientMaterial.SetColor(_gradientEndColorProperty, gradient.colorKeys[^1].color);
-                gradientMaterial.SetFloat(_gradientDirectionProperty, direction);
+                case ColorType.SolidColor:
+                    _targetComponent.material = null;
+                    _targetComponent.color = GetCurrentSolidColor();
+                    break;
 
-                targetImage.SetMaterialDirty();
+                case ColorType.Gradient:
+                    _targetComponent.ApplyGradient(GetCurrentGradient());
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
-            else if (gradient.colorKeys.Length > 0)
-                targetImage.color = gradient.colorKeys[0].color;
         }
     }
 }

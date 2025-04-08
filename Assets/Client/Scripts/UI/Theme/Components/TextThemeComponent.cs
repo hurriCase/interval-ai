@@ -9,7 +9,26 @@ namespace Client.Scripts.UI.Theme.Components
     [RequireComponent(typeof(TextMeshProUGUI))]
     internal sealed class TextThemeComponent : BaseThemeComponent<TextMeshProUGUI>
     {
-        public override void ApplyColor()
+        protected override bool ShouldUpdateColor()
+        {
+            switch (ColorType)
+            {
+                case ColorType.Shared:
+                    return _targetComponent.color != ThemeSharedColor.Color;
+
+                case ColorType.SolidColor:
+                    return _targetComponent.color != GetCurrentSolidColor();
+
+                case ColorType.Gradient:
+                    _targetComponent.CompareGradient(GetCurrentGradient());
+                    return true;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        protected override void ApplyColor()
         {
             switch (ColorType)
             {
@@ -19,6 +38,9 @@ namespace Client.Scripts.UI.Theme.Components
 
                 case ColorType.SolidColor:
                     _targetComponent.color = GetCurrentSolidColor();
+                    break;
+                case ColorType.Gradient:
+                    _targetComponent.ApplyGradient(GetCurrentGradient());
                     break;
 
                 default:
