@@ -1,6 +1,7 @@
 ﻿using System;
 using Client.Scripts.UI.Theme.ThemeColors;
 using UnityEngine;
+using Component = UnityEngine.Component;
 
 namespace Client.Scripts.UI.Theme.Base
 {
@@ -8,18 +9,35 @@ namespace Client.Scripts.UI.Theme.Base
     internal abstract class BaseThemeComponent<T> : MonoBehaviour, IBaseThemeComponent where T : Component
     {
         [field: SerializeField] public ColorType ColorType { get; set; } = ColorType.SolidColor;
-        [field: SerializeField, HideInInspector] public ThemeSharedColor ThemeSharedColor { get; set; }
-        [field: SerializeField, HideInInspector] public ThemeSolidColor ThemeSolidColor { get; set; }
-        [field: SerializeField, HideInInspector] public ThemeGradientColor ThemeGradientColor { get; set; }
+        [field: SerializeField] public ThemeSharedColor ThemeSharedColor { get; set; }
+        [field: SerializeField] public ThemeSolidColor ThemeSolidColor { get; set; }
+        [field: SerializeField] public ThemeGradientColor ThemeGradientColor { get; set; }
 
         [SerializeField] protected T _targetComponent;
         private ThemeHandler ThemeHandler => ThemeHandler.Instance;
+        private ThemeColorDatabase ThemeColorDatabase => ThemeColorDatabase.Instance;
 
         private ThemeSharedColor _previousSharedThemeColor;
         private ThemeSolidColor _previousSolidThemeColor;
         private ThemeGradientColor _previousGradientThemeColor;
         private ColorType _previousColorType;
         private ThemeType _previousThemeType;
+
+#if UNITY_EDITOR
+        protected virtual void Reset()
+        {
+            if (ThemeColorDatabase.SharedColor is { Count: > 0 })
+                ThemeSharedColor = ThemeColorDatabase.SharedColor[0];
+
+            if (ThemeColorDatabase.SolidColors is { Count: > 0 })
+                ThemeSolidColor = ThemeColorDatabase.SolidColors[0];
+
+            if (ThemeColorDatabase.GradientColors is { Count: > 0 })
+                ThemeGradientColor = ThemeColorDatabase.GradientColors[0];
+
+            OnApplyColor();
+        }
+#endif
 
         protected virtual void OnEnable()
         {

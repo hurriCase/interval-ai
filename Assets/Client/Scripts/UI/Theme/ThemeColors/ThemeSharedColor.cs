@@ -1,5 +1,6 @@
 ﻿using System;
 using Client.Scripts.UI.Theme.Base;
+using CustomAttributes.Runtime.Attributes;
 using UnityEngine;
 
 namespace Client.Scripts.UI.Theme.ThemeColors
@@ -7,7 +8,7 @@ namespace Client.Scripts.UI.Theme.ThemeColors
     [Serializable]
     internal sealed class ThemeSharedColor : IThemeColor
     {
-        [field: SerializeField] public string Name { get; private set; }
-        [field: SerializeField] internal Color Color { get; private set; }
+        [field: SerializeField, InspectorReadOnly] public string Name { get; private set; }
+        [field: SerializeField, InspectorReadOnly] internal Color Color { get; private set; }
     }
 }

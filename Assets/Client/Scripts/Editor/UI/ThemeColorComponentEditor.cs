@@ -4,6 +4,7 @@ using Client.Scripts.UI.Theme.Base;
 using Client.Scripts.UI.Theme.ThemeColors;
 using CustomExtensions.Editor;
 using UnityEditor;
+using UnityEngine;
 
 namespace Client.Scripts.Editor.UI
 {
@@ -15,13 +16,15 @@ namespace Client.Scripts.Editor.UI
 
         private IBaseThemeComponent _themeComponent;
 
-        private SerializedProperty _currentSharedColorNameProperty;
-        private SerializedProperty _currentSolidColorNameProperty;
-        private SerializedProperty _currentGradientColorNameProperty;
+        private SerializedProperty _sharedColorNameProperty;
+        private SerializedProperty _solidColorNameProperty;
+        private SerializedProperty _gradientColorNameProperty;
         private int _solidColorIndex;
         private int _gradientColorIndex;
         private int _sharedColorIndex;
         private bool _previewDarkTheme;
+
+        private int _newIndex;
 
         protected override void OnEnable()
         {
@@ -32,14 +35,14 @@ namespace Client.Scripts.Editor.UI
             if (_themeComponent == null)
                 return;
 
-            InitializeColorProperty("ThemeSharedColor", ColorType.Shared,
-                out _currentSharedColorNameProperty, out _sharedColorIndex);
+            InitializeColorProperty(nameof(IBaseThemeComponent.ThemeSharedColor), ColorType.Shared,
+                out _sharedColorNameProperty, out _sharedColorIndex);
 
-            InitializeColorProperty("ThemeSolidColor", ColorType.SolidColor,
-                out _currentSolidColorNameProperty, out _solidColorIndex);
+            InitializeColorProperty(nameof(IBaseThemeComponent.ThemeSolidColor), ColorType.SolidColor,
+                out _solidColorNameProperty, out _solidColorIndex);
 
-            InitializeColorProperty("ThemeGradientColor", ColorType.Gradient,
-                out _currentGradientColorNameProperty, out _gradientColorIndex);
+            InitializeColorProperty(nameof(IBaseThemeComponent.ThemeGradientColor), ColorType.Gradient,
+                out _gradientColorNameProperty, out _gradientColorIndex);
         }
 
         private void InitializeColorProperty(string propertyName, ColorType colorType,
@@ -70,6 +73,7 @@ namespace Client.Scripts.Editor.UI
 
             _themeComponent.ColorType = colorType;
             _themeComponent.OnApplyColor();
+            UpdateColorAndPreview();
 
             EditorUtility.SetDirty(target);
         }
@@ -95,21 +99,21 @@ namespace Client.Scripts.Editor.UI
 
         private void DrawColorSelector()
         {
-            var (property, names, index) = GetColorSelectorData(_themeComponent.ColorType);
+            var (names, index) = GetColorSelectorData(_themeComponent.ColorType);
 
             EditorGUILayoutExtensions.DrawBoxedSection("Color", () =>
             {
-                var newIndex =
-                    EditorGUILayoutExtensions.DrawDropdown(nameof(_themeComponent.ColorType), index, names);
+                _newIndex = EditorGUILayoutExtensions.DrawDropdown(nameof(_themeComponent.ColorType), index, names);
 
-                if (newIndex != index)
-                    UpdateColorAndPreview(_themeComponent.ColorType, newIndex, property);
+                if (_newIndex != index)
+                    UpdateColorAndPreview();
 
                 switch (_themeComponent.ColorType)
                 {
                     case ColorType.Shared:
                         EditorGUILayoutExtensions.DrawColorField("Preview", _themeComponent.ThemeSharedColor.Color);
                         break;
+
                     case ColorType.SolidColor:
                         var previewSolidColor = ThemeHandler.CurrentThemeType == ThemeType.Light
                             ? _themeComponent.ThemeSolidColor.LightThemeColor
@@ -117,6 +121,7 @@ namespace Client.Scripts.Editor.UI
 
                         EditorGUILayoutExtensions.DrawColorField("Preview", previewSolidColor);
                         break;
+
                     case ColorType.Gradient:
                         var previewGradient = ThemeHandler.CurrentThemeType == ThemeType.Light
                             ? _themeComponent.ThemeGradientColor.LightThemeColor
@@ -124,47 +129,45 @@ namespace Client.Scripts.Editor.UI
 
                         EditorGUILayoutExtensions.DrawGradientField("Preview", previewGradient);
                         break;
+
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
             });
         }
 
-        private (SerializedProperty, string[], int) GetColorSelectorData(ColorType colorType) =>
+        private (string[], int) GetColorSelectorData(ColorType colorType) =>
             colorType switch
             {
-                ColorType.Shared => (_currentSharedColorNameProperty, ThemeColorDatabase.GetColorNames<ThemeSharedColor>(),
-                    _sharedColorIndex),
-                ColorType.SolidColor => (_currentSolidColorNameProperty,
-                    ThemeColorDatabase.GetColorNames<ThemeSolidColor>(), _solidColorIndex),
-                ColorType.Gradient => (_currentGradientColorNameProperty,
-                    ThemeColorDatabase.GetColorNames<ThemeGradientColor>(), _gradientColorIndex),
+                ColorType.Shared => (ThemeColorDatabase.GetColorNames<ThemeSharedColor>(), _sharedColorIndex),
+                ColorType.SolidColor => (ThemeColorDatabase.GetColorNames<ThemeSolidColor>(), _solidColorIndex),
+                ColorType.Gradient => (ThemeColorDatabase.GetColorNames<ThemeGradientColor>(), _gradientColorIndex),
                 _ => throw new ArgumentOutOfRangeException()
             };
 
-        private void UpdateColorAndPreview(ColorType colorType, int newIndex, SerializedProperty colorNameProperty)
+        private void UpdateColorAndPreview()
         {
-            switch (colorType)
+            switch (_themeComponent.ColorType)
             {
                 case ColorType.Shared:
-                    var sharedColor = ThemeColorDatabase.SharedColor[newIndex];
+                    var sharedColor = ThemeColorDatabase.SharedColor[_newIndex];
                     _themeComponent.ThemeSharedColor = sharedColor;
-                    _sharedColorIndex = newIndex;
-                    colorNameProperty.stringValue = sharedColor.Name;
+                    _sharedColorIndex = _newIndex;
+                    _sharedColorNameProperty.stringValue = sharedColor.Name;
                     break;
 
                 case ColorType.SolidColor:
-                    var solidColor = ThemeColorDatabase.SolidColors[newIndex];
+                    var solidColor = ThemeColorDatabase.SolidColors[_newIndex];
                     _themeComponent.ThemeSolidColor = solidColor;
-                    _solidColorIndex = newIndex;
-                    colorNameProperty.stringValue = solidColor.Name;
+                    _solidColorIndex = _newIndex;
+                    _solidColorNameProperty.stringValue = solidColor.Name;
                     break;
 
                 case ColorType.Gradient:
-                    var gradientColor = ThemeColorDatabase.GradientColors[newIndex];
+                    var gradientColor = ThemeColorDatabase.GradientColors[_newIndex];
                     _themeComponent.ThemeGradientColor = gradientColor;
-                    _gradientColorIndex = newIndex;
-                    colorNameProperty.stringValue = gradientColor.Name;
+                    _gradientColorIndex = _newIndex;
+                    _gradientColorNameProperty.stringValue = gradientColor.Name;
                     break;
 
                 default:

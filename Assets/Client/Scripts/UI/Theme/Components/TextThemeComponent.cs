@@ -10,6 +10,15 @@ namespace Client.Scripts.UI.Theme.Components
     [RequireComponent(typeof(TextMeshProUGUI))]
     internal sealed class TextThemeComponent : BaseThemeComponent<TextMeshProUGUI>
     {
+        private Material _originalFontMaterial;
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+
+            _originalFontMaterial = _targetComponent.fontMaterial;
+        }
+
         protected override bool ShouldUpdateColor()
         {
             switch (ColorType)
@@ -34,10 +43,12 @@ namespace Client.Scripts.UI.Theme.Components
             switch (ColorType)
             {
                 case ColorType.Shared:
+                    _targetComponent.fontMaterial = _originalFontMaterial;
                     _targetComponent.color = ThemeSharedColor.Color;
                     break;
 
                 case ColorType.SolidColor:
+                    _targetComponent.fontMaterial = _originalFontMaterial;
                     _targetComponent.color = GetCurrentSolidColor();
                     break;
                 case ColorType.Gradient:

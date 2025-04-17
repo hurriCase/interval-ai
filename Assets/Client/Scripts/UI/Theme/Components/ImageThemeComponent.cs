@@ -10,21 +10,24 @@ namespace Client.Scripts.UI.Theme.Components
     [RequireComponent(typeof(Image))]
     internal sealed class ImageThemeComponent : BaseThemeComponent<Image>
     {
+        private Material _originalMaterial;
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+
+            _originalMaterial = _targetComponent.material;
+        }
+
         protected override bool ShouldUpdateColor()
         {
-            switch (ColorType)
+            return ColorType switch
             {
-                case ColorType.Shared:
-                    return _targetComponent.color != ThemeSharedColor.Color;
-
-                case ColorType.SolidColor:
-                    return _targetComponent.color != GetCurrentSolidColor();
-
-                case ColorType.Gradient:
-                    return _targetComponent.CompareGradient(GetCurrentGradient());
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+                ColorType.Shared => _targetComponent.color != ThemeSharedColor.Color,
+                ColorType.SolidColor => _targetComponent.color != GetCurrentSolidColor(),
+                ColorType.Gradient => _targetComponent.CompareGradient(GetCurrentGradient()),
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
 
         protected override void ApplyColor()
@@ -32,12 +35,12 @@ namespace Client.Scripts.UI.Theme.Components
             switch (ColorType)
             {
                 case ColorType.Shared:
-                    _targetComponent.material = null;
+                    _targetComponent.material = _originalMaterial;
                     _targetComponent.color = ThemeSharedColor.Color;
                     break;
 
                 case ColorType.SolidColor:
-                    _targetComponent.material = null;
+                    _targetComponent.material = _originalMaterial;
                     _targetComponent.color = GetCurrentSolidColor();
                     break;
 
