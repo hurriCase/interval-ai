@@ -12,6 +12,7 @@ namespace Client.Scripts.UI.ProgressComponent
         [field: SerializeField, Range(3, 36)] internal int RoundedCapResolution { get; set; } = 8;
         [field: SerializeField, Range(0, 359)] internal float CustomFillOrigin { get; set; }
         [field: SerializeField] internal bool UseCustomFillOrigin { get; set; }
+        [field: SerializeField, Range(0.01f, 0.5f)] internal float ThicknessRatio { get; set; } = 0.2f;
 
         protected override void OnEnable()
         {
@@ -52,7 +53,7 @@ namespace Client.Scripts.UI.ProgressComponent
             );
 
             var radius = Mathf.Min(width, height) * 0.5f;
-            var thickness = radius * 0.2f;
+            var thickness = radius * ThicknessRatio;
             var innerRadius = radius - thickness;
 
             var fullAngle = fillClockwise ? 360f : -360f;

@@ -14,6 +14,7 @@ namespace Client.Scripts.Editor.UI
         private SerializedProperty _roundedCapResolutionProperty;
         private SerializedProperty _customFillOriginProperty;
         private SerializedProperty _useCustomFillOriginProperty;
+        private SerializedProperty _thicknessRatioProperty;
         private SerializedProperty _typeProperty;
         private SerializedProperty _fillMethodProperty;
 
@@ -22,9 +23,13 @@ namespace Client.Scripts.Editor.UI
             base.OnEnable();
 
             _roundedCapsProperty = serializedObject.FindField(nameof(RoundedFilledImageComponent.RoundedCaps));
-            _roundedCapResolutionProperty = serializedObject.FindField(nameof(RoundedFilledImageComponent.RoundedCapResolution));
-            _customFillOriginProperty = serializedObject.FindField(nameof(RoundedFilledImageComponent.CustomFillOrigin));
-            _useCustomFillOriginProperty = serializedObject.FindField(nameof(RoundedFilledImageComponent.UseCustomFillOrigin));
+            _roundedCapResolutionProperty =
+                serializedObject.FindField(nameof(RoundedFilledImageComponent.RoundedCapResolution));
+            _customFillOriginProperty =
+                serializedObject.FindField(nameof(RoundedFilledImageComponent.CustomFillOrigin));
+            _useCustomFillOriginProperty =
+                serializedObject.FindField(nameof(RoundedFilledImageComponent.UseCustomFillOrigin));
+            _thicknessRatioProperty = serializedObject.FindField(nameof(RoundedFilledImageComponent.ThicknessRatio));
             _typeProperty = serializedObject.FindProperty("m_Type");
             _fillMethodProperty = serializedObject.FindProperty("m_FillMethod");
         }
@@ -56,6 +61,8 @@ namespace Client.Scripts.Editor.UI
                 {
                     EditorGUILayout.PropertyField(_customFillOriginProperty);
                 }
+
+                EditorGUILayout.PropertyField(_thicknessRatioProperty);
 
                 if (isRadial360 is false && _roundedCapsProperty.boolValue)
                     EditorGUILayout.HelpBox("Rounded caps only work with Radial 360 fill method.", MessageType.Warning);
