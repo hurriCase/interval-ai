@@ -1,5 +1,6 @@
 ﻿using System;
 using Client.Scripts.UI.Theme.Base;
+using Client.Scripts.UI.Theme.GradientHelpers;
 using TMPro;
 using UnityEngine;
 

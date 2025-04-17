@@ -1,4 +1,4 @@
-﻿namespace Client.Scripts.UI
+﻿namespace Client.Scripts.UI.Theme.GradientHelpers
 {
     internal enum GradientDirection
     {

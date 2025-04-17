@@ -7,7 +7,7 @@ namespace Client.Scripts.UI.Base
     [ExecuteInEditMode]
     internal sealed class ImagePixelsPerUnitAdjuster : MonoBehaviour
     {
-        [SerializeField] private float _additionalPixelPerUnitMultiplier = 2f;
+        [SerializeField] private BackgroundType _backgroundType;
 
         private Image _image;
         private RectTransform _rectTransform;
@@ -41,7 +41,15 @@ namespace Client.Scripts.UI.Base
             var elementImageRatio = _rectTransform.rect.width / imageWidth;
             var aspectRatio = _parentAspectRatioFitter.aspectRatio;
 
-            _image.pixelsPerUnitMultiplier = aspectRatio / elementImageRatio * _additionalPixelPerUnitMultiplier;
+            var additionalPixelPerUnitMultiplier = _backgroundType switch
+            {
+                BackgroundType.None => 1f,
+                BackgroundType.Button => 1f,
+                BackgroundType.Block => 2f,
+                _ => 1f
+            };
+
+            _image.pixelsPerUnitMultiplier = aspectRatio / elementImageRatio * additionalPixelPerUnitMultiplier;
         }
     }
 }

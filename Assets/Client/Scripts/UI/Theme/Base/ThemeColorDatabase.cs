@@ -10,9 +10,9 @@ namespace Client.Scripts.UI.Theme.Base
     [Resource("Assets/Client/Scriptables/Resources/UI/Theme", nameof(ThemeColorDatabase), "UI/Theme")]
     internal sealed class ThemeColorDatabase : SingletonScriptableObject<ThemeColorDatabase>
     {
-        [field: SerializeField] internal List<ThemeSolidColor> SolidColors { get; private set; }
-        [field: SerializeField] internal List<ThemeGradientColor> GradientColors { get; private set; }
-        [field: SerializeField] internal List<ThemeSharedColor> SharedColor { get; private set; }
+        [field: SerializeField, NonReorderable] internal List<ThemeSolidColor> SolidColors { get; private set; }
+        [field: SerializeField, NonReorderable] internal List<ThemeGradientColor> GradientColors { get; private set; }
+        [field: SerializeField, NonReorderable] internal List<ThemeSharedColor> SharedColor { get; private set; }
 
         internal string[] GetColorNames<TColor>() where TColor : IThemeColor
         {

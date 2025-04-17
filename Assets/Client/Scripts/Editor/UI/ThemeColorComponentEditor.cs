@@ -104,6 +104,29 @@ namespace Client.Scripts.Editor.UI
 
                 if (newIndex != index)
                     UpdateColorAndPreview(_themeComponent.ColorType, newIndex, property);
+
+                switch (_themeComponent.ColorType)
+                {
+                    case ColorType.Shared:
+                        EditorGUILayoutExtensions.DrawColorField("Preview", _themeComponent.ThemeSharedColor.Color);
+                        break;
+                    case ColorType.SolidColor:
+                        var previewSolidColor = ThemeHandler.CurrentThemeType == ThemeType.Light
+                            ? _themeComponent.ThemeSolidColor.LightThemeColor
+                            : _themeComponent.ThemeSolidColor.DarkThemeColor;
+
+                        EditorGUILayoutExtensions.DrawColorField("Preview", previewSolidColor);
+                        break;
+                    case ColorType.Gradient:
+                        var previewGradient = ThemeHandler.CurrentThemeType == ThemeType.Light
+                            ? _themeComponent.ThemeGradientColor.LightThemeColor
+                            : _themeComponent.ThemeGradientColor.DarkThemeColor;
+
+                        EditorGUILayoutExtensions.DrawGradientField("Preview", previewGradient);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             });
         }
 
@@ -128,8 +151,6 @@ namespace Client.Scripts.Editor.UI
                     _themeComponent.ThemeSharedColor = sharedColor;
                     _sharedColorIndex = newIndex;
                     colorNameProperty.stringValue = sharedColor.Name;
-
-                    EditorGUILayoutExtensions.DrawColorField("Preview", sharedColor.Color);
                     break;
 
                 case ColorType.SolidColor:
@@ -137,12 +158,6 @@ namespace Client.Scripts.Editor.UI
                     _themeComponent.ThemeSolidColor = solidColor;
                     _solidColorIndex = newIndex;
                     colorNameProperty.stringValue = solidColor.Name;
-
-                    var previewSolidColor = ThemeHandler.CurrentThemeType == ThemeType.Light
-                        ? solidColor.LightThemeColor
-                        : solidColor.DarkThemeColor;
-
-                    EditorGUILayoutExtensions.DrawColorField("Preview", previewSolidColor);
                     break;
 
                 case ColorType.Gradient:
@@ -150,12 +165,6 @@ namespace Client.Scripts.Editor.UI
                     _themeComponent.ThemeGradientColor = gradientColor;
                     _gradientColorIndex = newIndex;
                     colorNameProperty.stringValue = gradientColor.Name;
-
-                    var previewGradient = ThemeHandler.CurrentThemeType == ThemeType.Light
-                        ? gradientColor.LightThemeColor
-                        : gradientColor.DarkThemeColor;
-
-                    EditorGUILayoutExtensions.DrawGradientField("Preview", previewGradient);
                     break;
 
                 default:

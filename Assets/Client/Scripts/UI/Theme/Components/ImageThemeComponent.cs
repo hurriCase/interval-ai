@@ -1,6 +1,6 @@
 ﻿using System;
-using Client.Scripts.References;
 using Client.Scripts.UI.Theme.Base;
+using Client.Scripts.UI.Theme.GradientHelpers;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,9 +21,7 @@ namespace Client.Scripts.UI.Theme.Components
                     return _targetComponent.color != GetCurrentSolidColor();
 
                 case ColorType.Gradient:
-                    _targetComponent.CompareGradient(GetCurrentGradient());
-                    return true;
-
+                    return _targetComponent.CompareGradient(GetCurrentGradient());
                 default:
                     throw new ArgumentOutOfRangeException();
             }

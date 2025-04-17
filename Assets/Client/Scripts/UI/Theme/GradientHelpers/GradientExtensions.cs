@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using Client.Scripts.References;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
-namespace Client.Scripts.UI
+namespace Client.Scripts.UI.Theme.GradientHelpers
 {
     internal static class GradientExtensions
     {
@@ -42,7 +42,8 @@ namespace Client.Scripts.UI
         {
             if (gradient == null || gradient.colorKeys.Length < 1)
             {
-                Debug.LogError("Invalid gradient provided. Ensure it has at least one color key.");
+                Debug.LogError("[GradientExtensions::ApplyGradient] Invalid gradient provided." +
+                               " Ensure it has at least one color key.");
                 return;
             }
 
@@ -56,7 +57,8 @@ namespace Client.Scripts.UI
                 var imageGradientShader = ShaderReferences.Instance.GradientShader;
                 if (!imageGradientShader)
                 {
-                    Debug.LogError("Image Gradient Shader not found in ShaderReferences.");
+                    Debug.LogError("[GradientExtensions::ApplyGradient]" +
+                                   " Image GradientHelpers Shader not found in ShaderReferences.");
                     return;
                 }
 
@@ -98,7 +100,8 @@ namespace Client.Scripts.UI
                 var textGradientShader = Shader.Find("Custom/TextGradientShader");
                 if (!textGradientShader)
                 {
-                    Debug.LogError("Text Gradient Shader not found. Make sure it's properly included in your project.");
+                    Debug.LogError("[GradientExtensions::ApplyGradient]" +
+                                   " Text GradientHelpers Shader not found. Make sure it's properly included in your project.");
                     return;
                 }
 
