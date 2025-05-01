@@ -75,8 +75,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 0
-  m_fontColor: {r: 0, g: 0, b: 0, a: 0}
+    rgba: 4288256409
+  m_fontColor: {r: 0.6, g: 0.6, b: 0.6, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -93,7 +93,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 8.8
+  m_fontSize: 6.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -151,18 +151,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <ColorType>k__BackingField: 1
   <ThemeSharedColor>k__BackingField:
-    <Name>k__BackingField: 
-    <Color>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+    <Name>k__BackingField: Base_Icons
+    <Color>k__BackingField: {r: 0, g: 0.8039216, b: 0.67058825, a: 1}
   <ThemeSolidColor>k__BackingField:
     <Name>k__BackingField: Text_Secondary
-    <LightThemeColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
-    <DarkThemeColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+    <LightThemeColor>k__BackingField: {r: 0.6, g: 0.6, b: 0.6, a: 1}
+    <DarkThemeColor>k__BackingField: {r: 0.49019608, g: 0.49019608, b: 0.49019608, a: 1}
   <ThemeGradientColor>k__BackingField:
-    <Name>k__BackingField: 
+    <Name>k__BackingField: Base_01
     <LightThemeColor>k__BackingField:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 1, g: 0.90588236, b: 0.99215686, a: 1}
+      key1: {r: 0.84313726, g: 0.90588236, b: 0.99607843, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -191,8 +191,8 @@ MonoBehaviour:
       m_NumAlphaKeys: 2
     <DarkThemeColor>k__BackingField:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0.3019608, g: 0.003921569, b: 0.3764706, a: 1}
+      key1: {r: 0, g: 0.18431373, b: 0.44313726, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -229,12 +229,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 817894389348938976}
     m_Modifications:
     - target: {fileID: 3556285112153493277, guid: bb74db9acffcefe47a9c06bee6e21808, type: 3}
+      propertyPath: m_Color.b
+      value: 0.92156863
+      objectReference: {fileID: 0}
+    - target: {fileID: 3556285112153493277, guid: bb74db9acffcefe47a9c06bee6e21808, type: 3}
+      propertyPath: m_Color.g
+      value: 0.92156863
+      objectReference: {fileID: 0}
+    - target: {fileID: 3556285112153493277, guid: bb74db9acffcefe47a9c06bee6e21808, type: 3}
+      propertyPath: m_Color.r
+      value: 0.92156863
+      objectReference: {fileID: 0}
+    - target: {fileID: 3556285112153493277, guid: bb74db9acffcefe47a9c06bee6e21808, type: 3}
       propertyPath: m_FillAmount
       value: 0.458
       objectReference: {fileID: 0}
     - target: {fileID: 3838923792141706375, guid: bb74db9acffcefe47a9c06bee6e21808, type: 3}
       propertyPath: m_Name
       value: P_EmptyProgress (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3838923792141706375, guid: bb74db9acffcefe47a9c06bee6e21808, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6391347033192831741, guid: bb74db9acffcefe47a9c06bee6e21808, type: 3}
       propertyPath: m_Pivot.x
@@ -335,6 +351,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 6832942506643937, guid: ab4872127d9777248a7bc5d9ae3ece63, type: 3}
+      propertyPath: m_AspectMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6832942506643937, guid: ab4872127d9777248a7bc5d9ae3ece63, type: 3}
       propertyPath: m_AspectRatio
       value: 0.75
       objectReference: {fileID: 0}
@@ -344,7 +364,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1408343510894411604, guid: ab4872127d9777248a7bc5d9ae3ece63, type: 3}
       propertyPath: m_PixelsPerUnitMultiplier
-      value: 5.3333335
+      value: 7.431059
       objectReference: {fileID: 0}
     - target: {fileID: 2967914248617083197, guid: ab4872127d9777248a7bc5d9ae3ece63, type: 3}
       propertyPath: m_AnchorMin.y
@@ -388,11 +408,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5074267181449913237, guid: ab4872127d9777248a7bc5d9ae3ece63, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 36
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5074267181449913237, guid: ab4872127d9777248a7bc5d9ae3ece63, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 34.45
       objectReference: {fileID: 0}
     - target: {fileID: 5074267181449913237, guid: ab4872127d9777248a7bc5d9ae3ece63, type: 3}
       propertyPath: m_LocalPosition.x
@@ -494,6 +514,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_EmptyProgress (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3838923792141706375, guid: bb74db9acffcefe47a9c06bee6e21808, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6391347033192831741, guid: bb74db9acffcefe47a9c06bee6e21808, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -592,6 +616,50 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 817894389348938976}
     m_Modifications:
+    - target: {fileID: 3378119568034341342, guid: bb74db9acffcefe47a9c06bee6e21808, type: 3}
+      propertyPath: <ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3378119568034341342, guid: bb74db9acffcefe47a9c06bee6e21808, type: 3}
+      propertyPath: <ThemeSolidColor>k__BackingField.<Name>k__BackingField
+      value: Base_Icons_Calendar
+      objectReference: {fileID: 0}
+    - target: {fileID: 3378119568034341342, guid: bb74db9acffcefe47a9c06bee6e21808, type: 3}
+      propertyPath: <ThemeSolidColor>k__BackingField.<DarkThemeColor>k__BackingField.b
+      value: 0.31764707
+      objectReference: {fileID: 0}
+    - target: {fileID: 3378119568034341342, guid: bb74db9acffcefe47a9c06bee6e21808, type: 3}
+      propertyPath: <ThemeSolidColor>k__BackingField.<DarkThemeColor>k__BackingField.g
+      value: 0.31764707
+      objectReference: {fileID: 0}
+    - target: {fileID: 3378119568034341342, guid: bb74db9acffcefe47a9c06bee6e21808, type: 3}
+      propertyPath: <ThemeSolidColor>k__BackingField.<DarkThemeColor>k__BackingField.r
+      value: 0.31764707
+      objectReference: {fileID: 0}
+    - target: {fileID: 3378119568034341342, guid: bb74db9acffcefe47a9c06bee6e21808, type: 3}
+      propertyPath: <ThemeSolidColor>k__BackingField.<LightThemeColor>k__BackingField.b
+      value: 0.92156863
+      objectReference: {fileID: 0}
+    - target: {fileID: 3378119568034341342, guid: bb74db9acffcefe47a9c06bee6e21808, type: 3}
+      propertyPath: <ThemeSolidColor>k__BackingField.<LightThemeColor>k__BackingField.g
+      value: 0.92156863
+      objectReference: {fileID: 0}
+    - target: {fileID: 3378119568034341342, guid: bb74db9acffcefe47a9c06bee6e21808, type: 3}
+      propertyPath: <ThemeSolidColor>k__BackingField.<LightThemeColor>k__BackingField.r
+      value: 0.92156863
+      objectReference: {fileID: 0}
+    - target: {fileID: 3556285112153493277, guid: bb74db9acffcefe47a9c06bee6e21808, type: 3}
+      propertyPath: m_Color.b
+      value: 0.92156863
+      objectReference: {fileID: 0}
+    - target: {fileID: 3556285112153493277, guid: bb74db9acffcefe47a9c06bee6e21808, type: 3}
+      propertyPath: m_Color.g
+      value: 0.92156863
+      objectReference: {fileID: 0}
+    - target: {fileID: 3556285112153493277, guid: bb74db9acffcefe47a9c06bee6e21808, type: 3}
+      propertyPath: m_Color.r
+      value: 0.92156863
+      objectReference: {fileID: 0}
     - target: {fileID: 3556285112153493277, guid: bb74db9acffcefe47a9c06bee6e21808, type: 3}
       propertyPath: m_FillAmount
       value: 0.284
@@ -603,6 +671,10 @@ PrefabInstance:
     - target: {fileID: 3838923792141706375, guid: bb74db9acffcefe47a9c06bee6e21808, type: 3}
       propertyPath: m_Name
       value: P_EmptyProgress
+      objectReference: {fileID: 0}
+    - target: {fileID: 3838923792141706375, guid: bb74db9acffcefe47a9c06bee6e21808, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6391347033192831741, guid: bb74db9acffcefe47a9c06bee6e21808, type: 3}
       propertyPath: m_Pivot.x

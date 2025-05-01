@@ -150,7 +150,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4288256409
+    rgba: 4279703319
   m_fontColor: {r: 0.6, g: 0.6, b: 0.6, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -168,7 +168,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 8.8
+  m_fontSize: 2
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -230,8 +230,8 @@ MonoBehaviour:
     <Color>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
   <ThemeSolidColor>k__BackingField:
     <Name>k__BackingField: Text_Secondary
-    <LightThemeColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
-    <DarkThemeColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+    <LightThemeColor>k__BackingField: {r: 0.6, g: 0.6, b: 0.6, a: 1}
+    <DarkThemeColor>k__BackingField: {r: 0.49019608, g: 0.49019608, b: 0.49019608, a: 1}
   <ThemeGradientColor>k__BackingField:
     <Name>k__BackingField: 
     <LightThemeColor>k__BackingField:
@@ -482,6 +482,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 6832942506643937, guid: ab4872127d9777248a7bc5d9ae3ece63, type: 3}
+      propertyPath: m_AspectMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6832942506643937, guid: ab4872127d9777248a7bc5d9ae3ece63, type: 3}
       propertyPath: m_AspectRatio
       value: 0.75
       objectReference: {fileID: 0}
@@ -491,7 +495,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1408343510894411604, guid: ab4872127d9777248a7bc5d9ae3ece63, type: 3}
       propertyPath: m_PixelsPerUnitMultiplier
-      value: 5.3333335
+      value: 22.939068
       objectReference: {fileID: 0}
     - target: {fileID: 2967914248617083197, guid: ab4872127d9777248a7bc5d9ae3ece63, type: 3}
       propertyPath: m_AnchorMin.y
@@ -535,11 +539,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5074267181449913237, guid: ab4872127d9777248a7bc5d9ae3ece63, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 36
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5074267181449913237, guid: ab4872127d9777248a7bc5d9ae3ece63, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 11.16
       objectReference: {fileID: 0}
     - target: {fileID: 5074267181449913237, guid: ab4872127d9777248a7bc5d9ae3ece63, type: 3}
       propertyPath: m_LocalPosition.x
