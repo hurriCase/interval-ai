@@ -4,12 +4,11 @@ using Client.Scripts.UI.Theme.Base;
 using Client.Scripts.UI.Theme.ThemeColors;
 using CustomExtensions.Editor;
 using UnityEditor;
-using UnityEngine;
 
 namespace Client.Scripts.Editor.UI
 {
     [CustomEditor(typeof(BaseThemeComponent<>), true)]
-    internal sealed class ThemeColorComponentEditorBase : EditorBase
+    internal sealed class BaseThemeComponentEditor : EditorBase
     {
         private ThemeColorDatabase ThemeColorDatabase => ThemeColorDatabase.Instance;
         private ThemeHandler ThemeHandler => ThemeHandler.Instance;
@@ -66,7 +65,7 @@ namespace Client.Scripts.Editor.UI
 
         private void DrawColorTypeProperty()
         {
-            var colorType = (ColorType)EditorGUILayoutExtensions.DrawEnumField("Color Type", _themeComponent.ColorType);
+            var colorType = EditorGUIExtensions.EnumField("Color Type", _themeComponent.ColorType);
 
             if (_themeComponent.ColorType == colorType)
                 return;
@@ -84,7 +83,8 @@ namespace Client.Scripts.Editor.UI
             {
                 string[] themeLabels = { "Light Theme", "Dark Theme" };
                 var selectedTheme = _previewDarkTheme ? 1 : 0;
-                var newSelectedTheme = EditorGUILayoutExtensions.DrawToggleButtonGroup(themeLabels, selectedTheme);
+
+                var newSelectedTheme = EditorGUIExtensions.ToggleButtonGroup(themeLabels, selectedTheme);
 
                 if (newSelectedTheme == selectedTheme)
                     return;
@@ -103,7 +103,7 @@ namespace Client.Scripts.Editor.UI
 
             EditorGUILayoutExtensions.DrawBoxedSection("Color", () =>
             {
-                _newIndex = EditorGUILayoutExtensions.DrawDropdown(nameof(_themeComponent.ColorType), index, names);
+                _newIndex = EditorGUIExtensions.Dropdown(nameof(_themeComponent.ColorType), index, names);
 
                 if (_newIndex != index)
                     UpdateColorAndPreview();
@@ -111,7 +111,7 @@ namespace Client.Scripts.Editor.UI
                 switch (_themeComponent.ColorType)
                 {
                     case ColorType.Shared:
-                        EditorGUILayoutExtensions.DrawColorField("Preview", _themeComponent.ThemeSharedColor.Color);
+                        EditorGUIExtensions.ColorField("Preview", _themeComponent.ThemeSharedColor.Color);
                         break;
 
                     case ColorType.SolidColor:
@@ -119,7 +119,7 @@ namespace Client.Scripts.Editor.UI
                             ? _themeComponent.ThemeSolidColor.LightThemeColor
                             : _themeComponent.ThemeSolidColor.DarkThemeColor;
 
-                        EditorGUILayoutExtensions.DrawColorField("Preview", previewSolidColor);
+                        EditorGUIExtensions.ColorField("Preview", previewSolidColor);
                         break;
 
                     case ColorType.Gradient:
@@ -127,7 +127,7 @@ namespace Client.Scripts.Editor.UI
                             ? _themeComponent.ThemeGradientColor.LightThemeColor
                             : _themeComponent.ThemeGradientColor.DarkThemeColor;
 
-                        EditorGUILayoutExtensions.DrawGradientField("Preview", previewGradient);
+                        EditorGUIExtensions.GradientField("Preview", previewGradient);
                         break;
 
                     default:
