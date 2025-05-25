@@ -10,15 +10,15 @@ namespace Client.Scripts.Editor.UI
     {
         private UnityEditor.Editor _defaultEditor;
 
-        private float _parentWidth;
-        private float _leftMarginWidth;
-        private float _rightMarginWidth;
-        private float _contentWidth;
+        [SerializeField] private float _parentWidth;
+        [SerializeField] private float _leftMarginWidth;
+        [SerializeField] private float _rightMarginWidth;
+        [SerializeField] private float _contentWidth;
 
-        private float _parentHeight;
-        private float _topMarginHeight;
-        private float _bottomMarginHeight;
-        private float _contentHeight;
+        [SerializeField] private float _parentHeight;
+        [SerializeField] private float _topMarginHeight;
+        [SerializeField] private float _bottomMarginHeight;
+        [SerializeField] private float _contentHeight;
 
         protected override void OnEnable()
         {
@@ -82,18 +82,18 @@ namespace Client.Scripts.Editor.UI
 
         private void DrawWidthSection()
         {
-            _parentWidth = EditorGUILayout.FloatField("Parent Width", _parentWidth);
-            _leftMarginWidth = EditorGUILayout.FloatField("Left Margin Width", _leftMarginWidth);
-            _rightMarginWidth = EditorGUILayout.FloatField("Right Margin Width", _rightMarginWidth);
-            _contentWidth = EditorGUILayout.FloatField("Content Width", _contentWidth);
+            _parentWidth = EditorGUIExtensions.FloatField("Parent Width", _parentWidth);
+            _leftMarginWidth = EditorGUIExtensions.FloatField("Left Margin Width", _leftMarginWidth);
+            _rightMarginWidth = EditorGUIExtensions.FloatField("Right Margin Width", _rightMarginWidth);
+            _contentWidth = EditorGUIExtensions.FloatField("Content Width", _contentWidth);
         }
 
         private void DrawHeightSection()
         {
-            _parentHeight = EditorGUILayout.FloatField("Parent Height", _parentHeight);
-            _topMarginHeight = EditorGUILayout.FloatField("Top Margin Height", _topMarginHeight);
-            _bottomMarginHeight = EditorGUILayout.FloatField("Bottom Margin Height", _bottomMarginHeight);
-            _contentHeight = EditorGUILayout.FloatField("Content Height", _contentHeight);
+            _parentHeight = EditorGUIExtensions.FloatField("Parent Height", _parentHeight);
+            _topMarginHeight = EditorGUIExtensions.FloatField("Top Margin Height", _topMarginHeight);
+            _bottomMarginHeight = EditorGUIExtensions.FloatField("Bottom Margin Height", _bottomMarginHeight);
+            _contentHeight = EditorGUIExtensions.FloatField("Content Height", _contentHeight);
         }
     }
 }
