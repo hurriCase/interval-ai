@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Client.Scripts.Editor.EditorCustomization
 {
+    /// <summary>
+    /// Static utility class for editor layout operations that don't require undo support
+    /// </summary>
     internal static class EditorGUILayoutExtensions
     {
         private static ThemeEditorSettings Settings => ThemeEditorSettings.Instance;
@@ -21,48 +24,6 @@ namespace Client.Scripts.Editor.EditorCustomization
 
             EditorGUILayout.Space(Settings.HeaderSpacing);
             EditorGUILayout.LabelField(title, headerStyle);
-        }
-
-        /// <summary>
-        /// Creates a toggle button with consistent styling
-        /// </summary>
-        internal static bool DrawToggleButton(string label, bool isSelected, Color? highlightColor = null,
-            float? customHeight = null)
-        {
-            var buttonStyle = CreateTextStyle(
-                GUI.skin.button,
-                Settings.ButtonFontSize,
-                Settings.ButtonFontStyle);
-
-            var originalBackgroundColor = GUI.backgroundColor;
-            GUI.backgroundColor = isSelected
-                ? highlightColor ?? Settings.ButtonHighlightColor
-                : Settings.ButtonBackgroundColor;
-
-            var buttonHeight = customHeight ?? Settings.ButtonHeight;
-            var clicked = GUILayout.Button(label, buttonStyle, GUILayout.Height(buttonHeight));
-
-            GUI.backgroundColor = originalBackgroundColor;
-
-            return clicked ? !isSelected : isSelected;
-        }
-
-        /// <summary>
-        /// Creates a group of toggle buttons with consistent styling
-        /// </summary>
-        internal static int DrawToggleButtonGroup(string[] labels, int selectedIndex, float? customHeight = null)
-        {
-            EditorGUILayout.BeginHorizontal();
-
-            for (var i = 0; i < labels.Length; i++)
-            {
-                if (DrawToggleButton(labels[i], selectedIndex == i, null, customHeight))
-                    selectedIndex = i;
-            }
-
-            EditorGUILayout.EndHorizontal();
-
-            return selectedIndex;
         }
 
         /// <summary>
@@ -97,42 +58,6 @@ namespace Client.Scripts.Editor.EditorCustomization
         }
 
         /// <summary>
-        /// Creates a dropdown with consistent styling
-        /// </summary>
-        internal static int DrawDropdown(string label, int selectedIndex, string[] options, bool indented = true)
-        {
-            var dropdownStyle = CreateTextStyle(
-                EditorStyles.popup,
-                Settings.DropdownFontSize,
-                Settings.DropdownFontStyle);
-
-            var originalIndent = EditorGUI.indentLevel;
-
-            if (indented)
-                EditorGUI.indentLevel++;
-
-            var result = EditorGUILayout.Popup(
-                label,
-                selectedIndex,
-                options,
-                dropdownStyle,
-                GUILayout.Height(Settings.DropdownHeight)
-            );
-
-            EditorGUI.indentLevel = originalIndent;
-
-            return result;
-        }
-
-        internal static Enum DrawEnumField(string label, Enum @enum)
-        {
-            EditorGUILayout.BeginHorizontal();
-            var enumValue = EditorGUILayout.EnumPopup(label, @enum);
-            EditorGUILayout.EndHorizontal();
-            return enumValue;
-        }
-
-        /// <summary>
         /// Creates a warning message box with consistent styling
         /// </summary>
         internal static void DrawWarningBox(string message)
@@ -150,26 +75,6 @@ namespace Client.Scripts.Editor.EditorCustomization
             EditorGUILayout.Space(Settings.MessageBoxSpacing);
             EditorGUILayout.HelpBox(message, MessageType.Error);
             EditorGUILayout.Space(Settings.MessageBoxSpacing);
-        }
-
-        /// <summary>
-        /// Creates a color field
-        /// </summary>
-        internal static void DrawColorField(string label, Color color)
-        {
-            EditorGUILayout.Space(Settings.ColorFieldSpacing);
-            EditorGUILayout.ColorField(label, color, GUILayout.Height(Settings.ColorFieldHeight));
-            EditorGUILayout.Space(Settings.ColorFieldSpacing);
-        }
-
-        /// <summary>
-        /// Creates a gradient field
-        /// </summary>
-        internal static void DrawGradientField(string label, Gradient color)
-        {
-            EditorGUILayout.Space(Settings.ColorFieldSpacing);
-            EditorGUILayout.GradientField(label, color, GUILayout.Height(Settings.ColorFieldHeight));
-            EditorGUILayout.Space(Settings.ColorFieldSpacing);
         }
 
         /// <summary>
@@ -193,7 +98,7 @@ namespace Client.Scripts.Editor.EditorCustomization
 
             EditorGUILayout.BeginVertical(boxStyle);
 
-            if (!string.IsNullOrEmpty(title))
+            if (string.IsNullOrEmpty(title) is false)
             {
                 EditorGUILayout.Space(Settings.BoxTitleSpacing);
                 EditorGUILayout.LabelField(title, headerStyle);
@@ -248,46 +153,24 @@ namespace Client.Scripts.Editor.EditorCustomization
             EditorGUILayout.Space(Settings.FoldoutBoxSpacingAfter);
         }
 
-        internal static void DrawExclusiveSelection(SerializedProperty leftProperty, SerializedProperty rightProperty)
+        /// <summary>
+        /// Creates a horizontal line (divider) with consistent styling
+        /// </summary>
+        internal static void DrawHorizontalLine()
         {
-            EditorGUI.BeginChangeCheck();
+            EditorGUILayout.Space(Settings.DividerSpacing);
 
-            var useSolidColorOld = leftProperty.boolValue;
-            var useGradientColorOld = rightProperty.boolValue;
+            var rect = EditorGUILayout.GetControlRect(false, Settings.DividerHeight);
+            rect.height = Settings.DividerHeight;
+            EditorGUI.DrawRect(rect, Settings.DividerColor);
 
-            EditorGUILayout.BeginHorizontal();
-
-            var newUseSolid =
-                EditorGUILayout.Toggle(new GUIContent("Use Solid Color"), leftProperty.boolValue);
-            var newUseGradient = EditorGUILayout.Toggle(new GUIContent("Use Gradient Color"),
-                rightProperty.boolValue);
-
-            EditorGUILayout.EndHorizontal();
-
-            if (newUseSolid == useSolidColorOld && newUseGradient == useGradientColorOld)
-                return;
-
-            leftProperty.boolValue = newUseSolid;
-            rightProperty.boolValue = newUseGradient;
-
-            switch (newUseSolid)
-            {
-                case true when newUseGradient:
-                    if (useSolidColorOld is false)
-                        rightProperty.boolValue = false;
-                    else
-                        leftProperty.boolValue = false;
-                    break;
-                case false when newUseGradient is false:
-                    if (useSolidColorOld)
-                        leftProperty.boolValue = true;
-                    else
-                        rightProperty.boolValue = true;
-                    break;
-            }
+            EditorGUILayout.Space(Settings.DividerSpacing);
         }
 
-        private static GUIStyle CreateTextStyle(GUIStyle baseStyle, int? fontSize = null, FontStyle? fontStyle = null,
+        /// <summary>
+        /// Creates a text style with consistent styling based on settings
+        /// </summary>
+        internal static GUIStyle CreateTextStyle(GUIStyle baseStyle, int? fontSize = null, FontStyle? fontStyle = null,
             TextAnchor? alignment = null)
         {
             var style = new GUIStyle(baseStyle)
@@ -302,7 +185,10 @@ namespace Client.Scripts.Editor.EditorCustomization
             return style;
         }
 
-        private static GUIStyle CreateBoxStyle(int paddingLeft, int paddingRight, int paddingTop, int paddingBottom)
+        /// <summary>
+        /// Creates a box style with consistent styling based on settings
+        /// </summary>
+        internal static GUIStyle CreateBoxStyle(int paddingLeft, int paddingRight, int paddingTop, int paddingBottom)
         {
             var style = new GUIStyle(EditorStyles.helpBox)
             {
