@@ -27,13 +27,13 @@ namespace Client.Scripts.DB.Data
 
                 UserData.Instance.OnValueChanged += SaveUserData;
 
-                var offlineData = await _offlineRepository.ReadDataAsync<UserDataDTO>(
+                var offlineData = await _offlineRepository.ReadDataAsync<UserDataTransferObject>(
                     DataType.User,
                     DBConfig.Instance.UserDataPath
                 );
 
                 if (offlineData != null)
-                    UserData.LoadFromDTO(offlineData);
+                    UserData.LoadFromDataTransferObject(offlineData);
 
                 if (offlineData is null || UserData.LogInType == LogInType.Guest)
                     InitAsGuest();
@@ -150,7 +150,7 @@ namespace Client.Scripts.DB.Data
 
         private void SaveUserData(UserData data)
         {
-            var userDataDTO = data.ToDTO();
+            var userDataDTO = data.ToDataTransferObject();
             _offlineRepository.WriteDataAsync(DataType.User, DBConfig.Instance.UserDataPath, userDataDTO);
         }
 
