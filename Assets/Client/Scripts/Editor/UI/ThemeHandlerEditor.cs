@@ -5,7 +5,7 @@ using UnityEditor;
 namespace Client.Scripts.Editor.UI
 {
     [CustomEditor(typeof(ThemeHandler))]
-    internal sealed class ThemeHandlerEditor : UnityEditor.Editor
+    internal sealed class ThemeHandlerEditor : EditorBase
     {
         private ThemeHandler _themeHandler;
         private bool _editingLightTheme = true;
@@ -26,7 +26,7 @@ namespace Client.Scripts.Editor.UI
                 string[] themeLabels = { "Light Theme", "Dark Theme" };
                 var selectedTheme = _editingLightTheme ? 0 : 1;
 
-                var newSelectedTheme = EditorGUILayoutExtensions.DrawToggleButtonGroup(themeLabels, selectedTheme);
+                var newSelectedTheme = EditorGUIExtensions.ToggleButtonGroup(themeLabels, selectedTheme);
 
                 if (newSelectedTheme == selectedTheme)
                     return;

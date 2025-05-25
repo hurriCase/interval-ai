@@ -8,8 +8,8 @@ namespace Client.Scripts.UI.Theme.ThemeColors
     [Serializable]
     internal sealed class ThemeSolidColor : IThemeColor
     {
-        [field: SerializeField, InspectorReadOnly] public string Name { get; private set; }
-        [field: SerializeField, InspectorReadOnly] internal Color LightThemeColor { get; private set; }
-        [field: SerializeField, InspectorReadOnly] internal Color DarkThemeColor { get; private set; }
+        [field: SerializeField] public string Name { get; private set; }
+        [field: SerializeField] internal Color LightThemeColor { get; private set; }
+        [field: SerializeField] internal Color DarkThemeColor { get; private set; }
     }
 }

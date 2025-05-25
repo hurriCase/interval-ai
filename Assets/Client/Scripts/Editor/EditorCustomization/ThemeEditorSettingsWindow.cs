@@ -3,12 +3,11 @@ using UnityEngine;
 
 namespace Client.Scripts.Editor.EditorCustomization
 {
-    /// <summary>
-    /// Custom window for editing theme editor settings
-    /// </summary>
     internal sealed class ThemeEditorSettingsWindow : EditorWindow
     {
         private ThemeEditorSettings Settings => ThemeEditorSettings.Instance;
+        private EditorGUIExtensions _editorGUI;
+
         private Vector2 _scrollPosition;
 
         private bool _globalSettingsFoldout = true;
@@ -23,6 +22,8 @@ namespace Client.Scripts.Editor.EditorCustomization
         private bool _foldoutSettingsFoldout;
         private bool _dividerSettingsFoldout;
 
+        private SerializedObject _serializedObject;
+
         [MenuItem("Tools/Theme Editor Settings")]
         internal static void ShowWindow()
         {
@@ -30,8 +31,16 @@ namespace Client.Scripts.Editor.EditorCustomization
             window.Show();
         }
 
+        private void OnEnable()
+        {
+            _serializedObject = new SerializedObject(Settings);
+            _editorGUI ??= new EditorGUIExtensions(Settings);
+        }
+
         private void OnGUI()
         {
+            _serializedObject.Update();
+
             _scrollPosition = EditorGUILayout.BeginScrollView(_scrollPosition);
 
             EditorGUILayout.LabelField("Theme Editor Settings", EditorStyles.boldLabel);
@@ -50,6 +59,8 @@ namespace Client.Scripts.Editor.EditorCustomization
 
             EditorGUILayout.EndScrollView();
 
+            _serializedObject.ApplyModifiedProperties();
+
             if (GUI.changed is false)
                 return;
 
@@ -62,9 +73,11 @@ namespace Client.Scripts.Editor.EditorCustomization
             EditorGUILayoutExtensions.DrawBoxWithFoldout("Global Settings", ref _globalSettingsFoldout, () =>
             {
                 EditorGUILayout.LabelField("Global Colors", EditorStyles.boldLabel);
-                Settings.HighlightColor = EditorGUILayout.ColorField("Highlight Color", Settings.HighlightColor);
-                Settings.BackgroundColor = EditorGUILayout.ColorField("Background Color", Settings.BackgroundColor);
-                Settings.BorderColor = EditorGUILayout.ColorField("Border Color", Settings.BorderColor);
+                Settings.HighlightColor =
+                    _editorGUI.ColorField("Highlight Color", Settings.HighlightColor);
+                Settings.BackgroundColor =
+                    _editorGUI.ColorField("Background Color", Settings.BackgroundColor);
+                Settings.BorderColor = _editorGUI.ColorField("Border Color", Settings.BorderColor);
             });
         }
 
@@ -72,10 +85,10 @@ namespace Client.Scripts.Editor.EditorCustomization
         {
             EditorGUILayoutExtensions.DrawBoxWithFoldout("Header Settings", ref _headerSettingsFoldout, () =>
             {
-                Settings.HeaderSpacing = EditorGUILayout.FloatField("Spacing", Settings.HeaderSpacing);
-                Settings.HeaderFontSize = EditorGUILayout.IntField("Font Size", Settings.HeaderFontSize);
-                Settings.HeaderFontStyle = (FontStyle)EditorGUILayout.EnumPopup("Font Style", Settings.HeaderFontStyle);
-                Settings.HeaderAlignment = (TextAnchor)EditorGUILayout.EnumPopup("Alignment", Settings.HeaderAlignment);
+                Settings.HeaderSpacing = _editorGUI.FloatField("Spacing", Settings.HeaderSpacing);
+                Settings.HeaderFontSize = _editorGUI.IntField("Font Size", Settings.HeaderFontSize);
+                Settings.HeaderFontStyle = _editorGUI.EnumField("Font Style", Settings.HeaderFontStyle);
+                Settings.HeaderAlignment = _editorGUI.EnumField("Alignment", Settings.HeaderAlignment);
             });
         }
 
@@ -83,29 +96,32 @@ namespace Client.Scripts.Editor.EditorCustomization
         {
             EditorGUILayoutExtensions.DrawBoxWithFoldout("Button Settings", ref _buttonSettingsFoldout, () =>
             {
-                Settings.ButtonHeight = EditorGUILayout.FloatField("Height", Settings.ButtonHeight);
-                Settings.ButtonFontSize = EditorGUILayout.IntField("Font Size", Settings.ButtonFontSize);
-                Settings.ButtonFontStyle = (FontStyle)EditorGUILayout.EnumPopup("Font Style", Settings.ButtonFontStyle);
-                Settings.ButtonHighlightColor = EditorGUILayout.ColorField("Highlight Color", Settings.ButtonHighlightColor);
-                Settings.ButtonBackgroundColor = EditorGUILayout.ColorField("Background Color", Settings.ButtonBackgroundColor);
+                Settings.ButtonHeight = _editorGUI.FloatField("Height", Settings.ButtonHeight);
+                Settings.ButtonFontSize = _editorGUI.IntField("Font Size", Settings.ButtonFontSize);
+                Settings.ButtonFontStyle = _editorGUI.EnumField("Font Style", Settings.ButtonFontStyle);
+                Settings.ButtonHighlightColor =
+                    _editorGUI.ColorField("Highlight Color", Settings.ButtonHighlightColor);
+                Settings.ButtonBackgroundColor =
+                    _editorGUI.ColorField("Background Color", Settings.ButtonBackgroundColor);
             });
         }
 
         private void DrawPanelSettings()
         {
-            EditorGUILayoutExtensions.DrawBoxWithFoldout("Panel Settings", ref _panelSettingsFoldout, () =>
-            {
-                Settings.PanelSpacing = EditorGUILayout.FloatField("Spacing", Settings.PanelSpacing);
-            });
+            EditorGUILayoutExtensions.DrawBoxWithFoldout("Panel Settings", ref _panelSettingsFoldout,
+                () =>
+                {
+                    Settings.PanelSpacing = _editorGUI.FloatField("Spacing", Settings.PanelSpacing);
+                });
         }
 
         private void DrawPropertySettings()
         {
             EditorGUILayoutExtensions.DrawBoxWithFoldout("Property Settings", ref _propertySettingsFoldout, () =>
             {
-                Settings.PropertyHeight = EditorGUILayout.FloatField("Height", Settings.PropertyHeight);
-                Settings.PropertyFontSize = EditorGUILayout.IntField("Font Size", Settings.PropertyFontSize);
-                Settings.PropertyFontStyle = (FontStyle)EditorGUILayout.EnumPopup("Font Style", Settings.PropertyFontStyle);
+                Settings.PropertyHeight = _editorGUI.FloatField("Height", Settings.PropertyHeight);
+                Settings.PropertyFontSize = _editorGUI.IntField("Font Size", Settings.PropertyFontSize);
+                Settings.PropertyFontStyle = _editorGUI.EnumField("Font Style", Settings.PropertyFontStyle);
             });
         }
 
@@ -113,50 +129,54 @@ namespace Client.Scripts.Editor.EditorCustomization
         {
             EditorGUILayoutExtensions.DrawBoxWithFoldout("Dropdown Settings", ref _dropdownSettingsFoldout, () =>
             {
-                Settings.DropdownHeight = EditorGUILayout.FloatField("Height", Settings.DropdownHeight);
-                Settings.DropdownFontSize = EditorGUILayout.IntField("Font Size", Settings.DropdownFontSize);
-                Settings.DropdownFontStyle = (FontStyle)EditorGUILayout.EnumPopup("Font Style", Settings.DropdownFontStyle);
+                Settings.DropdownHeight = _editorGUI.FloatField("Height", Settings.DropdownHeight);
+                Settings.DropdownFontSize = _editorGUI.IntField("Font Size", Settings.DropdownFontSize);
+                Settings.DropdownFontStyle = _editorGUI.EnumField("Font Style", Settings.DropdownFontStyle);
             });
         }
 
         private void DrawMessageBoxSettings()
         {
-            EditorGUILayoutExtensions.DrawBoxWithFoldout("Message Box Settings", ref _messageBoxSettingsFoldout, () =>
-            {
-                Settings.MessageBoxSpacing = EditorGUILayout.FloatField("Spacing", Settings.MessageBoxSpacing);
-            });
+            EditorGUILayoutExtensions.DrawBoxWithFoldout("Message Box Settings", ref _messageBoxSettingsFoldout,
+                () =>
+                {
+                    Settings.MessageBoxSpacing = _editorGUI.FloatField("Spacing", Settings.MessageBoxSpacing);
+                });
         }
 
         private void DrawColorFieldSettings()
         {
             EditorGUILayoutExtensions.DrawBoxWithFoldout("Color Field Settings", ref _colorFieldSettingsFoldout, () =>
             {
-                Settings.ColorFieldHeight = EditorGUILayout.FloatField("Height", Settings.ColorFieldHeight);
-                Settings.ColorFieldSpacing = EditorGUILayout.FloatField("Spacing", Settings.ColorFieldSpacing);
+                Settings.ColorFieldHeight = _editorGUI.FloatField("Height", Settings.ColorFieldHeight);
+                Settings.ColorFieldSpacing = _editorGUI.FloatField("Spacing", Settings.ColorFieldSpacing);
             });
         }
 
         private void DrawBoxedSectionSettings()
         {
-            EditorGUILayoutExtensions.DrawBoxWithFoldout("Boxed Section Settings", ref _boxedSectionSettingsFoldout, () =>
-            {
-                EditorGUILayout.LabelField("Padding", EditorStyles.boldLabel);
-                EditorGUI.indentLevel++;
-                Settings.BoxPaddingLeft = EditorGUILayout.IntField("Left", Settings.BoxPaddingLeft);
-                Settings.BoxPaddingRight = EditorGUILayout.IntField("Right", Settings.BoxPaddingRight);
-                Settings.BoxPaddingTop = EditorGUILayout.IntField("Top", Settings.BoxPaddingTop);
-                Settings.BoxPaddingBottom = EditorGUILayout.IntField("Bottom", Settings.BoxPaddingBottom);
-                EditorGUI.indentLevel--;
+            EditorGUILayoutExtensions.DrawBoxWithFoldout("Boxed Section Settings", ref _boxedSectionSettingsFoldout,
+                () =>
+                {
+                    EditorGUILayout.LabelField("Padding", EditorStyles.boldLabel);
+                    EditorGUI.indentLevel++;
 
-                EditorGUILayout.Space(5);
-                Settings.BoxSpacingBefore = EditorGUILayout.FloatField("Spacing Before", Settings.BoxSpacingBefore);
-                Settings.BoxSpacingAfter = EditorGUILayout.FloatField("Spacing After", Settings.BoxSpacingAfter);
-                Settings.BoxTitleSpacing = EditorGUILayout.FloatField("Title Spacing", Settings.BoxTitleSpacing);
-                Settings.BoxContentSpacing = EditorGUILayout.FloatField("Content Spacing", Settings.BoxContentSpacing);
-                Settings.BoxHeaderFontSize = EditorGUILayout.IntField("Header Font Size", Settings.BoxHeaderFontSize);
-                Settings.BoxHeaderFontStyle = (FontStyle)EditorGUILayout.EnumPopup("Header Font Style", Settings.BoxHeaderFontStyle);
-                Settings.BoxHeaderAlignment = (TextAnchor)EditorGUILayout.EnumPopup("Header Alignment", Settings.BoxHeaderAlignment);
-            });
+                    Settings.BoxPaddingLeft = _editorGUI.IntField("Left", Settings.BoxPaddingLeft);
+                    Settings.BoxPaddingRight = _editorGUI.IntField("Right", Settings.BoxPaddingRight);
+                    Settings.BoxPaddingTop = _editorGUI.IntField("Top", Settings.BoxPaddingTop);
+                    Settings.BoxPaddingBottom = _editorGUI.IntField("Bottom", Settings.BoxPaddingBottom);
+
+                    EditorGUI.indentLevel--;
+
+                    EditorGUILayout.Space(5);
+                    Settings.BoxSpacingBefore = _editorGUI.FloatField("Spacing Before", Settings.BoxSpacingBefore);
+                    Settings.BoxSpacingAfter = _editorGUI.FloatField("Spacing After", Settings.BoxSpacingAfter);
+                    Settings.BoxTitleSpacing = _editorGUI.FloatField("Title Spacing", Settings.BoxTitleSpacing);
+                    Settings.BoxContentSpacing = _editorGUI.FloatField("Content Spacing", Settings.BoxContentSpacing);
+                    Settings.BoxHeaderFontSize = _editorGUI.IntField("Header Font Size", Settings.BoxHeaderFontSize);
+                    Settings.BoxHeaderFontStyle = _editorGUI.EnumField("Header Font Style", Settings.BoxHeaderFontStyle);
+                    Settings.BoxHeaderAlignment = _editorGUI.EnumField("Header Alignment", Settings.BoxHeaderAlignment);
+                });
         }
 
         private void DrawFoldoutSettings()
@@ -165,19 +185,30 @@ namespace Client.Scripts.Editor.EditorCustomization
             {
                 EditorGUILayout.LabelField("Padding", EditorStyles.boldLabel);
                 EditorGUI.indentLevel++;
-                Settings.FoldoutBoxPaddingLeft = EditorGUILayout.IntField("Left", Settings.FoldoutBoxPaddingLeft);
-                Settings.FoldoutBoxPaddingRight = EditorGUILayout.IntField("Right", Settings.FoldoutBoxPaddingRight);
-                Settings.FoldoutBoxPaddingTop = EditorGUILayout.IntField("Top", Settings.FoldoutBoxPaddingTop);
-                Settings.FoldoutBoxPaddingBottom = EditorGUILayout.IntField("Bottom", Settings.FoldoutBoxPaddingBottom);
+
+                Settings.FoldoutBoxPaddingLeft =
+                    _editorGUI.IntField("Left", Settings.FoldoutBoxPaddingLeft);
+                Settings.FoldoutBoxPaddingRight =
+                    _editorGUI.IntField("Right", Settings.FoldoutBoxPaddingRight);
+                Settings.FoldoutBoxPaddingTop =
+                    _editorGUI.IntField("Top", Settings.FoldoutBoxPaddingTop);
+                Settings.FoldoutBoxPaddingBottom =
+                    _editorGUI.IntField("Bottom", Settings.FoldoutBoxPaddingBottom);
+
                 EditorGUI.indentLevel--;
 
                 EditorGUILayout.Space(5);
-                Settings.FoldoutBoxSpacingBefore = EditorGUILayout.FloatField("Spacing Before", Settings.FoldoutBoxSpacingBefore);
-                Settings.FoldoutBoxSpacingAfter = EditorGUILayout.FloatField("Spacing After", Settings.FoldoutBoxSpacingAfter);
-                Settings.FoldoutHeaderSpacing = EditorGUILayout.FloatField("Header Spacing", Settings.FoldoutHeaderSpacing);
-                Settings.FoldoutContentSpacing = EditorGUILayout.FloatField("Content Spacing", Settings.FoldoutContentSpacing);
-                Settings.FoldoutFontSize = EditorGUILayout.IntField("Font Size", Settings.FoldoutFontSize);
-                Settings.FoldoutFontStyle = (FontStyle)EditorGUILayout.EnumPopup("Font Style", Settings.FoldoutFontStyle);
+                Settings.FoldoutBoxSpacingBefore =
+                    _editorGUI.FloatField("Spacing Before", Settings.FoldoutBoxSpacingBefore);
+                Settings.FoldoutBoxSpacingAfter =
+                    _editorGUI.FloatField("Spacing After", Settings.FoldoutBoxSpacingAfter);
+                Settings.FoldoutHeaderSpacing =
+                    _editorGUI.FloatField("Header Spacing", Settings.FoldoutHeaderSpacing);
+                Settings.FoldoutContentSpacing =
+                    _editorGUI.FloatField("Content Spacing", Settings.FoldoutContentSpacing);
+                Settings.FoldoutFontSize = _editorGUI.IntField("Font Size", Settings.FoldoutFontSize);
+                Settings.FoldoutFontStyle =
+                    _editorGUI.EnumField("Font Style", Settings.FoldoutFontStyle);
             });
         }
 
@@ -185,9 +216,9 @@ namespace Client.Scripts.Editor.EditorCustomization
         {
             EditorGUILayoutExtensions.DrawBoxWithFoldout("Divider Settings", ref _dividerSettingsFoldout, () =>
             {
-                Settings.DividerHeight = EditorGUILayout.FloatField("Height", Settings.DividerHeight);
-                Settings.DividerSpacing = EditorGUILayout.FloatField("Spacing", Settings.DividerSpacing);
-                Settings.DividerColor = EditorGUILayout.ColorField("Color", Settings.DividerColor);
+                Settings.DividerHeight = _editorGUI.FloatField("Height", Settings.DividerHeight);
+                Settings.DividerSpacing = _editorGUI.FloatField("Spacing", Settings.DividerSpacing);
+                Settings.DividerColor = _editorGUI.ColorField("Color", Settings.DividerColor);
             });
         }
     }
