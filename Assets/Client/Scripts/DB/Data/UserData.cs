@@ -1,7 +1,7 @@
 ﻿using System;
-using AssetLoader.Runtime;
-using CustomAttributes.Runtime.Attributes;
-using CustomClasses.Runtime;
+using CustomUtils.Runtime.AssetLoader;
+using CustomUtils.Runtime.Attributes;
+using CustomUtils.Runtime.CustomTypes;
 using UnityEngine;
 
 namespace Client.Scripts.DB.Data

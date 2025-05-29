@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Client.Scripts.DB.Data;
-using CustomClasses.Runtime.Singletons;
+using CustomUtils.Runtime.CustomTypes.Singletons;
 using Firebase;
 using Firebase.Database;
 using Firebase.Extensions;

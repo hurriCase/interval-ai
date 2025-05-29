@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using Client.Scripts.Core.AI;
 using Client.Scripts.Core.StartUp;
-using CustomExtensions.Runtime;
+using CustomUtils.Runtime.Extensions;
 using DependencyInjection.Runtime.InjectableMarkers;
 using DependencyInjection.Runtime.InjectionBase;
 using NUnit.Framework;

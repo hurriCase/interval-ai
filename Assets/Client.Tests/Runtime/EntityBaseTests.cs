@@ -8,7 +8,7 @@ using Client.Scripts.DB.Entities.Progress;
 using Client.Scripts.DB.Entities.User;
 using Client.Scripts.DB.Entities.UserCategory;
 using Client.Scripts.DB.Entities.Word;
-using CustomExtensions.Runtime;
+using CustomUtils.Runtime.Extensions;
 using DependencyInjection.Runtime.InjectableMarkers;
 using NUnit.Framework;
 using UnityEngine;

@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using Client.Scripts.DB.Data;
-using CustomClasses.Runtime.Singletons;
+using CustomUtils.Runtime.CustomTypes.Singletons;
 using DependencyInjection.Runtime.InjectableMarkers;
 using DependencyInjection.Runtime.InjectionBase;
 using Google;

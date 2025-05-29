@@ -1,5 +1,5 @@
-﻿using AssetLoader.Runtime;
-using AssetLoader.Runtime.Config;
+﻿using CustomUtils.Runtime.AssetLoader;
+using CustomUtils.Runtime.AssetLoader.Config;
 using UnityEditor;
 using UnityEngine;
 

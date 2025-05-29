@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Client.Scripts.DB.Data;
 using Client.Scripts.DB.DataRepositories.Cloud;
-using CustomClasses.Runtime.Singletons;
+using CustomUtils.Runtime.CustomTypes.Singletons;
 using DependencyInjection.Runtime.InjectableMarkers;
 using DependencyInjection.Runtime.InjectionBase;
 using UnityEngine;

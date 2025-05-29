@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using AssetLoader.Runtime;
-using AssetLoader.Runtime.Config;
+using CustomUtils.Runtime.AssetLoader;
+using CustomUtils.Runtime.AssetLoader.Config;
 using UnityEngine;
 
 namespace Client.Scripts.Core.StartUp.Steps

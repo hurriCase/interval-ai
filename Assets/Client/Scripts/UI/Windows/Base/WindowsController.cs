@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using CustomClasses.Runtime.Singletons;
+using CustomUtils.Runtime.CustomTypes.Singletons;
 using UnityEngine;
 using ZLinq;
 

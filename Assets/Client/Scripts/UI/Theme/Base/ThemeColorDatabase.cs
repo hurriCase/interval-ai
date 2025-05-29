@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using AssetLoader.Runtime;
 using Client.Scripts.UI.Theme.ThemeColors;
-using CustomClasses.Runtime.Singletons;
+using CustomUtils.Runtime.AssetLoader;
+using CustomUtils.Runtime.CustomTypes.Singletons;
 using UnityEngine;
 
 namespace Client.Scripts.UI.Theme.Base

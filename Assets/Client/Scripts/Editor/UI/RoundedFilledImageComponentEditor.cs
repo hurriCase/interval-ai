@@ -1,5 +1,5 @@
 ﻿using Client.Scripts.UI.ProgressComponent;
-using CustomExtensions.Editor;
+using CustomUtils.Editor.Extensions;
 using UnityEditor;
 using UnityEditor.UI;
 using UnityEngine.UI;

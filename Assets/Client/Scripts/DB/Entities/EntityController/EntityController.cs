@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Client.Scripts.DB.DataRepositories.Cloud;
 using Client.Scripts.DB.Entities.Base;
-using CustomClasses.Runtime.Singletons;
+using CustomUtils.Runtime.CustomTypes.Singletons;
 using DependencyInjection.Runtime.InjectableMarkers;
 using DependencyInjection.Runtime.InjectionBase;
 using UnityEngine;

@@ -1,8 +1,8 @@
 ﻿using System;
-using Client.Scripts.Editor.EditorCustomization;
 using Client.Scripts.UI.Theme.Base;
 using Client.Scripts.UI.Theme.ThemeColors;
-using CustomExtensions.Editor;
+using CustomUtils.Editor.EditorTheme;
+using CustomUtils.Editor.Extensions;
 using UnityEditor;
 
 namespace Client.Scripts.Editor.UI
@@ -25,10 +25,8 @@ namespace Client.Scripts.Editor.UI
 
         private int _newIndex;
 
-        protected override void OnEnable()
+        protected override void InitializeEditor()
         {
-            base.OnEnable();
-
             _themeComponent = target as IBaseThemeComponent;
 
             if (_themeComponent == null)
@@ -65,7 +63,7 @@ namespace Client.Scripts.Editor.UI
 
         private void DrawColorTypeProperty()
         {
-            var colorType = EditorGUIExtensions.EnumField("Color Type", _themeComponent.ColorType);
+            var colorType = EditorStateControls.EnumField("Color Type", _themeComponent.ColorType);
 
             if (_themeComponent.ColorType == colorType)
                 return;
@@ -79,12 +77,12 @@ namespace Client.Scripts.Editor.UI
 
         private void DrawThemeToggle()
         {
-            EditorGUILayoutExtensions.DrawPanel(() =>
+            EditorVisualControls.DrawPanel(() =>
             {
                 string[] themeLabels = { "Light Theme", "Dark Theme" };
                 var selectedTheme = _previewDarkTheme ? 1 : 0;
 
-                var newSelectedTheme = EditorGUIExtensions.ToggleButtonGroup(themeLabels, selectedTheme);
+                var newSelectedTheme = EditorStateControls.ToggleButtonGroup(themeLabels, selectedTheme);
 
                 if (newSelectedTheme == selectedTheme)
                     return;
@@ -101,9 +99,9 @@ namespace Client.Scripts.Editor.UI
         {
             var (names, index) = GetColorSelectorData(_themeComponent.ColorType);
 
-            EditorGUILayoutExtensions.DrawBoxedSection("Color", () =>
+            EditorVisualControls.DrawBoxedSection("Color", () =>
             {
-                _newIndex = EditorGUIExtensions.Dropdown(nameof(_themeComponent.ColorType), index, names);
+                _newIndex = EditorStateControls.Dropdown(nameof(_themeComponent.ColorType), index, names);
 
                 if (_newIndex != index)
                     UpdateColorAndPreview();
@@ -111,7 +109,7 @@ namespace Client.Scripts.Editor.UI
                 switch (_themeComponent.ColorType)
                 {
                     case ColorType.Shared:
-                        EditorGUIExtensions.ColorField("Preview", _themeComponent.ThemeSharedColor.Color);
+                        EditorStateControls.ColorField("Preview", _themeComponent.ThemeSharedColor.Color);
                         break;
 
                     case ColorType.SolidColor:
@@ -119,7 +117,7 @@ namespace Client.Scripts.Editor.UI
                             ? _themeComponent.ThemeSolidColor.LightThemeColor
                             : _themeComponent.ThemeSolidColor.DarkThemeColor;
 
-                        EditorGUIExtensions.ColorField("Preview", previewSolidColor);
+                        EditorStateControls.ColorField("Preview", previewSolidColor);
                         break;
 
                     case ColorType.Gradient:
@@ -127,7 +125,7 @@ namespace Client.Scripts.Editor.UI
                             ? _themeComponent.ThemeGradientColor.LightThemeColor
                             : _themeComponent.ThemeGradientColor.DarkThemeColor;
 
-                        EditorGUIExtensions.GradientField("Preview", previewGradient);
+                        EditorStateControls.GradientField("Preview", previewGradient);
                         break;
 
                     default:

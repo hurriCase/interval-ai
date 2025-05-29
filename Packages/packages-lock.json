@@ -1,5 +1,19 @@
 {
   "dependencies": {
+    "com.communitycenter.packagedistributor": {
+      "version": "https://github.com/hurriCase/PackageDistributor.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "bc080da66757476b0ef49973289b41556aced86c"
+    },
+    "com.cysharp.memorypack": {
+      "version": "https://github.com/Cysharp/MemoryPack.git?path=src/MemoryPack.Unity/Assets/MemoryPack.Unity",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "dfbcedc078c5da938443d23c9f6b5738af42ba7d"
+    },
     "com.cysharp.r3": {
       "version": "https://github.com/Cysharp/R3.git?path=src/R3.Unity/Assets/R3.Unity",
       "depth": 0,
@@ -14,7 +28,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "06067cd4c83e372310d6f79d1c625f6870ff7a2a"
+      "hash": "f213ff497e4ff462a77319cf677cf20cc0860ca9"
     },
     "com.cysharp.zlinq": {
       "version": "https://github.com/Cysharp/ZLinq.git?path=src/ZLinq.Unity/Assets/ZLinq.Unity",
@@ -23,54 +37,21 @@
       "dependencies": {},
       "hash": "2ccabdf4f127a7821a9a8ade0fb7298f9704ff5e"
     },
-    "com.firsttry.assetloader": {
-      "version": "https://github.com/hurriCase/AssetLoader.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "12f473ea6ca0a62f12b0d318a4b263ae80514325"
-    },
-    "com.firsttry.customattributes": {
-      "version": "https://github.com/hurriCase/CustomAttributes.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "d3995b48fe17ede25685b8014ceefc350de7140b"
-    },
-    "com.firsttry.customclasses": {
-      "version": "https://github.com/hurriCase/CustomClasses.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {
-        "com.firsttry.assetloader": "1.0.2"
-      },
-      "hash": "62285590dcb48c8411b5b15ad579fb1230f2af3a"
-    },
-    "com.firsttry.customextensions": {
-      "version": "https://github.com/hurriCase/CustomExtensions.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {
-        "com.unity.nuget.newtonsoft-json": "3.2.1"
-      },
-      "hash": "149e73ec6f436284388926e5ad6583ac40a83f0d"
-    },
-    "com.firsttry.custommenu": {
-      "version": "https://github.com/hurriCase/CustomMenu.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {
-        "com.firsttry.assetloader": "1.2.1",
-        "com.firsttry.customextensions": "1.2.0"
-      },
-      "hash": "0826c072be50743ab6b55d24ba402b0d57d676e0"
-    },
     "com.firsttry.customutils": {
       "version": "https://github.com/hurriCase/CustomUtils.git",
       "depth": 0,
       "source": "git",
-      "dependencies": {},
-      "hash": "b23fd82a80d064e9acbfebe90d9619003c03540d"
+      "dependencies": {
+        "com.unity.textmeshpro": "3.0.6",
+        "com.cysharp.unitask": "2.5.10",
+        "jp.hadashikick.vcontainer": "1.16.8",
+        "com.kyrylokuzyk.primetween": "1.3.1",
+        "com.unity.nuget.newtonsoft-json": "3.2.1",
+        "com.cysharp.memorypack": "1.21.4",
+        "com.unity.editorcoroutines": "1.0.0",
+        "com.cysharp.zlinq": "1.4.2"
+      },
+      "hash": "da6e36eabe12d4b2742daad672d90f1240dc82bd"
     },
     "com.firsttry.dependencyinjection": {
       "version": "https://github.com/hurriCase/DependencyInjection.git",
@@ -84,10 +65,10 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "fe31ad0904abee296b5ea72c6073157accba59e8"
+      "hash": "a22299e7e94eaa13ac17b326e0de8f2d3afa9e46"
     },
     "com.kyrylokuzyk.primetween": {
-      "version": "file:../Assets/Plugins/PrimeTween/internal/com.kyrylokuzyk.primetween.tgz",
+      "version": "file:C:\\Users\\dmitr\\OneDrive\\Desktop\\Projects\\personal-projects\\PackageCreation\\Assets\\Plugins\\PrimeTween\\internal\\com.kyrylokuzyk.primetween.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {}
@@ -387,6 +368,14 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.unity.textmeshpro": {
+      "version": "3.0.6",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.ugui": "2.0.0"
+      }
+    },
     "com.unity.timeline": {
       "version": "1.8.7",
       "depth": 0,
@@ -417,6 +406,13 @@
         "com.unity.modules.jsonserialize": "1.0.0"
       },
       "url": "https://packages.unity.com"
+    },
+    "jp.hadashikick.vcontainer": {
+      "version": "https://github.com/hadashiA/VContainer.git?path=VContainer/Assets/VContainer",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "c25737fe4229fea4ff409fdd554d7793d0b7f8e5"
     },
     "com.unity.modules.accessibility": {
       "version": "1.0.0",

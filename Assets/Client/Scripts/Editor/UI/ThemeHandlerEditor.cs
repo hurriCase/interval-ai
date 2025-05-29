@@ -1,5 +1,5 @@
-﻿using Client.Scripts.Editor.EditorCustomization;
-using Client.Scripts.UI.Theme.Base;
+﻿using Client.Scripts.UI.Theme.Base;
+using CustomUtils.Editor.EditorTheme;
 using UnityEditor;
 
 namespace Client.Scripts.Editor.UI
@@ -10,7 +10,7 @@ namespace Client.Scripts.Editor.UI
         private ThemeHandler _themeHandler;
         private bool _editingLightTheme = true;
 
-        private void OnEnable()
+        protected override void InitializeEditor()
         {
             _themeHandler = target as ThemeHandler;
         }
@@ -21,12 +21,12 @@ namespace Client.Scripts.Editor.UI
 
             EditorGUILayout.LabelField("Current Theme", EditorStyles.boldLabel);
 
-            EditorGUILayoutExtensions.DrawPanel(() =>
+            EditorVisualControls.DrawPanel(() =>
             {
                 string[] themeLabels = { "Light Theme", "Dark Theme" };
                 var selectedTheme = _editingLightTheme ? 0 : 1;
 
-                var newSelectedTheme = EditorGUIExtensions.ToggleButtonGroup(themeLabels, selectedTheme);
+                var newSelectedTheme = EditorStateControls.ToggleButtonGroup(themeLabels, selectedTheme);
 
                 if (newSelectedTheme == selectedTheme)
                     return;

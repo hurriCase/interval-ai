@@ -1,6 +1,5 @@
 ﻿using System;
 using Client.Scripts.UI.Theme.Base;
-using CustomAttributes.Runtime.Attributes;
 using UnityEngine;
 
 namespace Client.Scripts.UI.Theme.ThemeColors

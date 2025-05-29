@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using AssetLoader.Runtime;
-using CustomClasses.Runtime.Singletons;
+using CustomUtils.Runtime.AssetLoader;
+using CustomUtils.Runtime.CustomTypes.Singletons;
 
 namespace Client.Scripts.DB.Entities.Base.Validation
 {

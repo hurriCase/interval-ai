@@ -1,5 +1,5 @@
-﻿using AssetLoader.Runtime;
-using CustomClasses.Runtime.Singletons;
+﻿using CustomUtils.Runtime.AssetLoader;
+using CustomUtils.Runtime.CustomTypes.Singletons;
 using UnityEngine;
 
 namespace Client.Scripts.References

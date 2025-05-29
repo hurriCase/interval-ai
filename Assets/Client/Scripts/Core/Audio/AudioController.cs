@@ -1,6 +1,6 @@
-﻿using AssetLoader.Runtime;
-using CustomAttributes.Runtime.Attributes;
-using CustomClasses.Runtime.Singletons;
+﻿using CustomUtils.Runtime.AssetLoader;
+using CustomUtils.Runtime.Attributes;
+using CustomUtils.Runtime.CustomTypes.Singletons;
 using UnityEngine;
 
 namespace Client.Scripts.Core.Audio
@@ -8,10 +8,10 @@ namespace Client.Scripts.Core.Audio
     [Resource(resourcePath: "DontDestroyOnLoad", name: "P_AudioController")]
     internal sealed class AudioController : PersistentSingletonBehavior<AudioController>, IAudioController
     {
-        [SerializeField] [RequiredField] private AudioSource _musicSource;
-        [SerializeField] [RequiredField] private AudioSource _effectsSource;
+        [SerializeField, RequiredField] private AudioSource _musicSource;
+        [SerializeField, RequiredField] private AudioSource _effectsSource;
 
-        [SerializeField] [RequiredField] private AudioClip[] _musicClip;
+        [SerializeField, RequiredField] private AudioClip[] _musicClip;
 
         public void PlayMusic(float volume = 1f)
         {

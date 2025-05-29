@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using Client.Scripts.Editor.EditorCustomization;
+using CustomUtils.Editor.EditorTheme;
 using UnityEditor;
 using UnityEngine;
 
@@ -20,7 +20,7 @@ namespace Client.Scripts.Editor.UI
         [SerializeField] private float _bottomMarginHeight;
         [SerializeField] private float _contentHeight;
 
-        protected override void OnEnable()
+        protected override void InitializeEditor()
         {
             var assembly = Assembly.GetAssembly(typeof(UnityEditor.Editor));
             var rectTransformEditorType = assembly.GetType("UnityEditor.RectTransformEditor");
@@ -28,15 +28,13 @@ namespace Client.Scripts.Editor.UI
             _defaultEditor = CreateEditor(targets, rectTransformEditorType);
         }
 
-        protected override void OnDisable()
+        protected override void CleanupEditor()
         {
-            if (_defaultEditor)
-            {
-                DestroyImmediate(_defaultEditor);
-                _defaultEditor = null;
-            }
+            if (!_defaultEditor)
+                return;
 
-            base.OnDisable();
+            DestroyImmediate(_defaultEditor);
+            _defaultEditor = null;
         }
 
         public override void OnInspectorGUI()
@@ -82,18 +80,18 @@ namespace Client.Scripts.Editor.UI
 
         private void DrawWidthSection()
         {
-            _parentWidth = EditorGUIExtensions.FloatField("Parent Width", _parentWidth);
-            _leftMarginWidth = EditorGUIExtensions.FloatField("Left Margin Width", _leftMarginWidth);
-            _rightMarginWidth = EditorGUIExtensions.FloatField("Right Margin Width", _rightMarginWidth);
-            _contentWidth = EditorGUIExtensions.FloatField("Content Width", _contentWidth);
+            _parentWidth = EditorStateControls.FloatField("Parent Width", _parentWidth);
+            _leftMarginWidth = EditorStateControls.FloatField("Left Margin Width", _leftMarginWidth);
+            _rightMarginWidth = EditorStateControls.FloatField("Right Margin Width", _rightMarginWidth);
+            _contentWidth = EditorStateControls.FloatField("Content Width", _contentWidth);
         }
 
         private void DrawHeightSection()
         {
-            _parentHeight = EditorGUIExtensions.FloatField("Parent Height", _parentHeight);
-            _topMarginHeight = EditorGUIExtensions.FloatField("Top Margin Height", _topMarginHeight);
-            _bottomMarginHeight = EditorGUIExtensions.FloatField("Bottom Margin Height", _bottomMarginHeight);
-            _contentHeight = EditorGUIExtensions.FloatField("Content Height", _contentHeight);
+            _parentHeight = EditorStateControls.FloatField("Parent Height", _parentHeight);
+            _topMarginHeight = EditorStateControls.FloatField("Top Margin Height", _topMarginHeight);
+            _bottomMarginHeight = EditorStateControls.FloatField("Bottom Margin Height", _bottomMarginHeight);
+            _contentHeight = EditorStateControls.FloatField("Content Height", _contentHeight);
         }
     }
 }
