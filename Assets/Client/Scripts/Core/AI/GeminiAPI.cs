@@ -3,57 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Client.Scripts.DB.Data;
-using Client.Scripts.DB.DataRepositories.Cloud;
 using CustomUtils.Runtime.CustomTypes.Singletons;
 using CustomUtils.Runtime.Extensions;
-using DependencyInjection.Runtime.InjectableMarkers;
-using DependencyInjection.Runtime.InjectionBase;
+using CustomUtils.Runtime.Storage;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Networking;
+using ZLinq;
 
 namespace Client.Scripts.Core.AI
 {
-    internal sealed class GeminiAPI : Singleton<GeminiAPI>, IInjectable, IAIController
+    internal sealed class GeminiAPI : Singleton<GeminiAPI>, IAIController
     {
-        [Inject] private ICloudRepository _cloudRepository;
+        private PersistentReactiveProperty<Content[]> _chatHistory;
+        private readonly GenerativeModel _textModel = GenerativeModel.Default;
 
-        private GenerativeModel _textModel;
-        private Content[] _chatHistory;
-        private bool _isInited;
-
-        public async Task InitAsync()
-        {
-            try
-            {
-                if (_isInited)
-                    return;
-
-                InjectDependencies();
-
-                await LoadGenerativeModelAsync();
-                await LoadChatHistoryAsync();
-
-                _isInited = true;
-
-                Debug.Log("[GeminiAPI::InitAsync] GeminiAPI initialized successfully!");
-            }
-            catch (Exception e)
-            {
-                Debug.LogWarning($"[GeminiAPI::InitAsync] Error loading chat history: {e.Message}");
-            }
-        }
-
-        public async Task<string> SendPromptAsync(string prompt, GenerationConfig config = null)
+        public async Task<string> SendPromptAsync(string prompt)
         {
             var requestData = new ChatRequest
             {
                 Contents = new[]
                 {
                     GetContent(Role.User, prompt)
-                },
-                GenerationConfig = _textModel.GenerationConfig
+                }
             };
 
             var response = await SendRequestAsync(requestData);
@@ -64,16 +36,15 @@ namespace Client.Scripts.Core.AI
         {
             var userContent = GetContent(Role.User, message);
 
-            var contentsList = new List<Content>(_chatHistory)
+            var contentsList = new List<Content>(_chatHistory.Value)
             {
                 userContent
             };
-            _chatHistory = contentsList.ToArray();
+            _chatHistory.Value = contentsList.ToArray();
 
             var chatRequest = new ChatRequest
             {
-                Contents = _chatHistory,
-                GenerationConfig = _textModel.GenerationConfig
+                Contents = _chatHistory.Value
             };
             var response = await SendRequestAsync(chatRequest);
 
@@ -85,34 +56,19 @@ namespace Client.Scripts.Core.AI
             var botContent = GetContent(Role.Model, parsedResponse);
 
             contentsList.Add(botContent);
-            _chatHistory = contentsList.ToArray();
-            await SaveChatHistoryAsync();
+            _chatHistory.Value = contentsList.ToArray();
 
             return parsedResponse;
         }
 
-        public async Task ClearChatHistoryAsync(Content[] initialHistory = null)
-        {
-            try
-            {
-                await _cloudRepository.DeleteDataAsync(DataType.User, DBConfig.Instance.AIChatHistoryPath);
-                _chatHistory = initialHistory ?? Array.Empty<Content>();
-            }
-            catch (Exception e)
-            {
-                Debug.LogError($"[GeminiAPI::LoadChatHistoryAsync] Failed to clean chat history: {e.Message}");
-                _chatHistory = initialHistory ?? Array.Empty<Content>();
-            }
-        }
+        public void ClearChatHistoryAsync(Content[] initialHistory = null)
+            => _chatHistory.Value = initialHistory ?? Array.Empty<Content>();
 
         private Content GetContent(Role role, string text) =>
             new()
             {
                 Role = role.GetJsonPropertyName(),
-                Parts = new[]
-                {
-                    new Part { Text = text }
-                }
+                Parts = new[] { new Part { Text = text } }
             };
 
         private async Task<string> SendRequestAsync(ChatRequest data)
@@ -159,9 +115,11 @@ namespace Client.Scripts.Core.AI
             try
             {
                 var response = JsonConvert.DeserializeObject<Response>(responseJson);
-                if (response?.Candidates is { Length: > 0 } &&
+                if (response.Candidates is { Length: > 0 } &&
                     response.Candidates[0].Content.Parts.Length > 0)
-                    return response.Candidates?.FirstOrDefault()?.Content?.Parts?.FirstOrDefault()?.Text;
+                    return response.Candidates.AsValueEnumerable()
+                        .FirstOrDefault().Content.Parts
+                        .FirstOrDefault().Text;
 
                 Debug.LogWarning(
                     $"[GeminiAPI::ParseResponse] Failed to parse response with {responseJson} string json");
@@ -173,92 +131,52 @@ namespace Client.Scripts.Core.AI
                 return null;
             }
         }
-
-        private async Task LoadChatHistoryAsync()
-        {
-            try
-            {
-                _chatHistory =
-                    await _cloudRepository.ReadDataAsync<Content[]>(DataType.User, DBConfig.Instance.AIChatHistoryPath)
-                    ?? Array.Empty<Content>();
-            }
-            catch (Exception e)
-            {
-                Debug.LogError($"[GeminiAPI::LoadChatHistoryAsync] Failed to load chat history: {e.Message}");
-                _chatHistory = Array.Empty<Content>();
-            }
-        }
-
-        private async Task SaveChatHistoryAsync()
-        {
-            try
-            {
-                await _cloudRepository.WriteDataAsync(DataType.User, DBConfig.Instance.AIChatHistoryPath, _chatHistory);
-            }
-            catch (Exception e)
-            {
-                Debug.LogError($"[GeminiAPI::SaveChatHistoryAsync] Failed to save chat history: {e.Message}");
-            }
-        }
-
-        private async Task LoadGenerativeModelAsync()
-        {
-            try
-            {
-                _textModel =
-                    await _cloudRepository.ReadDataAsync<GenerativeModel>(DataType.Configs,
-                        DBConfig.Instance.AIConfigPath) ?? await _cloudRepository.WriteDataAsync(DataType.Configs,
-                        DBConfig.Instance.AIConfigPath, new GenerativeModel());
-            }
-            catch (Exception e)
-            {
-                Debug.LogError($"[GeminiAPI::LoadGenerativeModelAsync] Failed to load chat history: {e.Message}");
-                _textModel = new GenerativeModel();
-            }
-        }
-
-        public void InjectDependencies()
-        {
-            DependencyInjector.InjectDependencies(this);
-        }
     }
 
     [Serializable]
-    internal sealed class ChatRequest
+    internal struct ChatRequest
     {
-        [JsonProperty("contents")] internal Content[] Contents { get; set; }
-        [JsonProperty("generationConfig")] internal GenerationConfig GenerationConfig { get; set; }
+        [JsonProperty("contents")]
+        public Content[] Contents { get; set; }
     }
 
     [Serializable]
-    internal sealed class Response
+    internal struct Response
     {
-        [JsonProperty("candidates")] internal Candidate[] Candidates { get; set; }
+        [JsonProperty("candidates")]
+        public Candidate[] Candidates { get; set; }
     }
 
     [Serializable]
-    internal sealed class Candidate
+    internal struct Candidate
     {
-        [JsonProperty("content")] internal Content Content { get; set; }
+        [JsonProperty("content")]
+        public Content Content { get; set; }
     }
 
     [Serializable]
-    internal sealed class Content
+    internal struct Content
     {
-        [JsonProperty("role")] internal string Role { get; set; }
+        [JsonProperty("role")]
+        public string Role { get; set; }
 
-        [JsonProperty("parts")] internal Part[] Parts { get; set; }
+        [JsonProperty("parts")]
+        public Part[] Parts { get; set; }
     }
 
     [Serializable]
-    internal sealed class Part
+    internal struct Part
     {
-        [JsonProperty("text")] internal string Text { get; set; }
+        [JsonProperty("text")]
+        public string Text { get; set; }
     }
 
     internal enum Role
     {
-        [JsonProperty("user")] User,
-        [JsonProperty("model")] Model
+        [JsonProperty("user")]
+        User,
+
+        [JsonProperty("model")]
+        Model
     }
 }

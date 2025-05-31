@@ -4,9 +4,8 @@ namespace Client.Scripts.Core.AI
 {
     internal interface IAIController
     {
-        Task InitAsync();
-        Task<string> SendPromptAsync(string prompt, GenerationConfig config = null);
+        Task<string> SendPromptAsync(string prompt);
         Task<string> SendChatMessageAsync(string message);
-        Task ClearChatHistoryAsync(Content[] initialHistory = null);
+        void ClearChatHistoryAsync(Content[] initialHistory = null);
     }
 }

@@ -1,15 +1,23 @@
-﻿using Newtonsoft.Json;
-
-namespace Client.Scripts.Core.AI
+﻿namespace Client.Scripts.Core.AI
 {
-    internal sealed class GenerativeModel
+    internal struct GenerativeModel
     {
-        [JsonProperty("apiUrl")]
-        internal string EndpointFormat { get; set; }
-            = "https://generativelanguage.googleapis.com/v1beta/models/{0}:generateContent?key={1}";
+        public string EndpointFormat { get; }
+        public string ModelName { get; }
+        public string ApiKey { get; }
 
-        [JsonProperty("modelName")] internal string ModelName { get; set; } = "gemini-1.5-flash-latest";
-        [JsonProperty("apiKey")] internal string ApiKey { get; set; } = "AIzaSyCm0tkXkG-rsuENh6HgVdGDeOp8tIZACS4";
-        [JsonProperty("generationConfig")] internal GenerationConfig GenerationConfig { get; set; } = new();
+        private GenerativeModel(string endpointFormat = null, string modelName = null, string apiKey = null)
+        {
+            EndpointFormat = endpointFormat;
+            ModelName = modelName;
+            ApiKey = apiKey;
+        }
+
+        //TODO:<Dmitriy.Sukharev> Move to config
+        public static GenerativeModel Default => new(
+            endpointFormat: "https://generativelanguage.googleapis.com/v1beta/models/{0}:generateContent?key={1}",
+            modelName: "gemini-1.5-flash-latest",
+            apiKey: "AIzaSyCm0tkXkG-rsuENh6HgVdGDeOp8tIZACS4"
+        );
     }
 }
