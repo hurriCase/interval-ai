@@ -1,5 +1,5 @@
 ﻿using Client.Scripts.UI.Theme.Base;
-using CustomUtils.Editor.EditorTheme;
+using CustomUtils.Editor.CustomEditorUtilities;
 using UnityEditor;
 
 namespace Client.Scripts.Editor.UI

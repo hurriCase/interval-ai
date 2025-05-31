@@ -1,7 +1,7 @@
 ﻿using System;
 using Client.Scripts.UI.Theme.Base;
 using Client.Scripts.UI.Theme.ThemeColors;
-using CustomUtils.Editor.EditorTheme;
+using CustomUtils.Editor.CustomEditorUtilities;
 using CustomUtils.Editor.Extensions;
 using UnityEditor;
 

@@ -28,9 +28,6 @@ namespace Client.Scripts.Core
 #endif
         }
 
-        protected override void ConfigureRuntimeServices()
-        {
-            DIContainer.RegisterSingleton<IAudioController>(AudioController.Instance);
-        }
+        protected override void ConfigureRuntimeServices() { }
     }
 }

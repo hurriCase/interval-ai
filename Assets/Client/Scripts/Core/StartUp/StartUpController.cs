@@ -15,8 +15,7 @@ namespace Client.Scripts.Core.StartUp
             typeof(AssetLoaderStep),
             typeof(DIStep),
             typeof(DataStep),
-            typeof(AIStep),
-            typeof(SceneContextStep)
+            typeof(AIStep)
         };
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
