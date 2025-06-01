@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <DefaultSceneAsset>k__BackingField: {fileID: 102900000, guid: 25dc0104fd1bdeb4c966c65cd248b69c, type: 3}
   <SceneMenuItems>k__BackingField:
+  - <MenuTarget>k__BackingField: {fileID: 102900000, guid: 25dc0104fd1bdeb4c966c65cd248b69c, type: 3}
+    <MenuPath>k__BackingField: --Project--/Scenes/Startup
+    <Priority>k__BackingField: 1
   - <MenuTarget>k__BackingField: {fileID: 102900000, guid: da7193b4fae9da041bf7714da0ac6437, type: 3}
     <MenuPath>k__BackingField: --Project--/Scenes/Login
-    <Priority>k__BackingField: 1
+    <Priority>k__BackingField: 2
   - <MenuTarget>k__BackingField: {fileID: 102900000, guid: e157be766de51da4fb5b39a1a5f4bde7, type: 3}
     <MenuPath>k__BackingField: --Project--/Scenes/Main
-    <Priority>k__BackingField: 2
-  - <MenuTarget>k__BackingField: {fileID: 102900000, guid: 25dc0104fd1bdeb4c966c65cd248b69c, type: 3}
-    <MenuPath>k__BackingField: --Project--/Scenes/StartUp
     <Priority>k__BackingField: 3
   <AssetMenuItems>k__BackingField: []
   <MethodExecutionItems>k__BackingField:
@@ -30,6 +30,5 @@ MonoBehaviour:
     <Priority>k__BackingField: 1
   <ScriptingSymbols>k__BackingField:
   - <MenuTarget>k__BackingField: IS_RECTTRANSFORM_EXTENDED_ENABLED
-    <MenuPath>k__BackingField: --Project--/Scripting Symbols/Toggle Is RectTransform
-      Extended Enabled
+    <MenuPath>k__BackingField: --Project--/Toggle Default Scene Auto Load
     <Priority>k__BackingField: 1
