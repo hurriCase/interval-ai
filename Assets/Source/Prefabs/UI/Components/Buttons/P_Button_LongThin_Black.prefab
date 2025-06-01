@@ -70,7 +70,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3775491063443525356, guid: 3b9440f9340f62a45b5fff074f77a1b9, type: 3}
       propertyPath: m_Name
-      value: P_Button_LongThin
+      value: P_Button_LongThin_Black
       objectReference: {fileID: 0}
     - target: {fileID: 4487926729457481937, guid: 3b9440f9340f62a45b5fff074f77a1b9, type: 3}
       propertyPath: m_IsActive
@@ -146,11 +146,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7530409567323037725, guid: 3b9440f9340f62a45b5fff074f77a1b9, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: NaN
       objectReference: {fileID: 0}
     - target: {fileID: 7530409567323037725, guid: 3b9440f9340f62a45b5fff074f77a1b9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: NaN
       objectReference: {fileID: 0}
     - target: {fileID: 8594845357211167401, guid: 3b9440f9340f62a45b5fff074f77a1b9, type: 3}
       propertyPath: m_AnchorMax.x
@@ -178,11 +178,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8594845357211167401, guid: 3b9440f9340f62a45b5fff074f77a1b9, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: NaN
       objectReference: {fileID: 0}
     - target: {fileID: 8594845357211167401, guid: 3b9440f9340f62a45b5fff074f77a1b9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: NaN
       objectReference: {fileID: 0}
     - target: {fileID: 9145522580212665259, guid: 3b9440f9340f62a45b5fff074f77a1b9, type: 3}
       propertyPath: m_IsActive
@@ -225,6 +225,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <ColorType>k__BackingField: 0
+  <ThemeSharedColor>k__BackingField:
+    <Name>k__BackingField: Base_White
+    <Color>k__BackingField: {r: 1, g: 1, b: 1, a: 1}
   <ThemeSolidColor>k__BackingField:
     <Name>k__BackingField: Text_Main
     <LightThemeColor>k__BackingField: {r: 0.09019608, g: 0.09019608, b: 0.09019608, a: 1}
@@ -291,7 +294,4 @@ MonoBehaviour:
       m_ColorSpace: -1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-  <ThemeSharedColor>k__BackingField:
-    <Name>k__BackingField: Base_White
-    <Color>k__BackingField: {r: 1, g: 1, b: 1, a: 1}
   _targetComponent: {fileID: 1080621453687769764}
