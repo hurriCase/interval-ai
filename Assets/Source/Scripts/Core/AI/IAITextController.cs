@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Client.Scripts.Core.AI
+namespace Source.Scripts.Core.AI
 {
     internal interface IAIController
     {

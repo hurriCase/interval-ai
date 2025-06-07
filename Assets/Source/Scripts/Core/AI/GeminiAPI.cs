@@ -11,7 +11,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using ZLinq;
 
-namespace Client.Scripts.Core.AI
+namespace Source.Scripts.Core.AI
 {
     internal sealed class GeminiAPI : Singleton<GeminiAPI>, IAIController
     {

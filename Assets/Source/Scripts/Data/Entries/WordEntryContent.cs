@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using MemoryPack;
 
-namespace Client.Scripts.Data.Client.Scripts.Data.Entries
+namespace Source.Scripts.Data.Entries
 {
     [MemoryPackable]
     internal partial struct WordEntryContent

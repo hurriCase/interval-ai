@@ -1,4 +1,4 @@
-﻿namespace Client.Scripts.Core.AI
+﻿namespace Source.Scripts.Core.AI
 {
     internal struct GenerativeModel
     {
@@ -15,9 +15,9 @@
 
         //TODO:<Dmitriy.Sukharev> Move to config
         public static GenerativeModel Default => new(
-            endpointFormat: "https://generativelanguage.googleapis.com/v1beta/models/{0}:generateContent?key={1}",
-            modelName: "gemini-1.5-flash-latest",
-            apiKey: "AIzaSyCm0tkXkG-rsuENh6HgVdGDeOp8tIZACS4"
+            "https://generativelanguage.googleapis.com/v1beta/models/{0}:generateContent?key={1}",
+            "gemini-1.5-flash-latest",
+            "AIzaSyCm0tkXkG-rsuENh6HgVdGDeOp8tIZACS4"
         );
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Client.Scripts.UI.ImagePixelsPerUnit
+﻿namespace Source.Scripts.UI.ImagePixelsPerUnit
 {
     internal enum BackgroundType
     {

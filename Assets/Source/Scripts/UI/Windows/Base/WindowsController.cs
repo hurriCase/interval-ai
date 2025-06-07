@@ -3,7 +3,7 @@ using CustomUtils.Runtime.CustomTypes.Singletons;
 using UnityEngine;
 using ZLinq;
 
-namespace Client.Scripts.UI.Windows.Base
+namespace Source.Scripts.UI.Windows.Base
 {
     internal sealed class WindowsController : SingletonBehaviour<WindowsController>
     {

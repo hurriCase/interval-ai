@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Client.Scripts.UI.ImagePixelsPerUnit
+namespace Source.Scripts.UI.ImagePixelsPerUnit
 {
     [RequireComponent(typeof(Image))]
     [ExecuteInEditMode]

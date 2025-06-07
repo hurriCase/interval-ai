@@ -2,7 +2,7 @@
 using MemoryPack;
 
 // ReSharper disable MemberCanBePrivate.Global
-namespace Client.Scripts.Data.Client.Scripts.Data
+namespace Source.Scripts.Data
 {
     [MemoryPackable]
     internal partial struct EntryData<TContent> where TContent : struct

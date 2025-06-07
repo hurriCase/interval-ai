@@ -1,6 +1,6 @@
-﻿using Client.Scripts.UI.Windows.Base;
+﻿using Source.Scripts.UI.Windows.Base;
 
-namespace Client.Scripts.UI.Windows.Screens
+namespace Source.Scripts.UI.Windows.Screens
 {
     internal sealed class LearningWords : WindowBase<ScreenType> { }
 }

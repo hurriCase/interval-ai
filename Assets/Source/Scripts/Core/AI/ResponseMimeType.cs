@@ -1,4 +1,4 @@
-namespace Client.Scripts.Core.AI
+namespace Source.Scripts.Core.AI
 {
     internal enum ResponseMimeType
     {

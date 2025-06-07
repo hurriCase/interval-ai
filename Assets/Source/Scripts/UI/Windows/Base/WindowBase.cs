@@ -2,7 +2,7 @@
 using PrimeTween;
 using UnityEngine;
 
-namespace Client.Scripts.UI.Windows.Base
+namespace Source.Scripts.UI.Windows.Base
 {
     [Serializable]
     [RequireComponent(typeof(CanvasGroup))]
@@ -22,12 +22,12 @@ namespace Client.Scripts.UI.Windows.Base
 
         internal void Show()
         {
-            Tween.Alpha(_canvasGroup, endValue: 1f, _animationDuration);
+            Tween.Alpha(_canvasGroup, 1f, _animationDuration);
         }
 
         internal void Hide()
         {
-            Tween.Alpha(_canvasGroup, endValue: 0f, _animationDuration)
+            Tween.Alpha(_canvasGroup, 0f, _animationDuration)
                 .OnComplete(this, ui => ui.OnHideWindow?.Invoke());
         }
     }

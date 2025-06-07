@@ -1,4 +1,4 @@
-﻿namespace Client.Scripts.Core.Audio
+﻿namespace Source.Scripts.Core.Audio
 {
     internal enum MusicType { }
 }
