@@ -1,42 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1658474368797664668
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5934556411892870202}
-  m_Layer: 5
-  m_Name: Container_TextButton
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &5934556411892870202
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1658474368797664668}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1182771788293090941}
-  - {fileID: 374724258440480468}
-  m_Father: {fileID: 7298432666070202441}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.0583, y: 0.1367}
-  m_AnchorMax: {x: 0.4957, y: 0.8945}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4396645324322806575
 GameObject:
   m_ObjectHideFlags: 0
@@ -122,7 +85,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1182771788293090941}
   - component: {fileID: 1007079842805331253}
-  - component: {fileID: 4796710383453764423}
+  - component: {fileID: 8537795163366480031}
+  - component: {fileID: 4115779241797466045}
   m_Layer: 5
   m_Name: Text_Description
   m_TagString: Untagged
@@ -137,15 +101,15 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8252727619458484499}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5934556411892870202}
+  m_Father: {fileID: 7298432666070202441}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.4743}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.046647232, y: 0.484375}
+  m_AnchorMax: {x: 0.54810494, y: 0.8828125}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -157,7 +121,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8252727619458484499}
   m_CullTransparentMesh: 1
---- !u!114 &4796710383453764423
+--- !u!114 &8537795163366480031
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -206,12 +170,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.4
+  m_fontSize: 12.45
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 0
-  m_fontSizeMax: 72
+  m_fontSizeMax: 300
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
@@ -250,6 +214,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &4115779241797466045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8252727619458484499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f34f5868d064babaf33226a3ef47195, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <ColorType>k__BackingField: 0
+  <ThemeSharedColorName>k__BackingField: Base_White
+  <ThemeSolidColorName>k__BackingField: Text_Main
+  <ThemeGradientColorName>k__BackingField: 
+  _targetComponent: {fileID: 8537795163366480031}
 --- !u!1001 &6026534774992094972
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -261,6 +242,10 @@ PrefabInstance:
     - target: {fileID: 804558726623585805, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
       propertyPath: <ColorType>k__BackingField
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 804558726623585805, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
+      propertyPath: <ThemeGradientColorName>k__BackingField
+      value: Base_02
       objectReference: {fileID: 0}
     - target: {fileID: 804558726623585805, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
       propertyPath: <ThemeSolidColor>k__BackingField.<Name>k__BackingField
@@ -372,7 +357,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 887462130632868060, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
       propertyPath: m_PixelsPerUnitMultiplier
-      value: 118.275856
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1751303293749379181, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
       propertyPath: m_fontSize
@@ -420,7 +405,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6462944676181908509, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 11.6
+      value: 343
       objectReference: {fileID: 0}
     - target: {fileID: 6462944676181908509, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
       propertyPath: m_SizeDelta.y
@@ -483,7 +468,10 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3957450924179979957, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5934556411892870202}
+      addedObject: {fileID: 959051186924175631}
+    - targetCorrespondingSourceObject: {fileID: 3957450924179979957, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1182771788293090941}
     - targetCorrespondingSourceObject: {fileID: 3957450924179979957, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5677902055952229765}
@@ -494,77 +482,37 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3957450924179979957, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
   m_PrefabInstance: {fileID: 6026534774992094972}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &9218313825325005268
+--- !u!1001 &8616078599994801679
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 5934556411892870202}
+    m_TransformParent: {fileID: 7298432666070202441}
     m_Modifications:
     - target: {fileID: 1668995660576375162, guid: bfaff3de4ef15fa4b8bfec1e5dabefbf, type: 3}
       propertyPath: m_Name
       value: P_Button_LongThin_White
       objectReference: {fileID: 0}
-    - target: {fileID: 2902550417269671184, guid: bfaff3de4ef15fa4b8bfec1e5dabefbf, type: 3}
-      propertyPath: <ColorType>k__BackingField
-      value: 2
+    - target: {fileID: 1889437004487931544, guid: bfaff3de4ef15fa4b8bfec1e5dabefbf, type: 3}
+      propertyPath: m_fontSize
+      value: 14.65
       objectReference: {fileID: 0}
-    - target: {fileID: 2902550417269671184, guid: bfaff3de4ef15fa4b8bfec1e5dabefbf, type: 3}
-      propertyPath: <ThemeGradientColor>k__BackingField.<Name>k__BackingField
-      value: Base_01
+    - target: {fileID: 1889437004487931544, guid: bfaff3de4ef15fa4b8bfec1e5dabefbf, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.27058825
       objectReference: {fileID: 0}
-    - target: {fileID: 2902550417269671184, guid: bfaff3de4ef15fa4b8bfec1e5dabefbf, type: 3}
-      propertyPath: <ThemeGradientColor>k__BackingField.<DarkThemeColor>k__BackingField.key0.b
-      value: 0.3764706
+    - target: {fileID: 1889437004487931544, guid: bfaff3de4ef15fa4b8bfec1e5dabefbf, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.34509805
       objectReference: {fileID: 0}
-    - target: {fileID: 2902550417269671184, guid: bfaff3de4ef15fa4b8bfec1e5dabefbf, type: 3}
-      propertyPath: <ThemeGradientColor>k__BackingField.<DarkThemeColor>k__BackingField.key0.g
-      value: 0.003921569
-      objectReference: {fileID: 0}
-    - target: {fileID: 2902550417269671184, guid: bfaff3de4ef15fa4b8bfec1e5dabefbf, type: 3}
-      propertyPath: <ThemeGradientColor>k__BackingField.<DarkThemeColor>k__BackingField.key0.r
-      value: 0.3019608
-      objectReference: {fileID: 0}
-    - target: {fileID: 2902550417269671184, guid: bfaff3de4ef15fa4b8bfec1e5dabefbf, type: 3}
-      propertyPath: <ThemeGradientColor>k__BackingField.<DarkThemeColor>k__BackingField.key1.b
-      value: 0.44313726
-      objectReference: {fileID: 0}
-    - target: {fileID: 2902550417269671184, guid: bfaff3de4ef15fa4b8bfec1e5dabefbf, type: 3}
-      propertyPath: <ThemeGradientColor>k__BackingField.<DarkThemeColor>k__BackingField.key1.g
-      value: 0.18431373
-      objectReference: {fileID: 0}
-    - target: {fileID: 2902550417269671184, guid: bfaff3de4ef15fa4b8bfec1e5dabefbf, type: 3}
-      propertyPath: <ThemeGradientColor>k__BackingField.<DarkThemeColor>k__BackingField.key1.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2902550417269671184, guid: bfaff3de4ef15fa4b8bfec1e5dabefbf, type: 3}
-      propertyPath: <ThemeGradientColor>k__BackingField.<LightThemeColor>k__BackingField.key0.b
-      value: 0.99215686
-      objectReference: {fileID: 0}
-    - target: {fileID: 2902550417269671184, guid: bfaff3de4ef15fa4b8bfec1e5dabefbf, type: 3}
-      propertyPath: <ThemeGradientColor>k__BackingField.<LightThemeColor>k__BackingField.key0.g
-      value: 0.90588236
-      objectReference: {fileID: 0}
-    - target: {fileID: 2902550417269671184, guid: bfaff3de4ef15fa4b8bfec1e5dabefbf, type: 3}
-      propertyPath: <ThemeGradientColor>k__BackingField.<LightThemeColor>k__BackingField.key0.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2902550417269671184, guid: bfaff3de4ef15fa4b8bfec1e5dabefbf, type: 3}
-      propertyPath: <ThemeGradientColor>k__BackingField.<LightThemeColor>k__BackingField.key1.b
-      value: 0.99607843
-      objectReference: {fileID: 0}
-    - target: {fileID: 2902550417269671184, guid: bfaff3de4ef15fa4b8bfec1e5dabefbf, type: 3}
-      propertyPath: <ThemeGradientColor>k__BackingField.<LightThemeColor>k__BackingField.key1.g
-      value: 0.90588236
-      objectReference: {fileID: 0}
-    - target: {fileID: 2902550417269671184, guid: bfaff3de4ef15fa4b8bfec1e5dabefbf, type: 3}
-      propertyPath: <ThemeGradientColor>k__BackingField.<LightThemeColor>k__BackingField.key1.r
-      value: 0.84313726
+    - target: {fileID: 1889437004487931544, guid: bfaff3de4ef15fa4b8bfec1e5dabefbf, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294919512
       objectReference: {fileID: 0}
     - target: {fileID: 3403971197399491521, guid: bfaff3de4ef15fa4b8bfec1e5dabefbf, type: 3}
       propertyPath: m_PixelsPerUnitMultiplier
-      value: 222.65042
+      value: 7.529412
       objectReference: {fileID: 0}
     - target: {fileID: 8853318406577897216, guid: bfaff3de4ef15fa4b8bfec1e5dabefbf, type: 3}
       propertyPath: m_Pivot.x
@@ -576,19 +524,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8853318406577897216, guid: bfaff3de4ef15fa4b8bfec1e5dabefbf, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0.483965
       objectReference: {fileID: 0}
     - target: {fileID: 8853318406577897216, guid: bfaff3de4ef15fa4b8bfec1e5dabefbf, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.3505
+      value: 0.390625
       objectReference: {fileID: 0}
     - target: {fileID: 8853318406577897216, guid: bfaff3de4ef15fa4b8bfec1e5dabefbf, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 0.046647232
       objectReference: {fileID: 0}
     - target: {fileID: 8853318406577897216, guid: bfaff3de4ef15fa4b8bfec1e5dabefbf, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 0.125
       objectReference: {fileID: 0}
     - target: {fileID: 8853318406577897216, guid: bfaff3de4ef15fa4b8bfec1e5dabefbf, type: 3}
       propertyPath: m_SizeDelta.x
@@ -616,15 +564,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8853318406577897216, guid: bfaff3de4ef15fa4b8bfec1e5dabefbf, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8853318406577897216, guid: bfaff3de4ef15fa4b8bfec1e5dabefbf, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8853318406577897216, guid: bfaff3de4ef15fa4b8bfec1e5dabefbf, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8853318406577897216, guid: bfaff3de4ef15fa4b8bfec1e5dabefbf, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -646,29 +594,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8914696676340003986, guid: bfaff3de4ef15fa4b8bfec1e5dabefbf, type: 3}
-      propertyPath: m_fontSize
-      value: 0.45
-      objectReference: {fileID: 0}
-    - target: {fileID: 8914696676340003986, guid: bfaff3de4ef15fa4b8bfec1e5dabefbf, type: 3}
-      propertyPath: m_fontColor.g
-      value: 0.27058825
-      objectReference: {fileID: 0}
-    - target: {fileID: 8914696676340003986, guid: bfaff3de4ef15fa4b8bfec1e5dabefbf, type: 3}
-      propertyPath: m_fontColor.r
-      value: 0.34509805
-      objectReference: {fileID: 0}
-    - target: {fileID: 8914696676340003986, guid: bfaff3de4ef15fa4b8bfec1e5dabefbf, type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4294919512
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bfaff3de4ef15fa4b8bfec1e5dabefbf, type: 3}
---- !u!224 &374724258440480468 stripped
+--- !u!224 &959051186924175631 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8853318406577897216, guid: bfaff3de4ef15fa4b8bfec1e5dabefbf, type: 3}
-  m_PrefabInstance: {fileID: 9218313825325005268}
+  m_PrefabInstance: {fileID: 8616078599994801679}
   m_PrefabAsset: {fileID: 0}

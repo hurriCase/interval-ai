@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7530409567323037725}
   - component: {fileID: 8486484148830416775}
-  - component: {fileID: 6411743571212090116}
+  - component: {fileID: 4140192730928085262}
+  - component: {fileID: 6391153523238358866}
   m_Layer: 5
   m_Name: Text_Content
   m_TagString: Untagged
@@ -45,7 +46,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4487926729457481937}
   m_CullTransparentMesh: 1
---- !u!114 &6411743571212090116
+--- !u!114 &4140192730928085262
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -65,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: Text
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: decb59446ae970140b988c2f06866f87, type: 2}
   m_sharedMaterial: {fileID: -5294350520272996222, guid: decb59446ae970140b988c2f06866f87, type: 2}
@@ -92,7 +93,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 1.8
+  m_fontSize: 2.2
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -136,6 +137,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6391153523238358866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4487926729457481937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f34f5868d064babaf33226a3ef47195, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <ColorType>k__BackingField: 0
+  <ThemeSharedColorName>k__BackingField: Base_White
+  <ThemeSolidColorName>k__BackingField: Text_Main
+  <ThemeGradientColorName>k__BackingField: 
+  _targetComponent: {fileID: 4140192730928085262}
 --- !u!1 &9145522580212665259
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,6 +238,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 163968304635786010, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 163968304635786010, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
       propertyPath: m_Color.g
       value: 0.27058825
       objectReference: {fileID: 0}
@@ -234,6 +256,10 @@ PrefabInstance:
     - target: {fileID: 377233303332197835, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
       propertyPath: <ColorType>k__BackingField
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 377233303332197835, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
+      propertyPath: <ThemeSolidColorName>k__BackingField
+      value: Base_Main
       objectReference: {fileID: 0}
     - target: {fileID: 377233303332197835, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
       propertyPath: <ThemeSolidColor>k__BackingField.<Name>k__BackingField
