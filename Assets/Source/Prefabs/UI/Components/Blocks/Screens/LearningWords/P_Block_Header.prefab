@@ -93,7 +93,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 4.1
+  m_fontSize: 15.45
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <ColorType>k__BackingField: 1
+  <GradientDirection>k__BackingField: 0
   <ThemeSharedColorName>k__BackingField: 
   <ThemeSolidColorName>k__BackingField: Text_Main
   <ThemeGradientColorName>k__BackingField: 
@@ -247,7 +248,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3766352247999521383, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
       propertyPath: m_Name
-      value: P_Header
+      value: P_Block_Header
+      objectReference: {fileID: 0}
+    - target: {fileID: 5910813601257339685, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
+      propertyPath: _aspectRatio
+      value: 8.522727
+      objectReference: {fileID: 0}
+    - target: {fileID: 5910813601257339685, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
+      propertyPath: <Ratio>k__BackingField
+      value: 8.52
       objectReference: {fileID: 0}
     - target: {fileID: 6462944676181908509, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
       propertyPath: m_Pivot.x
@@ -275,7 +284,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6462944676181908509, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 376
       objectReference: {fileID: 0}
     - target: {fileID: 6462944676181908509, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
       propertyPath: m_SizeDelta.y

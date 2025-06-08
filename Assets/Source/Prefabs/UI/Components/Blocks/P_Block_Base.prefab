@@ -9,8 +9,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 163968304635786010, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 163968304635786010, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 163968304635786010, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
       propertyPath: m_PixelsPerUnitMultiplier
-      value: 2.56
+      value: 1.4927114
       objectReference: {fileID: 0}
     - target: {fileID: 2171427589598531570, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
       propertyPath: m_fontSize
@@ -26,7 +34,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4202609680214102433, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
       propertyPath: m_Name
-      value: P_BlockBase
+      value: P_Block_Base
       objectReference: {fileID: 0}
     - target: {fileID: 5540220392175559969, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
       propertyPath: _backgroundType
@@ -62,11 +70,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6315897869229748187, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 343
       objectReference: {fileID: 0}
     - target: {fileID: 6315897869229748187, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 343
       objectReference: {fileID: 0}
     - target: {fileID: 6315897869229748187, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -120,10 +128,14 @@ PrefabInstance:
       propertyPath: m_fontSize
       value: 9.9
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1285142440810536367, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4202609680214102433, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5910813601257339685}
   m_SourcePrefab: {fileID: 100100000, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
 --- !u!114 &887462130632868060 stripped
 MonoBehaviour:
@@ -136,3 +148,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &3766352247999521383 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4202609680214102433, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
+  m_PrefabInstance: {fileID: 1015120085956096966}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5910813601257339685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3766352247999521383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3c2feab7a3f4829b91b43c066c7b149, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Ratio>k__BackingField: 1
+  _aspectMode: 1
+  _isInsideRatioLayoutGroup: 0

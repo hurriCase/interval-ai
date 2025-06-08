@@ -8,9 +8,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 163968304635786010, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 163968304635786010, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 163968304635786010, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 2.56
+      objectReference: {fileID: 0}
     - target: {fileID: 4202609680214102433, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
       propertyPath: m_Name
-      value: P_ComponentBase
+      value: P_Spaccing_Base
       objectReference: {fileID: 0}
     - target: {fileID: 6315897869229748187, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
       propertyPath: m_Pivot.x
@@ -92,8 +104,32 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1285142440810536367, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4202609680214102433, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 626428569813898374}
   m_SourcePrefab: {fileID: 100100000, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
+--- !u!1 &7727703153516405118 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4202609680214102433, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
+  m_PrefabInstance: {fileID: 5867339498316460255}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &626428569813898374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7727703153516405118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3c2feab7a3f4829b91b43c066c7b149, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _aspectRatio: 1
+  _aspectMode: 1
+  _isInsideRatioLayoutGroup: 0

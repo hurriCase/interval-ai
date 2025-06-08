@@ -306,7 +306,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5074267181449913237, guid: ab4872127d9777248a7bc5d9ae3ece63, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5074267181449913237, guid: ab4872127d9777248a7bc5d9ae3ece63, type: 3}
       propertyPath: m_SizeDelta.y
@@ -364,7 +364,8 @@ PrefabInstance:
       propertyPath: _backgroundType
       value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6832942506643937, guid: ab4872127d9777248a7bc5d9ae3ece63, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 2967914248617083197, guid: ab4872127d9777248a7bc5d9ae3ece63, type: 3}
@@ -373,10 +374,31 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2967914248617083197, guid: ab4872127d9777248a7bc5d9ae3ece63, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3337828828987378973}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3143322904589819375, guid: ab4872127d9777248a7bc5d9ae3ece63, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4505574477280209707}
   m_SourcePrefab: {fileID: 100100000, guid: ab4872127d9777248a7bc5d9ae3ece63, type: 3}
 --- !u!224 &912128722796964901 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2967914248617083197, guid: ab4872127d9777248a7bc5d9ae3ece63, type: 3}
   m_PrefabInstance: {fileID: 2709106994724875544}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1011055858692845815 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3143322904589819375, guid: ab4872127d9777248a7bc5d9ae3ece63, type: 3}
+  m_PrefabInstance: {fileID: 2709106994724875544}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4505574477280209707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011055858692845815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3c2feab7a3f4829b91b43c066c7b149, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Ratio>k__BackingField: 1
