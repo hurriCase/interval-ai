@@ -49,5 +49,18 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             Menu.SetChecked("--Project--/Toggle Default Scene Auto Load", DefaultSceneLoader.IsDefaultSceneSet());
             return true;
         }
+
+        [MenuItem("--Project--/Toggle Is RectTransform Extended Enabled", priority = 2)]
+        private static void ToggleSymbol_IS_RECTTRANSFORM_EXTENDED_ENABLED()
+        {
+            ScriptingSymbolHandler.ToggleSymbol("IS_RECTTRANSFORM_EXTENDED_ENABLED", "ScriptingSymbol_IS_RECTTRANSFORM_EXTENDED_ENABLED");
+        }
+
+        [MenuItem("--Project--/Toggle Is RectTransform Extended Enabled", true)]
+        private static bool ValidateToggleSymbol_IS_RECTTRANSFORM_EXTENDED_ENABLED()
+        {
+            Menu.SetChecked("--Project--/Toggle Is RectTransform Extended Enabled", ScriptingSymbolHandler.IsSymbolEnabled("ScriptingSymbol_IS_RECTTRANSFORM_EXTENDED_ENABLED", false));
+            return true;
+        }
     }
 }
