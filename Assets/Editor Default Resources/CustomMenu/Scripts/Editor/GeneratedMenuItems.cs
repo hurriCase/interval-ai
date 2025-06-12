@@ -50,7 +50,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             return true;
         }
 
-        [MenuItem("--Project--/Toggle Is RectTransform Extended Enabled", priority = 2)]
+        [MenuItem("--Project--/Toggle Is RectTransform Extended Enabled", priority = 1)]
         private static void ToggleSymbol_IS_RECTTRANSFORM_EXTENDED_ENABLED()
         {
             ScriptingSymbolHandler.ToggleSymbol("IS_RECTTRANSFORM_EXTENDED_ENABLED", "ScriptingSymbol_IS_RECTTRANSFORM_EXTENDED_ENABLED");
@@ -60,6 +60,19 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
         private static bool ValidateToggleSymbol_IS_RECTTRANSFORM_EXTENDED_ENABLED()
         {
             Menu.SetChecked("--Project--/Toggle Is RectTransform Extended Enabled", ScriptingSymbolHandler.IsSymbolEnabled("ScriptingSymbol_IS_RECTTRANSFORM_EXTENDED_ENABLED", false));
+            return true;
+        }
+
+        [MenuItem("--Project--/Toggle Is Auto Stretch RectTransform", priority = 2)]
+        private static void ToggleSymbol_IS_AUTO_STRETCH_RECTTRANSFORM()
+        {
+            ScriptingSymbolHandler.ToggleSymbol("IS_AUTO_STRETCH_RECTTRANSFORM", "ScriptingSymbol_IS_AUTO_STRETCH_RECTTRANSFORM");
+        }
+
+        [MenuItem("--Project--/Toggle Is Auto Stretch RectTransform", true)]
+        private static bool ValidateToggleSymbol_IS_AUTO_STRETCH_RECTTRANSFORM()
+        {
+            Menu.SetChecked("--Project--/Toggle Is Auto Stretch RectTransform", ScriptingSymbolHandler.IsSymbolEnabled("ScriptingSymbol_IS_AUTO_STRETCH_RECTTRANSFORM", false));
             return true;
         }
     }
