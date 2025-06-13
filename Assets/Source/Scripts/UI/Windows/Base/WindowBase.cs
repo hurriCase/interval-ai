@@ -1,4 +1,5 @@
 ﻿using System;
+using CustomUtils.Runtime.Extensions;
 using PrimeTween;
 using UnityEngine;
 
@@ -13,22 +14,33 @@ namespace Source.Scripts.UI.Windows.Base
         [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private float _animationDuration = 0.1f;
 
-        internal event Action OnHideWindow;
-
         private void OnValidate()
         {
             _canvasGroup = GetComponent<CanvasGroup>();
         }
 
-        internal void Show()
+        internal virtual void Init() { }
+
+        internal virtual void Show()
         {
-            Tween.Alpha(_canvasGroup, 1f, _animationDuration);
+            Tween.Alpha(_canvasGroup, 1f, _animationDuration)
+                .OnComplete(this, ui => ui._canvasGroup.Show());
         }
 
-        internal void Hide()
+        internal virtual void Hide()
         {
             Tween.Alpha(_canvasGroup, 0f, _animationDuration)
-                .OnComplete(this, ui => ui.OnHideWindow?.Invoke());
+                .OnComplete(OnHideComplete);
+        }
+
+        protected virtual void OnHideComplete()
+        {
+            _canvasGroup.Hide();
+        }
+
+        internal virtual void HideImmediately()
+        {
+            _canvasGroup.Hide();
         }
     }
 }

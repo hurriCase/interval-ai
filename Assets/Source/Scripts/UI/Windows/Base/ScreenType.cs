@@ -2,9 +2,10 @@
 {
     internal enum ScreenType
     {
-        LearningWords,
-        Vocabulary,
-        Generation,
-        Settings
+        None = 0,
+        LearningWords = 1,
+        Vocabulary = 2,
+        Generation = 3,
+        Settings = 4
     }
 }

@@ -8,63 +8,74 @@ namespace Source.Scripts.UI.Windows.Base
     internal sealed class WindowsController : SingletonBehaviour<WindowsController>
     {
         [SerializeField] private GameObject[] _windowPrefabs;
+        [SerializeField] private GameObject[] _popUpPrefabs;
 
-        private readonly HashSet<WindowBase<PopUpType>> _createdPopUps = new();
-        private readonly HashSet<WindowBase<ScreenType>> _createdScreens = new();
-        private readonly Stack<WindowBase<PopUpType>> _previousOpenedPopUps = new();
+        private readonly HashSet<PopUpBase> _createdPopUps = new();
+        private readonly HashSet<ScreenBase> _createdScreens = new();
+        private readonly Stack<PopUpBase> _previousOpenedPopUps = new();
 
-        private WindowBase<PopUpType> _previousOpenedPopUp;
+        private PopUpBase _previousOpenedPopUp;
 
-        internal void Init()
+        public void Init()
         {
             foreach (var window in _windowPrefabs)
             {
                 var createdWindow = Instantiate(window, transform);
 
-                if (createdWindow.TryGetComponent<WindowBase<PopUpType>>(out var windowBase))
-                {
-                    _createdPopUps.Add(windowBase);
-                    windowBase.OnHideWindow += CloseWindow;
-                    windowBase.Hide();
-                }
-
-                if (createdWindow.TryGetComponent<WindowBase<ScreenType>>(out var screenBase) is false)
+                if (createdWindow.TryGetComponent<ScreenBase>(out var screenBase) is false)
                     continue;
 
                 _createdScreens.Add(screenBase);
-                screenBase.Hide();
+
+                screenBase.Init();
+                screenBase.HideImmediately();
+            }
+
+            foreach (var popUp in _popUpPrefabs)
+            {
+                var createdWindow = Instantiate(popUp, transform);
+
+                if (createdWindow.TryGetComponent<PopUpBase>(out var popUpBase) is false)
+                    continue;
+
+                _createdPopUps.Add(popUpBase);
+
+                popUpBase.Init();
+                popUpBase.OnHidePopUp += ClosePopUp;
+                popUpBase.HideImmediately();
             }
         }
 
-        private void CloseWindow()
+        private void ClosePopUp()
         {
             if (_previousOpenedPopUps.TryPop(out var previousWindow) is false)
+            {
+                _previousOpenedPopUp = null;
                 return;
+            }
 
             previousWindow.Show();
         }
 
-        internal void OpenWindowByType(PopUpType popUpType)
+        public void OpenPopUpByType(PopUpType popUpType)
         {
-            var requestedScreen = _createdPopUps
-                .AsValueEnumerable().FirstOrDefault(screen => screen.UIType == popUpType);
+            var requestedScreen = _createdPopUps.AsValueEnumerable()
+                .FirstOrDefault(screen => screen.UIType == popUpType);
 
             if (!requestedScreen)
                 return;
 
-            requestedScreen.Show();
+            if (_previousOpenedPopUp)
+                _previousOpenedPopUps.Push(_previousOpenedPopUp);
 
-            if (!_previousOpenedPopUp)
-                return;
-
-            _previousOpenedPopUps.Push(_previousOpenedPopUp);
             _previousOpenedPopUp = requestedScreen;
+            requestedScreen.Show();
         }
 
-        internal void OpenScreenByType(ScreenType screenType)
+        public void OpenScreenByType(ScreenType screenType)
         {
-            var requestedScreen = _createdScreens
-                .AsValueEnumerable().FirstOrDefault(screen => screen.UIType == screenType);
+            var requestedScreen = _createdScreens.AsValueEnumerable()
+                .FirstOrDefault(screen => screen.UIType == screenType);
 
             if (requestedScreen)
                 requestedScreen.Show();
@@ -75,7 +86,7 @@ namespace Source.Scripts.UI.Windows.Base
             base.OnDestroy();
 
             foreach (var window in _createdPopUps)
-                window.OnHideWindow -= CloseWindow;
+                window.OnHidePopUp -= ClosePopUp;
         }
     }
 }
