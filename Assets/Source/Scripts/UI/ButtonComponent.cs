@@ -9,7 +9,7 @@ namespace Source.Scripts.UI
     {
         private void Awake()
         {
-            requiredComponent.onClick.AddListener(() => AudioHandler.Instance.PlayOneShotSound(SoundType.Button));
+            Button.onClick.AddListener(() => AudioHandler.Instance.PlayOneShotSound(SoundType.Button));
         }
     }
 }
