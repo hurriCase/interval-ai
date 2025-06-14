@@ -93,7 +93,7 @@ MonoBehaviour:
   m_Content: {fileID: 1517360204641748232}
   m_Horizontal: 0
   m_Vertical: 1
-  m_MovementType: 1
+  m_MovementType: 2
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
@@ -389,10 +389,30 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2893386424723241227, guid: 4601d67b0dfc84b4e81a1c3b8487ade4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8779576937078977886}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3064746071077447129, guid: 4601d67b0dfc84b4e81a1c3b8487ade4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3509544800295699800}
   m_SourcePrefab: {fileID: 100100000, guid: 4601d67b0dfc84b4e81a1c3b8487ade4, type: 3}
 --- !u!224 &9037373788153580393 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2893386424723241227, guid: 4601d67b0dfc84b4e81a1c3b8487ade4, type: 3}
   m_PrefabInstance: {fileID: 6146406388416574050}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &9206560898391119803 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3064746071077447129, guid: 4601d67b0dfc84b4e81a1c3b8487ade4, type: 3}
+  m_PrefabInstance: {fileID: 6146406388416574050}
+  m_PrefabAsset: {fileID: 0}
+--- !u!225 &3509544800295699800
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9206560898391119803}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
