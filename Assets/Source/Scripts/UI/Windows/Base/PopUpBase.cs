@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Source.Scripts.UI.Windows.Base
 {
-    internal sealed class PopUpBase : WindowBase<PopUpType>
+    internal class PopUpBase : WindowBase<PopUpType>
     {
         [SerializeField] private Button _closeButton;
 
@@ -15,9 +15,9 @@ namespace Source.Scripts.UI.Windows.Base
             _closeButton.onClick.AddListener(Hide);
         }
 
-        protected override void OnHideComplete()
+        internal override void HideImmediately()
         {
-            base.OnHideComplete();
+            base.HideImmediately();
 
             OnHidePopUp?.Invoke();
         }

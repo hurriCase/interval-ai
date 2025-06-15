@@ -30,17 +30,9 @@ namespace Source.Scripts.UI.Windows.Base
         internal virtual void Hide()
         {
             Tween.Alpha(_canvasGroup, 0f, _animationDuration)
-                .OnComplete(OnHideComplete);
+                .OnComplete(HideImmediately);
         }
 
-        protected virtual void OnHideComplete()
-        {
-            _canvasGroup.Hide();
-        }
-
-        internal virtual void HideImmediately()
-        {
-            _canvasGroup.Hide();
-        }
+        internal virtual void HideImmediately() => _canvasGroup.Hide();
     }
 }

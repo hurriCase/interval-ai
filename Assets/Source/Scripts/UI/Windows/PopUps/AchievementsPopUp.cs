@@ -2,5 +2,5 @@
 
 namespace Source.Scripts.UI.Windows.PopUps
 {
-    internal sealed class AchievementsPopUp : WindowBase<PopUpType> { }
+    internal sealed class AchievementsPopUp : PopUpBase { }
 }

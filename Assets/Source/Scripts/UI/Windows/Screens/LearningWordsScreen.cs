@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Source.Scripts.UI.Windows.Screens
 {
-    internal sealed class LearningWordsScreen : WindowBase<ScreenType>
+    internal sealed class LearningWordsScreen : ScreenBase
     {
         [SerializeField] private Button _achievementButton;
 
