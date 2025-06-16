@@ -12,7 +12,6 @@ namespace Source.Scripts.UI
         protected override void Configure(IContainerBuilder builder)
         {
             _windowsController.Init();
-            _windowsController.OpenScreenByType(ScreenType.LearningWords);
         }
     }
 }

@@ -28,7 +28,9 @@ namespace Source.Scripts.UI.Windows.Base
                 _createdScreens.Add(screenBase);
 
                 screenBase.Init();
-                screenBase.HideImmediately();
+
+                if (screenBase.InitialWindow is false)
+                    screenBase.HideImmediately();
             }
 
             foreach (var popUp in _popUpPrefabs)
