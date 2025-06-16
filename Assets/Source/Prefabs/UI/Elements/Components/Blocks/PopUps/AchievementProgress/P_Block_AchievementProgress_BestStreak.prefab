@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &5985068536295891401
+--- !u!1001 &5229686308428318593
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,12 +10,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2694958340041974903, guid: 486d402d82e35d84b89730479487758f, type: 3}
       propertyPath: m_Name
-      value: P_Block_AchievementProgress_CurrentSeries
+      value: P_Block_AchievementProgress_BestStreak
       objectReference: {fileID: 0}
     - target: {fileID: 4048144076818481904, guid: 486d402d82e35d84b89730479487758f, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 7d733148ebf563a428c3e3b0dc283616, type: 3}
+      objectReference: {fileID: 21300000, guid: a44cdd444c366e34bb814b5c1dd9dc37, type: 3}
     - target: {fileID: 5154036018463016878, guid: 486d402d82e35d84b89730479487758f, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0.52830195
@@ -100,13 +100,35 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5566474861029459809, guid: 486d402d82e35d84b89730479487758f, type: 3}
+      propertyPath: _targetComponent
+      value: 
+      objectReference: {fileID: 1296807455343651642}
     - target: {fileID: 5649523853068799474, guid: 486d402d82e35d84b89730479487758f, type: 3}
       propertyPath: m_text
-      value: 3
+      value: 23
       objectReference: {fileID: 0}
+    - target: {fileID: 6443732423884549307, guid: 486d402d82e35d84b89730479487758f, type: 3}
+      propertyPath: m_text
+      value: 'Best
+
+        streak'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6443732423884549307, guid: 486d402d82e35d84b89730479487758f, type: 3}
+      propertyPath: m_fontSize
+      value: 8.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7868507568537332287, guid: 486d402d82e35d84b89730479487758f, type: 3}
+      propertyPath: <LocalizationKey>k__BackingField
+      value: ui.achievements.achievement-progress.best-streak
+      objectReference: {fileID: 0}
+    - target: {fileID: 8254396209055733369, guid: 486d402d82e35d84b89730479487758f, type: 3}
+      propertyPath: _targetComponent
+      value: 
+      objectReference: {fileID: 3328927000013486626}
     - target: {fileID: 9083405689434020302, guid: 486d402d82e35d84b89730479487758f, type: 3}
       propertyPath: m_text
-      value: 'Current
+      value: 'Best
 
         Series'
       objectReference: {fileID: 0}
@@ -119,3 +141,25 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 486d402d82e35d84b89730479487758f, type: 3}
+--- !u!114 &1296807455343651642 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6443732423884549307, guid: 486d402d82e35d84b89730479487758f, type: 3}
+  m_PrefabInstance: {fileID: 5229686308428318593}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3328927000013486626 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7395238815374949795, guid: 486d402d82e35d84b89730479487758f, type: 3}
+  m_PrefabInstance: {fileID: 5229686308428318593}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

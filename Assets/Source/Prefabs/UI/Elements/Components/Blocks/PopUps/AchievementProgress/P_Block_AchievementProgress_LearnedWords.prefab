@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2694958340041974903, guid: 486d402d82e35d84b89730479487758f, type: 3}
       propertyPath: m_Name
-      value: P_Block_AchievementProgress_Words
+      value: P_Block_AchievementProgress_LearnedWords
       objectReference: {fileID: 0}
     - target: {fileID: 4048144076818481904, guid: 486d402d82e35d84b89730479487758f, type: 3}
       propertyPath: m_Sprite
@@ -100,8 +100,48 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5566474861029459809, guid: 486d402d82e35d84b89730479487758f, type: 3}
+      propertyPath: _targetComponent
+      value: 
+      objectReference: {fileID: 8328129434583782808}
+    - target: {fileID: 6443732423884549307, guid: 486d402d82e35d84b89730479487758f, type: 3}
+      propertyPath: m_text
+      value: 'Words
+
+        learned'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7868507568537332287, guid: 486d402d82e35d84b89730479487758f, type: 3}
+      propertyPath: <LocalizationKey>k__BackingField
+      value: ui.achievements.achievement-progress.learned-words
+      objectReference: {fileID: 0}
+    - target: {fileID: 8254396209055733369, guid: 486d402d82e35d84b89730479487758f, type: 3}
+      propertyPath: _targetComponent
+      value: 
+      objectReference: {fileID: 5503085805763282048}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 486d402d82e35d84b89730479487758f, type: 3}
+--- !u!114 &5503085805763282048 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7395238815374949795, guid: 486d402d82e35d84b89730479487758f, type: 3}
+  m_PrefabInstance: {fileID: 3098417064350152995}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8328129434583782808 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6443732423884549307, guid: 486d402d82e35d84b89730479487758f, type: 3}
+  m_PrefabInstance: {fileID: 3098417064350152995}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
