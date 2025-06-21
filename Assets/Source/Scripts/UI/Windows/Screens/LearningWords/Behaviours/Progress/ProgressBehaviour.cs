@@ -2,6 +2,7 @@
 using CustomUtils.Runtime.CustomTypes.Randoms;
 using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.UI;
+using R3;
 using Source.Scripts.Data;
 using Source.Scripts.Data.Entries;
 using Source.Scripts.UI.Localization;
@@ -25,8 +26,11 @@ namespace Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours.Progress
 
         internal void Init()
         {
-            UserData.Instance.ProgressEntry.Subscribe(this,
-                (behaviour, property) => behaviour.UpdateProgress(property));
+            UserData.Instance.ProgressEntry
+                .AsObservable()
+                .DistinctUntilChangedBy(progress => progress.TodayLearnedWordCount)
+                .Subscribe(this, (progressEntry, behaviour) => behaviour.UpdateProgress(progressEntry));
+
             UpdateProgress(UserData.Instance.ProgressEntry.Value);
         }
 

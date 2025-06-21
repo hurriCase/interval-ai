@@ -1,4 +1,5 @@
 ﻿using CustomUtils.Runtime.CustomBehaviours;
+using R3;
 using Source.Scripts.Core.Audio;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,7 +11,9 @@ namespace Source.Scripts.UI
     {
         private void Awake()
         {
-            Button.onClick.AddListener(() => AudioHandler.Instance.PlayOneShotSound(SoundType.Button));
+            Button.OnClickAsObservable()
+                .Subscribe(static _ => AudioHandler.Instance.PlayOneShotSound(SoundType.Button))
+                .AddTo(this);
         }
     }
 }
