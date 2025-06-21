@@ -44,20 +44,27 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             Selection.activeObject = asset;
         }
 
+        [MenuItem("--Project--/Assets/Localization Keys Database", priority = 1)]
+        private static void SelectAssetLocalizationKeysDatabase()
+        {
+            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Resources/LocalizationKeysDatabase.asset");
+            Selection.activeObject = asset;
+        }
+
         [MenuItem("GameObject/UI/Localized Text", priority = 1)]
         private static void CreateP_Text_Localized(MenuCommand menuCommand)
         {
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/Elements/CustomUIs/Text/P_Text_Localized.prefab");
-            
-            if (prefab == null)
+
+            if (!prefab)
             {
                 Debug.LogError("Prefab not found at path: Assets/Source/Prefabs/UI/Elements/CustomUIs/Text/P_Text_Localized.prefab");
                 return;
             }
 
             var instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
-            
-            if (instance == null)
+
+            if (!instance)
             {
                 Debug.LogError("Failed to instantiate prefab");
                 return;
@@ -66,7 +73,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             GameObjectUtility.SetParentAndAlign(instance, menuCommand.context as GameObject);
 
             Undo.RegisterCreatedObjectUndo(instance, "Create " + instance.name);
-   
+
             Selection.activeObject = instance;
         }
 
@@ -74,16 +81,16 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
         private static void CreateP_Text_Regural(MenuCommand menuCommand)
         {
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/Elements/CustomUIs/Text/P_Text_Regural.prefab");
-            
-            if (prefab == null)
+
+            if (!prefab)
             {
                 Debug.LogError("Prefab not found at path: Assets/Source/Prefabs/UI/Elements/CustomUIs/Text/P_Text_Regural.prefab");
                 return;
             }
 
             var instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
-            
-            if (instance == null)
+
+            if (!instance)
             {
                 Debug.LogError("Failed to instantiate prefab");
                 return;
@@ -92,7 +99,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             GameObjectUtility.SetParentAndAlign(instance, menuCommand.context as GameObject);
 
             Undo.RegisterCreatedObjectUndo(instance, "Create " + instance.name);
-   
+
             Selection.activeObject = instance;
         }
 
@@ -100,16 +107,16 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
         private static void CreateP_Text_Localized_AutoSize(MenuCommand menuCommand)
         {
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/Elements/CustomUIs/Text/P_Text_Localized_AutoSize.prefab");
-            
-            if (prefab == null)
+
+            if (!prefab)
             {
                 Debug.LogError("Prefab not found at path: Assets/Source/Prefabs/UI/Elements/CustomUIs/Text/P_Text_Localized_AutoSize.prefab");
                 return;
             }
 
             var instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
-            
-            if (instance == null)
+
+            if (!instance)
             {
                 Debug.LogError("Failed to instantiate prefab");
                 return;
@@ -118,7 +125,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             GameObjectUtility.SetParentAndAlign(instance, menuCommand.context as GameObject);
 
             Undo.RegisterCreatedObjectUndo(instance, "Create " + instance.name);
-   
+
             Selection.activeObject = instance;
         }
 
@@ -126,16 +133,16 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
         private static void CreateP_Image_Theme(MenuCommand menuCommand)
         {
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/Elements/CustomUIs/Image/P_Image_Theme.prefab");
-            
-            if (prefab == null)
+
+            if (!prefab)
             {
                 Debug.LogError("Prefab not found at path: Assets/Source/Prefabs/UI/Elements/CustomUIs/Image/P_Image_Theme.prefab");
                 return;
             }
 
             var instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
-            
-            if (instance == null)
+
+            if (!instance)
             {
                 Debug.LogError("Failed to instantiate prefab");
                 return;
@@ -144,7 +151,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             GameObjectUtility.SetParentAndAlign(instance, menuCommand.context as GameObject);
 
             Undo.RegisterCreatedObjectUndo(instance, "Create " + instance.name);
-   
+
             Selection.activeObject = instance;
         }
 
@@ -152,16 +159,16 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
         private static void CreateP_Image_Theme_PixelPerUnit(MenuCommand menuCommand)
         {
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/Elements/CustomUIs/Image/P_Image_Theme_PixelPerUnit.prefab");
-            
-            if (prefab == null)
+
+            if (!prefab)
             {
                 Debug.LogError("Prefab not found at path: Assets/Source/Prefabs/UI/Elements/CustomUIs/Image/P_Image_Theme_PixelPerUnit.prefab");
                 return;
             }
 
             var instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
-            
-            if (instance == null)
+
+            if (!instance)
             {
                 Debug.LogError("Failed to instantiate prefab");
                 return;
@@ -170,7 +177,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             GameObjectUtility.SetParentAndAlign(instance, menuCommand.context as GameObject);
 
             Undo.RegisterCreatedObjectUndo(instance, "Create " + instance.name);
-   
+
             Selection.activeObject = instance;
         }
 
@@ -178,16 +185,16 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
         private static void CreateP_Image_RatioLayout(MenuCommand menuCommand)
         {
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/Elements/CustomUIs/Image/P_Image_RatioLayout.prefab");
-            
-            if (prefab == null)
+
+            if (!prefab)
             {
                 Debug.LogError("Prefab not found at path: Assets/Source/Prefabs/UI/Elements/CustomUIs/Image/P_Image_RatioLayout.prefab");
                 return;
             }
 
             var instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
-            
-            if (instance == null)
+
+            if (!instance)
             {
                 Debug.LogError("Failed to instantiate prefab");
                 return;
@@ -196,7 +203,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             GameObjectUtility.SetParentAndAlign(instance, menuCommand.context as GameObject);
 
             Undo.RegisterCreatedObjectUndo(instance, "Create " + instance.name);
-   
+
             Selection.activeObject = instance;
         }
 
@@ -204,16 +211,16 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
         private static void CreateP_RatioLayout_Theme(MenuCommand menuCommand)
         {
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/Elements/CustomUIs/P_RatioLayout_Theme.prefab");
-            
-            if (prefab == null)
+
+            if (!prefab)
             {
                 Debug.LogError("Prefab not found at path: Assets/Source/Prefabs/UI/Elements/CustomUIs/P_RatioLayout_Theme.prefab");
                 return;
             }
 
             var instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
-            
-            if (instance == null)
+
+            if (!instance)
             {
                 Debug.LogError("Failed to instantiate prefab");
                 return;
@@ -222,7 +229,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             GameObjectUtility.SetParentAndAlign(instance, menuCommand.context as GameObject);
 
             Undo.RegisterCreatedObjectUndo(instance, "Create " + instance.name);
-   
+
             Selection.activeObject = instance;
         }
 
@@ -230,16 +237,16 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
         private static void CreateP_Spaccing_Base(MenuCommand menuCommand)
         {
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/Elements/Components/Spacings/P_Spaccing_Base.prefab");
-            
-            if (prefab == null)
+
+            if (!prefab)
             {
                 Debug.LogError("Prefab not found at path: Assets/Source/Prefabs/UI/Elements/Components/Spacings/P_Spaccing_Base.prefab");
                 return;
             }
 
             var instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
-            
-            if (instance == null)
+
+            if (!instance)
             {
                 Debug.LogError("Failed to instantiate prefab");
                 return;
@@ -248,7 +255,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             GameObjectUtility.SetParentAndAlign(instance, menuCommand.context as GameObject);
 
             Undo.RegisterCreatedObjectUndo(instance, "Create " + instance.name);
-   
+
             Selection.activeObject = instance;
         }
 
@@ -256,16 +263,16 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
         private static void CreateP_ScrollView_Theme(MenuCommand menuCommand)
         {
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/Elements/CustomUIs/P_ScrollView_Theme.prefab");
-            
-            if (prefab == null)
+
+            if (!prefab)
             {
                 Debug.LogError("Prefab not found at path: Assets/Source/Prefabs/UI/Elements/CustomUIs/P_ScrollView_Theme.prefab");
                 return;
             }
 
             var instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
-            
-            if (instance == null)
+
+            if (!instance)
             {
                 Debug.LogError("Failed to instantiate prefab");
                 return;
@@ -274,7 +281,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             GameObjectUtility.SetParentAndAlign(instance, menuCommand.context as GameObject);
 
             Undo.RegisterCreatedObjectUndo(instance, "Create " + instance.name);
-   
+
             Selection.activeObject = instance;
         }
 
@@ -282,16 +289,16 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
         private static void CreateP_Separator_Theme(MenuCommand menuCommand)
         {
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/Elements/CustomUIs/P_Separator_Theme.prefab");
-            
-            if (prefab == null)
+
+            if (!prefab)
             {
                 Debug.LogError("Prefab not found at path: Assets/Source/Prefabs/UI/Elements/CustomUIs/P_Separator_Theme.prefab");
                 return;
             }
 
             var instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
-            
-            if (instance == null)
+
+            if (!instance)
             {
                 Debug.LogError("Failed to instantiate prefab");
                 return;
@@ -300,7 +307,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             GameObjectUtility.SetParentAndAlign(instance, menuCommand.context as GameObject);
 
             Undo.RegisterCreatedObjectUndo(instance, "Create " + instance.name);
-   
+
             Selection.activeObject = instance;
         }
 
