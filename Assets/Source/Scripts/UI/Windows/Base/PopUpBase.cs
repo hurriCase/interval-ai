@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Source.Scripts.UI.Windows.Base
 {
-    internal class PopUpBase : WindowBase<PopUpType>
+    internal abstract class PopUpBase : WindowBase<PopUpType>
     {
         [SerializeField] private Button _closeButton;
 

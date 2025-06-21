@@ -5,6 +5,8 @@
         internal const string AudioDatabaseAssetMenuPath = SoundResourcesPathPrefix + "/" + AudioDatabaseAssetName;
         internal const string AudioDatabaseAssetName = "AudioDatabase";
 
+        internal const string ResourcePath = "Assets/Source/Resources";
+
         private const string SoundResourcesPathPrefix = "Sounds";
     }
 }

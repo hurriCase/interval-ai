@@ -7,8 +7,11 @@ namespace Source.Scripts.UI.Windows.Base
 {
     internal sealed class WindowsController : SingletonBehaviour<WindowsController>
     {
-        [SerializeField] private GameObject[] _windowPrefabs;
+        [SerializeField] private GameObject[] _screenPrefabs;
         [SerializeField] private GameObject[] _popUpPrefabs;
+
+        [SerializeField] private Transform _screensContainer;
+        [SerializeField] private Transform _popUpsContainer;
 
         private readonly HashSet<PopUpBase> _createdPopUps = new();
         private readonly HashSet<ScreenBase> _createdScreens = new();
@@ -18,9 +21,9 @@ namespace Source.Scripts.UI.Windows.Base
 
         public void Init()
         {
-            foreach (var window in _windowPrefabs)
+            foreach (var screen in _screenPrefabs)
             {
-                var createdWindow = Instantiate(window, transform);
+                var createdWindow = Instantiate(screen, _screensContainer);
 
                 if (createdWindow.TryGetComponent<ScreenBase>(out var screenBase) is false)
                     continue;
@@ -35,7 +38,7 @@ namespace Source.Scripts.UI.Windows.Base
 
             foreach (var popUp in _popUpPrefabs)
             {
-                var createdWindow = Instantiate(popUp, transform);
+                var createdWindow = Instantiate(popUp, _popUpsContainer);
 
                 if (createdWindow.TryGetComponent<PopUpBase>(out var popUpBase) is false)
                     continue;
