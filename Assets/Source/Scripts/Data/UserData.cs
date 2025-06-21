@@ -19,6 +19,6 @@ namespace Source.Scripts.Data
             new(PersistentPropertyKeys.WordEntryKey);
 
         internal PersistentReactiveProperty<List<CategoryEntry>> CategoryEntries { get; } =
-            new(PersistentPropertyKeys.CategoryEntryKey);
+            new(PersistentPropertyKeys.CategoryEntryKey, DefaultCategoriesDatabase.Instance.Categories);
     }
 }

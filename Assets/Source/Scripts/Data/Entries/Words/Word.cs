@@ -1,11 +1,14 @@
+using System;
 using MemoryPack;
+using UnityEngine;
 
 namespace Source.Scripts.Data.Entries.Words
 {
     [MemoryPackable]
+    [Serializable]
     internal partial struct Word
     {
-        internal string WordName { get; set; }
-        internal Language Language { get; set; }
+        [field: SerializeField] internal string Name { get; set; }
+        [field: SerializeField] internal Language Language { get; set; }
     }
 }

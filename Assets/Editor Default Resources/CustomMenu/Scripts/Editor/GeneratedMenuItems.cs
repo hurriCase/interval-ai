@@ -51,6 +51,13 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             Selection.activeObject = asset;
         }
 
+        [MenuItem("--Project--/Assets/Default Categories Database", priority = 2)]
+        private static void SelectAssetDefaultCategoriesDatabase()
+        {
+            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Resources/DefaultCategoriesDatabase.asset");
+            Selection.activeObject = asset;
+        }
+
         [MenuItem("GameObject/UI/Localized Text", priority = 1)]
         private static void CreateP_Text_Localized(MenuCommand menuCommand)
         {
