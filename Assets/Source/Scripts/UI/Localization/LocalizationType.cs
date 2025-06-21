@@ -4,6 +4,8 @@ namespace Source.Scripts.UI.Localization
     {
         None = 0,
         ProgressDescription = 1,
-        ProgressTitle = 2
+        ProgressTitle = 2,
+        LearnGoal = 3,
+        RepetitionGoal = 4,
     }
 }

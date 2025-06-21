@@ -10,5 +10,6 @@ namespace Source.Scripts.Data.Entries
         internal int TotalLearnedWordCount { get; set; }
         internal int BestStrick { get; set; }
         internal int CurrentStrick { get; set; }
+        internal int RepeatingWordsCount { get; set; }
     }
 }
