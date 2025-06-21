@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using CustomUtils.Runtime.AssetLoader;
 using CustomUtils.Runtime.CustomTypes.Singletons;
-using CustomUtils.Runtime.Localization;
 using Source.Scripts.Core;
 using UnityEngine;
 
@@ -23,11 +22,5 @@ namespace Source.Scripts.UI.Localization
             Debug.LogError($"[LocalizationKeysDatabase::GetLocalization] No localization for type {type}");
             return string.Empty;
         }
-    }
-
-    internal static class LocalizationTypeExtensions
-    {
-        internal static string GetLocalization(this LocalizationType type)
-            => LocalizationController.Localize(LocalizationKeysDatabase.Instance.GetLocalization(type));
     }
 }
