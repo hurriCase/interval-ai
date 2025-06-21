@@ -141,7 +141,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9027191730830660464}
-  - {fileID: 2572833886538086823}
+  - {fileID: 4672039507690892915}
   m_Father: {fileID: 783176582662217617}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.6485}
@@ -639,66 +639,79 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a236756e65247d8bece8ae9f5836046, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentProgressPercent: {fileID: 6943910107896111517}
-  _progressDescription: {fileID: 472015013504062277}
+  _currentProgressPercentText: {fileID: 6943910107896111517}
+  _titleText: {fileID: 283201728122952292}
+  _progressDescriptionText: {fileID: 472015013504062277}
   _progressComponent: {fileID: 533911732689778490}
   _progressDescriptionLocalizations:
-  - <Localization>k__BackingField: ui.learning-words.progress.zero-start
+  - <TitleKey>k__BackingField: ui.learning-words.progress.title-zero
+    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.zero-start
     <Type>k__BackingField: 1
     <Percent>k__BackingField:
       _randomStart: 0
       _randomEnd: 0
-  - <Localization>k__BackingField: ui.learning-words.progress.zero-motivation
+  - <TitleKey>k__BackingField: ui.learning-words.progress.title-zero-ready
+    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.zero-motivation
     <Type>k__BackingField: 1
     <Percent>k__BackingField:
       _randomStart: 0
       _randomEnd: 0
-  - <Localization>k__BackingField: ui.learning-words.progress.zero-challenge
+  - <TitleKey>k__BackingField: ui.learning-words.progress.title-zero-lets-go
+    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.zero-challenge
     <Type>k__BackingField: 1
     <Percent>k__BackingField:
       _randomStart: 0
       _randomEnd: 0
-  - <Localization>k__BackingField: ui.learning-words.progress.low-encouragement
+  - <TitleKey>k__BackingField: ui.learning-words.progress.title-low
+    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.low-encouragement
     <Type>k__BackingField: 2
     <Percent>k__BackingField:
       _randomStart: 5
       _randomEnd: 25
-  - <Localization>k__BackingField: ui.learning-words.progress.low-progress
+  - <TitleKey>k__BackingField: ui.learning-words.progress.title-low-momentum
+    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.low-momentum
     <Type>k__BackingField: 2
     <Percent>k__BackingField:
       _randomStart: 5
       _randomEnd: 25
-  - <Localization>k__BackingField: ui.learning-words.progress.low-momentum
+  - <TitleKey>k__BackingField: ui.learning-words.progress.title-low-progress
+    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.low-progress
     <Type>k__BackingField: 2
     <Percent>k__BackingField:
       _randomStart: 5
       _randomEnd: 25
-  - <Localization>k__BackingField: ui.learning-words.progress.medium-halfway
+  - <TitleKey>k__BackingField: ui.learning-words.progress.title-medium
+    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.medium-halfway
     <Type>k__BackingField: 3
     <Percent>k__BackingField:
       _randomStart: 5
       _randomEnd: 25
-  - <Localization>k__BackingField: ui.learning-words.progress.medium-strong
+  - <TitleKey>k__BackingField: ui.learning-words.progress.title-medium-halfway
+    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.medium-strong
     <Type>k__BackingField: 3
     <Percent>k__BackingField:
       _randomStart: 5
       _randomEnd: 25
-  - <Localization>k__BackingField: ui.learning-words.progress.medium-halfway
+  - <TitleKey>k__BackingField: ui.learning-words.progress.title-medium-strong
+    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.medium-climbing
     <Type>k__BackingField: 3
     <Percent>k__BackingField:
       _randomStart: 5
       _randomEnd: 25
-  - <Localization>k__BackingField: ui.learning-words.progress.medium-halfway
+  - <TitleKey>k__BackingField: ui.learning-words.progress.title-high
+    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.high-excellent
     <Type>k__BackingField: 3
     <Percent>k__BackingField:
       _randomStart: 5
       _randomEnd: 25
-  - <Localization>k__BackingField: ui.learning-words.progress.medium-halfway
+  - <TitleKey>k__BackingField: ui.learning-words.progress.title-high-champion
+    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.high-champion
     <Type>k__BackingField: 3
     <Percent>k__BackingField:
       _randomStart: 40
       _randomEnd: 90
-  - <Localization>k__BackingField: ui.learning-words.progress.medium-halfway
+  - <TitleKey>k__BackingField: ui.learning-words.progress.title-high-amazing
+    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.high-outstanding
     <Type>k__BackingField: 3
     <Percent>k__BackingField:
       _randomStart: 40
@@ -956,7 +969,7 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8523254518703623938, guid: 935bc249ccf8d4c40b5ee5ea927296ed, type: 3}
   m_PrefabInstance: {fileID: 3441030845314420065}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &3629959435695336265
+--- !u!1001 &7613563203937504399
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -964,128 +977,119 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6306744343586784038}
     m_Modifications:
-    - target: {fileID: 1284860795548734190, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+    - target: {fileID: 561403775900978418, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+      propertyPath: m_Name
+      value: P_Text_ProgressTitle
+      objectReference: {fileID: 0}
+    - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 1284860795548734190, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+    - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 1284860795548734190, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+    - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_AnchorMax.x
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1284860795548734190, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+    - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1284860795548734190, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+    - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_AnchorMin.x
       value: 0.1057
       objectReference: {fileID: 0}
-    - target: {fileID: 1284860795548734190, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+    - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1284860795548734190, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+    - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1284860795548734190, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+    - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1284860795548734190, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+    - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1284860795548734190, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+    - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1284860795548734190, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+    - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1284860795548734190, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+    - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1284860795548734190, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+    - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 1284860795548734190, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+    - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_LocalRotation.y
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 1284860795548734190, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+    - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 1284860795548734190, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+    - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1284860795548734190, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+    - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1284860795548734190, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+    - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1284860795548734190, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+    - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1284860795548734190, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+    - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4566821120556776672, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
-      propertyPath: m_Name
-      value: P_Text_CoolProgress
-      objectReference: {fileID: 0}
-    - target: {fileID: 5098176312871980323, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
-      propertyPath: _targetComponent
-      value: 
-      objectReference: {fileID: 6957150602203401648}
-    - target: {fileID: 5975422674569537273, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+    - target: {fileID: 7658068928977278699, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_text
       value: Cool progress!
       objectReference: {fileID: 0}
-    - target: {fileID: 5975422674569537273, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+    - target: {fileID: 7658068928977278699, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_fontSize
       value: 14.65
       objectReference: {fileID: 0}
-    - target: {fileID: 5975422674569537273, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+    - target: {fileID: 7658068928977278699, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_fontSizeMax
       value: 32767
       objectReference: {fileID: 0}
-    - target: {fileID: 5975422674569537273, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+    - target: {fileID: 7658068928977278699, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_VerticalAlignment
       value: 256
       objectReference: {fileID: 0}
-    - target: {fileID: 7400195723152973949, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
-      propertyPath: <LocalizationKey>k__BackingField
-      value: ui.learning-words.cool-progress
+    - target: {fileID: 9109170191897869617, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+      propertyPath: _targetComponent
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
---- !u!224 &2572833886538086823 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 1284860795548734190, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
-  m_PrefabInstance: {fileID: 3629959435695336265}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &6957150602203401648 stripped
+  m_SourcePrefab: {fileID: 100100000, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+--- !u!114 &283201728122952292 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5975422674569537273, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
-  m_PrefabInstance: {fileID: 3629959435695336265}
+  m_CorrespondingSourceObject: {fileID: 7658068928977278699, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+  m_PrefabInstance: {fileID: 7613563203937504399}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -1093,6 +1097,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &4672039507690892915 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+  m_PrefabInstance: {fileID: 7613563203937504399}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7839080551832749486
 PrefabInstance:
   m_ObjectHideFlags: 0
