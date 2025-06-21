@@ -58,7 +58,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             Selection.activeObject = asset;
         }
 
-        [MenuItem("GameObject/UI/Localized Text", priority = 1)]
+        [MenuItem("GameObject/UI Custom/Text/Localized Text", priority = 1)]
         private static void CreateP_Text_Localized(MenuCommand menuCommand)
         {
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/Elements/CustomUIs/Text/P_Text_Localized.prefab");
@@ -84,7 +84,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             Selection.activeObject = instance;
         }
 
-        [MenuItem("GameObject/UI/Regular Text", priority = 2)]
+        [MenuItem("GameObject/UI Custom/Text/Regular Text", priority = 2)]
         private static void CreateP_Text_Regural(MenuCommand menuCommand)
         {
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/Elements/CustomUIs/Text/P_Text_Regural.prefab");
@@ -110,7 +110,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             Selection.activeObject = instance;
         }
 
-        [MenuItem("GameObject/UI/Auto Size & Localized Text", priority = 3)]
+        [MenuItem("GameObject/UI Custom/Text/Auto Size & Localized Text", priority = 3)]
         private static void CreateP_Text_Localized_AutoSize(MenuCommand menuCommand)
         {
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/Elements/CustomUIs/Text/P_Text_Localized_AutoSize.prefab");
@@ -136,7 +136,33 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             Selection.activeObject = instance;
         }
 
-        [MenuItem("GameObject/UI/Image Theme", priority = 4)]
+        [MenuItem("GameObject/UI Custom/Text/Auto Size", priority = 4)]
+        private static void CreateP_Text_Regural_AutoSize(MenuCommand menuCommand)
+        {
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/Elements/CustomUIs/Text/P_Text_Regural_AutoSize.prefab");
+
+            if (!prefab)
+            {
+                Debug.LogError("Prefab not found at path: Assets/Source/Prefabs/UI/Elements/CustomUIs/Text/P_Text_Regural_AutoSize.prefab");
+                return;
+            }
+
+            var instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
+
+            if (!instance)
+            {
+                Debug.LogError("Failed to instantiate prefab");
+                return;
+            }
+
+            GameObjectUtility.SetParentAndAlign(instance, menuCommand.context as GameObject);
+
+            Undo.RegisterCreatedObjectUndo(instance, "Create " + instance.name);
+
+            Selection.activeObject = instance;
+        }
+
+        [MenuItem("GameObject/UI Custom/Image/Image Theme", priority = 5)]
         private static void CreateP_Image_Theme(MenuCommand menuCommand)
         {
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/Elements/CustomUIs/Image/P_Image_Theme.prefab");
@@ -162,7 +188,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             Selection.activeObject = instance;
         }
 
-        [MenuItem("GameObject/UI/Image Pixel Per Unit & Theme ", priority = 5)]
+        [MenuItem("GameObject/UI Custom/Image/Image Pixel Per Unit & Theme ", priority = 6)]
         private static void CreateP_Image_Theme_PixelPerUnit(MenuCommand menuCommand)
         {
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/Elements/CustomUIs/Image/P_Image_Theme_PixelPerUnit.prefab");
@@ -188,7 +214,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             Selection.activeObject = instance;
         }
 
-        [MenuItem("GameObject/UI/Image Ratio Layout", priority = 6)]
+        [MenuItem("GameObject/UI Custom/Image/Image Ratio Layout", priority = 7)]
         private static void CreateP_Image_RatioLayout(MenuCommand menuCommand)
         {
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/Elements/CustomUIs/Image/P_Image_RatioLayout.prefab");
@@ -214,7 +240,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             Selection.activeObject = instance;
         }
 
-        [MenuItem("GameObject/UI/Ratio Layout Group", priority = 7)]
+        [MenuItem("GameObject/UI Custom/Ratio Layout Group", priority = 8)]
         private static void CreateP_RatioLayout_Theme(MenuCommand menuCommand)
         {
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/Elements/CustomUIs/P_RatioLayout_Theme.prefab");
@@ -240,7 +266,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             Selection.activeObject = instance;
         }
 
-        [MenuItem("GameObject/UI/Spacing", priority = 8)]
+        [MenuItem("GameObject/UI Custom/Spacing", priority = 9)]
         private static void CreateP_Spaccing_Base(MenuCommand menuCommand)
         {
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/Elements/Components/Spacings/P_Spaccing_Base.prefab");
@@ -266,7 +292,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             Selection.activeObject = instance;
         }
 
-        [MenuItem("GameObject/UI/Scroll View Theme", priority = 9)]
+        [MenuItem("GameObject/UI Custom/Scroll View Theme", priority = 10)]
         private static void CreateP_ScrollView_Theme(MenuCommand menuCommand)
         {
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/Elements/CustomUIs/P_ScrollView_Theme.prefab");
@@ -292,7 +318,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             Selection.activeObject = instance;
         }
 
-        [MenuItem("GameObject/UI/Separator Theme", priority = 10)]
+        [MenuItem("GameObject/UI Custom/Separator Theme", priority = 11)]
         private static void CreateP_Separator_Theme(MenuCommand menuCommand)
         {
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/Elements/CustomUIs/P_Separator_Theme.prefab");
