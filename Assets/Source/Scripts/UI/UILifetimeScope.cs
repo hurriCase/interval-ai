@@ -1,4 +1,4 @@
-﻿using Source.Scripts.Data.Repositories;
+﻿using Source.Scripts.Data;
 using Source.Scripts.UI.Windows.Base;
 using UnityEngine;
 using VContainer;

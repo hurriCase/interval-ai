@@ -1,5 +1,5 @@
 ﻿using CustomUtils.Runtime.UI.Theme.ThemeMapping;
-using Source.Scripts.Data.Repositories.Entries.Words;
+using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using UnityEngine;
 
 namespace Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours.Achievements

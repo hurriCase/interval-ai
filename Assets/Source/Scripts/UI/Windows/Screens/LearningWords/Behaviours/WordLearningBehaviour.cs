@@ -1,7 +1,7 @@
 ﻿using System;
 using R3;
-using Source.Scripts.Data.Repositories;
-using Source.Scripts.Data.Repositories.Entries.Words;
+using Source.Scripts.Data.Repositories.Progress;
+using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using Source.Scripts.UI.Localization;
 using TMPro;
 using UnityEngine;

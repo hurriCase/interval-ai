@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CustomUtils.Runtime.Extensions;
-using Source.Scripts.Data.Repositories.Entries.Progress;
+using Source.Scripts.Data.Repositories.Progress.Entries;
 using TMPro;
 using UnityEngine;
 using ZLinq;

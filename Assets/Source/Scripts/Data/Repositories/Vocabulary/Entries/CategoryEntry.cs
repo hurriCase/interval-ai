@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using MemoryPack;
-using Source.Scripts.Data.Repositories.Entries.Words;
 using UnityEngine;
 
-namespace Source.Scripts.Data.Repositories.Entries
+namespace Source.Scripts.Data.Repositories.Vocabulary.Entries
 {
     [MemoryPackable]
     [Serializable]

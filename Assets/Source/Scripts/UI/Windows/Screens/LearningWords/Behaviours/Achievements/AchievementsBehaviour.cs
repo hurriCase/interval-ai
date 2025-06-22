@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Source.Scripts.Data.Repositories;
+using Source.Scripts.Data.Repositories.Progress;
 using Source.Scripts.UI.Localization;
 using UnityEngine;
 

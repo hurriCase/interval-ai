@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using MemoryPack;
 
-namespace Source.Scripts.Data.Repositories.Entries.Progress
+namespace Source.Scripts.Data.Repositories.Progress.Entries
 {
     [MemoryPackable]
     internal partial struct ProgressEntry

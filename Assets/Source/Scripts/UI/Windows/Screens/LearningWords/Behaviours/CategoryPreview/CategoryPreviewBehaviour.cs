@@ -1,6 +1,6 @@
 ﻿using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.UI.RatioLayout;
-using Source.Scripts.Data.Repositories;
+using Source.Scripts.Data.Repositories.Vocabulary;
 using UnityEngine;
 
 namespace Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours.CategoryPreview

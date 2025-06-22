@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using Source.Scripts.Data.Repositories.Entries.Progress;
-using Source.Scripts.Data.Repositories.Entries.Words;
-using UnityEngine;
+using Source.Scripts.Data.Repositories.Progress;
+using Source.Scripts.Data.Repositories.Progress.Entries;
+using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using Random = UnityEngine.Random;
 
-namespace Source.Scripts.Data.Repositories
+namespace Source.Scripts.Data
 {
     internal static class TestDataFactory
     {

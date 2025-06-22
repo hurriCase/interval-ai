@@ -1,8 +1,8 @@
 ﻿using System;
 using MemoryPack;
-using Source.Scripts.Data.Repositories.Entries.Words;
+using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 
-namespace Source.Scripts.Data.Repositories.Entries.Progress
+namespace Source.Scripts.Data.Repositories.Progress.Entries
 {
     [MemoryPackable]
     internal readonly partial struct DailyProgress

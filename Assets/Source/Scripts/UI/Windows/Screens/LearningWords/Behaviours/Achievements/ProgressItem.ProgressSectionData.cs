@@ -1,7 +1,7 @@
 ﻿using System;
 using CustomUtils.Runtime.UI;
 using CustomUtils.Runtime.UI.Theme.Components;
-using Source.Scripts.Data.Repositories.Entries.Words;
+using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using UnityEngine;
 
 namespace Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours.Achievements
