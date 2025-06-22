@@ -1,20 +1,13 @@
 ﻿using System.Collections.Generic;
 using CustomUtils.Runtime.CustomTypes.Singletons;
 using CustomUtils.Runtime.Storage;
-using Source.Scripts.Data.Entries;
-using Source.Scripts.Data.Entries.Words;
+using Source.Scripts.Data.Repositories.Entries;
+using Source.Scripts.Data.Repositories.Entries.Words;
 
-namespace Source.Scripts.Data
+namespace Source.Scripts.Data.Repositories
 {
-    internal class UserData : Singleton<UserData>
+    internal sealed class VocabularyRepository : Singleton<VocabularyRepository>
     {
-        internal PersistentReactiveProperty<ProgressEntry> ProgressEntry { get; } =
-            new(PersistentPropertyKeys.ProgressEntryKey, new ProgressEntry
-                {
-                    DailyWordGoal = 10
-                }
-            );
-
         internal PersistentReactiveProperty<List<WordEntry>> WordEntries { get; } =
             new(PersistentPropertyKeys.WordEntryKey);
 

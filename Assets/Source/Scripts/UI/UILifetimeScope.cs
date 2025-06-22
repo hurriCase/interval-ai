@@ -1,4 +1,5 @@
-﻿using Source.Scripts.UI.Windows.Base;
+﻿using Source.Scripts.Data.Repositories;
+using Source.Scripts.UI.Windows.Base;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -11,6 +12,11 @@ namespace Source.Scripts.UI
 
         protected override void Configure(IContainerBuilder builder)
         {
+#if UNITY_EDITOR
+            if (Application.isEditor)
+                TestDataFactory.CreateFakeProgress();
+#endif
+
             _windowsController.Init();
         }
     }

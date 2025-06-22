@@ -1,4 +1,4 @@
-namespace Source.Scripts.Data.Entries.Words
+namespace Source.Scripts.Data.Repositories.Entries.Words
 {
     internal enum LearningState
     {

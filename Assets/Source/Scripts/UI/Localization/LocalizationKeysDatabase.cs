@@ -10,6 +10,7 @@ namespace Source.Scripts.UI.Localization
     internal sealed class LocalizationKeysDatabase : SingletonScriptableObject<LocalizationKeysDatabase>
     {
         [SerializeField] private List<LocalizationData> _localizationData;
+        [field: SerializeField] internal List<string> WeekDaysLocalizationKeys { get; private set; }
 
         internal string GetLocalization(LocalizationType type)
         {

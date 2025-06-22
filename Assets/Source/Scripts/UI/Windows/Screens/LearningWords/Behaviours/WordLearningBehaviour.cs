@@ -1,5 +1,7 @@
-﻿using R3;
-using Source.Scripts.Data;
+﻿using System;
+using R3;
+using Source.Scripts.Data.Repositories;
+using Source.Scripts.Data.Repositories.Entries.Words;
 using Source.Scripts.UI.Localization;
 using TMPro;
 using UnityEngine;
@@ -20,12 +22,12 @@ namespace Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours
         {
             UpdateUI();
 
-            UserData.Instance.ProgressEntry
+            ProgressRepository.Instance.ProgressEntry
                 .Subscribe(this, static (_, behaviour) => behaviour.UpdateUI())
                 .AddTo(this);
 
             _minusButton.Button.OnClickAsObservable()
-                .Where(static _ => UserData.Instance.ProgressEntry.Value.DailyWordGoal > 0)
+                .Where(static _ => ProgressRepository.Instance.ProgressEntry.Value.DailyWordsGoal > 0)
                 .Subscribe(this, static (_, behaviour) => behaviour.ModifyDailyGoal(-1))
                 .AddTo(this);
 
@@ -36,21 +38,27 @@ namespace Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours
 
         private void ModifyDailyGoal(int addAmount)
         {
-            var value = UserData.Instance.ProgressEntry.Value;
-            value.DailyWordGoal += addAmount;
-            UserData.Instance.ProgressEntry.Value = value;
+            var value = ProgressRepository.Instance.ProgressEntry.Value;
+            value.DailyWordsGoal += addAmount;
+            ProgressRepository.Instance.ProgressEntry.Value = value;
         }
 
         private void UpdateUI()
         {
-            _minusButton.Button.interactable = UserData.Instance.ProgressEntry.Value.DailyWordGoal > 0;
+            var currentProgress = ProgressRepository.Instance.ProgressEntry.Value;
 
-            var currentProgress = UserData.Instance.ProgressEntry.Value;
-            _dailyWordGoalText.text = currentProgress.DailyWordGoal.ToString();
+            _minusButton.Button.interactable = currentProgress.DailyWordsGoal > 0;
+            _dailyWordGoalText.text = currentProgress.DailyWordsGoal.ToString();
             _learnGoalText.text =
-                string.Format(LocalizationType.LearnGoal.GetLocalization(), currentProgress.DailyWordGoal);
-            _repetitionText.text =
-                string.Format(LocalizationType.RepetitionGoal.GetLocalization(), currentProgress.RepeatingWordsCount);
+                string.Format(LocalizationType.LearnGoal.GetLocalization(), currentProgress.DailyWordsGoal);
+
+            var repeatableCount = currentProgress.ProgressHistory.TryGetValue(DateTime.Now, out var dailyProgress)
+                ? Mathf.Max(0, dailyProgress.GetProgressCountData(LearningState.Repeatable))
+                : 0;
+
+            _repetitionText.text = string.Format(
+                LocalizationType.RepetitionGoal.GetLocalization(),
+                repeatableCount);
         }
     }
 }

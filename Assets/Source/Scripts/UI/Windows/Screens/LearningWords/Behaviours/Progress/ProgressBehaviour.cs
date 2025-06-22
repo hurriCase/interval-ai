@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CustomUtils.Runtime.CustomTypes.Randoms;
 using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.UI;
 using R3;
-using Source.Scripts.Data;
-using Source.Scripts.Data.Entries;
+using Source.Scripts.Data.Repositories;
+using Source.Scripts.Data.Repositories.Entries.Progress;
+using Source.Scripts.Data.Repositories.Entries.Words;
 using Source.Scripts.UI.Localization;
 using TMPro;
 using UnityEngine;
@@ -26,18 +28,20 @@ namespace Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours.Progress
 
         internal void Init()
         {
-            UserData.Instance.ProgressEntry
+            ProgressRepository.Instance.ProgressEntry
                 .AsObservable()
-                .DistinctUntilChangedBy(progress => progress.TodayLearnedWordCount)
+                .DistinctUntilChangedBy(progress => progress.ProgressHistory)
                 .Subscribe(this, (progressEntry, behaviour) => behaviour.UpdateProgress(progressEntry));
 
-            UpdateProgress(UserData.Instance.ProgressEntry.Value);
+            UpdateProgress(ProgressRepository.Instance.ProgressEntry.Value);
         }
 
         private void UpdateProgress(ProgressEntry progressEntry)
         {
-            var dailyGoal = Mathf.Max(1, progressEntry.DailyWordGoal);
-            var learnedCount = Mathf.Max(0, progressEntry.TodayLearnedWordCount);
+            var dailyGoal = Mathf.Max(1, progressEntry.DailyWordsGoal);
+            var learnedCount = progressEntry.ProgressHistory.TryGetValue(DateTime.Now, out var dailyProgress)
+                ? Mathf.Max(0, dailyProgress.GetProgressCountData(LearningState.CurrentlyLearning))
+                : 0;
 
             var currentProgressRatio = learnedCount / dailyGoal;
 

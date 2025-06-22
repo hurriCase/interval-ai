@@ -1,6 +1,6 @@
 ﻿using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.UI.RatioLayout;
-using Source.Scripts.Data;
+using Source.Scripts.Data.Repositories;
 using UnityEngine;
 
 namespace Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours.CategoryPreview
@@ -14,7 +14,7 @@ namespace Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours.CategoryPre
 
         internal void Init()
         {
-            foreach (var categoryEntry in UserData.Instance.CategoryEntries.Value)
+            foreach (var categoryEntry in VocabularyRepository.Instance.CategoryEntries.Value)
             {
                 var createdCategory = Instantiate(_categoryItemPrefab, _contentContainer);
 

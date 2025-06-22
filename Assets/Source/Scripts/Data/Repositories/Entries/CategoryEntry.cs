@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using MemoryPack;
-using Source.Scripts.Data.Entries.Words;
+using Source.Scripts.Data.Repositories.Entries.Words;
 using UnityEngine;
 
-namespace Source.Scripts.Data.Entries
+namespace Source.Scripts.Data.Repositories.Entries
 {
     [MemoryPackable]
     [Serializable]

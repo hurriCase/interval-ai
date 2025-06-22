@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using CustomUtils.Runtime.AssetLoader;
 using CustomUtils.Runtime.CustomTypes.Singletons;
-using Source.Scripts.Data.Entries;
+using Source.Scripts.Data.Repositories.Entries;
 using UnityEngine;
 
 namespace Source.Scripts.Data
