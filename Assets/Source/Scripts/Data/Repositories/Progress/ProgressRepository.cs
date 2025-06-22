@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using CustomUtils.Runtime.CustomTypes.Singletons;
 using CustomUtils.Runtime.Storage;
+using Source.Scripts.Data.Repositories.Progress.Entries;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using ZLinq;
 
@@ -9,13 +10,13 @@ namespace Source.Scripts.Data.Repositories.Progress
 {
     internal sealed class ProgressRepository : Singleton<ProgressRepository>
     {
-        internal PersistentReactiveProperty<Entries.ProgressEntry> ProgressEntry { get; } =
+        internal PersistentReactiveProperty<ProgressEntry> ProgressEntry { get; } =
             new(PersistentPropertyKeys.ProgressEntryKey,
-                new Entries.ProgressEntry(DefaultDailyWordsGoal, new Dictionary<DateTime, Entries.DailyProgress>()));
+                new ProgressEntry(DefaultDailyWordsGoal, new Dictionary<DateTime, DailyProgress>()));
 
         private const int DefaultDailyWordsGoal = 10;
 
-        private static readonly List<Entries.DailyProgress> _currentWeek = new();
+        private static readonly List<DailyProgress> _currentWeek = new();
         private static DateTime _lastWeekStart = DateTime.MinValue;
 
         internal void Init()
@@ -30,7 +31,7 @@ namespace Source.Scripts.Data.Repositories.Progress
 
             if (currentEntry.ProgressHistory.TryGetValue(dateOnly, out var dailyProgress) is false)
             {
-                dailyProgress = new Entries.DailyProgress(
+                dailyProgress = new DailyProgress(
                     null,
                     dateOnly
                 );
@@ -44,7 +45,7 @@ namespace Source.Scripts.Data.Repositories.Progress
             ProgressEntry.Value = currentEntry;
         }
 
-        internal List<Entries.DailyProgress> GetCurrentWeek()
+        internal List<DailyProgress> GetCurrentWeek()
         {
             var today = DateTime.Now.Date;
             var currentWeekStart = GetMondayOfWeek(today);
@@ -58,7 +59,7 @@ namespace Source.Scripts.Data.Repositories.Progress
             return _currentWeek;
         }
 
-        internal List<Entries.DailyProgress> GetMonth(int year, int month)
+        internal List<DailyProgress> GetMonth(int year, int month)
         {
             var monthStart = new DateTime(year, month, 1);
             var monthEnd = monthStart.AddMonths(1).AddDays(-1);
@@ -66,9 +67,9 @@ namespace Source.Scripts.Data.Repositories.Progress
             return GetProgressForDateRange(monthStart, monthEnd);
         }
 
-        private List<Entries.DailyProgress> GetProgressForDateRange(DateTime startDate, DateTime endDate)
+        private List<DailyProgress> GetProgressForDateRange(DateTime startDate, DateTime endDate)
         {
-            var progressList = new List<Entries.DailyProgress>();
+            var progressList = new List<DailyProgress>();
             var currentEntry = ProgressEntry.Value;
 
             for (var date = startDate.Date; date <= endDate.Date; date = date.AddDays(1))
@@ -80,7 +81,7 @@ namespace Source.Scripts.Data.Repositories.Progress
             return progressList;
         }
 
-        private void OnProgressChanged(Entries.ProgressEntry progressEntry)
+        private void OnProgressChanged(ProgressEntry progressEntry)
         {
             var today = DateTime.Now.Date;
             var currentWeekStart = GetMondayOfWeek(today);
@@ -101,7 +102,7 @@ namespace Source.Scripts.Data.Repositories.Progress
             return date.AddDays(-daysFromMonday);
         }
 
-        private void UpdateTodayInCache(DateTime today, Entries.ProgressEntry progressEntry)
+        private void UpdateTodayInCache(DateTime today, ProgressEntry progressEntry)
         {
             var todayProgress = progressEntry.ProgressHistory.AsValueEnumerable()
                 .FirstOrDefault(progressHistory => progressHistory.Value.DateTime.Date == today);
@@ -124,7 +125,7 @@ namespace Source.Scripts.Data.Repositories.Progress
                 var date = monday.AddDays(i);
                 _currentWeek.Add(ProgressEntry.Value.ProgressHistory.TryGetValue(date, out var progress)
                     ? progress
-                    : new Entries.DailyProgress(null, date));
+                    : new DailyProgress(null, date));
             }
         }
     }
