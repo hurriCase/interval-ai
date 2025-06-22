@@ -379,6 +379,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_Block_Header
       objectReference: {fileID: 0}
+    - target: {fileID: 4186002175039987366, guid: 80f57b067d3d38c4ead30f31ff8060e8, type: 3}
+      propertyPath: _targetComponent
+      value: 
+      objectReference: {fileID: 4264733202151279095}
     - target: {fileID: 8703843440013193923, guid: 80f57b067d3d38c4ead30f31ff8060e8, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -473,6 +477,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d3c2feab7a3f4829b91b43c066c7b149, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4264733202151279095 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3331258375786132860, guid: 80f57b067d3d38c4ead30f31ff8060e8, type: 3}
+  m_PrefabInstance: {fileID: 1518946278582287499}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &7916803582598696520 stripped
@@ -741,6 +756,7 @@ MonoBehaviour:
   _categoryPreviewBehaviour: {fileID: 1686374353627773582}
   _wordLearningBehaviour: {fileID: 6280745981775796522}
   _achievementsBehaviour: {fileID: 8143200516331891077}
+  _welcomeText: {fileID: 4264733202151279095}
 --- !u!1001 &2099356488772411676
 PrefabInstance:
   m_ObjectHideFlags: 0

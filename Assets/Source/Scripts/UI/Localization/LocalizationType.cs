@@ -7,5 +7,6 @@ namespace Source.Scripts.UI.Localization
         ProgressTitle = 2,
         LearnGoal = 3,
         RepetitionGoal = 4,
+        UserWelcome = 5
     }
 }
