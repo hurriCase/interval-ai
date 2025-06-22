@@ -1,4 +1,6 @@
 using CustomUtils.Editor.CustomMenu.MenuItems.Helpers;
+using CustomUtils.Editor.CustomMenu.MenuItems.MenuItems.MethodExecution;
+using Cysharp.Threading.Tasks;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -355,6 +357,12 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
         {
             Menu.SetChecked("--Project--/Toggle Default Scene Auto Load", DefaultSceneLoader.IsDefaultSceneSet());
             return true;
+        }
+
+        [MenuItem("--Project--/Delete All Stored Data", priority = 2)]
+        private static void DeleteAllStoredData()
+        {
+            StorageHelper.TryDeleteAllAsync().Forget();
         }
 
         [MenuItem("--Project--/Toggle Is RectTransform Extended Enabled", priority = 1)]
