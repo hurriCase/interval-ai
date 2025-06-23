@@ -1,0 +1,22 @@
+﻿using Source.Scripts.Data.Repositories.Progress;
+using Source.Scripts.Data.Repositories.Vocabulary.Entries;
+using TMPro;
+using UnityEngine;
+
+namespace Source.Scripts.UI.Windows.PopUps.Achievement
+{
+    internal sealed class AchievementProgressBehaviour : MonoBehaviour
+    {
+        [SerializeField] private TextMeshProUGUI _learnedWordsText;
+        [SerializeField] private TextMeshProUGUI _bestStreakText;
+        [SerializeField] private TextMeshProUGUI _currentStreakText;
+
+        internal void Init()
+        {
+            var currentProgress = ProgressRepository.Instance.ProgressEntry.Value;
+            _learnedWordsText.text = currentProgress.StateCounts[(int)LearningState.Studied].ToString();
+            _bestStreakText.text = currentProgress.BestStreak.ToString();
+            _currentStreakText.text = currentProgress.CurrentStreak.ToString();
+        }
+    }
+}
