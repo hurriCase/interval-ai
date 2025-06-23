@@ -2,6 +2,7 @@
 using Source.Scripts.Data.Repositories.Progress;
 using Source.Scripts.Data.Repositories.Progress.Entries;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Source.Scripts.Data
@@ -15,7 +16,7 @@ namespace Source.Scripts.Data
 
             for (var i = 0; i < 30; i++)
             {
-                if (i % 2 == 0)
+                if (Random.Range(0, 2) == 0)
                     continue;
 
                 var date = today.AddDays(-i);
@@ -47,7 +48,7 @@ namespace Source.Scripts.Data
 
             if (currentEntry.ProgressHistory.TryGetValue(dateOnly, out var dailyProgress) is false)
             {
-                dailyProgress = new DailyProgress(null, dateOnly);
+                dailyProgress = new DailyProgress(dateOnly);
                 currentEntry.ProgressHistory[dateOnly] = dailyProgress;
             }
 

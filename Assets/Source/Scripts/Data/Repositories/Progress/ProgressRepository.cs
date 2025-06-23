@@ -8,41 +8,68 @@ using ZLinq;
 
 namespace Source.Scripts.Data.Repositories.Progress
 {
-    internal sealed class ProgressRepository : Singleton<ProgressRepository>
+    internal sealed class ProgressRepository : Singleton<ProgressRepository>, IDisposable
     {
         internal PersistentReactiveProperty<ProgressEntry> ProgressEntry { get; } =
             new(PersistentPropertyKeys.ProgressEntryKey,
-                new ProgressEntry(DefaultDailyWordsGoal, new Dictionary<DateTime, DailyProgress>()));
+                new ProgressEntry(DefaultDailyWordsGoal, null, 0, 0, new Dictionary<DateTime, DailyProgress>()));
 
         private const int DefaultDailyWordsGoal = 10;
 
         private static readonly List<DailyProgress> _currentWeek = new();
         private static DateTime _lastWeekStart = DateTime.MinValue;
 
+        private IDisposable _disposable;
+
         internal void Init()
         {
-            ProgressEntry.Subscribe(this, static (entry, helper) => helper.OnProgressChanged(entry));
+            _disposable =
+                ProgressEntry.Subscribe(this, static (entry, helper) => helper.OnProgressChanged(entry));
+
+            ProgressEntry.Value.ProgressHistory.TryGetValue(DateTime.Now.AddDays(-1), out var lastDayProgress);
+
+            if (lastDayProgress.GoalAchieved is false)
+                ProgressEntry.ModifyValue(entry => entry.CurrentStreak = 0);
         }
 
         internal void AddProgress(LearningState learningState)
         {
-            var currentEntry = ProgressEntry.Value;
+            ProgressEntry.ModifyValue((repository: this, learningState),
+                (tuple, entry) => tuple.repository.AddProgressInternal(tuple.learningState, entry));
+        }
+
+        private void AddProgressInternal(LearningState learningState, ProgressEntry progressEntry)
+        {
             var dateOnly = DateTime.Now.Date;
 
-            if (currentEntry.ProgressHistory.TryGetValue(dateOnly, out var dailyProgress) is false)
+            if (progressEntry.ProgressHistory.TryGetValue(dateOnly, out var dailyProgress) is false)
             {
-                dailyProgress = new DailyProgress(
-                    null,
-                    dateOnly
-                );
-                currentEntry.ProgressHistory[dateOnly] = dailyProgress;
+                dailyProgress = new DailyProgress(dateOnly);
+                progressEntry.ProgressHistory[dateOnly] = dailyProgress;
             }
 
             dailyProgress.AddProgress(learningState);
 
-            currentEntry.ProgressHistory[dateOnly] = dailyProgress;
+            if (learningState == LearningState.CurrentlyLearning)
+                HandleNewWord(ref dailyProgress, progressEntry);
 
-            ProgressEntry.Value = currentEntry;
+            progressEntry.ProgressHistory[dateOnly] = dailyProgress;
+            progressEntry.StateCounts[(int)learningState]++;
+        }
+
+        private void HandleNewWord(ref DailyProgress dailyProgress, ProgressEntry progressEntry)
+        {
+            var progressCount = dailyProgress.ProgressCountData[(int)LearningState.CurrentlyLearning];
+
+            if (dailyProgress.GoalAchieved || progressCount < progressEntry.DailyWordsGoal)
+                return;
+
+            progressEntry.CurrentStreak++;
+
+            if (progressEntry.CurrentStreak > progressEntry.BestStreak)
+                progressEntry.BestStreak = progressEntry.CurrentStreak;
+
+            dailyProgress.GoalAchieved = true;
         }
 
         internal List<DailyProgress> GetCurrentWeek()
@@ -125,8 +152,14 @@ namespace Source.Scripts.Data.Repositories.Progress
                 var date = monday.AddDays(i);
                 _currentWeek.Add(ProgressEntry.Value.ProgressHistory.TryGetValue(date, out var progress)
                     ? progress
-                    : new DailyProgress(null, date));
+                    : new DailyProgress(null, false, date));
             }
+        }
+
+        public void Dispose()
+        {
+            _disposable?.Dispose();
+            ProgressEntry.Dispose();
         }
     }
 }

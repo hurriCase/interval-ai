@@ -1,11 +1,17 @@
-﻿using CustomUtils.Runtime.CustomTypes.Singletons;
+﻿using System;
+using CustomUtils.Runtime.CustomTypes.Singletons;
 using CustomUtils.Runtime.Storage;
 
 namespace Source.Scripts.Data.Repositories.User
 {
-    internal sealed class UserRepository : Singleton<UserRepository>
+    internal sealed class UserRepository : Singleton<UserRepository>, IDisposable
     {
         internal PersistentReactiveProperty<UserEntry> UserEntry { get; } =
             new(PersistentPropertyKeys.WordEntryKey, new UserEntry("user"));
+
+        public void Dispose()
+        {
+            UserEntry.Dispose();
+        }
     }
 }
