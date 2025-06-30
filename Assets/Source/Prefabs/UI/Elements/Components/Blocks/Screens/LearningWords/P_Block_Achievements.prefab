@@ -372,6 +372,7 @@ MonoBehaviour:
   - {fileID: 6979986234899249351}
   - {fileID: 8394280710262061179}
   _achievementPopUpButton: {fileID: 7089437730212638095}
+  _weekProgressContainer: {fileID: 1819453515710722048}
 --- !u!224 &8230301445092498458 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8629539679633799983, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
@@ -1487,13 +1488,41 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4846776352148463752, guid: 2aa406382509957428bbc6df4f8aecc7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5084254536351928482}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7080910812108957193, guid: 2aa406382509957428bbc6df4f8aecc7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1819453515710722048}
   m_SourcePrefab: {fileID: 100100000, guid: 2aa406382509957428bbc6df4f8aecc7, type: 3}
 --- !u!224 &457296802961995184 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4846776352148463752, guid: 2aa406382509957428bbc6df4f8aecc7, type: 3}
   m_PrefabInstance: {fileID: 4979732612138014008}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2837235549885969201 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7080910812108957193, guid: 2aa406382509957428bbc6df4f8aecc7, type: 3}
+  m_PrefabInstance: {fileID: 4979732612138014008}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1819453515710722048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2837235549885969201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaf881ba05504567b43183d9f64ce2bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _progressItems:
+  - {fileID: 7954762952539608776}
+  - {fileID: 3216363710505669547}
+  - {fileID: 63213607793632648}
+  - {fileID: 9154238022677467329}
+  - {fileID: 5172943913462427770}
+  - {fileID: 6979986234899249351}
+  - {fileID: 8394280710262061179}
 --- !u!1001 &5190823002687203883
 PrefabInstance:
   m_ObjectHideFlags: 0
