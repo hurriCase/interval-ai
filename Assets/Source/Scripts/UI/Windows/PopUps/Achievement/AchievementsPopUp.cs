@@ -6,10 +6,12 @@ namespace Source.Scripts.UI.Windows.PopUps.Achievement
     internal sealed class AchievementsPopUp : PopUpBase
     {
         [SerializeField] private AchievementProgressBehaviour _achievementProgressBehaviour;
+        [SerializeField] private CalendarBehaviour _calendarBehaviour;
 
         internal override void Init()
         {
             _achievementProgressBehaviour.Init();
+            _calendarBehaviour.Init();
         }
     }
 }
