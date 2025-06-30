@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using CustomUtils.Runtime.Extensions;
 using Source.Scripts.Data.Repositories.Progress.Entries;
+using Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours.Achievements;
 using TMPro;
 using UnityEngine;
 using ZLinq;
 
-namespace Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours.Achievements
+namespace Source.Scripts.UI.Windows.Shared
 {
-    internal sealed partial class ProgressItem : MonoBehaviour
+    internal sealed class ProgressItem : MonoBehaviour
     {
         [field: SerializeField] internal ProgressColorMapping ProgressColorMapping { get; private set; }
         [field: SerializeField] internal GameObject FireIcon { get; private set; }
@@ -19,9 +19,9 @@ namespace Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours.Achievement
 
         private const int Circumference = 360;
 
-        internal void Init(DailyProgress dailyProgress, string localizationKey)
+        internal void Init(DailyProgress dailyProgress, string dateIdentifierText)
         {
-            DateIdentifierText.text = localizationKey.GetLocalization();
+            DateIdentifierText.text = dateIdentifierText;
 
             var totalCount = dailyProgress.ProgressCountData.Sum();
 

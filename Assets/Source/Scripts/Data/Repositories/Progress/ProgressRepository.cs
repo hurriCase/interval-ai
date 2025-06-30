@@ -101,8 +101,9 @@ namespace Source.Scripts.Data.Repositories.Progress
 
             for (var date = startDate.Date; date <= endDate.Date; date = date.AddDays(1))
             {
-                if (currentEntry.ProgressHistory.TryGetValue(date, out var progress))
-                    progressList.Add(progress);
+                progressList.Add(currentEntry.ProgressHistory.TryGetValue(date, out var progress)
+                    ? progress
+                    : new DailyProgress(date));
             }
 
             return progressList;
