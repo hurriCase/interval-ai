@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7080910812108957193
+--- !u!1 &4337855868345819307
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4846776352148463752}
-  - component: {fileID: 8503330623108373633}
-  m_Layer: 0
-  m_Name: P_RatioLayout
+  - component: {fileID: 2104429359735514666}
+  - component: {fileID: 5580428510314600888}
+  m_Layer: 5
+  m_Name: P_HorizontalVerticalLayout_Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &4846776352148463752
+--- !u!224 &2104429359735514666
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7080910812108957193}
+  m_GameObject: {fileID: 4337855868345819307}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -36,13 +36,13 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &8503330623108373633
+--- !u!114 &5580428510314600888
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7080910812108957193}
+  m_GameObject: {fileID: 4337855868345819307}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 890bede2165f49698a9993bb017ba1c0, type: 3}
@@ -54,13 +54,12 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  _direction: 0
-  _spacing: 0
-  _reverseArrangement: 0
-  _childForceExpandWidth: 0
-  _childForceExpandHeight: 0
-  _childControlWidth: 1
-  _childControlHeight: 1
-  _childScaleWidth: 0
-  _childScaleHeight: 0
-  _ratioElements: []
+  <Spacing>k__BackingField: 0
+  <Direction>k__BackingField: 0
+  <ReverseArrangement>k__BackingField: 0
+  <ChildForceExpandWidth>k__BackingField: 1
+  <ChildForceExpandHeight>k__BackingField: 1
+  <ChildControlWidth>k__BackingField: 0
+  <ChildControlHeight>k__BackingField: 1
+  <ChildScaleWidth>k__BackingField: 0
+  <ChildScaleHeight>k__BackingField: 0

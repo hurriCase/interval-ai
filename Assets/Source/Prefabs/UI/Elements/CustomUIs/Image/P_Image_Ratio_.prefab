@@ -90,7 +90,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8679566928671228537, guid: f8313bb2446f8494e8ca82ef2070c6e8, type: 3}
       propertyPath: m_Name
-      value: Image_RatioLayout
+      value: P_Image_RatioLayout
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -98,14 +98,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8679566928671228537, guid: f8313bb2446f8494e8ca82ef2070c6e8, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7719072142720820250}
+      addedObject: {fileID: 6885759759496906947}
   m_SourcePrefab: {fileID: 100100000, guid: f8313bb2446f8494e8ca82ef2070c6e8, type: 3}
 --- !u!1 &656958204002998796 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8679566928671228537, guid: f8313bb2446f8494e8ca82ef2070c6e8, type: 3}
   m_PrefabInstance: {fileID: 8172335831777663093}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7719072142720820250
+--- !u!114 &6885759759496906947
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -114,9 +114,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 656958204002998796}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3c2feab7a3f4829b91b43c066c7b149, type: 3}
+  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _aspectRatio: 1
-  _aspectMode: 1
-  _isInsideRatioLayoutGroup: 0
+  m_AspectMode: 0
+  m_AspectRatio: 0.46182266
