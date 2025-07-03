@@ -102,6 +102,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 493901272571276, guid: 5f35385e0b2415643bda6fdd68993816, type: 3}
   m_PrefabInstance: {fileID: 490524210805217911}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2953244611138854997 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3328927000013486626, guid: 5f35385e0b2415643bda6fdd68993816, type: 3}
+  m_PrefabInstance: {fileID: 490524210805217911}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2126624489936837375
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -198,6 +209,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3691833483562493499, guid: f4a7512a7bb93574fbd9d2dd3fa7adfb, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4873623981955611282, guid: f4a7512a7bb93574fbd9d2dd3fa7adfb, type: 3}
       propertyPath: _aspectRatio
       value: 3.2358491
@@ -239,9 +254,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f51fc6dcad84d778016d14702e55c2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _learnedWordsText: {fileID: 0}
-  _bestStreakText: {fileID: 0}
-  _currentStreakText: {fileID: 0}
+  _learnedWordsText: {fileID: 3683245714123906058}
+  _bestStreakText: {fileID: 2953244611138854997}
+  _currentStreakText: {fileID: 8502431659112774113}
 --- !u!1001 &4634382210825299339
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -344,6 +359,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1989868456630516676, guid: 022855ee180913845b2d1c9b4a9e500d, type: 3}
   m_PrefabInstance: {fileID: 4634382210825299339}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8502431659112774113 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3868053983957490794, guid: 022855ee180913845b2d1c9b4a9e500d, type: 3}
+  m_PrefabInstance: {fileID: 4634382210825299339}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8246051961320968280
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -509,13 +535,13 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 2104429359735514666, guid: f50527c0127d7394bb3c81258db89350, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 2102895415290543012}
+    - targetCorrespondingSourceObject: {fileID: 2104429359735514666, guid: f50527c0127d7394bb3c81258db89350, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 490734136598841339}
     - targetCorrespondingSourceObject: {fileID: 2104429359735514666, guid: f50527c0127d7394bb3c81258db89350, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6615168555343601231}
-    - targetCorrespondingSourceObject: {fileID: 2104429359735514666, guid: f50527c0127d7394bb3c81258db89350, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2102895415290543012}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f50527c0127d7394bb3c81258db89350, type: 3}
 --- !u!224 &8024204848100750962 stripped
@@ -625,3 +651,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7092495590518858542, guid: 621e085c5a15fa34883dbf27967bdeb2, type: 3}
   m_PrefabInstance: {fileID: 9170286603595552906}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3683245714123906058 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5503085805763282048, guid: 621e085c5a15fa34883dbf27967bdeb2, type: 3}
+  m_PrefabInstance: {fileID: 9170286603595552906}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

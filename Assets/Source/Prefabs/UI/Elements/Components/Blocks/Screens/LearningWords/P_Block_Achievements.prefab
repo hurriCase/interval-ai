@@ -259,7 +259,7 @@ MonoBehaviour:
   - {fileID: 6979986234899249351}
   - {fileID: 8394280710262061179}
   _achievementPopUpButton: {fileID: 7089437730212638095}
-  _weekProgressContainer: {fileID: 0}
+  _weekProgressContainer: {fileID: 6810762876728353602}
 --- !u!224 &8230301445092498458 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8629539679633799983, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
@@ -811,32 +811,60 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 9023251282495303203, guid: 1e5318a0ecc3e564593ff5ea8968dc92, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5921524579447115806}
-    - targetCorrespondingSourceObject: {fileID: 9023251282495303203, guid: 1e5318a0ecc3e564593ff5ea8968dc92, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8446890672082639011}
+      addedObject: {fileID: 6671064178888162833}
     - targetCorrespondingSourceObject: {fileID: 9023251282495303203, guid: 1e5318a0ecc3e564593ff5ea8968dc92, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2184895098269760370}
     - targetCorrespondingSourceObject: {fileID: 9023251282495303203, guid: 1e5318a0ecc3e564593ff5ea8968dc92, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5619082477615790104}
-    - targetCorrespondingSourceObject: {fileID: 9023251282495303203, guid: 1e5318a0ecc3e564593ff5ea8968dc92, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 3607395619615477073}
     - targetCorrespondingSourceObject: {fileID: 9023251282495303203, guid: 1e5318a0ecc3e564593ff5ea8968dc92, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6671064178888162833}
+      addedObject: {fileID: 5619082477615790104}
+    - targetCorrespondingSourceObject: {fileID: 9023251282495303203, guid: 1e5318a0ecc3e564593ff5ea8968dc92, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8446890672082639011}
+    - targetCorrespondingSourceObject: {fileID: 9023251282495303203, guid: 1e5318a0ecc3e564593ff5ea8968dc92, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5921524579447115806}
     - targetCorrespondingSourceObject: {fileID: 9023251282495303203, guid: 1e5318a0ecc3e564593ff5ea8968dc92, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5084254536351928482}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6646821071331846306, guid: 1e5318a0ecc3e564593ff5ea8968dc92, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6810762876728353602}
   m_SourcePrefab: {fileID: 100100000, guid: 1e5318a0ecc3e564593ff5ea8968dc92, type: 3}
 --- !u!224 &5884228335166112728 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9023251282495303203, guid: 1e5318a0ecc3e564593ff5ea8968dc92, type: 3}
   m_PrefabInstance: {fileID: 3211626483611414011}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8119917324438717785 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6646821071331846306, guid: 1e5318a0ecc3e564593ff5ea8968dc92, type: 3}
+  m_PrefabInstance: {fileID: 3211626483611414011}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6810762876728353602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8119917324438717785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaf881ba05504567b43183d9f64ce2bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _progressItems:
+  - {fileID: 6979986234899249351}
+  - {fileID: 5172943913462427770}
+  - {fileID: 3216363710505669547}
+  - {fileID: 9154238022677467329}
+  - {fileID: 63213607793632648}
+  - {fileID: 7954762952539608776}
+  - {fileID: 8394280710262061179}
 --- !u!1001 &4079261831551361436
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1061,6 +1089,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4409270689816851080, guid: 32d11c841763dc94f83dbcdc759211af, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4409270689816851080, guid: 32d11c841763dc94f83dbcdc759211af, type: 3}
+      propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4799770602492163150, guid: 32d11c841763dc94f83dbcdc759211af, type: 3}

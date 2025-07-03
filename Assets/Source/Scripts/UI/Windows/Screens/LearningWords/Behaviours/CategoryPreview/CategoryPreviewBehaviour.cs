@@ -1,7 +1,7 @@
 ﻿using CustomUtils.Runtime.Extensions;
-using CustomUtils.Runtime.UI.RatioLayout;
 using Source.Scripts.Data.Repositories.Vocabulary;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours.CategoryPreview
 {
@@ -9,7 +9,7 @@ namespace Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours.CategoryPre
     {
         [SerializeField] private RectTransform _contentContainer;
         [SerializeField] private CategoryPreviewItem _categoryItemPrefab;
-        [SerializeField] private RatioLayoutElement _spacingPrefab;
+        [SerializeField] private AspectRatioFitter _spacingPrefab;
         [SerializeField] private float _spacingRatio;
 
         internal void Init()
@@ -22,7 +22,8 @@ namespace Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours.CategoryPre
                 createdCategory.NameText.text = categoryEntry.LocalizationKey.GetLocalization();
 
                 var createdSpacing = Instantiate(_spacingPrefab, _contentContainer);
-                createdSpacing.AspectRatio = _spacingRatio;
+                createdSpacing.aspectMode = AspectRatioFitter.AspectMode.HeightControlsWidth;
+                createdSpacing.aspectRatio = _spacingRatio;
             }
         }
     }

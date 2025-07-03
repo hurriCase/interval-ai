@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
+using Source.Scripts.Data.Repositories.Progress.Date;
 using Source.Scripts.Data.Repositories.Progress.Entries;
+using Source.Scripts.Data.Repositories.User;
 using UnityEngine;
 
 namespace Source.Scripts.UI.Windows.Shared
@@ -9,24 +10,32 @@ namespace Source.Scripts.UI.Windows.Shared
     {
         [SerializeField] private List<ProgressItem> _progressItems;
 
-        internal void UpdateWeeklyProgress(List<DailyProgress> weeklyProgress, List<string> weekDayIdentifierTexts)
+        internal void UpdateMonthWeeklyProgress(DailyProgress[] monthData, int weekIndex, bool[] isInMonth)
         {
-            if (_progressItems.Count < weeklyProgress.Count || weekDayIdentifierTexts.Count < weeklyProgress.Count)
-            {
-                Debug.LogError("[AchievementsBehaviour::Init] There is a mismatch between element counts:\n" +
-                               $"_progressItems.Count: {_progressItems.Count}\n" +
-                               $"currentWeek.Count: {weeklyProgress.Count}\n" +
-                               $"localizationKeys.Count: {weekDayIdentifierTexts.Count}");
-                return;
-            }
+            var weekStart = weekIndex * 7;
 
-            for (var i = 0; i < _progressItems.Count; i++)
+            for (var day = 0; day < 7; day++)
             {
-                if ((int)weeklyProgress.First().DateTime.DayOfWeek <= i ||
-                    (int)weeklyProgress.Last().DateTime.DayOfWeek >= i)
-                    _progressItems[i].Init(weeklyProgress[i], weekDayIdentifierTexts[i]);
-                else
-                    _progressItems[i].gameObject.SetActive(false);
+                var dayIndex = weekStart + day;
+                var dailyProgress = monthData[dayIndex];
+                var dayText = dailyProgress.DateTime.Day.ToString();
+                var shouldGrayOut = isInMonth[dayIndex] is false;
+
+                _progressItems[day].Init(dailyProgress, dayText, shouldGrayOut);
+            }
+        }
+
+        internal void UpdateCurrentWeeklyProgress()
+        {
+            var weekAbbreviatedNames = UserRepository.Instance.CurrentCulture.DateTimeFormat.AbbreviatedDayNames;
+            var currentWeek = WeekProgressHelper.GetCurrentWeek();
+
+            for (var day = 0; day < 7; day++)
+            {
+                var dailyProgress = currentWeek[day];
+                var dayText = weekAbbreviatedNames[day];
+
+                _progressItems[day].Init(dailyProgress, dayText);
             }
         }
     }

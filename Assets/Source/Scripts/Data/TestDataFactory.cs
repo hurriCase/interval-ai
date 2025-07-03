@@ -2,7 +2,6 @@
 using Source.Scripts.Data.Repositories.Progress;
 using Source.Scripts.Data.Repositories.Progress.Entries;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
-using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Source.Scripts.Data

@@ -1,73 +1,69 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Source.Scripts.Data.Repositories.Progress;
-using Source.Scripts.Data.Repositories.Progress.Entries;
+using R3;
+using Source.Scripts.Data.Repositories.Progress.Date;
+using Source.Scripts.Data.Repositories.User;
 using Source.Scripts.UI.Windows.Shared;
+using TMPro;
 using UnityEngine;
 
 namespace Source.Scripts.UI.Windows.PopUps.Achievement
 {
     internal sealed class CalendarBehaviour : MonoBehaviour
     {
-        [SerializeField] private List<WeekProgressContainer> _weekProgressContainers;
+        [SerializeField] private TextMeshProUGUI _currentMonthText;
+        [SerializeField] private ButtonComponent _previousMonthButton;
+        [SerializeField] private ButtonComponent _nextMonthButton;
+        [SerializeField] private WeekProgressContainer[] _weekProgressContainers = new WeekProgressContainer[6];
+
+        private int _currentYear;
+        private int _currentMonth;
 
         internal void Init()
         {
             var now = DateTime.Now;
-            var currentMonthProgress = ProgressRepository.Instance.GetMonth(now.Year, now.Month);
+            _currentYear = now.Year;
+            _currentMonth = now.Month;
 
-            var weeklyGroups = GroupByCalendarWeeks(currentMonthProgress, now.Year, now.Month);
+            UpdateCalendarDisplay();
 
-            for (var i = 0; i < weeklyGroups.Count && i < _weekProgressContainers.Count; i++)
-            {
-                var weekGroup = weeklyGroups[i];
-                var monthDates = weekGroup.Select(progress => progress.DateTime.Day.ToString()).ToList();
+            _previousMonthButton.Button.OnClickAsObservable()
+                .Subscribe(this, static (_, behaviour) => behaviour.GoToPreviousMonth());
 
-                _weekProgressContainers[i].UpdateWeeklyProgress(weekGroup, monthDates);
-            }
+            _nextMonthButton.Button.OnClickAsObservable()
+                .Subscribe(this, static (_, behaviour) => behaviour.GoToNextMonth());
         }
 
-        //TODO:<Dmitriy.Sukharev> refactor
-        private List<List<DailyProgress>> GroupByCalendarWeeks(List<DailyProgress> monthProgress, int year, int month)
+        private void GoToPreviousMonth()
         {
-            var progressByDate =
-                monthProgress.ToDictionary(dailyProgress => dailyProgress.DateTime.Date, dailyProgress => dailyProgress);
-
-            var firstDayOfMonth = new DateTime(year, month, 1);
-            var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
-
-            var weeks = new List<List<DailyProgress>>();
-
-            var currentWeekStart = GetMondayOfWeek(firstDayOfMonth);
-
-            while (currentWeekStart <= lastDayOfMonth)
+            _currentMonth--;
+            if (_currentMonth < 1)
             {
-                var weekDays = new List<DailyProgress>();
-
-                for (var dayOffset = 0; dayOffset < 7; dayOffset++)
-                {
-                    var currentDate = currentWeekStart.AddDays(dayOffset);
-
-                    if (currentDate.Month == month && currentDate.Year == year)
-                        weekDays.Add(progressByDate.TryGetValue(currentDate, out var progress)
-                            ? progress
-                            : new DailyProgress(currentDate));
-                }
-
-                if (weekDays.Count > 0)
-                    weeks.Add(weekDays);
-
-                currentWeekStart = currentWeekStart.AddDays(7);
+                _currentMonth = 12;
+                _currentYear--;
             }
 
-            return weeks;
+            UpdateCalendarDisplay();
         }
 
-        private DateTime GetMondayOfWeek(DateTime date)
+        private void GoToNextMonth()
         {
-            var daysFromMonday = ((int)date.DayOfWeek + 6) % 7;
-            return date.AddDays(-daysFromMonday);
+            _currentMonth++;
+            if (_currentMonth > 12)
+            {
+                _currentMonth = 1;
+                _currentYear++;
+            }
+
+            UpdateCalendarDisplay();
+        }
+
+        private void UpdateCalendarDisplay()
+        {
+            var (monthData, isInMonth) = WeekProgressHelper.GetMonthWeeks(_currentYear, _currentMonth);
+            _currentMonthText.text = UserRepository.Instance.CurrentCulture.DateTimeFormat.GetMonthName(_currentMonth);
+
+            for (var week = 0; week < 6; week++)
+                _weekProgressContainers[week].UpdateMonthWeeklyProgress(monthData, week, isInMonth);
         }
     }
 }
