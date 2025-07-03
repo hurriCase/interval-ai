@@ -256,12 +256,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <ProgressColorMapping>k__BackingField: {fileID: 11400000, guid: 793ebaa6ea3ed6c42b965a0f6c88dda1, type: 2}
+  <DateIdentifierMapping>k__BackingField: {fileID: 11400000, guid: 9f735318eec67ab46b7dda4466c73cde, type: 2}
   <FireIcon>k__BackingField: {fileID: 1536076483135008681}
   <DateIdentifierText>k__BackingField: {fileID: 4103330910832702292}
-  <SpacingBetweenSections>k__BackingField: 0.06
-  <ThicknessRatio>k__BackingField: 0.25
+  <DateIdentifierTheme>k__BackingField: {fileID: 3232844157795145870}
+  <SpacingBetweenSections>k__BackingField: 0.225
+  <ActiveThicknessRatio>k__BackingField: 0.3
+  <InActiveThicknessRatio>k__BackingField: 0.2
   <AlphaForExtraDays>k__BackingField: 0.1
-  <DefaultProgressPercentages>k__BackingField: 2d0000001400000023000000
+  <DefaultProgressPercentages>k__BackingField: 000000002d000000140000002300000000000000
   <ProgressSections>k__BackingField:
   - <RoundedFilledImage>k__BackingField: {fileID: 2510932365633308804}
     <ImageTheme>k__BackingField: {fileID: 2853720857671068186}
@@ -688,6 +691,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+--- !u!114 &3232844157795145870 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9109170191897869617, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+  m_PrefabInstance: {fileID: 5960259728682886591}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f34f5868d064babaf33226a3ef47195, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4103330910832702292 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7658068928977278699, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
