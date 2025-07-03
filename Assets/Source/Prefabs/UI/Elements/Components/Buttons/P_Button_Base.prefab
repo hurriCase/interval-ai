@@ -78,11 +78,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6315897869229748187, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6315897869229748187, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 34
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6315897869229748187, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -136,10 +136,14 @@ PrefabInstance:
       propertyPath: <ThemeSolidColorName>k__BackingField
       value: Base_Main
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2826011415062426482, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4202609680214102433, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5436563114417893329}
     - targetCorrespondingSourceObject: {fileID: 4202609680214102433, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 108988303308155018}
@@ -163,6 +167,20 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4202609680214102433, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
   m_PrefabInstance: {fileID: 326217548321259687}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5436563114417893329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4527347005704868102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AspectMode: 1
+  m_AspectRatio: 1
 --- !u!114 &108988303308155018
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2635891746716064224, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
+      propertyPath: m_AspectMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2635891746716064224, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
+      propertyPath: m_AspectRatio
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2826011415062426482, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
       propertyPath: _aspectMode
       value: 1
@@ -46,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6315897869229748187, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 6315897869229748187, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
       propertyPath: m_SizeDelta.y
@@ -110,11 +118,14 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4202609680214102433, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
-      insertIndex: 2
+      insertIndex: -1
       addedObject: {fileID: 6320501834000866669}
     - targetCorrespondingSourceObject: {fileID: 4202609680214102433, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
-      insertIndex: 3
+      insertIndex: -1
       addedObject: {fileID: 5977408382105174003}
+    - targetCorrespondingSourceObject: {fileID: 4202609680214102433, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7281976943009342870}
   m_SourcePrefab: {fileID: 100100000, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
 --- !u!1 &7052841248445510864 stripped
 GameObject:
@@ -174,3 +185,11 @@ MonoBehaviour:
   <CustomFillOrigin>k__BackingField: 0
   <UseCustomFillOrigin>k__BackingField: 0
   <ThicknessRatio>k__BackingField: 0.2
+--- !u!222 &7281976943009342870
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7052841248445510864}
+  m_CullTransparentMesh: 1
