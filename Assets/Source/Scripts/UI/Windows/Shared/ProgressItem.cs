@@ -32,8 +32,7 @@ namespace Source.Scripts.UI.Windows.Shared
 
             var totalCount = dailyProgress.ProgressCountData.Sum();
 
-            if ((totalCount > 0 && dailyProgress.ProgressCountData.AsValueEnumerable()
-                    .Any(progressCount => progressCount > 0) is false) || isOutsideMonth)
+            if ((totalCount > 0) is false || isOutsideMonth)
             {
                 SetProgress(DefaultProgressPercentages, InActiveThicknessRatio, LearningState.None);
                 FireIcon.SetActive(false);
@@ -79,7 +78,6 @@ namespace Source.Scripts.UI.Windows.Shared
                 if (wordCount <= 0 || fillAmount <= 0f)
                 {
                     sectionData.RoundedFilledImage.fillAmount = 0;
-                    Debug.LogWarning($"[ProgressItem::SetProgress] skipped", gameObject);
                     continue;
                 }
 
