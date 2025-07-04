@@ -1,5 +1,6 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
+using Source.Scripts.Core.Helpers;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.ResourceProviders;
@@ -15,11 +16,15 @@ namespace Source.Scripts.Core.Scenes
         {
             try
             {
-                Log($"[SceneLoader::LoadSceneAsync] Start loading scene: {sceneAddress}");
+#if ADDRESSABLES_LOG_ALL
+                using var stopWatchScope = AddressablesLogger.LogWithTimePast("[SceneLoader::LoadSceneAsync]");
+#endif
+
+                AddressablesLogger.Log($"[SceneLoader::LoadSceneAsync] Start loading scene: {sceneAddress}");
 
                 var currentScene = await Addressables.LoadSceneAsync(sceneAddress, loadMode);
 
-                Log($"[SceneLoader::LoadSceneAsync] Scene loaded successfully: {sceneAddress}");
+                AddressablesLogger.Log($"[SceneLoader::LoadSceneAsync] Scene loaded successfully: {sceneAddress}");
 
                 TryUnloadScene(_sceneInstance);
 
@@ -37,18 +42,11 @@ namespace Source.Scripts.Core.Scenes
             if (sceneInstance.Scene.IsValid() is false)
                 return;
 
-            Log($"[SceneLoader::TryUnloadScene] Start unloading scene: {sceneInstance.Scene.name}");
+            AddressablesLogger.Log($"[SceneLoader::TryUnloadScene] Start unloading scene: {sceneInstance.Scene.name}");
 
             Addressables.UnloadSceneAsync(sceneInstance);
 
-            Log($"[SceneLoader::TryUnloadScene] Scene unloaded: {sceneInstance.Scene.name}");
-        }
-
-        private static void Log(string message)
-        {
-#if ADDRESSABLES_LOG_ALL
-            Debug.Log(message);
-#endif
+            AddressablesLogger.Log($"[SceneLoader::TryUnloadScene] Scene unloaded: {sceneInstance.Scene.name}");
         }
     }
 }
