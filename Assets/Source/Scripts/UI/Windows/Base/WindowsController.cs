@@ -1,14 +1,17 @@
 using System.Collections.Generic;
 using CustomUtils.Runtime.CustomTypes.Singletons;
+using Cysharp.Threading.Tasks;
+using Source.Scripts.Core;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using ZLinq;
 
 namespace Source.Scripts.UI.Windows.Base
 {
     internal sealed class WindowsController : SingletonBehaviour<WindowsController>
     {
-        [SerializeField] private GameObject[] _screenPrefabs;
-        [SerializeField] private GameObject[] _popUpPrefabs;
+        [SerializeField] private AssetReferenceT<GameObject>[] _screenReferences;
+        [SerializeField] private AssetReferenceT<GameObject>[] _popUpReferences;
 
         [SerializeField] private Transform _screensContainer;
         [SerializeField] private Transform _popUpsContainer;
@@ -19,11 +22,12 @@ namespace Source.Scripts.UI.Windows.Base
 
         private PopUpBase _previousOpenedPopUp;
 
-        public void Init()
+        public async UniTask Init()
         {
-            foreach (var screen in _screenPrefabs)
+            foreach (var screenReference in _screenReferences)
             {
-                var createdWindow = Instantiate(screen, _screensContainer);
+                var loadedScreen = await PrefabLoader.LoadAsync<GameObject>(screenReference);
+                var createdWindow = Instantiate(loadedScreen, _screensContainer);
 
                 if (createdWindow.TryGetComponent<ScreenBase>(out var screenBase) is false)
                     continue;
@@ -36,9 +40,10 @@ namespace Source.Scripts.UI.Windows.Base
                     screenBase.HideImmediately();
             }
 
-            foreach (var popUp in _popUpPrefabs)
+            foreach (var popUpReference in _popUpReferences)
             {
-                var createdWindow = Instantiate(popUp, _popUpsContainer);
+                var loadedPopUp = await PrefabLoader.LoadAsync<GameObject>(popUpReference);
+                var createdWindow = Instantiate(loadedPopUp, _popUpsContainer);
 
                 if (createdWindow.TryGetComponent<PopUpBase>(out var popUpBase) is false)
                     continue;
