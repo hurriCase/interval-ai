@@ -32,7 +32,8 @@ namespace Source.Scripts.UI.Windows.Shared
 
             var totalCount = dailyProgress.ProgressCountData.Sum();
 
-            if (HasValidProgress(dailyProgress, totalCount) is false || isOutsideMonth)
+            if ((totalCount > 0 && dailyProgress.ProgressCountData.AsValueEnumerable()
+                    .Any(progressCount => progressCount > 0) is false) || isOutsideMonth)
             {
                 SetProgress(DefaultProgressPercentages, InActiveThicknessRatio, LearningState.None);
                 FireIcon.SetActive(false);
@@ -62,11 +63,14 @@ namespace Source.Scripts.UI.Windows.Shared
             DateIdentifierText.color = color1;
         }
 
+        // TODO: <Dmitriy.Sukharev> Fix invisible micro-progress - show minimum visible progress instead of discarding
         private void SetProgress(IReadOnlyList<int> progresses, float thicknessRatio, LearningState? overrideState = null)
         {
             var offset = 0f;
             var spacing = SpacingBetweenSections * thicknessRatio;
             var totalCount = progresses.Sum();
+            var discardedProgresses = progresses.Where(progress => (float)progress / totalCount - spacing <= 0).Sum();
+            totalCount -= discardedProgresses;
             foreach (var sectionData in ProgressSections)
             {
                 var wordCount = progresses[(int)sectionData.LearningState];
@@ -75,6 +79,7 @@ namespace Source.Scripts.UI.Windows.Shared
                 if (wordCount <= 0 || fillAmount <= 0f)
                 {
                     sectionData.RoundedFilledImage.fillAmount = 0;
+                    Debug.LogWarning($"[ProgressItem::SetProgress] skipped", gameObject);
                     continue;
                 }
 
@@ -87,9 +92,5 @@ namespace Source.Scripts.UI.Windows.Shared
                 offset += progressRatio;
             }
         }
-
-        private bool HasValidProgress(DailyProgress dailyProgress, int totalCount)
-            => totalCount > 0 && dailyProgress.ProgressCountData.AsValueEnumerable()
-                .Any(progressCount => progressCount > 0);
     }
 }
