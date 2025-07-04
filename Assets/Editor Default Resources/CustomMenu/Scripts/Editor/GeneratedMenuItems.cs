@@ -560,5 +560,18 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             Menu.SetChecked("--Project--/Toggle Is Auto Stretch RectTransform", ScriptingSymbolHandler.IsSymbolEnabled("ScriptingSymbol_IS_AUTO_STRETCH_RECTTRANSFORM", false));
             return true;
         }
+
+        [MenuItem("--Project--/Toggle Addressables Log All", priority = 3)]
+        private static void ToggleSymbol_ADDRESSABLES_LOG_ALL()
+        {
+            ScriptingSymbolHandler.ToggleSymbol("ADDRESSABLES_LOG_ALL", "ScriptingSymbol_ADDRESSABLES_LOG_ALL");
+        }
+
+        [MenuItem("--Project--/Toggle Addressables Log All", true)]
+        private static bool ValidateToggleSymbol_ADDRESSABLES_LOG_ALL()
+        {
+            Menu.SetChecked("--Project--/Toggle Addressables Log All", ScriptingSymbolHandler.IsSymbolEnabled("ScriptingSymbol_ADDRESSABLES_LOG_ALL", false));
+            return true;
+        }
     }
 }
