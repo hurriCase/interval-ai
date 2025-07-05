@@ -139,11 +139,11 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
         [MenuItem("GameObject/UI Custom/Text/Regular & Adaptive _&3", priority = 13)]
         private static void CreateP_Text_Adaptive(MenuCommand menuCommand)
         {
-            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/Elements/CustomUIs/Text/P_Text_Adaptive.prefab");
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/Elements/CustomUIs/Text/P_Text_Adaptive_.prefab");
 
             if (!prefab)
             {
-                Debug.LogError("[GeneratedMenuItems::CreateP_Text_Adaptive] Prefab not found at path: Assets/Source/Prefabs/UI/Elements/CustomUIs/Text/P_Text_Adaptive.prefab");
+                Debug.LogError("[GeneratedMenuItems::CreateP_Text_Adaptive] Prefab not found at path: Assets/Source/Prefabs/UI/Elements/CustomUIs/Text/P_Text_Adaptive_.prefab");
                 return;
             }
 
@@ -174,14 +174,14 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             Selection.activeObject = instance;
         }
 
-        [MenuItem("GameObject/UI Custom/Text/Auto Size", priority = 4)]
-        private static void CreateP_Text_AutoSize(MenuCommand menuCommand)
+        [MenuItem("GameObject/UI Custom/Text/Localized & Adaptive _&4", priority = 13)]
+        private static void CreateP_Text_Localized_Adaptive(MenuCommand menuCommand)
         {
-            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/Elements/CustomUIs/Text/P_Text_AutoSize_.prefab");
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/Elements/CustomUIs/Text/P_Text_Localized_Adaptive_.prefab");
 
             if (!prefab)
             {
-                Debug.LogError("[GeneratedMenuItems::CreateP_Text_AutoSize] Prefab not found at path: Assets/Source/Prefabs/UI/Elements/CustomUIs/Text/P_Text_AutoSize_.prefab");
+                Debug.LogError("[GeneratedMenuItems::CreateP_Text_Localized_Adaptive] Prefab not found at path: Assets/Source/Prefabs/UI/Elements/CustomUIs/Text/P_Text_Localized_Adaptive_.prefab");
                 return;
             }
 
@@ -189,45 +189,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
 
             if (!instance)
             {
-                Debug.LogError("[GeneratedMenuItems::CreateP_Text_AutoSize] Failed to instantiate prefab");
-                return;
-            }
-
-            var prefabStage = PrefabStageUtility.GetCurrentPrefabStage();
-            if (prefabStage)
-            {
-                var selectedInPrefab = Selection.activeGameObject;
-                if (selectedInPrefab && prefabStage.IsPartOfPrefabContents(selectedInPrefab))
-                    instance.transform.SetParent(selectedInPrefab.transform);
-                else
-                    instance.transform.SetParent(prefabStage.prefabContentsRoot.transform);
-
-                instance.transform.localPosition = Vector3.zero;
-            }
-            else
-                GameObjectUtility.SetParentAndAlign(instance, menuCommand.context as GameObject);
-
-            Undo.RegisterCreatedObjectUndo(instance, "Create " + instance.name);
-
-            Selection.activeObject = instance;
-        }
-
-        [MenuItem("GameObject/UI Custom/Text/Auto Size & Localized Text", priority = 3)]
-        private static void CreateP_Text_Localized_AutoSize(MenuCommand menuCommand)
-        {
-            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/Elements/CustomUIs/Text/P_Text_Localized_AutoSize_.prefab");
-
-            if (!prefab)
-            {
-                Debug.LogError("[GeneratedMenuItems::CreateP_Text_Localized_AutoSize] Prefab not found at path: Assets/Source/Prefabs/UI/Elements/CustomUIs/Text/P_Text_Localized_AutoSize_.prefab");
-                return;
-            }
-
-            var instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
-
-            if (!instance)
-            {
-                Debug.LogError("[GeneratedMenuItems::CreateP_Text_Localized_AutoSize] Failed to instantiate prefab");
+                Debug.LogError("[GeneratedMenuItems::CreateP_Text_Localized_Adaptive] Failed to instantiate prefab");
                 return;
             }
 
