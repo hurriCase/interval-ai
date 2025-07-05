@@ -3,6 +3,7 @@ using R3;
 using Source.Scripts.Data.Repositories.Progress.Date;
 using Source.Scripts.Data.Repositories.User;
 using Source.Scripts.UI.CustomButton;
+using Source.Scripts.UI.Windows.PopUps.Achievement.LearningStarts;
 using Source.Scripts.UI.Windows.Shared;
 using TMPro;
 using UnityEngine;
@@ -11,6 +12,7 @@ namespace Source.Scripts.UI.Windows.PopUps.Achievement
 {
     internal sealed class CalendarBehaviour : MonoBehaviour
     {
+        [SerializeField] private WeekDaysBehaviour _weekDaysBehaviour;
         [SerializeField] private TextMeshProUGUI _currentMonthText;
         [SerializeField] private ButtonComponent _previousMonthButton;
         [SerializeField] private ButtonComponent _nextMonthButton;
@@ -21,6 +23,8 @@ namespace Source.Scripts.UI.Windows.PopUps.Achievement
 
         internal void Init()
         {
+            _weekDaysBehaviour.Init();
+
             var now = DateTime.Now;
             _currentYear = now.Year;
             _currentMonth = now.Month;
