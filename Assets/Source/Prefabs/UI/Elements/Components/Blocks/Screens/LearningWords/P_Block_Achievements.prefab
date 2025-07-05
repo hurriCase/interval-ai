@@ -250,14 +250,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d38d6a367864dbc913a6ed2ed9047c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _progressItems:
-  - {fileID: 7954762952539608776}
-  - {fileID: 3216363710505669547}
-  - {fileID: 63213607793632648}
-  - {fileID: 9154238022677467329}
-  - {fileID: 5172943913462427770}
-  - {fileID: 6979986234899249351}
-  - {fileID: 8394280710262061179}
   _achievementPopUpButton: {fileID: 7089437730212638095}
   _weekProgressContainer: {fileID: 6810762876728353602}
 --- !u!224 &8230301445092498458 stripped
@@ -523,7 +515,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5284368234239781762, guid: 35ddcb97906fd0242b4adec7355dd3f6, type: 3}
       propertyPath: m_Name
-      value: P_Button_Arrow
+      value: P_Button_AchievementPopUp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -857,6 +849,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaf881ba05504567b43183d9f64ce2bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _progressColorMapping: {fileID: 11400000, guid: 793ebaa6ea3ed6c42b965a0f6c88dda1, type: 2}
+  _dateIdentifierMapping: {fileID: 11400000, guid: 6c02ecf68a8649c45843a2bef06e8250, type: 2}
   _progressItems:
   - {fileID: 6979986234899249351}
   - {fileID: 5172943913462427770}

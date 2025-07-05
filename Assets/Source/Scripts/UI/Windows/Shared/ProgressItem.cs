@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CustomUtils.Runtime.UI.Theme.Components;
+using CustomUtils.Runtime.UI.Theme.ThemeMapping;
+using JetBrains.Annotations;
 using Source.Scripts.Data.Repositories.Progress.Entries;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
-using Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours.Achievements;
 using TMPro;
 using UnityEngine;
 using ZLinq;
@@ -12,8 +13,6 @@ namespace Source.Scripts.UI.Windows.Shared
 {
     internal sealed class ProgressItem : MonoBehaviour
     {
-        [field: SerializeField] internal ProgressColorMapping ProgressColorMapping { get; private set; }
-        [field: SerializeField] internal DateIdentifierMapping DateIdentifierMapping { get; private set; }
         [field: SerializeField] internal GameObject FireIcon { get; private set; }
         [field: SerializeField] internal TextMeshProUGUI DateIdentifierText { get; private set; }
         [field: SerializeField] internal TextThemeComponent DateIdentifierTheme { get; private set; }
@@ -26,7 +25,12 @@ namespace Source.Scripts.UI.Windows.Shared
 
         private const int Circumference = 360;
 
-        internal void Init(DailyProgress dailyProgress, string dateIdentifierText, bool isOutsideMonth = false)
+        internal void Init(
+            DailyProgress dailyProgress,
+            string dateIdentifierText,
+            [CanBeNull] ThemeStateMappingGeneric<DateIdentifierColorType> dateIdentifierMapping,
+            ThemeStateMappingGeneric<LearningState> progressColorMapping,
+            bool isOutsideMonth = false)
         {
             DateIdentifierText.text = dateIdentifierText;
 
@@ -34,18 +38,21 @@ namespace Source.Scripts.UI.Windows.Shared
 
             if ((totalCount > 0) is false || isOutsideMonth)
             {
-                SetProgress(DefaultProgressPercentages, InActiveThicknessRatio, LearningState.None);
+                SetProgress(DefaultProgressPercentages, progressColorMapping, InActiveThicknessRatio,
+                    LearningState.None);
                 FireIcon.SetActive(false);
-                DateIdentifierMapping.SetComponentForState(DateIdentifierColorType.InActive, DateIdentifierTheme);
+                if (dateIdentifierMapping)
+                    dateIdentifierMapping.SetComponentForState(DateIdentifierColorType.InActive, DateIdentifierTheme);
 
                 if (isOutsideMonth)
                     ApplyOutsideMonthEffect();
                 return;
             }
 
-            SetProgress(dailyProgress.ProgressCountData, ActiveThicknessRatio);
+            SetProgress(dailyProgress.ProgressCountData, progressColorMapping, ActiveThicknessRatio);
             FireIcon.SetActive(true);
-            DateIdentifierMapping.SetComponentForState(DateIdentifierColorType.Active, DateIdentifierTheme);
+            if (dateIdentifierMapping)
+                dateIdentifierMapping.SetComponentForState(DateIdentifierColorType.Active, DateIdentifierTheme);
         }
 
         private void ApplyOutsideMonthEffect()
@@ -63,7 +70,9 @@ namespace Source.Scripts.UI.Windows.Shared
         }
 
         // TODO: <Dmitriy.Sukharev> Fix invisible micro-progress - show minimum visible progress instead of discarding
-        private void SetProgress(IReadOnlyList<int> progresses, float thicknessRatio, LearningState? overrideState = null)
+        private void SetProgress(IReadOnlyList<int> progresses,
+            ThemeStateMappingGeneric<LearningState> progressColorMapping, float thicknessRatio,
+            LearningState? overrideState = null)
         {
             var offset = 0f;
             var spacing = SpacingBetweenSections * thicknessRatio;
@@ -82,7 +91,7 @@ namespace Source.Scripts.UI.Windows.Shared
                 }
 
                 var learningState = overrideState ?? sectionData.LearningState;
-                ProgressColorMapping.SetComponentForState(learningState, sectionData.ImageTheme);
+                progressColorMapping.SetComponentForState(learningState, sectionData.ImageTheme);
 
                 sectionData.RoundedFilledImage.fillAmount = fillAmount;
                 sectionData.RoundedFilledImage.CustomFillOrigin = offset * Circumference;
