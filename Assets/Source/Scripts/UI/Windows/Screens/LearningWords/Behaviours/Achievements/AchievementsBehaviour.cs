@@ -1,4 +1,5 @@
 ﻿using R3;
+using Source.Scripts.UI.CustomButton;
 using Source.Scripts.UI.Windows.Base;
 using Source.Scripts.UI.Windows.Shared;
 using UnityEngine;
@@ -12,7 +13,7 @@ namespace Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours.Achievement
 
         internal void Init()
         {
-            _achievementPopUpButton.Button.OnClickAsObservable()
+            _achievementPopUpButton.OnClickAsObservable()
                 .Subscribe(_ => WindowsController.Instance.OpenPopUpByType(PopUpType.Achievements))
                 .AddTo(this);
 

@@ -2,6 +2,7 @@
 using R3;
 using Source.Scripts.Data.Repositories.Progress.Date;
 using Source.Scripts.Data.Repositories.User;
+using Source.Scripts.UI.CustomButton;
 using Source.Scripts.UI.Windows.Shared;
 using TMPro;
 using UnityEngine;
@@ -26,10 +27,10 @@ namespace Source.Scripts.UI.Windows.PopUps.Achievement
 
             UpdateCalendarDisplay();
 
-            _previousMonthButton.Button.OnClickAsObservable()
+            _previousMonthButton.OnClickAsObservable()
                 .Subscribe(this, static (_, behaviour) => behaviour.GoToPreviousMonth());
 
-            _nextMonthButton.Button.OnClickAsObservable()
+            _nextMonthButton.OnClickAsObservable()
                 .Subscribe(this, static (_, behaviour) => behaviour.GoToNextMonth());
         }
 

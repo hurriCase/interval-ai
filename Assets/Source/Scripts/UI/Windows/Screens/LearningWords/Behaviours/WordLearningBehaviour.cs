@@ -2,6 +2,7 @@
 using R3;
 using Source.Scripts.Data.Repositories.Progress;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
+using Source.Scripts.UI.CustomButton;
 using Source.Scripts.UI.Localization;
 using TMPro;
 using UnityEngine;
@@ -26,12 +27,12 @@ namespace Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours
                 .Subscribe(this, static (_, behaviour) => behaviour.UpdateUI())
                 .AddTo(this);
 
-            _minusButton.Button.OnClickAsObservable()
+            _minusButton.OnClickAsObservable()
                 .Where(static _ => ProgressRepository.Instance.ProgressEntry.Value.DailyWordsGoal > 0)
                 .Subscribe(this, static (_, behaviour) => behaviour.ModifyDailyGoal(-1))
                 .AddTo(this);
 
-            _plusButton.Button.OnClickAsObservable()
+            _plusButton.OnClickAsObservable()
                 .Subscribe(this, static (_, behaviour) => behaviour.ModifyDailyGoal(+1))
                 .AddTo(this);
         }
@@ -47,7 +48,7 @@ namespace Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours
         {
             var currentProgress = ProgressRepository.Instance.ProgressEntry.Value;
 
-            _minusButton.Button.interactable = currentProgress.DailyWordsGoal > 0;
+            _minusButton.interactable = currentProgress.DailyWordsGoal > 0;
             _dailyWordGoalText.text = currentProgress.DailyWordsGoal.ToString();
             _learnGoalText.text =
                 string.Format(LocalizationType.LearnGoal.GetLocalization(), currentProgress.DailyWordsGoal);
