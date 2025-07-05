@@ -64,7 +64,7 @@ namespace Source.Scripts.UI.Windows.PopUps.Achievement
 
         private void UpdateCalendarDisplay()
         {
-            var (monthData, isInMonth) = WeekProgressHelper.GetMonthWeeks(_currentYear, _currentMonth);
+            var (monthData, isInMonth) = DateProgressHelper.GetMonthWeeks(_currentYear, _currentMonth);
             _currentMonthText.text = UserRepository.Instance.CurrentCulture.DateTimeFormat.GetMonthName(_currentMonth);
 
             for (var week = 0; week < 6; week++)

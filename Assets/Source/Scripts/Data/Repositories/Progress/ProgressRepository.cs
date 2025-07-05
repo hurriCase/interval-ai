@@ -18,8 +18,6 @@ namespace Source.Scripts.Data.Repositories.Progress
 
         internal void Init()
         {
-            _disposable = ProgressEntry.Subscribe(this, (_, _) => WeekProgressHelper.RefreshCurrentWeek());
-
             var yesterdayDate = DateTime.Now.Date.AddDays(-1);
             ProgressEntry.Value.ProgressHistory.TryGetValue(yesterdayDate, out var lastDayProgress);
 

@@ -1,10 +1,11 @@
 ﻿using System;
 using Source.Scripts.Data.Repositories.Progress.Entries;
 using Source.Scripts.Data.Repositories.User;
+using UnityEngine;
 
 namespace Source.Scripts.Data.Repositories.Progress.Date
 {
-    internal static class WeekProgressHelper
+    internal static class DateProgressHelper
     {
         private static readonly DailyProgress[] _monthProgressData = new DailyProgress[42]; // 6 weeks * 7 days = 42
         private static readonly bool[] _isInMonth = new bool[42];
@@ -12,46 +13,32 @@ namespace Source.Scripts.Data.Repositories.Progress.Date
         private static int _lastYear = -1;
 
         private static readonly DailyProgress[] _currentWeek = new DailyProgress[7];
-        private static DateTime _lastWeekStart = DateTime.MinValue;
 
-        private static string _lastCultureName;
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void ResetStatic()
+        {
+            _lastMonth = -1;
+            _lastYear = -1;
+
+            Array.Clear(_monthProgressData, 0, _monthProgressData.Length);
+            Array.Clear(_isInMonth, 0, _isInMonth.Length);
+            Array.Clear(_currentWeek, 0, _currentWeek.Length);
+        }
 
         internal static DailyProgress[] GetCurrentWeek()
         {
             var today = DateTime.Now.Date;
-            var currentCulture = UserRepository.Instance.UserEntry.Value.CurrentCulture;
             var currentWeekStart = GetFirstDayOfWeek(today);
-
-            if (currentCulture.Name == _lastCultureName && currentWeekStart == _lastWeekStart &&
-                _currentWeek.Length != 0)
-                return _currentWeek;
-
-            RefreshCurrentWeek();
-            _lastWeekStart = currentWeekStart;
-            _lastCultureName = currentCulture.Name;
-
-            return _currentWeek;
-        }
-
-        internal static void RefreshCurrentWeek()
-        {
-            if (ShouldRefreshWeek() is false)
-            {
-                UpdateTodayInCache();
-                return;
-            }
-
-            var today = DateTime.Now.Date;
-            var firstDayOfWeek = GetFirstDayOfWeek(today);
             var progressEntry = ProgressRepository.Instance.ProgressEntry.Value;
-
             for (var i = 0; i < 7; i++)
             {
-                var date = firstDayOfWeek.AddDays(i);
+                var date = currentWeekStart.AddDays(i);
                 _currentWeek[i] = progressEntry.ProgressHistory.TryGetValue(date, out var progress)
                     ? progress
                     : new DailyProgress(date);
             }
+
+            return _currentWeek;
         }
 
         internal static (DailyProgress[] days, bool[] isInMonth) GetMonthWeeks(int year, int month)
@@ -60,7 +47,7 @@ namespace Source.Scripts.Data.Repositories.Progress.Date
                 return (_monthProgressData, _isInMonth);
 
             var monthStart = new DateTime(year, month, 1);
-            var firstWeekStart = WeekProgressHelper.GetFirstDayOfWeek(monthStart);
+            var firstWeekStart = GetFirstDayOfWeek(monthStart);
             var calendarEnd = firstWeekStart.AddDays(41);
             var progressEntry = ProgressRepository.Instance.ProgressEntry.Value;
             var dayIndex = 0;
@@ -86,23 +73,6 @@ namespace Source.Scripts.Data.Repositories.Progress.Date
         {
             var daysFromFirstDay = GetDayIndexInWeek(date);
             return date.AddDays(-daysFromFirstDay);
-        }
-
-        private static void UpdateTodayInCache()
-        {
-            var today = DateTime.Now.Date;
-            var todayIndex = GetDayIndexInWeek(today);
-            var progressEntry = ProgressRepository.Instance.ProgressEntry.Value;
-
-            if (progressEntry.ProgressHistory.TryGetValue(today, out var todayProgress))
-                _currentWeek[todayIndex] = todayProgress;
-        }
-
-        private static bool ShouldRefreshWeek()
-        {
-            var today = DateTime.Now.Date;
-            var currentWeekStart = GetFirstDayOfWeek(today);
-            return currentWeekStart != _lastWeekStart;
         }
 
         private static int GetDayIndexInWeek(DateTime date)
