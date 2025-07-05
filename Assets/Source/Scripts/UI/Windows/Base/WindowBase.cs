@@ -19,6 +19,8 @@ namespace Source.Scripts.UI.Windows.Base
             _canvasGroup = GetComponent<CanvasGroup>();
         }
 
+        internal virtual void BaseInit() { }
+
         internal virtual void Init() { }
 
         internal virtual void Show()

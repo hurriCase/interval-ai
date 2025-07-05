@@ -17,7 +17,7 @@ namespace Source.Scripts.UI
                 TestDataFactory.CreateFakeProgress();
 #endif
 
-            _windowsController.Init();
+            _windowsController.InitAsync();
         }
     }
 }

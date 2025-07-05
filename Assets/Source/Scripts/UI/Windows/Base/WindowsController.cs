@@ -22,7 +22,7 @@ namespace Source.Scripts.UI.Windows.Base
 
         private PopUpBase _previousOpenedPopUp;
 
-        public async UniTask Init()
+        public async UniTask InitAsync()
         {
             foreach (var screenReference in _screenReferences)
             {
@@ -34,6 +34,7 @@ namespace Source.Scripts.UI.Windows.Base
 
                 _createdScreens.Add(screenBase);
 
+                screenBase.BaseInit();
                 screenBase.Init();
 
                 if (screenBase.InitialWindow is false)
@@ -50,6 +51,7 @@ namespace Source.Scripts.UI.Windows.Base
 
                 _createdPopUps.Add(popUpBase);
 
+                popUpBase.BaseInit();
                 popUpBase.Init();
                 popUpBase.OnHidePopUp += ClosePopUp;
                 popUpBase.HideImmediately();

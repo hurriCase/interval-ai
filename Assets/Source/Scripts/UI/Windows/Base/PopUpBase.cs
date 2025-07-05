@@ -1,18 +1,19 @@
 ﻿using System;
+using R3;
+using Source.Scripts.UI.CustomButton;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Source.Scripts.UI.Windows.Base
 {
     internal abstract class PopUpBase : WindowBase<PopUpType>
     {
-        [SerializeField] private Button _closeButton;
+        [SerializeField] private ButtonComponent _closeButton;
 
         internal event Action OnHidePopUp;
 
-        internal override void Init()
+        internal override void BaseInit()
         {
-            _closeButton.onClick.AddListener(Hide);
+            _closeButton.OnClickAsObservable().Subscribe(this, (_, popUp) => popUp.Hide()).AddTo(this);
         }
 
         internal override void HideImmediately()
