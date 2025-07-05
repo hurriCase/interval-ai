@@ -6,9 +6,9 @@ namespace Source.Scripts.Data.Repositories.Progress
 {
     internal static class ProgressDataHelper
     {
-        internal static void AddProgressToEntry(ProgressEntry progressEntry, LearningState learningState)
+        internal static void AddProgressToEntry(ProgressEntry progressEntry, LearningState learningState, DateTime date)
         {
-            var dateOnly = DateTime.Now.Date;
+            var dateOnly = date.Date;
 
             if (progressEntry.ProgressHistory.TryGetValue(dateOnly, out var dailyProgress) is false)
             {

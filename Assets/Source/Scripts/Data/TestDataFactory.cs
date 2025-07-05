@@ -1,6 +1,5 @@
 ﻿using System;
 using Source.Scripts.Data.Repositories.Progress;
-using Source.Scripts.Data.Repositories.Progress.Entries;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using Random = UnityEngine.Random;
 
@@ -25,35 +24,22 @@ namespace Source.Scripts.Data
                 var repeatableCount = Random.Range(0, 5);
                 var knownCount = Random.Range(0, 3);
 
+                var currentEntry = progressRepo.ProgressEntry.Value;
+
                 for (var j = 0; j < studiedCount; j++)
-                    progressRepo.AddProgressForDate(LearningState.Studied, date);
+                    ProgressDataHelper.AddProgressToEntry(currentEntry, LearningState.Studied, date);
 
                 for (var j = 0; j < learningCount; j++)
-                    progressRepo.AddProgressForDate(LearningState.CurrentlyLearning, date);
+                    ProgressDataHelper.AddProgressToEntry(currentEntry, LearningState.CurrentlyLearning, date);
 
                 for (var j = 0; j < repeatableCount; j++)
-                    progressRepo.AddProgressForDate(LearningState.Repeatable, date);
+                    ProgressDataHelper.AddProgressToEntry(currentEntry, LearningState.Repeatable, date);
 
                 for (var j = 0; j < knownCount; j++)
-                    progressRepo.AddProgressForDate(LearningState.AlreadyKnown, date);
+                    ProgressDataHelper.AddProgressToEntry(currentEntry, LearningState.AlreadyKnown, date);
+
+                progressRepo.ProgressEntry.Value = currentEntry;
             }
-        }
-
-        private static void AddProgressForDate(this ProgressRepository repository,
-            LearningState learningState, DateTime date)
-        {
-            var currentEntry = repository.ProgressEntry.Value;
-            var dateOnly = date.Date;
-
-            if (currentEntry.ProgressHistory.TryGetValue(dateOnly, out var dailyProgress) is false)
-            {
-                dailyProgress = new DailyProgress(dateOnly);
-                currentEntry.ProgressHistory[dateOnly] = dailyProgress;
-            }
-
-            dailyProgress.AddProgress(learningState);
-            currentEntry.ProgressHistory[dateOnly] = dailyProgress;
-            repository.ProgressEntry.Value = currentEntry;
         }
     }
 }
