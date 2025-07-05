@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using R3;
+﻿using R3;
 using Source.Scripts.UI.Windows.Base;
 using Source.Scripts.UI.Windows.Shared;
 using UnityEngine;
@@ -8,7 +7,6 @@ namespace Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours.Achievement
 {
     internal sealed class AchievementsBehaviour : MonoBehaviour
     {
-        [SerializeField] private List<ProgressItem> _progressItems;
         [SerializeField] private ButtonComponent _achievementPopUpButton;
         [SerializeField] private WeekProgressContainer _weekProgressContainer;
 
