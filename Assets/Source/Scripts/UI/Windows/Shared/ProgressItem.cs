@@ -3,11 +3,9 @@ using System.Linq;
 using CustomUtils.Runtime.UI.Theme.Components;
 using CustomUtils.Runtime.UI.Theme.ThemeMapping;
 using JetBrains.Annotations;
-using Source.Scripts.Data.Repositories.Progress.Entries;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using TMPro;
 using UnityEngine;
-using ZLinq;
 
 namespace Source.Scripts.UI.Windows.Shared
 {
@@ -26,7 +24,7 @@ namespace Source.Scripts.UI.Windows.Shared
         private const int Circumference = 360;
 
         internal void Init(
-            DailyProgress dailyProgress,
+            int[] progress,
             string dateIdentifierText,
             [CanBeNull] ThemeStateMappingGeneric<DateIdentifierColorType> dateIdentifierMapping,
             ThemeStateMappingGeneric<LearningState> progressColorMapping,
@@ -34,13 +32,15 @@ namespace Source.Scripts.UI.Windows.Shared
         {
             DateIdentifierText.text = dateIdentifierText;
 
-            var totalCount = dailyProgress.ProgressCountData.Sum();
+            var totalCount = progress.Sum();
 
             if ((totalCount > 0) is false || isOutsideMonth)
             {
                 SetProgress(DefaultProgressPercentages, progressColorMapping, InActiveThicknessRatio,
                     LearningState.None);
-                FireIcon.SetActive(false);
+                if (FireIcon)
+                    FireIcon.SetActive(false);
+
                 if (dateIdentifierMapping)
                     dateIdentifierMapping.SetComponentForState(DateIdentifierColorType.InActive, DateIdentifierTheme);
 
@@ -49,8 +49,10 @@ namespace Source.Scripts.UI.Windows.Shared
                 return;
             }
 
-            SetProgress(dailyProgress.ProgressCountData, progressColorMapping, ActiveThicknessRatio);
-            FireIcon.SetActive(true);
+            SetProgress(progress, progressColorMapping, ActiveThicknessRatio);
+            if (FireIcon)
+                FireIcon.SetActive(true);
+
             if (dateIdentifierMapping)
                 dateIdentifierMapping.SetComponentForState(DateIdentifierColorType.Active, DateIdentifierTheme);
         }

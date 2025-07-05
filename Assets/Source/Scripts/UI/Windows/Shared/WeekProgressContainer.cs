@@ -24,8 +24,12 @@ namespace Source.Scripts.UI.Windows.Shared
                 var dayText = dailyProgress.DateTime.Day.ToString();
                 var shouldGrayOut = isInMonth[dayIndex] is false;
 
-                _progressItems[day]
-                    .Init(dailyProgress, dayText, _dateIdentifierMapping, _progressColorMapping, shouldGrayOut);
+                _progressItems[day].Init(
+                    dailyProgress.ProgressCountData,
+                    dayText,
+                    _dateIdentifierMapping,
+                    _progressColorMapping,
+                    shouldGrayOut);
             }
         }
 
@@ -39,7 +43,8 @@ namespace Source.Scripts.UI.Windows.Shared
                 var dailyProgress = currentWeek[day];
                 var dayText = weekAbbreviatedNames[day];
 
-                _progressItems[day].Init(dailyProgress, dayText, _dateIdentifierMapping, _progressColorMapping);
+                _progressItems[day]
+                    .Init(dailyProgress.ProgressCountData, dayText, _dateIdentifierMapping, _progressColorMapping);
             }
         }
     }

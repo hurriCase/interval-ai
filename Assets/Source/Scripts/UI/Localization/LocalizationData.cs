@@ -4,9 +4,9 @@ using UnityEngine;
 namespace Source.Scripts.UI.Localization
 {
     [Serializable]
-    internal struct LocalizationData
+    internal struct LocalizationData<TEnum> where TEnum : Enum
     {
         [field: SerializeField] internal string Key { get; private set; }
-        [field: SerializeField] internal LocalizationType Type { get; private set; }
+        [field: SerializeField] internal TEnum Type { get; private set; }
     }
 }

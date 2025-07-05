@@ -1,4 +1,5 @@
 ﻿using Source.Scripts.UI.Windows.Base;
+using Source.Scripts.UI.Windows.PopUps.Achievement.LearningStarts;
 using UnityEngine;
 
 namespace Source.Scripts.UI.Windows.PopUps.Achievement
@@ -7,11 +8,13 @@ namespace Source.Scripts.UI.Windows.PopUps.Achievement
     {
         [SerializeField] private AchievementProgressBehaviour _achievementProgressBehaviour;
         [SerializeField] private CalendarBehaviour _calendarBehaviour;
+        [SerializeField] private LearningStatsBehaviour _learningStatsBehaviour;
 
         internal override void Init()
         {
             _achievementProgressBehaviour.Init();
             _calendarBehaviour.Init();
+            _learningStatsBehaviour.Init();
         }
     }
 }
