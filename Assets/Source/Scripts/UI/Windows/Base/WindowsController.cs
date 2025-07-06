@@ -26,7 +26,7 @@ namespace Source.Scripts.UI.Windows.Base
         {
             foreach (var screenReference in _screenReferences)
             {
-                var loadedScreen = await PrefabLoader.LoadAsync<GameObject>(screenReference);
+                var loadedScreen = await PrefabLoader.LoadAsync<GameObject>(screenReference, destroyCancellationToken);
                 var createdWindow = Instantiate(loadedScreen, _screensContainer);
 
                 if (createdWindow.TryGetComponent<ScreenBase>(out var screenBase) is false)
@@ -43,7 +43,7 @@ namespace Source.Scripts.UI.Windows.Base
 
             foreach (var popUpReference in _popUpReferences)
             {
-                var loadedPopUp = await PrefabLoader.LoadAsync<GameObject>(popUpReference);
+                var loadedPopUp = await PrefabLoader.LoadAsync<GameObject>(popUpReference, destroyCancellationToken);
                 var createdWindow = Instantiate(loadedPopUp, _popUpsContainer);
 
                 if (createdWindow.TryGetComponent<PopUpBase>(out var popUpBase) is false)
