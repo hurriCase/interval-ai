@@ -26,8 +26,8 @@ namespace Source.Scripts.UI.Windows.Shared
         internal void Init(
             int[] progress,
             string dateIdentifierText,
-            [CanBeNull] ThemeStateMappingGeneric<DateIdentifierColorType> dateIdentifierMapping,
             ThemeStateMappingGeneric<LearningState> progressColorMapping,
+            ThemeStateMappingGeneric<DateIdentifierColorType> dateIdentifierMapping = null,
             bool isOutsideMonth = false)
         {
             DateIdentifierText.text = dateIdentifierText;
