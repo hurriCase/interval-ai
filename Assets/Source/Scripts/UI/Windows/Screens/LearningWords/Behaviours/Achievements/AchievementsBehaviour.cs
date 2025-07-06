@@ -1,5 +1,5 @@
 ﻿using R3;
-using Source.Scripts.UI.CustomButton;
+using Source.Scripts.UI.Selectables;
 using Source.Scripts.UI.Windows.Base;
 using Source.Scripts.UI.Windows.Shared;
 using UnityEngine;

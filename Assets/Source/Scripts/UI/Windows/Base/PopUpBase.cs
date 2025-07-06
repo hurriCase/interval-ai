@@ -1,6 +1,6 @@
 ﻿using System;
 using R3;
-using Source.Scripts.UI.CustomButton;
+using Source.Scripts.UI.Selectables;
 using UnityEngine;
 
 namespace Source.Scripts.UI.Windows.Base

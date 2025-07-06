@@ -5,8 +5,8 @@ using UnityEditor.UI;
 
 namespace Source.Scripts.Editor
 {
-    [CustomEditor(typeof(ButtonComponent))]
-    internal sealed class ButtonComponentEditor : ButtonEditor
+    [CustomEditor(typeof(ToggleComponent))]
+    internal sealed class ToggleComponentEditor : ToggleEditor
     {
         private EditorStateControls _editorStateControls;
 
@@ -25,7 +25,7 @@ namespace Source.Scripts.Editor
 
             EditorVisualControls.LabelField("Custom Settings");
 
-            _editorStateControls.PropertyField(nameof(ButtonComponent.SelectableColorMapping));
+            _editorStateControls.PropertyField(nameof(ToggleComponent.SelectableColorMapping));
 
             serializedObject.ApplyModifiedProperties();
         }
