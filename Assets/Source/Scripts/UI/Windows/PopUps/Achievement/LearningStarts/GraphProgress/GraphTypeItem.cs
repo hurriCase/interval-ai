@@ -1,0 +1,12 @@
+﻿using Source.Scripts.UI.Selectables;
+using TMPro;
+using UnityEngine;
+
+namespace Source.Scripts.UI.Windows.PopUps.Achievement.LearningStarts.GraphProgress
+{
+    internal sealed class GraphTypeItem : MonoBehaviour
+    {
+        [field: SerializeField] internal ToggleComponent Toggle { get; private set; }
+        [field: SerializeField] internal TextMeshProUGUI Text { get; private set; }
+    }
+}

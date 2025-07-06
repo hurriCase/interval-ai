@@ -3,6 +3,7 @@ using CustomUtils.Runtime.AssetLoader;
 using CustomUtils.Runtime.CustomTypes.Singletons;
 using Source.Scripts.Core;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
+using Source.Scripts.UI.Windows.PopUps.Achievement.LearningStarts.GraphProgress;
 using UnityEngine;
 
 namespace Source.Scripts.UI.Localization
@@ -12,6 +13,7 @@ namespace Source.Scripts.UI.Localization
     {
         [SerializeField] private List<LocalizationData<LocalizationType>> _localizationData;
         [SerializeField] private LocalizationData<LearningState>[] _learningStatesLocalizationData = new LocalizationData<LearningState>[5];
+        [SerializeField] private LocalizationData<DateType>[] _dateLocalizationData = new LocalizationData<DateType>[3];
 
         internal string GetLocalization(LocalizationType type)
         {
@@ -26,5 +28,6 @@ namespace Source.Scripts.UI.Localization
         }
 
         internal string GetLearningStateLocalization(int index) => _learningStatesLocalizationData[index].Key;
+        internal string GetDateLocalization(int index) => _dateLocalizationData[index].Key;
     }
 }
