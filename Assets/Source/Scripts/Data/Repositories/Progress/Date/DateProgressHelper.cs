@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Source.Scripts.Data.Repositories.Progress.Entries;
 using Source.Scripts.Data.Repositories.User;
 using UnityEngine;
@@ -13,6 +14,9 @@ namespace Source.Scripts.Data.Repositories.Progress.Date
         private static int _lastYear = -1;
 
         private static readonly DailyProgress[] _currentWeek = new DailyProgress[7];
+
+        private static readonly List<DailyProgress> _rangedProgress = new();
+        private static int _lastRequestedDayCount = -1;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         private static void ResetStatic()
@@ -67,6 +71,30 @@ namespace Source.Scripts.Data.Repositories.Progress.Date
             _lastYear = year;
 
             return (_monthProgressData, _isInMonth);
+        }
+
+        internal static List<DailyProgress> GetRange(int daysNumber)
+        {
+            if (_lastRequestedDayCount == daysNumber)
+                return _rangedProgress;
+
+            var progressEntry = ProgressRepository.Instance.ProgressEntry.Value;
+            var today = DateTime.Now.Date;
+            var startDate = today.AddDays(-(daysNumber - 1));
+
+            _rangedProgress.Clear();
+
+            for (var i = 0; i < daysNumber; i++)
+            {
+                var date = startDate.AddDays(i);
+                _rangedProgress.Add(progressEntry.ProgressHistory.TryGetValue(date, out var progress)
+                    ? progress
+                    : new DailyProgress(date));
+            }
+
+            _lastRequestedDayCount = daysNumber;
+
+            return _rangedProgress;
         }
 
         private static DateTime GetFirstDayOfWeek(DateTime date)
