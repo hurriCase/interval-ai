@@ -2,7 +2,6 @@
 using Source.Scripts.Data.Repositories.Progress.Date;
 using Source.Scripts.Data.Repositories.Progress.Entries;
 using Source.Scripts.Data.Repositories.User;
-using Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours.Achievements;
 using UnityEngine;
 
 namespace Source.Scripts.UI.Windows.Shared

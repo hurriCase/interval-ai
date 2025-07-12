@@ -4,7 +4,7 @@ using Source.Scripts.UI.Windows.Base;
 using Source.Scripts.UI.Windows.Shared;
 using UnityEngine;
 
-namespace Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours.Achievements
+namespace Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours
 {
     internal sealed class AchievementsBehaviour : MonoBehaviour
     {

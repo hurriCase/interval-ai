@@ -2,7 +2,6 @@
 using Source.Scripts.UI.Localization;
 using Source.Scripts.UI.Windows.Base;
 using Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours;
-using Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours.Achievements;
 using Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours.CategoryPreview;
 using Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours.Progress;
 using TMPro;

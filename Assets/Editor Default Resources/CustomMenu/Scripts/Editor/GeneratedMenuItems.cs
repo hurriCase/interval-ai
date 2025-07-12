@@ -9,7 +9,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
 {
     internal static class GeneratedMenuItems
     {
-        [MenuItem("--Project--/Scenes/Startup", priority = 1)]
+        [MenuItem("Scenes/Startup", priority = 1)]
         private static void OpenSceneStartUp()
         {
             if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo() is false)
@@ -19,7 +19,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Single);
         }
 
-        [MenuItem("--Project--/Scenes/Login", priority = 2)]
+        [MenuItem("Scenes/Login", priority = 2)]
         private static void OpenSceneLogin()
         {
             if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo() is false)
@@ -29,7 +29,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Single);
         }
 
-        [MenuItem("--Project--/Scenes/Main", priority = 3)]
+        [MenuItem("Scenes/Main", priority = 3)]
         private static void OpenSceneMain()
         {
             if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo() is false)
@@ -39,24 +39,59 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Single);
         }
 
-        [MenuItem("--Project--/Assets/Image Pixel Per Unit Database", priority = 0)]
-        private static void SelectAssetImagePixelPerUnitDatabase()
+        [MenuItem("References/Default Categories Database", priority = 0)]
+        private static void SelectAssetDefaultCategoriesDatabase()
         {
-            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Resources/ImagePixelPerUnit/ImagePixelPerUnitDatabase.asset");
+            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Resources/DefaultCategoriesDatabase.asset");
             Selection.activeObject = asset;
         }
 
-        [MenuItem("--Project--/Assets/Localization Keys Database", priority = 1)]
+        [MenuItem("References/Localization Keys Database", priority = 1)]
         private static void SelectAssetLocalizationKeysDatabase()
         {
             var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Resources/LocalizationKeysDatabase.asset");
             Selection.activeObject = asset;
         }
 
-        [MenuItem("--Project--/Assets/Default Categories Database", priority = 2)]
-        private static void SelectAssetDefaultCategoriesDatabase()
+        [MenuItem("References/Progress Graph Settings", priority = 3)]
+        private static void SelectAssetProgressGraphSettings()
         {
-            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Resources/DefaultCategoriesDatabase.asset");
+            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Resources/ProgressGraphSettings.asset");
+            Selection.activeObject = asset;
+        }
+
+        [MenuItem("References/SceneReferences", priority = 4)]
+        private static void SelectAssetSceneReferences()
+        {
+            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Resources/SceneReferences.asset");
+            Selection.activeObject = asset;
+        }
+
+        [MenuItem("References/Mappings/Calendar Text Color Mapping", priority = 1)]
+        private static void SelectAssetCalendarTextColorMapping()
+        {
+            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Scriptables/ColorMappings/CalendarTextColorMapping.asset");
+            Selection.activeObject = asset;
+        }
+
+        [MenuItem("References/Mappings/Progress Color Mapping", priority = 2)]
+        private static void SelectAssetProgressColorMapping()
+        {
+            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Scriptables/ColorMappings/ProgressColorMapping.asset");
+            Selection.activeObject = asset;
+        }
+
+        [MenuItem("References/Mappings/Buttons/Gray Black Mapping", priority = 1)]
+        private static void SelectAssetGrayBlackMapping()
+        {
+            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Scriptables/ColorMappings/Buttons/GrayBlackMapping.asset");
+            Selection.activeObject = asset;
+        }
+
+        [MenuItem("References/Mappings/Buttons/Purple Gray Mapping", priority = 2)]
+        private static void SelectAssetPurpleGrayMapping()
+        {
+            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Scriptables/ColorMappings/Buttons/PurpleGrayMapping.asset");
             Selection.activeObject = asset;
         }
 

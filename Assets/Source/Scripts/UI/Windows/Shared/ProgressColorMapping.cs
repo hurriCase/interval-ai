@@ -2,7 +2,7 @@
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using UnityEngine;
 
-namespace Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours.Achievements
+namespace Source.Scripts.UI.Windows.Shared
 {
     [CreateAssetMenu(fileName = nameof(ProgressColorMapping), menuName = nameof(ProgressColorMapping))]
     internal sealed class ProgressColorMapping : ThemeStateMappingGeneric<LearningState> { }

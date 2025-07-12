@@ -2,7 +2,7 @@
 using CustomUtils.Runtime.UI.Theme.Components;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using Source.Scripts.UI.Localization;
-using Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours.Achievements;
+using Source.Scripts.UI.Windows.Shared;
 using TMPro;
 using UnityEngine;
 
