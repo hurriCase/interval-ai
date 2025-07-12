@@ -10,7 +10,7 @@ namespace Source.Scripts.Data.Repositories.Progress.Entries
     internal partial struct ProgressEntry
     {
         public int DailyWordsGoal { get; set; }
-        public EnumArray<LearningState, int> TotalCountByState { get; }
+        public EnumArray<LearningState, int> TotalCountByState { get; private set; }
         public int CurrentStreak { get; set; }
         public int BestStreak { get; set; }
         public Dictionary<DateTime, DailyProgress> ProgressHistory { get; }
@@ -24,6 +24,13 @@ namespace Source.Scripts.Data.Repositories.Progress.Entries
             CurrentStreak = currentStreak;
             BestStreak = bestStreak;
             ProgressHistory = progressHistory;
+        }
+
+        internal void IncreaseTotalCount(LearningState state)
+        {
+            var totalCountByState = TotalCountByState;
+            totalCountByState[state]++;
+            TotalCountByState = totalCountByState;
         }
     }
 }

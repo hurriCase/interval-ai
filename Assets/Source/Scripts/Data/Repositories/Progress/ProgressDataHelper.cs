@@ -22,8 +22,7 @@ namespace Source.Scripts.Data.Repositories.Progress
                 ProcessNewWordProgress(ref dailyProgress, ref progressEntry);
 
             progressEntry.ProgressHistory[dateOnly] = dailyProgress;
-            var stateCounts = progressEntry.TotalCountByState;
-            stateCounts[learningState]++;
+            progressEntry.IncreaseTotalCount(learningState);
         }
 
         private static void ProcessNewWordProgress(ref DailyProgress dailyProgress, ref ProgressEntry progressEntry)

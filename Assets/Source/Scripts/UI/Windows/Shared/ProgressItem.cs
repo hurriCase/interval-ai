@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using CustomUtils.Runtime.CustomTypes.Collections;
+using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.UI.Theme.Components;
 using CustomUtils.Runtime.UI.Theme.ThemeMapping;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
@@ -17,8 +18,10 @@ namespace Source.Scripts.UI.Windows.Shared
         [field: SerializeField] internal float ActiveThicknessRatio { get; private set; }
         [field: SerializeField] internal float InActiveThicknessRatio { get; private set; }
         [field: SerializeField, Range(0f, 1f)] internal float AlphaForExtraDays { get; private set; }
-        [field: SerializeField] internal EnumArray<LearningState, int> DefaultProgressPercentages { get; private set; }
-        [field: SerializeField] internal EnumArray<LearningState, ProgressSectionData> ProgressSections { get; private set; }
+        [field: SerializeField]
+        internal EnumArray<LearningState, int> DefaultProgressPercentages { get; private set; } = new(true);
+        [field: SerializeField]
+        internal EnumArray<LearningState, ProgressSectionData> ProgressSections { get; private set; } = new(true);
 
         private const int Circumference = 360;
 
@@ -32,52 +35,48 @@ namespace Source.Scripts.UI.Windows.Shared
             DateIdentifierText.text = dateIdentifierText;
 
             var totalCount = progress.Values.Sum();
+            var isActive = totalCount > 0 && isOutsideMonth is false;
 
-            if ((totalCount > 0) is false || isOutsideMonth)
-            {
-                SetProgress(DefaultProgressPercentages, progressColorMapping, InActiveThicknessRatio,
+            if (isActive)
+                SetProgress(progress, totalCount, progressColorMapping, ActiveThicknessRatio);
+            else
+                SetProgress(DefaultProgressPercentages,
+                    DefaultProgressPercentages.Values.Sum(),
+                    progressColorMapping,
+                    InActiveThicknessRatio,
                     LearningState.None);
-                if (FireIcon)
-                    FireIcon.SetActive(false);
 
-                if (dateIdentifierMapping)
-                    dateIdentifierMapping.SetComponentForState(DateIdentifierColorType.InActive, DateIdentifierTheme);
-
-                if (isOutsideMonth)
-                    ApplyOutsideMonthEffect();
-                return;
-            }
-
-            SetProgress(progress, progressColorMapping, ActiveThicknessRatio);
             if (FireIcon)
-                FireIcon.SetActive(true);
+                FireIcon.SetActive(isActive);
 
-            if (dateIdentifierMapping)
-                dateIdentifierMapping.SetComponentForState(DateIdentifierColorType.Active, DateIdentifierTheme);
+            if (isOutsideMonth)
+                ApplyOutsideMonthEffect();
+
+            if (!dateIdentifierMapping)
+                return;
+
+            var dateIdentifierColorType = isActive ? DateIdentifierColorType.Active : DateIdentifierColorType.InActive;
+            dateIdentifierMapping.SetComponentForState(dateIdentifierColorType, DateIdentifierTheme);
         }
 
         private void ApplyOutsideMonthEffect()
         {
             foreach (var sectionData in ProgressSections)
-            {
-                var color = sectionData.RoundedFilledImage.color;
-                color.a = AlphaForExtraDays;
-                sectionData.RoundedFilledImage.color = color;
-            }
+                sectionData.RoundedFilledImage.SetAlpha(AlphaForExtraDays);
 
-            var color1 = DateIdentifierText.color;
-            color1.a = AlphaForExtraDays;
-            DateIdentifierText.color = color1;
+            DateIdentifierText.SetAlpha(AlphaForExtraDays);
         }
 
         // TODO: <Dmitriy.Sukharev> Fix invisible micro-progress - show minimum visible progress instead of discarding
-        private void SetProgress(EnumArray<LearningState, int> progresses,
-            ThemeStateMappingGeneric<LearningState> progressColorMapping, float thicknessRatio,
+        private void SetProgress(
+            EnumArray<LearningState, int> progresses,
+            int totalCount,
+            ThemeStateMappingGeneric<LearningState> progressColorMapping,
+            float thicknessRatio,
             LearningState? overrideState = null)
         {
             var offset = 0f;
             var spacing = SpacingBetweenSections * thicknessRatio;
-            var totalCount = progresses.Values.Sum();
 
             totalCount -= GetProgressToDiscard(progresses.Values, totalCount, spacing);
             foreach (var (state, sectionData) in ProgressSections.AsTuples())
@@ -107,9 +106,7 @@ namespace Source.Scripts.UI.Windows.Shared
             foreach (var progress in progresses)
             {
                 if ((float)progress / totalCount - spacing <= 0)
-                    continue;
-
-                discardedProgresses += progress;
+                    discardedProgresses += progress;
             }
 
             return discardedProgresses;
