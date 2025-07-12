@@ -13,10 +13,10 @@ namespace Source.Scripts.UI.Localization
     {
         [SerializeField] private EnumArray<LocalizationType, string> _localizationData;
         [SerializeField] private EnumArray<LearningState, string> _learningStatesLocalizationData;
-        [SerializeField] private EnumArray<DateType, string> _dateLocalizationData;
+        [SerializeField] private EnumArray<GraphPeriod, string> _dateLocalizationData;
 
         internal string GetLocalization(LocalizationType type) => _localizationData[type];
         internal string GetLearningStateLocalization(LearningState state) => _learningStatesLocalizationData[state];
-        internal string GetDateLocalization(DateType type) => _dateLocalizationData[type];
+        internal string GetDateLocalization(GraphPeriod type) => _dateLocalizationData[type];
     }
 }

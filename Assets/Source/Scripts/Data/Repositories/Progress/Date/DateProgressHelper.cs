@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Source.Scripts.Data.Repositories.Progress.Entries;
 using Source.Scripts.Data.Repositories.User;
+using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using UnityEngine;
 
 namespace Source.Scripts.Data.Repositories.Progress.Date
@@ -73,28 +74,21 @@ namespace Source.Scripts.Data.Repositories.Progress.Date
             return (_monthProgressData, _isInMonth);
         }
 
-        internal static List<DailyProgress> GetRange(int daysNumber)
+        internal static int GetProgressForRange(int daysBack, int daysDuration, LearningState learningState)
         {
-            if (_lastRequestedDayCount == daysNumber)
-                return _rangedProgress;
+            var endDate = DateTime.Now.Date.AddDays(-daysBack);
+            var startDate = endDate.AddDays(-daysDuration + 1);
 
             var progressEntry = ProgressRepository.Instance.ProgressEntry.Value;
-            var today = DateTime.Now.Date;
-            var startDate = today.AddDays(-(daysNumber - 1));
+            var totalProgress = 0;
 
-            _rangedProgress.Clear();
-
-            for (var i = 0; i < daysNumber; i++)
+            for (var date = startDate.Date; date <= endDate.Date; date = date.AddDays(1))
             {
-                var date = startDate.AddDays(i);
-                _rangedProgress.Add(progressEntry.ProgressHistory.TryGetValue(date, out var progress)
-                    ? progress
-                    : new DailyProgress(date));
+                if (progressEntry.ProgressHistory.TryGetValue(date, out var dailyProgress))
+                    totalProgress += dailyProgress.GetProgressCountData(learningState);
             }
 
-            _lastRequestedDayCount = daysNumber;
-
-            return _rangedProgress;
+            return totalProgress;
         }
 
         private static DateTime GetFirstDayOfWeek(DateTime date)

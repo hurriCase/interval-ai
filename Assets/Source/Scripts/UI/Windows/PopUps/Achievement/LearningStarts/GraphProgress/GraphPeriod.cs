@@ -1,9 +1,10 @@
 ﻿namespace Source.Scripts.UI.Windows.PopUps.Achievement.LearningStarts.GraphProgress
 {
-    internal enum DateType
+    internal enum GraphPeriod
     {
         None = 0,
         Days = 1,
-        Months = 2
+        Months = 2,
+        Years = 3
     }
 }

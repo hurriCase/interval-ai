@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Localization;
 using R3;
+using Source.Scripts.Data.Repositories.Progress.Date;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using Source.Scripts.UI.Localization;
-using Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours.Achievements;
+using Source.Scripts.UI.Windows.Shared;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,7 +20,6 @@ namespace Source.Scripts.UI.Windows.PopUps.Achievement.LearningStarts.GraphProgr
         [SerializeField] private RectTransform _graphButtonsContainer;
         [SerializeField] private ToggleGroup _graphButtonsGroup;
         [SerializeField] private GraphTypeItem _graphTypeItemPrefab;
-        [SerializeField] private List<GraphProgressType> _graphProgressTypes;
 
         [SerializeField] private AspectRatioFitter _spacingPrefab;
         [SerializeField] private float _spacingRatio;
@@ -26,42 +27,128 @@ namespace Source.Scripts.UI.Windows.PopUps.Achievement.LearningStarts.GraphProgr
         [SerializeField] private ProgressColorMapping _progressColorMapping;
         [SerializeField] private UILineRenderer _uiLineRenderer;
 
-        [SerializeField] private EnumArray<LearningState, UILineRenderer> _graphLines;
+        [SerializeField] private EnumArray<LearningState, UILineRenderer> _graphLines = new(true);
+
+        private ProgressGraphSettings ProgressGraphSettings => ProgressGraphSettings.Instance;
+
+        private readonly Dictionary<LearningState, List<GraphProgressData>> _cashedAllProgressData = new();
+        private readonly List<Vector2> _cashedNormalizedPoints = new();
 
         internal void Init()
         {
-            foreach (var progressType in _graphProgressTypes)
+            foreach (var progressRange in ProgressGraphSettings.GraphProgressRanges)
             {
                 var createdGraphType = Instantiate(_graphTypeItemPrefab, _graphButtonsContainer);
                 createdGraphType.Toggle.group = _graphButtonsGroup;
-                createdGraphType.Toggle.OnValueChangedAsObservable().Subscribe((Behaviour: this, progressType),
-                    (_, tuple) => tuple.Behaviour.UpdateGraph(tuple.progressType));
+                createdGraphType.Toggle.OnValueChangedAsObservable().Subscribe((Behaviour: this, progressRange),
+                    (_, tuple) => tuple.Behaviour.UpdateGraph(tuple.progressRange));
 
                 var createdSpacing = Instantiate(_spacingPrefab, _graphButtonsContainer);
                 createdSpacing.aspectMode = AspectRatioFitter.AspectMode.HeightControlsWidth;
                 createdSpacing.aspectRatio = _spacingRatio;
 
-                LocalizationController.Language.Subscribe((behaviour: this, progressType, createdGraphType.Text),
-                    (_, tuple) => tuple.behaviour.UpdateLocalization(tuple.progressType, tuple.Text));
+                LocalizationController.Language.Subscribe((behaviour: this, progressRange, createdGraphType.Text),
+                    (_, tuple) => tuple.behaviour.UpdateLocalization(tuple.progressRange, tuple.Text));
             }
         }
 
-        private void UpdateLocalization(GraphProgressType progressType, TMP_Text graphTypeText)
+        private void UpdateLocalization(GraphProgressRange progressRange, TMP_Text graphTypeText)
         {
-            var localizationKey = LocalizationKeysDatabase.Instance.GetDateLocalization(progressType.DateType);
-            graphTypeText.text = string.Format(LocalizationController.Localize(localizationKey), progressType.Amount);
+            var localizationKey = LocalizationKeysDatabase.Instance.GetDateLocalization(progressRange.GraphPeriod);
+            graphTypeText.text = string.Format(LocalizationController.Localize(localizationKey), progressRange.Amount);
         }
 
-        private void UpdateGraph(GraphProgressType progressType)
+        private void UpdateGraph(GraphProgressRange progressRange)
         {
+            var maxProgress = GenerateAllGraphPoints(progressRange);
+            _maxProgressText.text = maxProgress.ToString();
+
             foreach (var (learningState, uiLineRenderer) in _graphLines.AsTuples())
             {
-                if (learningState == LearningState.None)
-                    continue;
-
                 uiLineRenderer.color = _progressColorMapping.GetColorForState(learningState);
-                //uiLineRenderer.SetPoints();
+                var normalizedPoints = NormalizePoints(_cashedAllProgressData[learningState], maxProgress,
+                    ProgressGraphSettings.GraphPointsCount);
+                uiLineRenderer.SetPoints(normalizedPoints);
             }
+        }
+
+        private int GenerateAllGraphPoints(GraphProgressRange progressRange)
+        {
+            var totalDays = GetTotalDays(progressRange);
+            var pointsCount = ProgressGraphSettings.GraphPointsCount;
+            var daysPerSegment = (float)totalDays / pointsCount;
+            var maxProgress = 0;
+
+            foreach (var (learningState, _) in _graphLines.AsTuples())
+            {
+                if (_cashedAllProgressData.TryGetValue(learningState, out var progressPoints) is false)
+                {
+                    progressPoints = new List<GraphProgressData>(pointsCount);
+                    _cashedAllProgressData[learningState] = progressPoints;
+                }
+
+                progressPoints.Clear();
+
+                for (var i = 0; i < pointsCount; i++)
+                {
+                    var segmentIndex = pointsCount - 1 - i;
+                    var segmentStart = (int)(daysPerSegment * segmentIndex);
+                    var segmentEnd = (int)(daysPerSegment * (segmentIndex + 1));
+                    var segmentDuration = Math.Max(1, segmentEnd - segmentStart);
+
+                    var progress = DateProgressHelper.GetProgressForRange(segmentStart, segmentDuration, learningState);
+                    progressPoints.Add(new GraphProgressData(i, progress));
+                    maxProgress = Math.Max(maxProgress, progress);
+                }
+            }
+
+            return maxProgress;
+        }
+
+        private List<Vector2> NormalizePoints(List<GraphProgressData> points, int maxProgress, int maxIndex)
+        {
+            _cashedNormalizedPoints.Clear();
+            foreach (var (index, progress) in points)
+            {
+                var normalizedX = (float)index / (maxIndex - 1);
+                var normalizedY = maxProgress > 0 ? (float)progress / maxProgress : 0f;
+
+                _cashedNormalizedPoints.Add(new Vector2(normalizedX, normalizedY));
+            }
+
+            return _cashedNormalizedPoints;
+        }
+
+        private int GetTotalDays(GraphProgressRange progressRange)
+        {
+            var totalDays = 0;
+
+            if (progressRange.GraphPeriod == GraphPeriod.Days)
+                return progressRange.Amount;
+
+            for (var i = 0; i < progressRange.Amount; i++)
+            {
+                totalDays += progressRange.GraphPeriod switch
+                {
+                    GraphPeriod.Months => GetDaysInMonth(i),
+                    GraphPeriod.Years => GetDaysInYear(i),
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+            }
+
+            return totalDays;
+        }
+
+        private int GetDaysInMonth(int monthsBack)
+        {
+            var targetDate = DateTime.Now.AddMonths(-monthsBack);
+            return DateTime.DaysInMonth(targetDate.Year, targetDate.Month);
+        }
+
+        private int GetDaysInYear(int yearsBack)
+        {
+            var targetYear = DateTime.Now.Year - yearsBack;
+            return DateTime.IsLeapYear(targetYear) ? 366 : 365;
         }
     }
 }
