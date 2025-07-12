@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using CustomUtils.Runtime.CustomTypes;
+using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Localization;
 using R3;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
@@ -48,7 +48,7 @@ namespace Source.Scripts.UI.Windows.PopUps.Achievement.LearningStarts.GraphProgr
 
         private void UpdateLocalization(GraphProgressType progressType, TMP_Text graphTypeText)
         {
-            var localizationKey = LocalizationKeysDatabase.Instance.GetDateLocalization((int)progressType.DateType);
+            var localizationKey = LocalizationKeysDatabase.Instance.GetDateLocalization(progressType.DateType);
             graphTypeText.text = string.Format(LocalizationController.Localize(localizationKey), progressType.Amount);
         }
 

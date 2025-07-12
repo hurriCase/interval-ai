@@ -11,7 +11,7 @@ namespace Source.Scripts.Data.Repositories.Progress
     {
         internal PersistentReactiveProperty<ProgressEntry> ProgressEntry { get; } =
             new(PersistentPropertyKeys.ProgressEntryKey,
-                new ProgressEntry(DefaultDailyWordsGoal, null, 0, 0, new Dictionary<DateTime, DailyProgress>()));
+                new ProgressEntry(DefaultDailyWordsGoal, default, 0, 0, new Dictionary<DateTime, DailyProgress>()));
 
         private const int DefaultDailyWordsGoal = 10;
         private IDisposable _disposable;

@@ -1,10 +1,12 @@
-﻿using System.Linq;
+﻿using CustomUtils.Runtime.CustomTypes.Collections;
 using R3;
 using Source.Scripts.Data.Repositories.Progress;
+using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using Source.Scripts.UI.Windows.PopUps.Achievement.LearningStarts.GraphProgress;
 using Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours.Achievements;
 using Source.Scripts.UI.Windows.Shared;
 using UnityEngine;
+using ZLinq;
 
 namespace Source.Scripts.UI.Windows.PopUps.Achievement.LearningStarts
 {
@@ -15,7 +17,7 @@ namespace Source.Scripts.UI.Windows.PopUps.Achievement.LearningStarts
         [SerializeField] private ProgressColorMapping _progressColorMapping;
         [SerializeField] private ProgressItem _totalProgressItem;
 
-        [SerializeField] private ProgressDescriptionItem[] _progressDescriptionItems = new ProgressDescriptionItem[4];
+        [SerializeField] private EnumArray<LearningState, ProgressDescriptionItem> _progressDescriptionItems = new(true);
 
         internal void Init()
         {
@@ -23,17 +25,17 @@ namespace Source.Scripts.UI.Windows.PopUps.Achievement.LearningStarts
             _weekDaysBehaviour.Init();
 
             ProgressRepository.Instance.ProgressEntry.Subscribe(this,
-                    static (entry, behaviour) => behaviour.UpdateProgress(entry.StateCounts))
+                    static (entry, behaviour) => behaviour.UpdateProgress(entry.TotalCountByState))
                 .RegisterTo(destroyCancellationToken);
         }
 
-        private void UpdateProgress(int[] stateCounts)
+        private void UpdateProgress(EnumArray<LearningState, int> totalCountByState)
         {
-            var totalWords = stateCounts.Sum().ToString();
-            _totalProgressItem.Init(stateCounts, totalWords, _progressColorMapping);
+            var totalWords = totalCountByState.Values.AsValueEnumerable().Sum().ToString();
+            _totalProgressItem.Init(totalCountByState, totalWords, _progressColorMapping);
 
-            foreach (var progressDescriptionItem in _progressDescriptionItems)
-                progressDescriptionItem.Init(stateCounts, _progressColorMapping);
+            foreach (var (state, progressItem) in _progressDescriptionItems.AsTuples())
+                progressItem.Init(state, totalCountByState[state], _progressColorMapping);
         }
     }
 }

@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
+using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.UI.Theme.Components;
 using CustomUtils.Runtime.UI.Theme.ThemeMapping;
-using JetBrains.Annotations;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using TMPro;
 using UnityEngine;
@@ -18,13 +17,13 @@ namespace Source.Scripts.UI.Windows.Shared
         [field: SerializeField] internal float ActiveThicknessRatio { get; private set; }
         [field: SerializeField] internal float InActiveThicknessRatio { get; private set; }
         [field: SerializeField, Range(0f, 1f)] internal float AlphaForExtraDays { get; private set; }
-        [field: SerializeField] internal int[] DefaultProgressPercentages { get; private set; } = new int[5];
-        [field: SerializeField] internal List<ProgressSectionData> ProgressSections { get; private set; }
+        [field: SerializeField] internal EnumArray<LearningState, int> DefaultProgressPercentages { get; private set; }
+        [field: SerializeField] internal EnumArray<LearningState, ProgressSectionData> ProgressSections { get; private set; }
 
         private const int Circumference = 360;
 
         internal void Init(
-            int[] progress,
+            EnumArray<LearningState, int> progress,
             string dateIdentifierText,
             ThemeStateMappingGeneric<LearningState> progressColorMapping,
             ThemeStateMappingGeneric<DateIdentifierColorType> dateIdentifierMapping = null,
@@ -32,7 +31,7 @@ namespace Source.Scripts.UI.Windows.Shared
         {
             DateIdentifierText.text = dateIdentifierText;
 
-            var totalCount = progress.Sum();
+            var totalCount = progress.Values.Sum();
 
             if ((totalCount > 0) is false || isOutsideMonth)
             {
@@ -72,18 +71,18 @@ namespace Source.Scripts.UI.Windows.Shared
         }
 
         // TODO: <Dmitriy.Sukharev> Fix invisible micro-progress - show minimum visible progress instead of discarding
-        private void SetProgress(IReadOnlyList<int> progresses,
+        private void SetProgress(EnumArray<LearningState, int> progresses,
             ThemeStateMappingGeneric<LearningState> progressColorMapping, float thicknessRatio,
             LearningState? overrideState = null)
         {
             var offset = 0f;
             var spacing = SpacingBetweenSections * thicknessRatio;
-            var totalCount = progresses.Sum();
-            var discardedProgresses = progresses.Where(progress => (float)progress / totalCount - spacing <= 0).Sum();
-            totalCount -= discardedProgresses;
-            foreach (var sectionData in ProgressSections)
+            var totalCount = progresses.Values.Sum();
+
+            totalCount -= GetProgressToDiscard(progresses.Values, totalCount, spacing);
+            foreach (var (state, sectionData) in ProgressSections.AsTuples())
             {
-                var wordCount = progresses[(int)sectionData.LearningState];
+                var wordCount = progresses[state];
                 var progressRatio = (float)wordCount / totalCount;
                 var fillAmount = progressRatio - spacing;
                 if (wordCount <= 0 || fillAmount <= 0f)
@@ -92,7 +91,7 @@ namespace Source.Scripts.UI.Windows.Shared
                     continue;
                 }
 
-                var learningState = overrideState ?? sectionData.LearningState;
+                var learningState = overrideState ?? state;
                 progressColorMapping.SetComponentForState(learningState, sectionData.ImageTheme);
 
                 sectionData.RoundedFilledImage.fillAmount = fillAmount;
@@ -100,6 +99,20 @@ namespace Source.Scripts.UI.Windows.Shared
                 sectionData.RoundedFilledImage.ThicknessRatio = thicknessRatio;
                 offset += progressRatio;
             }
+        }
+
+        private int GetProgressToDiscard(int[] progresses, int totalCount, float spacing)
+        {
+            var discardedProgresses = 0;
+            foreach (var progress in progresses)
+            {
+                if ((float)progress / totalCount - spacing <= 0)
+                    continue;
+
+                discardedProgresses += progress;
+            }
+
+            return discardedProgresses;
         }
     }
 }

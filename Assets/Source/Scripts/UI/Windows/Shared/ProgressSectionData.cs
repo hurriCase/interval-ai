@@ -11,6 +11,5 @@ namespace Source.Scripts.UI.Windows.Shared
     {
         [field: SerializeField] internal RoundedFilledImageComponent RoundedFilledImage { get; private set; }
         [field: SerializeField] internal ImageThemeComponent ImageTheme { get; private set; }
-        [field: SerializeField] internal LearningState LearningState { get; private set; }
     }
 }

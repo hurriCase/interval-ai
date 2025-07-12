@@ -11,19 +11,17 @@ namespace Source.Scripts.UI.Windows.PopUps.Achievement.LearningStarts
     internal sealed class ProgressDescriptionItem : MonoBehaviour
     {
         [field: SerializeField] internal TextMeshProUGUI DescriptionText { get; private set; }
-        [field: SerializeField] internal LearningState LearningState { get; private set; }
         [field: SerializeField] internal ImageThemeComponent StateIndicatorImage { get; private set; }
 
-        internal void Init(int[] totalProgress, ProgressColorMapping progressColorMapping)
+        internal void Init(LearningState state, int progress, ProgressColorMapping progressColorMapping)
         {
-            var stateIndex = (int)LearningState;
             var localizationKeysDatabase = LocalizationKeysDatabase.Instance;
 
             DescriptionText.text = string.Format(
-                LocalizationController.Localize(localizationKeysDatabase.GetLearningStateLocalization(stateIndex)),
-                totalProgress[stateIndex].ToString());
+                LocalizationController.Localize(localizationKeysDatabase.GetLearningStateLocalization(state)),
+                progress.ToString());
 
-            progressColorMapping.SetComponentForState(LearningState, StateIndicatorImage);
+            progressColorMapping.SetComponentForState(state, StateIndicatorImage);
         }
     }
 }

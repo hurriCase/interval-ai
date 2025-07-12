@@ -6,7 +6,7 @@ namespace Source.Scripts.Data.Repositories.Progress
 {
     internal static class ProgressDataHelper
     {
-        internal static void AddProgressToEntry(ProgressEntry progressEntry, LearningState learningState, DateTime date)
+        internal static void AddProgressToEntry(ref ProgressEntry progressEntry, LearningState learningState, DateTime date)
         {
             var dateOnly = date.Date;
 
@@ -19,15 +19,16 @@ namespace Source.Scripts.Data.Repositories.Progress
             dailyProgress.AddProgress(learningState);
 
             if (learningState == LearningState.CurrentlyLearning)
-                ProcessNewWordProgress(ref dailyProgress, progressEntry);
+                ProcessNewWordProgress(ref dailyProgress, ref progressEntry);
 
             progressEntry.ProgressHistory[dateOnly] = dailyProgress;
-            progressEntry.StateCounts[(int)learningState]++;
+            var stateCounts = progressEntry.TotalCountByState;
+            stateCounts[learningState]++;
         }
 
-        private static void ProcessNewWordProgress(ref DailyProgress dailyProgress, ProgressEntry progressEntry)
+        private static void ProcessNewWordProgress(ref DailyProgress dailyProgress, ref ProgressEntry progressEntry)
         {
-            var progressCount = dailyProgress.ProgressCountData[(int)LearningState.CurrentlyLearning];
+            var progressCount = dailyProgress.ProgressByState[LearningState.CurrentlyLearning];
 
             if (dailyProgress.GoalAchieved || progressCount < progressEntry.DailyWordsGoal)
                 return;

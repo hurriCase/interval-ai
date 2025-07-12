@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using CustomUtils.Runtime.AssetLoader;
+﻿using CustomUtils.Runtime.AssetLoader;
+using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.CustomTypes.Singletons;
 using Source.Scripts.Core;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
@@ -11,23 +11,12 @@ namespace Source.Scripts.UI.Localization
     [Resource(ResourcePaths.ResourcePath, nameof(LocalizationKeysDatabase))]
     internal sealed class LocalizationKeysDatabase : SingletonScriptableObject<LocalizationKeysDatabase>
     {
-        [SerializeField] private List<LocalizationData<LocalizationType>> _localizationData;
-        [SerializeField] private LocalizationData<LearningState>[] _learningStatesLocalizationData = new LocalizationData<LearningState>[5];
-        [SerializeField] private LocalizationData<DateType>[] _dateLocalizationData = new LocalizationData<DateType>[3];
+        [SerializeField] private EnumArray<LocalizationType, string> _localizationData;
+        [SerializeField] private EnumArray<LearningState, string> _learningStatesLocalizationData;
+        [SerializeField] private EnumArray<DateType, string> _dateLocalizationData;
 
-        internal string GetLocalization(LocalizationType type)
-        {
-            foreach (var localizationData in _localizationData)
-            {
-                if (localizationData.Type == type)
-                    return localizationData.Key;
-            }
-
-            Debug.LogError($"[LocalizationKeysDatabase::GetLocalization] No localization for type {type}");
-            return string.Empty;
-        }
-
-        internal string GetLearningStateLocalization(int index) => _learningStatesLocalizationData[index].Key;
-        internal string GetDateLocalization(int index) => _dateLocalizationData[index].Key;
+        internal string GetLocalization(LocalizationType type) => _localizationData[type];
+        internal string GetLearningStateLocalization(LearningState state) => _learningStatesLocalizationData[state];
+        internal string GetDateLocalization(DateType type) => _dateLocalizationData[type];
     }
 }

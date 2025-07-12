@@ -27,16 +27,16 @@ namespace Source.Scripts.Data
                 var currentEntry = progressRepo.ProgressEntry.Value;
 
                 for (var j = 0; j < studiedCount; j++)
-                    ProgressDataHelper.AddProgressToEntry(currentEntry, LearningState.Studied, date);
+                    ProgressDataHelper.AddProgressToEntry(ref currentEntry, LearningState.Studied, date);
 
                 for (var j = 0; j < learningCount; j++)
-                    ProgressDataHelper.AddProgressToEntry(currentEntry, LearningState.CurrentlyLearning, date);
+                    ProgressDataHelper.AddProgressToEntry(ref currentEntry, LearningState.CurrentlyLearning, date);
 
                 for (var j = 0; j < repeatableCount; j++)
-                    ProgressDataHelper.AddProgressToEntry(currentEntry, LearningState.Repeatable, date);
+                    ProgressDataHelper.AddProgressToEntry(ref currentEntry, LearningState.Repeatable, date);
 
                 for (var j = 0; j < knownCount; j++)
-                    ProgressDataHelper.AddProgressToEntry(currentEntry, LearningState.AlreadyKnown, date);
+                    ProgressDataHelper.AddProgressToEntry(ref currentEntry, LearningState.AlreadyKnown, date);
 
                 progressRepo.ProgressEntry.Value = currentEntry;
             }

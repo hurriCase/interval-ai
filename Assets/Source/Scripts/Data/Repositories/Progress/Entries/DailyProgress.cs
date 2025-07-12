@@ -1,4 +1,5 @@
 ﻿using System;
+using CustomUtils.Runtime.CustomTypes.Collections;
 using MemoryPack;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 
@@ -9,24 +10,30 @@ namespace Source.Scripts.Data.Repositories.Progress.Entries
     {
         public DateTime DateTime { get; }
         public bool GoalAchieved { get; set; }
-        public int[] ProgressCountData { get; }
+        public EnumArray<LearningState, int> ProgressByState { get; private set; }
 
         [MemoryPackConstructor]
-        public DailyProgress(int[] progressCountData, bool goalAchieved, DateTime dateTime)
+        public DailyProgress(EnumArray<LearningState, int> progressByState, bool goalAchieved, DateTime dateTime)
         {
-            ProgressCountData = progressCountData ?? new int[Enum.GetValues(typeof(LearningState)).Length];
+            ProgressByState = progressByState;
             GoalAchieved = goalAchieved;
             DateTime = dateTime;
         }
 
         public DailyProgress(DateTime dateTime)
         {
-            ProgressCountData = new int[Enum.GetValues(typeof(LearningState)).Length];
-            GoalAchieved = false;
             DateTime = dateTime;
+            GoalAchieved = false;
+            ProgressByState = new EnumArray<LearningState, int>();
         }
 
-        internal readonly void AddProgress(LearningState state) => ProgressCountData[(int)state]++;
-        internal readonly int GetProgressCountData(LearningState state) => ProgressCountData[(int)state];
+        internal void AddProgress(LearningState state)
+        {
+            var progressByState = ProgressByState;
+            progressByState[state]++;
+            ProgressByState = progressByState;
+        }
+
+        internal readonly int GetProgressCountData(LearningState state) => ProgressByState[state];
     }
 }

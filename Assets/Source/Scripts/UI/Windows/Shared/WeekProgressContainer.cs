@@ -25,7 +25,7 @@ namespace Source.Scripts.UI.Windows.Shared
                 var isOutsideMonth = isInMonth[dayIndex] is false;
 
                 _progressItems[day].Init(
-                    dailyProgress.ProgressCountData,
+                    dailyProgress.ProgressByState,
                     dayText,
                     _progressColorMapping,
                     _dateIdentifierMapping,
@@ -43,7 +43,7 @@ namespace Source.Scripts.UI.Windows.Shared
                 var dailyProgress = currentWeek[day];
                 var dayText = weekAbbreviatedNames[day];
 
-                _progressItems[day].Init(dailyProgress.ProgressCountData, dayText, _progressColorMapping);
+                _progressItems[day].Init(dailyProgress.ProgressByState, dayText, _progressColorMapping);
             }
         }
     }
