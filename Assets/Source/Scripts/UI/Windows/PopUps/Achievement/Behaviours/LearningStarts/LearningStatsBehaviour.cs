@@ -23,8 +23,8 @@ namespace Source.Scripts.UI.Windows.PopUps.Achievement.LearningStarts
             _progressGraphBehaviour.Init();
             _weekDaysBehaviour.Init();
 
-            ProgressRepository.Instance.ProgressEntry.Subscribe(this,
-                    static (entry, behaviour) => behaviour.UpdateProgress(entry.TotalCountByState))
+            ProgressRepository.Instance.TotalCountByState.Subscribe(this,
+                    static (totalCountByState, behaviour) => behaviour.UpdateProgress(totalCountByState))
                 .RegisterTo(destroyCancellationToken);
         }
 

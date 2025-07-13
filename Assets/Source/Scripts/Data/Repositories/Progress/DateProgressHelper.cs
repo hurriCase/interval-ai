@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using Source.Scripts.Data.Repositories.Progress.Entries;
 using Source.Scripts.Data.Repositories.User;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using UnityEngine;
 
-namespace Source.Scripts.Data.Repositories.Progress.Date
+namespace Source.Scripts.Data.Repositories.Progress
 {
     internal static class DateProgressHelper
     {
@@ -15,9 +14,6 @@ namespace Source.Scripts.Data.Repositories.Progress.Date
         private static int _lastYear = -1;
 
         private static readonly DailyProgress[] _currentWeek = new DailyProgress[7];
-
-        private static readonly List<DailyProgress> _rangedProgress = new();
-        private static int _lastRequestedDayCount = -1;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         private static void ResetStatic()
@@ -34,11 +30,11 @@ namespace Source.Scripts.Data.Repositories.Progress.Date
         {
             var today = DateTime.Now.Date;
             var currentWeekStart = GetFirstDayOfWeek(today);
-            var progressEntry = ProgressRepository.Instance.ProgressEntry.Value;
+            var progressEntry = ProgressRepository.Instance.ProgressHistory.Value;
             for (var i = 0; i < 7; i++)
             {
                 var date = currentWeekStart.AddDays(i);
-                _currentWeek[i] = progressEntry.ProgressHistory.TryGetValue(date, out var progress)
+                _currentWeek[i] = progressEntry.TryGetValue(date, out var progress)
                     ? progress
                     : new DailyProgress(date);
             }
@@ -54,12 +50,12 @@ namespace Source.Scripts.Data.Repositories.Progress.Date
             var monthStart = new DateTime(year, month, 1);
             var firstWeekStart = GetFirstDayOfWeek(monthStart);
             var calendarEnd = firstWeekStart.AddDays(41);
-            var progressEntry = ProgressRepository.Instance.ProgressEntry.Value;
+            var progressEntry = ProgressRepository.Instance.ProgressHistory.Value;
             var dayIndex = 0;
 
             for (var date = firstWeekStart; date <= calendarEnd; date = date.AddDays(1))
             {
-                _monthProgressData[dayIndex] = progressEntry.ProgressHistory.TryGetValue(date, out var progress)
+                _monthProgressData[dayIndex] = progressEntry.TryGetValue(date, out var progress)
                     ? progress
                     : new DailyProgress(date);
 
@@ -79,12 +75,12 @@ namespace Source.Scripts.Data.Repositories.Progress.Date
             var endDate = DateTime.Now.Date.AddDays(-daysBack);
             var startDate = endDate.AddDays(-daysDuration + 1);
 
-            var progressEntry = ProgressRepository.Instance.ProgressEntry.Value;
+            var progressEntry = ProgressRepository.Instance.ProgressHistory.Value;
             var totalProgress = 0;
 
             for (var date = startDate.Date; date <= endDate.Date; date = date.AddDays(1))
             {
-                if (progressEntry.ProgressHistory.TryGetValue(date, out var dailyProgress))
+                if (progressEntry.TryGetValue(date, out var dailyProgress))
                     totalProgress += dailyProgress.GetProgressCountData(learningState);
             }
 

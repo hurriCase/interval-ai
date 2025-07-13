@@ -24,21 +24,21 @@ namespace Source.Scripts.Data
                 var repeatableCount = Random.Range(0, 5);
                 var knownCount = Random.Range(0, 3);
 
-                var currentEntry = progressRepo.ProgressEntry.Value;
+                var currentEntry = progressRepo.ProgressHistory.Value;
 
                 for (var j = 0; j < studiedCount; j++)
-                    ProgressDataHelper.AddProgressToEntry(ref currentEntry, LearningState.Studied, date);
+                    ProgressDataHelper.AddProgressToEntry(LearningState.Studied, date);
 
                 for (var j = 0; j < learningCount; j++)
-                    ProgressDataHelper.AddProgressToEntry(ref currentEntry, LearningState.CurrentlyLearning, date);
+                    ProgressDataHelper.AddProgressToEntry(LearningState.CurrentlyLearning, date);
 
                 for (var j = 0; j < repeatableCount; j++)
-                    ProgressDataHelper.AddProgressToEntry(ref currentEntry, LearningState.Repeatable, date);
+                    ProgressDataHelper.AddProgressToEntry(LearningState.Repeatable, date);
 
                 for (var j = 0; j < knownCount; j++)
-                    ProgressDataHelper.AddProgressToEntry(ref currentEntry, LearningState.AlreadyKnown, date);
+                    ProgressDataHelper.AddProgressToEntry(LearningState.AlreadyKnown, date);
 
-                progressRepo.ProgressEntry.Value = currentEntry;
+                progressRepo.ProgressHistory.Value = currentEntry;
             }
         }
     }

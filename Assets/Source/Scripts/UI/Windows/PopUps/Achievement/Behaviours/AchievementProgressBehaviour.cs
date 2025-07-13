@@ -13,10 +13,10 @@ namespace Source.Scripts.UI.Windows.PopUps.Achievement
 
         internal void Init()
         {
-            var currentProgress = ProgressRepository.Instance.ProgressEntry.Value;
-            _learnedWordsText.text = currentProgress.TotalCountByState[LearningState.Studied].ToString();
-            _bestStreakText.text = currentProgress.BestStreak.ToString();
-            _currentStreakText.text = currentProgress.CurrentStreak.ToString();
+            var repository = ProgressRepository.Instance;
+            _learnedWordsText.text = repository.TotalCountByState.Value[LearningState.Studied].ToString();
+            _bestStreakText.text = repository.BestStreak.Value.ToString();
+            _currentStreakText.text = repository.CurrentStreak.Value.ToString();
         }
     }
 }

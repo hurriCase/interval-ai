@@ -26,20 +26,22 @@ namespace Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours.Progress
         [SerializeField] private RandomInt _mediumHighTransitionRandom;
         [SerializeField] private RandomInt _defaultRandomPercent = new(20, 50);
 
+        private ProgressRepository ProgressRepository => ProgressRepository.Instance;
+
         internal void Init()
         {
-            ProgressRepository.Instance.ProgressEntry
+            ProgressRepository.ProgressHistory
                 .AsObservable()
-                .DistinctUntilChangedBy(progress => progress.ProgressHistory)
+                .DistinctUntilChangedBy(progress => progress)
                 .Subscribe(this, (progressEntry, behaviour) => behaviour.UpdateProgress(progressEntry));
 
-            UpdateProgress(ProgressRepository.Instance.ProgressEntry.Value);
+            UpdateProgress(ProgressRepository.ProgressHistory.Value);
         }
 
-        private void UpdateProgress(ProgressEntry progressEntry)
+        private void UpdateProgress(Dictionary<DateTime, DailyProgress> progressHistory)
         {
-            var dailyGoal = Mathf.Max(1, progressEntry.DailyWordsGoal);
-            var learnedCount = progressEntry.ProgressHistory.TryGetValue(DateTime.Now, out var dailyProgress)
+            var dailyGoal = Mathf.Max(1, ProgressRepository.DailyWordsGoal.Value);
+            var learnedCount = progressHistory.TryGetValue(DateTime.Now, out var dailyProgress)
                 ? Mathf.Max(0, dailyProgress.GetProgressCountData(LearningState.CurrentlyLearning))
                 : 0;
 

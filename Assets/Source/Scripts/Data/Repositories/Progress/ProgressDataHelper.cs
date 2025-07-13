@@ -6,36 +6,37 @@ namespace Source.Scripts.Data.Repositories.Progress
 {
     internal static class ProgressDataHelper
     {
-        internal static void AddProgressToEntry(ref ProgressEntry progressEntry, LearningState learningState, DateTime date)
+        internal static void AddProgressToEntry(LearningState learningState, DateTime date)
         {
+            var repository = ProgressRepository.Instance;
             var dateOnly = date.Date;
 
-            if (progressEntry.ProgressHistory.TryGetValue(dateOnly, out var dailyProgress) is false)
+            if (repository.ProgressHistory.Value.TryGetValue(dateOnly, out var dailyProgress) is false)
             {
                 dailyProgress = new DailyProgress(dateOnly);
-                progressEntry.ProgressHistory[dateOnly] = dailyProgress;
+                repository.ProgressHistory.Value[dateOnly] = dailyProgress;
             }
 
             dailyProgress.AddProgress(learningState);
 
             if (learningState == LearningState.CurrentlyLearning)
-                ProcessNewWordProgress(ref dailyProgress, ref progressEntry);
+                ProcessNewWordProgress(ref dailyProgress, repository);
 
-            progressEntry.ProgressHistory[dateOnly] = dailyProgress;
-            progressEntry.IncreaseTotalCount(learningState);
+            repository.ProgressHistory.Value[dateOnly] = dailyProgress;
+            repository.IncreaseTotalCount(learningState);
         }
 
-        private static void ProcessNewWordProgress(ref DailyProgress dailyProgress, ref ProgressEntry progressEntry)
+        private static void ProcessNewWordProgress(ref DailyProgress dailyProgress, ProgressRepository repository)
         {
             var progressCount = dailyProgress.ProgressByState[LearningState.CurrentlyLearning];
 
-            if (dailyProgress.GoalAchieved || progressCount < progressEntry.DailyWordsGoal)
+            if (dailyProgress.GoalAchieved || progressCount < repository.DailyWordsGoal.Value)
                 return;
 
-            progressEntry.CurrentStreak++;
+            repository.CurrentStreak.Value++;
 
-            if (progressEntry.CurrentStreak > progressEntry.BestStreak)
-                progressEntry.BestStreak = progressEntry.CurrentStreak;
+            if (repository.CurrentStreak.Value > repository.BestStreak.Value)
+                repository.BestStreak.Value = repository.CurrentStreak.Value;
 
             dailyProgress.GoalAchieved = true;
         }

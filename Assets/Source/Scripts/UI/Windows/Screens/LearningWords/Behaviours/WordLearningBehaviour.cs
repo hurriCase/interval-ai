@@ -4,6 +4,7 @@ using Source.Scripts.Data.Repositories.Progress;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using Source.Scripts.UI.Localization;
 using Source.Scripts.UI.Selectables;
+using Source.Scripts.UI.Windows.Base;
 using TMPro;
 using UnityEngine;
 
@@ -11,6 +12,8 @@ namespace Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours
 {
     internal sealed class WordLearningBehaviour : MonoBehaviour
     {
+        [SerializeField] private ButtonComponent _startPracticeButton;
+
         [SerializeField] private TextMeshProUGUI _learnGoalText;
         [SerializeField] private TextMeshProUGUI _repetitionText;
 
@@ -23,39 +26,36 @@ namespace Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours
         {
             UpdateUI();
 
-            ProgressRepository.Instance.ProgressEntry
+            _startPracticeButton.OnClickAsObservable().Subscribe(static _ =>
+                WindowsController.Instance.OpenPopUpByType(PopUpType.WordPractice));
+
+            ProgressRepository.Instance.ProgressHistory
                 .Subscribe(this, static (_, behaviour) => behaviour.UpdateUI())
                 .AddTo(this);
 
+            var dailyWordsGoal = ProgressRepository.Instance.DailyWordsGoal;
             _minusButton.OnClickAsObservable()
-                .Where(static _ => ProgressRepository.Instance.ProgressEntry.Value.DailyWordsGoal > 0)
-                .Subscribe(this, static (_, behaviour) => behaviour.ModifyDailyGoal(-1))
+                .Where(dailyWordsGoal, (_, goal) => goal.Value > 0)
+                .Subscribe(dailyWordsGoal, static (_, goal) => goal.Value--)
                 .AddTo(this);
 
             _plusButton.OnClickAsObservable()
-                .Subscribe(this, static (_, behaviour) => behaviour.ModifyDailyGoal(+1))
+                .Subscribe(dailyWordsGoal, static (_, goal) => goal.Value++)
                 .AddTo(this);
-        }
-
-        private void ModifyDailyGoal(int addAmount)
-        {
-            var value = ProgressRepository.Instance.ProgressEntry.Value;
-            value.DailyWordsGoal += addAmount;
-            ProgressRepository.Instance.ProgressEntry.Value = value;
         }
 
         private void UpdateUI()
         {
-            var currentProgress = ProgressRepository.Instance.ProgressEntry.Value;
-
-            _minusButton.interactable = currentProgress.DailyWordsGoal > 0;
-            _dailyWordGoalText.text = currentProgress.DailyWordsGoal.ToString();
+            var repository = ProgressRepository.Instance;
+            _minusButton.interactable = repository.DailyWordsGoal.Value > 0;
+            _dailyWordGoalText.text = repository.DailyWordsGoal.Value.ToString();
             _learnGoalText.text =
-                string.Format(LocalizationType.LearnGoal.GetLocalization(), currentProgress.DailyWordsGoal);
+                string.Format(LocalizationType.LearnGoal.GetLocalization(), repository.DailyWordsGoal.Value);
 
-            var repeatableCount = currentProgress.ProgressHistory.TryGetValue(DateTime.Now, out var dailyProgress)
-                ? Mathf.Max(0, dailyProgress.GetProgressCountData(LearningState.Repeatable))
-                : 0;
+            var repeatableCount =
+                repository.ProgressHistory.Value.TryGetValue(DateTime.Now, out var dailyProgress)
+                    ? Mathf.Max(0, dailyProgress.GetProgressCountData(LearningState.Repeatable))
+                    : 0;
 
             _repetitionText.text = string.Format(
                 LocalizationType.RepetitionGoal.GetLocalization(),
