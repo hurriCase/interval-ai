@@ -4,7 +4,7 @@ using CustomUtils.Runtime.CustomTypes.Singletons;
 using Source.Scripts.Core;
 using UnityEngine;
 
-namespace Source.Scripts.UI.Windows.PopUps.Achievement.LearningStarts.GraphProgress
+namespace Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours.LearningStarts.GraphProgress
 {
     [Resource(ResourcePaths.ResourcePath, nameof(ProgressGraphSettings))]
     internal sealed class ProgressGraphSettings : SingletonScriptableObject<ProgressGraphSettings>

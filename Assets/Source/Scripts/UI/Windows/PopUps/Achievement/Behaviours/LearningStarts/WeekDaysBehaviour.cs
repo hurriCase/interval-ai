@@ -4,7 +4,7 @@ using Source.Scripts.Data.Repositories.User;
 using TMPro;
 using UnityEngine;
 
-namespace Source.Scripts.UI.Windows.PopUps.Achievement.LearningStarts
+namespace Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours.LearningStarts
 {
     internal sealed class WeekDaysBehaviour : MonoBehaviour
     {

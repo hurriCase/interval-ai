@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace Source.Scripts.UI.Windows.PopUps.Achievement.LearningStarts.GraphProgress
+namespace Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours.LearningStarts.GraphProgress
 {
     internal sealed class GraphTypeItem : MonoBehaviour
     {

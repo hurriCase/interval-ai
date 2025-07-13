@@ -2,12 +2,12 @@
 using R3;
 using Source.Scripts.Data.Repositories.Progress;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
-using Source.Scripts.UI.Windows.PopUps.Achievement.LearningStarts.GraphProgress;
+using Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours.LearningStarts.GraphProgress;
 using Source.Scripts.UI.Windows.Shared;
 using UnityEngine;
 using ZLinq;
 
-namespace Source.Scripts.UI.Windows.PopUps.Achievement.LearningStarts
+namespace Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours.LearningStarts
 {
     internal sealed class LearningStatsBehaviour : MonoBehaviour
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Source.Scripts.UI.Windows.PopUps.Achievement.LearningStarts.GraphProgress
+namespace Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours.LearningStarts.GraphProgress
 {
     [Serializable]
     internal struct GraphProgressRange

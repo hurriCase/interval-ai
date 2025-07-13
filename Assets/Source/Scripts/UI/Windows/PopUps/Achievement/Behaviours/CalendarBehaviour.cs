@@ -1,14 +1,14 @@
 ﻿using System;
 using R3;
-using Source.Scripts.Data.Repositories.Progress.Date;
+using Source.Scripts.Data.Repositories.Progress;
 using Source.Scripts.Data.Repositories.User;
 using Source.Scripts.UI.Selectables;
-using Source.Scripts.UI.Windows.PopUps.Achievement.LearningStarts;
+using Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours.LearningStarts;
 using Source.Scripts.UI.Windows.Shared;
 using TMPro;
 using UnityEngine;
 
-namespace Source.Scripts.UI.Windows.PopUps.Achievement
+namespace Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours
 {
     internal sealed class CalendarBehaviour : MonoBehaviour
     {

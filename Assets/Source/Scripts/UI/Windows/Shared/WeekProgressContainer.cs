@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Source.Scripts.Data.Repositories.Progress.Date;
+using Source.Scripts.Data.Repositories.Progress;
 using Source.Scripts.Data.Repositories.Progress.Entries;
 using Source.Scripts.Data.Repositories.User;
 using UnityEngine;

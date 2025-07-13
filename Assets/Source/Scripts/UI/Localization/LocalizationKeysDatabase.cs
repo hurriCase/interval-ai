@@ -3,7 +3,7 @@ using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.CustomTypes.Singletons;
 using Source.Scripts.Core;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
-using Source.Scripts.UI.Windows.PopUps.Achievement.LearningStarts.GraphProgress;
+using Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours.LearningStarts.GraphProgress;
 using UnityEngine;
 
 namespace Source.Scripts.UI.Localization

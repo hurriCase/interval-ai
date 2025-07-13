@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Localization;
 using R3;
-using Source.Scripts.Data.Repositories.Progress.Date;
+using Source.Scripts.Data.Repositories.Progress;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using Source.Scripts.UI.Localization;
 using Source.Scripts.UI.Windows.Shared;
@@ -11,7 +11,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Source.Scripts.UI.Windows.PopUps.Achievement.LearningStarts.GraphProgress
+namespace Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours.LearningStarts.GraphProgress
 {
     internal sealed class ProgressGraphBehaviour : MonoBehaviour
     {

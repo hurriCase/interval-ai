@@ -3,7 +3,7 @@ using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using TMPro;
 using UnityEngine;
 
-namespace Source.Scripts.UI.Windows.PopUps.Achievement
+namespace Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours
 {
     internal sealed class AchievementProgressBehaviour : MonoBehaviour
     {

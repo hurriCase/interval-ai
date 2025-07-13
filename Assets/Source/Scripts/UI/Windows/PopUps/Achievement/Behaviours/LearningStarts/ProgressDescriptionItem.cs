@@ -6,7 +6,7 @@ using Source.Scripts.UI.Windows.Shared;
 using TMPro;
 using UnityEngine;
 
-namespace Source.Scripts.UI.Windows.PopUps.Achievement.LearningStarts
+namespace Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours.LearningStarts
 {
     internal sealed class ProgressDescriptionItem : MonoBehaviour
     {
