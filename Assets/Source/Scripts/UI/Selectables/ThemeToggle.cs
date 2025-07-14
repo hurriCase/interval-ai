@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Source.Scripts.UI.Selectables
 {
-    internal sealed class ToggleComponent : Toggle
+    internal sealed class ThemeToggle : Toggle
     {
         [field: SerializeField] internal SelectableColorMapping SelectableColorMapping { get; private set; }
 
@@ -19,8 +19,8 @@ namespace Source.Scripts.UI.Selectables
                 .RegisterTo(destroyCancellationToken);
 
             this.OnValueChangedAsObservable()
-                .Subscribe(this, static (isOn, component) => component
-                    .DoStateTransition(isOn ? SelectionState.Selected : component.currentSelectionState, false))
+                .Subscribe(this, static (isOn, toggle) => toggle
+                    .DoStateTransition(isOn ? SelectionState.Selected : toggle.currentSelectionState, false))
                 .RegisterTo(destroyCancellationToken);
 
             ApplyTheme();

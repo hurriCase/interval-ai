@@ -6,7 +6,7 @@ namespace Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours.LearningStarts
 {
     internal sealed class GraphTypeItem : MonoBehaviour
     {
-        [field: SerializeField] internal ToggleComponent Toggle { get; private set; }
+        [field: SerializeField] internal ThemeToggle ThemeToggle { get; private set; }
         [field: SerializeField] internal TextMeshProUGUI Text { get; private set; }
     }
 }

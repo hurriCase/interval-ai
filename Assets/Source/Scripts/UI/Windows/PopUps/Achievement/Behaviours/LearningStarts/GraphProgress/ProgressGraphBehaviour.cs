@@ -39,8 +39,8 @@ namespace Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours.LearningStarts
             foreach (var progressRange in ProgressGraphSettings.GraphProgressRanges)
             {
                 var createdGraphType = Instantiate(_graphTypeItemPrefab, _graphButtonsContainer);
-                createdGraphType.Toggle.group = _graphButtonsGroup;
-                createdGraphType.Toggle.OnValueChangedAsObservable().Subscribe((Behaviour: this, progressRange),
+                createdGraphType.ThemeToggle.group = _graphButtonsGroup;
+                createdGraphType.ThemeToggle.OnValueChangedAsObservable().Subscribe((Behaviour: this, progressRange),
                     (_, tuple) => tuple.Behaviour.UpdateGraph(tuple.progressRange));
 
                 var createdSpacing = Instantiate(_spacingPrefab, _graphButtonsContainer);
