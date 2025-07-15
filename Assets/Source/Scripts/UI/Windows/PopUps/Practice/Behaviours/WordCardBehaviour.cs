@@ -10,11 +10,10 @@ namespace Source.Scripts.UI.Windows.PopUps.Practice.Behaviours
 {
     internal sealed class WordCardBehaviour : RectTransformBehaviour
     {
-        [SerializeField] private RectTransform _learningTab;
-        [SerializeField] private RectTransform _repetitionTab;
+        [SerializeField] private RectTransform _cardsContainer;
 
-        [SerializeField] private float _animationDuration = 0.3f;
-        [SerializeField] private float _cardPadding = 20f;
+        [SerializeField] private float _spacingBetweenTabsRatio;
+        [SerializeField] private float _animationDuration;
 
         private PracticeState _currentState = PracticeState.NewWords;
         private bool _isTransitioning;
@@ -22,56 +21,28 @@ namespace Source.Scripts.UI.Windows.PopUps.Practice.Behaviours
         internal void Init(ThemeToggle learningToggle, ThemeToggle repetitionToggle)
         {
             learningToggle.OnPointerClickAsObservable()
-                .Where(this, (_, popUp) => popUp._isTransitioning is false && popUp._currentState != PracticeState.NewWords)
+                .Where(this,
+                    (_, popUp) => popUp._isTransitioning is false && popUp._currentState != PracticeState.NewWords)
                 .Subscribe(this, (_, popUp) => popUp.SwitchToState(PracticeState.NewWords).Forget())
                 .RegisterTo(destroyCancellationToken);
 
             repetitionToggle.OnPointerClickAsObservable()
-                .Where(this, (_, popUp) => popUp._isTransitioning is false && popUp._currentState != PracticeState.Repetition)
+                .Where(this,
+                    (_, popUp) => popUp._isTransitioning is false && popUp._currentState != PracticeState.Repetition)
                 .Subscribe(this, (_, popUp) => popUp.SwitchToState(PracticeState.Repetition).Forget())
                 .RegisterTo(destroyCancellationToken);
         }
 
-        private async UniTask SwitchToState(PracticeState newState)
+        private async UniTask SwitchToState(PracticeState state)
         {
-            if (_isTransitioning || _currentState == newState)
-                return;
+            _currentState = state;
 
-            _isTransitioning = true;
-            _currentState = newState;
+            var containerWidth = _cardsContainer.rect.width;
+            var endValue = _currentState == PracticeState.NewWords
+                ? 0
+                : -(containerWidth / 2 + containerWidth / _spacingBetweenTabsRatio);
 
-            await PerformCardTransition(newState);
-
-            _isTransitioning = false;
-        }
-
-        private async Awaitable PerformCardTransition(PracticeState state)
-        {
-            var cardWidth = _learningTab.rect.width;
-            var slideDistance = cardWidth + _cardPadding;
-
-            Vector2 learningTargetPos;
-            Vector2 repetitionTargetPos;
-
-            switch (state)
-            {
-                case PracticeState.NewWords:
-                    learningTargetPos = Vector2.zero;
-                    repetitionTargetPos = new Vector2(slideDistance, 0);
-                    break;
-
-                case PracticeState.Repetition:
-                    learningTargetPos = new Vector2(-slideDistance, 0);
-                    repetitionTargetPos = Vector2.zero;
-                    break;
-
-                default:
-                    return;
-            }
-
-            await Tween.LocalPosition(_learningTab, learningTargetPos, _animationDuration);
-
-            await Tween.LocalPosition(_repetitionTab, repetitionTargetPos, _animationDuration);
+            await Tween.UIAnchoredPositionX(_cardsContainer, endValue, _animationDuration);
         }
     }
 }

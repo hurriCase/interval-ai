@@ -26,6 +26,7 @@ namespace Source.Scripts.Editor
             EditorVisualControls.LabelField("Custom Settings");
 
             _editorStateControls.PropertyField(nameof(ThemeToggle.SelectableColorMapping));
+            _editorStateControls.PropertyField(nameof(ThemeToggle.AdditionalGraphics), true);
 
             serializedObject.ApplyModifiedProperties();
         }
