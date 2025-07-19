@@ -2,6 +2,7 @@
 using CustomUtils.Runtime.AssetLoader;
 using CustomUtils.Runtime.CustomTypes.Singletons;
 using Source.Scripts.Core;
+using Source.Scripts.UI.Windows.Shared;
 using UnityEngine;
 
 namespace Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours.LearningStarts.GraphProgress
@@ -9,7 +10,7 @@ namespace Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours.LearningStarts
     [Resource(ResourcePaths.ResourcePath, nameof(ProgressGraphSettings))]
     internal sealed class ProgressGraphSettings : SingletonScriptableObject<ProgressGraphSettings>
     {
-        [field: SerializeField] internal List<GraphProgressRange> GraphProgressRanges { get; private set; }
+        [field: SerializeField] internal List<DateRange> GraphProgressRanges { get; private set; }
         [field: SerializeField] internal int GraphPointsCount { get; private set; }
     }
 }

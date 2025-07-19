@@ -11,7 +11,7 @@ namespace Source.Scripts.Data.Repositories.Progress
     internal sealed class ProgressRepository : Singleton<ProgressRepository>, IDisposable
     {
         internal PersistentReactiveProperty<EnumArray<LearningState, int>> TotalCountByState { get; } =
-            new(PersistentPropertyKeys.TotalCountByStateKey);
+            new(PersistentPropertyKeys.TotalCountByStateKey, new EnumArray<LearningState, int>(EnumMode.SkipFirst));
         internal PersistentReactiveProperty<int> DailyWordsGoal { get; } =
             new(PersistentPropertyKeys.DailyGoalKey, DefaultDailyWordsGoal);
 

@@ -28,9 +28,8 @@ namespace Source.Scripts.Data.Repositories.Progress
 
         private static void ProcessNewWordProgress(ref DailyProgress dailyProgress, ProgressRepository repository)
         {
-            var progressCount = dailyProgress.ProgressByState[LearningState.CurrentlyLearning];
-
-            if (dailyProgress.GoalAchieved || progressCount < repository.DailyWordsGoal.Value)
+            if (dailyProgress.GoalAchieved
+                || GetProgressForDailyGoal(ref dailyProgress) < repository.DailyWordsGoal.Value)
                 return;
 
             repository.CurrentStreak.Value++;
@@ -40,5 +39,8 @@ namespace Source.Scripts.Data.Repositories.Progress
 
             dailyProgress.GoalAchieved = true;
         }
+
+        private static int GetProgressForDailyGoal(ref DailyProgress dailyProgress)
+            => dailyProgress.ProgressByState[LearningState.CurrentlyLearning];
     }
 }

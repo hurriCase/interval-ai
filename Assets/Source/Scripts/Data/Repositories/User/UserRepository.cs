@@ -1,26 +1,29 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using CustomUtils.Runtime.CustomTypes.Singletons;
 using CustomUtils.Runtime.Storage;
-using R3;
+using Source.Scripts.Data.Repositories.Vocabulary;
 
 namespace Source.Scripts.Data.Repositories.User
 {
     internal sealed class UserRepository : Singleton<UserRepository>, IDisposable
     {
-        internal PersistentReactiveProperty<UserEntry> UserEntry { get; } =
-            new(PersistentPropertyKeys.WordEntryKey, new UserEntry("user", CultureInfo.CurrentCulture));
+        public PersistentReactiveProperty<string> UserName { get; } = new(PersistentPropertyKeys.UserNameKey, "user");
 
-        internal Observable<CultureInfo> CultureChanged =>
-            UserEntry.AsObservable()
-                .Select(entry => entry.CurrentCulture)
-                .DistinctUntilChanged();
+        public PersistentReactiveProperty<CultureInfo> CurrentCulture { get; } =
+            new(PersistentPropertyKeys.CurrentCultureKey, CultureInfo.CurrentCulture);
 
-        internal CultureInfo CurrentCulture => UserEntry.Value.CurrentCulture;
+        public PersistentReactiveProperty<LearningDirectionType> LearningDirection { get; } =
+            new(PersistentPropertyKeys.LearningDirectionKey, LearningDirectionType.LearningToNative);
+
+        public PersistentReactiveProperty<List<CooldownData>> RepetitionByCooldown { get; } =
+            new(PersistentPropertyKeys.RepetitionByCooldownKey, DefaultCooldownsDatabase.Instance.DefaultCooldowns);
 
         public void Dispose()
         {
-            UserEntry.Dispose();
+            UserName?.Dispose();
+            CurrentCulture?.Dispose();
         }
     }
 }

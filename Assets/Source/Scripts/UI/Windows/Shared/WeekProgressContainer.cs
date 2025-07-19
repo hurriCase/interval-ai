@@ -34,7 +34,8 @@ namespace Source.Scripts.UI.Windows.Shared
 
         internal void UpdateCurrentWeeklyProgress()
         {
-            var weekAbbreviatedNames = UserRepository.Instance.CurrentCulture.DateTimeFormat.AbbreviatedDayNames;
+            var weekAbbreviatedNames =
+                UserRepository.Instance.CurrentCulture.Value.DateTimeFormat.AbbreviatedDayNames;
             var currentWeek = DateProgressHelper.GetCurrentWeek();
 
             for (var day = 0; day < 7; day++)

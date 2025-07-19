@@ -16,7 +16,8 @@ namespace Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours.LearningStarts
         [SerializeField] private ProgressColorMapping _progressColorMapping;
         [SerializeField] private ProgressItem _totalProgressItem;
 
-        [SerializeField] private EnumArray<LearningState, ProgressDescriptionItem> _progressDescriptionItems = new(true);
+        [SerializeField] private EnumArray<LearningState, ProgressDescriptionItem> _progressDescriptionItems =
+            new(EnumMode.SkipFirst);
 
         internal void Init()
         {

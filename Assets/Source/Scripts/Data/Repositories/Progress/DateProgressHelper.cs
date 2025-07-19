@@ -95,8 +95,7 @@ namespace Source.Scripts.Data.Repositories.Progress
 
         private static int GetDayIndexInWeek(DateTime date)
         {
-            var culture = UserRepository.Instance.UserEntry.Value.CurrentCulture;
-            var firstDayOfWeek = culture.DateTimeFormat.FirstDayOfWeek;
+            var firstDayOfWeek = UserRepository.Instance.CurrentCulture.Value.DateTimeFormat.FirstDayOfWeek;
 
             return ((int)date.DayOfWeek - (int)firstDayOfWeek + 7) % 7;
         }

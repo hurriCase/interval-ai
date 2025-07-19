@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Localization;
 using R3;
+using Source.Scripts.Data;
 using Source.Scripts.Data.Repositories.Progress;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using Source.Scripts.UI.Localization;
@@ -27,7 +28,7 @@ namespace Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours.LearningStarts
         [SerializeField] private ProgressColorMapping _progressColorMapping;
         [SerializeField] private UILineRenderer _uiLineRenderer;
 
-        [SerializeField] private EnumArray<LearningState, UILineRenderer> _graphLines = new(true);
+        [SerializeField] private EnumArray<LearningState, UILineRenderer> _graphLines = new(EnumMode.SkipFirst);
 
         private ProgressGraphSettings ProgressGraphSettings => ProgressGraphSettings.Instance;
 
@@ -36,29 +37,32 @@ namespace Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours.LearningStarts
 
         internal void Init()
         {
-            foreach (var progressRange in ProgressGraphSettings.GraphProgressRanges)
+            foreach (var dateRange in ProgressGraphSettings.GraphProgressRanges)
             {
                 var createdGraphType = Instantiate(_graphTypeItemPrefab, _graphButtonsContainer);
                 createdGraphType.ThemeToggle.group = _graphButtonsGroup;
-                createdGraphType.ThemeToggle.OnValueChangedAsObservable().Subscribe((Behaviour: this, progressRange),
-                    (_, tuple) => tuple.Behaviour.UpdateGraph(tuple.progressRange));
+                createdGraphType.ThemeToggle.OnValueChangedAsObservable()
+                    .Subscribe((Behaviour: this, progressRange: dateRange),
+                        (_, tuple) => tuple.Behaviour.UpdateGraph(tuple.progressRange));
 
                 var createdSpacing = Instantiate(_spacingPrefab, _graphButtonsContainer);
                 createdSpacing.aspectMode = AspectRatioFitter.AspectMode.HeightControlsWidth;
                 createdSpacing.aspectRatio = _spacingRatio;
 
-                LocalizationController.Language.Subscribe((behaviour: this, progressRange, createdGraphType.Text),
-                    (_, tuple) => tuple.behaviour.UpdateLocalization(tuple.progressRange, tuple.Text));
+                LocalizationController.Language.Subscribe((behaviour: this, dateRange, createdGraphType.Text),
+                    (_, tuple) => tuple.behaviour.UpdateLocalization(tuple.dateRange, tuple.Text));
             }
         }
 
-        private void UpdateLocalization(GraphProgressRange progressRange, TMP_Text graphTypeText)
+        private void UpdateLocalization(DateRange dateRange, TMP_Text graphTypeText)
         {
-            var localizationKey = LocalizationKeysDatabase.Instance.GetDateLocalization(progressRange.GraphPeriod);
-            graphTypeText.text = string.Format(LocalizationController.Localize(localizationKey), progressRange.Amount);
+            var localizationKey =
+                LocalizationKeysDatabase.Instance.GetDateLocalization(dateRange.DateType, dateRange.Amount);
+
+            graphTypeText.text = string.Format(LocalizationController.Localize(localizationKey), dateRange.Amount);
         }
 
-        private void UpdateGraph(GraphProgressRange progressRange)
+        private void UpdateGraph(DateRange progressRange)
         {
             var maxProgress = GenerateAllGraphPoints(progressRange);
             _maxProgressText.text = maxProgress.ToString();
@@ -72,7 +76,7 @@ namespace Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours.LearningStarts
             }
         }
 
-        private int GenerateAllGraphPoints(GraphProgressRange progressRange)
+        private int GenerateAllGraphPoints(DateRange progressRange)
         {
             var totalDays = GetTotalDays(progressRange);
             var pointsCount = ProgressGraphSettings.GraphPointsCount;
@@ -119,20 +123,22 @@ namespace Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours.LearningStarts
             return _cashedNormalizedPoints;
         }
 
-        private int GetTotalDays(GraphProgressRange progressRange)
+        private int GetTotalDays(DateRange progressRange)
         {
             var totalDays = 0;
 
-            if (progressRange.GraphPeriod == GraphPeriod.Days)
+            if (progressRange.DateType == DateType.Days)
                 return progressRange.Amount;
 
             for (var i = 0; i < progressRange.Amount; i++)
             {
-                totalDays += progressRange.GraphPeriod switch
+                totalDays += progressRange.DateType switch
                 {
-                    GraphPeriod.Months => GetDaysInMonth(i),
-                    GraphPeriod.Years => GetDaysInYear(i),
-                    _ => throw new ArgumentOutOfRangeException()
+                    DateType.Months => GetDaysInMonth(i),
+                    DateType.Years => GetDaysInYear(i),
+                    _ => throw new ArgumentOutOfRangeException(nameof(progressRange.DateType),
+                        progressRange.DateType,
+                        "[ProgressGraphBehaviour::GetTotalDays] DateType is not supported")
                 };
             }
 

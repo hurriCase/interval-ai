@@ -19,9 +19,10 @@ namespace Source.Scripts.UI.Windows.Shared
         [field: SerializeField] internal float InActiveThicknessRatio { get; private set; }
         [field: SerializeField, Range(0f, 1f)] internal float AlphaForExtraDays { get; private set; }
         [field: SerializeField]
-        internal EnumArray<LearningState, int> DefaultProgressPercentages { get; private set; } = new(true);
+        internal EnumArray<LearningState, int> DefaultProgressPercentages { get; private set; } = new(EnumMode.SkipFirst);
         [field: SerializeField]
-        internal EnumArray<LearningState, ProgressSectionData> ProgressSections { get; private set; } = new(true);
+        internal EnumArray<LearningState, ProgressSectionData> ProgressSections { get; private set; }
+            = new(EnumMode.SkipFirst);
 
         private const int Circumference = 360;
 

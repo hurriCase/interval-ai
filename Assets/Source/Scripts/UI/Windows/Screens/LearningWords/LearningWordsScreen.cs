@@ -25,8 +25,8 @@ namespace Source.Scripts.UI.Windows.Screens.LearningWords
             _wordLearningBehaviour.Init();
             _achievementsBehaviour.Init();
 
-            var userName = UserRepository.Instance.UserEntry.Value.Name;
-            _welcomeText.text = string.Format(LocalizationType.UserWelcome.GetLocalization(), userName);
+            _welcomeText.text =
+                string.Format(LocalizationType.UserWelcome.GetLocalization(), UserRepository.Instance.UserName.Value);
         }
     }
 }

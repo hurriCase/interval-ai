@@ -12,7 +12,7 @@ namespace Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours.LearningStarts
 
         internal void Init()
         {
-            UserRepository.Instance.CultureChanged
+            UserRepository.Instance.CurrentCulture
                 .Subscribe(this, (culture, behaviour) => behaviour.UpdateWeekDays(culture))
                 .RegisterTo(destroyCancellationToken);
         }

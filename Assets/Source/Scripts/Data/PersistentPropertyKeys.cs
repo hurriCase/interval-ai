@@ -7,8 +7,15 @@
         internal const string CurrentStreakKey = Prefix + "currentStreak";
         internal const string DailyGoalKey = Prefix + "dailyGoal";
         internal const string ProgressEntryKey = Prefix + "progressEntry";
+
         internal const string WordEntryKey = Prefix + "wordEntry";
         internal const string CategoryEntryKey = Prefix + "categoryEntry";
+
+        internal const string LearningDirectionKey = Prefix + "learningDirection";
+        internal const string RepetitionsRequiredKey = Prefix + "repetitionsRequired";
+        internal const string RepetitionByCooldownKey = Prefix + "repetitionByCooldown";
+        internal const string UserNameKey = Prefix + "userName";
+        internal const string CurrentCultureKey = Prefix + "currentCulture";
 
         private const string Prefix = "LanguageLearningApp.";
     }

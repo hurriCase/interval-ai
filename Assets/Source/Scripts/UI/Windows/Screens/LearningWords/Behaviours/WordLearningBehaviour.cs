@@ -5,6 +5,7 @@ using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using Source.Scripts.UI.Localization;
 using Source.Scripts.UI.Selectables;
 using Source.Scripts.UI.Windows.Base;
+using Source.Scripts.UI.Windows.Shared;
 using TMPro;
 using UnityEngine;
 
@@ -17,49 +18,33 @@ namespace Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours
         [SerializeField] private TextMeshProUGUI _learnGoalText;
         [SerializeField] private TextMeshProUGUI _repetitionText;
 
-        [SerializeField] private TextMeshProUGUI _dailyWordGoalText;
-
-        [SerializeField] private ButtonComponent _minusButton;
-        [SerializeField] private ButtonComponent _plusButton;
+        [SerializeField] private PlusMinusBehaviour _plusMinusBehaviour;
 
         internal void Init()
         {
-            UpdateUI();
+            _plusMinusBehaviour.Init();
 
             _startPracticeButton.OnClickAsObservable().Subscribe(static _ =>
                 WindowsController.Instance.OpenPopUpByType(PopUpType.WordPractice));
 
             ProgressRepository.Instance.ProgressHistory
-                .Subscribe(this, static (_, behaviour) => behaviour.UpdateUI())
-                .AddTo(this);
+                .Subscribe(this, static (progress, behaviour) =>
+                {
+                    var repeatableCount =
+                        progress.TryGetValue(DateTime.Now, out var dailyProgress)
+                            ? Mathf.Max(0, dailyProgress.GetProgressCountData(LearningState.Repeatable))
+                            : 0;
 
-            var dailyWordsGoal = ProgressRepository.Instance.DailyWordsGoal;
-            _minusButton.OnClickAsObservable()
-                .Where(dailyWordsGoal, (_, goal) => goal.Value > 0)
-                .Subscribe(dailyWordsGoal, static (_, goal) => goal.Value--)
-                .AddTo(this);
+                    behaviour._repetitionText.text = string.Format(
+                        LocalizationType.RepetitionGoal.GetLocalization(),
+                        repeatableCount);
+                })
+                .RegisterTo(destroyCancellationToken);
 
-            _plusButton.OnClickAsObservable()
-                .Subscribe(dailyWordsGoal, static (_, goal) => goal.Value++)
-                .AddTo(this);
-        }
-
-        private void UpdateUI()
-        {
-            var repository = ProgressRepository.Instance;
-            _minusButton.interactable = repository.DailyWordsGoal.Value > 0;
-            _dailyWordGoalText.text = repository.DailyWordsGoal.Value.ToString();
-            _learnGoalText.text =
-                string.Format(LocalizationType.LearnGoal.GetLocalization(), repository.DailyWordsGoal.Value);
-
-            var repeatableCount =
-                repository.ProgressHistory.Value.TryGetValue(DateTime.Now, out var dailyProgress)
-                    ? Mathf.Max(0, dailyProgress.GetProgressCountData(LearningState.Repeatable))
-                    : 0;
-
-            _repetitionText.text = string.Format(
-                LocalizationType.RepetitionGoal.GetLocalization(),
-                repeatableCount);
+            ProgressRepository.Instance.DailyWordsGoal
+                .Subscribe(this, static (goal, behaviour) =>
+                    behaviour._learnGoalText.text = string.Format(LocalizationType.LearnGoal.GetLocalization(), goal))
+                .RegisterTo(destroyCancellationToken);
         }
     }
 }
