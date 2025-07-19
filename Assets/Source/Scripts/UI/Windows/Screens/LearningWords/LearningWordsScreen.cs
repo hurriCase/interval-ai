@@ -1,4 +1,5 @@
-﻿using Source.Scripts.Data.Repositories.User;
+﻿using R3;
+using Source.Scripts.Data.Repositories.User;
 using Source.Scripts.UI.Localization;
 using Source.Scripts.UI.Windows.Base;
 using Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours;
@@ -25,8 +26,11 @@ namespace Source.Scripts.UI.Windows.Screens.LearningWords
             _wordLearningBehaviour.Init();
             _achievementsBehaviour.Init();
 
-            _welcomeText.text =
-                string.Format(LocalizationType.UserWelcome.GetLocalization(), UserRepository.Instance.UserName.Value);
+            UserRepository.Instance.Nickname
+                .Subscribe(this,
+                    static (nickname, screen) => screen._welcomeText.text =
+                        string.Format(LocalizationType.UserWelcome.GetLocalization(), nickname))
+                .RegisterTo(destroyCancellationToken);
         }
     }
 }

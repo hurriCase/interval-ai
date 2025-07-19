@@ -4,12 +4,14 @@ using System.Globalization;
 using CustomUtils.Runtime.CustomTypes.Singletons;
 using CustomUtils.Runtime.Storage;
 using Source.Scripts.Data.Repositories.Vocabulary;
+using UnityEngine;
 
 namespace Source.Scripts.Data.Repositories.User
 {
     internal sealed class UserRepository : Singleton<UserRepository>, IDisposable
     {
-        public PersistentReactiveProperty<string> UserName { get; } = new(PersistentPropertyKeys.UserNameKey, "user");
+        public PersistentReactiveProperty<string> Nickname { get; } = new(PersistentPropertyKeys.UserNameKey,
+            DefaultUserDataDatabase.Instance.Name);
 
         public PersistentReactiveProperty<CultureInfo> CurrentCulture { get; } =
             new(PersistentPropertyKeys.CurrentCultureKey, CultureInfo.CurrentCulture);
@@ -18,11 +20,14 @@ namespace Source.Scripts.Data.Repositories.User
             new(PersistentPropertyKeys.LearningDirectionKey, LearningDirectionType.LearningToNative);
 
         public PersistentReactiveProperty<List<CooldownData>> RepetitionByCooldown { get; } =
-            new(PersistentPropertyKeys.RepetitionByCooldownKey, DefaultCooldownsDatabase.Instance.DefaultCooldowns);
+            new(PersistentPropertyKeys.RepetitionByCooldownKey, DefaultUserDataDatabase.Instance.DefaultCooldowns);
+
+        public PersistentReactiveProperty<Sprite> UserIcon { get; } =
+            new(PersistentPropertyKeys.RepetitionByCooldownKey, DefaultUserDataDatabase.Instance.Icon);
 
         public void Dispose()
         {
-            UserName?.Dispose();
+            Nickname?.Dispose();
             CurrentCulture?.Dispose();
         }
     }
