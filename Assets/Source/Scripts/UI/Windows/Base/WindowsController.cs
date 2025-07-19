@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using CustomUtils.Runtime.CustomTypes.Singletons;
 using Cysharp.Threading.Tasks;
+using R3;
 using Source.Scripts.Core;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -16,13 +17,16 @@ namespace Source.Scripts.UI.Windows.Base
         [SerializeField] private Transform _screensContainer;
         [SerializeField] private Transform _popUpsContainer;
 
+        [SerializeField] private MenuBehaviour _menuBehaviour;
+
         private readonly HashSet<PopUpBase> _createdPopUps = new();
         private readonly HashSet<ScreenBase> _createdScreens = new();
         private readonly Stack<PopUpBase> _previousOpenedPopUps = new();
 
-        private PopUpBase _previousOpenedPopUp;
+        private PopUpBase _currentOpenedPopUp;
+        private ScreenBase _currentScreen;
 
-        public async UniTask InitAsync()
+        internal async UniTask InitAsync()
         {
             foreach (var screenReference in _screenReferences)
             {
@@ -53,52 +57,74 @@ namespace Source.Scripts.UI.Windows.Base
 
                 popUpBase.BaseInit();
                 popUpBase.Init();
-                popUpBase.OnHidePopUp += ClosePopUp;
                 popUpBase.HideImmediately();
+                popUpBase.OnHidePopUp
+                    .Subscribe(this, static (_, controller) => controller.HandlePopUpHide())
+                    .RegisterTo(destroyCancellationToken);
             }
+
+            _menuBehaviour.Init();
         }
 
-        private void ClosePopUp()
+        internal void OpenPopUpByType(PopUpType popUpType)
         {
-            if (_previousOpenedPopUps.TryPop(out var previousWindow) is false)
+            foreach (var popUpBase in _createdPopUps)
             {
-                _previousOpenedPopUp = null;
+                if (popUpBase.WindowType != popUpType)
+                    continue;
+
+                if (_currentOpenedPopUp)
+                {
+                    _previousOpenedPopUps.Push(_currentOpenedPopUp);
+                    _currentOpenedPopUp.HideImmediately();
+                }
+
+                _currentOpenedPopUp = popUpBase;
+                popUpBase.Show();
                 return;
             }
 
-            previousWindow.Show();
+            Debug.LogError($"[WindowsController::OpenPopUpByType] There is no pop up with type '{popUpType}'");
         }
 
-        public void OpenPopUpByType(PopUpType popUpType)
+        internal void OpenScreenByType(ScreenType screenType)
         {
-            var requestedScreen = _createdPopUps.AsValueEnumerable()
-                .FirstOrDefault(screen => screen.UIType == popUpType);
+            foreach (var screenBase in _createdScreens)
+            {
+                if (screenBase.WindowType != screenType)
+                    continue;
 
-            if (!requestedScreen)
+                if (_currentScreen)
+                    _currentScreen.Hide();
+
+                _currentScreen = screenBase;
+                screenBase.Show();
+                return;
+            }
+
+            Debug.LogError($"[WindowsController::OpenScreenByType] There is no screen with type '{screenType}'");
+        }
+
+        internal ScreenType GetInitialScreenType()
+        {
+            foreach (var screenBase in _createdScreens.AsValueEnumerable())
+            {
+                if (screenBase.InitialWindow)
+                    return screenBase.WindowType;
+            }
+
+            return ScreenType.None;
+        }
+
+        private void HandlePopUpHide()
+        {
+            _currentOpenedPopUp = null;
+
+            if (_previousOpenedPopUps.TryPop(out var previousPopUp) is false)
                 return;
 
-            if (_previousOpenedPopUp)
-                _previousOpenedPopUps.Push(_previousOpenedPopUp);
-
-            _previousOpenedPopUp = requestedScreen;
-            requestedScreen.Show();
-        }
-
-        public void OpenScreenByType(ScreenType screenType)
-        {
-            var requestedScreen = _createdScreens.AsValueEnumerable()
-                .FirstOrDefault(screen => screen.UIType == screenType);
-
-            if (requestedScreen)
-                requestedScreen.Show();
-        }
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-
-            foreach (var window in _createdPopUps)
-                window.OnHidePopUp -= ClosePopUp;
+            _currentOpenedPopUp = previousPopUp;
+            previousPopUp.Show();
         }
     }
 }

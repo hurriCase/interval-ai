@@ -1,4 +1,5 @@
-﻿using Source.Scripts.Data;
+﻿using Cysharp.Threading.Tasks;
+using Source.Scripts.Data;
 using Source.Scripts.UI.Windows.Base;
 using UnityEngine;
 using VContainer;
@@ -17,7 +18,7 @@ namespace Source.Scripts.UI
                 TestDataFactory.CreateFakeProgress();
 #endif
 
-            _windowsController.InitAsync();
+            _windowsController.InitAsync().Forget();
         }
     }
 }
