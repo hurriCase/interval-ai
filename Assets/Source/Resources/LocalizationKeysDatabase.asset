@@ -20,7 +20,7 @@ MonoBehaviour:
     - ui.learning-words.word-learning.words-goal
     - ui.learning-words.word-learning.repeat-words-amount
     - ui.learning-words.welcome
-    _skipFirst: 0
+    _enumMode: 2
   _learningStatesLocalizationData:
     _values:
     - 
@@ -28,11 +28,45 @@ MonoBehaviour:
     - ui.achievements.learning-stats.being-study
     - ui.achievements.learning-stats.repeatable
     - ui.achievements.learning-stats.studied
-    _skipFirst: 0
+    _enumMode: 2
   _dateLocalizationData:
     _values:
-    - 
-    - ui.achievements.learning-stats.button.days
-    - ui.achievements.learning-stats.button.months
-    - ui.achievements.learning-stats.button.months
-    _skipFirst: 0
+    - _values: []
+      _enumMode: 0
+    - _values:
+      - 
+      - ui.minutes.singular
+      - ui.minutes.few
+      - ui.minutes.many
+      _enumMode: 2
+    - _values:
+      - 
+      - ui.hours.singular
+      - ui.hours.few
+      - ui.hours.many
+      _enumMode: 2
+    - _values:
+      - 
+      - ui.days.singular
+      - ui.days.few
+      - ui.days.many
+      _enumMode: 2
+    - _values:
+      - 
+      - ui.weeks.singular
+      - ui.weeks.few
+      - ui.weeks.many
+      _enumMode: 2
+    - _values:
+      - 
+      - ui.months.singular
+      - ui.months.few
+      - ui.months.many
+      _enumMode: 2
+    - _values:
+      - 
+      - ui.years.singular
+      - ui.years.few
+      - ui.years.many
+      _enumMode: 2
+    _enumMode: 2
