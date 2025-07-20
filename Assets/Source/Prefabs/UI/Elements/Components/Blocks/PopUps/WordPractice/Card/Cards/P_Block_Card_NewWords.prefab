@@ -749,6 +749,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Cards.NewWordsCard
   learningCompleteBehaviour: {fileID: 3075980508591336107}
   cardContainer: {fileID: 1704665419130469229}
+  controlButtonsBehaviour: {fileID: 9138856895786503785}
+  learnedText: {fileID: 9003340686019183999}
   _practiceModules:
     _values:
     - {fileID: 0}
@@ -757,7 +759,6 @@ MonoBehaviour:
     - {fileID: 4391152700996032832}
     - {fileID: 1632863783627815060}
     _enumMode: 2
-  controlButtonsBehaviour: {fileID: 9138856895786503785}
   _swipeCardBehaviour: {fileID: 965594832228372540}
   _wordProgressBehaviour: {fileID: 9097729094807219650}
 --- !u!114 &8191145326885260838 stripped
@@ -780,6 +781,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1aa08ab6e0800fa44ae55d278d1423e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &9003340686019183999 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2590886972717403771, guid: f9511787c03f0b04e8818fd35a19996c, type: 3}
+  m_PrefabInstance: {fileID: 6847414681019927300}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &9097729094807219650 stripped

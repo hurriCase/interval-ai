@@ -19,6 +19,8 @@ namespace Source.Scripts.UI.Localization
         [SerializeField] private EnumArray<DateType, EnumArray<PluralForm, string>> _dateLocalizationData
             = new(EnumMode.SkipFirst);
 
+        [SerializeField] private EnumArray<PluralForm, string> _learnedCountLocalizationData = new(EnumMode.SkipFirst);
+
         internal string GetLocalization(LocalizationType type) => _localizationData[type];
 
         internal string GetLearningStateLocalization(LearningState state) => _learningStatesLocalizationData[state];
@@ -27,6 +29,12 @@ namespace Source.Scripts.UI.Localization
         {
             var pluralForm = PluralizationHelper.GetPluralForm(count, LocalizationController.Language.Value);
             return _dateLocalizationData[dateType][pluralForm];
+        }
+
+        internal string GetLearnedCountLocalization(int count)
+        {
+            var pluralForm = PluralizationHelper.GetPluralForm(count, LocalizationController.Language.Value);
+            return _learnedCountLocalizationData[pluralForm];
         }
     }
 }

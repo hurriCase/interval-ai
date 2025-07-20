@@ -6,6 +6,7 @@ using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.LearningComplete;
 using Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Swipe;
 using Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Modules.Base;
+using TMPro;
 using UnityEngine;
 
 namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Base
@@ -15,11 +16,13 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Base
         [SerializeField] protected LearningCompleteBehaviourBase learningCompleteBehaviour;
         [SerializeField] protected GameObject cardContainer;
 
+        [SerializeField] protected ControlButtonsBehaviour controlButtonsBehaviour;
+
+        [SerializeField] protected TextMeshProUGUI learnedText;
+
         [SerializeField] private EnumArray<ModuleType, PracticeModuleBase> _practiceModules = new(EnumMode.SkipFirst);
 
-        [SerializeField] protected ControlButtonsBehaviour controlButtonsBehaviour;
         [SerializeField] private SwipeCardBehaviour _swipeCardBehaviour;
-
         [SerializeField] private WordProgressBehaviour _wordProgressBehaviour;
 
         public WordEntry CurrentWord { get; protected set; }
@@ -47,6 +50,11 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Base
         internal virtual void OnInit() { }
 
         internal virtual void UpdateWord()
+        {
+            UpdateView();
+        }
+
+        internal virtual void UpdateView()
         {
             controlButtonsBehaviour.UpdateView();
             _wordProgressBehaviour.UpdateProgress(CurrentWord);

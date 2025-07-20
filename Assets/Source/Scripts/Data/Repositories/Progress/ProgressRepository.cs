@@ -21,6 +21,14 @@ namespace Source.Scripts.Data.Repositories.Progress
         internal PersistentReactiveProperty<Dictionary<DateTime, DailyProgress>> ProgressHistory { get; } =
             new(PersistentPropertyKeys.ProgressEntryKey, new Dictionary<DateTime, DailyProgress>());
 
+        internal int NewWordsCount => ProgressHistory.Value.TryGetValue(DateTime.Now.Date, out var todayProgress)
+            ? todayProgress.NewWordsCount
+            : 0;
+
+        internal int ReviewCount => ProgressHistory.Value.TryGetValue(DateTime.Now.Date, out var todayProgress)
+            ? todayProgress.ReviewCount
+            : 0;
+
         private const int DefaultDailyWordsGoal = 10;
         private IDisposable _disposable;
 
@@ -38,6 +46,32 @@ namespace Source.Scripts.Data.Repositories.Progress
             var totalCountByState = TotalCountByState.Value;
             totalCountByState[state]++;
             TotalCountByState.Value = totalCountByState;
+        }
+
+        internal void IncrementNewWordsCount()
+        {
+            var today = DateTime.Now.Date;
+            if (ProgressHistory.Value.TryGetValue(today, out var todayProgress) is false)
+            {
+                todayProgress = new DailyProgress(today);
+                ProgressHistory.Value[today] = todayProgress;
+            }
+
+            todayProgress.NewWordsCount++;
+            ProgressHistory.Value[today] = todayProgress;
+        }
+
+        internal void IncrementReviewCount()
+        {
+            var today = DateTime.Now.Date;
+            if (ProgressHistory.Value.TryGetValue(today, out var todayProgress) is false)
+            {
+                todayProgress = new DailyProgress(today);
+                ProgressHistory.Value[today] = todayProgress;
+            }
+
+            todayProgress.ReviewCount++;
+            ProgressHistory.Value[today] = todayProgress;
         }
 
         public void Dispose()

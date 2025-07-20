@@ -51,10 +51,15 @@ namespace Source.Scripts.Data.Repositories.Vocabulary
                 case LearningState.CurrentlyLearning:
                     word.LearningState = LearningState.Repeatable;
                     word.RepetitionCount = 0;
+
                     AdvanceCooldown(word);
+
+                    ProgressRepository.Instance.IncrementNewWordsCount();
                     break;
 
                 case LearningState.Repeatable:
+                    ProgressRepository.Instance.IncrementReviewCount();
+
                     if (word.RepetitionCount >= UserRepository.Instance.RepetitionByCooldown.Value.Count)
                     {
                         word.LearningState = LearningState.Studied;
