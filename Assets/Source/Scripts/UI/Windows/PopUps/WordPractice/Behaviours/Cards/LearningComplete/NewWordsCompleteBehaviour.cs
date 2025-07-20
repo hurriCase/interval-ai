@@ -1,7 +1,7 @@
 ﻿using R3;
-using Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Cards.Base;
+using Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Base;
 
-namespace Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Cards.LearningComplete
+namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.LearningComplete
 {
     internal sealed class NewWordsCompleteBehaviour : LearningCompleteBehaviourBase
     {

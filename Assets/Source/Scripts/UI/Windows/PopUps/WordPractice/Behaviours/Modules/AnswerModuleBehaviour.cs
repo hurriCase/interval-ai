@@ -1,8 +1,8 @@
-﻿using Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Modules.Base;
+﻿using Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Modules.Base;
 using TMPro;
 using UnityEngine;
 
-namespace Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Modules
+namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Modules
 {
     internal sealed class AnswerModuleBehaviour : PracticeModuleBase
     {

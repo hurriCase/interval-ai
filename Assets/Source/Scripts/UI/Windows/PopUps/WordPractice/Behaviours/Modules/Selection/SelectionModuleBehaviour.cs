@@ -1,9 +1,9 @@
 ﻿using Source.Scripts.Data.Repositories.Vocabulary;
-using Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Modules.Base;
+using Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Modules.Base;
 using UnityEngine;
 using ZLinq;
 
-namespace Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Modules.Selection
+namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Modules.Selection
 {
     internal sealed class SelectionModuleBehaviour : PracticeModuleBase
     {

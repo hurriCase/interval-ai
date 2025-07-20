@@ -2,10 +2,10 @@
 using System.Threading;
 using R3;
 using Source.Scripts.UI.Selectables;
-using Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Cards.Base;
+using Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Base;
 using UnityEngine;
 
-namespace Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Modules.Base
+namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Modules.Base
 {
     [Serializable]
     internal struct TransitionButtonData

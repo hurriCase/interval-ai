@@ -4,7 +4,7 @@ using R3;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Cards.Swipe
+namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Swipe
 {
     internal sealed class SwipeCardBehaviour : RectTransformBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {

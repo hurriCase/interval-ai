@@ -3,11 +3,11 @@ using R3;
 using R3.Triggers;
 using Source.Scripts.UI.Selectables;
 using Source.Scripts.UI.Windows.Base;
-using Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Cards.Base;
-using Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Cards.CardTypes;
+using Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Base;
+using Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.CardTypes;
 using UnityEngine;
 
-namespace Source.Scripts.UI.Windows.PopUps.Practice
+namespace Source.Scripts.UI.Windows.PopUps.WordPractice
 {
     internal sealed class WordPracticePopUp : PopUpBase
     {

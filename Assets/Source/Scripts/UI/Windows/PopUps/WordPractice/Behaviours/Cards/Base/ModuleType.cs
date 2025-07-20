@@ -1,4 +1,4 @@
-﻿namespace Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Cards.Base
+﻿namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Base
 {
     internal enum ModuleType
     {

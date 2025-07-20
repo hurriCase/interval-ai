@@ -3,12 +3,12 @@ using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions;
 using R3;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
-using Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Cards.LearningComplete;
-using Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Cards.Swipe;
-using Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Modules.Base;
+using Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.LearningComplete;
+using Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Swipe;
+using Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Modules.Base;
 using UnityEngine;
 
-namespace Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Cards.Base
+namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Base
 {
     internal class CardBehaviourBase : MonoBehaviour
     {

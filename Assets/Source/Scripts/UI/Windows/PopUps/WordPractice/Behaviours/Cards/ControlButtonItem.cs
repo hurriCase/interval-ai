@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Cards
+namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards
 {
     internal sealed class ControlButtonItem : MonoBehaviour
     {

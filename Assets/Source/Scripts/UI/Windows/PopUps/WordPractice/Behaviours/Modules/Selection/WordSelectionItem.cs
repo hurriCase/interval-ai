@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Modules.Selection
+namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Modules.Selection
 {
     internal sealed class WordSelectionItem : MonoBehaviour
     {

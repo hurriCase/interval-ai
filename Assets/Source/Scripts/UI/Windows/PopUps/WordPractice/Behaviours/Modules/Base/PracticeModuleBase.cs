@@ -1,11 +1,9 @@
-﻿using System;
-using R3;
-using Source.Scripts.Data.Repositories.Vocabulary.Entries;
+﻿using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Modules.Base
+namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Modules.Base
 {
     internal class PracticeModuleBase : MonoBehaviour
     {

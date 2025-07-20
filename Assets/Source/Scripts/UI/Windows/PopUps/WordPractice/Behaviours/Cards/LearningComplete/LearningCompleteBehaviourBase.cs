@@ -2,12 +2,12 @@
 using R3;
 using Source.Scripts.UI.Selectables;
 using Source.Scripts.UI.Windows.Base;
-using Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Cards.Base;
+using Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Base;
 using Source.Scripts.UI.Windows.Shared;
 using TMPro;
 using UnityEngine;
 
-namespace Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Cards.LearningComplete
+namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.LearningComplete
 {
     internal abstract class LearningCompleteBehaviourBase : MonoBehaviour
     {

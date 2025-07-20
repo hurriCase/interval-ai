@@ -1,11 +1,10 @@
-﻿using System;
-using R3;
-using Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Modules.Base;
+﻿using R3;
+using Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Modules.Base;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Modules
+namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Modules
 {
     internal sealed class InputModuleBehaviour : PracticeModuleBase
     {

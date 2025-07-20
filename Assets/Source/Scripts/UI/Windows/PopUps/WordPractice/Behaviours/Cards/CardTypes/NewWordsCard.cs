@@ -4,10 +4,10 @@ using R3;
 using Source.Scripts.Data.Repositories.Progress;
 using Source.Scripts.Data.Repositories.Vocabulary;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
-using Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Cards.Base;
+using Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Base;
 using UnityEngine;
 
-namespace Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Cards.CardTypes
+namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.CardTypes
 {
     internal sealed class NewWordsCard : CardBehaviourBase
     {
