@@ -1,11 +1,11 @@
-﻿using CustomUtils.Runtime.CustomTypes.Collections;
+﻿using System;
+using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions;
 using R3;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Cards.LearningComplete;
-using Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Modules;
+using Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Cards.Swipe;
 using Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Modules.Base;
-using Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Modules.Selection;
 using UnityEngine;
 
 namespace Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Cards.Base
@@ -16,11 +16,9 @@ namespace Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Cards.Base
         [SerializeField] protected GameObject cardContainer;
 
         [SerializeField] private EnumArray<ModuleType, PracticeModuleBase> _practiceModules = new(EnumMode.SkipFirst);
-        [SerializeField] private InputModuleBehaviour _inputModuleBehaviour;
-        [SerializeField] private SelectionModuleBehaviour _selectionModuleBehaviour;
-        [SerializeField] private AnswerModuleBehaviour _answerModuleBehaviour;
 
         [SerializeField] protected ControlButtonsBehaviour controlButtonsBehaviour;
+        [SerializeField] private SwipeCardBehaviour _swipeCardBehaviour;
 
         public WordEntry CurrentWord { get; protected set; }
 
@@ -33,6 +31,10 @@ namespace Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Cards.Base
 
             foreach (var module in _practiceModules)
                 module.Init();
+
+            _swipeCardBehaviour.OnSwipe
+                .Subscribe(this, static (direction, card) => card.HandleSwipe(direction))
+                .RegisterTo(destroyCancellationToken);
 
             OnInit();
 
@@ -49,6 +51,23 @@ namespace Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Cards.Base
             {
                 module.SetCurrentWord(CurrentWord);
                 module.SetActive(type == moduleType);
+            }
+        }
+
+        private void HandleSwipe(SwipeDirection direction)
+        {
+            switch (direction)
+            {
+                case SwipeDirection.Left:
+                    controlButtonsBehaviour.AdvanceWord();
+                    break;
+
+                case SwipeDirection.Right:
+                    controlButtonsBehaviour.SwitchToNext();
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
             }
         }
     }

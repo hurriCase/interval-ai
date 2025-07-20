@@ -21,18 +21,8 @@ namespace Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Cards
             _cardBehaviourBase = cardBehaviourBase;
 
             _positiveControlItem.Button.OnClickAsObservable()
-                .Subscribe(_cardBehaviourBase, (_, cardBehaviour) =>
-                {
-                    var currentWord = cardBehaviour.CurrentWord;
-                    if (currentWord.LearningState == LearningState.None)
-                    {
-                        currentWord.LearningState = LearningState.AlreadyKnown;
-                        return;
-                    }
-
-                    VocabularyRepository.Instance.AdvanceWord(cardBehaviour.CurrentWord, true);
-                    cardBehaviour.UpdateWord();
-                }).RegisterTo(destroyCancellationToken);
+                .Subscribe(this, (_, behaviour) => behaviour.AdvanceWord())
+                .RegisterTo(destroyCancellationToken);
 
             _cancelControlItem.Button.OnClickAsObservable()
                 .Subscribe(_cardBehaviourBase, (_, cardBehaviour) =>
@@ -43,14 +33,8 @@ namespace Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Cards
                 .RegisterTo(destroyCancellationToken);
 
             _nextControlItem.Button.OnClickAsObservable()
-                .Subscribe(_cardBehaviourBase, (_, cardBehaviour) =>
-                {
-                    var currentWord = cardBehaviour.CurrentWord;
-                    var success = currentWord.LearningState == LearningState.None;
-
-                    VocabularyRepository.Instance.AdvanceWord(currentWord, success);
-                    cardBehaviour.UpdateWord();
-                }).RegisterTo(destroyCancellationToken);
+                .Subscribe(this, (_, behaviour) => behaviour.SwitchToNext())
+                .RegisterTo(destroyCancellationToken);
         }
 
         internal void UpdateView()
@@ -65,6 +49,28 @@ namespace Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Cards
 
             var nextKey = isFirstShow ? "ui.word-practice.learn" : "ui.word-practice.missed-it";
             _nextControlItem.Text.text = LocalizationController.Localize(nextKey);
+        }
+
+        internal void AdvanceWord()
+        {
+            var currentWord = _cardBehaviourBase.CurrentWord;
+            if (currentWord.LearningState == LearningState.None)
+            {
+                currentWord.LearningState = LearningState.AlreadyKnown;
+                return;
+            }
+
+            VocabularyRepository.Instance.AdvanceWord(_cardBehaviourBase.CurrentWord, true);
+            _cardBehaviourBase.UpdateWord();
+        }
+
+        internal void SwitchToNext()
+        {
+            var currentWord = _cardBehaviourBase.CurrentWord;
+            var success = currentWord.LearningState == LearningState.None;
+
+            VocabularyRepository.Instance.AdvanceWord(currentWord, success);
+            _cardBehaviourBase.UpdateWord();
         }
     }
 }

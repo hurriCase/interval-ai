@@ -377,8 +377,34 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4547162550722811444, guid: 6a0a59920e35f7042ba319b1d8e0d2e0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5545066187882569630}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 317819257434154052, guid: 6a0a59920e35f7042ba319b1d8e0d2e0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5935916097903532856}
   m_SourcePrefab: {fileID: 100100000, guid: 6a0a59920e35f7042ba319b1d8e0d2e0, type: 3}
+--- !u!1 &2000210196728661093 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 317819257434154052, guid: 6a0a59920e35f7042ba319b1d8e0d2e0, type: 3}
+  m_PrefabInstance: {fileID: 2281973152034873377}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5935916097903532856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2000210196728661093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 668d6c02eb83411da6c7aebd18930c96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Cards.Swipe.SwipeCardBehaviour
+  _returnDuration: 0.3
+  _swipeExecuteDuration: 0.2
+  _maxRotationDegrees: 7
+  _maxLiftHeightRatio: 0.025
+  _pickupScale: 1.05
+  _pickupDuration: 0.1
 --- !u!224 &2355934846402868757 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4547162550722811444, guid: 6a0a59920e35f7042ba319b1d8e0d2e0, type: 3}
@@ -1291,7 +1317,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
