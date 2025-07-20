@@ -119,37 +119,22 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4202609680214102433, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6320501834000866669}
-    - targetCorrespondingSourceObject: {fileID: 4202609680214102433, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 5977408382105174003}
     - targetCorrespondingSourceObject: {fileID: 4202609680214102433, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 6320501834000866669}
+    - targetCorrespondingSourceObject: {fileID: 4202609680214102433, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 7281976943009342870}
+    - targetCorrespondingSourceObject: {fileID: 4202609680214102433, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6648392440371745073}
   m_SourcePrefab: {fileID: 100100000, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
 --- !u!1 &7052841248445510864 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4202609680214102433, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
   m_PrefabInstance: {fileID: 6607363959976011121}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6320501834000866669
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7052841248445510864}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0ba274b51e6439db0f68474a1ce65bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <ColorType>k__BackingField: 1
-  <GradientDirection>k__BackingField: 0
-  <ThemeSharedColorName>k__BackingField: Base_Icons
-  <ThemeSolidColorName>k__BackingField: Text_Main
-  <ThemeGradientColorName>k__BackingField: 
-  _targetComponent: {fileID: 5977408382105174003}
 --- !u!114 &5977408382105174003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,8 +168,26 @@ MonoBehaviour:
   <RoundedCaps>k__BackingField: 1
   <RoundedCapResolution>k__BackingField: 8
   <CustomFillOrigin>k__BackingField: 0
-  <UseCustomFillOrigin>k__BackingField: 0
+  <UseCustomFillOrigin>k__BackingField: 1
   <ThicknessRatio>k__BackingField: 0.2
+--- !u!114 &6320501834000866669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7052841248445510864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0ba274b51e6439db0f68474a1ce65bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <ColorType>k__BackingField: 1
+  <GradientDirection>k__BackingField: 0
+  <ThemeSharedColorName>k__BackingField: Base_Icons
+  <ThemeSolidColorName>k__BackingField: Text_Main
+  <ThemeGradientColorName>k__BackingField: 
+  _targetComponent: {fileID: 5977408382105174003}
 --- !u!222 &7281976943009342870
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -193,3 +196,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7052841248445510864}
   m_CullTransparentMesh: 1
+--- !u!114 &6648392440371745073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7052841248445510864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a50e0e51237947f6b49effc76d23ffd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.Shared.ProgressSectionData
+  <RoundedFilledImage>k__BackingField: {fileID: 5977408382105174003}
+  <ImageTheme>k__BackingField: {fileID: 6320501834000866669}

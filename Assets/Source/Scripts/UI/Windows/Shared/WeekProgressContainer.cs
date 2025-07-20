@@ -9,7 +9,7 @@ namespace Source.Scripts.UI.Windows.Shared
     internal sealed class WeekProgressContainer : MonoBehaviour
     {
         [SerializeField] private ProgressColorMapping _progressColorMapping;
-        [SerializeField] private DateIdentifierMapping _dateIdentifierMapping;
+        [SerializeField] private ActivityMapping _activityMapping;
         [SerializeField] private List<ProgressItem> _progressItems;
 
         internal void UpdateMonthWeeklyProgress(DailyProgress[] monthData, int weekIndex, bool[] isInMonth)
@@ -27,7 +27,7 @@ namespace Source.Scripts.UI.Windows.Shared
                     dailyProgress.ProgressByState,
                     dayText,
                     _progressColorMapping,
-                    _dateIdentifierMapping,
+                    _activityMapping,
                     isOutsideMonth);
             }
         }

@@ -264,18 +264,15 @@ MonoBehaviour:
   <AlphaForExtraDays>k__BackingField: 0.1
   <DefaultProgressPercentages>k__BackingField:
     _values: 000000002d000000140000002300000000000000
+    _enumMode: 2
   <ProgressSections>k__BackingField:
     _values:
-    - <RoundedFilledImage>k__BackingField: {fileID: 2510932365633308804}
-      <ImageTheme>k__BackingField: {fileID: 2853720857671068186}
-    - <RoundedFilledImage>k__BackingField: {fileID: 2510932365633308804}
-      <ImageTheme>k__BackingField: {fileID: 2853720857671068186}
-    - <RoundedFilledImage>k__BackingField: {fileID: 9010968880409406903}
-      <ImageTheme>k__BackingField: {fileID: 8669305976792764201}
-    - <RoundedFilledImage>k__BackingField: {fileID: 4218040219905437148}
-      <ImageTheme>k__BackingField: {fileID: 4596933414019895106}
-    - <RoundedFilledImage>k__BackingField: {fileID: 7845868982326418878}
-      <ImageTheme>k__BackingField: {fileID: 7611307584340098848}
+    - {fileID: 0}
+    - {fileID: 3201865121060677190}
+    - {fileID: 8339176154190889845}
+    - {fileID: 3764637415194755870}
+    - {fileID: 7085834257351865212}
+    _enumMode: 2
 --- !u!1001 &3034611473348280177
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -394,28 +391,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1738318188837115798, guid: 6fdfc049463f5444b9f9e1bb7094cdd0, type: 3}
   m_PrefabInstance: {fileID: 3034611473348280177}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7611307584340098848 stripped
+--- !u!114 &7085834257351865212 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4881287255201431633, guid: 6fdfc049463f5444b9f9e1bb7094cdd0, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5208672146221419533, guid: 6fdfc049463f5444b9f9e1bb7094cdd0, type: 3}
   m_PrefabInstance: {fileID: 3034611473348280177}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0ba274b51e6439db0f68474a1ce65bc, type: 3}
+  m_Script: {fileID: 11500000, guid: a50e0e51237947f6b49effc76d23ffd0, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7845868982326418878 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5115872898144133839, guid: 6fdfc049463f5444b9f9e1bb7094cdd0, type: 3}
-  m_PrefabInstance: {fileID: 3034611473348280177}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bf2b52a8aea46c4801e0af1e55f015f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.Shared.ProgressSectionData
 --- !u!1001 &4319619720665567096
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -534,28 +520,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1738318188837115798, guid: 6fdfc049463f5444b9f9e1bb7094cdd0, type: 3}
   m_PrefabInstance: {fileID: 4319619720665567096}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8669305976792764201 stripped
+--- !u!114 &8339176154190889845 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4881287255201431633, guid: 6fdfc049463f5444b9f9e1bb7094cdd0, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5208672146221419533, guid: 6fdfc049463f5444b9f9e1bb7094cdd0, type: 3}
   m_PrefabInstance: {fileID: 4319619720665567096}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0ba274b51e6439db0f68474a1ce65bc, type: 3}
+  m_Script: {fileID: 11500000, guid: a50e0e51237947f6b49effc76d23ffd0, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &9010968880409406903 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5115872898144133839, guid: 6fdfc049463f5444b9f9e1bb7094cdd0, type: 3}
-  m_PrefabInstance: {fileID: 4319619720665567096}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bf2b52a8aea46c4801e0af1e55f015f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.Shared.ProgressSectionData
 --- !u!1001 &5960259728682886591
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -829,28 +804,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6fdfc049463f5444b9f9e1bb7094cdd0, type: 3}
---- !u!114 &2510932365633308804 stripped
+--- !u!114 &3201865121060677190 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5115872898144133839, guid: 6fdfc049463f5444b9f9e1bb7094cdd0, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5208672146221419533, guid: 6fdfc049463f5444b9f9e1bb7094cdd0, type: 3}
   m_PrefabInstance: {fileID: 7216918233041283659}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bf2b52a8aea46c4801e0af1e55f015f, type: 3}
+  m_Script: {fileID: 11500000, guid: a50e0e51237947f6b49effc76d23ffd0, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2853720857671068186 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4881287255201431633, guid: 6fdfc049463f5444b9f9e1bb7094cdd0, type: 3}
-  m_PrefabInstance: {fileID: 7216918233041283659}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0ba274b51e6439db0f68474a1ce65bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.Shared.ProgressSectionData
 --- !u!224 &8950934820998594013 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1738318188837115798, guid: 6fdfc049463f5444b9f9e1bb7094cdd0, type: 3}
@@ -952,10 +916,6 @@ PrefabInstance:
       propertyPath: <CustomFillOrigin>k__BackingField
       value: 262.5
       objectReference: {fileID: 0}
-    - target: {fileID: 5115872898144133839, guid: 6fdfc049463f5444b9f9e1bb7094cdd0, type: 3}
-      propertyPath: <UseCustomFillOrigin>k__BackingField
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7723036859945476525, guid: 6fdfc049463f5444b9f9e1bb7094cdd0, type: 3}
       propertyPath: m_AspectRatio
       value: 1
@@ -969,28 +929,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6fdfc049463f5444b9f9e1bb7094cdd0, type: 3}
---- !u!114 &4218040219905437148 stripped
+--- !u!114 &3764637415194755870 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5115872898144133839, guid: 6fdfc049463f5444b9f9e1bb7094cdd0, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5208672146221419533, guid: 6fdfc049463f5444b9f9e1bb7094cdd0, type: 3}
   m_PrefabInstance: {fileID: 8968433158599724819}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bf2b52a8aea46c4801e0af1e55f015f, type: 3}
+  m_Script: {fileID: 11500000, guid: a50e0e51237947f6b49effc76d23ffd0, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4596933414019895106 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4881287255201431633, guid: 6fdfc049463f5444b9f9e1bb7094cdd0, type: 3}
-  m_PrefabInstance: {fileID: 8968433158599724819}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0ba274b51e6439db0f68474a1ce65bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.Shared.ProgressSectionData
 --- !u!224 &7235588459175827589 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1738318188837115798, guid: 6fdfc049463f5444b9f9e1bb7094cdd0, type: 3}

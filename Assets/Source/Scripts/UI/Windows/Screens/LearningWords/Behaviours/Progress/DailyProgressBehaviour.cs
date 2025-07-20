@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using CustomUtils.Runtime.CustomTypes.Randoms;
 using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.UI;
 using R3;
@@ -14,18 +13,14 @@ using ZLinq;
 
 namespace Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours.Progress
 {
-    internal sealed class ProgressBehaviour : MonoBehaviour
+    internal sealed class DailyProgressBehaviour : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _currentProgressPercentText;
         [SerializeField] private TextMeshProUGUI _titleText;
         [SerializeField] private TextMeshProUGUI _progressDescriptionText;
         [SerializeField] private RoundedFilledImageComponent _progressComponent;
 
-        [SerializeField] private List<ProgressDescriptionData> _progressDescriptionLocalizations;
-        [SerializeField] private RandomInt _lowMediumTransitionRandom;
-        [SerializeField] private RandomInt _mediumHighTransitionRandom;
-        [SerializeField] private RandomInt _defaultRandomPercent = new(20, 50);
-
+        private ProgressDescriptionsDatabase ProgressDescriptionsDatabase => ProgressDescriptionsDatabase.Instance;
         private ProgressRepository ProgressRepository => ProgressRepository.Instance;
 
         internal void Init()
@@ -66,23 +61,24 @@ namespace Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours.Progress
             if (learnedWordCount <= 0)
                 return ProgressDescriptionType.Zero;
 
-            if (learnedWordCount < _lowMediumTransitionRandom.RandomValue)
+            if (learnedWordCount < ProgressDescriptionsDatabase.LowMediumTransitionRandom.RandomValue)
                 return ProgressDescriptionType.Low;
 
-            return learnedWordCount < _mediumHighTransitionRandom.RandomValue
+            return learnedWordCount < ProgressDescriptionsDatabase.MediumHighTransitionRandom.RandomValue
                 ? ProgressDescriptionType.Medium
                 : ProgressDescriptionType.High;
         }
 
         private (string, string, int) GetRandomDescription(ProgressDescriptionType progressType)
         {
-            var localizationData = _progressDescriptionLocalizations.AsValueEnumerable()
-                .Where(progressDescriptionData => progressDescriptionData.Type == progressType);
+            var localizationData =
+                ProgressDescriptionsDatabase.DescriptionLocalizations.AsValueEnumerable()
+                    .Where(progressDescriptionData => progressDescriptionData.Type == progressType);
 
             if (localizationData.Count() == 0)
                 return (LocalizationType.ProgressTitle.GetLocalization(),
                     LocalizationType.ProgressDescription.GetLocalization(),
-                    _defaultRandomPercent.RandomValue);
+                    ProgressDescriptionsDatabase.DefaultRandomPercent.RandomValue);
 
             var randomData = localizationData.Random();
 

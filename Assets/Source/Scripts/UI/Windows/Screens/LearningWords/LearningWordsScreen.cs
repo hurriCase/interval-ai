@@ -12,7 +12,7 @@ namespace Source.Scripts.UI.Windows.Screens.LearningWords
 {
     internal sealed class LearningWordsScreen : ScreenBase
     {
-        [SerializeField] private ProgressBehaviour _progressBehaviour;
+        [SerializeField] private DailyProgressBehaviour _dailyProgressBehaviour;
         [SerializeField] private CategoryPreviewBehaviour _categoryPreviewBehaviour;
         [SerializeField] private WordLearningBehaviour _wordLearningBehaviour;
         [SerializeField] private AchievementsBehaviour _achievementsBehaviour;
@@ -21,7 +21,7 @@ namespace Source.Scripts.UI.Windows.Screens.LearningWords
 
         internal override void Init()
         {
-            _progressBehaviour.Init();
+            _dailyProgressBehaviour.Init();
             _categoryPreviewBehaviour.Init();
             _wordLearningBehaviour.Init();
             _achievementsBehaviour.Init();

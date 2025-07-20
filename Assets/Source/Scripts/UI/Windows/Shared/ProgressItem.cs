@@ -21,7 +21,7 @@ namespace Source.Scripts.UI.Windows.Shared
         [field: SerializeField]
         internal EnumArray<LearningState, int> DefaultProgressPercentages { get; private set; } = new(EnumMode.SkipFirst);
         [field: SerializeField]
-        internal EnumArray<LearningState, ProgressSectionData> ProgressSections { get; private set; }
+        internal EnumArray<LearningState, ProgressSectionItem> ProgressSections { get; private set; }
             = new(EnumMode.SkipFirst);
 
         private const int Circumference = 360;
@@ -30,7 +30,7 @@ namespace Source.Scripts.UI.Windows.Shared
             EnumArray<LearningState, int> progress,
             string dateIdentifierText,
             ThemeStateMappingGeneric<LearningState> progressColorMapping,
-            ThemeStateMappingGeneric<DateIdentifierColorType> dateIdentifierMapping = null,
+            ThemeStateMappingGeneric<ActivityState> dateIdentifierMapping = null,
             bool isOutsideMonth = false)
         {
             DateIdentifierText.text = dateIdentifierText;
@@ -56,7 +56,7 @@ namespace Source.Scripts.UI.Windows.Shared
             if (!dateIdentifierMapping)
                 return;
 
-            var dateIdentifierColorType = isActive ? DateIdentifierColorType.Active : DateIdentifierColorType.InActive;
+            var dateIdentifierColorType = isActive ? ActivityState.Active : ActivityState.InActive;
             dateIdentifierMapping.SetComponentForState(dateIdentifierColorType, DateIdentifierTheme);
         }
 

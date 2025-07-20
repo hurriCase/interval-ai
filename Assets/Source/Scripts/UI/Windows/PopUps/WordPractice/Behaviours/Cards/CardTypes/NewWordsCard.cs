@@ -42,9 +42,9 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.CardTyp
                 return;
             }
 
-            controlButtonsBehaviour.UpdateView();
-
             SwitchModule(ModuleType.OnlyQuestion);
+
+            base.UpdateWord();
         }
     }
 }

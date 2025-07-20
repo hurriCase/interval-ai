@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4355a1ca411a4a8aa811c312e02ee022, type: 3}
+  m_Name: ProgressDescriptionsDatabase
+  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours.Progress.ProgressDescriptionsDatabase
+  <DescriptionLocalizations>k__BackingField:
+  - <TitleKey>k__BackingField: ui.learning-words.progress.title-zero
+    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.zero-start
+    <Type>k__BackingField: 1
+    <Percent>k__BackingField:
+      _randomStart: 0
+      _randomEnd: 0
+  - <TitleKey>k__BackingField: ui.learning-words.progress.title-zero-ready
+    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.zero-motivation
+    <Type>k__BackingField: 1
+    <Percent>k__BackingField:
+      _randomStart: 0
+      _randomEnd: 0
+  - <TitleKey>k__BackingField: ui.learning-words.progress.title-zero-lets-go
+    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.zero-challenge
+    <Type>k__BackingField: 1
+    <Percent>k__BackingField:
+      _randomStart: 0
+      _randomEnd: 0
+  - <TitleKey>k__BackingField: ui.learning-words.progress.title-low
+    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.low-encouragement
+    <Type>k__BackingField: 2
+    <Percent>k__BackingField:
+      _randomStart: 5
+      _randomEnd: 25
+  - <TitleKey>k__BackingField: ui.learning-words.progress.title-low-momentum
+    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.low-momentum
+    <Type>k__BackingField: 2
+    <Percent>k__BackingField:
+      _randomStart: 5
+      _randomEnd: 25
+  - <TitleKey>k__BackingField: ui.learning-words.progress.title-low-progress
+    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.low-progress
+    <Type>k__BackingField: 2
+    <Percent>k__BackingField:
+      _randomStart: 5
+      _randomEnd: 25
+  - <TitleKey>k__BackingField: ui.learning-words.progress.title-medium
+    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.medium-halfway
+    <Type>k__BackingField: 3
+    <Percent>k__BackingField:
+      _randomStart: 5
+      _randomEnd: 25
+  - <TitleKey>k__BackingField: ui.learning-words.progress.title-medium-halfway
+    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.medium-strong
+    <Type>k__BackingField: 3
+    <Percent>k__BackingField:
+      _randomStart: 5
+      _randomEnd: 25
+  - <TitleKey>k__BackingField: ui.learning-words.progress.title-medium-strong
+    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.medium-climbing
+    <Type>k__BackingField: 3
+    <Percent>k__BackingField:
+      _randomStart: 5
+      _randomEnd: 25
+  - <TitleKey>k__BackingField: ui.learning-words.progress.title-high
+    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.high-excellent
+    <Type>k__BackingField: 3
+    <Percent>k__BackingField:
+      _randomStart: 5
+      _randomEnd: 25
+  - <TitleKey>k__BackingField: ui.learning-words.progress.title-high-champion
+    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.high-champion
+    <Type>k__BackingField: 3
+    <Percent>k__BackingField:
+      _randomStart: 40
+      _randomEnd: 90
+  - <TitleKey>k__BackingField: ui.learning-words.progress.title-high-amazing
+    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.high-outstanding
+    <Type>k__BackingField: 3
+    <Percent>k__BackingField:
+      _randomStart: 40
+      _randomEnd: 90
+  <LowMediumTransitionRandom>k__BackingField:
+    _randomStart: 4
+    _randomEnd: 7
+  <MediumHighTransitionRandom>k__BackingField:
+    _randomStart: 14
+    _randomEnd: 20
+  <DefaultRandomPercent>k__BackingField:
+    _randomStart: 20
+    _randomEnd: 50

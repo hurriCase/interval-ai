@@ -261,6 +261,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3196787801249158323, guid: f9511787c03f0b04e8818fd35a19996c, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3309615683790516879, guid: f9511787c03f0b04e8818fd35a19996c, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -583,7 +587,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7794660353523257246, guid: f9511787c03f0b04e8818fd35a19996c, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 26.68647
+      value: 27.410168
       objectReference: {fileID: 0}
     - target: {fileID: 7794660353523257246, guid: f9511787c03f0b04e8818fd35a19996c, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -726,6 +730,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecada4b647d045759d98b33547e72300, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.CardTypes.InputModuleBehaviour
+--- !u!114 &5631800609285247576 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2397963629845849798, guid: f9511787c03f0b04e8818fd35a19996c, type: 3}
+  m_PrefabInstance: {fileID: 8029755303442658462}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31b21cbc60e440e29554cae5bebc27e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.WordProgress.WordProgressBehaviour
 --- !u!114 &5672900923555656179 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2437954497155630445, guid: f9511787c03f0b04e8818fd35a19996c, type: 3}
@@ -766,6 +781,7 @@ MonoBehaviour:
     _enumMode: 2
   controlButtonsBehaviour: {fileID: 5672900923555656179}
   _swipeCardBehaviour: {fileID: 4400007878502657958}
+  _wordProgressBehaviour: {fileID: 5631800609285247576}
 --- !u!114 &8735786655255826314 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1609144382967855892, guid: f9511787c03f0b04e8818fd35a19996c, type: 3}

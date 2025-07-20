@@ -20,11 +20,14 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Base
         [SerializeField] protected ControlButtonsBehaviour controlButtonsBehaviour;
         [SerializeField] private SwipeCardBehaviour _swipeCardBehaviour;
 
+        [SerializeField] private WordProgressBehaviour _wordProgressBehaviour;
+
         public WordEntry CurrentWord { get; protected set; }
 
         internal void Init()
         {
             controlButtonsBehaviour.Init(this);
+            _wordProgressBehaviour.Init();
 
             learningCompleteBehaviour.Init();
             learningCompleteBehaviour.SetActive(false);
@@ -43,7 +46,11 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Base
 
         internal virtual void OnInit() { }
 
-        internal virtual void UpdateWord() { }
+        internal virtual void UpdateWord()
+        {
+            controlButtonsBehaviour.UpdateView();
+            _wordProgressBehaviour.UpdateProgress(CurrentWord);
+        }
 
         internal void SwitchModule(ModuleType moduleType)
         {

@@ -1,6 +1,6 @@
 ﻿namespace Source.Scripts.UI.Windows.Shared
 {
-    internal enum DateIdentifierColorType
+    internal enum ActivityState
     {
         None = 0,
         Active = 1,
