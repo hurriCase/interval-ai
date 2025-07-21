@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Source.Scripts.Data.Repositories.Vocabulary
 {
     [Serializable]
-    internal struct CooldownData
+    internal struct CooldownByDate
     {
         [field: SerializeField] internal int Cooldown { get; set; }
         [field: SerializeField] internal DateType DateType { get; set; }

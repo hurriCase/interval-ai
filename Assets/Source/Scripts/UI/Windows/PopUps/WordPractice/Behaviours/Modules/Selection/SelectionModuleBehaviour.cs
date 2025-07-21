@@ -15,11 +15,7 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Modules.Selec
         {
             base.UpdateView();
 
-            var randomWords = VocabularyRepository.Instance.WordEntries.Value.AsValueEnumerable()
-                .Where(word => word != currentWord && word.IsHidden is false)
-                .OrderBy(_ => Random.value)
-                .Take(SelectionCount - 1);
-
+            var randomWords = VocabularyRepository.Instance.GetRandomWords(currentWord, SelectionCount - 1);
             var correctWordIndex = Random.Range(0, SelectionCount);
 
             var index = -1;

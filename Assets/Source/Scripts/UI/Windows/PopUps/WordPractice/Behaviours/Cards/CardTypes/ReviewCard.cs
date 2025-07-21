@@ -17,8 +17,8 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.CardTyp
             base.OnInit();
 
             VocabularyRepository.Instance.OnAvailabilityTimeUpdate
-                .Where(update => update.state == LearningState.Repeatable)
-                .Where(update => DateTime.Now >= update.currentTime)
+                .Where(cooldown => cooldown.State == LearningState.Repeatable)
+                .Where(cooldown => DateTime.Now >= cooldown.CurrentTime)
                 .Subscribe(this, static (_, card) => card.UpdateWord())
                 .RegisterTo(destroyCancellationToken);
         }

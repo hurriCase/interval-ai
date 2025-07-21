@@ -16,8 +16,8 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Learnin
         protected override void OnInit()
         {
             VocabularyRepository.Instance.OnAvailabilityTimeUpdate
-                .Where(update => update.state == LearningState.Repeatable)
-                .Subscribe(this, static (tuple, card) => card.UpdateTime(tuple.currentTime))
+                .Where(cooldownByLearningState => cooldownByLearningState.State == LearningState.Repeatable)
+                .Subscribe(this, static (cooldownByLearningState, card) => card.UpdateTime(cooldownByLearningState.CurrentTime))
                 .RegisterTo(destroyCancellationToken);
 
             exitButton.OnClickAsObservable()

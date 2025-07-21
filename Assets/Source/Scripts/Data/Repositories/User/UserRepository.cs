@@ -19,7 +19,7 @@ namespace Source.Scripts.Data.Repositories.User
         public PersistentReactiveProperty<LearningDirectionType> LearningDirection { get; } =
             new(PersistentPropertyKeys.LearningDirectionKey, LearningDirectionType.LearningToNative);
 
-        public PersistentReactiveProperty<List<CooldownData>> RepetitionByCooldown { get; } =
+        public PersistentReactiveProperty<List<CooldownByDate>> RepetitionByCooldown { get; } =
             new(PersistentPropertyKeys.RepetitionByCooldownKey, DefaultUserDataDatabase.Instance.DefaultCooldowns);
 
         public PersistentReactiveProperty<Sprite> UserIcon { get; } =

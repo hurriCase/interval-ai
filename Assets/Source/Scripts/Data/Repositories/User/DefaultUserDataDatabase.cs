@@ -9,7 +9,7 @@ namespace Source.Scripts.Data.Repositories.User
     [Resource(ResourcePaths.ResourcePath, nameof(DefaultUserDataDatabase))]
     internal sealed class DefaultUserDataDatabase : SingletonScriptableObject<DefaultUserDataDatabase>
     {
-        [field: SerializeField] internal List<CooldownData> DefaultCooldowns { get; private set; }
+        [field: SerializeField] internal List<CooldownByDate> DefaultCooldowns { get; private set; }
         [field: SerializeField] internal string Name { get; private set; }
         [field: SerializeField] internal Sprite Icon { get; private set; }
     }
