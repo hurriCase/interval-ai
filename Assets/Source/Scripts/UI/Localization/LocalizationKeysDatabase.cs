@@ -5,6 +5,8 @@ using CustomUtils.Runtime.Localization;
 using Source.Scripts.Data;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using Source.Scripts.UI.Localization.Date;
+using Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Base;
+using Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.LearningComplete;
 using UnityEngine;
 using ResourcePaths = Source.Scripts.Core.ResourcePaths;
 
@@ -20,6 +22,12 @@ namespace Source.Scripts.UI.Localization
             = new(EnumMode.SkipFirst);
 
         [SerializeField] private EnumArray<PluralForm, string> _learnedCountLocalizationData = new(EnumMode.SkipFirst);
+        [field: SerializeField]
+        internal EnumArray<PracticeState, EnumArray<CompleteState, string>> CompleteLocalizationData
+        {
+            get;
+            private set;
+        } = new(EnumMode.SkipFirst);
 
         internal string GetLocalization(LocalizationType type) => _localizationData[type];
 

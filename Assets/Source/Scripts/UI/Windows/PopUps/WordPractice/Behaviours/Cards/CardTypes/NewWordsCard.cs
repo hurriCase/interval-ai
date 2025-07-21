@@ -7,7 +7,7 @@ using Source.Scripts.Data.Repositories.Vocabulary;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using Source.Scripts.UI.Localization;
 using Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Base;
-using UnityEngine;
+using Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.LearningComplete;
 
 namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.CardTypes
 {
@@ -17,6 +17,8 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.CardTyp
         {
             base.OnInit();
 
+            learningCompleteBehaviour.Init(PracticeState.NewWords);
+
             ProgressRepository.Instance.ProgressHistory
                 .AsObservable()
                 .Select(progressHistory => progressHistory
@@ -25,6 +27,8 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.CardTyp
                 .Where(goalAchieved => goalAchieved)
                 .Subscribe(this, (_, card) =>
                 {
+                    card.learningCompleteBehaviour.SetState(CompleteState.NoWords,
+                        ProgressRepository.Instance.NewWordsCount.ToString());
                     card.cardContainer.SetActive(false);
                     card.learningCompleteBehaviour.SetActive(true);
                 })
@@ -37,12 +41,6 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.CardTyp
 
             if (CurrentWord is null || CurrentWord.IsValid is false)
                 CurrentWord = VocabularyRepository.Instance.GetAvailableWord(LearningState.CurrentlyLearning);
-
-            if (CurrentWord is null)
-            {
-                Debug.LogError("[CardBehaviour::Init] there no this window yet");
-                return;
-            }
 
             base.UpdateWord();
         }

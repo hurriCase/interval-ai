@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.CustomTypes.Singletons;
 using CustomUtils.Runtime.Storage;
@@ -53,22 +54,10 @@ namespace Source.Scripts.Data.Repositories.Vocabulary
             }
         }
 
-        internal WordEntry GetAvailableWord(LearningState learningState)
-        {
-            if (SortedWordsByState[learningState].Count == 0)
-                return null;
-
-            foreach (var word in SortedWordsByState[learningState])
-            {
-                if (word.Cooldown > DateTime.Now)
-                    return null;
-
-                if (word.IsHidden is false)
-                    return word;
-            }
-
-            return null;
-        }
+        internal WordEntry GetAvailableWord(LearningState learningState) =>
+            SortedWordsByState[learningState].Count > 0
+                ? SortedWordsByState[learningState].AsValueEnumerable().FirstOrDefault(word => word.IsHidden is false)
+                : null;
 
         internal ValueEnumerable<OrderBySkipTake<ListWhere<WordEntry>, WordEntry, float>, WordEntry>
             GetRandomWords(WordEntry wordToSkip, int count) =>
@@ -89,7 +78,7 @@ namespace Source.Scripts.Data.Repositories.Vocabulary
 
         private void HandleSuccess(WordEntry word)
         {
-            var oldState = word.LearningState;
+            SortedWordsByState[word.LearningState].Remove(word);
 
             switch (word.LearningState)
             {
@@ -127,14 +116,12 @@ namespace Source.Scripts.Data.Repositories.Vocabulary
                     throw new ArgumentOutOfRangeException();
             }
 
-            UpdateWordInCollections(word, oldState, word.LearningState);
-
-            ProgressDataHelper.AddProgressToEntry(word.LearningState, DateTime.Now);
+            SortedWordsByState[word.LearningState].Add(word);
         }
 
         private void HandleFailure(WordEntry word)
         {
-            var oldState = word.LearningState;
+            SortedWordsByState[word.LearningState].Remove(word);
 
             switch (word.LearningState)
             {
@@ -156,7 +143,7 @@ namespace Source.Scripts.Data.Repositories.Vocabulary
                     throw new ArgumentOutOfRangeException();
             }
 
-            UpdateWordInCollections(word, oldState, word.LearningState);
+            SortedWordsByState[word.LearningState].Add(word);
         }
 
         private void AdvanceCooldown(WordEntry word)
@@ -173,15 +160,6 @@ namespace Source.Scripts.Data.Repositories.Vocabulary
             UpdateTimerForState(word.LearningState);
 
             WordEntries.SaveAsync();
-        }
-
-        private void UpdateWordInCollections(WordEntry word, LearningState oldState, LearningState newState)
-        {
-            if (oldState == newState)
-                return;
-
-            SortedWordsByState[oldState].Remove(word);
-            SortedWordsByState[newState].Add(word);
         }
 
         private void UpdateTimerForState(LearningState learningState)

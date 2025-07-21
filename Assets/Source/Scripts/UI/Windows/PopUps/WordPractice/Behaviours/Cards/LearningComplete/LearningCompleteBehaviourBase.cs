@@ -1,5 +1,6 @@
 ﻿using CustomUtils.Runtime.Localization;
 using R3;
+using Source.Scripts.UI.Localization;
 using Source.Scripts.UI.Selectables;
 using Source.Scripts.UI.Windows.Base;
 using Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Base;
@@ -15,6 +16,10 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Learnin
         [SerializeField] private ButtonComponent _learnNewWordsButton;
         [SerializeField] private ButtonComponent _returnLateButton;
 
+        [SerializeField] private TextMeshProUGUI _completeText;
+        [SerializeField] private GameObject _noWordsImage;
+        [SerializeField] private GameObject _completeImage;
+
         [SerializeField] private GameObject _addNewWordsContainer;
         [SerializeField] private ButtonComponent _learnButton;
 
@@ -22,8 +27,12 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Learnin
 
         [SerializeField] protected ButtonComponent exitButton;
 
-        internal void Init()
+        protected PracticeState practiceState;
+
+        internal void Init(PracticeState state)
         {
+            practiceState = state;
+
             _plusMinusBehaviour.Init();
 
             _learnNewWordsButton.OnClickAsObservable()
@@ -43,6 +52,16 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Learnin
                 .RegisterTo(destroyCancellationToken);
 
             OnInit();
+        }
+
+        internal void SetState(CompleteState state, string newWordCount = null)
+        {
+            var localizationKey = LocalizationKeysDatabase.Instance.CompleteLocalizationData[practiceState][state];
+
+            _completeText.text = string.Format(LocalizationController.Localize(localizationKey), newWordCount);
+
+            _noWordsImage.SetActive(state == CompleteState.NoWords);
+            _completeImage.SetActive(state == CompleteState.Complete);
         }
 
         protected abstract void OnInit();

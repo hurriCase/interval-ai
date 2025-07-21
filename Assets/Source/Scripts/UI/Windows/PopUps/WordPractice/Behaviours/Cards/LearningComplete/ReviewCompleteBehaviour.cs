@@ -1,23 +1,21 @@
 ﻿using System;
-using CustomUtils.Runtime.Localization;
 using R3;
 using Source.Scripts.Data.Repositories.Vocabulary;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using Source.Scripts.UI.Windows.Base;
-using TMPro;
-using UnityEngine;
 
 namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.LearningComplete
 {
     internal sealed class ReviewCompleteBehaviour : LearningCompleteBehaviourBase
     {
-        [SerializeField] private TextMeshProUGUI _remainingTimeText;
-
         protected override void OnInit()
         {
             VocabularyRepository.Instance.OnAvailabilityTimeUpdate
                 .Where(cooldownByLearningState => cooldownByLearningState.State == LearningState.Repeatable)
-                .Subscribe(this, static (cooldownByLearningState, card) => card.UpdateTime(cooldownByLearningState.CurrentTime))
+                .Subscribe(this, static (cooldownByLearningState, card) => card.SetState(
+                    CompleteState.Complete,
+                    cooldownByLearningState.CurrentTime.ToShortTimeString())
+                )
                 .RegisterTo(destroyCancellationToken);
 
             exitButton.OnClickAsObservable()
@@ -25,13 +23,7 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Learnin
                 .RegisterTo(destroyCancellationToken);
         }
 
-        private void UpdateTime(DateTime currentTime)
-        {
-            _remainingTimeText.text =
-                string.Format(LocalizationController.Localize("ui.word-practice.cooldown-until-new-words"),
-                    FormatTimeUntil(currentTime));
-        }
-
+        //TODO:<Dmitriy.Sukharev> refactor, or maybe just use built-in
         private static string FormatTimeUntil(DateTime targetTime)
         {
             var timeSpan = targetTime - DateTime.Now;

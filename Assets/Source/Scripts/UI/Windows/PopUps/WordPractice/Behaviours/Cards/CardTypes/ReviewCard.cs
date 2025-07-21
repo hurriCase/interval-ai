@@ -7,6 +7,7 @@ using Source.Scripts.Data.Repositories.Vocabulary;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using Source.Scripts.UI.Localization;
 using Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Base;
+using Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.LearningComplete;
 
 namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.CardTypes
 {
@@ -15,6 +16,8 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.CardTyp
         internal override void OnInit()
         {
             base.OnInit();
+
+            learningCompleteBehaviour.Init(PracticeState.Review);
 
             VocabularyRepository.Instance.OnAvailabilityTimeUpdate
                 .Where(cooldown => cooldown.State == LearningState.Repeatable)
@@ -26,13 +29,6 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.CardTyp
         internal override void UpdateWord()
         {
             CurrentWord = VocabularyRepository.Instance.GetAvailableWord(LearningState.Repeatable);
-
-            if (CurrentWord is null)
-            {
-                cardContainer.SetActive(false);
-                learningCompleteBehaviour.SetActive(true);
-                return;
-            }
 
             base.UpdateWord();
         }

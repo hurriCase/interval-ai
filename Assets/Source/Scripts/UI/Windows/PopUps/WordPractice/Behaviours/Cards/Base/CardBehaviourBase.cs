@@ -32,9 +32,6 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Base
             controlButtonsBehaviour.Init(this);
             _wordProgressBehaviour.Init();
 
-            learningCompleteBehaviour.Init();
-            learningCompleteBehaviour.SetActive(false);
-
             foreach (var module in _practiceModules)
                 module.Init();
 
@@ -51,7 +48,13 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Base
 
         internal virtual void UpdateWord()
         {
-            UpdateView();
+            var isComplete = CurrentWord is null || CurrentWord.Cooldown > DateTime.Now;
+
+            SwitchState(isComplete, CurrentWord is null ? CompleteState.NoWords : CompleteState.Complete,
+                CurrentWord?.Cooldown.ToShortTimeString());
+
+            if (isComplete is false)
+                UpdateView();
         }
 
         internal virtual void UpdateView()
@@ -67,6 +70,15 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Base
                 module.SetCurrentWord(CurrentWord);
                 module.SetActive(type == moduleType);
             }
+        }
+
+        private void SwitchState(bool isComplete, CompleteState state = default, string completeText = null)
+        {
+            cardContainer.SetActive(isComplete is false);
+            learningCompleteBehaviour.SetActive(isComplete);
+
+            if (isComplete)
+                learningCompleteBehaviour.SetState(state, completeText);
         }
 
         private void HandleSwipe(SwipeDirection direction)
