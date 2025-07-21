@@ -39,6 +39,16 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Single);
         }
 
+        [MenuItem("Scenes/Onboarding", priority = 4)]
+        private static void OpenSceneOnboarding()
+        {
+            if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo() is false)
+                return;
+
+            var scenePath = "Assets/Source/Scenes/Onboarding.unity";
+            EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Single);
+        }
+
         [MenuItem("References/Default Categories Database", priority = 0)]
         private static void SelectAssetDefaultCategoriesDatabase()
         {
