@@ -24,8 +24,9 @@ namespace Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours
         {
             _plusMinusBehaviour.Init();
 
-            _startPracticeButton.OnClickAsObservable().Subscribe(static _ =>
-                WindowsController.Instance.OpenPopUpByType(PopUpType.WordPractice));
+            _startPracticeButton.OnClickAsObservable()
+                .Subscribe(static _ => WindowsController.Instance.OpenPopUpByType(PopUpType.WordPractice))
+                .RegisterTo(destroyCancellationToken);
 
             ProgressRepository.Instance.ProgressHistory
                 .Subscribe(this, static (progress, behaviour) =>

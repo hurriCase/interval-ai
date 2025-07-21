@@ -9,8 +9,10 @@ namespace Source.Scripts.Data.Repositories.Vocabulary.Entries
     [Serializable]
     internal partial struct CategoryEntry
     {
-        [field: SerializeField] internal Sprite Icon { get; set; }
-        [field: SerializeField] internal string LocalizationKey { get; set; }
-        [field: SerializeField] internal List<WordEntry> WordEntries { get; set; }
+        //TODO:<Dmitriy.Sukharev> Store sprite path and load from addressables
+        [MemoryPackIgnore]
+        [field: SerializeField] public Sprite Icon { get; set; }
+        [field: SerializeField] public string LocalizationKey { get; set; }
+        [field: SerializeField] public List<WordEntry> WordEntries { get; set; }
     }
 }

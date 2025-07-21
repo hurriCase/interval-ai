@@ -11,8 +11,6 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Learnin
 {
     internal abstract class LearningCompleteBehaviourBase : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI _remainingTimeText;
-
         [SerializeField] private GameObject _buttonsContainer;
         [SerializeField] private ButtonComponent _learnNewWordsButton;
         [SerializeField] private ButtonComponent _returnLateButton;
@@ -26,9 +24,6 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Learnin
 
         internal void Init()
         {
-            _remainingTimeText.text =
-                string.Format(LocalizationController.Localize("ui.word-practice.cooldown-until-new-words"));
-
             _plusMinusBehaviour.Init();
 
             _learnNewWordsButton.OnClickAsObservable()
@@ -47,9 +42,9 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Learnin
                 .Subscribe(static _ => WindowsController.Instance.OpenScreenByType(ScreenType.LearningWords))
                 .RegisterTo(destroyCancellationToken);
 
-            InitExitButton();
+            OnInit();
         }
 
-        protected abstract void InitExitButton();
+        protected abstract void OnInit();
     }
 }

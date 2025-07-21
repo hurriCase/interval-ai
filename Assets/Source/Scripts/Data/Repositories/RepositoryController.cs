@@ -11,6 +11,7 @@ namespace Source.Scripts.Data.Repositories
         private static void Init()
         {
             ProgressRepository.Instance.Init();
+            VocabularyRepository.Instance.Init();
 
             Application.quitting += OnApplicationQuitting;
         }

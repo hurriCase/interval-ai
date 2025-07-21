@@ -10,9 +10,9 @@
 
         internal const string WordEntryKey = Prefix + "wordEntry";
         internal const string CategoryEntryKey = Prefix + "categoryEntry";
+        internal const string SortedWordsByStateKey = Prefix + "sortedWordsByState";
 
         internal const string LearningDirectionKey = Prefix + "learningDirection";
-        internal const string RepetitionsRequiredKey = Prefix + "repetitionsRequired";
         internal const string RepetitionByCooldownKey = Prefix + "repetitionByCooldown";
         internal const string UserNameKey = Prefix + "userName";
         internal const string CurrentCultureKey = Prefix + "currentCulture";
