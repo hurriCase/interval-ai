@@ -78,30 +78,30 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
         }
 
         [MenuItem("References/Mappings/Calendar Text Color Mapping", priority = 1)]
-        private static void SelectAssetCalendarTextColorMapping()
+        private static void SelectAssetMapping_Activity_Calendar()
         {
-            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Scriptables/ColorMappings/CalendarTextColorMapping.asset");
+            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Scriptables/ColorMappings/Mapping_Activity_Calendar.asset");
             Selection.activeObject = asset;
         }
 
         [MenuItem("References/Mappings/Progress Color Mapping", priority = 2)]
-        private static void SelectAssetProgressColorMapping()
+        private static void SelectAssetMapping_ProgressColor()
         {
-            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Scriptables/ColorMappings/ProgressColorMapping.asset");
+            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Scriptables/ColorMappings/Mapping_ProgressColor.asset");
             Selection.activeObject = asset;
         }
 
         [MenuItem("References/Mappings/Buttons/Gray Black Mapping", priority = 1)]
-        private static void SelectAssetGrayBlackMapping()
+        private static void SelectAssetMapping_IconsSecondary_IconsMain()
         {
-            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Scriptables/ColorMappings/Buttons/GrayBlackMapping.asset");
+            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Scriptables/ColorMappings/Buttons/Mapping_IconsSecondary_IconsMain.asset");
             Selection.activeObject = asset;
         }
 
         [MenuItem("References/Mappings/Buttons/Purple Gray Mapping", priority = 2)]
-        private static void SelectAssetPurpleGrayMapping()
+        private static void SelectAssetMapping_TextSecondary_BaseMain()
         {
-            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Scriptables/ColorMappings/Buttons/PurpleGrayMapping.asset");
+            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Scriptables/ColorMappings/Buttons/Mapping_TextSecondary_BaseMain.asset");
             Selection.activeObject = asset;
         }
 
@@ -616,6 +616,19 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
         private static bool ValidateToggleSymbol_ADDRESSABLES_LOG_ALL()
         {
             Menu.SetChecked("--Project--/Toggle Addressables Log All", ScriptingSymbolHandler.IsSymbolEnabled("ScriptingSymbol_ADDRESSABLES_LOG_ALL", false));
+            return true;
+        }
+
+        [MenuItem("--Project--/Toggle Is Debug", priority = 4)]
+        private static void ToggleSymbol_IS_DEBUG()
+        {
+            ScriptingSymbolHandler.ToggleSymbol("IS_DEBUG", "ScriptingSymbol_IS_DEBUG");
+        }
+
+        [MenuItem("--Project--/Toggle Is Debug", true)]
+        private static bool ValidateToggleSymbol_IS_DEBUG()
+        {
+            Menu.SetChecked("--Project--/Toggle Is Debug", ScriptingSymbolHandler.IsSymbolEnabled("ScriptingSymbol_IS_DEBUG", false));
             return true;
         }
     }

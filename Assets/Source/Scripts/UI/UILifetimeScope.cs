@@ -13,9 +13,8 @@ namespace Source.Scripts.UI
 
         protected override void Configure(IContainerBuilder builder)
         {
-#if UNITY_EDITOR
-            if (Application.isEditor)
-                TestDataFactory.CreateFakeProgress();
+#if IS_DEBUG && UNITY_EDITOR
+            TestDataFactory.CreateFakeProgress();
 #endif
 
             _windowsController.InitAsync().Forget();
