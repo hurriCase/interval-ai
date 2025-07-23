@@ -6,7 +6,7 @@ using VContainer.Unity;
 
 namespace Source.Scripts.UI.DI
 {
-    internal sealed class UILifetimeScope : LifetimeScope
+    internal sealed class MainLifetimeScope : LifetimeScope
     {
         [SerializeField] private WindowsController _windowsController;
         [SerializeField] private MenuBehaviour _menuBehaviour;
@@ -16,7 +16,7 @@ namespace Source.Scripts.UI.DI
             builder.RegisterComponent(_windowsController).As<IWindowsController>();
             builder.RegisterComponent(_menuBehaviour).As<IMenuBehaviour>();
 
-            builder.RegisterEntryPoint<UIEntryPoint>();
+            builder.RegisterEntryPoint<MainEntryPoint>();
         }
     }
 }
