@@ -17,9 +17,14 @@ namespace Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours
         [SerializeField] private TextMeshProUGUI _currentMonthText;
         [SerializeField] private ButtonComponent _previousMonthButton;
         [SerializeField] private ButtonComponent _nextMonthButton;
-        [SerializeField] private WeekProgressContainer[] _weekProgressContainers = new WeekProgressContainer[6];
+        [SerializeField] private WeekProgressContainer[] _weekProgressContainers
+            = new WeekProgressContainer[MaxWeeksInMonth];
+
         [Inject] private IDateProgressHelper _dateProgressHelper;
         [Inject] private IUserRepository _userRepository;
+
+        private const int MaxWeeksInMonth = 6;
+        private const int MonthsInYear = 12;
 
         private int _currentYear;
         private int _currentMonth;
@@ -46,7 +51,7 @@ namespace Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours
             _currentMonth--;
             if (_currentMonth < 1)
             {
-                _currentMonth = 12;
+                _currentMonth = MonthsInYear;
                 _currentYear--;
             }
 
@@ -56,7 +61,7 @@ namespace Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours
         private void GoToNextMonth()
         {
             _currentMonth++;
-            if (_currentMonth > 12)
+            if (_currentMonth > MonthsInYear)
             {
                 _currentMonth = 1;
                 _currentYear++;
@@ -71,7 +76,7 @@ namespace Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours
             _currentMonthText.text =
                 _userRepository.CurrentCulture.Value.DateTimeFormat.GetMonthName(_currentMonth);
 
-            for (var week = 0; week < 6; week++)
+            for (var week = 0; week < MaxWeeksInMonth; week++)
                 _weekProgressContainers[week].UpdateMonthWeeklyProgress(monthData, week, isInMonth);
         }
     }

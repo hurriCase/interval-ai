@@ -7,12 +7,15 @@ namespace Source.Scripts.Data.Repositories.Progress
 {
     internal sealed class DateProgressHelper : IDateProgressHelper
     {
-        private static readonly DailyProgress[] _monthProgressData = new DailyProgress[42]; // 6 weeks * 7 days = 42
-        private static readonly bool[] _isInMonth = new bool[42];
-        private static int _lastMonth = -1;
-        private static int _lastYear = -1;
+        private readonly DailyProgress[] _monthProgressData = new DailyProgress[CalendarWeeks * DaysPerWeek];
+        private readonly bool[] _isInMonth = new bool[CalendarWeeks * DaysPerWeek];
+        private int _lastMonth = -1;
+        private int _lastYear = -1;
 
-        private static readonly DailyProgress[] _currentWeek = new DailyProgress[7];
+        private const int CalendarWeeks = 6;
+        private const int DaysPerWeek = 7;
+
+        private readonly DailyProgress[] _currentWeek = new DailyProgress[DaysPerWeek];
 
         private readonly IProgressRepository _progressRepository;
         private readonly IUserRepository _userRepository;
@@ -27,9 +30,8 @@ namespace Source.Scripts.Data.Repositories.Progress
         {
             var today = DateTime.Now.Date;
             var currentWeekStart = GetFirstDayOfWeek(today);
-            var progressEntry = ProgressRepository.Instance.ProgressHistory.Value;
-            for (var i = 0; i < 7; i++)
             var progressEntry = _progressRepository.ProgressHistory.Value;
+            for (var i = 0; i < DaysPerWeek; i++)
             {
                 var date = currentWeekStart.AddDays(i);
                 _currentWeek[i] = progressEntry.TryGetValue(date, out var progress)
@@ -47,8 +49,7 @@ namespace Source.Scripts.Data.Repositories.Progress
 
             var monthStart = new DateTime(year, month, 1);
             var firstWeekStart = GetFirstDayOfWeek(monthStart);
-            var calendarEnd = firstWeekStart.AddDays(41);
-            var progressEntry = ProgressRepository.Instance.ProgressHistory.Value;
+            var calendarEnd = firstWeekStart.AddDays(CalendarWeeks * DaysPerWeek - 1);
             var progressEntry = _progressRepository.ProgressHistory.Value;
             var dayIndex = 0;
 
@@ -96,7 +97,7 @@ namespace Source.Scripts.Data.Repositories.Progress
         {
             var firstDayOfWeek = _userRepository.CurrentCulture.Value.DateTimeFormat.FirstDayOfWeek;
 
-            return ((int)date.DayOfWeek - (int)firstDayOfWeek + 7) % 7;
+            return ((int)date.DayOfWeek - (int)firstDayOfWeek + DaysPerWeek) % DaysPerWeek;
         }
     }
 }
