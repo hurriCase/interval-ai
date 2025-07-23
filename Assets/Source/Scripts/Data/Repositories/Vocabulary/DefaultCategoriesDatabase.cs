@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Source.Scripts.Data.Repositories.Vocabulary
 {
-    [Resource(ResourcePaths.ResourcePath, nameof(DefaultCategoriesDatabase))]
+    [Resource(ResourcePaths.DatabaseFullPath, nameof(DefaultCategoriesDatabase), ResourcePaths.DatabaseResourcePath)]
     internal sealed class DefaultCategoriesDatabase : SingletonScriptableObject<DefaultCategoriesDatabase>
     {
         [field: SerializeField] internal List<CategoryEntry> Categories { get; private set; }

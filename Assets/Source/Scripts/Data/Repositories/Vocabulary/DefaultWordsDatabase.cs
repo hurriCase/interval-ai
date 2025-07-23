@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Source.Scripts.Data.Repositories.Vocabulary
 {
-    [Resource(ResourcePaths.ResourcePath, nameof(DefaultWordsDatabase))]
+    [Resource(ResourcePaths.DatabaseFullPath, nameof(DefaultWordsDatabase), ResourcePaths.DatabaseResourcePath)]
     internal sealed class DefaultWordsDatabase : SingletonScriptableObject<DefaultWordsDatabase>
     {
         [field: SerializeField] internal List<WordEntry> WordEntries { get; private set; }

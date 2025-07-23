@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours.Progress
 {
-    [Resource(ResourcePaths.ResourcePath, nameof(ProgressDescriptionsDatabase))]
+    [Resource(ResourcePaths.DatabaseFullPath, nameof(ProgressDescriptionsDatabase), ResourcePaths.DatabaseResourcePath)]
     internal sealed class ProgressDescriptionsDatabase : SingletonScriptableObject<ProgressDescriptionsDatabase>
     {
         [field: SerializeField] internal List<ProgressDescriptionData> DescriptionLocalizations { get; private set; }

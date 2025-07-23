@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Source.Scripts.Data.Repositories.User
 {
-    [Resource(ResourcePaths.ResourcePath, nameof(DefaultUserDataDatabase))]
+    [Resource(ResourcePaths.DatabaseFullPath, nameof(DefaultUserDataDatabase), ResourcePaths.DatabaseResourcePath)]
     internal sealed class DefaultUserDataDatabase : SingletonScriptableObject<DefaultUserDataDatabase>
     {
         [field: SerializeField] internal List<CooldownByDate> DefaultCooldowns { get; private set; }

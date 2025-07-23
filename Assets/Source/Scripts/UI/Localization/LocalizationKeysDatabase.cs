@@ -8,11 +8,10 @@ using Source.Scripts.UI.Localization.Date;
 using Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Base;
 using Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.LearningComplete;
 using UnityEngine;
-using ResourcePaths = Source.Scripts.Core.ResourcePaths;
 
 namespace Source.Scripts.UI.Localization
 {
-    [Resource(ResourcePaths.ResourcePath, nameof(LocalizationKeysDatabase))]
+    [Resource(ResourcePaths.DatabaseFullPath, nameof(LocalizationKeysDatabase), ResourcePaths.DatabaseResourcePath)]
     internal sealed class LocalizationKeysDatabase : SingletonScriptableObject<LocalizationKeysDatabase>
     {
         [SerializeField] private EnumArray<LocalizationType, string> _localizationData = new(EnumMode.SkipFirst);
