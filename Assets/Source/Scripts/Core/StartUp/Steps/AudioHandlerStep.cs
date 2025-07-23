@@ -4,9 +4,12 @@ using Source.Scripts.Core.Audio;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace Source.Scripts.Core.StartUp
+namespace Source.Scripts.Core.StartUp.Steps
 {
-    [CreateAssetMenu(fileName = nameof(AudioHandlerStep), menuName = nameof(AudioHandlerStep))]
+    [CreateAssetMenu(
+        fileName = nameof(AudioHandlerStep),
+        menuName = ResourcePaths.StepsPath + nameof(AudioHandlerStep)
+    )]
     internal sealed class AudioHandlerStep : StepBase
     {
         [SerializeField] private AssetReferenceT<AudioHandler> _audioHandler;

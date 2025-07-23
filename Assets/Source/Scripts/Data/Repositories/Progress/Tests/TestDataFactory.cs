@@ -11,10 +11,6 @@ namespace Source.Scripts.Data.Repositories.Progress.Tests
         internal TestDataFactory(IProgressRepository progressRepository)
         {
             _progressRepository = progressRepository;
-
-#if IS_DEBUG && UNITY_EDITOR
-            CreateFakeProgress();
-#endif
         }
 
         public void CreateFakeProgress()

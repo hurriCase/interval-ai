@@ -13,6 +13,7 @@ namespace Source.Scripts.Core.StartUp
     internal sealed class StartUpService : IAsyncStartable
     {
         [Inject] private ISceneLoader _sceneLoader;
+        [Inject] private IObjectResolver _objectResolver;
 
         private readonly List<StepBase> _stepsList;
 
@@ -39,6 +40,7 @@ namespace Source.Scripts.Core.StartUp
                                                                 $"Step {stepData.Step} completed: {stepData.StepName}"))
                         .RegisterTo(token);
 
+                    _objectResolver.Inject(_stepsList[i]);
                     await _stepsList[i].Execute(i, token);
                 }
             }

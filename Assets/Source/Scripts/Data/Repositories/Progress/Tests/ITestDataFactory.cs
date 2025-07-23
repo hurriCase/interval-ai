@@ -1,6 +1,6 @@
 ﻿namespace Source.Scripts.Data.Repositories.Progress.Tests
 {
-    public interface ITestDataFactory
+    internal interface ITestDataFactory
     {
         void CreateFakeProgress();
     }
