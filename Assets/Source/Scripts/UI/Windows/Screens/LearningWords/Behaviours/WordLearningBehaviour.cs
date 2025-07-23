@@ -8,6 +8,7 @@ using Source.Scripts.UI.Windows.Base;
 using Source.Scripts.UI.Windows.Shared;
 using TMPro;
 using UnityEngine;
+using VContainer;
 
 namespace Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours
 {
@@ -20,15 +21,19 @@ namespace Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours
 
         [SerializeField] private PlusMinusBehaviour _plusMinusBehaviour;
 
+        [Inject] private IWindowsController _windowsController;
+        [Inject] private IProgressRepository _progressRepository;
+
         internal void Init()
         {
             _plusMinusBehaviour.Init();
 
             _startPracticeButton.OnClickAsObservable()
-                .Subscribe(static _ => WindowsController.Instance.OpenPopUpByType(PopUpType.WordPractice))
+                .Subscribe(_windowsController,
+                    static (_, controller) => controller.OpenPopUpByType(PopUpType.WordPractice))
                 .RegisterTo(destroyCancellationToken);
 
-            ProgressRepository.Instance.ProgressHistory
+            _progressRepository.ProgressHistory
                 .Subscribe(this, static (progress, behaviour) =>
                 {
                     var repeatableCount =
@@ -42,7 +47,7 @@ namespace Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours
                 })
                 .RegisterTo(destroyCancellationToken);
 
-            ProgressRepository.Instance.DailyWordsGoal
+            _progressRepository.DailyWordsGoal
                 .Subscribe(this, static (goal, behaviour) =>
                     behaviour._learnGoalText.text = string.Format(LocalizationType.LearnGoal.GetLocalization(), goal))
                 .RegisterTo(destroyCancellationToken);

@@ -1,7 +1,10 @@
-﻿using Source.Scripts.Data.Repositories.Vocabulary.Entries;
+﻿using Source.Scripts.Data.Repositories.User;
+using Source.Scripts.Data.Repositories.Vocabulary;
+using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using VContainer;
 
 namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Modules.Base
 {
@@ -10,6 +13,8 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Modules.Base
         [SerializeField] protected Image descriptiveImage;
         [SerializeField] protected TextMeshProUGUI shownWordText;
         [SerializeField] protected TransitionButtonData[] transitionButtons;
+
+        [Inject] protected IUserRepository userRepository;
 
         protected WordEntry currentWord;
 
@@ -31,7 +36,7 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Modules.Base
             if (descriptiveImage)
                 descriptiveImage.sprite = currentWord.DescriptiveImage;
 
-            shownWordText.text = currentWord.ShownWord;
+            shownWordText.text = currentWord.GetShownWord(userRepository);
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using CustomUtils.Runtime.CustomTypes.Singletons;
 using CustomUtils.Runtime.Storage;
 using Source.Scripts.Data.Repositories.Progress.Entries;
 using System.Collections.Generic;
@@ -8,31 +7,31 @@ using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 
 namespace Source.Scripts.Data.Repositories.Progress
 {
-    internal sealed class ProgressRepository : Singleton<ProgressRepository>, IDisposable
+    internal sealed class ProgressRepository : IProgressRepository, IDisposable
     {
-        internal PersistentReactiveProperty<EnumArray<LearningState, int>> TotalCountByState { get; } =
+        public PersistentReactiveProperty<EnumArray<LearningState, int>> TotalCountByState { get; } =
             new(PersistentPropertyKeys.TotalCountByStateKey, new EnumArray<LearningState, int>(EnumMode.SkipFirst));
-        internal PersistentReactiveProperty<int> DailyWordsGoal { get; } =
+        public PersistentReactiveProperty<int> DailyWordsGoal { get; } =
             new(PersistentPropertyKeys.DailyGoalKey, DefaultDailyWordsGoal);
 
-        internal PersistentReactiveProperty<int> CurrentStreak { get; } = new(PersistentPropertyKeys.CurrentStreakKey);
-        internal PersistentReactiveProperty<int> BestStreak { get; } = new(PersistentPropertyKeys.BestStreakKey);
+        public PersistentReactiveProperty<int> CurrentStreak { get; } = new(PersistentPropertyKeys.CurrentStreakKey);
+        public PersistentReactiveProperty<int> BestStreak { get; } = new(PersistentPropertyKeys.BestStreakKey);
 
-        internal PersistentReactiveProperty<Dictionary<DateTime, DailyProgress>> ProgressHistory { get; } =
+        public PersistentReactiveProperty<Dictionary<DateTime, DailyProgress>> ProgressHistory { get; } =
             new(PersistentPropertyKeys.ProgressEntryKey, new Dictionary<DateTime, DailyProgress>());
 
-        internal int NewWordsCount => ProgressHistory.Value.TryGetValue(DateTime.Now.Date, out var todayProgress)
+        public int NewWordsCount => ProgressHistory.Value.TryGetValue(DateTime.Now.Date, out var todayProgress)
             ? todayProgress.NewWordsCount
             : 0;
 
-        internal int ReviewCount => ProgressHistory.Value.TryGetValue(DateTime.Now.Date, out var todayProgress)
+        public int ReviewCount => ProgressHistory.Value.TryGetValue(DateTime.Now.Date, out var todayProgress)
             ? todayProgress.ReviewCount
             : 0;
 
         private const int DefaultDailyWordsGoal = 10;
         private IDisposable _disposable;
 
-        internal void Init()
+        internal ProgressRepository()
         {
             var yesterdayDate = DateTime.Now.Date.AddDays(-1);
             ProgressHistory.Value.TryGetValue(yesterdayDate, out var lastDayProgress);
@@ -41,14 +40,33 @@ namespace Source.Scripts.Data.Repositories.Progress
                 CurrentStreak.Value = 0;
         }
 
-        internal void IncreaseTotalCount(LearningState state)
+        public void AddProgressToEntry(LearningState learningState, DateTime date)
+        {
+            var dateOnly = date.Date;
+
+            if (ProgressHistory.Value.TryGetValue(dateOnly, out var dailyProgress) is false)
+            {
+                dailyProgress = new DailyProgress(dateOnly);
+                ProgressHistory.Value[dateOnly] = dailyProgress;
+            }
+
+            dailyProgress.AddProgress(learningState);
+
+            if (learningState == LearningState.CurrentlyLearning)
+                ProcessNewWordProgress(ref dailyProgress);
+
+            ProgressHistory.Value[dateOnly] = dailyProgress;
+            IncreaseTotalCount(learningState);
+        }
+
+        public void IncreaseTotalCount(LearningState state)
         {
             var totalCountByState = TotalCountByState.Value;
             totalCountByState[state]++;
             TotalCountByState.Value = totalCountByState;
         }
 
-        internal void IncrementNewWordsCount()
+        public void IncrementNewWordsCount()
         {
             var today = DateTime.Now.Date;
             if (ProgressHistory.Value.TryGetValue(today, out var todayProgress) is false)
@@ -61,7 +79,7 @@ namespace Source.Scripts.Data.Repositories.Progress
             ProgressHistory.Value[today] = todayProgress;
         }
 
-        internal void IncrementReviewCount()
+        public void IncrementReviewCount()
         {
             var today = DateTime.Now.Date;
             if (ProgressHistory.Value.TryGetValue(today, out var todayProgress) is false)
@@ -79,5 +97,21 @@ namespace Source.Scripts.Data.Repositories.Progress
             _disposable?.Dispose();
             ProgressHistory.Dispose();
         }
+
+        private void ProcessNewWordProgress(ref DailyProgress dailyProgress)
+        {
+            if (dailyProgress.GoalAchieved || GetProgressForDailyGoal(ref dailyProgress) < DailyWordsGoal.Value)
+                return;
+
+            CurrentStreak.Value++;
+
+            if (CurrentStreak.Value > BestStreak.Value)
+                BestStreak.Value = CurrentStreak.Value;
+
+            dailyProgress.GoalAchieved = true;
+        }
+
+        private int GetProgressForDailyGoal(ref DailyProgress dailyProgress)
+            => dailyProgress.ProgressByState[LearningState.CurrentlyLearning];
     }
 }

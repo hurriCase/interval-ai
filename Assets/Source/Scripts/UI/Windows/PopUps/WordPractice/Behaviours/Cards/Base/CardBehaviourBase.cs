@@ -2,12 +2,15 @@
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions;
 using R3;
+using Source.Scripts.Data.Repositories.Progress;
+using Source.Scripts.Data.Repositories.Vocabulary;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.LearningComplete;
 using Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Swipe;
 using Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Modules.Base;
 using TMPro;
 using UnityEngine;
+using VContainer;
 
 namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Base
 {
@@ -24,6 +27,9 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Base
 
         [SerializeField] private SwipeCardBehaviour _swipeCardBehaviour;
         [SerializeField] private WordProgressBehaviour _wordProgressBehaviour;
+
+        [Inject] protected IVocabularyRepository vocabularyRepository;
+        [Inject] protected IProgressRepository progressRepository;
 
         public WordEntry CurrentWord { get; protected set; }
 

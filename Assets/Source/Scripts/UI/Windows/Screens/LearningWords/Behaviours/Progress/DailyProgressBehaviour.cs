@@ -9,6 +9,7 @@ using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using Source.Scripts.UI.Localization;
 using TMPro;
 using UnityEngine;
+using VContainer;
 using ZLinq;
 
 namespace Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours.Progress
@@ -20,22 +21,23 @@ namespace Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours.Progress
         [SerializeField] private TextMeshProUGUI _progressDescriptionText;
         [SerializeField] private RoundedFilledImageComponent _progressComponent;
 
+        [Inject] private IProgressRepository _progressRepository;
+
         private ProgressDescriptionsDatabase ProgressDescriptionsDatabase => ProgressDescriptionsDatabase.Instance;
-        private ProgressRepository ProgressRepository => ProgressRepository.Instance;
 
         internal void Init()
         {
-            ProgressRepository.ProgressHistory
+            _progressRepository.ProgressHistory
                 .AsObservable()
                 .DistinctUntilChangedBy(progress => progress)
                 .Subscribe(this, (progressEntry, behaviour) => behaviour.UpdateProgress(progressEntry));
 
-            UpdateProgress(ProgressRepository.ProgressHistory.Value);
+            UpdateProgress(_progressRepository.ProgressHistory.Value);
         }
 
         private void UpdateProgress(Dictionary<DateTime, DailyProgress> progressHistory)
         {
-            var dailyGoal = Mathf.Max(1, ProgressRepository.DailyWordsGoal.Value);
+            var dailyGoal = Mathf.Max(1, _progressRepository.DailyWordsGoal.Value);
             var learnedCount = progressHistory.TryGetValue(DateTime.Now, out var dailyProgress)
                 ? Mathf.Max(0, dailyProgress.GetProgressCountData(LearningState.CurrentlyLearning))
                 : 0;

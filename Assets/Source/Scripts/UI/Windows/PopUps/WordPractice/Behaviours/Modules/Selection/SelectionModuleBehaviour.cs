@@ -1,6 +1,7 @@
 ﻿using Source.Scripts.Data.Repositories.Vocabulary;
 using Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Modules.Base;
 using UnityEngine;
+using VContainer;
 using ZLinq;
 
 namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Modules.Selection
@@ -9,13 +10,15 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Modules.Selec
     {
         [SerializeField] private WordSelectionItem[] _wordSelectionItems = new WordSelectionItem[SelectionCount];
 
+        [Inject] private IVocabularyRepository _vocabularyRepository;
+
         private const int SelectionCount = 4;
 
         protected override void UpdateView()
         {
             base.UpdateView();
 
-            var randomWords = VocabularyRepository.Instance.GetRandomWords(currentWord, SelectionCount - 1);
+            var randomWords = _vocabularyRepository.GetRandomWords(currentWord, SelectionCount - 1);
             var correctWordIndex = Random.Range(0, SelectionCount);
 
             var index = -1;
@@ -25,10 +28,10 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Modules.Selec
                 if (index == correctWordIndex)
                     index++;
 
-                _wordSelectionItems[index].Word.text = wordEntry.HiddenWord;
+                _wordSelectionItems[index].Word.text = wordEntry.GetHiddenWord(userRepository);
             }
 
-            _wordSelectionItems[correctWordIndex].Word.text = currentWord.HiddenWord;
+            _wordSelectionItems[correctWordIndex].Word.text = currentWord.GetHiddenWord(userRepository);
         }
     }
 }

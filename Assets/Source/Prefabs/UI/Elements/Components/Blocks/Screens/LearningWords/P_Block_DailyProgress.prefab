@@ -480,7 +480,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3766352247999521383, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
       propertyPath: m_Name
-      value: P_Block_Progress
+      value: P_Block_DailyProgress
       objectReference: {fileID: 0}
     - target: {fileID: 3957450924179979957, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
       propertyPath: m_AnchorMax.x
@@ -651,88 +651,6 @@ MonoBehaviour:
   _titleText: {fileID: 283201728122952292}
   _progressDescriptionText: {fileID: 472015013504062277}
   _progressComponent: {fileID: 533911732689778490}
-  _progressDescriptionLocalizations:
-  - <TitleKey>k__BackingField: ui.learning-words.progress.title-zero
-    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.zero-start
-    <Type>k__BackingField: 1
-    <Percent>k__BackingField:
-      _randomStart: 0
-      _randomEnd: 0
-  - <TitleKey>k__BackingField: ui.learning-words.progress.title-zero-ready
-    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.zero-motivation
-    <Type>k__BackingField: 1
-    <Percent>k__BackingField:
-      _randomStart: 0
-      _randomEnd: 0
-  - <TitleKey>k__BackingField: ui.learning-words.progress.title-zero-lets-go
-    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.zero-challenge
-    <Type>k__BackingField: 1
-    <Percent>k__BackingField:
-      _randomStart: 0
-      _randomEnd: 0
-  - <TitleKey>k__BackingField: ui.learning-words.progress.title-low
-    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.low-encouragement
-    <Type>k__BackingField: 2
-    <Percent>k__BackingField:
-      _randomStart: 5
-      _randomEnd: 25
-  - <TitleKey>k__BackingField: ui.learning-words.progress.title-low-momentum
-    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.low-momentum
-    <Type>k__BackingField: 2
-    <Percent>k__BackingField:
-      _randomStart: 5
-      _randomEnd: 25
-  - <TitleKey>k__BackingField: ui.learning-words.progress.title-low-progress
-    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.low-progress
-    <Type>k__BackingField: 2
-    <Percent>k__BackingField:
-      _randomStart: 5
-      _randomEnd: 25
-  - <TitleKey>k__BackingField: ui.learning-words.progress.title-medium
-    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.medium-halfway
-    <Type>k__BackingField: 3
-    <Percent>k__BackingField:
-      _randomStart: 5
-      _randomEnd: 25
-  - <TitleKey>k__BackingField: ui.learning-words.progress.title-medium-halfway
-    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.medium-strong
-    <Type>k__BackingField: 3
-    <Percent>k__BackingField:
-      _randomStart: 5
-      _randomEnd: 25
-  - <TitleKey>k__BackingField: ui.learning-words.progress.title-medium-strong
-    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.medium-climbing
-    <Type>k__BackingField: 3
-    <Percent>k__BackingField:
-      _randomStart: 5
-      _randomEnd: 25
-  - <TitleKey>k__BackingField: ui.learning-words.progress.title-high
-    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.high-excellent
-    <Type>k__BackingField: 3
-    <Percent>k__BackingField:
-      _randomStart: 5
-      _randomEnd: 25
-  - <TitleKey>k__BackingField: ui.learning-words.progress.title-high-champion
-    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.high-champion
-    <Type>k__BackingField: 3
-    <Percent>k__BackingField:
-      _randomStart: 40
-      _randomEnd: 90
-  - <TitleKey>k__BackingField: ui.learning-words.progress.title-high-amazing
-    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.high-outstanding
-    <Type>k__BackingField: 3
-    <Percent>k__BackingField:
-      _randomStart: 40
-      _randomEnd: 90
-  _lowMediumTransitionRandom:
-    _randomStart: 4
-    _randomEnd: 7
-  _mediumHighTransitionRandom:
-    _randomStart: 14
-    _randomEnd: 20
-  _defaultRandomPercent:
-    _randomStart: 20
-    _randomEnd: 50
 --- !u!224 &8766526811765457461 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8629539679633799983, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}

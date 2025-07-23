@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using CustomUtils.Runtime.CustomTypes.Collections;
-using CustomUtils.Runtime.CustomTypes.Singletons;
 using CustomUtils.Runtime.Storage;
 using R3;
 using Source.Scripts.Data.Repositories.Progress;
@@ -14,9 +12,9 @@ using Random = UnityEngine.Random;
 
 namespace Source.Scripts.Data.Repositories.Vocabulary
 {
-    internal sealed class VocabularyRepository : Singleton<VocabularyRepository>, IDisposable
+    internal sealed class VocabularyRepository : IVocabularyRepository, IDisposable
     {
-        internal PersistentReactiveProperty<List<CategoryEntry>> CategoryEntries { get; } =
+        private PersistentReactiveProperty<List<CategoryEntry>> CategoryEntries { get; } =
             new(PersistentPropertyKeys.CategoryEntryKey, DefaultCategoriesDatabase.Instance.Categories);
 
         private PersistentReactiveProperty<List<WordEntry>> WordEntries { get; } =
@@ -32,8 +30,14 @@ namespace Source.Scripts.Data.Repositories.Vocabulary
 
         private static readonly WordCooldownComparer _comparer = new();
 
-        internal void Init()
+        private readonly IProgressRepository _progressRepository;
+        private readonly IUserRepository _userRepository;
+
+        internal VocabularyRepository(IProgressRepository progressRepository, IUserRepository userRepository)
         {
+            _progressRepository = progressRepository;
+            _userRepository = userRepository;
+
             foreach (var word in WordEntries.Value)
                 SortedWordsByState[word.LearningState].Add(word);
 
@@ -54,19 +58,22 @@ namespace Source.Scripts.Data.Repositories.Vocabulary
             }
         }
 
-        internal WordEntry GetAvailableWord(LearningState learningState) =>
+        public List<CategoryEntry> GetCategories() => CategoryEntries.Value;
+
+        public WordEntry GetAvailableWord(LearningState learningState) =>
             SortedWordsByState[learningState].Count > 0
                 ? SortedWordsByState[learningState].AsValueEnumerable().FirstOrDefault(word => word.IsHidden is false)
                 : null;
 
-        internal ValueEnumerable<OrderBySkipTake<ListWhere<WordEntry>, WordEntry, float>, WordEntry>
+        //TODO:<Dmitriy.Sukharev> Refactor
+        public ValueEnumerable<OrderBySkipTake<ListWhere<WordEntry>, WordEntry, float>, WordEntry>
             GetRandomWords(WordEntry wordToSkip, int count) =>
             WordEntries.Value.AsValueEnumerable()
                 .Where(word => word != wordToSkip && word.IsHidden is false)
                 .OrderBy(_ => Random.value)
                 .Take(count);
 
-        internal void AdvanceWord(WordEntry word, bool success)
+        public void AdvanceWord(WordEntry word, bool success)
         {
             if (success)
                 HandleSuccess(word);
@@ -76,7 +83,7 @@ namespace Source.Scripts.Data.Repositories.Vocabulary
             WordEntries.SaveAsync();
         }
 
-        private void HandleSuccess(WordEntry word)
+        public void HandleSuccess(WordEntry word)
         {
             SortedWordsByState[word.LearningState].Remove(word);
 
@@ -92,13 +99,13 @@ namespace Source.Scripts.Data.Repositories.Vocabulary
 
                     AdvanceCooldown(word);
 
-                    ProgressRepository.Instance.IncrementNewWordsCount();
+                    _progressRepository.IncrementNewWordsCount();
                     break;
 
                 case LearningState.Repeatable:
-                    ProgressRepository.Instance.IncrementReviewCount();
+                    _progressRepository.IncrementReviewCount();
 
-                    if (word.RepetitionCount >= UserRepository.Instance.RepetitionByCooldown.Value.Count)
+                    if (word.RepetitionCount >= _userRepository.RepetitionByCooldown.Value.Count)
                     {
                         word.LearningState = LearningState.Studied;
                         break;
@@ -119,7 +126,7 @@ namespace Source.Scripts.Data.Repositories.Vocabulary
             SortedWordsByState[word.LearningState].Add(word);
         }
 
-        private void HandleFailure(WordEntry word)
+        public void HandleFailure(WordEntry word)
         {
             SortedWordsByState[word.LearningState].Remove(word);
 
@@ -146,14 +153,14 @@ namespace Source.Scripts.Data.Repositories.Vocabulary
             SortedWordsByState[word.LearningState].Add(word);
         }
 
-        private void AdvanceCooldown(WordEntry word)
+        public void AdvanceCooldown(WordEntry word)
         {
             var oldState = word.LearningState;
 
-            if (word.RepetitionCount >= UserRepository.Instance.RepetitionByCooldown.Value.Count)
+            if (word.RepetitionCount >= _userRepository.RepetitionByCooldown.Value.Count)
                 return;
 
-            var cooldownData = UserRepository.Instance.RepetitionByCooldown.Value[word.RepetitionCount];
+            var cooldownData = _userRepository.RepetitionByCooldown.Value[word.RepetitionCount];
             word.Cooldown = cooldownData.AddToDateTime(DateTime.Now);
 
             UpdateTimerForState(oldState);
@@ -162,7 +169,7 @@ namespace Source.Scripts.Data.Repositories.Vocabulary
             WordEntries.SaveAsync();
         }
 
-        private void UpdateTimerForState(LearningState learningState)
+        public void UpdateTimerForState(LearningState learningState)
         {
             var sortedWords = SortedWordsByState[learningState];
             if (sortedWords.Count == 0)

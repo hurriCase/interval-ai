@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Source.Scripts.Data.Repositories.User
 {
-    internal sealed class UserRepository : Singleton<UserRepository>, IDisposable
+    internal sealed class UserRepository : IUserRepository, IDisposable
     {
         public PersistentReactiveProperty<string> Nickname { get; } = new(PersistentPropertyKeys.UserNameKey,
             DefaultUserDataDatabase.Instance.Name);

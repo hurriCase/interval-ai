@@ -1,4 +1,5 @@
 ﻿using R3;
+using Source.Scripts.Data.Repositories.Vocabulary;
 using Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Modules.Base;
 using TMPro;
 using UnityEngine;
@@ -20,10 +21,11 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Modules
             _hintButton.OnClickAsObservable()
                 .Subscribe(this, (_, behaviour) =>
                 {
-                    if (behaviour._shownSymbolCount >= behaviour.currentWord.HiddenWord.Length)
+                    var hiddenWord = behaviour.currentWord.GetHiddenWord(userRepository);
+                    if (behaviour._shownSymbolCount >= hiddenWord.Length)
                         return;
 
-                    behaviour._inputField.text += behaviour.currentWord.HiddenWord[behaviour._shownSymbolCount];
+                    behaviour._inputField.text += hiddenWord[behaviour._shownSymbolCount];
                     behaviour._shownSymbolCount++;
                 })
                 .RegisterTo(destroyCancellationToken);

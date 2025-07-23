@@ -2,8 +2,6 @@
 using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Localization;
 using R3;
-using Source.Scripts.Data.Repositories.Progress;
-using Source.Scripts.Data.Repositories.Vocabulary;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using Source.Scripts.UI.Localization;
 using Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Base;
@@ -19,7 +17,7 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.CardTyp
 
             learningCompleteBehaviour.Init(PracticeState.NewWords);
 
-            ProgressRepository.Instance.ProgressHistory
+            progressRepository.ProgressHistory
                 .AsObservable()
                 .Select(progressHistory => progressHistory
                     .TryGetValue(DateTime.Now, out var todayProgress) && todayProgress.GoalAchieved)
@@ -28,7 +26,7 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.CardTyp
                 .Subscribe(this, (_, card) =>
                 {
                     card.learningCompleteBehaviour.SetState(CompleteState.NoWords,
-                        ProgressRepository.Instance.NewWordsCount.ToString());
+                        progressRepository.NewWordsCount.ToString());
                     card.cardContainer.SetActive(false);
                     card.learningCompleteBehaviour.SetActive(true);
                 })
@@ -37,10 +35,10 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.CardTyp
 
         internal override void UpdateWord()
         {
-            CurrentWord = VocabularyRepository.Instance.GetAvailableWord(LearningState.None);
+            CurrentWord = vocabularyRepository.GetAvailableWord(LearningState.None);
 
             if (CurrentWord is null || CurrentWord.IsValid is false)
-                CurrentWord = VocabularyRepository.Instance.GetAvailableWord(LearningState.CurrentlyLearning);
+                CurrentWord = vocabularyRepository.GetAvailableWord(LearningState.CurrentlyLearning);
 
             base.UpdateWord();
         }
@@ -51,7 +49,7 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.CardTyp
 
             SwitchModule(ModuleType.OnlyQuestion);
 
-            var wordsCount = ProgressRepository.Instance.NewWordsCount;
+            var wordsCount = progressRepository.NewWordsCount;
             var localizationKey = LocalizationKeysDatabase.Instance.GetLearnedCountLocalization(wordsCount);
 
             learnedText.text = string.Format(LocalizationController.Localize(localizationKey), wordsCount);

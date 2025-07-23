@@ -7,6 +7,7 @@ using Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours.LearningStarts;
 using Source.Scripts.UI.Windows.Shared;
 using TMPro;
 using UnityEngine;
+using VContainer;
 
 namespace Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours
 {
@@ -17,6 +18,8 @@ namespace Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours
         [SerializeField] private ButtonComponent _previousMonthButton;
         [SerializeField] private ButtonComponent _nextMonthButton;
         [SerializeField] private WeekProgressContainer[] _weekProgressContainers = new WeekProgressContainer[6];
+        [Inject] private IDateProgressHelper _dateProgressHelper;
+        [Inject] private IUserRepository _userRepository;
 
         private int _currentYear;
         private int _currentMonth;
@@ -64,9 +67,9 @@ namespace Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours
 
         private void UpdateCalendarDisplay()
         {
-            var (monthData, isInMonth) = DateProgressHelper.GetMonthWeeks(_currentYear, _currentMonth);
+            var (monthData, isInMonth) = _dateProgressHelper.GetMonthWeeks(_currentYear, _currentMonth);
             _currentMonthText.text =
-                UserRepository.Instance.CurrentCulture.Value.DateTimeFormat.GetMonthName(_currentMonth);
+                _userRepository.CurrentCulture.Value.DateTimeFormat.GetMonthName(_currentMonth);
 
             for (var week = 0; week < 6; week++)
                 _weekProgressContainers[week].UpdateMonthWeeklyProgress(monthData, week, isInMonth);

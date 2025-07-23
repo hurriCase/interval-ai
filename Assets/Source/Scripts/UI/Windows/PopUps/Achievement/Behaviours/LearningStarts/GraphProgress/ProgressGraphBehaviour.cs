@@ -11,6 +11,7 @@ using Source.Scripts.UI.Windows.Shared;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using VContainer;
 
 namespace Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours.LearningStarts.GraphProgress
 {
@@ -29,6 +30,8 @@ namespace Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours.LearningStarts
         [SerializeField] private UILineRenderer _uiLineRenderer;
 
         [SerializeField] private EnumArray<LearningState, UILineRenderer> _graphLines = new(EnumMode.SkipFirst);
+
+        [Inject] private IDateProgressHelper _dateProgressHelper;
 
         private ProgressGraphSettings ProgressGraphSettings => ProgressGraphSettings.Instance;
 
@@ -100,7 +103,8 @@ namespace Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours.LearningStarts
                     var segmentEnd = (int)(daysPerSegment * (segmentIndex + 1));
                     var segmentDuration = Math.Max(1, segmentEnd - segmentStart);
 
-                    var progress = DateProgressHelper.GetProgressForRange(segmentStart, segmentDuration, learningState);
+                    var progress =
+                        _dateProgressHelper.GetProgressForRange(segmentStart, segmentDuration, learningState);
                     progressPoints.Add(new GraphProgressData(i, progress));
                     maxProgress = Math.Max(maxProgress, progress);
                 }

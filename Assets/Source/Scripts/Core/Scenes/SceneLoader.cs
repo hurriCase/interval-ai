@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.Helpers;
 using UnityEngine;
@@ -8,11 +9,14 @@ using UnityEngine.SceneManagement;
 
 namespace Source.Scripts.Core.Scenes
 {
-    internal static class SceneLoader
+    internal sealed class SceneLoader : ISceneLoader
     {
         private static SceneInstance _sceneInstance;
 
-        internal static async UniTask LoadSceneAsync(string sceneAddress, LoadSceneMode loadMode = LoadSceneMode.Single)
+        public async UniTask LoadSceneAsync(
+            string sceneAddress,
+            CancellationToken token,
+            LoadSceneMode loadMode = LoadSceneMode.Single)
         {
             try
             {
@@ -22,7 +26,7 @@ namespace Source.Scripts.Core.Scenes
 
                 AddressablesLogger.Log($"[SceneLoader::LoadSceneAsync] Start loading scene: {sceneAddress}");
 
-                var currentScene = await Addressables.LoadSceneAsync(sceneAddress, loadMode);
+                var currentScene = await Addressables.LoadSceneAsync(sceneAddress, loadMode).WithCancellation(token);
 
                 AddressablesLogger.Log($"[SceneLoader::LoadSceneAsync] Scene loaded successfully: {sceneAddress}");
 
@@ -37,7 +41,7 @@ namespace Source.Scripts.Core.Scenes
             }
         }
 
-        private static void TryUnloadScene(SceneInstance sceneInstance)
+        public void TryUnloadScene(SceneInstance sceneInstance)
         {
             if (sceneInstance.Scene.IsValid() is false)
                 return;

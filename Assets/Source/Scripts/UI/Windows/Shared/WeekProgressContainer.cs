@@ -3,6 +3,7 @@ using Source.Scripts.Data.Repositories.Progress;
 using Source.Scripts.Data.Repositories.Progress.Entries;
 using Source.Scripts.Data.Repositories.User;
 using UnityEngine;
+using VContainer;
 
 namespace Source.Scripts.UI.Windows.Shared
 {
@@ -11,6 +12,9 @@ namespace Source.Scripts.UI.Windows.Shared
         [SerializeField] private ProgressColorMapping _progressColorMapping;
         [SerializeField] private ActivityMapping _activityMapping;
         [SerializeField] private List<ProgressItem> _progressItems;
+
+        [Inject] private IUserRepository _userRepository;
+        [Inject] private IDateProgressHelper _dateProgressHelper;
 
         internal void UpdateMonthWeeklyProgress(DailyProgress[] monthData, int weekIndex, bool[] isInMonth)
         {
@@ -34,9 +38,8 @@ namespace Source.Scripts.UI.Windows.Shared
 
         internal void UpdateCurrentWeeklyProgress()
         {
-            var weekAbbreviatedNames =
-                UserRepository.Instance.CurrentCulture.Value.DateTimeFormat.AbbreviatedDayNames;
-            var currentWeek = DateProgressHelper.GetCurrentWeek();
+            var weekAbbreviatedNames = _userRepository.CurrentCulture.Value.DateTimeFormat.AbbreviatedDayNames;
+            var currentWeek = _dateProgressHelper.GetCurrentWeek();
 
             for (var day = 0; day < 7; day++)
             {

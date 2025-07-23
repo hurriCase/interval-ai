@@ -3,6 +3,7 @@ using R3;
 using Source.Scripts.Data.Repositories.User;
 using TMPro;
 using UnityEngine;
+using VContainer;
 
 namespace Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours.LearningStarts
 {
@@ -10,9 +11,11 @@ namespace Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours.LearningStarts
     {
         [SerializeField] private TextMeshProUGUI[] _weekDayTexts = new TextMeshProUGUI[7];
 
+        [Inject] private IUserRepository _userRepository;
+
         internal void Init()
         {
-            UserRepository.Instance.CurrentCulture
+            _userRepository.CurrentCulture
                 .Subscribe(this, (culture, behaviour) => behaviour.UpdateWeekDays(culture))
                 .RegisterTo(destroyCancellationToken);
         }

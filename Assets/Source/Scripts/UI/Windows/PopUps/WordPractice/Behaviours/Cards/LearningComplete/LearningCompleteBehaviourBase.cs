@@ -7,6 +7,7 @@ using Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Base;
 using Source.Scripts.UI.Windows.Shared;
 using TMPro;
 using UnityEngine;
+using VContainer;
 
 namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.LearningComplete
 {
@@ -27,11 +28,13 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Learnin
 
         [SerializeField] protected ButtonComponent exitButton;
 
-        protected PracticeState practiceState;
+        [Inject] protected IWindowsController windowsController;
+
+        private PracticeState _practiceState;
 
         internal void Init(PracticeState state)
         {
-            practiceState = state;
+            _practiceState = state;
 
             _plusMinusBehaviour.Init();
 
@@ -48,7 +51,8 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Learnin
                 .RegisterTo(destroyCancellationToken);
 
             _returnLateButton.OnClickAsObservable()
-                .Subscribe(static _ => WindowsController.Instance.OpenScreenByType(ScreenType.LearningWords))
+                .Subscribe(windowsController,
+                    static (_, controller) => controller.OpenScreenByType(ScreenType.LearningWords))
                 .RegisterTo(destroyCancellationToken);
 
             OnInit();
@@ -56,7 +60,7 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Learnin
 
         internal void SetState(CompleteState state, string newWordCount = null)
         {
-            var localizationKey = LocalizationKeysDatabase.Instance.CompleteLocalizationData[practiceState][state];
+            var localizationKey = LocalizationKeysDatabase.Instance.CompleteLocalizationData[_practiceState][state];
 
             _completeText.text = string.Format(LocalizationController.Localize(localizationKey), newWordCount);
 

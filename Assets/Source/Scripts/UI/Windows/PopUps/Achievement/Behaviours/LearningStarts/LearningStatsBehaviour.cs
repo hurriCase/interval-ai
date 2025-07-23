@@ -5,6 +5,7 @@ using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours.LearningStarts.GraphProgress;
 using Source.Scripts.UI.Windows.Shared;
 using UnityEngine;
+using VContainer;
 using ZLinq;
 
 namespace Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours.LearningStarts
@@ -19,12 +20,14 @@ namespace Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours.LearningStarts
         [SerializeField] private EnumArray<LearningState, ProgressDescriptionItem> _progressDescriptionItems =
             new(EnumMode.SkipFirst);
 
+        [Inject] private IProgressRepository _progressRepository;
+
         internal void Init()
         {
             _progressGraphBehaviour.Init();
             _weekDaysBehaviour.Init();
 
-            ProgressRepository.Instance.TotalCountByState.Subscribe(this,
+            _progressRepository.TotalCountByState.Subscribe(this,
                     static (totalCountByState, behaviour) => behaviour.UpdateProgress(totalCountByState))
                 .RegisterTo(destroyCancellationToken);
         }

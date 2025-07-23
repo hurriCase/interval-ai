@@ -5,6 +5,7 @@ using Source.Scripts.Data.Repositories.Vocabulary;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Base;
 using UnityEngine;
+using VContainer;
 
 namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards
 {
@@ -15,6 +16,8 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards
         [SerializeField] private ControlButtonItem _nextControlItem;
 
         private CardBehaviourBase _cardBehaviourBase;
+
+        [Inject] private IVocabularyRepository _vocabularyRepository;
 
         internal void Init(CardBehaviourBase cardBehaviourBase)
         {
@@ -60,7 +63,7 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards
                 return;
             }
 
-            VocabularyRepository.Instance.AdvanceWord(_cardBehaviourBase.CurrentWord, true);
+            _vocabularyRepository.AdvanceWord(_cardBehaviourBase.CurrentWord, true);
             _cardBehaviourBase.UpdateWord();
         }
 
@@ -69,7 +72,7 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards
             var currentWord = _cardBehaviourBase.CurrentWord;
             var success = currentWord.LearningState == LearningState.None;
 
-            VocabularyRepository.Instance.AdvanceWord(currentWord, success);
+            _vocabularyRepository.AdvanceWord(currentWord, success);
             _cardBehaviourBase.UpdateWord();
         }
     }

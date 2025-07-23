@@ -1,13 +1,9 @@
 ﻿using System;
-using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Localization;
 using R3;
-using Source.Scripts.Data.Repositories.Progress;
-using Source.Scripts.Data.Repositories.Vocabulary;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using Source.Scripts.UI.Localization;
 using Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Base;
-using Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.LearningComplete;
 
 namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.CardTypes
 {
@@ -19,7 +15,7 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.CardTyp
 
             learningCompleteBehaviour.Init(PracticeState.Review);
 
-            VocabularyRepository.Instance.OnAvailabilityTimeUpdate
+            vocabularyRepository.OnAvailabilityTimeUpdate
                 .Where(cooldown => cooldown.State == LearningState.Repeatable)
                 .Where(cooldown => DateTime.Now >= cooldown.CurrentTime)
                 .Subscribe(this, static (_, card) => card.UpdateWord())
@@ -28,7 +24,7 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.CardTyp
 
         internal override void UpdateWord()
         {
-            CurrentWord = VocabularyRepository.Instance.GetAvailableWord(LearningState.Repeatable);
+            CurrentWord = vocabularyRepository.GetAvailableWord(LearningState.Repeatable);
 
             base.UpdateWord();
         }
@@ -39,7 +35,7 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.CardTyp
 
             SwitchModule(ModuleType.Input);
 
-            var wordsCount = ProgressRepository.Instance.ReviewCount;
+            var wordsCount = progressRepository.ReviewCount;
             var localizationKey = LocalizationKeysDatabase.Instance.GetLearnedCountLocalization(wordsCount);
 
             learnedText.text = string.Format(LocalizationController.Localize(localizationKey), wordsCount);

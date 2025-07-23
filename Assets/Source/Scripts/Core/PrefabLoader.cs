@@ -20,5 +20,21 @@ namespace Source.Scripts.Core
             AddressablesLogger.Log($"[PrefabLoader::LoadAsync] Loaded '{asset.name}' ({typeof(T).Name})");
             return asset;
         }
+
+        internal static async UniTask<TComponent> LoadComponentAsync<TComponent>(
+            AssetReference assetReference,
+            CancellationToken token)
+            where TComponent : Component
+        {
+            AddressablesLogger.Log($"[PrefabLoader::LoadAsync] Loading {typeof(TComponent).Name}...");
+
+#if ADDRESSABLES_LOG_ALL
+            using var stopWatchScope = AddressablesLogger.LogWithTimePast("[PrefabLoader::LoadAsync]");
+#endif
+            var asset = await Addressables.LoadAssetAsync<GameObject>(assetReference).WithCancellation(token);
+
+            AddressablesLogger.Log($"[PrefabLoader::LoadAsync] Loaded '{asset.name}' ({typeof(TComponent).Name})");
+            return asset.GetComponent<TComponent>();
+        }
     }
 }

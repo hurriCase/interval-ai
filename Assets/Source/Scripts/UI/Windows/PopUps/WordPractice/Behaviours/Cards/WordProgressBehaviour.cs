@@ -4,6 +4,7 @@ using Source.Scripts.Data.Repositories.User;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using Source.Scripts.UI.Windows.Shared;
 using UnityEngine;
+using VContainer;
 
 namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards
 {
@@ -14,15 +15,16 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards
         [SerializeField] private float _spacingRatio;
         [SerializeField] private float _thicknessRatio;
 
+        [Inject] private IUserRepository _userRepository;
+
         private const int Circumference = 360;
 
         private readonly List<ProgressSectionItem> _createdSegments = new();
-
         private int _previousSegmentCount;
 
         internal void Init()
         {
-            UserRepository.Instance.RepetitionByCooldown
+            _userRepository.RepetitionByCooldown
                 .Subscribe(this, static (repetitions, behaviour)
                     => behaviour.CreateSegments(repetitions.Count))
                 .RegisterTo(destroyCancellationToken);

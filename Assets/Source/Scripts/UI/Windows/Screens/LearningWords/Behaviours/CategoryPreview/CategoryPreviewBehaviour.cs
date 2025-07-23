@@ -2,6 +2,7 @@
 using Source.Scripts.Data.Repositories.Vocabulary;
 using UnityEngine;
 using UnityEngine.UI;
+using VContainer;
 
 namespace Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours.CategoryPreview
 {
@@ -12,9 +13,11 @@ namespace Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours.CategoryPre
         [SerializeField] private AspectRatioFitter _spacingPrefab;
         [SerializeField] private float _spacingRatio;
 
+        [Inject] private IVocabularyRepository _vocabularyRepository;
+
         internal void Init()
         {
-            foreach (var categoryEntry in VocabularyRepository.Instance.CategoryEntries.Value)
+            foreach (var categoryEntry in _vocabularyRepository.GetCategories())
             {
                 var createdCategory = Instantiate(_categoryItemPrefab, _contentContainer);
 

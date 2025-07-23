@@ -3,14 +3,17 @@ using R3;
 using Source.Scripts.Data.Repositories.Vocabulary;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using Source.Scripts.UI.Windows.Base;
+using VContainer;
 
 namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.LearningComplete
 {
     internal sealed class ReviewCompleteBehaviour : LearningCompleteBehaviourBase
     {
+        [Inject] private IVocabularyRepository _vocabularyRepository;
+
         protected override void OnInit()
         {
-            VocabularyRepository.Instance.OnAvailabilityTimeUpdate
+            _vocabularyRepository.OnAvailabilityTimeUpdate
                 .Where(cooldownByLearningState => cooldownByLearningState.State == LearningState.Repeatable)
                 .Subscribe(this, static (cooldownByLearningState, card) => card.SetState(
                     CompleteState.Complete,
@@ -19,7 +22,8 @@ namespace Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.Cards.Learnin
                 .RegisterTo(destroyCancellationToken);
 
             exitButton.OnClickAsObservable()
-                .Subscribe(static _ => WindowsController.Instance.OpenScreenByType(ScreenType.LearningWords))
+                .Subscribe(windowsController,
+                    static (_, controller) => controller.OpenScreenByType(ScreenType.LearningWords))
                 .RegisterTo(destroyCancellationToken);
         }
 

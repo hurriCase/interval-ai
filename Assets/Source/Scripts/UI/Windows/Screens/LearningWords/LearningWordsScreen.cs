@@ -7,6 +7,7 @@ using Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours.CategoryPreview
 using Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours.Progress;
 using TMPro;
 using UnityEngine;
+using VContainer;
 
 namespace Source.Scripts.UI.Windows.Screens.LearningWords
 {
@@ -19,6 +20,8 @@ namespace Source.Scripts.UI.Windows.Screens.LearningWords
 
         [SerializeField] private TextMeshProUGUI _welcomeText;
 
+        [Inject] private IUserRepository _userRepository;
+
         internal override void Init()
         {
             _dailyProgressBehaviour.Init();
@@ -26,7 +29,7 @@ namespace Source.Scripts.UI.Windows.Screens.LearningWords
             _wordLearningBehaviour.Init();
             _achievementsBehaviour.Init();
 
-            UserRepository.Instance.Nickname
+            _userRepository.Nickname
                 .Subscribe(this,
                     static (nickname, screen) => screen._welcomeText.text =
                         string.Format(LocalizationType.UserWelcome.GetLocalization(), nickname))

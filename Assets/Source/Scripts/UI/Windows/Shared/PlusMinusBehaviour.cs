@@ -3,6 +3,7 @@ using Source.Scripts.Data.Repositories.Progress;
 using Source.Scripts.UI.Selectables;
 using TMPro;
 using UnityEngine;
+using VContainer;
 
 namespace Source.Scripts.UI.Windows.Shared
 {
@@ -13,9 +14,11 @@ namespace Source.Scripts.UI.Windows.Shared
         [SerializeField] private ButtonComponent _minusButton;
         [SerializeField] private ButtonComponent _plusButton;
 
+        [Inject] private IProgressRepository _progressRepository;
+
         internal void Init()
         {
-            var dailyWordsGoal = ProgressRepository.Instance.DailyWordsGoal;
+            var dailyWordsGoal = _progressRepository.DailyWordsGoal;
 
             dailyWordsGoal.Subscribe(this,
                     static (goal, behaviour) => behaviour._dailyWordGoalText.text = goal.ToString())

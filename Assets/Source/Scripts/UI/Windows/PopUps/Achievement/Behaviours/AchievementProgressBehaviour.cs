@@ -2,6 +2,7 @@
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using TMPro;
 using UnityEngine;
+using VContainer;
 
 namespace Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours
 {
@@ -11,12 +12,13 @@ namespace Source.Scripts.UI.Windows.PopUps.Achievement.Behaviours
         [SerializeField] private TextMeshProUGUI _bestStreakText;
         [SerializeField] private TextMeshProUGUI _currentStreakText;
 
+        [Inject] private IProgressRepository _progressRepository;
+
         internal void Init()
         {
-            var repository = ProgressRepository.Instance;
-            _learnedWordsText.text = repository.TotalCountByState.Value[LearningState.Studied].ToString();
-            _bestStreakText.text = repository.BestStreak.Value.ToString();
-            _currentStreakText.text = repository.CurrentStreak.Value.ToString();
+            _learnedWordsText.text = _progressRepository.TotalCountByState.Value[LearningState.Studied].ToString();
+            _bestStreakText.text = _progressRepository.BestStreak.Value.ToString();
+            _currentStreakText.text = _progressRepository.CurrentStreak.Value.ToString();
         }
     }
 }

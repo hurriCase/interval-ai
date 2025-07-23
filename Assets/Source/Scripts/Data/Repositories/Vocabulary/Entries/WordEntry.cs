@@ -1,6 +1,5 @@
 ﻿using System;
 using MemoryPack;
-using Source.Scripts.Data.Repositories.User;
 using UnityEngine;
 
 namespace Source.Scripts.Data.Repositories.Vocabulary.Entries
@@ -25,16 +24,6 @@ namespace Source.Scripts.Data.Repositories.Vocabulary.Entries
 
         public bool IsValid => string.IsNullOrEmpty(NativeWord.Name) is false ||
                                string.IsNullOrEmpty(LearningWord.Name) is false;
-
-        internal string ShownWord =>
-            UserRepository.Instance.LearningDirection.Value == LearningDirectionType.LearningToNative
-                ? LearningWord.Name
-                : NativeWord.Name;
-
-        internal string HiddenWord =>
-            UserRepository.Instance.LearningDirection.Value == LearningDirectionType.LearningToNative
-                ? NativeWord.Name
-                : LearningWord.Name;
 
         public bool Equals(WordEntry other)
         {

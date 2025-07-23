@@ -4,6 +4,7 @@ using Source.Scripts.UI.Selectables;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using VContainer;
 
 namespace Source.Scripts.UI.Windows.Screens.Settings.Behaviours
 {
@@ -12,6 +13,8 @@ namespace Source.Scripts.UI.Windows.Screens.Settings.Behaviours
         [SerializeField] private ButtonComponent _editButton;
         [SerializeField] private TMP_InputField _nicknameField;
         [SerializeField] private Image _userIcon;
+
+        [Inject] private IUserRepository _userRepository;
 
         private string _originalNickname;
 
@@ -23,16 +26,16 @@ namespace Source.Scripts.UI.Windows.Screens.Settings.Behaviours
 
             _nicknameField.onEndEdit.AddListener(FinishEditing);
 
-            _nicknameField.text = UserRepository.Instance.Nickname.Value;
-            _userIcon.sprite = UserRepository.Instance.UserIcon.Value;
+            _nicknameField.text = _userRepository.Nickname.Value;
+            _userIcon.sprite = _userRepository.UserIcon.Value;
 
-            UserRepository.Instance.Nickname
+            _userRepository.Nickname
                 .AsObservable()
                 .Where(this, static (_, screen) => screen._nicknameField.interactable is false)
                 .Subscribe(this, static (userName, screen) => screen._nicknameField.text = userName)
                 .RegisterTo(destroyCancellationToken);
 
-            UserRepository.Instance.UserIcon
+            _userRepository.UserIcon
                 .Subscribe(this, static (icon, screen) => screen._userIcon.sprite = icon)
                 .RegisterTo(destroyCancellationToken);
         }
@@ -48,7 +51,7 @@ namespace Source.Scripts.UI.Windows.Screens.Settings.Behaviours
         {
             _nicknameField.interactable = false;
 
-            UserRepository.Instance.Nickname.Value =
+            _userRepository.Nickname.Value =
                 string.IsNullOrEmpty(newNickname) ? _originalNickname : newNickname;
         }
 
