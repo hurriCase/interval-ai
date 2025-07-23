@@ -1,0 +1,39 @@
+﻿using R3;
+using Source.Scripts.Core.Localization;
+using Source.Scripts.Data.Repositories.User;
+using Source.Scripts.Main.Source.Scripts.Main.UI.Screens.LearningWords.Behaviours;
+using Source.Scripts.Main.Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.CategoryPreview;
+using Source.Scripts.Main.Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.Progress;
+using Source.Scripts.UI.Windows.Base;
+using TMPro;
+using UnityEngine;
+using VContainer;
+
+namespace Source.Scripts.Main.Source.Scripts.Main.UI.Screens.LearningWords
+{
+    internal sealed class LearningWordsScreen : ScreenBase
+    {
+        [SerializeField] private DailyProgressBehaviour _dailyProgressBehaviour;
+        [SerializeField] private CategoryPreviewBehaviour _categoryPreviewBehaviour;
+        [SerializeField] private WordLearningBehaviour _wordLearningBehaviour;
+        [SerializeField] private AchievementsBehaviour _achievementsBehaviour;
+
+        [SerializeField] private TextMeshProUGUI _welcomeText;
+
+        [Inject] private IUserRepository _userRepository;
+
+        internal override void Init()
+        {
+            _dailyProgressBehaviour.Init();
+            _categoryPreviewBehaviour.Init();
+            _wordLearningBehaviour.Init();
+            _achievementsBehaviour.Init();
+
+            _userRepository.Nickname
+                .Subscribe(this,
+                    static (nickname, screen) => screen._welcomeText.text =
+                        string.Format(LocalizationType.UserWelcome.GetLocalization(), nickname))
+                .RegisterTo(destroyCancellationToken);
+        }
+    }
+}

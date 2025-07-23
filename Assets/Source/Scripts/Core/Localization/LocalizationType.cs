@@ -1,0 +1,12 @@
+namespace Source.Scripts.Core.Localization
+{
+    internal enum LocalizationType
+    {
+        None = 0,
+        ProgressDescription = 1,
+        ProgressTitle = 2,
+        LearnGoal = 3,
+        RepetitionGoal = 4,
+        UserWelcome = 5
+    }
+}
