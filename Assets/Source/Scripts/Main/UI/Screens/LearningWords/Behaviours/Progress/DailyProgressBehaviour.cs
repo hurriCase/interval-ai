@@ -7,7 +7,6 @@ using Source.Scripts.Core.Localization;
 using Source.Scripts.Data.Repositories.Progress;
 using Source.Scripts.Data.Repositories.Progress.Entries;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
-using Source.Scripts.Main.Source.Scripts.Main.Idon_tknow;
 using TMPro;
 using UnityEngine;
 using VContainer;

@@ -3,10 +3,9 @@ using CustomUtils.Runtime.AssetLoader;
 using CustomUtils.Runtime.CustomTypes.Randoms;
 using CustomUtils.Runtime.CustomTypes.Singletons;
 using Source.Scripts.Data;
-using Source.Scripts.Main.Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.Progress;
 using UnityEngine;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.Idon_tknow
+namespace Source.Scripts.Main.Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.Progress
 {
     [Resource(ResourcePaths.DatabaseFullPath, nameof(ProgressDescriptionsDatabase), ResourcePaths.DatabaseResourcePath)]
     internal sealed class ProgressDescriptionsDatabase : SingletonScriptableObject<ProgressDescriptionsDatabase>
