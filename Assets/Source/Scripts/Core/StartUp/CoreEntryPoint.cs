@@ -4,20 +4,22 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using R3;
 using Source.Scripts.Core.Scenes;
+using Source.Scripts.Data.Repositories.User;
 using VContainer;
 using VContainer.Unity;
 using UnityEngine;
 
 namespace Source.Scripts.Core.StartUp
 {
-    internal sealed class StartUpService : IAsyncStartable
+    internal sealed class CoreEntryPoint : IAsyncStartable
     {
-        [Inject] private ISceneLoader _sceneLoader;
         [Inject] private IObjectResolver _objectResolver;
+        [Inject] private ISceneLoader _sceneLoader;
+        [Inject] private IUserRepository _userRepository;
 
         private readonly List<StepBase> _stepsList;
 
-        internal StartUpService(List<StepBase> stepsList)
+        internal CoreEntryPoint(List<StepBase> stepsList)
         {
             _stepsList = stepsList;
         }
@@ -26,7 +28,11 @@ namespace Source.Scripts.Core.StartUp
         {
             await InitSteps(cancellation);
 
-            _sceneLoader.LoadSceneAsync(SceneReferences.Instance.MainMenuScene.Address, cancellation).Forget();
+            var addressToLoad = _userRepository.IsCompleteOnboarding.Value
+                ? SceneReferences.Instance.MainMenuScene.Address
+                : SceneReferences.Instance.Onboarding.Address;
+
+            _sceneLoader.LoadSceneAsync(addressToLoad, cancellation).Forget();
         }
 
         private async UniTask InitSteps(CancellationToken token)

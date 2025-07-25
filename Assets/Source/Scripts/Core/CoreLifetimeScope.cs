@@ -29,7 +29,7 @@ namespace Source.Scripts.Core
 
             builder.Register<TestDataFactory>(Lifetime.Singleton).As<ITestDataFactory>();
 
-            builder.RegisterEntryPoint<StartUpService>();
+            builder.RegisterEntryPoint<CoreEntryPoint>();
         }
     }
 }

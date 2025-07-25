@@ -7,8 +7,6 @@ using VContainer.Unity;
 
 namespace Source.Scripts.Main.Source.Scripts.Main.DI
 {
-    //TODO:<Dmitriy.Sukharev> probably, it's a wrong place for this.
-    //Yes, it fully belongs to UI, but it's just for now, and it's more about main scene context, not UI
     internal sealed class MainEntryPoint : IAsyncStartable
     {
         [Inject] private IWindowsController _windowsController;

@@ -25,6 +25,10 @@ namespace Source.Scripts.Data.Repositories.User
         public PersistentReactiveProperty<Sprite> UserIcon { get; } =
             new(PersistentPropertyKeys.RepetitionByCooldownKey, DefaultUserDataDatabase.Instance.Icon);
 
+        public PersistentReactiveProperty<LanguageLevel> UserLevel { get; } = new(PersistentPropertyKeys.UserLevelKey);
+        public PersistentReactiveProperty<bool> IsCompleteOnboarding { get; } =
+            new(PersistentPropertyKeys.IsCompleteOnboardingKey);
+
         public void Dispose()
         {
             Nickname?.Dispose();

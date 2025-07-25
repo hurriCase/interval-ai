@@ -4,6 +4,7 @@ using CustomUtils.Runtime.CustomTypes.Singletons;
 using CustomUtils.Runtime.Localization;
 using Source.Scripts.Core.Localization.Date;
 using Source.Scripts.Data;
+using Source.Scripts.Data.Repositories.User;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using UnityEngine;
 
@@ -25,6 +26,10 @@ namespace Source.Scripts.Core.Localization
             get;
             private set;
         } = new(EnumMode.SkipFirst);
+
+        [field: SerializeField]
+        internal EnumArray<LanguageLevel, string> LanguageLevelLocalizationData { get; private set; } =
+            new(EnumMode.SkipFirst);
 
         internal string GetLocalization(LocalizationType type) => _localizationData[type];
 

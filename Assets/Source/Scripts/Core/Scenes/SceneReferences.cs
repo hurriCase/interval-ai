@@ -9,5 +9,6 @@ namespace Source.Scripts.Core.Scenes
     internal sealed class SceneReferences : SingletonScriptableObject<SceneReferences>
     {
         [field: SerializeField] internal SceneReference MainMenuScene { get; private set; }
+        [field: SerializeField] internal SceneReference Onboarding { get; private set; }
     }
 }

@@ -8,7 +8,7 @@ namespace Source.Scripts.Core.StartUp.Steps
 {
     [CreateAssetMenu(
         fileName = nameof(AudioHandlerStep),
-        menuName = ResourcePaths.StepsPath + nameof(AudioHandlerStep)
+        menuName = ResourcePaths.InitializationStepsPath + nameof(AudioHandlerStep)
     )]
     internal sealed class AudioHandlerStep : StepBase
     {

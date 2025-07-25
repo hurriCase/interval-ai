@@ -13,5 +13,7 @@ namespace Source.Scripts.Data.Repositories.User
         PersistentReactiveProperty<LearningDirectionType> LearningDirection { get; }
         PersistentReactiveProperty<List<CooldownByDate>> RepetitionByCooldown { get; }
         PersistentReactiveProperty<Sprite> UserIcon { get; }
+        PersistentReactiveProperty<LanguageLevel> UserLevel { get; }
+        PersistentReactiveProperty<bool> IsCompleteOnboarding { get; }
     }
 }

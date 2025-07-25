@@ -6,6 +6,7 @@
         LearningWords = 1,
         Vocabulary = 2,
         Generation = 3,
-        Settings = 4
+        Settings = 4,
+        Onboarding = 5
     }
 }
