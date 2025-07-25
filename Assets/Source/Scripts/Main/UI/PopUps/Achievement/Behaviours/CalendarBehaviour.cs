@@ -4,7 +4,7 @@ using Source.Scripts.Data.Repositories.Progress;
 using Source.Scripts.Data.Repositories.User;
 using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts;
 using Source.Scripts.Main.Source.Scripts.Main.UI.Shared;
-using Source.Scripts.UI.Selectables;
+using Source.Scripts.UI.Components;
 using TMPro;
 using UnityEngine;
 using VContainer;

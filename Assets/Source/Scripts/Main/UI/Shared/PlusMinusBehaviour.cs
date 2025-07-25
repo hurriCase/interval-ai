@@ -1,6 +1,6 @@
 ﻿using R3;
 using Source.Scripts.Data.Repositories.Progress;
-using Source.Scripts.UI.Selectables;
+using Source.Scripts.UI.Components;
 using TMPro;
 using UnityEngine;
 using VContainer;

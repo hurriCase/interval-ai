@@ -3,7 +3,7 @@ using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions;
 using R3;
 using R3.Triggers;
-using Source.Scripts.UI.Selectables;
+using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base;
 using UnityEngine;
 using VContainer;

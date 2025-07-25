@@ -200,6 +200,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9005094334145168378, guid: 09d55ce40b46fa9429f04a4763bc65cf, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3822992780356212927}
+    - targetCorrespondingSourceObject: {fileID: 9005094334145168378, guid: 09d55ce40b46fa9429f04a4763bc65cf, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2143892116405810535}
   m_SourcePrefab: {fileID: 100100000, guid: 09d55ce40b46fa9429f04a4763bc65cf, type: 3}
 --- !u!114 &998007531570237460 stripped
 MonoBehaviour:
@@ -266,6 +269,7 @@ MonoBehaviour:
       m_Calls: []
   m_IsOn: 0
   <SelectableColorMapping>k__BackingField: {fileID: 11400000, guid: bf5fad07b7df61d438e929e73ec0171f, type: 2}
+  <AdditionalGraphics>k__BackingField: []
 --- !u!114 &3822992780356212927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,5 +282,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1266ba4114904e90aba76afee30b22a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.PopUps.Achievement.LearningStarts.GraphProgress.GraphButtonItem
-  <ThemeToggle>k__BackingField: {fileID: 3906328328126567853}
+  <TabComponent>k__BackingField: {fileID: 3906328328126567853}
   <Text>k__BackingField: {fileID: 998007531570237460}
+--- !u!114 &2143892116405810535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3463159833815424993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f029a96607ef284f9106063137864a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: R3.Unity::R3.Triggers.ObservablePointerClickTrigger

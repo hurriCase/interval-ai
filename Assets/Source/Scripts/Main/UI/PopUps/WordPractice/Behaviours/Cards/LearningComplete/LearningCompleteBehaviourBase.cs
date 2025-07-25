@@ -2,7 +2,7 @@
 using R3;
 using Source.Scripts.Core.Localization;
 using Source.Scripts.Main.Source.Scripts.Main.UI.Shared;
-using Source.Scripts.UI.Selectables;
+using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base;
 using TMPro;
 using UnityEngine;

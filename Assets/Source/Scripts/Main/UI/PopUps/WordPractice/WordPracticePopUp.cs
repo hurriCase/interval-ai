@@ -4,7 +4,7 @@ using R3.Triggers;
 using Source.Scripts.Core.Localization;
 using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.Base;
 using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.CardTypes;
-using Source.Scripts.UI.Selectables;
+using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base;
 using UnityEngine;
 

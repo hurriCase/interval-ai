@@ -3,9 +3,9 @@ using R3;
 using R3.Triggers;
 using Source.Scripts.Core.Audio;
 
-namespace Source.Scripts.UI.Selectables
+namespace Source.Scripts.UI.Components
 {
-    internal sealed class TabComponent : ThemeToggle
+    internal sealed class CheckboxComponent : SwitchableToggle
     {
         protected override void Awake()
         {

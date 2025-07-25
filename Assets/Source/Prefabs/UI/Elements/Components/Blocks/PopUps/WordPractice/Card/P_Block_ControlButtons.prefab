@@ -121,6 +121,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5f6c0997e678d94bb2f2b24950cbd6c, type: 3}
+--- !u!114 &4808306674051136329 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 580141291897569611, guid: b5f6c0997e678d94bb2f2b24950cbd6c, type: 3}
+  m_PrefabInstance: {fileID: 5383941340346350082}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 111acc062e79430ea7bc31cfa2731386, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.ButtonTextComponent
 --- !u!224 &4898373545621512296 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 670225827527563882, guid: b5f6c0997e678d94bb2f2b24950cbd6c, type: 3}
@@ -137,17 +148,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2025faa740564534a596c7b191dec6b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.AdaptiveTextMeshProUGUI
---- !u!114 &9120810026483596404 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3757192287856248438, guid: b5f6c0997e678d94bb2f2b24950cbd6c, type: 3}
-  m_PrefabInstance: {fileID: 5383941340346350082}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a20524c6b5cc4fb9b59bdd4ea8e64b56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Cards.ControlButtonItem
 --- !u!1001 &5983986324178894371
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -285,17 +285,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 670225827527563882, guid: b5f6c0997e678d94bb2f2b24950cbd6c, type: 3}
   m_PrefabInstance: {fileID: 5983986324178894371}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7435260061325736021 stripped
+--- !u!114 &6559053830513573736 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3757192287856248438, guid: b5f6c0997e678d94bb2f2b24950cbd6c, type: 3}
+  m_CorrespondingSourceObject: {fileID: 580141291897569611, guid: b5f6c0997e678d94bb2f2b24950cbd6c, type: 3}
   m_PrefabInstance: {fileID: 5983986324178894371}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a20524c6b5cc4fb9b59bdd4ea8e64b56, type: 3}
+  m_Script: {fileID: 11500000, guid: 111acc062e79430ea7bc31cfa2731386, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Cards.ControlButtonItem
+  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.ButtonTextComponent
 --- !u!1001 &7332948362996832923
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -434,9 +434,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaa5b73e37ba4fe7bfa00e8df1963b48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Cards.ControlsBehaviour
-  _positiveControlItem: {fileID: 5698300803567825459}
-  _cancelControlItem: {fileID: 9120810026483596404}
-  _nextControlItem: {fileID: 7435260061325736021}
+  _positiveControlItem: {fileID: 8303871864408552718}
+  _cancelControlItem: {fileID: 4808306674051136329}
+  _nextControlItem: {fileID: 6559053830513573736}
 --- !u!114 &5129995817002200439
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -590,17 +590,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5f6c0997e678d94bb2f2b24950cbd6c, type: 3}
---- !u!114 &5698300803567825459 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3757192287856248438, guid: b5f6c0997e678d94bb2f2b24950cbd6c, type: 3}
-  m_PrefabInstance: {fileID: 8876687333600654405}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a20524c6b5cc4fb9b59bdd4ea8e64b56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Cards.ControlButtonItem
 --- !u!114 &7527877248041763362 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1389413675651020391, guid: b5f6c0997e678d94bb2f2b24950cbd6c, type: 3}
@@ -617,3 +606,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 670225827527563882, guid: b5f6c0997e678d94bb2f2b24950cbd6c, type: 3}
   m_PrefabInstance: {fileID: 8876687333600654405}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8303871864408552718 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 580141291897569611, guid: b5f6c0997e678d94bb2f2b24950cbd6c, type: 3}
+  m_PrefabInstance: {fileID: 8876687333600654405}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 111acc062e79430ea7bc31cfa2731386, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.ButtonTextComponent

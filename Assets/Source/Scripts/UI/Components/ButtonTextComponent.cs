@@ -1,10 +1,9 @@
-﻿using Source.Scripts.UI.Selectables;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards
+namespace Source.Scripts.UI.Components
 {
-    internal sealed class ControlButtonItem : MonoBehaviour
+    internal sealed class ButtonTextComponent : MonoBehaviour
     {
         [field: SerializeField] internal ButtonComponent Button { get; private set; }
         [field: SerializeField] internal TextMeshProUGUI Text { get; private set; }

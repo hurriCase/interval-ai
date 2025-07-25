@@ -4,6 +4,7 @@ using R3;
 using Source.Scripts.Data.Repositories.Vocabulary;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.Base;
+using Source.Scripts.UI.Components;
 using UnityEngine;
 using VContainer;
 
@@ -11,9 +12,9 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
 {
     internal sealed class ControlButtonsBehaviour : MonoBehaviour
     {
-        [SerializeField] private ControlButtonItem _positiveControlItem;
-        [SerializeField] private ControlButtonItem _cancelControlItem;
-        [SerializeField] private ControlButtonItem _nextControlItem;
+        [SerializeField] private ButtonTextComponent _positiveControlItem;
+        [SerializeField] private ButtonTextComponent _cancelControlItem;
+        [SerializeField] private ButtonTextComponent _nextControlItem;
 
         private CardBehaviourBase _cardBehaviourBase;
 

@@ -1,7 +1,7 @@
 ﻿using CustomUtils.Runtime.Extensions;
 using PrimeTween;
 using R3;
-using Source.Scripts.UI.Selectables;
+using Source.Scripts.UI.Components;
 using UnityEngine;
 
 namespace Source.Scripts.UI.Windows.Base

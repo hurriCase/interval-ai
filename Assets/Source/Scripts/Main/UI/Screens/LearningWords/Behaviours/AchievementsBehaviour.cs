@@ -1,6 +1,6 @@
 ﻿using R3;
 using Source.Scripts.Main.Source.Scripts.Main.UI.Shared;
-using Source.Scripts.UI.Selectables;
+using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base;
 using UnityEngine;
 using VContainer;

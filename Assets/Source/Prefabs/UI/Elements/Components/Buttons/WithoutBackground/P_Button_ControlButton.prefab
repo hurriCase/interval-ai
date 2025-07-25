@@ -122,7 +122,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4725090385315607919, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: m_Name
-      value: P_Button_LearningWord
+      value: P_Button_ControlButton
       objectReference: {fileID: 0}
     - target: {fileID: 5224809382630289792, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: m_Color.b
@@ -157,8 +157,8 @@ PrefabInstance:
       addedObject: {fileID: 3200367023889309001}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4725090385315607919, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
-      insertIndex: 1
-      addedObject: {fileID: 3757192287856248438}
+      insertIndex: -1
+      addedObject: {fileID: 580141291897569611}
   m_SourcePrefab: {fileID: 100100000, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
 --- !u!224 &670225827527563882 stripped
 RectTransform:
@@ -181,7 +181,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4725090385315607919, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
   m_PrefabInstance: {fileID: 2678448703321756031}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3757192287856248438
+--- !u!114 &580141291897569611
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -190,9 +190,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7257874383060919312}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a20524c6b5cc4fb9b59bdd4ea8e64b56, type: 3}
+  m_Script: {fileID: 11500000, guid: 111acc062e79430ea7bc31cfa2731386, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Cards.ControlButtonItem
+  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.ButtonTextComponent
   <Button>k__BackingField: {fileID: 6624315774388247964}
   <Text>k__BackingField: {fileID: 1389413675651020391}
 --- !u!1001 &3193905718429612114
@@ -431,7 +431,7 @@ PrefabInstance:
     - target: {fileID: 7091411499079648574, guid: 3da363867f8bc444d9f73e06e48e3f54, type: 3}
       propertyPath: _targetComponent
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1389413675651020391}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -445,7 +445,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Script: {fileID: 11500000, guid: 2025faa740564534a596c7b191dec6b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.AdaptiveTextMeshProUGUI
 --- !u!224 &3200367023889309001 stripped
