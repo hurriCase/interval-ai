@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
+using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Storage;
 using Source.Scripts.Data.Repositories.Vocabulary;
+using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using UnityEngine;
 
 namespace Source.Scripts.Data.Repositories.User
@@ -15,5 +17,6 @@ namespace Source.Scripts.Data.Repositories.User
         PersistentReactiveProperty<Sprite> UserIcon { get; }
         PersistentReactiveProperty<LanguageLevel> UserLevel { get; }
         PersistentReactiveProperty<bool> IsCompleteOnboarding { get; }
+        PersistentReactiveProperty<EnumArray<LanguageType, Language>> LanguageByType { get; }
     }
 }
