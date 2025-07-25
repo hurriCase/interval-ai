@@ -3,6 +3,7 @@ using CustomUtils.Runtime.Localization;
 using R3;
 using Source.Scripts.Core.Localization;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
+using Source.Scripts.Main.Source.Scripts.Main.Data;
 using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.Base;
 
 namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.CardTypes
@@ -36,7 +37,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
             SwitchModule(ModuleType.Input);
 
             var wordsCount = progressRepository.ReviewCount;
-            var localizationKey = LocalizationKeysDatabase.Instance.GetLearnedCountLocalization(wordsCount);
+            var localizationKey = localizationKeysDatabase.GetLearnedCountLocalization(wordsCount);
 
             learnedText.text = string.Format(LocalizationController.Localize(localizationKey), wordsCount);
         }

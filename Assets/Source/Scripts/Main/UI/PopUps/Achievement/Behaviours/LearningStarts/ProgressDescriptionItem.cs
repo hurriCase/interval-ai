@@ -1,10 +1,13 @@
-﻿using CustomUtils.Runtime.Localization;
+﻿using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Localization;
 using CustomUtils.Runtime.UI.Theme.Components;
-using Source.Scripts.Core.Localization;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
+using Source.Scripts.Main.Source.Scripts.Main.Data;
+using Source.Scripts.Main.Source.Scripts.Main.Data.Base;
 using Source.Scripts.Main.Source.Scripts.Main.UI.Shared;
 using TMPro;
 using UnityEngine;
+using VContainer;
 
 namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts
 {
@@ -13,13 +16,12 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.Achievement.Behaviou
         [field: SerializeField] internal TextMeshProUGUI DescriptionText { get; private set; }
         [field: SerializeField] internal ImageThemeComponent StateIndicatorImage { get; private set; }
 
+        [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
+
         internal void Init(LearningState state, int progress, ProgressColorMapping progressColorMapping)
         {
-            var localizationKeysDatabase = LocalizationKeysDatabase.Instance;
-
-            DescriptionText.text = string.Format(
-                LocalizationController.Localize(localizationKeysDatabase.GetLearningStateLocalization(state)),
-                progress.ToString());
+            var localization = _localizationKeysDatabase.GetLearningStateLocalization(state);
+            DescriptionText.text = string.Format(localization, progress.ToString());
 
             progressColorMapping.SetComponentForState(state, StateIndicatorImage);
         }

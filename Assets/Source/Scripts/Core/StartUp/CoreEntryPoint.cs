@@ -16,6 +16,7 @@ namespace Source.Scripts.Core.StartUp
         [Inject] private IObjectResolver _objectResolver;
         [Inject] private ISceneLoader _sceneLoader;
         [Inject] private IUserRepository _userRepository;
+        [Inject] private ISceneReferences _sceneReferences;
 
         private readonly List<StepBase> _stepsList;
 
@@ -29,8 +30,8 @@ namespace Source.Scripts.Core.StartUp
             await InitSteps(cancellation);
 
             var addressToLoad = _userRepository.IsCompleteOnboarding.Value
-                ? SceneReferences.Instance.MainMenuScene.Address
-                : SceneReferences.Instance.Onboarding.Address;
+                ? _sceneReferences.MainMenuScene.Address
+                : _sceneReferences.Onboarding.Address;
 
             _sceneLoader.LoadSceneAsync(addressToLoad, cancellation).Forget();
         }

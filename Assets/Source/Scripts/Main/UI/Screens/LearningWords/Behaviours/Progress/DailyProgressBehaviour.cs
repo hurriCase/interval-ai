@@ -4,9 +4,11 @@ using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.UI.CustomComponents;
 using R3;
 using Source.Scripts.Core.Localization;
-using Source.Scripts.Data.Repositories.Progress;
+using Source.Scripts.Data.Repositories.Progress.Base;
 using Source.Scripts.Data.Repositories.Progress.Entries;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
+using Source.Scripts.Main.Source.Scripts.Main.Data;
+using Source.Scripts.Main.Source.Scripts.Main.Data.Base;
 using TMPro;
 using UnityEngine;
 using VContainer;
@@ -22,8 +24,8 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.Screens.LearningWords.Behav
         [SerializeField] private RoundedFilledImageComponent _progressComponent;
 
         [Inject] private IProgressRepository _progressRepository;
-
-        private ProgressDescriptionsDatabase ProgressDescriptionsDatabase => ProgressDescriptionsDatabase.Instance;
+        [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
+        [Inject] private IProgressDescriptionsDatabase _progressDescriptionsDatabase;
 
         internal void Init()
         {
@@ -63,10 +65,10 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.Screens.LearningWords.Behav
             if (learnedWordCount <= 0)
                 return ProgressDescriptionType.Zero;
 
-            if (learnedWordCount < ProgressDescriptionsDatabase.LowMediumTransitionRandom.RandomValue)
+            if (learnedWordCount < _progressDescriptionsDatabase.LowMediumTransitionRandom.RandomValue)
                 return ProgressDescriptionType.Low;
 
-            return learnedWordCount < ProgressDescriptionsDatabase.MediumHighTransitionRandom.RandomValue
+            return learnedWordCount < _progressDescriptionsDatabase.MediumHighTransitionRandom.RandomValue
                 ? ProgressDescriptionType.Medium
                 : ProgressDescriptionType.High;
         }
@@ -74,13 +76,13 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.Screens.LearningWords.Behav
         private (string, string, int) GetRandomDescription(ProgressDescriptionType progressType)
         {
             var localizationData =
-                ProgressDescriptionsDatabase.DescriptionLocalizations.AsValueEnumerable()
+                _progressDescriptionsDatabase.DescriptionLocalizations.AsValueEnumerable()
                     .Where(progressDescriptionData => progressDescriptionData.Type == progressType);
 
             if (localizationData.Count() == 0)
-                return (LocalizationType.ProgressTitle.GetLocalization(),
-                    LocalizationType.ProgressDescription.GetLocalization(),
-                    ProgressDescriptionsDatabase.DefaultRandomPercent.RandomValue);
+                return (_localizationKeysDatabase.GetLocalization(LocalizationType.ProgressTitle),
+                    _localizationKeysDatabase.GetLocalization(LocalizationType.ProgressDescription),
+                    _progressDescriptionsDatabase.DefaultRandomPercent.RandomValue);
 
             var randomData = localizationData.Random();
 

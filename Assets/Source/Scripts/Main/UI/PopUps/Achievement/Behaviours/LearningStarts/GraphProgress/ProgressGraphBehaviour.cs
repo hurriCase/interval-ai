@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Localization;
 using R3;
-using Source.Scripts.Core.Localization;
 using Source.Scripts.Data;
-using Source.Scripts.Data.Repositories.Progress;
+using Source.Scripts.Data.Repositories.Progress.Base;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
+using Source.Scripts.Main.Source.Scripts.Main.Data.Base;
 using Source.Scripts.Main.Source.Scripts.Main.UI.Shared;
 using TMPro;
 using UnityEngine;
@@ -32,15 +32,15 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.Achievement.Behaviou
         [SerializeField] private EnumArray<LearningState, UILineRenderer> _graphLines = new(EnumMode.SkipFirst);
 
         [Inject] private IDateProgressHelper _dateProgressHelper;
-
-        private ProgressGraphSettings ProgressGraphSettings => ProgressGraphSettings.Instance;
+        [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
+        [Inject] private IProgressGraphSettings _progressGraphSettings;
 
         private readonly Dictionary<LearningState, List<GraphProgressData>> _cashedAllProgressData = new();
         private readonly List<Vector2> _cashedNormalizedPoints = new();
 
         internal void Init()
         {
-            foreach (var dateRange in ProgressGraphSettings.GraphProgressRanges)
+            foreach (var dateRange in _progressGraphSettings.GraphProgressRanges)
             {
                 var createdGraphType = Instantiate(_graphTypeItemPrefab, _graphButtonsContainer);
                 createdGraphType.TabComponent.group = _graphButtonsGroup;
@@ -59,10 +59,10 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.Achievement.Behaviou
 
         private void UpdateLocalization(DateRange dateRange, TMP_Text graphTypeText)
         {
-            var localizationKey =
-                LocalizationKeysDatabase.Instance.GetDateLocalization(dateRange.DateType, dateRange.Amount);
+            var localizationKey
+                = _localizationKeysDatabase.GetDateLocalization(dateRange.DateType, dateRange.Amount);
 
-            graphTypeText.text = string.Format(LocalizationController.Localize(localizationKey), dateRange.Amount);
+            graphTypeText.text = string.Format(localizationKey, dateRange.Amount);
         }
 
         private void UpdateGraph(DateRange progressRange)
@@ -74,7 +74,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.Achievement.Behaviou
             {
                 uiLineRenderer.color = _progressColorMapping.GetColorForState(learningState);
                 var normalizedPoints = NormalizePoints(_cashedAllProgressData[learningState], maxProgress,
-                    ProgressGraphSettings.GraphPointsCount);
+                    _progressGraphSettings.GraphPointsCount);
                 uiLineRenderer.SetPoints(normalizedPoints);
             }
         }
@@ -82,7 +82,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.Achievement.Behaviou
         private int GenerateAllGraphPoints(DateRange progressRange)
         {
             var totalDays = GetTotalDays(progressRange);
-            var pointsCount = ProgressGraphSettings.GraphPointsCount;
+            var pointsCount = _progressGraphSettings.GraphPointsCount;
             var daysPerSegment = (float)totalDays / pointsCount;
             var maxProgress = 0;
 

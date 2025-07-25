@@ -2,7 +2,10 @@
 using R3;
 using Source.Scripts.Core.Localization;
 using Source.Scripts.Data.Repositories.Progress;
+using Source.Scripts.Data.Repositories.Progress.Base;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
+using Source.Scripts.Main.Source.Scripts.Main.Data;
+using Source.Scripts.Main.Source.Scripts.Main.Data.Base;
 using Source.Scripts.Main.Source.Scripts.Main.UI.Shared;
 using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base;
@@ -23,6 +26,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.Screens.LearningWords.Behav
 
         [Inject] private IWindowsController _windowsController;
         [Inject] private IProgressRepository _progressRepository;
+        [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
 
         internal void Init()
         {
@@ -42,14 +46,19 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.Screens.LearningWords.Behav
                             : 0;
 
                     behaviour._repetitionText.text = string.Format(
-                        LocalizationType.RepetitionGoal.GetLocalization(),
+                        behaviour._localizationKeysDatabase.GetLocalization(LocalizationType.RepetitionGoal),
                         repeatableCount);
                 })
                 .RegisterTo(destroyCancellationToken);
 
             _progressRepository.DailyWordsGoal
                 .Subscribe(this, static (goal, behaviour) =>
-                    behaviour._learnGoalText.text = string.Format(LocalizationType.LearnGoal.GetLocalization(), goal))
+                {
+                    var localization =
+                        behaviour._localizationKeysDatabase.GetLocalization(LocalizationType.LearnGoal);
+
+                    behaviour._learnGoalText.text = string.Format(localization, goal);
+                })
                 .RegisterTo(destroyCancellationToken);
         }
     }

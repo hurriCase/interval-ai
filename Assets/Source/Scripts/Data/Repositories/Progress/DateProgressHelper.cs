@@ -1,4 +1,5 @@
 ﻿using System;
+using Source.Scripts.Data.Repositories.Progress.Base;
 using Source.Scripts.Data.Repositories.Progress.Entries;
 using Source.Scripts.Data.Repositories.User;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;

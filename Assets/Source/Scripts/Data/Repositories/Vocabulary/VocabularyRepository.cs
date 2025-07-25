@@ -4,7 +4,11 @@ using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Storage;
 using R3;
 using Source.Scripts.Data.Repositories.Progress;
+using Source.Scripts.Data.Repositories.Progress.Base;
 using Source.Scripts.Data.Repositories.User;
+using Source.Scripts.Data.Repositories.Vocabulary.Base;
+using Source.Scripts.Data.Repositories.Vocabulary.CooldownSystem;
+using Source.Scripts.Data.Repositories.Vocabulary.Defaults;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
 using ZLinq;
 using ZLinq.Linq;
@@ -15,10 +19,10 @@ namespace Source.Scripts.Data.Repositories.Vocabulary
     internal sealed class VocabularyRepository : IVocabularyRepository, IDisposable
     {
         private PersistentReactiveProperty<List<CategoryEntry>> CategoryEntries { get; } =
-            new(PersistentPropertyKeys.CategoryEntryKey, DefaultCategoriesDatabase.Instance.Categories);
+            new(PersistentPropertyKeys.CategoryEntryKey, _defaultCategoriesDatabase.Categories);
 
         private PersistentReactiveProperty<List<WordEntry>> WordEntries { get; } =
-            new(PersistentPropertyKeys.WordEntryKey, DefaultWordsDatabase.Instance.WordEntries);
+            new(PersistentPropertyKeys.WordEntryKey, _defaultWordsDatabase.WordEntries);
 
         private EnumArray<LearningState, SortedSet<WordEntry>> SortedWordsByState { get; }
             = new(() => new SortedSet<WordEntry>(_comparer));
@@ -30,13 +34,22 @@ namespace Source.Scripts.Data.Repositories.Vocabulary
 
         private static readonly WordCooldownComparer _comparer = new();
 
+        private static IDefaultCategoriesDatabase _defaultCategoriesDatabase;
+        private static IDefaultWordsDatabase _defaultWordsDatabase;
+
         private readonly IProgressRepository _progressRepository;
         private readonly IUserRepository _userRepository;
 
-        internal VocabularyRepository(IProgressRepository progressRepository, IUserRepository userRepository)
+        internal VocabularyRepository(
+            IProgressRepository progressRepository,
+            IUserRepository userRepository,
+            IDefaultCategoriesDatabase defaultCategoriesDatabase,
+            IDefaultWordsDatabase defaultWordsDatabase)
         {
             _progressRepository = progressRepository;
             _userRepository = userRepository;
+            _defaultCategoriesDatabase = defaultCategoriesDatabase;
+            _defaultWordsDatabase = defaultWordsDatabase;
 
             foreach (var word in WordEntries.Value)
                 SortedWordsByState[word.LearningState].Add(word);

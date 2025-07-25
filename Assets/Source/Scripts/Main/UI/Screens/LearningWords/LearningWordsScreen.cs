@@ -1,6 +1,8 @@
 ﻿using R3;
 using Source.Scripts.Core.Localization;
 using Source.Scripts.Data.Repositories.User;
+using Source.Scripts.Main.Source.Scripts.Main.Data;
+using Source.Scripts.Main.Source.Scripts.Main.Data.Base;
 using Source.Scripts.Main.Source.Scripts.Main.UI.Screens.LearningWords.Behaviours;
 using Source.Scripts.Main.Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.CategoryPreview;
 using Source.Scripts.Main.Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.Progress;
@@ -21,6 +23,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.Screens.LearningWords
         [SerializeField] private TextMeshProUGUI _welcomeText;
 
         [Inject] private IUserRepository _userRepository;
+        [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
 
         internal override void Init()
         {
@@ -31,8 +34,13 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.Screens.LearningWords
 
             _userRepository.Nickname
                 .Subscribe(this,
-                    static (nickname, screen) => screen._welcomeText.text =
-                        string.Format(LocalizationType.UserWelcome.GetLocalization(), nickname))
+                    static (nickname, screen) =>
+                    {
+                        var localization =
+                            screen._localizationKeysDatabase.GetLocalization(LocalizationType.UserWelcome);
+
+                        screen._welcomeText.text = string.Format(localization, nickname);
+                    })
                 .RegisterTo(destroyCancellationToken);
         }
     }

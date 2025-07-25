@@ -1,6 +1,8 @@
 ﻿using CustomUtils.Runtime.Localization;
 using R3;
 using Source.Scripts.Core.Localization;
+using Source.Scripts.Main.Source.Scripts.Main.Data;
+using Source.Scripts.Main.Source.Scripts.Main.Data.Base;
 using Source.Scripts.Main.Source.Scripts.Main.UI.Shared;
 using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base;
@@ -28,6 +30,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
         [SerializeField] protected ButtonComponent exitButton;
 
         [Inject] protected IWindowsController windowsController;
+        [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
 
         private PracticeState _practiceState;
 
@@ -59,9 +62,8 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
 
         internal void SetState(CompleteState state, string newWordCount = null)
         {
-            var localizationKey = LocalizationKeysDatabase.Instance.CompleteLocalizationData[_practiceState][state];
-
-            _completeText.text = string.Format(LocalizationController.Localize(localizationKey), newWordCount);
+            var localization = _localizationKeysDatabase.GetCompletesLocalization(_practiceState, state);
+            _completeText.text = string.Format(localization, newWordCount);
 
             _noWordsImage.SetActive(state == CompleteState.NoWords);
             _completeImage.SetActive(state == CompleteState.Complete);

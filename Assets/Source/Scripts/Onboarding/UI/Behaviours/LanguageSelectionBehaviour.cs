@@ -1,8 +1,8 @@
-﻿using CustomUtils.Runtime.Extensions;
-using R3;
-using Source.Scripts.Core.Localization;
+﻿using R3;
 using Source.Scripts.Data.Repositories.User;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
+using Source.Scripts.Onboarding.Source.Scripts.Onboarding.Data;
+using Source.Scripts.Onboarding.Source.Scripts.Onboarding.Data.Base;
 using Source.Scripts.UI.Components;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,21 +19,21 @@ namespace Source.Scripts.Onboarding.Source.Scripts.Onboarding.UI.Behaviours
         [SerializeField] private float _spacingRatio;
 
         [Inject] private IUserRepository _userRepository;
+        [Inject] private ILocalizationDatabase _localizationDatabase;
 
         internal override void Init()
         {
-            foreach (var (language, localizationKey) in LanguagesNameDatabase.Instance.LanguageLocalizationData
-                         .AsTuples())
+            foreach (var (language, localization) in _localizationDatabase.Languages.AsTuples())
             {
-                CreateLanguageItem(language, localizationKey, LanguageType.Native);
-                CreateLanguageItem(language, localizationKey, LanguageType.Learning);
+                CreateLanguageItem(language, localization, LanguageType.Native);
+                CreateLanguageItem(language, localization, LanguageType.Learning);
             }
 
             _nativeLanguagesAccordion.SwitchContent(false);
             _learningComponentAccordion.SwitchContent(false);
         }
 
-        private void CreateLanguageItem(Language language, string localizationKey, LanguageType languageType)
+        private void CreateLanguageItem(Language language, string localization, LanguageType languageType)
         {
             var container = languageType == LanguageType.Learning
                 ? _learningComponentAccordion
@@ -41,7 +41,7 @@ namespace Source.Scripts.Onboarding.Source.Scripts.Onboarding.UI.Behaviours
 
             var createdLanguageItem = Instantiate(_languageItem, transform);
 
-            createdLanguageItem.Text.text = localizationKey.GetLocalization();
+            createdLanguageItem.Text.text = localization;
 
             createdLanguageItem.Button.OnClickAsObservable()
                 .Subscribe((type: language, _userRepository, languageType), static (_, tuple)

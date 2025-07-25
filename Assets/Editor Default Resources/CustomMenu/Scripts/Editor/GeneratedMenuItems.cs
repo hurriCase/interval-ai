@@ -52,28 +52,28 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
         [MenuItem("References/Default Categories Database", priority = 0)]
         private static void SelectAssetDefaultCategoriesDatabase()
         {
-            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Resources/DefaultCategoriesDatabase.asset");
+            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Scriptables/LifetimeRelated/Core/DefaultCategoriesDatabase.asset");
             Selection.activeObject = asset;
         }
 
         [MenuItem("References/Localization Keys Database", priority = 1)]
         private static void SelectAssetLocalizationKeysDatabase()
         {
-            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Resources/LocalizationKeysDatabase.asset");
+            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Scriptables/LifetimeRelated/Main/LocalizationKeysDatabase.asset");
             Selection.activeObject = asset;
         }
 
         [MenuItem("References/Progress Graph Settings", priority = 3)]
         private static void SelectAssetProgressGraphSettings()
         {
-            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Resources/ProgressGraphSettings.asset");
+            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Scriptables/LifetimeRelated/Main/ProgressGraphSettings.asset");
             Selection.activeObject = asset;
         }
 
         [MenuItem("References/SceneReferences", priority = 4)]
         private static void SelectAssetSceneReferences()
         {
-            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Resources/SceneReferences.asset");
+            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Scriptables/LifetimeRelated/Core/SceneReferences.asset");
             Selection.activeObject = asset;
         }
 

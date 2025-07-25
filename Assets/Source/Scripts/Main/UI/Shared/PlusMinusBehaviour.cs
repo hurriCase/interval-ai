@@ -1,5 +1,6 @@
 ﻿using R3;
 using Source.Scripts.Data.Repositories.Progress;
+using Source.Scripts.Data.Repositories.Progress.Base;
 using Source.Scripts.UI.Components;
 using TMPro;
 using UnityEngine;

@@ -1,6 +1,8 @@
 ﻿using R3;
 using R3.Triggers;
 using Source.Scripts.Data.Repositories.Progress;
+using Source.Scripts.Data.Repositories.Progress.Base;
+using Source.Scripts.Onboarding.Source.Scripts.Onboarding.Data;
 using Source.Scripts.UI.Components;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,12 +20,13 @@ namespace Source.Scripts.Onboarding.Source.Scripts.Onboarding.UI.Behaviours
         [SerializeField] private float _wordCountSpacingRatio;
 
         [Inject] private IProgressRepository _progressRepository;
+        [Inject] private IWordGoalDatabase _wordGoalDatabase;
 
         private const int WordCountPerRow = 5;
 
         internal override void Init()
         {
-            var wordGoals = WordGoalDatabase.Instance.DefaultWordGoals;
+            var wordGoals = _wordGoalDatabase.DefaultWordGoals;
             var currentRow = new RectTransform();
             for (var i = 0; i < wordGoals.Count; i++)
             {

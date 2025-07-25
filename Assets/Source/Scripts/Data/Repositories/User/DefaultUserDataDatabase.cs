@@ -1,16 +1,14 @@
 ﻿using System.Collections.Generic;
-using CustomUtils.Runtime.AssetLoader;
-using CustomUtils.Runtime.CustomTypes.Singletons;
 using Source.Scripts.Data.Repositories.Vocabulary;
+using Source.Scripts.Data.Repositories.Vocabulary.CooldownSystem;
 using UnityEngine;
 
 namespace Source.Scripts.Data.Repositories.User
 {
-    [Resource(ResourcePaths.DatabaseFullPath, nameof(DefaultUserDataDatabase), ResourcePaths.DatabaseResourcePath)]
-    internal sealed class DefaultUserDataDatabase : SingletonScriptableObject<DefaultUserDataDatabase>
+    internal sealed class DefaultUserDataDatabase : ScriptableObject, IDefaultUserDataDatabase
     {
-        [field: SerializeField] internal List<CooldownByDate> DefaultCooldowns { get; private set; }
-        [field: SerializeField] internal string Name { get; private set; }
-        [field: SerializeField] internal Sprite Icon { get; private set; }
+        [field: SerializeField] public List<CooldownByDate> DefaultCooldowns { get; private set; }
+        [field: SerializeField] public string Name { get; private set; }
+        [field: SerializeField] public Sprite Icon { get; private set; }
     }
 }

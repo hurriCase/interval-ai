@@ -1,6 +1,7 @@
 ﻿using System;
 using R3;
 using Source.Scripts.Data.Repositories.Progress;
+using Source.Scripts.Data.Repositories.Progress.Base;
 using Source.Scripts.Data.Repositories.User;
 using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts;
 using Source.Scripts.Main.Source.Scripts.Main.UI.Shared;

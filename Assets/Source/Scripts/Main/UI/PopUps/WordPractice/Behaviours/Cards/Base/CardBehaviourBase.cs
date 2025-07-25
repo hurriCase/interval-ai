@@ -4,8 +4,11 @@ using CustomUtils.Runtime.Extensions;
 using R3;
 using Source.Scripts.Core.Localization;
 using Source.Scripts.Data.Repositories.Progress;
+using Source.Scripts.Data.Repositories.Progress.Base;
 using Source.Scripts.Data.Repositories.Vocabulary;
 using Source.Scripts.Data.Repositories.Vocabulary.Entries;
+using Source.Scripts.Main.Source.Scripts.Main.Data;
+using Source.Scripts.Main.Source.Scripts.Main.Data.Base;
 using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.LearningComplete;
 using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.Swipe;
 using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base;
@@ -31,6 +34,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
 
         [Inject] protected IVocabularyRepository vocabularyRepository;
         [Inject] protected IProgressRepository progressRepository;
+        [Inject] protected ILocalizationKeysDatabase localizationKeysDatabase;
 
         public WordEntry CurrentWord { get; protected set; }
 

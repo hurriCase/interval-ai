@@ -25,6 +25,7 @@ namespace Source.Scripts.Onboarding.Source.Scripts.Onboarding.UI
 
         [Inject] private ISceneLoader _sceneLoader;
         [Inject] private IUserRepository _userRepository;
+        [Inject] private ISceneReferences _sceneReferences;
 
         internal override void Init()
         {
@@ -51,7 +52,7 @@ namespace Source.Scripts.Onboarding.Source.Scripts.Onboarding.UI
             if (index >= _inputOnboardingSteps.Count)
             {
                 _userRepository.IsCompleteOnboarding.Value = true;
-                _sceneLoader.LoadSceneAsync(SceneReferences.Instance.MainMenuScene.Address, CancellationToken.None)
+                _sceneLoader.LoadSceneAsync(_sceneReferences.MainMenuScene.Address, CancellationToken.None)
                     .Forget();
                 return;
             }
