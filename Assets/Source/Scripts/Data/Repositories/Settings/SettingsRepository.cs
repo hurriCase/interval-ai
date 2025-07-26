@@ -10,8 +10,8 @@ namespace Source.Scripts.Data.Repositories.Settings
 {
     internal sealed class SettingsRepository : IDisposable, ISettingsRepository
     {
-        public PersistentReactiveProperty<int> DailyGoal { get; }
         public PersistentReactiveProperty<LanguageLevel> LanguageLevel { get; }
+        public PersistentReactiveProperty<int> DailyGoal { get; }
         public PersistentReactiveProperty<CultureInfo> CurrentCulture { get; }
         public PersistentReactiveProperty<List<CooldownByDate>> RepetitionByCooldown { get; }
         public PersistentReactiveProperty<EnumArray<LanguageType, Language>> LanguageByType { get; }
@@ -19,14 +19,16 @@ namespace Source.Scripts.Data.Repositories.Settings
 
         internal SettingsRepository(IDefaultSettingsDatabase defaultSettingsDatabase)
         {
-            DailyGoal = new PersistentReactiveProperty<int>(PersistentPropertyKeys.DailyGoalKey);
             LanguageLevel = new PersistentReactiveProperty<LanguageLevel>(PersistentPropertyKeys.LanguageLevelKey);
+
+            DailyGoal = new PersistentReactiveProperty<int>(PersistentPropertyKeys.DailyGoalKey,
+                defaultSettingsDatabase.DailyGoal);
 
             CurrentCulture = new PersistentReactiveProperty<CultureInfo>(PersistentPropertyKeys.CurrentCultureKey,
                 CultureInfo.CurrentCulture);
 
             RepetitionByCooldown = new PersistentReactiveProperty<List<CooldownByDate>>(
-                PersistentPropertyKeys.RepetitionByCooldownKey, defaultSettingsDatabase.DefaultCooldowns);
+                PersistentPropertyKeys.RepetitionByCooldownKey, defaultSettingsDatabase.Cooldowns);
 
             LanguageByType = new PersistentReactiveProperty<EnumArray<LanguageType, Language>>(PersistentPropertyKeys
                 .LanguageByTypeKey);

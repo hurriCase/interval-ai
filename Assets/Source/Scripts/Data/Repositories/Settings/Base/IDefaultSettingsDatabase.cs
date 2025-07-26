@@ -4,6 +4,7 @@ namespace Source.Scripts.Data.Repositories.Settings.Base
 {
     internal interface IDefaultSettingsDatabase
     {
-        List<CooldownByDate> DefaultCooldowns { get; }
+        List<CooldownByDate> Cooldowns { get; }
+        int DailyGoal { get; }
     }
 }

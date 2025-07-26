@@ -4,6 +4,7 @@ using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Storage;
 using Source.Scripts.Data.Repositories.Progress.Base;
 using Source.Scripts.Data.Repositories.Progress.Entries;
+using Source.Scripts.Data.Repositories.Settings.Base;
 using Source.Scripts.Data.Repositories.Statistics;
 using Source.Scripts.Data.Repositories.Words.Base;
 
@@ -25,7 +26,7 @@ namespace Source.Scripts.Data.Repositories.Progress
             ? todayProgress.ReviewCount
             : 0;
 
-        internal ProgressRepository(IStatisticsRepository statisticsRepository)
+        internal ProgressRepository(IStatisticsRepository statisticsRepository, ISettingsRepository settingsRepository)
         {
             CurrentStreak = new PersistentReactiveProperty<int>(PersistentPropertyKeys.CurrentStreakKey);
             BestStreak = new PersistentReactiveProperty<int>(PersistentPropertyKeys.BestStreakKey);
@@ -35,7 +36,7 @@ namespace Source.Scripts.Data.Repositories.Progress
             NewWordsDailyTarget = new PersistentReactiveProperty<int>(PersistentPropertyKeys.NewWordsDailyTargetKey);
 
             if (statisticsRepository.LoginHistory.Value.TryGetValue(DateTime.Now, out _) is false)
-                NewWordsDailyTarget.Value = 0;
+                NewWordsDailyTarget.Value = settingsRepository.DailyGoal.Value;
 
             ProgressHistory = new PersistentReactiveProperty<Dictionary<DateTime, DailyProgress>>(
                 PersistentPropertyKeys.ProgressHistoryKey, new Dictionary<DateTime, DailyProgress>());

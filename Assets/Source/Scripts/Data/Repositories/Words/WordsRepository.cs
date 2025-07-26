@@ -99,6 +99,7 @@ namespace Source.Scripts.Data.Repositories.Words
                 case LearningState.CurrentlyLearning:
                     word.LearningState = LearningState.Repeatable;
                     word.RepetitionCount = 0;
+                    _progressRepository.NewWordsDailyTarget.Value--;
 
                     AdvanceCooldown(word);
 

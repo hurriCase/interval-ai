@@ -50,12 +50,12 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.Screens.LearningWords.Behav
                 .RegisterTo(destroyCancellationToken);
 
             _progressRepository.NewWordsDailyTarget
-                .Subscribe(this, static (goal, behaviour) =>
+                .Subscribe(this, static (wordsTarget, behaviour) =>
                 {
                     var localization =
                         behaviour._localizationKeysDatabase.GetLocalization(LocalizationType.LearnGoal);
 
-                    behaviour._learnGoalText.text = string.Format(localization, goal);
+                    behaviour._learnGoalText.text = string.Format(localization, wordsTarget);
                 })
                 .RegisterTo(destroyCancellationToken);
         }
