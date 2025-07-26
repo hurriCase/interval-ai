@@ -20,8 +20,8 @@ namespace Source.Scripts.UI.Windows.Base
         [SerializeField] private Transform _screensContainer;
         [SerializeField] private Transform _popUpsContainer;
 
-        [Inject] private IObjectResolver _objectResolver;
-        [Inject] private IAddressablesLoader _addressablesLoader;
+        private IObjectResolver _objectResolver;
+        private IAddressablesLoader _addressablesLoader;
 
         private readonly HashSet<PopUpBase> _createdPopUps = new();
         private readonly HashSet<ScreenBase> _createdScreens = new();
@@ -29,6 +29,13 @@ namespace Source.Scripts.UI.Windows.Base
 
         private PopUpBase _currentOpenedPopUp;
         private ScreenBase _currentScreen;
+
+        [Inject]
+        internal void Inject(IObjectResolver objectResolver, IAddressablesLoader addressablesLoader)
+        {
+            _objectResolver = objectResolver;
+            _addressablesLoader = addressablesLoader;
+        }
 
         public async UniTask InitAsync(CancellationToken cancellationToken)
         {

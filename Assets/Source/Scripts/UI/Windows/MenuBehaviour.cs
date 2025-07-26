@@ -14,7 +14,13 @@ namespace Source.Scripts.UI.Windows
     {
         [SerializeField] private EnumArray<ScreenType, TabComponent> _menuToggles = new(EnumMode.SkipFirst);
 
-        [Inject] private IWindowsController _windowsController;
+        private IWindowsController _windowsController;
+
+        [Inject]
+        internal void Inject(IWindowsController windowsController)
+        {
+            _windowsController = windowsController;
+        }
 
         public void Init(CancellationToken cancellationToken)
         {
