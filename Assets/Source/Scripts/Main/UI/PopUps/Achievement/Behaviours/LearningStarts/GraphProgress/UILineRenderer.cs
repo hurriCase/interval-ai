@@ -12,12 +12,14 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.Achievement.Behaviou
         [SerializeField] private int _circleSegments;
         [SerializeField] private List<Vector2> _points = new();
 
+#if UNITY_EDITOR
         protected override void OnValidate()
         {
             base.OnValidate();
 
             SetVerticesDirty();
         }
+#endif
 
         protected override void OnRectTransformDimensionsChange()
         {

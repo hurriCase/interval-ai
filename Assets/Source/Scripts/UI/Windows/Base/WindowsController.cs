@@ -3,13 +3,12 @@ using System.Threading;
 using CustomUtils.Runtime.Extensions;
 using Cysharp.Threading.Tasks;
 using R3;
-using Source.Scripts.Core;
+using Source.Scripts.Core.Loader;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using VContainer;
 using VContainer.Unity;
 using ZLinq;
-using Debug = UnityEngine.Debug;
 
 namespace Source.Scripts.UI.Windows.Base
 {
@@ -22,6 +21,7 @@ namespace Source.Scripts.UI.Windows.Base
         [SerializeField] private Transform _popUpsContainer;
 
         [Inject] private IObjectResolver _objectResolver;
+        [Inject] private IAddressablesLoader _addressablesLoader;
 
         private readonly HashSet<PopUpBase> _createdPopUps = new();
         private readonly HashSet<ScreenBase> _createdScreens = new();
@@ -36,7 +36,8 @@ namespace Source.Scripts.UI.Windows.Base
 
             foreach (var screenReference in _screenReferences)
             {
-                var loadedScreen = await PrefabLoader.LoadAsync<GameObject>(screenReference, sourceWithDestroy.Token);
+                var loadedScreen =
+                    await _addressablesLoader.LoadAsync<GameObject>(screenReference, sourceWithDestroy.Token);
                 var createdWindow = _objectResolver.Instantiate(loadedScreen, _screensContainer);
 
                 if (createdWindow.TryGetComponent<ScreenBase>(out var screenBase) is false)
@@ -53,7 +54,8 @@ namespace Source.Scripts.UI.Windows.Base
 
             foreach (var popUpReference in _popUpReferences)
             {
-                var loadedPopUp = await PrefabLoader.LoadAsync<GameObject>(popUpReference, sourceWithDestroy.Token);
+                var loadedPopUp =
+                    await _addressablesLoader.LoadAsync<GameObject>(popUpReference, sourceWithDestroy.Token);
                 var createdWindow = _objectResolver.Instantiate(loadedPopUp, _popUpsContainer);
 
                 if (createdWindow.TryGetComponent<PopUpBase>(out var popUpBase) is false)

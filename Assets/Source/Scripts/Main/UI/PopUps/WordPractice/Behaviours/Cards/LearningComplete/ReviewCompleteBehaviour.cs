@@ -1,8 +1,8 @@
 ﻿using System;
 using R3;
 using Source.Scripts.Core.Localization;
-using Source.Scripts.Data.Repositories.Vocabulary;
-using Source.Scripts.Data.Repositories.Vocabulary.Entries;
+using Source.Scripts.Data.Repositories.Words;
+using Source.Scripts.Data.Repositories.Words.Base;
 using Source.Scripts.UI.Windows.Base;
 using VContainer;
 
@@ -10,11 +10,11 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
 {
     internal sealed class ReviewCompleteBehaviour : LearningCompleteBehaviourBase
     {
-        [Inject] private IVocabularyRepository _vocabularyRepository;
+        [Inject] private IWordsRepository _wordsRepository;
 
         protected override void OnInit()
         {
-            _vocabularyRepository.OnAvailabilityTimeUpdate
+            _wordsRepository.OnAvailabilityTimeUpdate
                 .Where(cooldownByLearningState => cooldownByLearningState.State == LearningState.Repeatable)
                 .Subscribe(this, static (cooldownByLearningState, card) => card.SetState(
                     CompleteState.Complete,

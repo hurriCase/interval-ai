@@ -2,6 +2,7 @@
 using R3;
 using Source.Scripts.Core.Localization;
 using Source.Scripts.Data.Repositories.User;
+using Source.Scripts.Data.Repositories.User.Base;
 using Source.Scripts.Onboarding.Source.Scripts.Onboarding.Data;
 using Source.Scripts.Onboarding.Source.Scripts.Onboarding.Data.Base;
 using Source.Scripts.UI.Components;

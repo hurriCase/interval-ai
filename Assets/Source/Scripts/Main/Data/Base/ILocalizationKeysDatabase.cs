@@ -1,6 +1,6 @@
 ﻿using Source.Scripts.Core.Localization;
 using Source.Scripts.Data;
-using Source.Scripts.Data.Repositories.Vocabulary.Entries;
+using Source.Scripts.Data.Repositories.Words;
 
 namespace Source.Scripts.Main.Source.Scripts.Main.Data.Base
 {

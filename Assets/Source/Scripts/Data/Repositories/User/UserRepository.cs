@@ -3,47 +3,60 @@ using System.Collections.Generic;
 using System.Globalization;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Storage;
-using Source.Scripts.Data.Repositories.Vocabulary;
-using Source.Scripts.Data.Repositories.Vocabulary.CooldownSystem;
-using Source.Scripts.Data.Repositories.Vocabulary.Entries;
-using UnityEngine;
+using Source.Scripts.Data.Repositories.Categories.CooldownSystem;
+using Source.Scripts.Data.Repositories.User.Base;
+using Source.Scripts.Data.Repositories.Words;
+using UnityEngine.Scripting;
 
 namespace Source.Scripts.Data.Repositories.User
 {
+    [Preserve]
     internal sealed class UserRepository : IUserRepository, IDisposable
     {
-        public PersistentReactiveProperty<string> Nickname { get; } = new(PersistentPropertyKeys.UserNameKey,
-            _defaultUserDataDatabase.Name);
+        public PersistentReactiveProperty<string> Nickname { get; }
+        public PersistentReactiveProperty<CultureInfo> CurrentCulture { get; }
+        public PersistentReactiveProperty<LearningDirectionType> LearningDirection { get; }
+        public PersistentReactiveProperty<List<CooldownByDate>> RepetitionByCooldown { get; }
+        public PersistentReactiveProperty<CachedSprite> UserIcon { get; }
+        public PersistentReactiveProperty<LanguageLevel> UserLevel { get; }
+        public PersistentReactiveProperty<bool> IsCompleteOnboarding { get; }
+        public PersistentReactiveProperty<EnumArray<LanguageType, Language>> LanguageByType { get; }
 
-        public PersistentReactiveProperty<CultureInfo> CurrentCulture { get; } =
-            new(PersistentPropertyKeys.CurrentCultureKey, CultureInfo.CurrentCulture);
-
-        public PersistentReactiveProperty<LearningDirectionType> LearningDirection { get; } =
-            new(PersistentPropertyKeys.LearningDirectionKey, LearningDirectionType.LearningToNative);
-
-        public PersistentReactiveProperty<List<CooldownByDate>> RepetitionByCooldown { get; } =
-            new(PersistentPropertyKeys.RepetitionByCooldownKey, _defaultUserDataDatabase.DefaultCooldowns);
-
-        public PersistentReactiveProperty<Sprite> UserIcon { get; } =
-            new(PersistentPropertyKeys.RepetitionByCooldownKey, _defaultUserDataDatabase.Icon);
-
-        public PersistentReactiveProperty<LanguageLevel> UserLevel { get; } = new(PersistentPropertyKeys.UserLevelKey);
-        public PersistentReactiveProperty<bool> IsCompleteOnboarding { get; } =
-            new(PersistentPropertyKeys.IsCompleteOnboardingKey);
-        public PersistentReactiveProperty<EnumArray<LanguageType, Language>> LanguageByType { get; } =
-            new(PersistentPropertyKeys.LanguageByTypeKey);
-
-        private static IDefaultUserDataDatabase _defaultUserDataDatabase;
-
+        [Preserve]
         internal UserRepository(IDefaultUserDataDatabase defaultUserDataDatabase)
         {
-            _defaultUserDataDatabase = defaultUserDataDatabase;
+            CurrentCulture = new PersistentReactiveProperty<CultureInfo>(PersistentPropertyKeys.CurrentCultureKey,
+                CultureInfo.CurrentCulture);
+
+            LearningDirection =
+                new PersistentReactiveProperty<LearningDirectionType>(PersistentPropertyKeys.LearningDirectionKey,
+                    LearningDirectionType.LearningToNative);
+
+            RepetitionByCooldown = new PersistentReactiveProperty<List<CooldownByDate>>(
+                PersistentPropertyKeys.RepetitionByCooldownKey, defaultUserDataDatabase.DefaultCooldowns);
+
+            UserIcon = new PersistentReactiveProperty<CachedSprite>(PersistentPropertyKeys.RepetitionByCooldownKey,
+                new CachedSprite(defaultUserDataDatabase.Icon));
+
+            UserLevel = new PersistentReactiveProperty<LanguageLevel>(PersistentPropertyKeys.UserLevelKey);
+            IsCompleteOnboarding = new PersistentReactiveProperty<bool>(PersistentPropertyKeys.IsCompleteOnboardingKey);
+            LanguageByType = new PersistentReactiveProperty<EnumArray<LanguageType, Language>>(PersistentPropertyKeys
+                .LanguageByTypeKey);
+
+            Nickname = new PersistentReactiveProperty<string>(PersistentPropertyKeys.UserNameKey,
+                defaultUserDataDatabase.Name);
         }
 
         public void Dispose()
         {
             Nickname?.Dispose();
             CurrentCulture?.Dispose();
+            LearningDirection?.Dispose();
+            RepetitionByCooldown?.Dispose();
+            UserIcon?.Dispose();
+            UserLevel?.Dispose();
+            IsCompleteOnboarding?.Dispose();
+            LanguageByType?.Dispose();
         }
     }
 }

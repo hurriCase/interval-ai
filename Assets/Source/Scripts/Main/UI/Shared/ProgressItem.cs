@@ -3,7 +3,7 @@ using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.UI.Theme.Components;
 using CustomUtils.Runtime.UI.Theme.ThemeMapping;
-using Source.Scripts.Data.Repositories.Vocabulary.Entries;
+using Source.Scripts.Data.Repositories.Words;
 using TMPro;
 using UnityEngine;
 

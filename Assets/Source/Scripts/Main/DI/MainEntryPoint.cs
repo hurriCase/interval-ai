@@ -7,6 +7,7 @@ using VContainer.Unity;
 
 namespace Source.Scripts.Main.Source.Scripts.Main.DI
 {
+    [Preserve]
     internal sealed class MainEntryPoint : IAsyncStartable
     {
         [Inject] private IWindowsController _windowsController;

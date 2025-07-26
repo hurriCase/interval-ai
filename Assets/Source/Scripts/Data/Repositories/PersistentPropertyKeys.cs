@@ -13,6 +13,7 @@
 
         internal const string LearningDirectionKey = Prefix + "learningDirection";
         internal const string RepetitionByCooldownKey = Prefix + "repetitionByCooldown";
+        internal const string UserIcon = Prefix + "repetitionByCooldown";
         internal const string UserLevelKey = Prefix + "userLevel";
         internal const string IsCompleteOnboardingKey = Prefix + "isCompleteOnboarding";
         internal const string LanguageByTypeKey = Prefix + "languageByType";

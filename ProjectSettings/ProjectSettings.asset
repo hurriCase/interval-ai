@@ -265,7 +265,7 @@ PlayerSettings:
   useCustomGradlePropertiesTemplate: 1
   useCustomGradleSettingsTemplate: 1
   useCustomProguardFile: 0
-  AndroidTargetArchitectures: 1
+  AndroidTargetArchitectures: 3
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
   AndroidKeystoreName: '{inproject}: user.keystore'
@@ -488,7 +488,10 @@ PlayerSettings:
       m_Height: 1024
       m_Kind: 4
       m_SubKind: App Store
-  m_BuildTargetBatching: []
+  m_BuildTargetBatching:
+  - m_BuildTarget: Android
+    m_StaticBatching: 1
+    m_DynamicBatching: 0
   m_BuildTargetShaderSettings: []
   m_BuildTargetGraphicsJobs:
   - m_BuildTarget: AndroidPlayer
@@ -784,7 +787,7 @@ PlayerSettings:
   webWasm2023: 0
   webEnableSubmoduleStrippingCompatibility: 0
   scriptingDefineSymbols:
-    Android: PACKAGEDISCRIBUTOR_NUGETFORUNITY_RESOLVED;PACKAGEDISCRIBUTOR_NUGET_RESOLVED;PACKAGEDISCRIBUTOR_PACKAGES_RESOLVED;IS_AUTO_STRETCH_RECTTRANSFORM;IS_RECTTRANSFORM_EXTENDED_ENABLED;ADDRESSABLES_LOG_ALL
+    Android: IS_RECTTRANSFORM_EXTENDED_ENABLED;ADDRESSABLES_LOG_ALL;IS_AUTO_STRETCH_RECTTRANSFORM;IS_DEBUG;PACKAGEDISCRIBUTOR_NUGETFORUNITY_RESOLVED
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:

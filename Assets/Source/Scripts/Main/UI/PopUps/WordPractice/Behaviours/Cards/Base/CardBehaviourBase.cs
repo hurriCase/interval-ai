@@ -3,11 +3,8 @@ using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions;
 using R3;
 using Source.Scripts.Core.Localization;
-using Source.Scripts.Data.Repositories.Progress;
 using Source.Scripts.Data.Repositories.Progress.Base;
-using Source.Scripts.Data.Repositories.Vocabulary;
-using Source.Scripts.Data.Repositories.Vocabulary.Entries;
-using Source.Scripts.Main.Source.Scripts.Main.Data;
+using Source.Scripts.Data.Repositories.Words.Base;
 using Source.Scripts.Main.Source.Scripts.Main.Data.Base;
 using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.LearningComplete;
 using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.Swipe;
@@ -15,6 +12,7 @@ using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.
 using TMPro;
 using UnityEngine;
 using VContainer;
+using WordEntry = Source.Scripts.Data.Repositories.Words.WordEntry;
 
 namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.Base
 {
@@ -32,7 +30,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
         [SerializeField] private SwipeCardBehaviour _swipeCardBehaviour;
         [SerializeField] private WordProgressBehaviour _wordProgressBehaviour;
 
-        [Inject] protected IVocabularyRepository vocabularyRepository;
+        [Inject] protected IWordsRepository wordsRepository;
         [Inject] protected IProgressRepository progressRepository;
         [Inject] protected ILocalizationKeysDatabase localizationKeysDatabase;
 

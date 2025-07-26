@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Storage;
 using Source.Scripts.Data.Repositories.Progress.Entries;
-using Source.Scripts.Data.Repositories.Vocabulary.Entries;
+using Source.Scripts.Data.Repositories.Words;
 
 namespace Source.Scripts.Data.Repositories.Progress.Base
 {

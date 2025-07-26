@@ -4,22 +4,20 @@ using Source.Scripts.Data.Repositories.Progress.Entries;
 using System.Collections.Generic;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using Source.Scripts.Data.Repositories.Progress.Base;
-using Source.Scripts.Data.Repositories.Vocabulary.Entries;
+using Source.Scripts.Data.Repositories.Words;
+using UnityEngine.Scripting;
 
 namespace Source.Scripts.Data.Repositories.Progress
 {
+    [Preserve]
     internal sealed class ProgressRepository : IProgressRepository, IDisposable
     {
-        public PersistentReactiveProperty<EnumArray<LearningState, int>> TotalCountByState { get; } =
-            new(PersistentPropertyKeys.TotalCountByStateKey, new EnumArray<LearningState, int>(EnumMode.SkipFirst));
-        public PersistentReactiveProperty<int> DailyWordsGoal { get; } =
-            new(PersistentPropertyKeys.DailyGoalKey, DefaultDailyWordsGoal);
+        public PersistentReactiveProperty<EnumArray<LearningState, int>> TotalCountByState { get; }
+        public PersistentReactiveProperty<int> DailyWordsGoal { get; }
+        public PersistentReactiveProperty<int> CurrentStreak { get; }
+        public PersistentReactiveProperty<int> BestStreak { get; }
 
-        public PersistentReactiveProperty<int> CurrentStreak { get; } = new(PersistentPropertyKeys.CurrentStreakKey);
-        public PersistentReactiveProperty<int> BestStreak { get; } = new(PersistentPropertyKeys.BestStreakKey);
-
-        public PersistentReactiveProperty<Dictionary<DateTime, DailyProgress>> ProgressHistory { get; } =
-            new(PersistentPropertyKeys.ProgressEntryKey, new Dictionary<DateTime, DailyProgress>());
+        public PersistentReactiveProperty<Dictionary<DateTime, DailyProgress>> ProgressHistory { get; }
 
         public int NewWordsCount => ProgressHistory.Value.TryGetValue(DateTime.Now.Date, out var todayProgress)
             ? todayProgress.NewWordsCount
@@ -30,10 +28,21 @@ namespace Source.Scripts.Data.Repositories.Progress
             : 0;
 
         private const int DefaultDailyWordsGoal = 10;
-        private IDisposable _disposable;
 
+        [Preserve]
         internal ProgressRepository()
         {
+            DailyWordsGoal =
+                new PersistentReactiveProperty<int>(PersistentPropertyKeys.DailyGoalKey, DefaultDailyWordsGoal);
+
+            CurrentStreak = new PersistentReactiveProperty<int>(PersistentPropertyKeys.CurrentStreakKey);
+            BestStreak = new PersistentReactiveProperty<int>(PersistentPropertyKeys.BestStreakKey);
+            ProgressHistory = new PersistentReactiveProperty<Dictionary<DateTime, DailyProgress>>(
+                PersistentPropertyKeys.ProgressEntryKey, new Dictionary<DateTime, DailyProgress>());
+
+            TotalCountByState = new PersistentReactiveProperty<EnumArray<LearningState, int>>(
+                PersistentPropertyKeys.TotalCountByStateKey, new EnumArray<LearningState, int>(EnumMode.SkipFirst));
+
             var yesterdayDate = DateTime.Now.Date.AddDays(-1);
             ProgressHistory.Value.TryGetValue(yesterdayDate, out var lastDayProgress);
 
@@ -93,12 +102,6 @@ namespace Source.Scripts.Data.Repositories.Progress
             ProgressHistory.Value[today] = todayProgress;
         }
 
-        public void Dispose()
-        {
-            _disposable?.Dispose();
-            ProgressHistory.Dispose();
-        }
-
         private void ProcessNewWordProgress(ref DailyProgress dailyProgress)
         {
             if (dailyProgress.GoalAchieved || GetProgressForDailyGoal(ref dailyProgress) < DailyWordsGoal.Value)
@@ -114,5 +117,14 @@ namespace Source.Scripts.Data.Repositories.Progress
 
         private int GetProgressForDailyGoal(ref DailyProgress dailyProgress)
             => dailyProgress.ProgressByState[LearningState.CurrentlyLearning];
+
+        public void Dispose()
+        {
+            TotalCountByState?.Dispose();
+            DailyWordsGoal?.Dispose();
+            CurrentStreak?.Dispose();
+            BestStreak?.Dispose();
+            ProgressHistory?.Dispose();
+        }
     }
 }

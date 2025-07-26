@@ -1,6 +1,6 @@
 ﻿using CustomUtils.Runtime.CustomTypes.Collections;
 using Source.Scripts.Data.Repositories.User;
-using Source.Scripts.Data.Repositories.Vocabulary.Entries;
+using Source.Scripts.Data.Repositories.Words;
 using Source.Scripts.Onboarding.Source.Scripts.Onboarding.Data.Base;
 using UnityEngine;
 

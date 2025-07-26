@@ -1,8 +1,8 @@
 ﻿using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Localization;
 using R3;
-using Source.Scripts.Data.Repositories.Vocabulary;
-using Source.Scripts.Data.Repositories.Vocabulary.Entries;
+using Source.Scripts.Data.Repositories.Words;
+using Source.Scripts.Data.Repositories.Words.Base;
 using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.Base;
 using Source.Scripts.UI.Components;
 using UnityEngine;
@@ -18,7 +18,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
 
         private CardBehaviourBase _cardBehaviourBase;
 
-        [Inject] private IVocabularyRepository _vocabularyRepository;
+        [Inject] private IWordsRepository _wordsRepository;
 
         internal void Init(CardBehaviourBase cardBehaviourBase)
         {
@@ -64,7 +64,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
                 return;
             }
 
-            _vocabularyRepository.AdvanceWord(_cardBehaviourBase.CurrentWord, true);
+            _wordsRepository.AdvanceWord(_cardBehaviourBase.CurrentWord, true);
             _cardBehaviourBase.UpdateWord();
         }
 
@@ -73,7 +73,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
             var currentWord = _cardBehaviourBase.CurrentWord;
             var success = currentWord.LearningState == LearningState.None;
 
-            _vocabularyRepository.AdvanceWord(currentWord, success);
+            _wordsRepository.AdvanceWord(currentWord, success);
             _cardBehaviourBase.UpdateWord();
         }
     }

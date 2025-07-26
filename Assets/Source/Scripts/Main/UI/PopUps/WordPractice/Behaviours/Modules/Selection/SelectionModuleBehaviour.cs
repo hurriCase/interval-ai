@@ -1,4 +1,5 @@
-﻿using Source.Scripts.Data.Repositories.Vocabulary;
+﻿using Source.Scripts.Data.Repositories.Categories;
+using Source.Scripts.Data.Repositories.Words.Base;
 using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base;
 using Source.Scripts.UI.Components;
 using UnityEngine;
@@ -11,7 +12,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
     {
         [SerializeField] private ButtonTextComponent[] _wordSelectionItems = new ButtonTextComponent[SelectionCount];
 
-        [Inject] private IVocabularyRepository _vocabularyRepository;
+        [Inject] private IWordsRepository _wordsRepository;
 
         private const int SelectionCount = 4;
 
@@ -19,7 +20,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
         {
             base.UpdateView();
 
-            var randomWords = _vocabularyRepository.GetRandomWords(currentWord, SelectionCount - 1);
+            var randomWords = _wordsRepository.GetRandomWords(currentWord, SelectionCount - 1);
             var correctWordIndex = Random.Range(0, SelectionCount);
 
             var index = -1;

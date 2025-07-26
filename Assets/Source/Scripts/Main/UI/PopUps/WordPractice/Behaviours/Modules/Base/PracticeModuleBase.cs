@@ -1,6 +1,9 @@
-﻿using Source.Scripts.Data.Repositories.User;
-using Source.Scripts.Data.Repositories.Vocabulary;
-using Source.Scripts.Data.Repositories.Vocabulary.Entries;
+﻿using CustomUtils.Runtime.Extensions;
+using Cysharp.Threading.Tasks;
+using Source.Scripts.Core.Loader;
+using Source.Scripts.Data.Repositories.Categories;
+using Source.Scripts.Data.Repositories.User.Base;
+using Source.Scripts.Data.Repositories.Words;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,6 +18,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
         [SerializeField] protected TransitionButtonData[] transitionButtons;
 
         [Inject] protected IUserRepository userRepository;
+        [Inject] protected IAddressablesLoader addressablesLoader;
 
         protected WordEntry currentWord;
 
@@ -33,10 +37,24 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
 
         protected virtual void UpdateView()
         {
-            if (descriptiveImage)
-                descriptiveImage.sprite = currentWord.DescriptiveImage;
+            SetDescriptiveImage().Forget();
 
             shownWordText.text = currentWord.GetShownWord(userRepository);
+        }
+
+        private async UniTask SetDescriptiveImage()
+        {
+            if (!descriptiveImage)
+                return;
+
+            if (currentWord.DescriptiveImage.IsValid is false)
+            {
+                descriptiveImage.SetActive(false);
+                return;
+            }
+
+            descriptiveImage.sprite = await addressablesLoader
+                .LoadAsync<Sprite>(currentWord.DescriptiveImage.AssetGUID, destroyCancellationToken);
         }
     }
 }

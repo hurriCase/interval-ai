@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using R3;
-using Source.Scripts.Data.Repositories.User;
-using Source.Scripts.Data.Repositories.Vocabulary.Entries;
+using Source.Scripts.Data.Repositories.User.Base;
 using Source.Scripts.Main.Source.Scripts.Main.UI.Shared;
 using UnityEngine;
 using VContainer;
+using WordEntry = Source.Scripts.Data.Repositories.Words.WordEntry;
 
 namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards
 {

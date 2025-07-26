@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Source.Scripts.Data.Repositories.Progress.Base;
+using Source.Scripts.Onboarding.Source.Scripts.Onboarding.Data.Base;
 using UnityEngine;
 
 namespace Source.Scripts.Onboarding.Source.Scripts.Onboarding.Data

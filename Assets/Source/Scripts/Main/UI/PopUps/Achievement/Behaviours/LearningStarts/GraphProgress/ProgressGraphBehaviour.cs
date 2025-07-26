@@ -5,7 +5,7 @@ using CustomUtils.Runtime.Localization;
 using R3;
 using Source.Scripts.Data;
 using Source.Scripts.Data.Repositories.Progress.Base;
-using Source.Scripts.Data.Repositories.Vocabulary.Entries;
+using Source.Scripts.Data.Repositories.Words;
 using Source.Scripts.Main.Source.Scripts.Main.Data.Base;
 using Source.Scripts.Main.Source.Scripts.Main.UI.Shared;
 using TMPro;

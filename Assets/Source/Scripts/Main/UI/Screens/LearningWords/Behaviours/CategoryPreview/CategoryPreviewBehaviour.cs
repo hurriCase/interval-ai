@@ -1,5 +1,8 @@
 ﻿using CustomUtils.Runtime.Extensions;
-using Source.Scripts.Data.Repositories.Vocabulary;
+using Cysharp.Threading.Tasks;
+using Source.Scripts.Core.Loader;
+using Source.Scripts.Data.Repositories.Categories.Base;
+using Source.Scripts.Data.Repositories.Categories.Entries;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
@@ -13,21 +16,31 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.Screens.LearningWords.Behav
         [SerializeField] private AspectRatioFitter _spacingPrefab;
         [SerializeField] private float _spacingRatio;
 
-        [Inject] private IVocabularyRepository _vocabularyRepository;
+        [Inject] private ICategoriesRepository _categoriesRepository;
+        [Inject] private IAddressablesLoader _addressablesLoader;
 
         internal void Init()
         {
-            foreach (var categoryEntry in _vocabularyRepository.GetCategories())
+            foreach (var categoryEntry in _categoriesRepository.CategoryEntries.Value)
             {
                 var createdCategory = Instantiate(_categoryItemPrefab, _contentContainer);
 
-                createdCategory.IconImage.sprite = categoryEntry.Icon;
+                SetCategoryIcon(createdCategory, categoryEntry).Forget();
                 createdCategory.NameText.text = categoryEntry.LocalizationKey.GetLocalization();
 
                 var createdSpacing = Instantiate(_spacingPrefab, _contentContainer);
                 createdSpacing.aspectMode = AspectRatioFitter.AspectMode.HeightControlsWidth;
                 createdSpacing.aspectRatio = _spacingRatio;
             }
+        }
+
+        private async UniTask SetCategoryIcon(CategoryPreviewItem categoryItem, CategoryEntry categoryEntry)
+        {
+            if (categoryEntry.Icon.IsValid is false)
+                return;
+
+            categoryItem.IconImage.sprite =
+                await _addressablesLoader.LoadAsync<Sprite>(categoryEntry.Icon.AssetGUID, destroyCancellationToken);
         }
     }
 }

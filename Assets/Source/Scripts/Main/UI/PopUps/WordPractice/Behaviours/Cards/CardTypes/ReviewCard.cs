@@ -2,8 +2,7 @@
 using CustomUtils.Runtime.Localization;
 using R3;
 using Source.Scripts.Core.Localization;
-using Source.Scripts.Data.Repositories.Vocabulary.Entries;
-using Source.Scripts.Main.Source.Scripts.Main.Data;
+using Source.Scripts.Data.Repositories.Words;
 using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.Base;
 
 namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.CardTypes
@@ -16,7 +15,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
 
             learningCompleteBehaviour.Init(PracticeState.Review);
 
-            vocabularyRepository.OnAvailabilityTimeUpdate
+            wordsRepository.OnAvailabilityTimeUpdate
                 .Where(cooldown => cooldown.State == LearningState.Repeatable)
                 .Where(cooldown => DateTime.Now >= cooldown.CurrentTime)
                 .Subscribe(this, static (_, card) => card.UpdateWord())
@@ -25,7 +24,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
 
         internal override void UpdateWord()
         {
-            CurrentWord = vocabularyRepository.GetAvailableWord(LearningState.Repeatable);
+            CurrentWord = wordsRepository.GetAvailableWord(LearningState.Repeatable);
 
             base.UpdateWord();
         }

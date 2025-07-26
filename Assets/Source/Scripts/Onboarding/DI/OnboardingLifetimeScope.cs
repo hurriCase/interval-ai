@@ -1,5 +1,4 @@
-﻿using Source.Scripts.Data.Repositories.Progress.Base;
-using Source.Scripts.Onboarding.Source.Scripts.Onboarding.Data;
+﻿using Source.Scripts.Onboarding.Source.Scripts.Onboarding.Data;
 using Source.Scripts.Onboarding.Source.Scripts.Onboarding.Data.Base;
 using Source.Scripts.UI.Windows.Base;
 using UnityEngine;

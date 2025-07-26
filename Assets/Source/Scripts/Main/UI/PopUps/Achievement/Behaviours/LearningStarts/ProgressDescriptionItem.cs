@@ -1,8 +1,5 @@
-﻿using CustomUtils.Runtime.Extensions;
-using CustomUtils.Runtime.Localization;
-using CustomUtils.Runtime.UI.Theme.Components;
-using Source.Scripts.Data.Repositories.Vocabulary.Entries;
-using Source.Scripts.Main.Source.Scripts.Main.Data;
+﻿using CustomUtils.Runtime.UI.Theme.Components;
+using Source.Scripts.Data.Repositories.Words;
 using Source.Scripts.Main.Source.Scripts.Main.Data.Base;
 using Source.Scripts.Main.Source.Scripts.Main.UI.Shared;
 using TMPro;

@@ -1,7 +1,7 @@
 ﻿using R3;
 using Source.Scripts.Data.Repositories.User;
-using Source.Scripts.Data.Repositories.Vocabulary.Entries;
-using Source.Scripts.Onboarding.Source.Scripts.Onboarding.Data;
+using Source.Scripts.Data.Repositories.User.Base;
+using Source.Scripts.Data.Repositories.Words;
 using Source.Scripts.Onboarding.Source.Scripts.Onboarding.Data.Base;
 using Source.Scripts.UI.Components;
 using UnityEngine;

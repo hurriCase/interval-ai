@@ -1,10 +1,8 @@
 ﻿using System;
 using CustomUtils.Runtime.Extensions;
-using CustomUtils.Runtime.Localization;
 using R3;
 using Source.Scripts.Core.Localization;
-using Source.Scripts.Data.Repositories.Vocabulary.Entries;
-using Source.Scripts.Main.Source.Scripts.Main.Data;
+using Source.Scripts.Data.Repositories.Words;
 using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.Base;
 
 namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.CardTypes
@@ -35,10 +33,10 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
 
         internal override void UpdateWord()
         {
-            CurrentWord = vocabularyRepository.GetAvailableWord(LearningState.None);
+            CurrentWord = wordsRepository.GetAvailableWord(LearningState.None);
 
             if (CurrentWord is null || CurrentWord.IsValid is false)
-                CurrentWord = vocabularyRepository.GetAvailableWord(LearningState.CurrentlyLearning);
+                CurrentWord = wordsRepository.GetAvailableWord(LearningState.CurrentlyLearning);
 
             base.UpdateWord();
         }

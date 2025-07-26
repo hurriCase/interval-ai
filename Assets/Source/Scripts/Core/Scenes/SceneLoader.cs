@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Source.Scripts.Core.Helpers;
+using Source.Scripts.Core.Other;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
+using UnityEngine.Scripting;
 
 namespace Source.Scripts.Core.Scenes
 {
+    [Preserve]
     internal sealed class SceneLoader : ISceneLoader
     {
         private static SceneInstance _sceneInstance;

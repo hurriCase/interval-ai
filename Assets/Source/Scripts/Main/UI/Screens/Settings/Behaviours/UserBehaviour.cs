@@ -1,5 +1,7 @@
-﻿using R3;
-using Source.Scripts.Data.Repositories.User;
+﻿using Cysharp.Threading.Tasks;
+using R3;
+using Source.Scripts.Core.Loader;
+using Source.Scripts.Data.Repositories.User.Base;
 using Source.Scripts.UI.Components;
 using TMPro;
 using UnityEngine;
@@ -15,6 +17,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.Screens.Settings.Behaviours
         [SerializeField] private Image _userIcon;
 
         [Inject] private IUserRepository _userRepository;
+        [Inject] private IAddressablesLoader _addressablesLoader;
 
         private string _originalNickname;
 
@@ -27,7 +30,8 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.Screens.Settings.Behaviours
             _nicknameField.onEndEdit.AddListener(FinishEditing);
 
             _nicknameField.text = _userRepository.Nickname.Value;
-            _userIcon.sprite = _userRepository.UserIcon.Value;
+
+            SetUserIcon(_userRepository.UserIcon.Value.AssetGUID).Forget();
 
             _userRepository.Nickname
                 .AsObservable()
@@ -36,8 +40,14 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.Screens.Settings.Behaviours
                 .RegisterTo(destroyCancellationToken);
 
             _userRepository.UserIcon
-                .Subscribe(this, static (icon, screen) => screen._userIcon.sprite = icon)
+                .Subscribe(this, static (cachedSprite, screen)
+                    => screen.SetUserIcon(cachedSprite.AssetGUID).Forget())
                 .RegisterTo(destroyCancellationToken);
+        }
+
+        private async UniTask SetUserIcon(string assetGUID)
+        {
+            _userIcon.sprite = await _addressablesLoader.LoadAsync<Sprite>(assetGUID, destroyCancellationToken);
         }
 
         private void StartEditing()

@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
-using Source.Scripts.Data.Repositories.Vocabulary;
-using Source.Scripts.Data.Repositories.Vocabulary.CooldownSystem;
+using Source.Scripts.Data.Repositories.Categories.CooldownSystem;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
-namespace Source.Scripts.Data.Repositories.User
+namespace Source.Scripts.Data.Repositories.User.Base
 {
     internal interface IDefaultUserDataDatabase
     {
         List<CooldownByDate> DefaultCooldowns { get; }
         string Name { get; }
-        Sprite Icon { get; }
+        AssetReferenceT<Sprite> Icon { get; }
     }
 }

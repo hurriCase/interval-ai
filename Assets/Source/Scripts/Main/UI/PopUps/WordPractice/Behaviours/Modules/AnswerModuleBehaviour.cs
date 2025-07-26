@@ -1,4 +1,4 @@
-﻿using Source.Scripts.Data.Repositories.Vocabulary;
+﻿using Source.Scripts.Data.Repositories.Categories;
 using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base;
 using TMPro;
 using UnityEngine;
