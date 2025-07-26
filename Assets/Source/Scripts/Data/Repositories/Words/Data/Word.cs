@@ -1,8 +1,9 @@
 using System;
 using MemoryPack;
+using Source.Scripts.Data.Repositories.Words.Base;
 using UnityEngine;
 
-namespace Source.Scripts.Data.Repositories.Words
+namespace Source.Scripts.Data.Repositories.Words.Data
 {
     [MemoryPackable]
     [Serializable]

@@ -7,6 +7,7 @@ using Source.Scripts.Core.Localization;
 using Source.Scripts.Data.Repositories.Progress.Base;
 using Source.Scripts.Data.Repositories.Progress.Entries;
 using Source.Scripts.Data.Repositories.Words;
+using Source.Scripts.Data.Repositories.Words.Base;
 using Source.Scripts.Main.Source.Scripts.Main.Data.Base;
 using TMPro;
 using UnityEngine;
@@ -38,7 +39,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.Screens.LearningWords.Behav
 
         private void UpdateProgress(Dictionary<DateTime, DailyProgress> progressHistory)
         {
-            var dailyGoal = Mathf.Max(1, _progressRepository.DailyWordsGoal.Value);
+            var dailyGoal = Mathf.Max(1, _progressRepository.NewWordsDailyTarget.Value);
             var learnedCount = progressHistory.TryGetValue(DateTime.Now, out var dailyProgress)
                 ? Mathf.Max(0, dailyProgress.GetProgressCountData(LearningState.CurrentlyLearning))
                 : 0;

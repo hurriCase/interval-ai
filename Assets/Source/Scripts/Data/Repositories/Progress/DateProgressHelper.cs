@@ -1,8 +1,9 @@
 ﻿using System;
 using Source.Scripts.Data.Repositories.Progress.Base;
 using Source.Scripts.Data.Repositories.Progress.Entries;
-using Source.Scripts.Data.Repositories.User.Base;
+using Source.Scripts.Data.Repositories.Settings.Base;
 using Source.Scripts.Data.Repositories.Words;
+using Source.Scripts.Data.Repositories.Words.Base;
 
 namespace Source.Scripts.Data.Repositories.Progress
 {
@@ -19,12 +20,12 @@ namespace Source.Scripts.Data.Repositories.Progress
         private readonly DailyProgress[] _currentWeek = new DailyProgress[DaysPerWeek];
 
         private readonly IProgressRepository _progressRepository;
-        private readonly IUserRepository _userRepository;
+        private readonly ISettingsRepository _settingsRepository;
 
-        internal DateProgressHelper(IProgressRepository progressRepository, IUserRepository userRepository)
+        internal DateProgressHelper(IProgressRepository progressRepository, ISettingsRepository settingsRepository)
         {
             _progressRepository = progressRepository;
-            _userRepository = userRepository;
+            _settingsRepository = settingsRepository;
         }
 
         public DailyProgress[] GetCurrentWeek()
@@ -96,7 +97,7 @@ namespace Source.Scripts.Data.Repositories.Progress
 
         private int GetDayIndexInWeek(DateTime date)
         {
-            var firstDayOfWeek = _userRepository.CurrentCulture.Value.DateTimeFormat.FirstDayOfWeek;
+            var firstDayOfWeek = _settingsRepository.CurrentCulture.Value.DateTimeFormat.FirstDayOfWeek;
 
             return ((int)date.DayOfWeek - (int)firstDayOfWeek + DaysPerWeek) % DaysPerWeek;
         }

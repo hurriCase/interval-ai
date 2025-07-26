@@ -1,5 +1,5 @@
 ﻿using System;
-using Source.Scripts.Data.Repositories.Words;
+using Source.Scripts.Data.Repositories.Words.Base;
 
 namespace Source.Scripts.Data.Repositories.Categories.CooldownSystem
 {

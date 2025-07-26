@@ -18,23 +18,23 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.Shared
 
         internal void Init()
         {
-            var dailyWordsGoal = _progressRepository.DailyWordsGoal;
+            var wordsTarget = _progressRepository.NewWordsDailyTarget;
 
-            dailyWordsGoal.Subscribe(this,
+            wordsTarget.Subscribe(this,
                     static (goal, behaviour) => behaviour._dailyWordGoalText.text = goal.ToString())
                 .RegisterTo(destroyCancellationToken);
 
             _minusButton.OnClickAsObservable()
-                .Where(dailyWordsGoal, (_, goal) => goal.Value > 0)
-                .Subscribe((behaviour: this, dailyWordsGoal), static (_, tuple) =>
+                .Where(wordsTarget, (_, goal) => goal.Value > 0)
+                .Subscribe((behaviour: this, wordsTarget), static (_, tuple) =>
                 {
-                    tuple.dailyWordsGoal.Value--;
-                    tuple.behaviour._minusButton.interactable = tuple.dailyWordsGoal.Value > 0;
+                    tuple.wordsTarget.Value--;
+                    tuple.behaviour._minusButton.interactable = tuple.wordsTarget.Value > 0;
                 })
                 .RegisterTo(destroyCancellationToken);
 
             _plusButton.OnClickAsObservable()
-                .Subscribe(dailyWordsGoal, static (_, goal) => goal.Value++)
+                .Subscribe(wordsTarget, static (_, wordsTarget) => wordsTarget.Value++)
                 .RegisterTo(destroyCancellationToken);
         }
     }

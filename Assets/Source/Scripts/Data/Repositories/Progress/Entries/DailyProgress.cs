@@ -2,6 +2,7 @@
 using CustomUtils.Runtime.CustomTypes.Collections;
 using MemoryPack;
 using Source.Scripts.Data.Repositories.Words;
+using Source.Scripts.Data.Repositories.Words.Base;
 
 namespace Source.Scripts.Data.Repositories.Progress.Entries
 {

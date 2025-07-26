@@ -8,6 +8,9 @@ using Source.Scripts.Data.Repositories.Categories.Defaults;
 using Source.Scripts.Data.Repositories.Progress;
 using Source.Scripts.Data.Repositories.Progress.Base;
 using Source.Scripts.Data.Repositories.Progress.Tests;
+using Source.Scripts.Data.Repositories.Settings;
+using Source.Scripts.Data.Repositories.Settings.Base;
+using Source.Scripts.Data.Repositories.Statistics;
 using Source.Scripts.Data.Repositories.User;
 using Source.Scripts.Data.Repositories.User.Base;
 using Source.Scripts.Data.Repositories.Words;
@@ -24,6 +27,7 @@ namespace Source.Scripts.Core.DI
 
         [SerializeField] private SceneReferences _sceneReferences;
 
+        [SerializeField] private DefaultSettingsDatabase _defaultSettingsDatabase;
         [SerializeField] private DefaultUserDataDatabase _defaultUserDataDatabase;
         [SerializeField] private DefaultCategoriesDatabase _defaultCategoriesDatabase;
         [SerializeField] private DefaultWordsDatabase _defaultWordsDatabase;
@@ -36,6 +40,11 @@ namespace Source.Scripts.Core.DI
             builder.RegisterInstance(_stepsList);
 
             builder.Register<ProgressRepository>(Lifetime.Singleton).As<IProgressRepository>();
+
+            builder.Register<StatisticsRepository>(Lifetime.Singleton).As<IStatisticsRepository>();
+
+            builder.Register<SettingsRepository>(Lifetime.Singleton).As<ISettingsRepository>();
+            builder.RegisterInstance(_defaultSettingsDatabase).As<IDefaultSettingsDatabase>();
 
             builder.Register<UserRepository>(Lifetime.Singleton).As<IUserRepository>();
             builder.RegisterInstance(_defaultUserDataDatabase).As<IDefaultUserDataDatabase>();

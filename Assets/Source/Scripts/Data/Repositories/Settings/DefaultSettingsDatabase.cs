@@ -1,0 +1,12 @@
+﻿using System.Collections.Generic;
+using Source.Scripts.Data.Repositories.Settings.Base;
+using UnityEngine;
+
+namespace Source.Scripts.Data.Repositories.Settings
+{
+    [CreateAssetMenu(fileName = nameof(DefaultSettingsDatabase), menuName = nameof(DefaultSettingsDatabase))]
+    internal sealed class DefaultSettingsDatabase : ScriptableObject, IDefaultSettingsDatabase
+    {
+        [field: SerializeField] public List<CooldownByDate> DefaultCooldowns { get; private set; }
+    }
+}

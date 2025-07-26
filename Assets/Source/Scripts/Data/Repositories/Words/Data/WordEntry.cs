@@ -1,10 +1,9 @@
 ﻿using System;
 using MemoryPack;
-using Source.Scripts.Data.Repositories.User;
+using Source.Scripts.Data.Repositories.Words.Base;
 using UnityEngine;
-using Example = Source.Scripts.Data.Repositories.Categories.Entries.Example;
 
-namespace Source.Scripts.Data.Repositories.Words
+namespace Source.Scripts.Data.Repositories.Words.Data
 {
     [MemoryPackable]
     [Serializable]

@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
-using Source.Scripts.Core.Other;
+using Source.Scripts.Core.Others;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 

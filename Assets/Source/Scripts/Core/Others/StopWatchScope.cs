@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace Source.Scripts.Core.Other
+namespace Source.Scripts.Core.Others
 {
     internal readonly struct StopWatchScope : IDisposable
     {

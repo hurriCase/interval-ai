@@ -1,8 +1,8 @@
 ﻿using CustomUtils.Runtime.Extensions;
 using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.Loader;
+using Source.Scripts.Data.Repositories.Categories;
 using Source.Scripts.Data.Repositories.Categories.Base;
-using Source.Scripts.Data.Repositories.Categories.Entries;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;

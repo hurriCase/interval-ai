@@ -1,7 +1,9 @@
 ﻿using R3;
+using Source.Scripts.Data.Repositories.Settings;
+using Source.Scripts.Data.Repositories.Settings.Base;
 using Source.Scripts.Data.Repositories.User;
-using Source.Scripts.Data.Repositories.User.Base;
 using Source.Scripts.Data.Repositories.Words;
+using Source.Scripts.Data.Repositories.Words.Base;
 using Source.Scripts.Onboarding.Source.Scripts.Onboarding.Data.Base;
 using Source.Scripts.UI.Components;
 using UnityEngine;
@@ -18,7 +20,7 @@ namespace Source.Scripts.Onboarding.Source.Scripts.Onboarding.UI.Behaviours
         [SerializeField] private AspectRatioFitter _spacing;
         [SerializeField] private float _spacingRatio;
 
-        [Inject] private IUserRepository _userRepository;
+        [Inject] private ISettingsRepository _settingsRepository;
         [Inject] private ILocalizationDatabase _localizationDatabase;
 
         internal override void Init()
@@ -44,12 +46,12 @@ namespace Source.Scripts.Onboarding.Source.Scripts.Onboarding.UI.Behaviours
             createdLanguageItem.Text.text = localization;
 
             createdLanguageItem.Button.OnClickAsObservable()
-                .Subscribe((type: language, _userRepository, languageType), static (_, tuple)
+                .Subscribe((type: language, _settingsRepository, languageType), static (_, tuple)
                     =>
                 {
-                    var enumArray = tuple._userRepository.LanguageByType.Value;
+                    var enumArray = tuple._settingsRepository.LanguageByType.Value;
                     enumArray[tuple.languageType] = tuple.type;
-                    tuple._userRepository.LanguageByType.Value = enumArray;
+                    tuple._settingsRepository.LanguageByType.Value = enumArray;
                 })
                 .RegisterTo(destroyCancellationToken);
 

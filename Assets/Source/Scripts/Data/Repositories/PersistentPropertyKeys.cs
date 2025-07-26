@@ -16,6 +16,7 @@
         internal const string UserIcon = Prefix + "repetitionByCooldown";
         internal const string UserLevelKey = Prefix + "userLevel";
         internal const string IsCompleteOnboardingKey = Prefix + "isCompleteOnboarding";
+        internal const string LoginHistoryKey = Prefix + "loginHistory";
         internal const string LanguageByTypeKey = Prefix + "languageByType";
         internal const string LearningLanguageKey = Prefix + "learningLanguage";
         internal const string UserNameKey = Prefix + "userName";

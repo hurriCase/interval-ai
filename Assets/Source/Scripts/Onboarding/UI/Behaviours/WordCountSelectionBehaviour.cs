@@ -42,7 +42,7 @@ namespace Source.Scripts.Onboarding.Source.Scripts.Onboarding.UI.Behaviours
                 createdWordItem.Text.text = wordGoals[i].ToString();
                 createdWordItem.Button.OnCancelAsObservable()
                     .Subscribe((_progressRepository, goal: wordGoals[i]),
-                        static (_, tuple) => tuple._progressRepository.DailyWordsGoal.Value = tuple.goal)
+                        static (_, tuple) => tuple._progressRepository.NewWordsDailyTarget.Value = tuple.goal)
                     .RegisterTo(destroyCancellationToken);
 
                 if (i == wordGoals.Count - 1)

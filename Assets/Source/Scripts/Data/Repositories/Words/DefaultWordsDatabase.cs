@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using Source.Scripts.Data.Repositories.Categories.Base;
+using Source.Scripts.Data.Repositories.Words.Base;
+using Source.Scripts.Data.Repositories.Words.Data;
 using UnityEngine;
-using WordEntry = Source.Scripts.Data.Repositories.Words.WordEntry;
 
-namespace Source.Scripts.Data.Repositories.Categories.Defaults
+namespace Source.Scripts.Data.Repositories.Words
 {
     internal sealed class DefaultWordsDatabase : ScriptableObject, IDefaultWordsDatabase
     {

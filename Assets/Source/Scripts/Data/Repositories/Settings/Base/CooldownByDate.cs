@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Source.Scripts.Data.Repositories.Categories.CooldownSystem
+namespace Source.Scripts.Data.Repositories.Settings.Base
 {
     [Serializable]
     internal struct CooldownByDate

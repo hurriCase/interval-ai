@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using R3;
-using Source.Scripts.Data.Repositories.User;
-using Source.Scripts.Data.Repositories.User.Base;
+using Source.Scripts.Data.Repositories.Settings;
+using Source.Scripts.Data.Repositories.Settings.Base;
 using TMPro;
 using UnityEngine;
 using VContainer;
@@ -12,11 +12,11 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.Achievement.Behaviou
     {
         [SerializeField] private TextMeshProUGUI[] _weekDayTexts = new TextMeshProUGUI[7];
 
-        [Inject] private IUserRepository _userRepository;
+        [Inject] private ISettingsRepository _settingsRepository;
 
         internal void Init()
         {
-            _userRepository.CurrentCulture
+            _settingsRepository.CurrentCulture
                 .Subscribe(this, (culture, behaviour) => behaviour.UpdateWeekDays(culture))
                 .RegisterTo(destroyCancellationToken);
         }

@@ -4,6 +4,7 @@ using CustomUtils.Runtime.Extensions;
 using Cysharp.Threading.Tasks;
 using R3;
 using Source.Scripts.Core.Scenes;
+using Source.Scripts.Data.Repositories.Statistics;
 using Source.Scripts.Data.Repositories.User;
 using Source.Scripts.Data.Repositories.User.Base;
 using Source.Scripts.Onboarding.Source.Scripts.Onboarding.UI.Behaviours;
@@ -25,7 +26,7 @@ namespace Source.Scripts.Onboarding.Source.Scripts.Onboarding.UI
         private int _currentStepIndex;
 
         [Inject] private ISceneLoader _sceneLoader;
-        [Inject] private IUserRepository _userRepository;
+        [Inject] private IStatisticsRepository _statisticsRepository;
         [Inject] private ISceneReferences _sceneReferences;
 
         internal override void Init()
@@ -52,7 +53,7 @@ namespace Source.Scripts.Onboarding.Source.Scripts.Onboarding.UI
         {
             if (index >= _inputOnboardingSteps.Count)
             {
-                _userRepository.IsCompleteOnboarding.Value = true;
+                _statisticsRepository.IsCompleteOnboarding.Value = true;
                 _sceneLoader.LoadSceneAsync(_sceneReferences.MainMenuScene.Address, CancellationToken.None)
                     .Forget();
                 return;

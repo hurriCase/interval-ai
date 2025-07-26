@@ -1,4 +1,5 @@
 ﻿using Source.Scripts.Data.Repositories.Categories;
+using Source.Scripts.Data.Repositories.Words;
 using Source.Scripts.Data.Repositories.Words.Base;
 using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base;
 using Source.Scripts.UI.Components;
@@ -30,10 +31,10 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
                 if (index == correctWordIndex)
                     index++;
 
-                _wordSelectionItems[index].Text.text = wordEntry.GetHiddenWord(userRepository);
+                _wordSelectionItems[index].Text.text = wordEntry.GetHiddenWord(settingsRepository);
             }
 
-            _wordSelectionItems[correctWordIndex].Text.text = currentWord.GetHiddenWord(userRepository);
+            _wordSelectionItems[correctWordIndex].Text.text = currentWord.GetHiddenWord(settingsRepository);
         }
     }
 }

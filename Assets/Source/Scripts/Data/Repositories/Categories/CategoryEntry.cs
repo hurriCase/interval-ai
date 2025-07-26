@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using MemoryPack;
-using Source.Scripts.Data.Repositories.User;
-using Source.Scripts.Data.Repositories.Words;
+using Source.Scripts.Data.Repositories.Words.Data;
 using UnityEngine;
 
-namespace Source.Scripts.Data.Repositories.Categories.Entries
+namespace Source.Scripts.Data.Repositories.Categories
 {
     [MemoryPackable]
     [Serializable]

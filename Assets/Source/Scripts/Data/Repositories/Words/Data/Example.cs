@@ -2,7 +2,7 @@
 using MemoryPack;
 using UnityEngine;
 
-namespace Source.Scripts.Data.Repositories.Categories.Entries
+namespace Source.Scripts.Data.Repositories.Words.Data
 {
     [MemoryPackable]
     [Serializable]

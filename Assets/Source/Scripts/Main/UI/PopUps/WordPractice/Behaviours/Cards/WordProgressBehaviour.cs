@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 using R3;
+using Source.Scripts.Data.Repositories.Settings;
+using Source.Scripts.Data.Repositories.Settings.Base;
 using Source.Scripts.Data.Repositories.User.Base;
+using Source.Scripts.Data.Repositories.Words;
 using Source.Scripts.Main.Source.Scripts.Main.UI.Shared;
 using UnityEngine;
 using VContainer;
-using WordEntry = Source.Scripts.Data.Repositories.Words.WordEntry;
+using WordEntry = Source.Scripts.Data.Repositories.Words.Data.WordEntry;
 
 namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards
 {
@@ -15,7 +18,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
         [SerializeField] private float _spacingRatio;
         [SerializeField] private float _thicknessRatio;
 
-        [Inject] private IUserRepository _userRepository;
+        [Inject] private ISettingsRepository _settingsRepository;
 
         private const int Circumference = 360;
 
@@ -24,7 +27,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
 
         internal void Init()
         {
-            _userRepository.RepetitionByCooldown
+            _settingsRepository.RepetitionByCooldown
                 .Subscribe(this, static (repetitions, behaviour)
                     => behaviour.CreateSegments(repetitions.Count))
                 .RegisterTo(destroyCancellationToken);

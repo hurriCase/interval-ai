@@ -1,9 +1,8 @@
 ﻿using System;
 using R3;
-using Source.Scripts.Data.Repositories.Progress;
 using Source.Scripts.Data.Repositories.Progress.Base;
-using Source.Scripts.Data.Repositories.User;
-using Source.Scripts.Data.Repositories.User.Base;
+using Source.Scripts.Data.Repositories.Settings;
+using Source.Scripts.Data.Repositories.Settings.Base;
 using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts;
 using Source.Scripts.Main.Source.Scripts.Main.UI.Shared;
 using Source.Scripts.UI.Components;
@@ -23,7 +22,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.Achievement.Behaviou
             = new WeekProgressContainer[MaxWeeksInMonth];
 
         [Inject] private IDateProgressHelper _dateProgressHelper;
-        [Inject] private IUserRepository _userRepository;
+        [Inject] private ISettingsRepository _settingsRepository;
 
         private const int MaxWeeksInMonth = 6;
         private const int MonthsInYear = 12;
@@ -76,7 +75,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.Achievement.Behaviou
         {
             var (monthData, isInMonth) = _dateProgressHelper.GetMonthWeeks(_currentYear, _currentMonth);
             _currentMonthText.text =
-                _userRepository.CurrentCulture.Value.DateTimeFormat.GetMonthName(_currentMonth);
+                _settingsRepository.CurrentCulture.Value.DateTimeFormat.GetMonthName(_currentMonth);
 
             for (var week = 0; week < MaxWeeksInMonth; week++)
                 _weekProgressContainers[week].UpdateMonthWeeklyProgress(monthData, week, isInMonth);

@@ -1,4 +1,5 @@
 ﻿using Source.Scripts.Data.Repositories.Categories;
+using Source.Scripts.Data.Repositories.Words;
 using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base;
 using TMPro;
 using UnityEngine;
@@ -15,9 +16,9 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
         {
             base.UpdateView();
 
-            _hiddenWord.text = currentWord.GetHiddenWord(userRepository);
-            _shownExampleText.text = currentWord.Example.GetShownExample(userRepository);
-            _hiddenExampleText.text = currentWord.Example.GetHiddenExample(userRepository);
+            _hiddenWord.text = currentWord.GetHiddenWord(settingsRepository);
+            _shownExampleText.text = currentWord.Example.GetShownExample(settingsRepository);
+            _hiddenExampleText.text = currentWord.Example.GetHiddenExample(settingsRepository);
         }
     }
 }

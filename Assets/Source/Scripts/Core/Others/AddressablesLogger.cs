@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using Debug = UnityEngine.Debug;
 
-namespace Source.Scripts.Core.Other
+namespace Source.Scripts.Core.Others
 {
     internal static class AddressablesLogger
     {

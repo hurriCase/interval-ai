@@ -1,9 +1,7 @@
 ﻿using CustomUtils.Runtime.Extensions;
 using R3;
-using Source.Scripts.Core.Localization;
-using Source.Scripts.Data.Repositories.User;
-using Source.Scripts.Data.Repositories.User.Base;
-using Source.Scripts.Onboarding.Source.Scripts.Onboarding.Data;
+using Source.Scripts.Data.Repositories.Settings;
+using Source.Scripts.Data.Repositories.Settings.Base;
 using Source.Scripts.Onboarding.Source.Scripts.Onboarding.Data.Base;
 using Source.Scripts.UI.Components;
 using UnityEngine;
@@ -16,7 +14,7 @@ namespace Source.Scripts.Onboarding.Source.Scripts.Onboarding.UI.Behaviours
         [SerializeField] private ButtonTextComponent _levelButtonText;
         [SerializeField] private RectTransform _levelButtonsContainer;
 
-        [Inject] private IUserRepository _userRepository;
+        [Inject] private ISettingsRepository _settingsRepository;
         [Inject] private ILocalizationDatabase _localizationDatabase;
 
         internal override void Init()
@@ -26,8 +24,8 @@ namespace Source.Scripts.Onboarding.Source.Scripts.Onboarding.UI.Behaviours
                 var createdButton = Instantiate(_levelButtonText, _levelButtonsContainer);
                 createdButton.Text.text = levelLocalizationKey.GetLocalization();
                 createdButton.Button.OnClickAsObservable()
-                    .Subscribe((levelType, _userRepository),
-                        static (_, tuple) => tuple._userRepository.UserLevel.Value = tuple.levelType)
+                    .Subscribe((levelType, _settingsRepository),
+                        static (_, tuple) => tuple._settingsRepository.LanguageLevel.Value = tuple.levelType)
                     .RegisterTo(destroyCancellationToken);
             }
         }

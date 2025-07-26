@@ -1,5 +1,6 @@
 ﻿using R3;
 using Source.Scripts.Data.Repositories.Categories;
+using Source.Scripts.Data.Repositories.Words;
 using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base;
 using TMPro;
 using UnityEngine;
@@ -21,7 +22,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
             _hintButton.OnClickAsObservable()
                 .Subscribe(this, (_, behaviour) =>
                 {
-                    var hiddenWord = behaviour.currentWord.GetHiddenWord(userRepository);
+                    var hiddenWord = behaviour.currentWord.GetHiddenWord(settingsRepository);
                     if (behaviour._shownSymbolCount >= hiddenWord.Length)
                         return;
 

@@ -2,12 +2,15 @@
 using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.Loader;
 using Source.Scripts.Data.Repositories.Categories;
+using Source.Scripts.Data.Repositories.Settings;
+using Source.Scripts.Data.Repositories.Settings.Base;
 using Source.Scripts.Data.Repositories.User.Base;
 using Source.Scripts.Data.Repositories.Words;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
+using WordEntry = Source.Scripts.Data.Repositories.Words.Data.WordEntry;
 
 namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base
 {
@@ -17,7 +20,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
         [SerializeField] protected TextMeshProUGUI shownWordText;
         [SerializeField] protected TransitionButtonData[] transitionButtons;
 
-        [Inject] protected IUserRepository userRepository;
+        [Inject] protected ISettingsRepository settingsRepository;
         [Inject] protected IAddressablesLoader addressablesLoader;
 
         protected WordEntry currentWord;
@@ -39,7 +42,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
         {
             SetDescriptiveImage().Forget();
 
-            shownWordText.text = currentWord.GetShownWord(userRepository);
+            shownWordText.text = currentWord.GetShownWord(settingsRepository);
         }
 
         private async UniTask SetDescriptiveImage()

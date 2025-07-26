@@ -12,7 +12,7 @@ using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.
 using TMPro;
 using UnityEngine;
 using VContainer;
-using WordEntry = Source.Scripts.Data.Repositories.Words.WordEntry;
+using WordEntry = Source.Scripts.Data.Repositories.Words.Data.WordEntry;
 
 namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.Base
 {

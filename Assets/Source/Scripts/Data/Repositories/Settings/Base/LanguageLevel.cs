@@ -1,4 +1,4 @@
-﻿namespace Source.Scripts.Data.Repositories.User
+﻿namespace Source.Scripts.Data.Repositories.Settings.Base
 {
     internal enum LanguageLevel
     {

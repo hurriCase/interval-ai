@@ -5,13 +5,14 @@ using System.Collections.Generic;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using Source.Scripts.Data.Repositories.Progress.Base;
 using Source.Scripts.Data.Repositories.Words;
+using Source.Scripts.Data.Repositories.Words.Base;
 
 namespace Source.Scripts.Data.Repositories.Progress
 {
     internal sealed class ProgressRepository : IProgressRepository, IDisposable
     {
         public PersistentReactiveProperty<EnumArray<LearningState, int>> TotalCountByState { get; }
-        public PersistentReactiveProperty<int> DailyWordsGoal { get; }
+        public PersistentReactiveProperty<int> NewWordsDailyTarget { get; }
         public PersistentReactiveProperty<int> CurrentStreak { get; }
         public PersistentReactiveProperty<int> BestStreak { get; }
 
@@ -25,13 +26,9 @@ namespace Source.Scripts.Data.Repositories.Progress
             ? todayProgress.ReviewCount
             : 0;
 
-        private const int DefaultDailyWordsGoal = 10;
-
         internal ProgressRepository()
         {
-            DailyWordsGoal =
-                new PersistentReactiveProperty<int>(PersistentPropertyKeys.DailyGoalKey, DefaultDailyWordsGoal);
-
+            NewWordsDailyTarget = new PersistentReactiveProperty<int>(PersistentPropertyKeys.DailyGoalKey);
             CurrentStreak = new PersistentReactiveProperty<int>(PersistentPropertyKeys.CurrentStreakKey);
             BestStreak = new PersistentReactiveProperty<int>(PersistentPropertyKeys.BestStreakKey);
             ProgressHistory = new PersistentReactiveProperty<Dictionary<DateTime, DailyProgress>>(
@@ -66,13 +63,6 @@ namespace Source.Scripts.Data.Repositories.Progress
             IncreaseTotalCount(learningState);
         }
 
-        public void IncreaseTotalCount(LearningState state)
-        {
-            var totalCountByState = TotalCountByState.Value;
-            totalCountByState[state]++;
-            TotalCountByState.Value = totalCountByState;
-        }
-
         public void IncrementNewWordsCount()
         {
             var today = DateTime.Now.Date;
@@ -101,7 +91,7 @@ namespace Source.Scripts.Data.Repositories.Progress
 
         private void ProcessNewWordProgress(ref DailyProgress dailyProgress)
         {
-            if (dailyProgress.GoalAchieved || GetProgressForDailyGoal(ref dailyProgress) < DailyWordsGoal.Value)
+            if (dailyProgress.GoalAchieved || GetProgressForDailyGoal(ref dailyProgress) < NewWordsDailyTarget.Value)
                 return;
 
             CurrentStreak.Value++;
@@ -112,16 +102,23 @@ namespace Source.Scripts.Data.Repositories.Progress
             dailyProgress.GoalAchieved = true;
         }
 
+        private void IncreaseTotalCount(LearningState state)
+        {
+            var totalCountByState = TotalCountByState.Value;
+            totalCountByState[state]++;
+            TotalCountByState.Value = totalCountByState;
+        }
+
         private int GetProgressForDailyGoal(ref DailyProgress dailyProgress)
             => dailyProgress.ProgressByState[LearningState.CurrentlyLearning];
 
         public void Dispose()
         {
-            TotalCountByState?.Dispose();
-            DailyWordsGoal?.Dispose();
-            CurrentStreak?.Dispose();
-            BestStreak?.Dispose();
-            ProgressHistory?.Dispose();
+            TotalCountByState.Dispose();
+            NewWordsDailyTarget.Dispose();
+            CurrentStreak.Dispose();
+            BestStreak.Dispose();
+            ProgressHistory.Dispose();
         }
     }
 }

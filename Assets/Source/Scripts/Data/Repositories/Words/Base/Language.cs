@@ -1,4 +1,4 @@
-namespace Source.Scripts.Data.Repositories.Words
+namespace Source.Scripts.Data.Repositories.Words.Base
 {
     internal enum Language
     {

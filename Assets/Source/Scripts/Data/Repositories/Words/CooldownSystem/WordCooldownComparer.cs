@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
-using WordEntry = Source.Scripts.Data.Repositories.Words.WordEntry;
+using Source.Scripts.Data.Repositories.Words.Data;
 
 namespace Source.Scripts.Data.Repositories.Categories.CooldownSystem
 {
