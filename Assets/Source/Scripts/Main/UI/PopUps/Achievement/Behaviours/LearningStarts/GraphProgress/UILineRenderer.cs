@@ -49,14 +49,12 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.Achievement.Behaviou
             var scaledPointRadius = rect.height * _pointRadiusPercent * 0.01f;
 
             if (_points.Count >= 2)
-            {
                 for (var i = 0; i < _points.Count - 1; i++)
                 {
                     var start = ConvertToLocalPoint(_points[i], rect);
                     var end = ConvertToLocalPoint(_points[i + 1], rect);
                     DrawLine(vh, start, end, scaledLineWidth);
                 }
-            }
 
             if (_drawPoints is false)
                 return;

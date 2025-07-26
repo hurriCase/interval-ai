@@ -2,7 +2,6 @@
 using R3;
 using Source.Scripts.Core.Localization;
 using Source.Scripts.Data.Repositories.Progress.Base;
-using Source.Scripts.Data.Repositories.Words;
 using Source.Scripts.Data.Repositories.Words.Base;
 using Source.Scripts.Main.Source.Scripts.Main.Data.Base;
 using Source.Scripts.Main.Source.Scripts.Main.UI.Shared;

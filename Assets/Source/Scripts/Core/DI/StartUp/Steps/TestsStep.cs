@@ -6,7 +6,8 @@ using VContainer;
 
 namespace Source.Scripts.Core.DI.StartUp.Steps
 {
-    [CreateAssetMenu(fileName = nameof(TestsStep), menuName = ResourcePaths.InitializationStepsPath + nameof(TestsStep))]
+    [CreateAssetMenu(fileName = nameof(TestsStep),
+        menuName = ResourcePaths.InitializationStepsPath + nameof(TestsStep))]
     internal sealed class TestsStep : StepBase
     {
         [Inject] private ITestDataFactory _testDataFactory;

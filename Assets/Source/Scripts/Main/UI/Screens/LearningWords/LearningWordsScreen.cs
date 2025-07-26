@@ -1,8 +1,6 @@
 ﻿using R3;
 using Source.Scripts.Core.Localization;
-using Source.Scripts.Data.Repositories.User;
 using Source.Scripts.Data.Repositories.User.Base;
-using Source.Scripts.Main.Source.Scripts.Main.Data;
 using Source.Scripts.Main.Source.Scripts.Main.Data.Base;
 using Source.Scripts.Main.Source.Scripts.Main.UI.Screens.LearningWords.Behaviours;
 using Source.Scripts.Main.Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.CategoryPreview;

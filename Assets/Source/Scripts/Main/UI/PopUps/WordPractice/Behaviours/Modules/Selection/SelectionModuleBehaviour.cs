@@ -1,5 +1,4 @@
-﻿using Source.Scripts.Data.Repositories.Categories;
-using Source.Scripts.Data.Repositories.Words;
+﻿using Source.Scripts.Data.Repositories.Words;
 using Source.Scripts.Data.Repositories.Words.Base;
 using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base;
 using Source.Scripts.UI.Components;

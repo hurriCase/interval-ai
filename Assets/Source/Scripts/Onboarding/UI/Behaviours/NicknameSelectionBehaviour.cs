@@ -7,9 +7,6 @@ namespace Source.Scripts.Onboarding.Source.Scripts.Onboarding.UI.Behaviours
     {
         [SerializeField] private TMP_InputField _nicknameInputField;
 
-        internal override void Init()
-        {
-
-        }
+        internal override void Init() { }
     }
 }

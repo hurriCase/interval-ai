@@ -1,7 +1,6 @@
 ﻿using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Localization;
 using R3;
-using Source.Scripts.Data.Repositories.Words;
 using Source.Scripts.Data.Repositories.Words.Base;
 using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.Base;
 using Source.Scripts.UI.Components;

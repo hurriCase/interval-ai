@@ -1,6 +1,5 @@
 ﻿using System;
 using Source.Scripts.Data.Repositories.Progress.Base;
-using Source.Scripts.Data.Repositories.Words;
 using Source.Scripts.Data.Repositories.Words.Base;
 using Random = UnityEngine.Random;
 
@@ -10,10 +9,7 @@ namespace Source.Scripts.Data.Repositories.Progress.Tests
     {
         private readonly IProgressRepository _progressRepository;
 
-        internal TestDataFactory(IProgressRepository progressRepository)
-        {
-            _progressRepository = progressRepository;
-        }
+        internal TestDataFactory(IProgressRepository progressRepository) => _progressRepository = progressRepository;
 
         public void CreateFakeProgress()
         {

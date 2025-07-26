@@ -7,7 +7,9 @@ namespace Source.Scripts.Core.Scenes
 {
     internal interface ISceneLoader
     {
-        UniTask LoadSceneAsync(string sceneAddress, CancellationToken token, LoadSceneMode loadMode = LoadSceneMode.Single);
+        UniTask LoadSceneAsync(string sceneAddress, CancellationToken token,
+            LoadSceneMode loadMode = LoadSceneMode.Single);
+
         void TryUnloadScene(SceneInstance sceneInstance);
     }
 }

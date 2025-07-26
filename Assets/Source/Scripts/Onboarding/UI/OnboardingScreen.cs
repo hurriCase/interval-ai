@@ -5,8 +5,6 @@ using Cysharp.Threading.Tasks;
 using R3;
 using Source.Scripts.Core.Scenes;
 using Source.Scripts.Data.Repositories.Statistics;
-using Source.Scripts.Data.Repositories.User;
-using Source.Scripts.Data.Repositories.User.Base;
 using Source.Scripts.Onboarding.Source.Scripts.Onboarding.UI.Behaviours;
 using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base;

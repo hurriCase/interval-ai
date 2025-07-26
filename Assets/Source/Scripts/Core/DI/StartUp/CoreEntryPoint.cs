@@ -5,7 +5,6 @@ using Cysharp.Threading.Tasks;
 using R3;
 using Source.Scripts.Core.Scenes;
 using Source.Scripts.Data.Repositories.Statistics;
-using Source.Scripts.Data.Repositories.User.Base;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;

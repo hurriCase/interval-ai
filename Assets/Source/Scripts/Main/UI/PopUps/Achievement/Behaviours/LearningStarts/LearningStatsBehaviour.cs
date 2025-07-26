@@ -1,7 +1,6 @@
 ﻿using CustomUtils.Runtime.CustomTypes.Collections;
 using R3;
 using Source.Scripts.Data.Repositories.Progress.Base;
-using Source.Scripts.Data.Repositories.Words;
 using Source.Scripts.Data.Repositories.Words.Base;
 using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.GraphProgress;
 using Source.Scripts.Main.Source.Scripts.Main.UI.Shared;

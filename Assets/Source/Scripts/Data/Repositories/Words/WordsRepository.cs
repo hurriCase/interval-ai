@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Storage;
 using R3;
-using Source.Scripts.Data.Repositories.Categories.Base;
 using Source.Scripts.Data.Repositories.Categories.CooldownSystem;
 using Source.Scripts.Data.Repositories.Progress.Base;
-using Source.Scripts.Data.Repositories.Settings;
 using Source.Scripts.Data.Repositories.Settings.Base;
-using Source.Scripts.Data.Repositories.User.Base;
 using Source.Scripts.Data.Repositories.Words.Base;
+using Source.Scripts.Data.Repositories.Words.Data;
 using ZLinq;
 using ZLinq.Linq;
 using Random = UnityEngine.Random;
@@ -18,9 +16,9 @@ namespace Source.Scripts.Data.Repositories.Words
 {
     internal sealed class WordsRepository : IWordsRepository, IDisposable
     {
-        private PersistentReactiveProperty<List<Data.WordEntry>> WordEntries { get; }
+        private PersistentReactiveProperty<List<WordEntry>> WordEntries { get; }
 
-        private EnumArray<LearningState, SortedSet<Data.WordEntry>> SortedWordsByState { get; }
+        private EnumArray<LearningState, SortedSet<WordEntry>> SortedWordsByState { get; }
 
         private readonly Subject<CooldownByLearningState> _availabilityTimeSubject = new();
         public Observable<CooldownByLearningState> OnAvailabilityTimeUpdate => _availabilityTimeSubject.AsObservable();
@@ -37,10 +35,10 @@ namespace Source.Scripts.Data.Repositories.Words
             ISettingsRepository settingsRepository,
             IDefaultWordsDatabase defaultWordsDatabase)
         {
-            WordEntries = new PersistentReactiveProperty<List<Data.WordEntry>>(PersistentPropertyKeys.WordEntryKey,
+            WordEntries = new PersistentReactiveProperty<List<WordEntry>>(PersistentPropertyKeys.WordEntryKey,
                 defaultWordsDatabase.WordEntries);
             SortedWordsByState =
-                new EnumArray<LearningState, SortedSet<Data.WordEntry>>(() => new SortedSet<Data.WordEntry>(_comparer));
+                new EnumArray<LearningState, SortedSet<WordEntry>>(() => new SortedSet<WordEntry>(_comparer));
 
             _progressRepository = progressRepository;
             _settingsRepository = settingsRepository;
@@ -60,25 +58,25 @@ namespace Source.Scripts.Data.Repositories.Words
                     (currentTime, tuple) =>
                         tuple.behaviour._availabilityTimeSubject.OnNext(
                             new CooldownByLearningState(tuple.state, currentTime)),
-                    onCompleted: (_, tuple) => tuple.behaviour.UpdateTimerForState(tuple.state)
+                    (_, tuple) => tuple.behaviour.UpdateTimerForState(tuple.state)
                 );
             }
         }
 
-        public Data.WordEntry GetAvailableWord(LearningState learningState) =>
+        public WordEntry GetAvailableWord(LearningState learningState) =>
             SortedWordsByState[learningState].Count > 0
                 ? SortedWordsByState[learningState].AsValueEnumerable().FirstOrDefault(word => word.IsHidden is false)
                 : null;
 
         //TODO:<Dmitriy.Sukharev> Refactor
-        public ValueEnumerable<OrderBySkipTake<ListWhere<Data.WordEntry>, Data.WordEntry, float>, Data.WordEntry>
-            GetRandomWords(Data.WordEntry wordToSkip, int count) =>
+        public ValueEnumerable<OrderBySkipTake<ListWhere<WordEntry>, WordEntry, float>, WordEntry>
+            GetRandomWords(WordEntry wordToSkip, int count) =>
             WordEntries.Value.AsValueEnumerable()
                 .Where(word => word != wordToSkip && word.IsHidden is false)
                 .OrderBy(_ => Random.value)
                 .Take(count);
 
-        public void AdvanceWord(Data.WordEntry word, bool success)
+        public void AdvanceWord(WordEntry word, bool success)
         {
             if (success)
                 HandleSuccess(word);
@@ -88,7 +86,7 @@ namespace Source.Scripts.Data.Repositories.Words
             WordEntries.SaveAsync();
         }
 
-        private void HandleSuccess(Data.WordEntry word)
+        private void HandleSuccess(WordEntry word)
         {
             SortedWordsByState[word.LearningState].Remove(word);
 
@@ -131,7 +129,7 @@ namespace Source.Scripts.Data.Repositories.Words
             SortedWordsByState[word.LearningState].Add(word);
         }
 
-        private void HandleFailure(Data.WordEntry word)
+        private void HandleFailure(WordEntry word)
         {
             SortedWordsByState[word.LearningState].Remove(word);
 
@@ -158,7 +156,7 @@ namespace Source.Scripts.Data.Repositories.Words
             SortedWordsByState[word.LearningState].Add(word);
         }
 
-        private void AdvanceCooldown(Data.WordEntry word)
+        private void AdvanceCooldown(WordEntry word)
         {
             var oldState = word.LearningState;
 

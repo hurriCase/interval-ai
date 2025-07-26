@@ -1,7 +1,6 @@
 ﻿using System;
 using R3;
 using Source.Scripts.Core.Localization;
-using Source.Scripts.Data.Repositories.Words;
 using Source.Scripts.Data.Repositories.Words.Base;
 using Source.Scripts.UI.Windows.Base;
 using VContainer;

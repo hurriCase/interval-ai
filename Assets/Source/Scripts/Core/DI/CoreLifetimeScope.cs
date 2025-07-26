@@ -4,7 +4,6 @@ using Source.Scripts.Core.Loader;
 using Source.Scripts.Core.Scenes;
 using Source.Scripts.Data.Repositories.Categories;
 using Source.Scripts.Data.Repositories.Categories.Base;
-using Source.Scripts.Data.Repositories.Categories.Defaults;
 using Source.Scripts.Data.Repositories.Progress;
 using Source.Scripts.Data.Repositories.Progress.Base;
 using Source.Scripts.Data.Repositories.Progress.Tests;

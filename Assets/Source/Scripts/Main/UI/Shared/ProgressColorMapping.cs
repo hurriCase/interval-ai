@@ -1,5 +1,4 @@
 ﻿using CustomUtils.Runtime.UI.Theme.ThemeMapping;
-using Source.Scripts.Data.Repositories.Words;
 using Source.Scripts.Data.Repositories.Words.Base;
 using UnityEngine;
 

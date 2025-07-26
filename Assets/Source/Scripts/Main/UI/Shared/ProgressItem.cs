@@ -3,7 +3,6 @@ using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.UI.Theme.Components;
 using CustomUtils.Runtime.UI.Theme.ThemeMapping;
-using Source.Scripts.Data.Repositories.Words;
 using Source.Scripts.Data.Repositories.Words.Base;
 using TMPro;
 using UnityEngine;
@@ -18,9 +17,10 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.Shared
         [field: SerializeField] internal float SpacingBetweenSections { get; private set; }
         [field: SerializeField] internal float ActiveThicknessRatio { get; private set; }
         [field: SerializeField] internal float InActiveThicknessRatio { get; private set; }
-        [field: SerializeField, Range(0f, 1f)] internal float AlphaForExtraDays { get; private set; }
+        [field: SerializeField] [field: Range(0f, 1f)] internal float AlphaForExtraDays { get; private set; }
         [field: SerializeField]
-        internal EnumArray<LearningState, int> DefaultProgressPercentages { get; private set; } = new(EnumMode.SkipFirst);
+        internal EnumArray<LearningState, int> DefaultProgressPercentages { get; private set; } =
+            new(EnumMode.SkipFirst);
         [field: SerializeField]
         internal EnumArray<LearningState, ProgressSectionItem> ProgressSections { get; private set; }
             = new(EnumMode.SkipFirst);

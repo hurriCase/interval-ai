@@ -1,6 +1,5 @@
 ﻿using System.Globalization;
 using R3;
-using Source.Scripts.Data.Repositories.Settings;
 using Source.Scripts.Data.Repositories.Settings.Base;
 using TMPro;
 using UnityEngine;

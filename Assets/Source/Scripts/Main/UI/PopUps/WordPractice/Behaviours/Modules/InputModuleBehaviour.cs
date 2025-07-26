@@ -1,5 +1,4 @@
 ﻿using R3;
-using Source.Scripts.Data.Repositories.Categories;
 using Source.Scripts.Data.Repositories.Words;
 using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base;
 using TMPro;

@@ -1,5 +1,4 @@
 ﻿using Source.Scripts.Data.Repositories.Progress.Base;
-using Source.Scripts.Data.Repositories.Words;
 using Source.Scripts.Data.Repositories.Words.Base;
 using TMPro;
 using UnityEngine;
