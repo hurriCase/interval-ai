@@ -5,11 +5,9 @@ using System.Collections.Generic;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using Source.Scripts.Data.Repositories.Progress.Base;
 using Source.Scripts.Data.Repositories.Words;
-using UnityEngine.Scripting;
 
 namespace Source.Scripts.Data.Repositories.Progress
 {
-    [Preserve]
     internal sealed class ProgressRepository : IProgressRepository, IDisposable
     {
         public PersistentReactiveProperty<EnumArray<LearningState, int>> TotalCountByState { get; }
@@ -29,7 +27,6 @@ namespace Source.Scripts.Data.Repositories.Progress
 
         private const int DefaultDailyWordsGoal = 10;
 
-        [Preserve]
         internal ProgressRepository()
         {
             DailyWordsGoal =

@@ -2,17 +2,14 @@
 using System.Collections.Generic;
 using CustomUtils.Runtime.Storage;
 using Source.Scripts.Data.Repositories.Categories.Base;
-using UnityEngine.Scripting;
-using CategoryEntry = Source.Scripts.Data.Repositories.Categories.Entries.CategoryEntry;
+using Source.Scripts.Data.Repositories.Categories.Entries;
 
 namespace Source.Scripts.Data.Repositories.Categories
 {
-    [Preserve]
     internal sealed class CategoriesRepository : ICategoriesRepository, IDisposable
     {
         public PersistentReactiveProperty<List<CategoryEntry>> CategoryEntries { get; }
 
-        [Preserve]
         internal CategoriesRepository(IDefaultCategoriesDatabase defaultCategoriesDatabase)
         {
             CategoryEntries =

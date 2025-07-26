@@ -6,7 +6,6 @@ using VContainer.Unity;
 
 namespace Source.Scripts.Onboarding.Source.Scripts.Onboarding.DI
 {
-    [Preserve]
     internal sealed class OnboardingEntryPoint : IAsyncStartable
     {
         [Inject] private IWindowsController _windowsController;

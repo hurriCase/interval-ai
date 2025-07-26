@@ -6,11 +6,9 @@ using CustomUtils.Runtime.Storage;
 using Source.Scripts.Data.Repositories.Categories.CooldownSystem;
 using Source.Scripts.Data.Repositories.User.Base;
 using Source.Scripts.Data.Repositories.Words;
-using UnityEngine.Scripting;
 
 namespace Source.Scripts.Data.Repositories.User
 {
-    [Preserve]
     internal sealed class UserRepository : IUserRepository, IDisposable
     {
         public PersistentReactiveProperty<string> Nickname { get; }
@@ -22,7 +20,6 @@ namespace Source.Scripts.Data.Repositories.User
         public PersistentReactiveProperty<bool> IsCompleteOnboarding { get; }
         public PersistentReactiveProperty<EnumArray<LanguageType, Language>> LanguageByType { get; }
 
-        [Preserve]
         internal UserRepository(IDefaultUserDataDatabase defaultUserDataDatabase)
         {
             CurrentCulture = new PersistentReactiveProperty<CultureInfo>(PersistentPropertyKeys.CurrentCultureKey,

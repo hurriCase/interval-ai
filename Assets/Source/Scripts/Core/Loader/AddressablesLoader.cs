@@ -3,12 +3,10 @@ using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.Other;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.Scripting;
 
 namespace Source.Scripts.Core.Loader
 {
-    [Preserve]
-    internal class AddressablesLoader : IAddressablesLoader
+    internal sealed class AddressablesLoader : IAddressablesLoader
     {
         public async UniTask<T> LoadAsync<T>(AssetReference assetReference, CancellationToken token)
             where T : Object =>

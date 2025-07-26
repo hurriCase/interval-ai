@@ -11,20 +11,27 @@ using VContainer.Unity;
 
 namespace Source.Scripts.Core.DI.StartUp
 {
-    [Preserve]
     internal sealed class CoreEntryPoint : IAsyncStartable
     {
-        [Inject] private IObjectResolver _objectResolver;
-        [Inject] private ISceneLoader _sceneLoader;
-        [Inject] private IUserRepository _userRepository;
-        [Inject] private ISceneReferences _sceneReferences;
+        private readonly IObjectResolver _objectResolver;
+        private readonly ISceneLoader _sceneLoader;
+        private readonly IUserRepository _userRepository;
+        private readonly ISceneReferences _sceneReferences;
 
         private readonly List<StepBase> _stepsList;
 
-        [Preserve]
-        internal CoreEntryPoint(List<StepBase> stepsList)
+        internal CoreEntryPoint(
+            List<StepBase> stepsList,
+            IObjectResolver objectResolver,
+            ISceneLoader sceneLoader,
+            IUserRepository userRepository,
+            ISceneReferences sceneReferences)
         {
             _stepsList = stepsList;
+            _objectResolver = objectResolver;
+            _sceneLoader = sceneLoader;
+            _userRepository = userRepository;
+            _sceneReferences = sceneReferences;
         }
 
         public async UniTask StartAsync(CancellationToken cancellation)

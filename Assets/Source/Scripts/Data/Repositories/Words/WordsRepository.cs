@@ -8,14 +8,12 @@ using Source.Scripts.Data.Repositories.Categories.CooldownSystem;
 using Source.Scripts.Data.Repositories.Progress.Base;
 using Source.Scripts.Data.Repositories.User.Base;
 using Source.Scripts.Data.Repositories.Words.Base;
-using UnityEngine.Scripting;
 using ZLinq;
 using ZLinq.Linq;
 using Random = UnityEngine.Random;
 
 namespace Source.Scripts.Data.Repositories.Words
 {
-    [Preserve]
     internal sealed class WordsRepository : IWordsRepository, IDisposable
     {
         private PersistentReactiveProperty<List<WordEntry>> WordEntries { get; }
@@ -32,7 +30,6 @@ namespace Source.Scripts.Data.Repositories.Words
         private readonly IProgressRepository _progressRepository;
         private readonly IUserRepository _userRepository;
 
-        [Preserve]
         internal WordsRepository(
             IProgressRepository progressRepository,
             IUserRepository userRepository,

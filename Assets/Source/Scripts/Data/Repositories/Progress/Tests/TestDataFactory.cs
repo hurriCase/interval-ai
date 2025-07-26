@@ -1,17 +1,14 @@
 ﻿using System;
 using Source.Scripts.Data.Repositories.Progress.Base;
 using Source.Scripts.Data.Repositories.Words;
-using UnityEngine.Scripting;
 using Random = UnityEngine.Random;
 
 namespace Source.Scripts.Data.Repositories.Progress.Tests
 {
-    [Preserve]
     internal sealed class TestDataFactory : ITestDataFactory
     {
         private readonly IProgressRepository _progressRepository;
 
-        [Preserve]
         internal TestDataFactory(IProgressRepository progressRepository)
         {
             _progressRepository = progressRepository;

@@ -3,11 +3,9 @@ using Source.Scripts.Data.Repositories.Progress.Base;
 using Source.Scripts.Data.Repositories.Progress.Entries;
 using Source.Scripts.Data.Repositories.User.Base;
 using Source.Scripts.Data.Repositories.Words;
-using UnityEngine.Scripting;
 
 namespace Source.Scripts.Data.Repositories.Progress
 {
-    [Preserve]
     internal sealed class DateProgressHelper : IDateProgressHelper
     {
         private readonly DailyProgress[] _monthProgressData = new DailyProgress[CalendarWeeks * DaysPerWeek];
@@ -23,7 +21,6 @@ namespace Source.Scripts.Data.Repositories.Progress
         private readonly IProgressRepository _progressRepository;
         private readonly IUserRepository _userRepository;
 
-        [Preserve]
         internal DateProgressHelper(IProgressRepository progressRepository, IUserRepository userRepository)
         {
             _progressRepository = progressRepository;
