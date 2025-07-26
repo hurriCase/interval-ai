@@ -2,25 +2,28 @@
 {
     internal static class PersistentPropertyKeys
     {
-        internal const string TotalCountByStateKey = Prefix + "totalCountByStateStreak";
-        internal const string BestStreakKey = Prefix + "bestStreak";
-        internal const string CurrentStreakKey = Prefix + "currentStreak";
-        internal const string DailyGoalKey = Prefix + "dailyGoal";
-        internal const string ProgressEntryKey = Prefix + "progressEntry";
+        internal const string CategoryEntriesKey = Prefix + "CategoryEntriesKey";
+
+        internal const string CurrentStreakKey = Prefix + "CurrentStreakKey";
+        internal const string BestStreakKey = Prefix + "BestStreakKey";
+        internal const string TotalCountByStateKey = Prefix + "TotalCountByStateKey";
+        internal const string NewWordsDailyTargetKey = Prefix + "NewWordsDailyTargetKey";
+        internal const string ProgressHistoryKey = Prefix + "ProgressHistoryKey";
+
+        internal const string DailyGoalKey = Prefix + "DailyGoalKey";
+        internal const string LanguageLevelKey = Prefix + "LanguageLevelKey";
+        internal const string CurrentCultureKey = Prefix + "CurrentCultureKey";
+        internal const string RepetitionByCooldownKey = Prefix + "RepetitionByCooldownKey";
+        internal const string LanguageByTypeKey = Prefix + "LanguageByTypeKey";
+        internal const string LearningDirectionKey = Prefix + "LearningDirectionKey";
+
+        internal const string IsCompleteOnboardingKey = Prefix + "IsCompleteOnboardingKey";
+        internal const string LoginHistoryKey = Prefix + "LoginHistoryKey";
+
+        internal const string UserIconKey = Prefix + "repetitionByCooldown";
+        internal const string NicknameKey = Prefix + "userName";
 
         internal const string WordEntryKey = Prefix + "wordEntry";
-        internal const string CategoryEntryKey = Prefix + "categoryEntry";
-
-        internal const string LearningDirectionKey = Prefix + "learningDirection";
-        internal const string RepetitionByCooldownKey = Prefix + "repetitionByCooldown";
-        internal const string UserIcon = Prefix + "repetitionByCooldown";
-        internal const string UserLevelKey = Prefix + "userLevel";
-        internal const string IsCompleteOnboardingKey = Prefix + "isCompleteOnboarding";
-        internal const string LoginHistoryKey = Prefix + "loginHistory";
-        internal const string LanguageByTypeKey = Prefix + "languageByType";
-        internal const string LearningLanguageKey = Prefix + "learningLanguage";
-        internal const string UserNameKey = Prefix + "userName";
-        internal const string CurrentCultureKey = Prefix + "currentCulture";
 
         private const string Prefix = "LanguageLearningApp.";
     }

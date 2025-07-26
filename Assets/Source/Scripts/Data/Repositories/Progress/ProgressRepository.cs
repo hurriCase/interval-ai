@@ -4,17 +4,17 @@ using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Storage;
 using Source.Scripts.Data.Repositories.Progress.Base;
 using Source.Scripts.Data.Repositories.Progress.Entries;
+using Source.Scripts.Data.Repositories.Statistics;
 using Source.Scripts.Data.Repositories.Words.Base;
 
 namespace Source.Scripts.Data.Repositories.Progress
 {
     internal sealed class ProgressRepository : IProgressRepository, IDisposable
     {
-        public PersistentReactiveProperty<EnumArray<LearningState, int>> TotalCountByState { get; }
-        public PersistentReactiveProperty<int> NewWordsDailyTarget { get; }
         public PersistentReactiveProperty<int> CurrentStreak { get; }
         public PersistentReactiveProperty<int> BestStreak { get; }
-
+        public PersistentReactiveProperty<EnumArray<LearningState, int>> TotalCountByState { get; }
+        public PersistentReactiveProperty<int> NewWordsDailyTarget { get; }
         public PersistentReactiveProperty<Dictionary<DateTime, DailyProgress>> ProgressHistory { get; }
 
         public int NewWordsCount => ProgressHistory.Value.TryGetValue(DateTime.Now.Date, out var todayProgress)
@@ -25,16 +25,20 @@ namespace Source.Scripts.Data.Repositories.Progress
             ? todayProgress.ReviewCount
             : 0;
 
-        internal ProgressRepository()
+        internal ProgressRepository(IStatisticsRepository statisticsRepository)
         {
-            NewWordsDailyTarget = new PersistentReactiveProperty<int>(PersistentPropertyKeys.DailyGoalKey);
             CurrentStreak = new PersistentReactiveProperty<int>(PersistentPropertyKeys.CurrentStreakKey);
             BestStreak = new PersistentReactiveProperty<int>(PersistentPropertyKeys.BestStreakKey);
-            ProgressHistory = new PersistentReactiveProperty<Dictionary<DateTime, DailyProgress>>(
-                PersistentPropertyKeys.ProgressEntryKey, new Dictionary<DateTime, DailyProgress>());
-
             TotalCountByState = new PersistentReactiveProperty<EnumArray<LearningState, int>>(
                 PersistentPropertyKeys.TotalCountByStateKey, new EnumArray<LearningState, int>(EnumMode.SkipFirst));
+
+            NewWordsDailyTarget = new PersistentReactiveProperty<int>(PersistentPropertyKeys.NewWordsDailyTargetKey);
+
+            if (statisticsRepository.LoginHistory.Value.TryGetValue(DateTime.Now, out _) is false)
+                NewWordsDailyTarget.Value = 0;
+
+            ProgressHistory = new PersistentReactiveProperty<Dictionary<DateTime, DailyProgress>>(
+                PersistentPropertyKeys.ProgressHistoryKey, new Dictionary<DateTime, DailyProgress>());
 
             var yesterdayDate = DateTime.Now.Date.AddDays(-1);
             ProgressHistory.Value.TryGetValue(yesterdayDate, out var lastDayProgress);

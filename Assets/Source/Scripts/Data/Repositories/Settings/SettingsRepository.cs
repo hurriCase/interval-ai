@@ -10,31 +10,30 @@ namespace Source.Scripts.Data.Repositories.Settings
 {
     internal sealed class SettingsRepository : IDisposable, ISettingsRepository
     {
-        public PersistentReactiveProperty<CultureInfo> CurrentCulture { get; }
-        public PersistentReactiveProperty<LearningDirectionType> LearningDirection { get; }
-        public PersistentReactiveProperty<List<CooldownByDate>> RepetitionByCooldown { get; }
-        public PersistentReactiveProperty<LanguageLevel> LanguageLevel { get; }
-        public PersistentReactiveProperty<EnumArray<LanguageType, Language>> LanguageByType { get; }
         public PersistentReactiveProperty<int> DailyGoal { get; }
+        public PersistentReactiveProperty<LanguageLevel> LanguageLevel { get; }
+        public PersistentReactiveProperty<CultureInfo> CurrentCulture { get; }
+        public PersistentReactiveProperty<List<CooldownByDate>> RepetitionByCooldown { get; }
+        public PersistentReactiveProperty<EnumArray<LanguageType, Language>> LanguageByType { get; }
+        public PersistentReactiveProperty<LearningDirectionType> LearningDirection { get; }
 
         internal SettingsRepository(IDefaultSettingsDatabase defaultSettingsDatabase)
         {
+            DailyGoal = new PersistentReactiveProperty<int>(PersistentPropertyKeys.DailyGoalKey);
+            LanguageLevel = new PersistentReactiveProperty<LanguageLevel>(PersistentPropertyKeys.LanguageLevelKey);
+
             CurrentCulture = new PersistentReactiveProperty<CultureInfo>(PersistentPropertyKeys.CurrentCultureKey,
                 CultureInfo.CurrentCulture);
-
-            LearningDirection =
-                new PersistentReactiveProperty<LearningDirectionType>(PersistentPropertyKeys.LearningDirectionKey,
-                    LearningDirectionType.LearningToNative);
 
             RepetitionByCooldown = new PersistentReactiveProperty<List<CooldownByDate>>(
                 PersistentPropertyKeys.RepetitionByCooldownKey, defaultSettingsDatabase.DefaultCooldowns);
 
-            LanguageLevel = new PersistentReactiveProperty<LanguageLevel>(PersistentPropertyKeys.UserLevelKey);
-
             LanguageByType = new PersistentReactiveProperty<EnumArray<LanguageType, Language>>(PersistentPropertyKeys
                 .LanguageByTypeKey);
 
-            DailyGoal = new PersistentReactiveProperty<int>(PersistentPropertyKeys.DailyGoalKey);
+            LearningDirection =
+                new PersistentReactiveProperty<LearningDirectionType>(PersistentPropertyKeys.LearningDirectionKey,
+                    LearningDirectionType.LearningToNative);
         }
 
         public void Dispose()

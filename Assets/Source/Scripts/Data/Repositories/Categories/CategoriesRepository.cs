@@ -12,7 +12,7 @@ namespace Source.Scripts.Data.Repositories.Categories
         internal CategoriesRepository(IDefaultCategoriesDatabase defaultCategoriesDatabase)
         {
             CategoryEntries =
-                new PersistentReactiveProperty<List<CategoryEntry>>(PersistentPropertyKeys.CategoryEntryKey,
+                new PersistentReactiveProperty<List<CategoryEntry>>(PersistentPropertyKeys.CategoryEntriesKey,
                     defaultCategoriesDatabase.Categories);
         }
 
