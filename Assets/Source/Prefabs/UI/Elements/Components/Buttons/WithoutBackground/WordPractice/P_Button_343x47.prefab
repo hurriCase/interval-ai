@@ -98,8 +98,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3273829687922624921, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: m_fontSize
-      value: 13.95
+      value: 15.7
       objectReference: {fileID: 0}
+    - target: {fileID: 3273829687922624921, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: f29eb9b15349fce4b93fbb88022cabda, type: 2}
     - target: {fileID: 3273829687922624921, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: m_fontColor.b
       value: 1
@@ -113,12 +117,20 @@ PrefabInstance:
       value: 0.34509805
       objectReference: {fileID: 0}
     - target: {fileID: 3273829687922624921, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -4336566052543238572, guid: f29eb9b15349fce4b93fbb88022cabda, type: 2}
+    - target: {fileID: 3273829687922624921, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4294919512
       objectReference: {fileID: 0}
     - target: {fileID: 3273829687922624921, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: m_HorizontalAlignment
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3273829687922624921, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3761693092364716984, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: m_AspectRatio
@@ -151,10 +163,21 @@ PrefabInstance:
     - target: {fileID: 9134864641081789667, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: m_TargetGraphic
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 7137501905526464784}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 590419135366053710, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+--- !u!114 &7137501905526464784 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3273829687922624921, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+  m_PrefabInstance: {fileID: 5648493510833580169}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
