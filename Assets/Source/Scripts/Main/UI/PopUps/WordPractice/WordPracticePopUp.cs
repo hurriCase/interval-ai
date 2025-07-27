@@ -12,8 +12,8 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice
 {
     internal sealed class WordPracticePopUp : PopUpBase
     {
-        [SerializeField] private TabComponent _newWordsComponent;
-        [SerializeField] private TabComponent _repetitionComponent;
+        [SerializeField] private TabComponent _newWordsTab;
+        [SerializeField] private TabComponent _repetitionTab;
 
         [SerializeField] private NewWordsCard _newWordsCard;
         [SerializeField] private ReviewCard _reviewCard;
@@ -46,12 +46,12 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice
                 })
                 .RegisterTo(destroyCancellationToken);
 
-            _newWordsComponent.OnPointerClickAsObservable()
+            _newWordsTab.OnPointerClickAsObservable()
                 .Where(this, static (_, popUp) => popUp._currentState != PracticeState.NewWords)
                 .Subscribe(this, static (_, popUp) => popUp.SwitchToState(PracticeState.NewWords))
                 .RegisterTo(destroyCancellationToken);
 
-            _repetitionComponent.OnPointerClickAsObservable()
+            _repetitionTab.OnPointerClickAsObservable()
                 .Where(this, static (_, popUp) => popUp._currentState != PracticeState.Review)
                 .Subscribe(this, static (_, popUp) => popUp.SwitchToState(PracticeState.Review))
                 .RegisterTo(destroyCancellationToken);
@@ -69,6 +69,9 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice
             var endValue = _currentState == PracticeState.NewWords
                 ? 0
                 : -(containerWidth / 2 + containerWidth / _spacingBetweenTabsRatio);
+
+            _repetitionTab.isOn = _currentState == PracticeState.Review;
+            _newWordsTab.isOn = _currentState == PracticeState.NewWords;
 
             Tween.UIAnchoredPositionX(_cardsContainer, endValue, isInstant ? 0 : _switchAnimationDuration);
         }

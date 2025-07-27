@@ -27,9 +27,6 @@ namespace Source.Scripts.Onboarding.Source.Scripts.Onboarding.UI.Behaviours
                 CreateLanguageItem(language, localization, LanguageType.Native);
                 CreateLanguageItem(language, localization, LanguageType.Learning);
             }
-
-            _nativeLanguagesAccordion.SwitchContent(false);
-            _learningComponentAccordion.SwitchContent(false);
         }
 
         private void CreateLanguageItem(Language language, string localization, LanguageType languageType)
@@ -52,12 +49,12 @@ namespace Source.Scripts.Onboarding.Source.Scripts.Onboarding.UI.Behaviours
                 })
                 .RegisterTo(destroyCancellationToken);
 
-            container.HiddenContent.Add(createdLanguageItem.gameObject);
+            //container.HiddenContent.Add(createdLanguageItem.gameObject);
 
             var createdSpacing = Instantiate(_spacing, transform);
             createdSpacing.aspectRatio = _spacingRatio;
 
-            container.HiddenContent.Add(createdSpacing.gameObject);
+            //container.HiddenContent.Add(createdSpacing.gameObject);
         }
     }
 }

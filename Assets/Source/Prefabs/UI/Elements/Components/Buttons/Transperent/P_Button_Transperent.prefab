@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5604511646115717401, guid: 1c73538d1d0d9a844be8baca22e7b9d2, type: 3}
       propertyPath: m_fontSize
-      value: 12.45
+      value: 5.8333335
       objectReference: {fileID: 0}
     - target: {fileID: 5604511646115717401, guid: 1c73538d1d0d9a844be8baca22e7b9d2, type: 3}
       propertyPath: m_fontColor.b
@@ -30,7 +30,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5604511646115717401, guid: 1c73538d1d0d9a844be8baca22e7b9d2, type: 3}
       propertyPath: m_fontSizeBase
-      value: 12.45
+      value: 5.8333335
       objectReference: {fileID: 0}
     - target: {fileID: 5604511646115717401, guid: 1c73538d1d0d9a844be8baca22e7b9d2, type: 3}
       propertyPath: m_sharedMaterial
@@ -42,7 +42,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5604511646115717401, guid: 1c73538d1d0d9a844be8baca22e7b9d2, type: 3}
       propertyPath: <BaseFontSize>k__BackingField
-      value: 12.45
+      value: 11.666667
       objectReference: {fileID: 0}
     - target: {fileID: 5604511646115717401, guid: 1c73538d1d0d9a844be8baca22e7b9d2, type: 3}
       propertyPath: <DimensionType>k__BackingField
@@ -55,6 +55,14 @@ PrefabInstance:
     - target: {fileID: 5604511646115717401, guid: 1c73538d1d0d9a844be8baca22e7b9d2, type: 3}
       propertyPath: <ExpandToFitText>k__BackingField
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5604511646115717401, guid: 1c73538d1d0d9a844be8baca22e7b9d2, type: 3}
+      propertyPath: <StaticDimensionType>k__BackingField
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5604511646115717401, guid: 1c73538d1d0d9a844be8baca22e7b9d2, type: 3}
+      propertyPath: <StaticReferenceSize>k__BackingField
+      value: 34
       objectReference: {fileID: 0}
     - target: {fileID: 8279574480887482935, guid: 1c73538d1d0d9a844be8baca22e7b9d2, type: 3}
       propertyPath: m_Pivot.x
@@ -141,17 +149,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c73538d1d0d9a844be8baca22e7b9d2, type: 3}
---- !u!114 &6309868420782937078 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5604511646115717401, guid: 1c73538d1d0d9a844be8baca22e7b9d2, type: 3}
-  m_PrefabInstance: {fileID: 1897737553855689455}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2025faa740564534a596c7b191dec6b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.AdaptiveTextMeshProUGUI
 --- !u!224 &7543788172166871256 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8279574480887482935, guid: 1c73538d1d0d9a844be8baca22e7b9d2, type: 3}
@@ -341,7 +338,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da34b48bf24b4543a6d5c4c72b73d9a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.DynamicRatioLayoutElement
-  _adaptiveText: {fileID: 6309868420782937078}
-  _dimensionType: 2
-  _parentReferenceSize: 34
+  _adaptiveTexts: []
+  _staticDimensionType: 2
+  _staticReferenceSize: 34
   _otherContentReferenceSize: 24

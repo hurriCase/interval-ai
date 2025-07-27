@@ -3,11 +3,11 @@ using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.Loader;
 using Source.Scripts.Data.Repositories.Settings.Base;
 using Source.Scripts.Data.Repositories.Words;
+using Source.Scripts.Data.Repositories.Words.Data;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
-using WordEntry = Source.Scripts.Data.Repositories.Words.Data.WordEntry;
 
 namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base
 {

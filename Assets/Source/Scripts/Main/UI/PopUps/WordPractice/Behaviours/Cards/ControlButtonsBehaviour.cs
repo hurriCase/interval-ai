@@ -1,33 +1,36 @@
-﻿using CustomUtils.Runtime.Extensions;
-using CustomUtils.Runtime.Localization;
-using R3;
+﻿using R3;
 using Source.Scripts.Data.Repositories.Words.Base;
 using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.Base;
 using Source.Scripts.UI.Components;
 using UnityEngine;
+using UnityEngine.UI;
 using VContainer;
 
 namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards
 {
     internal sealed class ControlButtonsBehaviour : MonoBehaviour
     {
-        [SerializeField] private ButtonTextComponent _positiveControlItem;
-        [SerializeField] private ButtonTextComponent _cancelControlItem;
-        [SerializeField] private ButtonTextComponent _nextControlItem;
+        [SerializeField] private ButtonComponent _alreadyKnowButton;
+        [SerializeField] private ButtonComponent _hideButton;
+        [SerializeField] private ButtonComponent _learnButton;
+
+        [SerializeField] private ButtonComponent _memorizedButton;
+        [SerializeField] private ButtonComponent _forgotButton;
+
+        [SerializeField] private GameObject _firstShowContainer;
+        [SerializeField] private GameObject _otherShowContainer;
 
         private CardBehaviourBase _cardBehaviourBase;
 
         [Inject] private IWordsRepository _wordsRepository;
 
+        private bool _isFirstShow;
+
         internal void Init(CardBehaviourBase cardBehaviourBase)
         {
             _cardBehaviourBase = cardBehaviourBase;
 
-            _positiveControlItem.Button.OnClickAsObservable()
-                .Subscribe(this, (_, behaviour) => behaviour.AdvanceWord())
-                .RegisterTo(destroyCancellationToken);
-
-            _cancelControlItem.Button.OnClickAsObservable()
+            _hideButton.OnClickAsObservable()
                 .Subscribe(_cardBehaviourBase, (_, cardBehaviour) =>
                 {
                     cardBehaviour.CurrentWord.IsHidden = true;
@@ -35,44 +38,28 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
                 })
                 .RegisterTo(destroyCancellationToken);
 
-            _nextControlItem.Button.OnClickAsObservable()
-                .Subscribe(this, (_, behaviour) => behaviour.SwitchToNext())
-                .RegisterTo(destroyCancellationToken);
+            SubscribeAdvanceButton(_alreadyKnowButton, false);
+            SubscribeAdvanceButton(_learnButton, true);
+            SubscribeAdvanceButton(_memorizedButton, true);
+            SubscribeAdvanceButton(_forgotButton, false);
         }
 
         internal void UpdateView()
         {
-            var isFirstShow = _cardBehaviourBase.CurrentWord.LearningState == LearningState.None;
+            _isFirstShow = _cardBehaviourBase.CurrentWord.LearningState == LearningState.None;
 
-            var positiveKey = isFirstShow ? "ui.word-practice.already-know" : "ui.word-practice.got-it";
-            _positiveControlItem.Text.text = LocalizationController.Localize(positiveKey);
-
-            _cancelControlItem.Button.SetActive(isFirstShow);
-            _cancelControlItem.Text.text = LocalizationController.Localize("ui.word-practice.hide");
-
-            var nextKey = isFirstShow ? "ui.word-practice.learn" : "ui.word-practice.missed-it";
-            _nextControlItem.Text.text = LocalizationController.Localize(nextKey);
+            _firstShowContainer.SetActive(_isFirstShow);
+            _otherShowContainer.SetActive(_isFirstShow is false);
         }
 
-        internal void AdvanceWord()
+        private void SubscribeAdvanceButton(Button button, bool success) =>
+            button.OnClickAsObservable()
+                .Subscribe((behaviour: this, success), (_, tuple) => tuple.behaviour.AdvanceWord(tuple.success))
+                .RegisterTo(destroyCancellationToken);
+
+        private void AdvanceWord(bool success)
         {
-            var currentWord = _cardBehaviourBase.CurrentWord;
-            if (currentWord.LearningState == LearningState.None)
-            {
-                currentWord.LearningState = LearningState.AlreadyKnown;
-                return;
-            }
-
-            _wordsRepository.AdvanceWord(_cardBehaviourBase.CurrentWord, true);
-            _cardBehaviourBase.UpdateWord();
-        }
-
-        internal void SwitchToNext()
-        {
-            var currentWord = _cardBehaviourBase.CurrentWord;
-            var success = currentWord.LearningState == LearningState.None;
-
-            _wordsRepository.AdvanceWord(currentWord, success);
+            _wordsRepository.AdvanceWord(_cardBehaviourBase.CurrentWord, success);
             _cardBehaviourBase.UpdateWord();
         }
     }

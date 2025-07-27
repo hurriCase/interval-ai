@@ -6,6 +6,6 @@
         Input = 1,
         Selection = 2,
         Answer = 3,
-        OnlyQuestion = 4
+        FirstShow = 4
     }
 }

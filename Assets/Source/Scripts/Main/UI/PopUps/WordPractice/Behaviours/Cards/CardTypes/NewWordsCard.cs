@@ -45,7 +45,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
         {
             base.UpdateView();
 
-            SwitchModule(ModuleType.OnlyQuestion);
+            SwitchModule(ModuleType.FirstShow);
 
             var wordsCount = progressRepository.NewWordsCount;
             var localizationKey = localizationKeysDatabase.GetLearnedCountLocalization(wordsCount);

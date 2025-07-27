@@ -14,20 +14,19 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
     {
         [SerializeField] private GameObject _buttonsContainer;
         [SerializeField] private ButtonComponent _learnNewWordsButton;
-        [SerializeField] private ButtonComponent _returnLateButton;
 
         [SerializeField] private TextMeshProUGUI _completeText;
         [SerializeField] private GameObject _noWordsImage;
         [SerializeField] private GameObject _completeImage;
 
         [SerializeField] private GameObject _addNewWordsContainer;
+        [SerializeField] private ButtonComponent _exitButton;
         [SerializeField] private ButtonComponent _learnButton;
 
         [SerializeField] private PlusMinusBehaviour _plusMinusBehaviour;
 
-        [SerializeField] protected ButtonComponent exitButton;
-
         [Inject] protected IWindowsController windowsController;
+
         [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
 
         private PracticeState _practiceState;
@@ -50,7 +49,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
                 .Subscribe(static _ => WordPracticePopUp.StateChangeRequested.OnNext(PracticeState.NewWords))
                 .RegisterTo(destroyCancellationToken);
 
-            _returnLateButton.OnClickAsObservable()
+            _exitButton.OnClickAsObservable()
                 .Subscribe(windowsController,
                     static (_, controller) => controller.OpenScreenByType(ScreenType.LearningWords))
                 .RegisterTo(destroyCancellationToken);

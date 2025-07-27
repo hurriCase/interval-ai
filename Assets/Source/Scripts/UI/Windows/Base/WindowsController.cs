@@ -102,6 +102,8 @@ namespace Source.Scripts.UI.Windows.Base
 
         public void OpenScreenByType(ScreenType screenType)
         {
+            HideAllPopUps();
+
             foreach (var screenBase in _createdScreens)
             {
                 if (screenBase.WindowType != screenType)
@@ -127,6 +129,17 @@ namespace Source.Scripts.UI.Windows.Base
             }
 
             return ScreenType.None;
+        }
+
+        private void HideAllPopUps()
+        {
+            if (_currentOpenedPopUp)
+            {
+                _currentOpenedPopUp.HideImmediately();
+                _currentOpenedPopUp = null;
+            }
+
+            _previousOpenedPopUps.Clear();
         }
 
         private void HandlePopUpHide()
