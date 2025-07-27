@@ -11,6 +11,7 @@ using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.
 using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.Swipe;
 using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base;
 using TMPro;
+using UI.Behaviours.Swipe;
 using UnityEngine;
 using VContainer;
 
@@ -39,6 +40,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
         internal void Init()
         {
             controlButtonsBehaviour.Init(this);
+            _swipeCardBehaviour.Init();
             _wordProgressBehaviour.Init();
 
             foreach (var module in _practiceModules)

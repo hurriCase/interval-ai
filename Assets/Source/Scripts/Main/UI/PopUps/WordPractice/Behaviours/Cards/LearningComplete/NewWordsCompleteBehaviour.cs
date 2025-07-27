@@ -12,7 +12,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
         protected override void OnInit()
         {
             _repeatWordsButton.OnClickAsObservable()
-                .Subscribe(static _ => WordPracticePopUp.StateChangeRequested.OnNext(PracticeState.Review))
+                .Subscribe(static _ => WordPracticePopUp.CurrentState.OnNext(PracticeState.Review))
                 .RegisterTo(destroyCancellationToken);
         }
     }

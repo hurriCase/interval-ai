@@ -23,20 +23,19 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice
         [SerializeField] private float _spacingBetweenTabsRatio;
         [SerializeField] private float _switchAnimationDuration;
 
-        internal static readonly Subject<PracticeState> StateChangeRequested = new();
-        internal static readonly Subject<ModuleType> ModuleChangeRequested = new();
+        internal static readonly Subject<ModuleType> ModuleTypeChangeSubject = new();
 
-        private PracticeState _currentState = PracticeState.NewWords;
+        internal static ReactiveProperty<PracticeState> CurrentState { get; } = new(PracticeState.None);
 
         internal override void Init()
         {
             _newWordsCard.Init();
             _reviewCard.Init();
 
-            ModuleChangeRequested
+            ModuleTypeChangeSubject
                 .Subscribe(this, (moduleType, popUp) =>
                 {
-                    if (popUp._currentState == PracticeState.NewWords)
+                    if (CurrentState.Value == PracticeState.NewWords)
                     {
                         popUp._newWordsCard.SwitchModule(moduleType);
                         return;
@@ -47,31 +46,48 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice
                 .RegisterTo(destroyCancellationToken);
 
             _newWordsTab.OnPointerClickAsObservable()
-                .Where(this, static (_, popUp) => popUp._currentState != PracticeState.NewWords)
+                .Where(static _ => CurrentState.Value != PracticeState.NewWords)
                 .Subscribe(this, static (_, popUp) => popUp.SwitchToState(PracticeState.NewWords))
                 .RegisterTo(destroyCancellationToken);
 
             _repetitionTab.OnPointerClickAsObservable()
-                .Where(this, static (_, popUp) => popUp._currentState != PracticeState.Review)
+                .Where(static _ => CurrentState.Value != PracticeState.Review)
                 .Subscribe(this, static (_, popUp) => popUp.SwitchToState(PracticeState.Review))
                 .RegisterTo(destroyCancellationToken);
 
-            StateChangeRequested
+            CurrentState
                 .Subscribe(this, static (state, popUp) => popUp.SwitchToState(state))
                 .RegisterTo(destroyCancellationToken);
         }
 
+        internal override void Show()
+        {
+            if (_newWordsCard.CurrentWord.IsValid is false && _reviewCard.CurrentWord.IsValid)
+                CurrentState.Value = PracticeState.Review;
+            else
+                CurrentState.Value = PracticeState.NewWords;
+
+            base.Show();
+        }
+
+        internal override void Hide()
+        {
+            base.Hide();
+
+            CurrentState.Value = PracticeState.None;
+        }
+
         private void SwitchToState(PracticeState state, bool isInstant = false)
         {
-            _currentState = state;
+            CurrentState.Value = state;
 
             var containerWidth = _cardsContainer.rect.width;
-            var endValue = _currentState == PracticeState.NewWords
+            var endValue = CurrentState.Value == PracticeState.NewWords
                 ? 0
                 : -(containerWidth / 2 + containerWidth / _spacingBetweenTabsRatio);
 
-            _repetitionTab.isOn = _currentState == PracticeState.Review;
-            _newWordsTab.isOn = _currentState == PracticeState.NewWords;
+            _repetitionTab.isOn = CurrentState.Value == PracticeState.Review;
+            _newWordsTab.isOn = CurrentState.Value == PracticeState.NewWords;
 
             Tween.UIAnchoredPositionX(_cardsContainer, endValue, isInstant ? 0 : _switchAnimationDuration);
         }

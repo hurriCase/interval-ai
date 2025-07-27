@@ -1,5 +1,4 @@
-﻿using CustomUtils.Runtime.Extensions;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.Loader;
 using Source.Scripts.Data.Repositories.Settings.Base;
 using Source.Scripts.Data.Repositories.Words;
@@ -13,6 +12,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
 {
     internal class PracticeModuleBase : MonoBehaviour
     {
+        [SerializeField] protected GameObject descriptiveImageContainer;
         [SerializeField] protected Image descriptiveImage;
         [SerializeField] protected TextMeshProUGUI shownWordText;
         [SerializeField] protected TransitionButtonData[] transitionButtons;
@@ -49,7 +49,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
 
             if (currentWord.DescriptiveImage.IsValid is false)
             {
-                descriptiveImage.SetActive(false);
+                descriptiveImageContainer.SetActive(false);
                 return;
             }
 

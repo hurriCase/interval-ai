@@ -46,7 +46,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
                 .RegisterTo(destroyCancellationToken);
 
             _learnButton.OnClickAsObservable()
-                .Subscribe(static _ => WordPracticePopUp.StateChangeRequested.OnNext(PracticeState.NewWords))
+                .Subscribe(static _ => WordPracticePopUp.CurrentState.OnNext(PracticeState.NewWords))
                 .RegisterTo(destroyCancellationToken);
 
             _exitButton.OnClickAsObservable()

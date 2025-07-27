@@ -1,55 +1,152 @@
 ﻿using CustomUtils.Runtime.CustomBehaviours;
 using PrimeTween;
 using R3;
+using Source.Scripts.Core.Input;
+using Source.Scripts.Core.Localization;
+using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice;
+using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.Swipe;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using VContainer;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.Swipe
+namespace UI.Behaviours.Swipe
 {
-    internal sealed class SwipeCardBehaviour : RectTransformBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+    //TODO:<Dmitriy.Sukharev> refactor
+    internal sealed class SwipeCardBehaviour : RectTransformBehaviour
     {
+        [SerializeField] private PracticeState _targetPracticeState;
+
         [SerializeField] private float _returnDuration;
         [SerializeField] private float _swipeExecuteDuration;
         [SerializeField] private float _maxRotationDegrees;
         [SerializeField] private float _maxLiftHeightRatio;
         [SerializeField] private float _pickupScale;
         [SerializeField] private float _pickupDuration;
+        [SerializeField] private float _horizontalDragThresholdRatio;
+        [SerializeField] private float _verticalToleranceRatio;
 
         internal Observable<SwipeDirection> OnSwipe => _onSwipe.AsObservable();
 
         private readonly Subject<SwipeDirection> _onSwipe = new();
 
-        private Vector2 _startPosition;
         private Vector2 _originalPosition;
-        private bool _swipeExecuted;
-        private Sequence _currentSequence;
-        private SwipeDirection _currentSwipeDirection;
+        private Camera _uiCamera;
 
-        private void Awake()
+        private SwipeDirection _currentSwipeDirection;
+        private Sequence _currentSequence;
+        private Vector2 _startPosition;
+        private bool _swipeExecuted;
+        private bool _isDragging;
+        private bool _isPointerPressed;
+
+        [Inject] private ISwipeInputService _swipeInputService;
+
+        private PracticeState _currentPracticeState;
+
+        internal void Init()
         {
             _originalPosition = RectTransform.anchoredPosition;
+
+            _uiCamera = GetComponentInParent<Canvas>().worldCamera;
+
+            WordPracticePopUp.CurrentState
+                .Subscribe(this,
+                    static (state, behaviour) => behaviour._currentPracticeState = state)
+                .RegisterTo(destroyCancellationToken);
+
+            _swipeInputService.PointerPressed
+                .Where(this, static (_, behaviour) =>
+                    behaviour._currentPracticeState == behaviour._targetPracticeState &&
+                    behaviour._swipeExecuted is false)
+                .Subscribe(this, static (_, behaviour) => behaviour.OnPointerPressed())
+                .RegisterTo(destroyCancellationToken);
+
+            _swipeInputService.PointerReleased
+                .Where(this, static (_, behaviour) => behaviour._isPointerPressed || behaviour._isDragging)
+                .Subscribe(this, static (_, behaviour) => behaviour.OnPointerReleased())
+                .RegisterTo(destroyCancellationToken);
+
+            _swipeInputService.PointerPositionChangedSubject
+                .Where(this, static (_, behaviour) =>
+                    behaviour._currentPracticeState == behaviour._targetPracticeState &&
+                    behaviour._swipeExecuted is false &&
+                    (behaviour._isPointerPressed || behaviour._isDragging))
+                .Subscribe(this, static (position, behaviour) => behaviour.OnPointerPositionChanged(position))
+                .RegisterTo(destroyCancellationToken);
         }
 
-        public void OnBeginDrag(PointerEventData eventData)
+        private void OnPointerPressed()
         {
-            if (_swipeExecuted)
+            var pointerPosition = _swipeInputService.CurrentPointerPosition;
+            var canvasPosition = GetScreenToCanvasPosition(pointerPosition);
+
+            if (RectTransformUtility.RectangleContainsScreenPoint(RectTransform, pointerPosition, _uiCamera) is false)
                 return;
 
-            _startPosition = eventData.position;
+            _startPosition = canvasPosition;
+            _isPointerPressed = true;
+        }
+
+        private void OnPointerReleased()
+        {
+            if (_isDragging)
+            {
+                var pointerPosition = _swipeInputService.CurrentPointerPosition;
+                var canvasPosition = GetScreenToCanvasPosition(pointerPosition);
+
+                var deltaX = canvasPosition.x - _startPosition.x;
+                var deltaY = canvasPosition.y - _startPosition.y;
+                var distanceForSwipe = RectTransform.rect.width / 2;
+
+                if (Mathf.Abs(deltaX) > Mathf.Abs(deltaY) && Mathf.Abs(deltaX) >= distanceForSwipe)
+                {
+                    ExecuteSwipe(deltaX > 0 ? SwipeDirection.Right : SwipeDirection.Left);
+                    return;
+                }
+
+                ReturnToOriginalPosition();
+            }
+
+            ResetPointerStates();
+        }
+
+        private void OnPointerPositionChanged(Vector2 pointerPosition)
+        {
+            var canvasPosition = GetScreenToCanvasPosition(pointerPosition);
+            var deltaPosition = canvasPosition - _startPosition;
+
+            var rect = RectTransform.rect;
+            var horizontalThreshold = rect.width * _horizontalDragThresholdRatio;
+            var verticalTolerance = rect.height * _verticalToleranceRatio;
+
+            if (Mathf.Abs(deltaPosition.y) > verticalTolerance &&
+                Mathf.Abs(deltaPosition.x) < Mathf.Abs(deltaPosition.y))
+            {
+                if (_isDragging is false)
+                    return;
+
+                ReturnToOriginalPosition();
+                ResetPointerStates();
+                return;
+            }
+
+            if (_isDragging is false && Mathf.Abs(deltaPosition.x) >= horizontalThreshold)
+                StartDragging();
+
+            if (_isDragging)
+                ApplyDragVisualEffects(deltaPosition);
+        }
+
+        private void StartDragging()
+        {
+            _isDragging = true;
 
             _currentSequence.Stop();
-
-            _currentSequence = Sequence.Create().Chain(Tween.Scale(RectTransform, _pickupScale, _pickupDuration));
+            _currentSequence = Sequence.Create()
+                .Chain(Tween.Scale(RectTransform, _pickupScale, _pickupDuration));
         }
 
-        public void OnDrag(PointerEventData eventData)
+        private void ApplyDragVisualEffects(Vector2 deltaPosition)
         {
-            if (_swipeExecuted)
-                return;
-
-            var currentPosition = eventData.position;
-            var deltaPosition = currentPosition - _startPosition;
-
             var maxDistance = RectTransform.rect.width / 2;
             var normalizedDrag = deltaPosition.x / maxDistance;
             var dragIntensity = Mathf.Clamp01(Mathf.Abs(normalizedDrag));
@@ -66,17 +163,15 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
             RectTransform.rotation = Quaternion.Euler(0, 0, rotation);
         }
 
-        public void OnEndDrag(PointerEventData eventData)
+        private Vector2 GetScreenToCanvasPosition(Vector3 screenPosition)
         {
-            if (_swipeExecuted)
-                return;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                GetComponentInParent<Canvas>().transform as RectTransform,
+                screenPosition,
+                _uiCamera,
+                out var localPoint);
 
-            var deltaX = eventData.position.x - _startPosition.x;
-            var distanceForSwipe = RectTransform.rect.width / 2;
-            if (Mathf.Abs(deltaX) >= distanceForSwipe)
-                ExecuteSwipe(deltaX > 0 ? SwipeDirection.Right : SwipeDirection.Left);
-            else
-                ReturnToOriginalPosition();
+            return localPoint;
         }
 
         private void ExecuteSwipe(SwipeDirection direction)
@@ -110,9 +205,17 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
                 .Group(Tween.Scale(RectTransform, Vector3.one, _returnDuration));
         }
 
+        private void ResetPointerStates()
+        {
+            _isPointerPressed = false;
+            _isDragging = false;
+        }
+
         private void ResetCard()
         {
             _swipeExecuted = false;
+            ResetPointerStates();
+            _startPosition = Vector2.zero;
 
             _currentSequence.Stop();
 

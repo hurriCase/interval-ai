@@ -306,7 +306,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6007609530799845043, guid: 3631b2b1015d64049bcbb5d30cb4e87b, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 151.00002
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6007609530799845043, guid: 3631b2b1015d64049bcbb5d30cb4e87b, type: 3}
       propertyPath: m_SizeDelta.y
@@ -546,7 +546,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6007609530799845043, guid: 3631b2b1015d64049bcbb5d30cb4e87b, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 151.00002
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6007609530799845043, guid: 3631b2b1015d64049bcbb5d30cb4e87b, type: 3}
       propertyPath: m_SizeDelta.y
@@ -582,7 +582,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6007609530799845043, guid: 3631b2b1015d64049bcbb5d30cb4e87b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 151.00002
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6007609530799845043, guid: 3631b2b1015d64049bcbb5d30cb4e87b, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -736,6 +736,11 @@ PrefabInstance:
 --- !u!224 &3062314093750117250 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5360917121522460483, guid: eaff0723c7e800a48a123f70ac8a76c5, type: 3}
+  m_PrefabInstance: {fileID: 6924930692925228225}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5155424117120802296 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2851329612749052217, guid: eaff0723c7e800a48a123f70ac8a76c5, type: 3}
   m_PrefabInstance: {fileID: 6924930692925228225}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &9209085733291538446 stripped
@@ -1011,6 +1016,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5992ba7ad0914f1096c36e5fa22fdcb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.CardTypes.WordSelectionBehaviour
+  descriptiveImageContainer: {fileID: 5155424117120802296}
   descriptiveImage: {fileID: 9209085733291538446}
   shownWordText: {fileID: 1377159919554987949}
   transitionButtons:

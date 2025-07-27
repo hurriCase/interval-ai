@@ -16,7 +16,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
         internal readonly void Init(CancellationToken token)
         {
             Button.OnClickAsObservable()
-                .Subscribe(ModuleType, static (_, type) => WordPracticePopUp.ModuleChangeRequested.OnNext(type))
+                .Subscribe(ModuleType, static (_, type) => WordPracticePopUp.ModuleTypeChangeSubject.OnNext(type))
                 .RegisterTo(token);
         }
     }
