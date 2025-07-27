@@ -580,55 +580,55 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             StorageHelper.TryDeleteAllAsync().Forget();
         }
 
-        [MenuItem("--Project--/Toggle Is RectTransform Extended Enabled", priority = 1)]
+        [MenuItem("--Project--/Scripting Symbols/Toggle Is RectTransform Extended Enabled", priority = 1)]
         private static void ToggleSymbol_IS_RECTTRANSFORM_EXTENDED_ENABLED()
         {
             ScriptingSymbolHandler.ToggleSymbol("IS_RECTTRANSFORM_EXTENDED_ENABLED", "ScriptingSymbol_IS_RECTTRANSFORM_EXTENDED_ENABLED");
         }
 
-        [MenuItem("--Project--/Toggle Is RectTransform Extended Enabled", true)]
+        [MenuItem("--Project--/Scripting Symbols/Toggle Is RectTransform Extended Enabled", true)]
         private static bool ValidateToggleSymbol_IS_RECTTRANSFORM_EXTENDED_ENABLED()
         {
-            Menu.SetChecked("--Project--/Toggle Is RectTransform Extended Enabled", ScriptingSymbolHandler.IsSymbolEnabled("ScriptingSymbol_IS_RECTTRANSFORM_EXTENDED_ENABLED", false));
+            Menu.SetChecked("--Project--/Scripting Symbols/Toggle Is RectTransform Extended Enabled", ScriptingSymbolHandler.IsSymbolEnabled("ScriptingSymbol_IS_RECTTRANSFORM_EXTENDED_ENABLED", false));
             return true;
         }
 
-        [MenuItem("--Project--/Toggle Is Auto Stretch RectTransform", priority = 2)]
+        [MenuItem("--Project--/Scripting Symbols/Toggle Is Auto Stretch RectTransform", priority = 2)]
         private static void ToggleSymbol_IS_AUTO_STRETCH_RECTTRANSFORM()
         {
             ScriptingSymbolHandler.ToggleSymbol("IS_AUTO_STRETCH_RECTTRANSFORM", "ScriptingSymbol_IS_AUTO_STRETCH_RECTTRANSFORM");
         }
 
-        [MenuItem("--Project--/Toggle Is Auto Stretch RectTransform", true)]
+        [MenuItem("--Project--/Scripting Symbols/Toggle Is Auto Stretch RectTransform", true)]
         private static bool ValidateToggleSymbol_IS_AUTO_STRETCH_RECTTRANSFORM()
         {
-            Menu.SetChecked("--Project--/Toggle Is Auto Stretch RectTransform", ScriptingSymbolHandler.IsSymbolEnabled("ScriptingSymbol_IS_AUTO_STRETCH_RECTTRANSFORM", false));
+            Menu.SetChecked("--Project--/Scripting Symbols/Toggle Is Auto Stretch RectTransform", ScriptingSymbolHandler.IsSymbolEnabled("ScriptingSymbol_IS_AUTO_STRETCH_RECTTRANSFORM", false));
             return true;
         }
 
-        [MenuItem("--Project--/Toggle Addressables Log All", priority = 3)]
+        [MenuItem("--Project--/Scripting Symbols/Toggle Addressables Log All", priority = 3)]
         private static void ToggleSymbol_ADDRESSABLES_LOG_ALL()
         {
             ScriptingSymbolHandler.ToggleSymbol("ADDRESSABLES_LOG_ALL", "ScriptingSymbol_ADDRESSABLES_LOG_ALL");
         }
 
-        [MenuItem("--Project--/Toggle Addressables Log All", true)]
+        [MenuItem("--Project--/Scripting Symbols/Toggle Addressables Log All", true)]
         private static bool ValidateToggleSymbol_ADDRESSABLES_LOG_ALL()
         {
-            Menu.SetChecked("--Project--/Toggle Addressables Log All", ScriptingSymbolHandler.IsSymbolEnabled("ScriptingSymbol_ADDRESSABLES_LOG_ALL", false));
+            Menu.SetChecked("--Project--/Scripting Symbols/Toggle Addressables Log All", ScriptingSymbolHandler.IsSymbolEnabled("ScriptingSymbol_ADDRESSABLES_LOG_ALL", false));
             return true;
         }
 
-        [MenuItem("--Project--/Toggle Is Debug", priority = 4)]
+        [MenuItem("--Project--/Scripting Symbols/Toggle Is Debug", priority = 4)]
         private static void ToggleSymbol_IS_DEBUG()
         {
             ScriptingSymbolHandler.ToggleSymbol("IS_DEBUG", "ScriptingSymbol_IS_DEBUG");
         }
 
-        [MenuItem("--Project--/Toggle Is Debug", true)]
+        [MenuItem("--Project--/Scripting Symbols/Toggle Is Debug", true)]
         private static bool ValidateToggleSymbol_IS_DEBUG()
         {
-            Menu.SetChecked("--Project--/Toggle Is Debug", ScriptingSymbolHandler.IsSymbolEnabled("ScriptingSymbol_IS_DEBUG", false));
+            Menu.SetChecked("--Project--/Scripting Symbols/Toggle Is Debug", ScriptingSymbolHandler.IsSymbolEnabled("ScriptingSymbol_IS_DEBUG", false));
             return true;
         }
     }
