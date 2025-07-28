@@ -16,7 +16,7 @@ namespace Source.Scripts.Data.Repositories.Progress.Base
         PersistentReactiveProperty<Dictionary<DateTime, DailyProgress>> ProgressHistory { get; }
         int NewWordsCount { get; }
         int ReviewCount { get; }
-        void AddProgressToEntry(LearningState learningState, DateTime date);
+        void IncrementDailyProgress(LearningState learningState, DateTime date);
         void IncrementNewWordsCount();
         void IncrementReviewCount();
     }

@@ -30,16 +30,16 @@ namespace Source.Scripts.Data.Repositories.Progress.Tests
                 var currentEntry = _progressRepository.ProgressHistory.Value;
 
                 for (var j = 0; j < studiedCount; j++)
-                    _progressRepository.AddProgressToEntry(LearningState.Studied, date);
+                    _progressRepository.IncrementDailyProgress(LearningState.Studied, date);
 
                 for (var j = 0; j < learningCount; j++)
-                    _progressRepository.AddProgressToEntry(LearningState.CurrentlyLearning, date);
+                    _progressRepository.IncrementDailyProgress(LearningState.CurrentlyLearning, date);
 
                 for (var j = 0; j < repeatableCount; j++)
-                    _progressRepository.AddProgressToEntry(LearningState.Repeatable, date);
+                    _progressRepository.IncrementDailyProgress(LearningState.Repeatable, date);
 
                 for (var j = 0; j < knownCount; j++)
-                    _progressRepository.AddProgressToEntry(LearningState.AlreadyKnown, date);
+                    _progressRepository.IncrementDailyProgress(LearningState.AlreadyKnown, date);
 
                 _progressRepository.ProgressHistory.Value = currentEntry;
             }

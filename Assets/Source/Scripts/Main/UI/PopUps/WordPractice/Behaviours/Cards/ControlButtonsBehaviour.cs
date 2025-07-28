@@ -22,7 +22,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
 
         private CardBehaviourBase _cardBehaviourBase;
 
-        [Inject] private IWordsRepository _wordsRepository;
+        [Inject] private IWordAdvanceHelper _wordAdvanceHelper;
 
         private bool _isFirstShow;
 
@@ -59,7 +59,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
 
         private void AdvanceWord(bool success)
         {
-            _wordsRepository.AdvanceWord(_cardBehaviourBase.CurrentWord, success);
+            _wordAdvanceHelper.AdvanceWord(_cardBehaviourBase.CurrentWord, success);
             _cardBehaviourBase.UpdateWord();
         }
     }

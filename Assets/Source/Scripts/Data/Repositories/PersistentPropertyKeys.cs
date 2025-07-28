@@ -20,10 +20,10 @@
         internal const string IsCompleteOnboardingKey = Prefix + "IsCompleteOnboardingKey";
         internal const string LoginHistoryKey = Prefix + "LoginHistoryKey";
 
-        internal const string UserIconKey = Prefix + "repetitionByCooldown";
-        internal const string NicknameKey = Prefix + "userName";
+        internal const string UserIconKey = Prefix + "UserIconKey";
+        internal const string NicknameKey = Prefix + "NicknameKey";
 
-        internal const string WordEntryKey = Prefix + "wordEntry";
+        internal const string WordEntryKey = Prefix + "WordEntryKey";
 
         private const string Prefix = "LanguageLearningApp.";
     }

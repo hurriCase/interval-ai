@@ -62,7 +62,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice
 
         internal override void Show()
         {
-            if (_newWordsCard.CurrentWord.IsValid is false && _reviewCard.CurrentWord.IsValid)
+            if (_newWordsCard.CurrentWord is null && _reviewCard.CurrentWord != null)
                 CurrentState.Value = PracticeState.Review;
             else
                 CurrentState.Value = PracticeState.NewWords;

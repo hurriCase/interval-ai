@@ -22,17 +22,13 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
                 .RegisterTo(destroyCancellationToken);
         }
 
-        internal override void UpdateWord()
+        protected override void OnWordUpdate()
         {
             CurrentWord = wordsRepository.GetAvailableWord(LearningState.Repeatable);
-
-            base.UpdateWord();
         }
 
-        internal override void UpdateView()
+        protected override void OnUpdateView()
         {
-            base.UpdateView();
-
             SwitchModule(ModuleType.Input);
 
             var wordsCount = progressRepository.ReviewCount;

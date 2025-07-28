@@ -14,6 +14,7 @@ using Source.Scripts.Data.Repositories.Statistics;
 using Source.Scripts.Data.Repositories.User;
 using Source.Scripts.Data.Repositories.User.Base;
 using Source.Scripts.Data.Repositories.Words;
+using Source.Scripts.Data.Repositories.Words.Advance;
 using Source.Scripts.Data.Repositories.Words.Base;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -69,6 +70,7 @@ namespace Source.Scripts.Core.DI
             builder.RegisterInstance(_defaultUserDataDatabase).As<IDefaultUserDataDatabase>();
 
             builder.Register<WordsRepository>(Lifetime.Singleton).As<IWordsRepository>();
+            builder.Register<WordAdvanceHelper>(Lifetime.Singleton).As<IWordAdvanceHelper>();
             builder.RegisterInstance(_defaultWordsDatabase).As<IDefaultWordsDatabase>();
 
             builder.Register<CategoriesRepository>(Lifetime.Singleton).As<ICategoriesRepository>();

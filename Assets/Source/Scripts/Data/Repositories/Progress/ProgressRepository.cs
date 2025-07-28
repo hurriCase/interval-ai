@@ -26,8 +26,14 @@ namespace Source.Scripts.Data.Repositories.Progress
             ? todayProgress.ReviewCount
             : 0;
 
+        private DailyProgress _todayProgress;
+
+        private readonly ISettingsRepository _settingsRepository;
+
         internal ProgressRepository(IStatisticsRepository statisticsRepository, ISettingsRepository settingsRepository)
         {
+            _settingsRepository = settingsRepository;
+
             CurrentStreak = new PersistentReactiveProperty<int>(PersistentPropertyKeys.CurrentStreakKey);
             BestStreak = new PersistentReactiveProperty<int>(PersistentPropertyKeys.BestStreakKey);
             TotalCountByState = new PersistentReactiveProperty<EnumArray<LearningState, int>>(
@@ -48,56 +54,55 @@ namespace Source.Scripts.Data.Repositories.Progress
                 CurrentStreak.Value = 0;
         }
 
-        public void AddProgressToEntry(LearningState learningState, DateTime date)
+        public void IncrementDailyProgress(LearningState learningState, DateTime date)
         {
-            var dateOnly = date.Date;
-
-            if (ProgressHistory.Value.TryGetValue(dateOnly, out var dailyProgress) is false)
-            {
-                dailyProgress = new DailyProgress(dateOnly);
-                ProgressHistory.Value[dateOnly] = dailyProgress;
-            }
+            var dailyProgress = GetOrCreateDailyProgress(date);
 
             dailyProgress.AddProgress(learningState);
 
             if (learningState == LearningState.CurrentlyLearning)
-                ProcessNewWordProgress(ref dailyProgress);
+                IncreaseStreak(ref dailyProgress);
 
-            ProgressHistory.Value[dateOnly] = dailyProgress;
+            ProgressHistory.Value[date.Date] = dailyProgress;
             IncreaseTotalCount(learningState);
         }
 
         public void IncrementNewWordsCount()
         {
             var today = DateTime.Now.Date;
-            if (ProgressHistory.Value.TryGetValue(today, out var todayProgress) is false)
-            {
-                todayProgress = new DailyProgress(today);
-                ProgressHistory.Value[today] = todayProgress;
-            }
+            var todayProgress = GetOrCreateDailyProgress(today);
 
             todayProgress.NewWordsCount++;
+
+            if (todayProgress.GoalAchieved is false &&
+                todayProgress.NewWordsCount >= _settingsRepository.DailyGoal.Value)
+                IncreaseStreak(ref todayProgress);
+
             ProgressHistory.Value[today] = todayProgress;
         }
 
         public void IncrementReviewCount()
         {
             var today = DateTime.Now.Date;
-            if (ProgressHistory.Value.TryGetValue(today, out var todayProgress) is false)
-            {
-                todayProgress = new DailyProgress(today);
-                ProgressHistory.Value[today] = todayProgress;
-            }
+            var todayProgress = GetOrCreateDailyProgress(today);
 
             todayProgress.ReviewCount++;
             ProgressHistory.Value[today] = todayProgress;
         }
 
-        private void ProcessNewWordProgress(ref DailyProgress dailyProgress)
+        private DailyProgress GetOrCreateDailyProgress(DateTime date)
         {
-            if (dailyProgress.GoalAchieved || GetProgressForDailyGoal(ref dailyProgress) < NewWordsDailyTarget.Value)
-                return;
+            if (ProgressHistory.Value.TryGetValue(date, out var dailyProgress))
+                return dailyProgress;
 
+            dailyProgress = new DailyProgress(date);
+            ProgressHistory.Value[date] = dailyProgress;
+
+            return dailyProgress;
+        }
+
+        private void IncreaseStreak(ref DailyProgress dailyProgress)
+        {
             CurrentStreak.Value++;
 
             if (CurrentStreak.Value > BestStreak.Value)
@@ -112,9 +117,6 @@ namespace Source.Scripts.Data.Repositories.Progress
             totalCountByState[state]++;
             TotalCountByState.Value = totalCountByState;
         }
-
-        private int GetProgressForDailyGoal(ref DailyProgress dailyProgress)
-            => dailyProgress.ProgressByState[LearningState.CurrentlyLearning];
 
         public void Dispose()
         {

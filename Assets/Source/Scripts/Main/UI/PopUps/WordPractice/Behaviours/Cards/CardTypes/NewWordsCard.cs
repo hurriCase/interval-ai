@@ -31,20 +31,14 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
                 .RegisterTo(destroyCancellationToken);
         }
 
-        internal override void UpdateWord()
+        protected override void OnWordUpdate()
         {
-            CurrentWord = wordsRepository.GetAvailableWord(LearningState.None);
-
-            if (CurrentWord is null || CurrentWord.IsValid is false)
-                CurrentWord = wordsRepository.GetAvailableWord(LearningState.CurrentlyLearning);
-
-            base.UpdateWord();
+            CurrentWord = wordsRepository.GetAvailableWord(LearningState.None)
+                          ?? wordsRepository.GetAvailableWord(LearningState.CurrentlyLearning);
         }
 
-        internal override void UpdateView()
+        protected override void OnUpdateView()
         {
-            base.UpdateView();
-
             SwitchModule(ModuleType.FirstShow);
 
             var wordsCount = progressRepository.NewWordsCount;

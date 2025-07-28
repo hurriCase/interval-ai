@@ -10,6 +10,7 @@ using Source.Scripts.Main.Source.Scripts.Main.Data.Base;
 using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.LearningComplete;
 using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.Swipe;
 using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base;
+using Source.Scripts.UI.Components;
 using TMPro;
 using UI.Behaviours.Swipe;
 using UnityEngine;
@@ -17,7 +18,7 @@ using VContainer;
 
 namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.Base
 {
-    internal class CardBehaviourBase : MonoBehaviour
+    internal abstract class CardBehaviourBase : MonoBehaviour
     {
         [SerializeField] protected LearningCompleteBehaviourBase learningCompleteBehaviour;
         [SerializeField] protected GameObject cardContainer;
@@ -31,9 +32,13 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
         [SerializeField] private SwipeCardBehaviour _swipeCardBehaviour;
         [SerializeField] private WordProgressBehaviour _wordProgressBehaviour;
 
+        [SerializeField] private ButtonComponent _previousCardButton;
+
         [Inject] protected IWordsRepository wordsRepository;
         [Inject] protected IProgressRepository progressRepository;
         [Inject] protected ILocalizationKeysDatabase localizationKeysDatabase;
+
+        [Inject] private IWordAdvanceHelper _wordAdvanceHelper;
 
         public WordEntry CurrentWord { get; protected set; }
 
@@ -50,6 +55,11 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
                 .Subscribe(this, static (direction, card) => card.HandleSwipe(direction))
                 .RegisterTo(destroyCancellationToken);
 
+            _previousCardButton.OnClickAsObservable()
+                .Where(this, (_, behaviour) => behaviour._wordAdvanceHelper.HasPreviousWord())
+                .Subscribe(this, static (_, behaviour) => behaviour._wordAdvanceHelper.UndoWordAdvance())
+                .RegisterTo(destroyCancellationToken);
+
             OnInit();
 
             UpdateWord();
@@ -59,20 +69,32 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
 
         internal virtual void UpdateWord()
         {
+            OnWordUpdate();
+
+            UpdateView();
+        }
+
+        protected abstract void OnWordUpdate();
+
+        private void UpdateView()
+        {
             var isComplete = CurrentWord is null || CurrentWord.Cooldown > DateTime.Now;
 
             SwitchState(isComplete, CurrentWord is null ? CompleteState.NoWords : CompleteState.Complete,
                 CurrentWord?.Cooldown.ToShortTimeString());
 
-            if (isComplete is false)
-                UpdateView();
-        }
+            if (isComplete)
+                return;
 
-        internal virtual void UpdateView()
-        {
             controlButtonsBehaviour.UpdateView();
             _wordProgressBehaviour.UpdateProgress(CurrentWord);
+
+            _previousCardButton.SetActive(_wordAdvanceHelper.HasPreviousWord());
+
+            OnUpdateView();
         }
+
+        protected abstract void OnUpdateView();
 
         internal void SwitchModule(ModuleType moduleType)
         {
@@ -97,11 +119,11 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
             switch (direction)
             {
                 case SwipeDirection.Left:
-                    wordsRepository.AdvanceWord(CurrentWord, CurrentWord.LearningState == LearningState.None);
+                    _wordAdvanceHelper.AdvanceWord(CurrentWord, CurrentWord.LearningState == LearningState.None);
                     break;
 
                 case SwipeDirection.Right:
-                    wordsRepository.AdvanceWord(CurrentWord, CurrentWord.LearningState != LearningState.None);
+                    _wordAdvanceHelper.AdvanceWord(CurrentWord, CurrentWord.LearningState != LearningState.None);
                     break;
 
                 default:
