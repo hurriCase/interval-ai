@@ -4,6 +4,7 @@
     {
         None = 0,
         Achievements = 1,
-        WordPractice = 2
+        WordPractice = 2,
+        Chat = 3
     }
 }

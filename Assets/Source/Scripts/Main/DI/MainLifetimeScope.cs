@@ -1,4 +1,5 @@
-﻿using Source.Scripts.Main.Source.Scripts.Main.Data;
+﻿using Source.Scripts.Core.AI;
+using Source.Scripts.Main.Source.Scripts.Main.Data;
 using Source.Scripts.Main.Source.Scripts.Main.Data.Base;
 using Source.Scripts.UI.Windows;
 using Source.Scripts.UI.Windows.Base;
@@ -27,6 +28,8 @@ namespace Source.Scripts.Main.Source.Scripts.Main.DI
             builder.RegisterComponent(_progressDescriptionsDatabase).As<IProgressDescriptionsDatabase>();
 
             builder.RegisterComponent(_progressGraphSettings).As<IProgressGraphSettings>();
+
+            builder.Register<GeminiAPI>(Lifetime.Singleton).As<IAIController>();
 
             builder.RegisterEntryPoint<MainEntryPoint>();
         }
