@@ -32,8 +32,14 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.Screens.Generation.Behaviou
             if (string.IsNullOrEmpty(typedText))
                 return;
 
+            CreateMessage(typedText, MessageSourceType.User);
+            CreateMessage("temp message", MessageSourceType.AI);
+        }
+
+        private void CreateMessage(string text, MessageSourceType sourceType)
+        {
             var createdMessage = Instantiate(_messageItem, _chatContainer);
-            createdMessage.Init(typedText);
+            createdMessage.Init(_chatContainer, text, sourceType);
 
             var createdSpacing = Instantiate(_spacing, _chatContainer);
             createdSpacing.aspectRatio = _spacingRatio;
