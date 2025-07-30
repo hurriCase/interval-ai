@@ -3,6 +3,7 @@ using CustomUtils.Runtime.Localization;
 using Source.Scripts.Core.Localization;
 using Source.Scripts.Core.Localization.Date;
 using Source.Scripts.Data;
+using Source.Scripts.Data.Repositories.Categories;
 using Source.Scripts.Data.Repositories.Words.Base;
 using Source.Scripts.Main.Source.Scripts.Main.Data.Base;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.Data
         [SerializeField] private EnumArray<LearningState, string> _progressLearningStates = new(EnumMode.SkipFirst);
         [SerializeField] private EnumArray<DateType, EnumArray<PluralForm, string>> _date = new(EnumMode.SkipFirst);
         [SerializeField] private EnumArray<PluralForm, string> _learnedCounts = new(EnumMode.SkipFirst);
+        [SerializeField] private EnumArray<CategoryType, string> _categoryTypes = new(EnumMode.SkipFirst);
         [SerializeField] private EnumArray<PracticeState, EnumArray<CompleteState, string>> _learningCompletes =
             new(EnumMode.SkipFirst);
 
@@ -23,6 +25,9 @@ namespace Source.Scripts.Main.Source.Scripts.Main.Data
 
         public string GetLearningStateLocalization(LearningState state) =>
             LocalizationController.Localize(_progressLearningStates[state]);
+
+        public string GetLearningStateLocalization(CategoryType categoryType) =>
+            LocalizationController.Localize(_categoryTypes[categoryType]);
 
         public string GetDateLocalization(DateType dateType, int count)
         {

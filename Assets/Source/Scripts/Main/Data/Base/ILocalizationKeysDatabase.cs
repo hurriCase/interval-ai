@@ -1,5 +1,6 @@
 ﻿using Source.Scripts.Core.Localization;
 using Source.Scripts.Data;
+using Source.Scripts.Data.Repositories.Categories;
 using Source.Scripts.Data.Repositories.Words.Base;
 
 namespace Source.Scripts.Main.Source.Scripts.Main.Data.Base
@@ -9,6 +10,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.Data.Base
         string GetLocalization(LocalizationType type);
         string GetCompletesLocalization(PracticeState practiceState, CompleteState completeState);
         string GetLearningStateLocalization(LearningState state);
+        string GetLearningStateLocalization(CategoryType categoryType);
         string GetDateLocalization(DateType dateType, int count);
         string GetLearnedCountLocalization(int count);
     }
