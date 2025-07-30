@@ -12,7 +12,7 @@ using VContainer;
 
 namespace Source.Scripts.Main.Source.Scripts.Main.UI.Screens.LearningWords
 {
-    internal sealed class LearningWordsScreen : ScreenBase
+    internal sealed class LearningWordScreen : ScreenBase
     {
         [SerializeField] private DailyProgressBehaviour _dailyProgressBehaviour;
         [SerializeField] private CategoryPreviewBehaviour _categoryPreviewBehaviour;

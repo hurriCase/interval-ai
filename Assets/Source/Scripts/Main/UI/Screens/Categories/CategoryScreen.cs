@@ -9,7 +9,7 @@ using VContainer;
 
 namespace Source.Scripts.Main.Source.Scripts.Main.UI.Screens.Categories
 {
-    internal sealed class DictionaryScreen : ScreenBase
+    internal sealed class CategoryScreen : ScreenBase
     {
         [SerializeField] private CategoryContainerItem _categoryContainerItemPrefab;
         [SerializeField] private CategoryEntryItem _categoryEntryItem;
