@@ -1,9 +1,9 @@
-﻿using Source.Scripts.Data.Repositories.Words;
-using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base;
+﻿using Source.Scripts.Core.DI.Repositories.Words;
+using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base;
 using TMPro;
 using UnityEngine;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules
+namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules
 {
     internal sealed class AnswerModuleBehaviour : PracticeModuleBase
     {
@@ -16,8 +16,8 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
             base.UpdateView();
 
             _hiddenWord.text = currentWord.GetHiddenWord(settingsRepository);
-            _shownExampleText.text = currentWord.Example.GetShownExample(settingsRepository);
-            _hiddenExampleText.text = currentWord.Example.GetHiddenExample(settingsRepository);
+            _shownExampleText.text = currentWord.GetShownExample(settingsRepository);
+            _hiddenExampleText.text = currentWord.GetHiddenExample(settingsRepository);
         }
     }
 }

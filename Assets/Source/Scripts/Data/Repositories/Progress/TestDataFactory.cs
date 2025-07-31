@@ -1,0 +1,48 @@
+﻿using System;
+using Source.Scripts.Core.DI.Repositories.Progress.Base;
+using Source.Scripts.Core.DI.Repositories.Words.Base;
+using Random = UnityEngine.Random;
+
+namespace Source.Scripts.Data.Repositories.Progress
+{
+    internal sealed class TestDataFactory : ITestDataFactory
+    {
+        private readonly IProgressRepository _progressRepository;
+
+        internal TestDataFactory(IProgressRepository progressRepository) => _progressRepository = progressRepository;
+
+        public void CreateFakeProgress()
+        {
+            var today = DateTime.Now.Date;
+
+            for (var i = 0; i < 30; i++)
+            {
+                if (Random.Range(0, 2) == 0)
+                    continue;
+
+                var date = today.AddDays(-i);
+
+                var studiedCount = Random.Range(0, 15);
+                var learningCount = Random.Range(0, 8);
+                var repeatableCount = Random.Range(0, 5);
+                var knownCount = Random.Range(0, 3);
+
+                var currentEntry = _progressRepository.ProgressHistory.Value;
+
+                for (var j = 0; j < studiedCount; j++)
+                    _progressRepository.IncrementDailyProgress(LearningState.Studied, date);
+
+                for (var j = 0; j < learningCount; j++)
+                    _progressRepository.IncrementDailyProgress(LearningState.CurrentlyLearning, date);
+
+                for (var j = 0; j < repeatableCount; j++)
+                    _progressRepository.IncrementDailyProgress(LearningState.Repeatable, date);
+
+                for (var j = 0; j < knownCount; j++)
+                    _progressRepository.IncrementDailyProgress(LearningState.AlreadyKnown, date);
+
+                _progressRepository.ProgressHistory.Value = currentEntry;
+            }
+        }
+    }
+}

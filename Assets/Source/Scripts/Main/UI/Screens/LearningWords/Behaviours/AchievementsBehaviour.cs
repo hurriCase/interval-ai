@@ -1,11 +1,11 @@
 ﻿using R3;
-using Source.Scripts.Main.Source.Scripts.Main.UI.Shared;
+using Source.Scripts.Main.UI.Shared;
 using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base;
 using UnityEngine;
 using VContainer;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.UI.Screens.LearningWords.Behaviours
+namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours
 {
     internal sealed class AchievementsBehaviour : MonoBehaviour
     {

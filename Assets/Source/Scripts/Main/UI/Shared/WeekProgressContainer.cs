@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using Source.Scripts.Data.Repositories.Progress.Base;
-using Source.Scripts.Data.Repositories.Progress.Entries;
-using Source.Scripts.Data.Repositories.Settings.Base;
+using Source.Scripts.Core.DI.Repositories.Progress;
+using Source.Scripts.Core.DI.Repositories.Progress.Base;
+using Source.Scripts.Core.DI.Repositories.Settings.Base;
 using UnityEngine;
 using VContainer;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.UI.Shared
+namespace Source.Scripts.Main.UI.Shared
 {
     internal sealed class WeekProgressContainer : MonoBehaviour
     {

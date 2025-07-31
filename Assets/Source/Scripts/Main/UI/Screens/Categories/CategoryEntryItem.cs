@@ -1,14 +1,14 @@
 ﻿using CustomUtils.Runtime.Extensions;
 using Cysharp.Threading.Tasks;
+using Source.Scripts.Core.DI.Repositories.Categories;
 using Source.Scripts.Core.Loader;
-using Source.Scripts.Data.Repositories.Categories;
 using Source.Scripts.UI.Components;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.UI.Screens.Categories
+namespace Source.Scripts.Main.UI.Screens.Categories
 {
     internal sealed class CategoryEntryItem : MonoBehaviour
     {

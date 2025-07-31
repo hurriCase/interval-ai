@@ -1,4 +1,4 @@
-﻿using Source.Scripts.Data.Repositories.User.Base;
+﻿using Source.Scripts.Core.DI.Repositories.User.Base;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 

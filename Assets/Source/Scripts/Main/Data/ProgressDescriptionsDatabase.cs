@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using CustomUtils.Runtime.CustomTypes.Randoms;
-using Source.Scripts.Main.Source.Scripts.Main.Data.Base;
-using Source.Scripts.Main.Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.Progress;
+using Source.Scripts.Main.Data.Base;
+using Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.Progress;
 using UnityEngine;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.Data
+namespace Source.Scripts.Main.Data
 {
     internal sealed class ProgressDescriptionsDatabase : ScriptableObject, IProgressDescriptionsDatabase
     {

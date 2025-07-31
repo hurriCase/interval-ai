@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.CategoryPreview
+namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.CategoryPreview
 {
     internal sealed class CategoryPreviewItem : MonoBehaviour
     {

@@ -1,14 +1,14 @@
 ﻿using R3;
-using Source.Scripts.Core.Localization;
-using Source.Scripts.Main.Source.Scripts.Main.Data.Base;
-using Source.Scripts.Main.Source.Scripts.Main.UI.Shared;
+using Source.Scripts.Core.Localization.Base;
+using Source.Scripts.Core.Localization.LocalizationTypes;
+using Source.Scripts.Main.UI.Shared;
 using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base;
 using TMPro;
 using UnityEngine;
 using VContainer;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.LearningComplete
+namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.LearningComplete
 {
     internal abstract class LearningCompleteBehaviourBase : MonoBehaviour
     {
@@ -57,13 +57,13 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
             OnInit();
         }
 
-        internal void SetState(CompleteState state, string newWordCount = null)
+        internal void SetState(CompleteType type, string newWordCount = null)
         {
-            var localization = _localizationKeysDatabase.GetCompletesLocalization(_practiceState, state);
+            var localization = _localizationKeysDatabase.GetCompletesLocalization(_practiceState, type);
             _completeText.text = string.Format(localization, newWordCount);
 
-            _noWordsImage.SetActive(state == CompleteState.NoWords);
-            _completeImage.SetActive(state == CompleteState.Complete);
+            _noWordsImage.SetActive(type == CompleteType.NoWords);
+            _completeImage.SetActive(type == CompleteType.Complete);
         }
 
         protected abstract void OnInit();

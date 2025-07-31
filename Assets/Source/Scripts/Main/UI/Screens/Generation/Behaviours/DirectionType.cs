@@ -1,4 +1,4 @@
-﻿namespace Source.Scripts.Main.Source.Scripts.Main.UI.Screens.Generation.Behaviours
+﻿namespace Source.Scripts.Main.UI.Screens.Generation.Behaviours
 {
     internal enum DirectionType
     {

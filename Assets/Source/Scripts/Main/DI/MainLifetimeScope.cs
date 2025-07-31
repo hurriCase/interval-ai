@@ -1,13 +1,14 @@
 ﻿using Source.Scripts.Core.AI;
-using Source.Scripts.Main.Source.Scripts.Main.Data;
-using Source.Scripts.Main.Source.Scripts.Main.Data.Base;
+using Source.Scripts.Core.Localization.Base;
+using Source.Scripts.Main.Data;
+using Source.Scripts.Main.Data.Base;
 using Source.Scripts.UI.Windows;
 using Source.Scripts.UI.Windows.Base;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.DI
+namespace Source.Scripts.Main.DI
 {
     internal sealed class MainLifetimeScope : LifetimeScope
     {

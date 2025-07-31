@@ -1,14 +1,14 @@
 ﻿using CustomUtils.Runtime.CustomTypes.Collections;
 using R3;
-using Source.Scripts.Data.Repositories.Progress.Base;
-using Source.Scripts.Data.Repositories.Words.Base;
-using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.GraphProgress;
-using Source.Scripts.Main.Source.Scripts.Main.UI.Shared;
+using Source.Scripts.Core.DI.Repositories.Progress.Base;
+using Source.Scripts.Core.DI.Repositories.Words.Base;
+using Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.GraphProgress;
+using Source.Scripts.Main.UI.Shared;
 using UnityEngine;
 using VContainer;
 using ZLinq;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts
+namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts
 {
     internal sealed class LearningStatsBehaviour : MonoBehaviour
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Source.Scripts.Main.Source.Scripts.Main.UI.Shared;
+using Source.Scripts.Main.UI.Shared;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.Data.Base
+namespace Source.Scripts.Main.Data.Base
 {
     internal interface IProgressGraphSettings
     {

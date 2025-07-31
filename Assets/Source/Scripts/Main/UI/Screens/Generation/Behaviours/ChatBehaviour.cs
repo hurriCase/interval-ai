@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.UI.Screens.Generation.Behaviours
+namespace Source.Scripts.Main.UI.Screens.Generation.Behaviours
 {
     internal sealed class ChatBehaviour : PopUpBase
     {

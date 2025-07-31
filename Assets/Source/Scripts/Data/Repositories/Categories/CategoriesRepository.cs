@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CustomUtils.Runtime.Storage;
-using Source.Scripts.Data.Repositories.Categories.Base;
+using Source.Scripts.Core.DI.Repositories.Categories;
 
 namespace Source.Scripts.Data.Repositories.Categories
 {
@@ -9,12 +9,9 @@ namespace Source.Scripts.Data.Repositories.Categories
     {
         public PersistentReactiveProperty<List<CategoryEntry>> CategoryEntries { get; }
 
-        internal CategoriesRepository(IDefaultCategoriesDatabase defaultCategoriesDatabase)
-        {
+        internal CategoriesRepository() =>
             CategoryEntries =
-                new PersistentReactiveProperty<List<CategoryEntry>>(PersistentPropertyKeys.CategoryEntriesKey,
-                    defaultCategoriesDatabase.Categories);
-        }
+                new PersistentReactiveProperty<List<CategoryEntry>>(PersistentPropertyKeys.CategoryEntriesKey);
 
         public void Dispose()
         {

@@ -1,14 +1,14 @@
 ﻿using Cysharp.Threading.Tasks;
 using R3;
+using Source.Scripts.Core.DI.Repositories.User.Base;
 using Source.Scripts.Core.Loader;
-using Source.Scripts.Data.Repositories.User.Base;
 using Source.Scripts.UI.Components;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.UI.Screens.Settings.Behaviours
+namespace Source.Scripts.Main.UI.Screens.Settings.Behaviours
 {
     internal sealed class UserBehaviour : MonoBehaviour
     {

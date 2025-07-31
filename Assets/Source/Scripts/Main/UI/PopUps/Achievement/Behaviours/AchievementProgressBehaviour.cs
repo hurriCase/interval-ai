@@ -1,10 +1,10 @@
-﻿using Source.Scripts.Data.Repositories.Progress.Base;
-using Source.Scripts.Data.Repositories.Words.Base;
+﻿using Source.Scripts.Core.DI.Repositories.Progress.Base;
+using Source.Scripts.Core.DI.Repositories.Words.Base;
 using TMPro;
 using UnityEngine;
 using VContainer;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.Achievement.Behaviours
+namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours
 {
     internal sealed class AchievementProgressBehaviour : MonoBehaviour
     {

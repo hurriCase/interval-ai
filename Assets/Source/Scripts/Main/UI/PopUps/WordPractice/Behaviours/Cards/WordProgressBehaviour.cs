@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using R3;
-using Source.Scripts.Data.Repositories.Settings.Base;
-using Source.Scripts.Data.Repositories.Words.Data;
-using Source.Scripts.Main.Source.Scripts.Main.UI.Shared;
+using Source.Scripts.Core.DI.Repositories.Settings.Base;
+using Source.Scripts.Core.DI.Repositories.Words;
+using Source.Scripts.Main.UI.Shared;
 using UnityEngine;
 using VContainer;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards
+namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards
 {
     internal sealed class WordProgressBehaviour : MonoBehaviour
     {

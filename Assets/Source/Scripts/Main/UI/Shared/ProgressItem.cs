@@ -3,11 +3,11 @@ using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.UI.Theme.Components;
 using CustomUtils.Runtime.UI.Theme.ThemeMapping;
-using Source.Scripts.Data.Repositories.Words.Base;
+using Source.Scripts.Core.DI.Repositories.Words.Base;
 using TMPro;
 using UnityEngine;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.UI.Shared
+namespace Source.Scripts.Main.UI.Shared
 {
     internal sealed class ProgressItem : MonoBehaviour
     {

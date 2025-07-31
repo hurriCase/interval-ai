@@ -1,14 +1,14 @@
 ﻿using PrimeTween;
 using R3;
 using R3.Triggers;
-using Source.Scripts.Core.Localization;
-using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.Base;
-using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.CardTypes;
+using Source.Scripts.Core.Localization.LocalizationTypes;
+using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.Base;
+using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.CardTypes;
 using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base;
 using UnityEngine;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice
+namespace Source.Scripts.Main.UI.PopUps.WordPractice
 {
     internal sealed class WordPracticePopUp : PopUpBase
     {

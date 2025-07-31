@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.UI.Screens.Categories
+namespace Source.Scripts.Main.UI.Screens.Categories
 {
     internal sealed class CategoryContainerItem : MonoBehaviour
     {

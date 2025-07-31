@@ -1,12 +1,11 @@
-﻿using Source.Scripts.Data.Repositories.Words;
-using Source.Scripts.Data.Repositories.Words.Base;
-using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base;
+﻿using Source.Scripts.Core.DI.Repositories.Words;
+using Source.Scripts.Core.DI.Repositories.Words.Base;
+using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base;
 using Source.Scripts.UI.Components;
 using UnityEngine;
 using VContainer;
-using ZLinq;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Selection
+namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Selection
 {
     internal sealed class SelectionModuleBehaviour : PracticeModuleBase
     {

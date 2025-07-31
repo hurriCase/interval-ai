@@ -2,7 +2,7 @@
 using CustomUtils.Runtime.UI.Theme.Components;
 using UnityEngine;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.UI.Shared
+namespace Source.Scripts.Main.UI.Shared
 {
     internal sealed class ProgressSectionItem : MonoBehaviour
     {

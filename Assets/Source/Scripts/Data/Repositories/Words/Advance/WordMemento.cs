@@ -1,5 +1,5 @@
 ﻿using MemoryPack;
-using Source.Scripts.Data.Repositories.Words.Data;
+using Source.Scripts.Core.DI.Repositories.Words;
 
 namespace Source.Scripts.Data.Repositories.Words.Advance
 {

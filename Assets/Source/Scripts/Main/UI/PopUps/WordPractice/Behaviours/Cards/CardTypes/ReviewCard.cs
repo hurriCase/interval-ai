@@ -1,11 +1,11 @@
 ﻿using System;
 using CustomUtils.Runtime.Localization;
 using R3;
-using Source.Scripts.Core.Localization;
-using Source.Scripts.Data.Repositories.Words.Base;
-using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.Base;
+using Source.Scripts.Core.DI.Repositories.Words.Base;
+using Source.Scripts.Core.Localization.LocalizationTypes;
+using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.Base;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.CardTypes
+namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.CardTypes
 {
     internal sealed class ReviewCard : CardBehaviourBase
     {

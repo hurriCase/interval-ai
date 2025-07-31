@@ -6,7 +6,7 @@ using Source.Scripts.UI.Windows.Base;
 using VContainer;
 using VContainer.Unity;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.DI
+namespace Source.Scripts.Main.DI
 {
     internal sealed class MainEntryPoint : IAsyncStartable
     {

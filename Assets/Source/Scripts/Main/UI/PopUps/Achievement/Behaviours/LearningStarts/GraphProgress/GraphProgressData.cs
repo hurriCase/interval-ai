@@ -1,4 +1,4 @@
-﻿namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.GraphProgress
+﻿namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.GraphProgress
 {
     internal readonly struct GraphProgressData
     {

@@ -1,13 +1,12 @@
 ﻿using CustomUtils.Runtime.Extensions;
 using Cysharp.Threading.Tasks;
+using Source.Scripts.Core.DI.Repositories.Categories;
 using Source.Scripts.Core.Loader;
-using Source.Scripts.Data.Repositories.Categories;
-using Source.Scripts.Data.Repositories.Categories.Base;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.CategoryPreview
+namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.CategoryPreview
 {
     internal sealed class CategoryPreviewBehaviour : MonoBehaviour
     {

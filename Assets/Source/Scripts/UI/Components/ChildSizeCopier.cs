@@ -28,7 +28,7 @@ namespace Source.Scripts.UI.Components
             switch (_dimensionToCopy)
             {
                 case DimensionType.Width:
-                    var childWidth= _targetChild.rect.width;
+                    var childWidth = _targetChild.rect.width;
                     if (childWidth.IsReasonable())
                         RectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, childWidth);
                     break;

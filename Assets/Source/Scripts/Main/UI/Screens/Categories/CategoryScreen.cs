@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
-using Source.Scripts.Data.Repositories.Categories;
-using Source.Scripts.Data.Repositories.Categories.Base;
-using Source.Scripts.Main.Source.Scripts.Main.Data.Base;
+using Source.Scripts.Core.DI.Repositories.Categories;
+using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.UI.Windows.Base;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.UI.Screens.Categories
+namespace Source.Scripts.Main.UI.Screens.Categories
 {
     internal sealed class CategoryScreen : ScreenBase
     {

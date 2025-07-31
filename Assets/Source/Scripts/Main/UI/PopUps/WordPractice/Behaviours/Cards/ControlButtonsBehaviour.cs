@@ -1,12 +1,12 @@
 ﻿using R3;
-using Source.Scripts.Data.Repositories.Words.Base;
-using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.Base;
+using Source.Scripts.Core.DI.Repositories.Words.Base;
+using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.Base;
 using Source.Scripts.UI.Components;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards
+namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards
 {
     internal sealed class ControlButtonsBehaviour : MonoBehaviour
     {

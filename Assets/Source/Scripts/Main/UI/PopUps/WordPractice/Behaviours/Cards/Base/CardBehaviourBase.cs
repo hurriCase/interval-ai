@@ -2,21 +2,20 @@
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions;
 using R3;
-using Source.Scripts.Core.Localization;
-using Source.Scripts.Data.Repositories.Progress.Base;
-using Source.Scripts.Data.Repositories.Words.Base;
-using Source.Scripts.Data.Repositories.Words.Data;
-using Source.Scripts.Main.Source.Scripts.Main.Data.Base;
-using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.LearningComplete;
-using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.Swipe;
-using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base;
+using Source.Scripts.Core.DI.Repositories.Progress.Base;
+using Source.Scripts.Core.DI.Repositories.Words;
+using Source.Scripts.Core.DI.Repositories.Words.Base;
+using Source.Scripts.Core.Localization.Base;
+using Source.Scripts.Core.Localization.LocalizationTypes;
+using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.LearningComplete;
+using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.Swipe;
+using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base;
 using Source.Scripts.UI.Components;
 using TMPro;
-using UI.Behaviours.Swipe;
 using UnityEngine;
 using VContainer;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.Base
+namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.Base
 {
     internal abstract class CardBehaviourBase : MonoBehaviour
     {
@@ -80,7 +79,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
         {
             var isComplete = CurrentWord is null || CurrentWord.Cooldown > DateTime.Now;
 
-            SwitchState(isComplete, CurrentWord is null ? CompleteState.NoWords : CompleteState.Complete,
+            SwitchState(isComplete, CurrentWord is null ? CompleteType.NoWords : CompleteType.Complete,
                 CurrentWord?.Cooldown.ToShortTimeString());
 
             if (isComplete)
@@ -105,13 +104,13 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
             }
         }
 
-        private void SwitchState(bool isComplete, CompleteState state = default, string completeText = null)
+        private void SwitchState(bool isComplete, CompleteType type = default, string completeText = null)
         {
             cardContainer.SetActive(isComplete is false);
             learningCompleteBehaviour.SetActive(isComplete);
 
             if (isComplete)
-                learningCompleteBehaviour.SetState(state, completeText);
+                learningCompleteBehaviour.SetState(type, completeText);
         }
 
         private void HandleSwipe(SwipeDirection direction)

@@ -1,4 +1,4 @@
-﻿namespace Source.Scripts.Main.Source.Scripts.Main.UI.Shared
+﻿namespace Source.Scripts.Main.UI.Shared
 {
     internal enum ActivityState
     {

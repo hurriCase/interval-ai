@@ -1,11 +1,11 @@
-﻿using Source.Scripts.Onboarding.Source.Scripts.Onboarding.Data;
-using Source.Scripts.Onboarding.Source.Scripts.Onboarding.Data.Base;
+﻿using Source.Scripts.Core.Localization.Base;
+using Source.Scripts.Onboarding.Data;
 using Source.Scripts.UI.Windows.Base;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace Source.Scripts.Onboarding.Source.Scripts.Onboarding.DI
+namespace Source.Scripts.Onboarding.DI
 {
     internal sealed class OnboardingLifetimeScope : LifetimeScope
     {

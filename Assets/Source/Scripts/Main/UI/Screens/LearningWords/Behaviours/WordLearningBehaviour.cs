@@ -1,17 +1,17 @@
 ﻿using System;
 using R3;
-using Source.Scripts.Core.Localization;
-using Source.Scripts.Data.Repositories.Progress.Base;
-using Source.Scripts.Data.Repositories.Words.Base;
-using Source.Scripts.Main.Source.Scripts.Main.Data.Base;
-using Source.Scripts.Main.Source.Scripts.Main.UI.Shared;
+using Source.Scripts.Core.DI.Repositories.Progress.Base;
+using Source.Scripts.Core.DI.Repositories.Words.Base;
+using Source.Scripts.Core.Localization.Base;
+using Source.Scripts.Core.Localization.LocalizationTypes;
+using Source.Scripts.Main.UI.Shared;
 using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base;
 using TMPro;
 using UnityEngine;
 using VContainer;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.UI.Screens.LearningWords.Behaviours
+namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours
 {
     internal sealed class WordLearningBehaviour : MonoBehaviour
     {

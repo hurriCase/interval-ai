@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Source.Scripts.Data.Repositories.Settings.Base;
+using Source.Scripts.Core.DI.Repositories.Settings.Base;
 using UnityEngine;
 
 namespace Source.Scripts.Data.Repositories.Settings

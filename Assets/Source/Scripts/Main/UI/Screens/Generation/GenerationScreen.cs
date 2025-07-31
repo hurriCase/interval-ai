@@ -1,7 +1,7 @@
 ﻿using R3;
 using Source.Scripts.Core.AI;
-using Source.Scripts.Main.Source.Scripts.Main.UI.Screens.Generation.Behaviours;
-using Source.Scripts.Main.Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.CategoryPreview;
+using Source.Scripts.Main.UI.Screens.Generation.Behaviours;
+using Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.CategoryPreview;
 using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base;
 using TMPro;
@@ -9,7 +9,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.UI.Screens.Generation
+namespace Source.Scripts.Main.UI.Screens.Generation
 {
     internal sealed class GenerationScreen : ScreenBase
     {

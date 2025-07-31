@@ -2,13 +2,11 @@
 using PrimeTween;
 using R3;
 using Source.Scripts.Core.Input;
-using Source.Scripts.Core.Localization;
-using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice;
-using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.Swipe;
+using Source.Scripts.Core.Localization.LocalizationTypes;
 using UnityEngine;
 using VContainer;
 
-namespace UI.Behaviours.Swipe
+namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.Swipe
 {
     //TODO:<Dmitriy.Sukharev> refactor
     internal sealed class SwipeCardBehaviour : RectTransformBehaviour

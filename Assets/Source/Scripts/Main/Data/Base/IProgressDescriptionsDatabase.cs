@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using CustomUtils.Runtime.CustomTypes.Randoms;
-using Source.Scripts.Main.Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.Progress;
+using Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.Progress;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.Data.Base
+namespace Source.Scripts.Main.Data.Base
 {
     internal interface IProgressDescriptionsDatabase
     {

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Source.Scripts.Main.Source.Scripts.Main.Data.Base;
-using Source.Scripts.Main.Source.Scripts.Main.UI.Shared;
+using Source.Scripts.Main.Data.Base;
+using Source.Scripts.Main.UI.Shared;
 using UnityEngine;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.Data
+namespace Source.Scripts.Main.Data
 {
     internal sealed class ProgressGraphSettings : ScriptableObject, IProgressGraphSettings
     {

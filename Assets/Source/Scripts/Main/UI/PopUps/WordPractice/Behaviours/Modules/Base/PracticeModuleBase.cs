@@ -1,14 +1,13 @@
 ﻿using Cysharp.Threading.Tasks;
+using Source.Scripts.Core.DI.Repositories.Settings.Base;
+using Source.Scripts.Core.DI.Repositories.Words;
 using Source.Scripts.Core.Loader;
-using Source.Scripts.Data.Repositories.Settings.Base;
-using Source.Scripts.Data.Repositories.Words;
-using Source.Scripts.Data.Repositories.Words.Data;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base
+namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base
 {
     internal class PracticeModuleBase : MonoBehaviour
     {

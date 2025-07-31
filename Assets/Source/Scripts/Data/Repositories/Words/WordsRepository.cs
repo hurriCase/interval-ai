@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Storage;
 using R3;
-using Source.Scripts.Data.Repositories.Categories.CooldownSystem;
-using Source.Scripts.Data.Repositories.Words.Base;
-using Source.Scripts.Data.Repositories.Words.CooldownSystem;
-using Source.Scripts.Data.Repositories.Words.Data;
+using Source.Scripts.Core.DI.Repositories.Words;
+using Source.Scripts.Core.DI.Repositories.Words.Base;
+using Source.Scripts.Core.DI.Repositories.Words.CooldownSystem;
+using Source.Scripts.Core.Importer;
 using ZLinq;
 using Random = UnityEngine.Random;
 
@@ -23,10 +23,9 @@ namespace Source.Scripts.Data.Repositories.Words
 
         private static readonly WordCooldownComparer _comparer = new();
 
-        internal WordsRepository(IDefaultWordsDatabase defaultWordsDatabase)
+        internal WordsRepository()
         {
-            WordEntries = new PersistentReactiveProperty<List<WordEntry>>(PersistentPropertyKeys.WordEntryKey,
-                defaultWordsDatabase.WordEntries);
+            WordEntries = new PersistentReactiveProperty<List<WordEntry>>(PersistentPropertyKeys.WordEntryKey);
             SortedWordsByState =
                 new EnumArray<LearningState, SortedSet<WordEntry>>(() => new SortedSet<WordEntry>(_comparer));
 

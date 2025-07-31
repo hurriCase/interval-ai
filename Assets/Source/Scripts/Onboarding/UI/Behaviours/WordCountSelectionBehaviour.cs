@@ -1,13 +1,13 @@
 ﻿using R3;
 using R3.Triggers;
-using Source.Scripts.Data.Repositories.Progress.Base;
-using Source.Scripts.Onboarding.Source.Scripts.Onboarding.Data.Base;
+using Source.Scripts.Core.DI.Repositories.Progress.Base;
+using Source.Scripts.Onboarding.Data;
 using Source.Scripts.UI.Components;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
 
-namespace Source.Scripts.Onboarding.Source.Scripts.Onboarding.UI.Behaviours
+namespace Source.Scripts.Onboarding.UI.Behaviours
 {
     internal sealed class WordCountSelectionBehaviour : StepBehaviourBase
     {

@@ -1,8 +1,8 @@
 ﻿using System;
-using Source.Scripts.Data;
+using Source.Scripts.Core.Localization.LocalizationTypes.Date;
 using UnityEngine;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.UI.Shared
+namespace Source.Scripts.Main.UI.Shared
 {
     [Serializable]
     internal struct DateRange

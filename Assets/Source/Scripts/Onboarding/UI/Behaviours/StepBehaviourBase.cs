@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Source.Scripts.Onboarding.Source.Scripts.Onboarding.UI.Behaviours
+namespace Source.Scripts.Onboarding.UI.Behaviours
 {
     internal abstract class StepBehaviourBase : MonoBehaviour
     {

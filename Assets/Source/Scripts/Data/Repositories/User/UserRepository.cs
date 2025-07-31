@@ -1,6 +1,7 @@
 ﻿using System;
 using CustomUtils.Runtime.Storage;
-using Source.Scripts.Data.Repositories.User.Base;
+using Source.Scripts.Core.DI.Repositories.User.Base;
+using Source.Scripts.Core.Others;
 
 namespace Source.Scripts.Data.Repositories.User
 {

@@ -3,16 +3,16 @@ using System.Threading;
 using CustomUtils.Runtime.Extensions;
 using Cysharp.Threading.Tasks;
 using R3;
+using Source.Scripts.Core.DI.Repositories.Statistics;
 using Source.Scripts.Core.Scenes;
-using Source.Scripts.Data.Repositories.Statistics;
-using Source.Scripts.Onboarding.Source.Scripts.Onboarding.UI.Behaviours;
+using Source.Scripts.Onboarding.UI.Behaviours;
 using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base;
 using TMPro;
 using UnityEngine;
 using VContainer;
 
-namespace Source.Scripts.Onboarding.Source.Scripts.Onboarding.UI
+namespace Source.Scripts.Onboarding.UI
 {
     internal sealed class OnboardingScreen : ScreenBase
     {

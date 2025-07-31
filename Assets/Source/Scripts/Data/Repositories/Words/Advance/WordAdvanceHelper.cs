@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Source.Scripts.Core.DI.Repositories.Progress.Base;
+using Source.Scripts.Core.DI.Repositories.Settings.Base;
+using Source.Scripts.Core.DI.Repositories.Words;
+using Source.Scripts.Core.DI.Repositories.Words.Base;
 using Source.Scripts.Data.Repositories.Progress;
-using Source.Scripts.Data.Repositories.Progress.Base;
-using Source.Scripts.Data.Repositories.Settings.Base;
-using Source.Scripts.Data.Repositories.Words.Base;
-using Source.Scripts.Data.Repositories.Words.Data;
 
 namespace Source.Scripts.Data.Repositories.Words.Advance
 {

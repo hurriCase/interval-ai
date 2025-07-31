@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using Source.Scripts.Onboarding.Source.Scripts.Onboarding.Data.Base;
 using UnityEngine;
 
-namespace Source.Scripts.Onboarding.Source.Scripts.Onboarding.Data
+namespace Source.Scripts.Onboarding.Data
 {
     internal sealed class WordGoalDatabase : ScriptableObject, IWordGoalDatabase
     {

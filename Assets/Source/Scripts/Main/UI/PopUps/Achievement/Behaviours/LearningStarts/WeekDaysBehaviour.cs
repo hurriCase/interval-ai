@@ -1,11 +1,11 @@
 ﻿using System.Globalization;
 using R3;
-using Source.Scripts.Data.Repositories.Settings.Base;
+using Source.Scripts.Core.DI.Repositories.Settings.Base;
 using TMPro;
 using UnityEngine;
 using VContainer;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts
+namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts
 {
     internal sealed class WeekDaysBehaviour : MonoBehaviour
     {

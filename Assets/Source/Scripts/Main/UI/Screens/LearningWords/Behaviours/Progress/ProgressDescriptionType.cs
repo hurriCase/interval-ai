@@ -1,4 +1,4 @@
-namespace Source.Scripts.Main.Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.Progress
+namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.Progress
 {
     internal enum ProgressDescriptionType
     {

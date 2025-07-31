@@ -4,7 +4,7 @@ using Source.Scripts.UI.Windows.Base;
 using VContainer;
 using VContainer.Unity;
 
-namespace Source.Scripts.Onboarding.Source.Scripts.Onboarding.DI
+namespace Source.Scripts.Onboarding.DI
 {
     internal sealed class OnboardingEntryPoint : IAsyncStartable
     {

@@ -1,11 +1,11 @@
 ﻿using R3;
-using Source.Scripts.Data.Repositories.Words;
-using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base;
+using Source.Scripts.Core.DI.Repositories.Words;
+using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules
+namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules
 {
     internal sealed class InputModuleBehaviour : PracticeModuleBase
     {

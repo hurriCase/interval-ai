@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Storage;
-using Source.Scripts.Data.Repositories.Progress.Base;
-using Source.Scripts.Data.Repositories.Progress.Entries;
-using Source.Scripts.Data.Repositories.Settings.Base;
-using Source.Scripts.Data.Repositories.Statistics;
-using Source.Scripts.Data.Repositories.Words.Base;
+using Source.Scripts.Core.DI.Repositories.Progress;
+using Source.Scripts.Core.DI.Repositories.Progress.Base;
+using Source.Scripts.Core.DI.Repositories.Settings.Base;
+using Source.Scripts.Core.DI.Repositories.Statistics;
+using Source.Scripts.Core.DI.Repositories.Words.Base;
 
 namespace Source.Scripts.Data.Repositories.Progress
 {

@@ -1,12 +1,12 @@
 ﻿using R3;
-using Source.Scripts.Core.Localization;
-using Source.Scripts.Data.Repositories.Words.Base;
+using Source.Scripts.Core.DI.Repositories.Words.Base;
+using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base;
 using UnityEngine;
 using VContainer;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.LearningComplete
+namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.LearningComplete
 {
     internal sealed class ReviewCompleteBehaviour : LearningCompleteBehaviourBase
     {
@@ -19,7 +19,7 @@ namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behavio
             _wordsRepository.OnAvailabilityTimeUpdate
                 .Where(cooldownByLearningState => cooldownByLearningState.State == LearningState.Repeatable)
                 .Subscribe(this, static (cooldownByLearningState, card) => card.SetState(
-                    CompleteState.Complete,
+                    CompleteType.Complete,
                     cooldownByLearningState.CurrentTime.ToShortTimeString())
                 )
                 .RegisterTo(destroyCancellationToken);

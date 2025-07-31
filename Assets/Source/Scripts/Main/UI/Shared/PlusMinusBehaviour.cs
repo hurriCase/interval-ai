@@ -1,11 +1,11 @@
 ﻿using R3;
-using Source.Scripts.Data.Repositories.Progress.Base;
+using Source.Scripts.Core.DI.Repositories.Progress.Base;
 using Source.Scripts.UI.Components;
 using TMPro;
 using UnityEngine;
 using VContainer;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.UI.Shared
+namespace Source.Scripts.Main.UI.Shared
 {
     internal sealed class PlusMinusBehaviour : MonoBehaviour
     {

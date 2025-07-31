@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading;
 using R3;
-using Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.Base;
+using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.Base;
 using Source.Scripts.UI.Components;
 using UnityEngine;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base
+namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base
 {
     [Serializable]
     internal struct TransitionButtonData

@@ -1,14 +1,12 @@
-﻿using System;
-using CustomUtils.Runtime.CustomBehaviours;
+﻿using CustomUtils.Runtime.CustomBehaviours;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.UI.Theme.Components;
-using Cysharp.Threading.Tasks;
 using Source.Scripts.UI.Components;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Source.Scripts.Main.Source.Scripts.Main.UI.Screens.Generation.Behaviours
+namespace Source.Scripts.Main.UI.Screens.Generation.Behaviours
 {
     internal sealed class MessageItem : RectTransformBehaviour
     {

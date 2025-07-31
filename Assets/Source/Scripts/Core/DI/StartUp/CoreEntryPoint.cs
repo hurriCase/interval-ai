@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using R3;
+using Source.Scripts.Core.DI.Repositories.Statistics;
 using Source.Scripts.Core.Scenes;
-using Source.Scripts.Data.Repositories.Statistics;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -15,7 +15,6 @@ namespace Source.Scripts.Core.DI.StartUp
     {
         private readonly IObjectResolver _objectResolver;
         private readonly ISceneLoader _sceneLoader;
-        private readonly IStatisticsRepository _statisticsRepository;
         private readonly ISceneReferences _sceneReferences;
 
         private readonly List<StepBase> _stepsList;
@@ -24,23 +23,23 @@ namespace Source.Scripts.Core.DI.StartUp
             List<StepBase> stepsList,
             IObjectResolver objectResolver,
             ISceneLoader sceneLoader,
-            IStatisticsRepository statisticsRepository,
             ISceneReferences sceneReferences)
         {
             _stepsList = stepsList;
             _objectResolver = objectResolver;
             _sceneLoader = sceneLoader;
-            _statisticsRepository = statisticsRepository;
             _sceneReferences = sceneReferences;
         }
 
         public async UniTask StartAsync(CancellationToken cancellation)
         {
-            _statisticsRepository.LoginHistory.Value[DateTime.Now] = true;
-
             await InitSteps(cancellation);
 
-            var addressToLoad = _statisticsRepository.IsCompleteOnboarding.Value
+            var statisticsRepository = _objectResolver.Resolve<IStatisticsRepository>();
+
+            statisticsRepository.LoginHistory.Value[DateTime.Now] = true;
+
+            var addressToLoad = statisticsRepository.IsCompleteOnboarding.Value
                 ? _sceneReferences.MainMenuScene.Address
                 : _sceneReferences.Onboarding.Address;
 
