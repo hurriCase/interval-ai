@@ -1,7 +1,7 @@
 ﻿using CustomUtils.Runtime.CustomTypes.Collections;
 using R3;
-using Source.Scripts.Core.DI.Repositories.Progress.Base;
-using Source.Scripts.Core.DI.Repositories.Words.Base;
+using Source.Scripts.Core.Repositories.Progress.Base;
+using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.GraphProgress;
 using Source.Scripts.Main.UI.Shared;
 using UnityEngine;

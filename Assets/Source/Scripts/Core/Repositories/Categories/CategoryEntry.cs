@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using MemoryPack;
-using Source.Scripts.Core.DI.Repositories.Words;
 using Source.Scripts.Core.Others;
+using WordEntry = Source.Scripts.Core.Repositories.Words.WordEntry;
 
-namespace Source.Scripts.Core.DI.Repositories.Categories
+namespace Source.Scripts.Core.Repositories.Categories
 {
     [MemoryPackable]
     internal partial struct CategoryEntry

@@ -1,7 +1,7 @@
 ﻿using R3;
-using Source.Scripts.Core.DI.Repositories.Settings.Base;
-using Source.Scripts.Core.DI.Repositories.Words.Base;
 using Source.Scripts.Core.Localization.Base;
+using Source.Scripts.Core.Repositories.Settings.Base;
+using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.UI.Components;
 using UnityEngine;
 using UnityEngine.UI;

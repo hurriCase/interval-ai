@@ -1,7 +1,7 @@
 ﻿using CustomUtils.Runtime.Extensions;
 using R3;
-using Source.Scripts.Core.DI.Repositories.Settings.Base;
 using Source.Scripts.Core.Localization.Base;
+using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.UI.Components;
 using UnityEngine;
 using VContainer;

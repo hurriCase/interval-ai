@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CustomUtils.Runtime.Storage;
-using Source.Scripts.Core.DI.Repositories.Categories;
+using Source.Scripts.Core.Repositories.Categories;
 
 namespace Source.Scripts.Data.Repositories.Categories
 {

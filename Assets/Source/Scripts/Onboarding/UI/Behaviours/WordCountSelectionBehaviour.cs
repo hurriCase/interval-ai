@@ -1,6 +1,6 @@
 ﻿using R3;
 using R3.Triggers;
-using Source.Scripts.Core.DI.Repositories.Progress.Base;
+using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Onboarding.Data;
 using Source.Scripts.UI.Components;
 using UnityEngine;

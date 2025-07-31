@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using R3;
-using Source.Scripts.Core.DI.Repositories.Statistics;
+using Source.Scripts.Core.Repositories.Statistics;
 using Source.Scripts.Core.Scenes;
 using UnityEngine;
 using VContainer;

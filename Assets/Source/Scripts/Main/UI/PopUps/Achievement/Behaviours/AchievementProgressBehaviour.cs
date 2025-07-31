@@ -1,5 +1,5 @@
-﻿using Source.Scripts.Core.DI.Repositories.Progress.Base;
-using Source.Scripts.Core.DI.Repositories.Words.Base;
+﻿using Source.Scripts.Core.Repositories.Progress.Base;
+using Source.Scripts.Core.Repositories.Words.Base;
 using TMPro;
 using UnityEngine;
 using VContainer;

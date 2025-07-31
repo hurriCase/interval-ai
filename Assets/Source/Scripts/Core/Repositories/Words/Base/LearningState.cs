@@ -1,4 +1,4 @@
-namespace Source.Scripts.Core.DI.Repositories.Words.Base
+namespace Source.Scripts.Core.Repositories.Words.Base
 {
     internal enum LearningState
     {

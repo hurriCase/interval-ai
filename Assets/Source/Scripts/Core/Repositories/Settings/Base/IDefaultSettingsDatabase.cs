@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Source.Scripts.Core.DI.Repositories.Settings.Base
+namespace Source.Scripts.Core.Repositories.Settings.Base
 {
     internal interface IDefaultSettingsDatabase
     {

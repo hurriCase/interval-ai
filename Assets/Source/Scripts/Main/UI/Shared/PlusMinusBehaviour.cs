@@ -1,5 +1,5 @@
 ﻿using R3;
-using Source.Scripts.Core.DI.Repositories.Progress.Base;
+using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.UI.Components;
 using TMPro;
 using UnityEngine;

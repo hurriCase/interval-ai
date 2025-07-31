@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Source.Scripts.Core.DI.Repositories.Progress;
-using Source.Scripts.Core.DI.Repositories.Progress.Base;
-using Source.Scripts.Core.DI.Repositories.Settings.Base;
+using Source.Scripts.Core.Repositories.Progress;
+using Source.Scripts.Core.Repositories.Progress.Base;
+using Source.Scripts.Core.Repositories.Settings.Base;
 using UnityEngine;
 using VContainer;
 

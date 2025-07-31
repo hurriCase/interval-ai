@@ -1,7 +1,7 @@
 ﻿using System;
 using R3;
 
-namespace Source.Scripts.Core.DI.Repositories.Words.CooldownSystem
+namespace Source.Scripts.Core.Repositories.Words.CooldownSystem
 {
     internal struct AdaptiveTimer : IDisposable
     {

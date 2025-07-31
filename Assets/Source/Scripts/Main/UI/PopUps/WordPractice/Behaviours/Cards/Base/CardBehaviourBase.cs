@@ -2,11 +2,11 @@
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions;
 using R3;
-using Source.Scripts.Core.DI.Repositories.Progress.Base;
-using Source.Scripts.Core.DI.Repositories.Words;
-using Source.Scripts.Core.DI.Repositories.Words.Base;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Localization.LocalizationTypes;
+using Source.Scripts.Core.Repositories.Progress.Base;
+using Source.Scripts.Core.Repositories.Words;
+using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.LearningComplete;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.Swipe;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base;

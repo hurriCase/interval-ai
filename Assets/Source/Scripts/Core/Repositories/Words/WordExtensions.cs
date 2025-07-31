@@ -1,6 +1,6 @@
-﻿using Source.Scripts.Core.DI.Repositories.Settings.Base;
+﻿using Source.Scripts.Core.Repositories.Settings.Base;
 
-namespace Source.Scripts.Core.DI.Repositories.Words
+namespace Source.Scripts.Core.Repositories.Words
 {
     internal static class WordExtensions
     {

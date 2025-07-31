@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using R3;
-using Source.Scripts.Core.DI.Repositories.Settings.Base;
-using Source.Scripts.Core.DI.Repositories.Words;
+using Source.Scripts.Core.Repositories.Settings.Base;
+using Source.Scripts.Core.Repositories.Words;
 using Source.Scripts.Main.UI.Shared;
 using UnityEngine;
 using VContainer;

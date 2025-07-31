@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Storage;
-using Source.Scripts.Core.DI.Repositories.Words.Base;
+using Source.Scripts.Core.Repositories.Words.Base;
 
-namespace Source.Scripts.Core.DI.Repositories.Progress.Base
+namespace Source.Scripts.Core.Repositories.Progress.Base
 {
     internal interface IProgressRepository
     {

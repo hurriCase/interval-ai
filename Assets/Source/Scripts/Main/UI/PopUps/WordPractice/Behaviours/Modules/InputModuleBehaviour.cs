@@ -1,5 +1,5 @@
 ﻿using R3;
-using Source.Scripts.Core.DI.Repositories.Words;
+using Source.Scripts.Core.Repositories.Words;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base;
 using TMPro;
 using UnityEngine;

@@ -1,7 +1,7 @@
 ﻿using CustomUtils.Runtime.Storage;
 using Source.Scripts.Core.Others;
 
-namespace Source.Scripts.Core.DI.Repositories.User.Base
+namespace Source.Scripts.Core.Repositories.User.Base
 {
     internal interface IUserRepository
     {

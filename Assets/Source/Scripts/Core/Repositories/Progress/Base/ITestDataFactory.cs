@@ -1,4 +1,4 @@
-﻿namespace Source.Scripts.Core.DI.Repositories.Progress.Base
+﻿namespace Source.Scripts.Core.Repositories.Progress.Base
 {
     internal interface ITestDataFactory
     {

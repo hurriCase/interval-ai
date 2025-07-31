@@ -1,8 +1,8 @@
 ﻿using System;
-using Source.Scripts.Core.DI.Repositories.Progress;
-using Source.Scripts.Core.DI.Repositories.Progress.Base;
-using Source.Scripts.Core.DI.Repositories.Settings.Base;
-using Source.Scripts.Core.DI.Repositories.Words.Base;
+using Source.Scripts.Core.Repositories.Progress;
+using Source.Scripts.Core.Repositories.Progress.Base;
+using Source.Scripts.Core.Repositories.Settings.Base;
+using Source.Scripts.Core.Repositories.Words.Base;
 
 namespace Source.Scripts.Data.Repositories.Progress
 {

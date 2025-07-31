@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CustomUtils.Runtime.Storage;
-using Source.Scripts.Core.DI.Repositories.Statistics;
+using Source.Scripts.Core.Repositories.Statistics;
 
 namespace Source.Scripts.Data.Repositories.Statistics
 {

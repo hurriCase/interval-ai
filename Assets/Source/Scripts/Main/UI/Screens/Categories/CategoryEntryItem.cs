@@ -1,7 +1,7 @@
 ﻿using CustomUtils.Runtime.Extensions;
 using Cysharp.Threading.Tasks;
-using Source.Scripts.Core.DI.Repositories.Categories;
 using Source.Scripts.Core.Loader;
+using Source.Scripts.Core.Repositories.Categories;
 using Source.Scripts.UI.Components;
 using TMPro;
 using UnityEngine;

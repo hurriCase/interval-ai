@@ -1,8 +1,8 @@
 ﻿using System;
 using CustomUtils.Runtime.Extensions;
 using R3;
-using Source.Scripts.Core.DI.Repositories.Words.Base;
 using Source.Scripts.Core.Localization.LocalizationTypes;
+using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.Base;
 
 namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.CardTypes

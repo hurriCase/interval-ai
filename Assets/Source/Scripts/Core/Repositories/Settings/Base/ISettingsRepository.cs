@@ -2,9 +2,9 @@
 using System.Globalization;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Storage;
-using Source.Scripts.Core.DI.Repositories.Words.Base;
+using Source.Scripts.Core.Repositories.Words.Base;
 
-namespace Source.Scripts.Core.DI.Repositories.Settings.Base
+namespace Source.Scripts.Core.Repositories.Settings.Base
 {
     internal interface ISettingsRepository
     {

@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Storage;
 using R3;
-using Source.Scripts.Core.DI.Repositories.Words;
-using Source.Scripts.Core.DI.Repositories.Words.Base;
-using Source.Scripts.Core.DI.Repositories.Words.CooldownSystem;
-using Source.Scripts.Core.Importer;
+using Source.Scripts.Core.Repositories.Words;
+using Source.Scripts.Core.Repositories.Words.Base;
+using Source.Scripts.Core.Repositories.Words.CooldownSystem;
 using ZLinq;
 using Random = UnityEngine.Random;
 

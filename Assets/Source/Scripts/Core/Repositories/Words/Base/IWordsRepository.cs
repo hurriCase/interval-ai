@@ -2,9 +2,9 @@
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Storage;
 using R3;
-using Source.Scripts.Core.DI.Repositories.Words.CooldownSystem;
+using Source.Scripts.Core.Repositories.Words.CooldownSystem;
 
-namespace Source.Scripts.Core.DI.Repositories.Words.Base
+namespace Source.Scripts.Core.Repositories.Words.Base
 {
     internal interface IWordsRepository
     {

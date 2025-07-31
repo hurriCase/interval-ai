@@ -1,9 +1,9 @@
 ﻿using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Localization;
-using Source.Scripts.Core.DI.Repositories.Categories;
-using Source.Scripts.Core.DI.Repositories.Words.Base;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Localization.LocalizationTypes.Date;
+using Source.Scripts.Core.Repositories.Categories;
+using Source.Scripts.Core.Repositories.Words.Base;
 using UnityEngine;
 
 namespace Source.Scripts.Core.Localization.Base

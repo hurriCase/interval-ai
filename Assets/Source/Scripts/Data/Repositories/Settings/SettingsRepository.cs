@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Storage;
-using Source.Scripts.Core.DI.Repositories.Settings.Base;
-using Source.Scripts.Core.DI.Repositories.Words.Base;
+using Source.Scripts.Core.Repositories.Settings.Base;
+using Source.Scripts.Core.Repositories.Words.Base;
 
 namespace Source.Scripts.Data.Repositories.Settings
 {

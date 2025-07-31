@@ -1,5 +1,5 @@
 ﻿using CustomUtils.Runtime.UI.Theme.ThemeMapping;
-using Source.Scripts.Core.DI.Repositories.Words.Base;
+using Source.Scripts.Core.Repositories.Words.Base;
 using UnityEngine;
 
 namespace Source.Scripts.Main.UI.Shared

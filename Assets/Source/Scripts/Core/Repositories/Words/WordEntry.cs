@@ -1,10 +1,10 @@
 ﻿using System;
 using MemoryPack;
-using Source.Scripts.Core.DI.Repositories.Words.Base;
 using Source.Scripts.Core.Others;
+using Source.Scripts.Core.Repositories.Words.Base;
 using UnityEditor;
 
-namespace Source.Scripts.Core.DI.Repositories.Words
+namespace Source.Scripts.Core.Repositories.Words
 {
     [MemoryPackable]
     internal sealed partial class WordEntry

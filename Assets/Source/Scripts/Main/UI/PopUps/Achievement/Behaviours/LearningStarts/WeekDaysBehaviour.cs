@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 using R3;
-using Source.Scripts.Core.DI.Repositories.Settings.Base;
+using Source.Scripts.Core.Repositories.Settings.Base;
 using TMPro;
 using UnityEngine;
 using VContainer;

@@ -2,7 +2,7 @@
 using Source.Scripts.Core.Localization.LocalizationTypes.Date;
 using UnityEngine;
 
-namespace Source.Scripts.Core.DI.Repositories.Settings.Base
+namespace Source.Scripts.Core.Repositories.Settings.Base
 {
     [Serializable]
     internal struct CooldownByDate

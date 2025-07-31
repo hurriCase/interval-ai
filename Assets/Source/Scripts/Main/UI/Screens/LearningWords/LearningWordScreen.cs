@@ -1,7 +1,7 @@
 ﻿using R3;
-using Source.Scripts.Core.DI.Repositories.User.Base;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Localization.LocalizationTypes;
+using Source.Scripts.Core.Repositories.User.Base;
 using Source.Scripts.Main.UI.Screens.LearningWords.Behaviours;
 using Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.CategoryPreview;
 using Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.Progress;

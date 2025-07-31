@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using CustomUtils.Runtime.Localization;
 using Cysharp.Threading.Tasks;
-using Source.Scripts.Core.DI.Repositories.Progress.Base;
+using Source.Scripts.Core.Repositories.Progress.Base;
 using UnityEngine;
 using VContainer;
 

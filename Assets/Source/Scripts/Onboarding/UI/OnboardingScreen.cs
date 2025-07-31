@@ -3,7 +3,7 @@ using System.Threading;
 using CustomUtils.Runtime.Extensions;
 using Cysharp.Threading.Tasks;
 using R3;
-using Source.Scripts.Core.DI.Repositories.Statistics;
+using Source.Scripts.Core.Repositories.Statistics;
 using Source.Scripts.Core.Scenes;
 using Source.Scripts.Onboarding.UI.Behaviours;
 using Source.Scripts.UI.Components;

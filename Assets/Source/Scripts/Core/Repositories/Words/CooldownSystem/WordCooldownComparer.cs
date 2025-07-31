@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Source.Scripts.Core.DI.Repositories.Words.CooldownSystem
+namespace Source.Scripts.Core.Repositories.Words.CooldownSystem
 {
     internal sealed class WordCooldownComparer : IComparer<WordEntry>
     {

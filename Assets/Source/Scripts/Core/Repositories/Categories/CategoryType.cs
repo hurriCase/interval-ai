@@ -1,4 +1,4 @@
-﻿namespace Source.Scripts.Core.DI.Repositories.Categories
+﻿namespace Source.Scripts.Core.Repositories.Categories
 {
     internal enum CategoryType
     {
