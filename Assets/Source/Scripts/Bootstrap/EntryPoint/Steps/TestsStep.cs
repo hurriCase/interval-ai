@@ -5,11 +5,11 @@ using Source.Scripts.Core.DI.Repositories.Progress.Base;
 using UnityEngine;
 using VContainer;
 
-namespace Source.Scripts.Core.DI.StartUp.Steps
+namespace Source.Scripts.Bootstrap.EntryPoint.Steps
 {
     [CreateAssetMenu(
         fileName = nameof(TestsStep),
-        menuName = ResourcePaths.InitializationStepsPath + nameof(TestsStep)
+        menuName = InitializationStepsPath + nameof(TestsStep)
     )]
     internal sealed class TestsStep : StepBase
     {

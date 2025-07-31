@@ -1,4 +1,4 @@
-namespace Source.Scripts.Core.DI.StartUp
+namespace Source.Scripts.Bootstrap.EntryPoint
 {
     internal struct StepData
     {

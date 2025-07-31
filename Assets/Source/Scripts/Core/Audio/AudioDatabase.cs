@@ -4,8 +4,14 @@ using UnityEngine;
 namespace Source.Scripts.Core.Audio
 {
     [CreateAssetMenu(
-        fileName = ResourcePaths.AudioDatabaseAssetName,
-        menuName = ResourcePaths.AudioDatabaseAssetMenuPath
+        fileName = AudioDatabaseAssetName,
+        menuName = AudioDatabaseAssetMenuPath
     )]
-    internal sealed class AudioDatabase : AudioDatabaseGeneric<MusicType, SoundType> { }
+    internal sealed class AudioDatabase : AudioDatabaseGeneric<MusicType, SoundType>
+    {
+        private const string AudioDatabaseAssetMenuPath = SoundResourcesPathPrefix + "/" + AudioDatabaseAssetName;
+        private const string AudioDatabaseAssetName = "AudioDatabase";
+
+        private const string SoundResourcesPathPrefix = "Sounds";
+    }
 }

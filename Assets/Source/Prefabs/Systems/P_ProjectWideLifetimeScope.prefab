@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4309375727690368576}
-  - component: {fileID: 6022932714692219656}
+  - component: {fileID: -2405904300857110902}
   m_Layer: 0
-  m_Name: P_CoreLifetimeScope
+  m_Name: P_ProjectWideLifetimeScope
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6022932714692219656
+--- !u!114 &-2405904300857110902
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,13 +41,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1054672304971641642}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 792385eacb0043249a6dba83c5dd0870, type: 3}
+  m_Script: {fileID: 11500000, guid: f1e1d74da8904d3bb7b2344a53408b98, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Source.Scripts.Core::Source.Scripts.Core.DI.CoreLifetimeScope
+  m_EditorClassIdentifier: Source.Scripts.Bootstrap::Source.Scripts.Bootstrap.DI.ProjectWideLifetimeScope
   parentReference:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects: []
-  _stepsList: []
+  _stepsList:
+  - {fileID: 11400000, guid: 8be7a037528d2c047aee955d5421d53d, type: 2}
+  - {fileID: 11400000, guid: 10c4d682c9eb60648aa73467430eaefc, type: 2}
   _sceneReferences: {fileID: 11400000, guid: 35288ded5db0b724a99866d24783d0d2, type: 2}
-  _uiInputActionAsset: {fileID: 0}
+  _uiInputActionAsset: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  _defaultSettingsDatabase: {fileID: 11400000, guid: 0885d72d2e2db2f419431b2cb3b494af, type: 2}
+  _defaultUserDataDatabase: {fileID: 11400000, guid: eed5097bf64d9a64fb2cf948a7873f21, type: 2}
