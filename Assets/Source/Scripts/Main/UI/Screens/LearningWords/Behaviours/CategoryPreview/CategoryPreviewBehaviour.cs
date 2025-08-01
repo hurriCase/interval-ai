@@ -2,6 +2,7 @@
 using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.Loader;
 using Source.Scripts.Core.Repositories.Categories;
+using Source.Scripts.Core.Repositories.Categories.Base;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;

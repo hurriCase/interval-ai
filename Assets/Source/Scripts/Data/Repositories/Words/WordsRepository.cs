@@ -22,9 +22,11 @@ namespace Source.Scripts.Data.Repositories.Words
 
         private static readonly WordCooldownComparer _comparer = new();
 
-        internal WordsRepository()
+        internal WordsRepository(DefaultWordsConfig defaultWordsConfig)
         {
-            WordEntries = new PersistentReactiveProperty<List<WordEntry>>(PersistentPropertyKeys.WordEntryKey);
+            WordEntries = new PersistentReactiveProperty<List<WordEntry>>(PersistentPropertyKeys.WordEntryKey,
+                defaultWordsConfig.Defaults);
+
             SortedWordsByState =
                 new EnumArray<LearningState, SortedSet<WordEntry>>(() => new SortedSet<WordEntry>(_comparer));
 

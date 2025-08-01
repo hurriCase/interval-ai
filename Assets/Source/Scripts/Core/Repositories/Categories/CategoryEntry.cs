@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using MemoryPack;
 using Source.Scripts.Core.Others;
-using WordEntry = Source.Scripts.Core.Repositories.Words.WordEntry;
+using Source.Scripts.Core.Repositories.Words;
 
 namespace Source.Scripts.Core.Repositories.Categories
 {

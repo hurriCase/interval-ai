@@ -9,9 +9,9 @@ using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace Source.Scripts.Bootstrap.EntryPoint
+namespace Source.Scripts.Bootstrap.Core
 {
-    internal sealed class CoreEntryPoint : IAsyncStartable
+    internal sealed class EntryPoint : IAsyncStartable
     {
         private readonly IObjectResolver _objectResolver;
         private readonly ISceneLoader _sceneLoader;
@@ -20,7 +20,7 @@ namespace Source.Scripts.Bootstrap.EntryPoint
 
         private readonly List<StepBase> _stepsList;
 
-        internal CoreEntryPoint(
+        internal EntryPoint(
             List<StepBase> stepsList,
             IObjectResolver objectResolver,
             ISceneLoader sceneLoader,

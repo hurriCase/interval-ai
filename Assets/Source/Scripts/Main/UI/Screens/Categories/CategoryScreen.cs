@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Repositories.Categories;
+using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.UI.Windows.Base;
 using UnityEngine;
 using UnityEngine.UI;

@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
-using Source.Scripts.Bootstrap.EntryPoint;
+using Source.Scripts.Bootstrap.Core;
+using Source.Scripts.Core.Importer;
+using Source.Scripts.Core.Importer.Base;
 using Source.Scripts.Core.Input;
 using Source.Scripts.Core.Loader;
-using Source.Scripts.Core.Repositories.Categories;
+using Source.Scripts.Core.Repositories;
+using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Core.Repositories.Statistics;
@@ -32,6 +35,8 @@ namespace Source.Scripts.Bootstrap.DI
 
         [SerializeField] private DefaultSettingsDatabase _defaultSettingsDatabase;
         [SerializeField] private DefaultUserDataDatabase _defaultUserDataDatabase;
+        [SerializeField] private DefaultWordsConfig _defaultWordsConfig;
+        [SerializeField] private DefaultCategoriesConfig _defaultCategoriesConfig;
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -46,8 +51,9 @@ namespace Source.Scripts.Bootstrap.DI
             builder.Register<AddressablesLoader>(Lifetime.Singleton).As<IAddressablesLoader>();
 
             RegisterRepositories(builder);
+            RegisterCSV(builder);
 
-            builder.RegisterEntryPoint<CoreEntryPoint>();
+            builder.RegisterEntryPoint<Core.EntryPoint>();
         }
 
         private void RegisterRepositories(IContainerBuilder builder)
@@ -68,8 +74,16 @@ namespace Source.Scripts.Bootstrap.DI
 
             builder.Register<WordsRepository>(Lifetime.Singleton).As<IWordsRepository>();
             builder.Register<WordAdvanceHelper>(Lifetime.Singleton).As<IWordAdvanceHelper>();
+            builder.RegisterInstance(_defaultWordsConfig).As<IDefaultConfig>().AsSelf();
 
             builder.Register<CategoriesRepository>(Lifetime.Singleton).As<ICategoriesRepository>();
+            builder.RegisterInstance(_defaultCategoriesConfig).As<IDefaultConfig>().AsSelf();
+        }
+
+        private void RegisterCSV(IContainerBuilder builder)
+        {
+            builder.Register<CSVMapper>(Lifetime.Singleton).As<ICSVMapper>();
+            builder.Register<CSVReader>(Lifetime.Singleton).As<ICSVReader>();
         }
     }
 }

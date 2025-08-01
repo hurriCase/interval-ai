@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using VContainer;
 
-namespace Source.Scripts.Bootstrap.EntryPoint.Steps
+namespace Source.Scripts.Bootstrap.Core.Steps
 {
     [CreateAssetMenu(
         fileName = nameof(AudioHandlerStep),

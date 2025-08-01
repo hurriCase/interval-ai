@@ -4,7 +4,7 @@ using Cysharp.Threading.Tasks;
 using R3;
 using UnityEngine;
 
-namespace Source.Scripts.Bootstrap.EntryPoint
+namespace Source.Scripts.Bootstrap.Core
 {
     internal abstract class StepBase : ScriptableObject
     {

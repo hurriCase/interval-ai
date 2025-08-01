@@ -5,7 +5,7 @@ using Source.Scripts.Core.Repositories.Progress.Base;
 using UnityEngine;
 using VContainer;
 
-namespace Source.Scripts.Bootstrap.EntryPoint.Steps
+namespace Source.Scripts.Bootstrap.Core.Steps
 {
     [CreateAssetMenu(
         fileName = nameof(TestsStep),
