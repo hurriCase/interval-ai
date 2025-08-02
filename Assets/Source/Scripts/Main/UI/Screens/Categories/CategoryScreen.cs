@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Source.Scripts.Core.Localization.Base;
+using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Categories;
 using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.UI.Windows.Base;
@@ -15,7 +16,8 @@ namespace Source.Scripts.Main.UI.Screens.Categories
         [SerializeField] private CategoryEntryItem _categoryEntryItem;
         [SerializeField] private RectTransform _categoryItemContainer;
         [SerializeField] private AspectRatioFitter _spacing;
-        [SerializeField] private float _spacingRatio;
+        [SerializeField] private float _categoryContainerSpacingRatio;
+        [SerializeField] private float _menuSpacingRatio;
 
         private readonly Dictionary<CategoryType, CategoryContainerItem> _createdCategoriesByType = new();
 
@@ -23,6 +25,14 @@ namespace Source.Scripts.Main.UI.Screens.Categories
         [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
 
         internal override void Init()
+        {
+            CreateCategories();
+
+            _spacing.CreateSpacing(_menuSpacingRatio, _categoryItemContainer,
+                AspectRatioFitter.AspectMode.WidthControlsHeight);
+        }
+
+        private void CreateCategories()
         {
             foreach (var categoryEntry in _categoriesRepository.CategoryEntries.Value.Values)
             {
@@ -34,8 +44,8 @@ namespace Source.Scripts.Main.UI.Screens.Categories
                     createdCategoryContainer.TitleText.text =
                         _localizationKeysDatabase.GetLearningStateLocalization(categoryType);
 
-                    var createdSpacing = Instantiate(_spacing, _categoryItemContainer);
-                    createdSpacing.aspectRatio = _spacingRatio;
+                    _spacing.CreateSpacing(_categoryContainerSpacingRatio, _categoryItemContainer,
+                        AspectRatioFitter.AspectMode.WidthControlsHeight);
                 }
 
                 var createdCategory = Instantiate(_categoryEntryItem, createdCategoryContainer.CategoryContainer);

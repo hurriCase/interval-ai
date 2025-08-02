@@ -4,6 +4,7 @@ using CustomUtils.Editor.CustomEditorUtilities;
 using CustomUtils.Editor.SheetsDownloader;
 using CustomUtils.Runtime.Extensions;
 using Source.Scripts.Core.Importer;
+using Source.Scripts.Core.Repositories;
 using Source.Scripts.Core.Repositories.Categories;
 using Source.Scripts.Core.Repositories.Words;
 using UnityEditor;
@@ -106,7 +107,7 @@ namespace Source.Scripts.Editor.DefaultDataCreation
                     break;
 
                 case DefaultDataType.Categories:
-                    _csvToBinaryConverter.ConvertCSVToBinary<DefaultCategoryEntry>(csvPath, binaryPath);
+                    _csvToBinaryConverter.ConvertCSVToBinary<CategoryEntry>(csvPath, binaryPath);
                     break;
 
                 case DefaultDataType.None:

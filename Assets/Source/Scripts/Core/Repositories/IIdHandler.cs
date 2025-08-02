@@ -6,7 +6,7 @@ namespace Source.Scripts.Core.Repositories
     {
         Dictionary<int, TEntry> GenerateWithIds(List<TEntry> entries);
 
-        Dictionary<int, TEntry> GenerateWithDefaultIds<TDefaultEntry>(List<TDefaultEntry> defaultEntries)
-            where TDefaultEntry : class, IDefaultEntry<TEntry>, new();
+        public Dictionary<int, TEntry> GenerateWithDefaultIds<TDefaultEntry>(List<TDefaultEntry> defaultEntries)
+            where TDefaultEntry : class, TEntry, IDefaultEntry;
     }
 }

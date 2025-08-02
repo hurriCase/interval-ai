@@ -26,7 +26,7 @@ namespace Source.Scripts.Data.Repositories
         }
 
         public Dictionary<int, TEntry> GenerateWithDefaultIds<TDefaultEntry>(List<TDefaultEntry> defaultEntries)
-            where TDefaultEntry : class, IDefaultEntry<TEntry>, new()
+            where TDefaultEntry : class, TEntry, IDefaultEntry
         {
             var entriesWithIds = new Dictionary<int, TEntry>();
 
@@ -35,19 +35,19 @@ namespace Source.Scripts.Data.Repositories
                 if (Validate(entriesWithIds, defaultEntry) is false)
                     continue;
 
-                entriesWithIds[defaultEntry.DefaultId] = defaultEntry.Entry;
+                entriesWithIds[defaultEntry.DefaultId] = defaultEntry;
             }
 
             return entriesWithIds;
         }
 
-        private bool Validate(Dictionary<int, TEntry> entries, IDefaultEntry<TEntry> currentEntry)
+        private bool Validate(Dictionary<int, TEntry> entries, IDefaultEntry currentEntry)
         {
             if (entries.ContainsKey(currentEntry.DefaultId))
             {
                 Debug.LogError("[IdHandler::Validate] " +
                                $"Encountered duplicate id: {currentEntry.DefaultId}." +
-                               $"skipping entry: {currentEntry.Entry}." +
+                               $"skipping entry: {currentEntry}." +
                                $"For type {typeof(TEntry).Name}");
                 return false;
             }
@@ -58,7 +58,7 @@ namespace Source.Scripts.Data.Repositories
             Debug.LogError("[IdHandler::Validate] " +
                            $"Encountered positive id: {currentEntry.DefaultId} " +
                            "for generation with default ids which is prohibited, " +
-                           $"skipping entry: {currentEntry.Entry}." +
+                           $"skipping entry: {currentEntry}." +
                            $"For type {typeof(TEntry).Name}");
             return false;
         }

@@ -24,8 +24,7 @@ namespace Source.Scripts.Core.Importer
 
         private Dictionary<string, PropertyInfo> GetPropertyMap<T>() =>
             typeof(T)
-                .GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                .Where(propertyInfo => propertyInfo.CanWrite)
+                .GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
                 .ToDictionary(propertyInfo => propertyInfo.Name, StringComparer.OrdinalIgnoreCase);
 
         private T MapRowToObject<T>(

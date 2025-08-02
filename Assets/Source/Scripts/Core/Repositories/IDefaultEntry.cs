@@ -1,8 +1,7 @@
 ﻿namespace Source.Scripts.Core.Repositories
 {
-    internal interface IDefaultEntry<TEntry>
+    internal interface IDefaultEntry
     {
         int DefaultId { get; }
-        TEntry Entry { get; }
     }
 }

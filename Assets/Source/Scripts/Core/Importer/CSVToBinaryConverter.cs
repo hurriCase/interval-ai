@@ -27,13 +27,5 @@ namespace Source.Scripts.Core.Importer
 
             Debug.Log($"Converted {objects.Length} objects to binary: {binaryOutputPath}");
         }
-
-        public T[] LoadFromBinary<T>(string binaryFilePath)
-        {
-            var binaryData = File.ReadAllBytes(binaryFilePath);
-            return MemoryPackSerializer.Deserialize<T[]>(binaryData);
-        }
-
-        public T[] LoadFromBinary<T>(byte[] binaryData) => MemoryPackSerializer.Deserialize<T[]>(binaryData);
     }
 }
