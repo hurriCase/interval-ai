@@ -10,7 +10,6 @@ namespace Source.Scripts.Core.Repositories.Categories
     {
         public CachedSprite Icon { get; set; }
         public string LocalizationKey { get; set; }
-        public List<WordEntry> WordEntries { get; set; }
         public CategoryType CategoryType { get; set; }
     }
 }

@@ -24,7 +24,7 @@ namespace Source.Scripts.Main.UI.Screens.Categories
 
         internal override void Init()
         {
-            foreach (var categoryEntry in _categoriesRepository.CategoryEntries.Value)
+            foreach (var categoryEntry in _categoriesRepository.CategoryEntries.Value.Values)
             {
                 var categoryType = categoryEntry.CategoryType;
                 if (_createdCategoriesByType

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Storage;
 using R3;
+using Source.Scripts.Core.Repositories;
 using Source.Scripts.Core.Repositories.Words;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.CooldownSystem;
@@ -13,8 +14,9 @@ namespace Source.Scripts.Data.Repositories.Words
 {
     internal sealed class WordsRepository : IWordsRepository, IDisposable
     {
+        //TODO:<Dmitriy.Sukharev> make this immutable
+        public PersistentReactiveProperty<Dictionary<int, WordEntry>> WordEntries { get; }
         public Observable<CooldownByLearningState> OnAvailabilityTimeUpdate => _availabilityTimeSubject.AsObservable();
-        public PersistentReactiveProperty<List<WordEntry>> WordEntries { get; }
         public EnumArray<LearningState, SortedSet<WordEntry>> SortedWordsByState { get; }
 
         private readonly Subject<CooldownByLearningState> _availabilityTimeSubject = new();
@@ -22,17 +24,46 @@ namespace Source.Scripts.Data.Repositories.Words
 
         private static readonly WordCooldownComparer _comparer = new();
 
-        internal WordsRepository(DefaultWordsConfig defaultWordsConfig)
+        internal WordsRepository(DefaultWordsConfig defaultWordsConfig, IIdHandler<WordEntry> idHandler)
         {
-            WordEntries = new PersistentReactiveProperty<List<WordEntry>>(PersistentPropertyKeys.WordEntryKey,
-                defaultWordsConfig.Defaults);
+            WordEntries =
+                new PersistentReactiveProperty<Dictionary<int, WordEntry>>(PersistentKeys.WordEntryKey,
+                    idHandler.GenerateWithIds(defaultWordsConfig.Defaults));
 
             SortedWordsByState =
                 new EnumArray<LearningState, SortedSet<WordEntry>>(() => new SortedSet<WordEntry>(_comparer));
 
-            foreach (var word in WordEntries.Value)
+            foreach (var word in WordEntries.Value.Values)
                 SortedWordsByState[word.LearningState].Add(word);
 
+            SetTimers();
+        }
+
+        public WordEntry GetAvailableWord(LearningState learningState) =>
+            SortedWordsByState[learningState].Count > 0
+                ? SortedWordsByState[learningState].AsValueEnumerable().FirstOrDefault(word => word.IsHidden is false)
+                : null;
+
+        public List<WordEntry> GetRandomWords(WordEntry wordToSkip, int count) =>
+            WordEntries.Value.Values.AsValueEnumerable()
+                .Where(word => word != wordToSkip && word.IsHidden is false)
+                .OrderBy(_ => Random.value)
+                .Take(count)
+                .ToList();
+
+        public void UpdateTimerForState(LearningState learningState)
+        {
+            var sortedWords = SortedWordsByState[learningState];
+            if (sortedWords.Count == 0)
+                return;
+
+            var earliestWord = sortedWords.Min;
+
+            _stateTimers[learningState].UpdateTargetTime(earliestWord.Cooldown);
+        }
+
+        private void SetTimers()
+        {
             foreach (var (state, _) in _stateTimers.AsTuples())
             {
                 var sortedWords = SortedWordsByState[state];
@@ -48,29 +79,6 @@ namespace Source.Scripts.Data.Repositories.Words
                     (_, tuple) => tuple.behaviour.UpdateTimerForState(tuple.state)
                 );
             }
-        }
-
-        public WordEntry GetAvailableWord(LearningState learningState) =>
-            SortedWordsByState[learningState].Count > 0
-                ? SortedWordsByState[learningState].AsValueEnumerable().FirstOrDefault(word => word.IsHidden is false)
-                : null;
-
-        public List<WordEntry> GetRandomWords(WordEntry wordToSkip, int count) =>
-            WordEntries.Value.AsValueEnumerable()
-                .Where(word => word != wordToSkip && word.IsHidden is false)
-                .OrderBy(_ => Random.value)
-                .Take(count)
-                .ToList();
-
-        public void UpdateTimerForState(LearningState learningState)
-        {
-            var sortedWords = SortedWordsByState[learningState];
-            if (sortedWords.Count == 0)
-                return;
-
-            var earliestWord = sortedWords.Min;
-
-            _stateTimers[learningState].UpdateTargetTime(earliestWord.Cooldown);
         }
 
         public void Dispose()

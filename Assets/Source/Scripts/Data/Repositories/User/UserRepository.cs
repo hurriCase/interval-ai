@@ -12,10 +12,10 @@ namespace Source.Scripts.Data.Repositories.User
 
         internal UserRepository(IDefaultUserDataDatabase defaultUserDataDatabase)
         {
-            UserIcon = new PersistentReactiveProperty<CachedSprite>(PersistentPropertyKeys.UserIconKey,
+            UserIcon = new PersistentReactiveProperty<CachedSprite>(PersistentKeys.UserIconKey,
                 new CachedSprite(defaultUserDataDatabase.Icon));
 
-            Nickname = new PersistentReactiveProperty<string>(PersistentPropertyKeys.NicknameKey,
+            Nickname = new PersistentReactiveProperty<string>(PersistentKeys.NicknameKey,
                 defaultUserDataDatabase.Name);
         }
 

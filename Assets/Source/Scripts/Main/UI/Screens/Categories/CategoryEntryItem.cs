@@ -21,10 +21,10 @@ namespace Source.Scripts.Main.UI.Screens.Categories
 
         internal void Init(CategoryEntry categoryEntry)
         {
-            SetCategoryIcon(categoryEntry.Icon.AssetGUID).Forget();
+            //SetCategoryIcon(categoryEntry.Icon.AssetGUID).Forget();
 
             _titleText.text = categoryEntry.LocalizationKey.GetLocalization();
-            _progressText.text = categoryEntry.WordEntries.Count.ToString();
+            //_progressText.text = categoryEntry.WordEntries.Count.ToString();
         }
 
         private async UniTask SetCategoryIcon(string assetGUID)

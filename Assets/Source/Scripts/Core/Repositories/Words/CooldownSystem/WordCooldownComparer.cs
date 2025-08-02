@@ -4,14 +4,26 @@ namespace Source.Scripts.Core.Repositories.Words.CooldownSystem
 {
     internal sealed class WordCooldownComparer : IComparer<WordEntry>
     {
-        public int Compare(WordEntry x, WordEntry y)
+        public int Compare(WordEntry firstWord, WordEntry secondWord)
         {
-            if (x == null || y == null)
-                return Comparer<WordEntry>.Default.Compare(x, y);
+            switch (firstWord)
+            {
+                case null when secondWord is null:
+                    return 0;
+                case null:
+                    return -1;
+            }
 
-            return x.Cooldown != y.Cooldown
-                ? x.Cooldown.CompareTo(y.Cooldown)
-                : x.GUID.CompareTo(y.GUID);
+            if (secondWord is null)
+                return 1;
+
+            if (ReferenceEquals(firstWord, secondWord))
+                return 0;
+
+            var cooldownComparison = firstWord.Cooldown.CompareTo(secondWord.Cooldown);
+            return cooldownComparison != 0
+                ? cooldownComparison
+                : firstWord.GetHashCode().CompareTo(secondWord.GetHashCode());
         }
     }
 }

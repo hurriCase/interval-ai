@@ -5,6 +5,6 @@ namespace Source.Scripts.Core.Repositories.Categories.Base
 {
     internal interface ICategoriesRepository
     {
-        PersistentReactiveProperty<List<CategoryEntry>> CategoryEntries { get; }
+        PersistentReactiveProperty<Dictionary<int, CategoryEntry>> CategoryEntries { get; }
     }
 }

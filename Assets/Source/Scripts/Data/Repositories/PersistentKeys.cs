@@ -1,6 +1,6 @@
 ﻿namespace Source.Scripts.Data.Repositories
 {
-    internal static class PersistentPropertyKeys
+    internal static class PersistentKeys
     {
         internal const string CategoryEntriesKey = Prefix + "CategoryEntriesKey";
 
@@ -24,6 +24,8 @@
         internal const string NicknameKey = Prefix + "NicknameKey";
 
         internal const string WordEntryKey = Prefix + "WordEntryKey";
+
+        internal const string CurrentMaxIdKey = Prefix + "CurrentMaxIdKey";
 
         private const string Prefix = "LanguageLearningApp.";
     }

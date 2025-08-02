@@ -12,9 +12,9 @@ namespace Source.Scripts.Data.Repositories.Statistics
 
         internal StatisticsRepository()
         {
-            IsCompleteOnboarding = new PersistentReactiveProperty<bool>(PersistentPropertyKeys.IsCompleteOnboardingKey);
+            IsCompleteOnboarding = new PersistentReactiveProperty<bool>(PersistentKeys.IsCompleteOnboardingKey);
             LoginHistory =
-                new PersistentReactiveProperty<Dictionary<DateTime, bool>>(PersistentPropertyKeys.LoginHistoryKey,
+                new PersistentReactiveProperty<Dictionary<DateTime, bool>>(PersistentKeys.LoginHistoryKey,
                     new Dictionary<DateTime, bool>());
         }
 

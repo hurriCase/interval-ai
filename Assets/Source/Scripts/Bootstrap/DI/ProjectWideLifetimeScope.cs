@@ -5,13 +5,16 @@ using Source.Scripts.Core.Importer.Base;
 using Source.Scripts.Core.Input;
 using Source.Scripts.Core.Loader;
 using Source.Scripts.Core.Repositories;
+using Source.Scripts.Core.Repositories.Categories;
 using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Core.Repositories.Statistics;
 using Source.Scripts.Core.Repositories.User.Base;
+using Source.Scripts.Core.Repositories.Words;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Scenes;
+using Source.Scripts.Data.Repositories;
 using Source.Scripts.Data.Repositories.Categories;
 using Source.Scripts.Data.Repositories.Progress;
 using Source.Scripts.Data.Repositories.Settings;
@@ -74,9 +77,11 @@ namespace Source.Scripts.Bootstrap.DI
 
             builder.Register<WordsRepository>(Lifetime.Singleton).As<IWordsRepository>();
             builder.Register<WordAdvanceHelper>(Lifetime.Singleton).As<IWordAdvanceHelper>();
+            builder.Register<IdHandler<WordEntry>>(Lifetime.Singleton).As<IIdHandler<WordEntry>>();
             builder.RegisterInstance(_defaultWordsConfig).As<IDefaultConfig>().AsSelf();
 
             builder.Register<CategoriesRepository>(Lifetime.Singleton).As<ICategoriesRepository>();
+            builder.Register<IdHandler<CategoryEntry>>(Lifetime.Singleton).As<IIdHandler<CategoryEntry>>();
             builder.RegisterInstance(_defaultCategoriesConfig).As<IDefaultConfig>().AsSelf();
         }
 

@@ -9,7 +9,7 @@ namespace Source.Scripts.Core.Repositories.Words
     [MemoryPackable]
     internal sealed partial class WordEntry
     {
-        public GUID GUID { get; } = GUID.Generate();
+        public int CategoryId { get; set; }
         public LearningState LearningState { get; set; }
         public string NativeWord { get; set; }
         public string LearningWord { get; set; }

@@ -2,5 +2,5 @@
 
 namespace Source.Scripts.Data.Repositories.Categories
 {
-    internal sealed class DefaultCategoriesConfig : DefaultDataConfigBase<CategoryEntry> { }
+    internal sealed class DefaultCategoriesConfig : DefaultDataConfigBase<DefaultCategoryEntry> { }
 }

@@ -8,7 +8,7 @@ namespace Source.Scripts.Core.Repositories.Words.Base
 {
     internal interface IWordsRepository
     {
-        public PersistentReactiveProperty<List<WordEntry>> WordEntries { get; }
+        public PersistentReactiveProperty<Dictionary<int, WordEntry>> WordEntries { get; }
         public EnumArray<LearningState, SortedSet<WordEntry>> SortedWordsByState { get; }
         Observable<CooldownByLearningState> OnAvailabilityTimeUpdate { get; }
         WordEntry GetAvailableWord(LearningState learningState);

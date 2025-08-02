@@ -19,22 +19,22 @@ namespace Source.Scripts.Data.Repositories.Settings
 
         internal SettingsRepository(IDefaultSettingsDatabase defaultSettingsDatabase)
         {
-            LanguageLevel = new PersistentReactiveProperty<LanguageLevel>(PersistentPropertyKeys.LanguageLevelKey);
+            LanguageLevel = new PersistentReactiveProperty<LanguageLevel>(PersistentKeys.LanguageLevelKey);
 
-            DailyGoal = new PersistentReactiveProperty<int>(PersistentPropertyKeys.DailyGoalKey,
+            DailyGoal = new PersistentReactiveProperty<int>(PersistentKeys.DailyGoalKey,
                 defaultSettingsDatabase.DailyGoal);
 
-            CurrentCulture = new PersistentReactiveProperty<CultureInfo>(PersistentPropertyKeys.CurrentCultureKey,
+            CurrentCulture = new PersistentReactiveProperty<CultureInfo>(PersistentKeys.CurrentCultureKey,
                 CultureInfo.CurrentCulture);
 
             RepetitionByCooldown = new PersistentReactiveProperty<List<CooldownByDate>>(
-                PersistentPropertyKeys.RepetitionByCooldownKey, defaultSettingsDatabase.Cooldowns);
+                PersistentKeys.RepetitionByCooldownKey, defaultSettingsDatabase.Cooldowns);
 
-            LanguageByType = new PersistentReactiveProperty<EnumArray<LanguageType, Language>>(PersistentPropertyKeys
+            LanguageByType = new PersistentReactiveProperty<EnumArray<LanguageType, Language>>(PersistentKeys
                 .LanguageByTypeKey);
 
             LearningDirection =
-                new PersistentReactiveProperty<LearningDirectionType>(PersistentPropertyKeys.LearningDirectionKey,
+                new PersistentReactiveProperty<LearningDirectionType>(PersistentKeys.LearningDirectionKey,
                     LearningDirectionType.LearningToNative);
         }
 

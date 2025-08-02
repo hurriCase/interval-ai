@@ -21,7 +21,7 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.CategoryPrevie
 
         internal void Init()
         {
-            foreach (var categoryEntry in _categoriesRepository.CategoryEntries.Value)
+            foreach (var categoryEntry in _categoriesRepository.CategoryEntries.Value.Values)
             {
                 var createdCategory = Instantiate(_categoryItemPrefab, _contentContainer);
 
