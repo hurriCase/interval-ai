@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using UnityEngine;
 using VContainer;
+using VContainer.Unity;
 
 namespace Source.Scripts.Bootstrap.Core.Steps
 {

@@ -8,7 +8,6 @@ using Source.Scripts.Core.Scenes;
 using Source.Scripts.Onboarding.UI.Behaviours;
 using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base;
-using TMPro;
 using UnityEngine;
 using VContainer;
 
@@ -16,7 +15,6 @@ namespace Source.Scripts.Onboarding.UI
 {
     internal sealed class OnboardingScreen : ScreenBase
     {
-        [SerializeField] private TextMeshProUGUI _titleText;
         [SerializeField] private ButtonComponent _continueButton;
 
         [SerializeField] private List<StepBehaviourBase> _inputOnboardingSteps;
@@ -38,13 +36,19 @@ namespace Source.Scripts.Onboarding.UI
             SwitchStep(_currentStepIndex, true);
 
             _continueButton.OnClickAsObservable()
-                .Subscribe(this, static (_, screen) =>
-                {
-                    screen.SwitchStep(screen._currentStepIndex, false);
-                    screen._currentStepIndex++;
-                    screen.SwitchStep(screen._currentStepIndex, true);
-                })
+                .Subscribe(this, static (_, self) => self.SwitchModule())
                 .RegisterTo(destroyCancellationToken);
+        }
+
+        private void SwitchModule()
+        {
+            SwitchStep(_currentStepIndex, false);
+
+            _inputOnboardingSteps[_currentStepIndex].OnContinue();
+
+            _currentStepIndex++;
+
+            SwitchStep(_currentStepIndex, true);
         }
 
         private void SwitchStep(int index, bool isActive)
@@ -58,9 +62,6 @@ namespace Source.Scripts.Onboarding.UI
             }
 
             _inputOnboardingSteps[index].SetActive(isActive);
-
-            if (isActive)
-                _titleText.text = _inputOnboardingSteps[index].TitleLocalizationKey.GetLocalization();
         }
     }
 }

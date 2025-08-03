@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.Repositories;
 using UnityEngine;
 using VContainer;
+using VContainer.Unity;
 
 namespace Source.Scripts.Bootstrap.Core.Steps
 {
@@ -18,12 +19,16 @@ namespace Source.Scripts.Bootstrap.Core.Steps
 
         protected override async UniTask ExecuteInternal(CancellationToken token)
         {
+            var tasks = new List<UniTask>();
+
             foreach (var defaultConfig in _defaultConfigs)
             {
                 _objectResolver.Inject(defaultConfig);
 
-                await defaultConfig.InitAsync(token);
+                tasks.Add(defaultConfig.InitAsync(token));
             }
+
+            await UniTask.WhenAll(tasks);
         }
     }
 }

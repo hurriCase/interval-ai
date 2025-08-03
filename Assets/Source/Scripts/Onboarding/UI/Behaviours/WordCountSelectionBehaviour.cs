@@ -1,11 +1,13 @@
 ﻿using R3;
 using R3.Triggers;
+using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Onboarding.Data;
 using Source.Scripts.UI.Components;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
+using VContainer.Unity;
 
 namespace Source.Scripts.Onboarding.UI.Behaviours
 {
@@ -20,10 +22,16 @@ namespace Source.Scripts.Onboarding.UI.Behaviours
 
         [Inject] private IProgressRepository _progressRepository;
         [Inject] private IWordGoalDatabase _wordGoalDatabase;
+        [Inject] private IObjectResolver _objectResolver;
 
-        private const int WordCountPerRow = 5;
+        private const int WordCountPerRow = 3;
 
         internal override void Init()
+        {
+            CreateWordGoalSelections();
+        }
+
+        private void CreateWordGoalSelections()
         {
             var wordGoals = _wordGoalDatabase.DefaultWordGoals;
             var currentRow = new RectTransform();
@@ -31,24 +39,25 @@ namespace Source.Scripts.Onboarding.UI.Behaviours
             {
                 if (i % WordCountPerRow == 0)
                 {
-                    currentRow = Instantiate(_rowItem, _contentContainer);
-                    var createRowSpacing = Instantiate(_spacing, _contentContainer);
-                    createRowSpacing.aspectRatio = _rowSpacingRatio;
+                    currentRow = _objectResolver.Instantiate(_rowItem, _contentContainer);
+
+                    _spacing.CreateSpacing(_rowSpacingRatio, _contentContainer,
+                        AspectRatioFitter.AspectMode.WidthControlsHeight);
                 }
 
-                var createdWordItem = Instantiate(_wordCountItem, currentRow);
-                createdWordItem.Text.text = wordGoals[i].ToString();
-                createdWordItem.Button.OnCancelAsObservable()
-                    .Subscribe((_progressRepository, goal: wordGoals[i]),
-                        static (_, tuple) => tuple._progressRepository.NewWordsDailyTarget.Value = tuple.goal)
-                    .RegisterTo(destroyCancellationToken);
-
-                if (i == wordGoals.Count - 1)
-                    continue;
-
-                var createdWordSpacing = Instantiate(_spacing, currentRow);
-                createdWordSpacing.aspectRatio = _wordCountSpacingRatio;
+                CreateWordItem(currentRow, wordGoals[i]);
             }
+        }
+
+        private void CreateWordItem(Transform currentRow, int wordGoal)
+        {
+            var createdWordItem = _objectResolver.Instantiate(_wordCountItem, currentRow);
+
+            createdWordItem.Text.text = wordGoal.ToString();
+            createdWordItem.Button.OnClickAsObservable()
+                .Subscribe((_progressRepository, goal: wordGoal),
+                    static (_, tuple) => tuple._progressRepository.NewWordsDailyTarget.Value = tuple.goal)
+                .RegisterTo(destroyCancellationToken);
         }
     }
 }

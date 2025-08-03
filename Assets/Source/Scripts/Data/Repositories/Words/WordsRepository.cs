@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Storage;
+using Cysharp.Threading.Tasks;
 using R3;
 using Source.Scripts.Core.Repositories;
 using Source.Scripts.Core.Repositories.Words;
@@ -12,23 +14,45 @@ using Random = UnityEngine.Random;
 
 namespace Source.Scripts.Data.Repositories.Words
 {
-    internal sealed class WordsRepository : IWordsRepository, IDisposable
+    internal sealed class WordsRepository : IWordsRepository, IRepository
     {
         //TODO:<Dmitriy.Sukharev> make this immutable
-        public PersistentReactiveProperty<Dictionary<int, WordEntry>> WordEntries { get; }
+        public PersistentReactiveProperty<Dictionary<int, WordEntry>> WordEntries { get; } = new();
         public Observable<CooldownByLearningState> OnAvailabilityTimeUpdate => _availabilityTimeSubject.AsObservable();
-        public EnumArray<LearningState, SortedSet<WordEntry>> SortedWordsByState { get; }
+        public EnumArray<LearningState, SortedSet<WordEntry>> SortedWordsByState { get; private set; }
 
         private readonly Subject<CooldownByLearningState> _availabilityTimeSubject = new();
         private EnumArray<LearningState, AdaptiveTimer> _stateTimers = new(EnumMode.SkipFirst);
 
         private static readonly WordCooldownComparer _comparer = new();
 
+        private readonly DefaultWordsConfig _defaultWordsConfig;
+        private readonly IIdHandler<WordEntry> _idHandler;
+
         internal WordsRepository(DefaultWordsConfig defaultWordsConfig, IIdHandler<WordEntry> idHandler)
         {
-            WordEntries =
-                new PersistentReactiveProperty<Dictionary<int, WordEntry>>(PersistentKeys.WordEntryKey,
-                    idHandler.GenerateWithIds(defaultWordsConfig.Defaults));
+            _defaultWordsConfig = defaultWordsConfig;
+            _idHandler = idHandler;
+        }
+
+        public async UniTask InitAsync(CancellationToken cancellationToken)
+        {
+            var initTasks = new[]
+            {
+                _idHandler.InitAsync(cancellationToken),
+
+                WordEntries.InitAsync(
+                    PersistentKeys.WordEntryKey,
+                    cancellationToken,
+                    _idHandler.GenerateWithIds(_defaultWordsConfig.Defaults))
+            };
+
+            await UniTask.WhenAll(initTasks);
+
+            await WordEntries.InitAsync(
+                PersistentKeys.WordEntryKey,
+                cancellationToken,
+                _idHandler.GenerateWithIds(_defaultWordsConfig.Defaults));
 
             SortedWordsByState =
                 new EnumArray<LearningState, SortedSet<WordEntry>>(() => new SortedSet<WordEntry>(_comparer));

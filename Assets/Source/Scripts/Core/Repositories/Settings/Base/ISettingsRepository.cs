@@ -14,5 +14,6 @@ namespace Source.Scripts.Core.Repositories.Settings.Base
         PersistentReactiveProperty<LanguageLevel> LanguageLevel { get; }
         PersistentReactiveProperty<EnumArray<LanguageType, Language>> LanguageByType { get; }
         PersistentReactiveProperty<int> DailyGoal { get; }
+        void SetLanguage(Language language, LanguageType languageType);
     }
 }

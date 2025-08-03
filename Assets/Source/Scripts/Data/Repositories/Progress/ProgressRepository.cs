@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Storage;
+using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.Repositories.Progress;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
@@ -10,13 +12,13 @@ using Source.Scripts.Core.Repositories.Words.Base;
 
 namespace Source.Scripts.Data.Repositories.Progress
 {
-    internal sealed class ProgressRepository : IProgressRepository, IDisposable
+    internal sealed class ProgressRepository : IProgressRepository, IRepository
     {
-        public PersistentReactiveProperty<int> CurrentStreak { get; }
-        public PersistentReactiveProperty<int> BestStreak { get; }
-        public PersistentReactiveProperty<EnumArray<LearningState, int>> TotalCountByState { get; }
-        public PersistentReactiveProperty<int> NewWordsDailyTarget { get; }
-        public PersistentReactiveProperty<Dictionary<DateTime, DailyProgress>> ProgressHistory { get; }
+        public PersistentReactiveProperty<int> CurrentStreak { get; } = new();
+        public PersistentReactiveProperty<int> BestStreak { get; } = new();
+        public PersistentReactiveProperty<int> NewWordsDailyTarget { get; } = new();
+        public PersistentReactiveProperty<EnumArray<LearningState, int>> TotalCountByState { get; } = new();
+        public PersistentReactiveProperty<Dictionary<DateTime, DailyProgress>> ProgressHistory { get; } = new();
 
         public int NewWordsCount => ProgressHistory.Value.TryGetValue(DateTime.Now.Date, out var todayProgress)
             ? todayProgress.NewWordsCount
@@ -29,23 +31,37 @@ namespace Source.Scripts.Data.Repositories.Progress
         private DailyProgress _todayProgress;
 
         private readonly ISettingsRepository _settingsRepository;
+        private readonly IStatisticsRepository _statisticsRepository;
 
         internal ProgressRepository(IStatisticsRepository statisticsRepository, ISettingsRepository settingsRepository)
         {
             _settingsRepository = settingsRepository;
+            _statisticsRepository = statisticsRepository;
+        }
 
-            CurrentStreak = new PersistentReactiveProperty<int>(PersistentKeys.CurrentStreakKey);
-            BestStreak = new PersistentReactiveProperty<int>(PersistentKeys.BestStreakKey);
-            TotalCountByState = new PersistentReactiveProperty<EnumArray<LearningState, int>>(
-                PersistentKeys.TotalCountByStateKey, new EnumArray<LearningState, int>(EnumMode.SkipFirst));
+        public async UniTask InitAsync(CancellationToken cancellationToken)
+        {
+            var initTasks = new[]
+            {
+                CurrentStreak.InitAsync(PersistentKeys.CurrentStreakKey, cancellationToken),
+                BestStreak.InitAsync(PersistentKeys.BestStreakKey, cancellationToken),
+                NewWordsDailyTarget.InitAsync(PersistentKeys.NewWordsDailyTargetKey, cancellationToken),
 
-            NewWordsDailyTarget = new PersistentReactiveProperty<int>(PersistentKeys.NewWordsDailyTargetKey);
+                TotalCountByState.InitAsync(
+                    PersistentKeys.TotalCountByStateKey,
+                    cancellationToken,
+                    new EnumArray<LearningState, int>(EnumMode.SkipFirst)),
 
-            if (statisticsRepository.LoginHistory.Value.TryGetValue(DateTime.Now, out _) is false)
-                NewWordsDailyTarget.Value = settingsRepository.DailyGoal.Value;
+                ProgressHistory.InitAsync(
+                    PersistentKeys.ProgressHistoryKey,
+                    cancellationToken,
+                    new Dictionary<DateTime, DailyProgress>())
+            };
 
-            ProgressHistory = new PersistentReactiveProperty<Dictionary<DateTime, DailyProgress>>(
-                PersistentKeys.ProgressHistoryKey, new Dictionary<DateTime, DailyProgress>());
+            await UniTask.WhenAll(initTasks);
+
+            if (_statisticsRepository.LoginHistory.Value.TryGetValue(DateTime.Now, out _) is false)
+                NewWordsDailyTarget.Value = _settingsRepository.DailyGoal.Value;
 
             var yesterdayDate = DateTime.Now.Date.AddDays(-1);
             ProgressHistory.Value.TryGetValue(yesterdayDate, out var lastDayProgress);
@@ -116,6 +132,7 @@ namespace Source.Scripts.Data.Repositories.Progress
             var totalCountByState = TotalCountByState.Value;
             totalCountByState[state]++;
             TotalCountByState.Value = totalCountByState;
+            TotalCountByState.Property.OnNext(totalCountByState);
         }
 
         public void Dispose()

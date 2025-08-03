@@ -1,24 +1,34 @@
 ﻿using System.Collections.Generic;
+using CustomUtils.Runtime.CustomBehaviours;
 using CustomUtils.Runtime.Extensions;
 using PrimeTween;
 using R3;
+using R3.Triggers;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Source.Scripts.UI.Components
 {
-    internal sealed class AccordionComponent : MonoBehaviour
+    internal sealed class AccordionComponent : RectTransformBehaviour
     {
         [field: SerializeField] internal ButtonComponent ExpandButton { get; private set; }
-        [field: SerializeField] internal List<CanvasGroup> HiddenContent { get; private set; }
+        [field: SerializeField] internal AccordionItem HiddenContentContainer { get; private set; }
+        [field: SerializeField] internal RectTransform ShownContent { get; private set; }
+        [field: SerializeField]
+        internal SerializableReactiveProperty<List<AccordionItem>> HiddenContent { get; private set; } =
+            new(new List<AccordionItem>());
 
         [SerializeField] private bool _isInitiallyExpanded;
         [SerializeField] private float _expandButtonAnimationDuration;
         [SerializeField] private float _hiddenElementsAnimationDuration;
+        [SerializeField] private float _expandedRotationZ;
+        [SerializeField] private float _collapsedRotationZ;
 
         private bool _isExpanded;
         private Sequence _currentAnimation;
+        private float _currentRotationZ;
 
-        private void Awake()
+        internal void Init()
         {
             ExpandButton.OnClickAsObservable()
                 .Subscribe(this,
@@ -26,6 +36,10 @@ namespace Source.Scripts.UI.Components
                 .RegisterTo(destroyCancellationToken);
 
             SwitchContent(_isInitiallyExpanded);
+
+            ShownContent.OnRectTransformDimensionsChangeAsObservable()
+                .Subscribe(this, static (_, component) => component.UpdateContainerHeight())
+                .RegisterTo(destroyCancellationToken);
         }
 
         private void SwitchContent(bool isExpanded)
@@ -42,51 +56,55 @@ namespace Source.Scripts.UI.Components
 
         private Tween RotateExpandButtonTween()
         {
-            var currentAngles = ExpandButton.transform.eulerAngles;
-            var targetZ = currentAngles.z + 180f;
+            var targetZ = _isExpanded ? _expandedRotationZ : _collapsedRotationZ;
+
+            var deltaZ = Mathf.DeltaAngle(_currentRotationZ, targetZ);
+            var finalTargetZ = _currentRotationZ + deltaZ;
 
             return Tween.Custom(this,
-                currentAngles.z,
-                targetZ,
+                _currentRotationZ,
+                finalTargetZ,
                 _expandButtonAnimationDuration,
-                (component, rotationZ) =>
-                {
-                    var buttonTransform = component.ExpandButton.transform;
-                    var euler = buttonTransform.eulerAngles;
-                    euler.z = rotationZ;
-                    buttonTransform.eulerAngles = euler;
-                });
+                (component, rotationZ) => component.SetButtonRotation(rotationZ));
         }
 
-        private Sequence AnimateHiddenContentTweens(bool isExpanded)
+        private void SetButtonRotation(float rotationZ)
         {
-            var contentSequence = Sequence.Create();
+            var buttonTransform = ExpandButton.transform;
+            var euler = buttonTransform.eulerAngles;
+            euler.z = rotationZ;
+            buttonTransform.eulerAngles = euler;
 
-            foreach (var content in HiddenContent)
-            {
-                if (isExpanded)
-                {
-                    content.gameObject.SetActive(true);
-                    contentSequence
-                        .Group(Tween.ScaleY(content.transform, 1f, _hiddenElementsAnimationDuration))
-                        .Group(Tween.Alpha(content, 1f, _hiddenElementsAnimationDuration));
+            _currentRotationZ = rotationZ;
+        }
 
-                    continue;
-                }
+        private Sequence AnimateHiddenContentTweens(bool isExpanded) =>
+            isExpanded
+                ? CreateHiddenContentAnimation(1f)
+                    .OnComplete(HiddenContentContainer, accordionItem => accordionItem.CanvasGroup.Show())
+                : CreateHiddenContentAnimation(0f)
+                    .OnComplete(HiddenContentContainer, accordionItem => accordionItem.CanvasGroup.Hide());
 
-                contentSequence
-                    .Group(Tween.ScaleY(content.transform, 0f, _hiddenElementsAnimationDuration))
-                    .Group(Tween.Alpha(content, 0f, _hiddenElementsAnimationDuration));
-            }
+        private Sequence CreateHiddenContentAnimation(float endValue) =>
+            Sequence.Create()
+                .Group(Tween.ScaleY(HiddenContentContainer.RectTransform, endValue, _hiddenElementsAnimationDuration))
+                .Group(Tween.Alpha(HiddenContentContainer.CanvasGroup, endValue, _hiddenElementsAnimationDuration))
+                .Group(Tween.Custom(this, 0f, 1f, _hiddenElementsAnimationDuration,
+                    (component, _) => component.UpdateContainerHeight()));
 
-            if (isExpanded is false)
-                contentSequence.OnComplete(HiddenContent, canvasGroups =>
-                {
-                    foreach (var canvasGroup in canvasGroups)
-                        canvasGroup.SetActive(false);
-                });
+        private void UpdateContainerHeight()
+        {
+            var hiddenRectTransform = HiddenContentContainer.RectTransform;
+            var hiddenContentSize = hiddenRectTransform.rect.height * hiddenRectTransform.localScale.y;
+            var totalHeight = ShownContent.rect.height + hiddenContentSize;
+            RectTransform.sizeDelta = new Vector2(RectTransform.sizeDelta.x, totalHeight);
 
-            return contentSequence;
+            RebuildParent();
+        }
+
+        private void RebuildParent()
+        {
+            LayoutRebuilder.ForceRebuildLayoutImmediate(transform.parent as RectTransform);
         }
     }
 }

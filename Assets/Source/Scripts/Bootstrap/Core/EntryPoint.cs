@@ -20,6 +20,8 @@ namespace Source.Scripts.Bootstrap.Core
 
         private readonly List<StepBase> _stepsList;
 
+        [Inject] private LifetimeScope _projectWideLifetimeScope;
+
         internal EntryPoint(
             List<StepBase> stepsList,
             IObjectResolver objectResolver,
@@ -34,20 +36,20 @@ namespace Source.Scripts.Bootstrap.Core
             _sceneReferences = sceneReferences;
         }
 
-        public async UniTask StartAsync(CancellationToken cancellation)
+        public async UniTask StartAsync(CancellationToken cancellationToken)
         {
-            _statisticsRepository.LoginHistory.Value[DateTime.Now] = true;
+            await InitSteps(cancellationToken);
 
-            await InitSteps(cancellation);
+            _statisticsRepository.LoginHistory.Value[DateTime.Now] = true;
 
             var addressToLoad = _statisticsRepository.IsCompleteOnboarding.Value
                 ? _sceneReferences.MainMenuScene.Address
                 : _sceneReferences.Onboarding.Address;
 
-            _sceneLoader.LoadSceneAsync(addressToLoad, cancellation).Forget();
+            _sceneLoader.LoadSceneAsync(addressToLoad, cancellationToken).Forget();
         }
 
-        private async UniTask InitSteps(CancellationToken token)
+        private async UniTask InitSteps(CancellationToken cancellationToken)
         {
             try
             {
@@ -56,10 +58,10 @@ namespace Source.Scripts.Bootstrap.Core
                     _stepsList[i].OnStepCompleted
                         .Subscribe(static stepData => Debug.Log("[StartUpService::LogStepCompletion] " +
                                                                 $"Step {stepData.Step} completed: {stepData.StepName}"))
-                        .RegisterTo(token);
+                        .RegisterTo(cancellationToken);
 
                     _objectResolver.Inject(_stepsList[i]);
-                    await _stepsList[i].Execute(i, token);
+                    await _stepsList[i].Execute(i, cancellationToken);
                 }
             }
             catch (Exception e)

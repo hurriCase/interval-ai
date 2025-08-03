@@ -2,6 +2,7 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.UI;
 
 namespace Source.Scripts.Core.Loader
 {
@@ -17,5 +18,7 @@ namespace Source.Scripts.Core.Loader
             AssetReference assetReference,
             CancellationToken token)
             where TComponent : Component;
+
+        UniTask AssignImageAsync(Image image, AssetReference assetReference, CancellationToken token);
     }
 }

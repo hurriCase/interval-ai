@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.Others;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.UI;
 
 namespace Source.Scripts.Core.Loader
 {
@@ -40,5 +41,8 @@ namespace Source.Scripts.Core.Loader
             AddressablesLogger.Log($"[PrefabLoader::LoadAsync] Loaded '{asset.name}' ({typeof(TComponent).Name})");
             return asset.GetComponent<TComponent>();
         }
+
+        public async UniTask AssignImageAsync(Image image, AssetReference assetReference, CancellationToken token)
+            => image.sprite = await LoadAsync<Sprite>(assetReference, token);
     }
 }

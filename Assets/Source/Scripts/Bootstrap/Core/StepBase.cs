@@ -3,6 +3,8 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using R3;
 using UnityEngine;
+using VContainer;
+using VContainer.Unity;
 
 namespace Source.Scripts.Bootstrap.Core
 {
@@ -20,9 +22,10 @@ namespace Source.Scripts.Bootstrap.Core
                 await ExecuteInternal(token);
                 _stepCompletedSubject.OnNext(new StepData { Step = step, StepName = GetType().Name });
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Debug.LogError($"[{GetType().Name}::Execute] Step initialization failed: {e.Message}");
+                Debug.LogError($"[{GetType().Name}::Execute] Step initialization failed: {ex.Message}");
+                Debug.LogException(ex);
             }
         }
 

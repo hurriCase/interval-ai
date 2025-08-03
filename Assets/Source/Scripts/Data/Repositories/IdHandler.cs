@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using CustomUtils.Runtime.Storage;
 using Cysharp.Text;
+using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.Repositories;
 using UnityEngine;
 
@@ -9,8 +11,14 @@ namespace Source.Scripts.Data.Repositories
 {
     internal sealed class IdHandler<TEntry> : IIdHandler<TEntry>, IDisposable
     {
-        private readonly PersistentReactiveProperty<int> _currentMaxId
-            = new(ZString.Concat(PersistentKeys.CurrentMaxIdKey, typeof(TEntry).Name));
+        private readonly PersistentReactiveProperty<int> _currentMaxId = new();
+
+        public async UniTask InitAsync(CancellationToken cancellationToken)
+        {
+            await _currentMaxId.InitAsync(
+                ZString.Concat(PersistentKeys.CurrentMaxIdKey, typeof(TEntry).Name),
+                cancellationToken);
+        }
 
         public Dictionary<int, TEntry> GenerateWithIds(List<TEntry> entries)
         {

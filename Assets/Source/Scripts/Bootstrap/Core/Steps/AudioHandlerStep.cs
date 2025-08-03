@@ -17,6 +17,7 @@ namespace Source.Scripts.Bootstrap.Core.Steps
         [SerializeField] private AssetReferenceT<AudioHandler> _audioHandler;
 
         [Inject] private IAddressablesLoader _addressablesLoader;
+        [Inject] private IAudioHandlerProvider _audioHandlerProvider;
 
         protected override async UniTask ExecuteInternal(CancellationToken token)
         {
@@ -24,6 +25,9 @@ namespace Source.Scripts.Bootstrap.Core.Steps
             var audioHandlerInstance = Instantiate(audioHandler);
 
             DontDestroyOnLoad(audioHandlerInstance);
+            await audioHandlerInstance.InitAsync(cancellationToken: token);
+
+            _audioHandlerProvider.SetAudioHandler(audioHandlerInstance);
         }
     }
 }
