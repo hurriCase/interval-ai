@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Storage;
+using R3;
+using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Words.Base;
 
 namespace Source.Scripts.Core.Repositories.Progress.Base
@@ -13,10 +15,9 @@ namespace Source.Scripts.Core.Repositories.Progress.Base
         PersistentReactiveProperty<int> CurrentStreak { get; }
         PersistentReactiveProperty<int> BestStreak { get; }
         PersistentReactiveProperty<Dictionary<DateTime, DailyProgress>> ProgressHistory { get; }
-        int NewWordsCount { get; }
-        int ReviewCount { get; }
+        EnumArray<PracticeState, Observable<int>> LearnedWordCountObservables { get; }
+        Observable<Unit> GoalAchievedObservable { get; }
         void IncrementDailyProgress(LearningState learningState, DateTime date);
-        void IncrementNewWordsCount();
-        void IncrementReviewCount();
+        void IncrementLearnedWordsCount(PracticeState practiceState);
     }
 }

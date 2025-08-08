@@ -36,14 +36,14 @@ namespace Source.Scripts.Main.UI.Shared
         {
             DateIdentifierText.text = dateIdentifierText;
 
-            var totalCount = progress.Values.Sum();
+            var totalCount = progress.Entries.Sum(entry => entry.Value);
             var isActive = totalCount > 0 && isOutsideMonth is false;
 
             if (isActive)
                 SetProgress(progress, totalCount, progressColorMapping, ActiveThicknessRatio);
             else
                 SetProgress(DefaultProgressPercentages,
-                    DefaultProgressPercentages.Values.Sum(),
+                    DefaultProgressPercentages.Entries.Sum(entry => entry.Value),
                     progressColorMapping,
                     InActiveThicknessRatio,
                     LearningState.None);
@@ -80,7 +80,8 @@ namespace Source.Scripts.Main.UI.Shared
             var offset = 0f;
             var spacing = SpacingBetweenSections * thicknessRatio;
 
-            totalCount -= GetProgressToDiscard(progresses.Values, totalCount, spacing);
+            var progressToDiscard = GetProgressToDiscard(progresses, totalCount, spacing);
+            totalCount -= progressToDiscard;
             foreach (var (state, sectionData) in ProgressSections.AsTuples())
             {
                 var wordCount = progresses[state];
@@ -102,7 +103,7 @@ namespace Source.Scripts.Main.UI.Shared
             }
         }
 
-        private int GetProgressToDiscard(int[] progresses, int totalCount, float spacing)
+        private int GetProgressToDiscard(EnumArray<LearningState, int> progresses, int totalCount, float spacing)
         {
             var discardedProgresses = 0;
             foreach (var progress in progresses)

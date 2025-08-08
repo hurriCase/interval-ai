@@ -97,6 +97,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f748c3660e31d64abde40f9259bdf69, type: 3}
+--- !u!114 &3446949903691832621 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 748815785519323855, guid: 5f748c3660e31d64abde40f9259bdf69, type: 3}
+  m_PrefabInstance: {fileID: 2716327335565182946}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &9040224615177214683 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6397083110087499065, guid: 5f748c3660e31d64abde40f9259bdf69, type: 3}
@@ -422,8 +433,29 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3691833483562493499, guid: f4a7512a7bb93574fbd9d2dd3fa7adfb, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4989612214909556288}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6829777437454293057, guid: f4a7512a7bb93574fbd9d2dd3fa7adfb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2650462213357070559}
   m_SourcePrefab: {fileID: 100100000, guid: f4a7512a7bb93574fbd9d2dd3fa7adfb, type: 3}
+--- !u!1 &4421722888809194547 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6829777437454293057, guid: f4a7512a7bb93574fbd9d2dd3fa7adfb, type: 3}
+  m_PrefabInstance: {fileID: 7175681088623180914}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2650462213357070559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4421722888809194547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5008822bf7b84c0fa7b10d6f51954c63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.ProgressIndicatorBehaviour
+  _previousCardButton: {fileID: 3446949903691832621}
 --- !u!224 &5812217547860073033 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3691833483562493499, guid: f4a7512a7bb93574fbd9d2dd3fa7adfb, type: 3}

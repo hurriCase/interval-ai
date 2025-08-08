@@ -21,10 +21,10 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base
 
         protected WordEntry currentWord;
 
-        internal virtual void Init()
+        internal virtual void Init(CardBehaviour cardBehaviour)
         {
             foreach (var transitionButton in transitionButtons)
-                transitionButton.Init(destroyCancellationToken);
+                transitionButton.Init(cardBehaviour, destroyCancellationToken);
         }
 
         internal virtual void SetCurrentWord(WordEntry wordEntry)

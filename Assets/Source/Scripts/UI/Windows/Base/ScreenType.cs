@@ -7,6 +7,6 @@
         Categories = 2,
         Generation = 3,
         Settings = 4,
-        Onboarding = 5
+        OnboardingInput = 5
     }
 }

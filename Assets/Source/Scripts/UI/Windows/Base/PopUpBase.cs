@@ -16,9 +16,10 @@ namespace Source.Scripts.UI.Windows.Base
 
         internal override void BaseInit()
         {
-            _closeButton.OnClickAsObservable()
-                .Subscribe(this, (_, popUp) => popUp.Hide())
-                .RegisterTo(destroyCancellationToken);
+            if (_closeButton)
+                _closeButton.OnClickAsObservable()
+                    .Subscribe(this, (_, popUp) => popUp.Hide())
+                    .RegisterTo(destroyCancellationToken);
         }
 
         internal override void Show()

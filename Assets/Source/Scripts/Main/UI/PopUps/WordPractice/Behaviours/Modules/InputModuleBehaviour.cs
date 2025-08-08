@@ -14,9 +14,9 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules
 
         private int _shownSymbolCount;
 
-        internal override void Init()
+        internal override void Init(CardBehaviour cardBehaviour)
         {
-            base.Init();
+            base.Init(cardBehaviour);
 
             _hintButton.OnClickAsObservable()
                 .Subscribe(this, (_, behaviour) =>

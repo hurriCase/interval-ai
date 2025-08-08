@@ -12,11 +12,14 @@ namespace Source.Scripts.Core.Localization.Base
     {
         [SerializeField] private EnumArray<LocalizationType, string> _localizationData = new(EnumMode.SkipFirst);
         [SerializeField] private EnumArray<LearningState, string> _progressLearningStates = new(EnumMode.SkipFirst);
-        [SerializeField] private EnumArray<DateType, EnumArray<PluralForm, string>> _date = new(EnumMode.SkipFirst);
         [SerializeField] private EnumArray<PluralForm, string> _learnedCounts = new(EnumMode.SkipFirst);
         [SerializeField] private EnumArray<CategoryType, string> _categoryTypes = new(EnumMode.SkipFirst);
+
+        [SerializeField] private EnumArray<DateType, EnumArray<PluralForm, string>> _date
+            = new(() => new EnumArray<PluralForm, string>(EnumMode.SkipFirst), EnumMode.SkipFirst);
+
         [SerializeField] private EnumArray<PracticeState, EnumArray<CompleteType, string>> _learningCompletes =
-            new(EnumMode.SkipFirst);
+            new(() => new EnumArray<CompleteType, string>(EnumMode.SkipFirst), EnumMode.SkipFirst);
 
         public string GetLocalization(LocalizationType type) =>
             LocalizationController.Localize(_localizationData[type]);

@@ -11,13 +11,13 @@ namespace Source.Scripts.Onboarding.DI
     {
         [SerializeField] private WindowsController _windowsController;
         [SerializeField] private LocalizationDatabase _localizationDatabase;
-        [SerializeField] private WordGoalDatabase _wordGoalDatabase;
+        [SerializeField] private OnboardingConfig _onboardingConfig;
 
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterComponent(_windowsController).As<IWindowsController>();
             builder.RegisterComponent(_localizationDatabase).As<ILocalizationDatabase>();
-            builder.RegisterInstance(_wordGoalDatabase).As<IWordGoalDatabase>();
+            builder.RegisterInstance(_onboardingConfig).As<IOnboardingConfig>();
 
             builder.RegisterEntryPoint<OnboardingEntryPoint>();
         }

@@ -20,9 +20,6 @@ namespace Source.Scripts.UI.Windows.Base
         [SerializeField] private Transform _screensContainer;
         [SerializeField] private Transform _popUpsContainer;
 
-        private IObjectResolver _objectResolver;
-        private IAddressablesLoader _addressablesLoader;
-
         private readonly HashSet<PopUpBase> _createdPopUps = new();
         private readonly HashSet<ScreenBase> _createdScreens = new();
         private readonly Stack<PopUpBase> _previousOpenedPopUps = new();
@@ -30,22 +27,26 @@ namespace Source.Scripts.UI.Windows.Base
         private PopUpBase _currentOpenedPopUp;
         private ScreenBase _currentScreen;
 
-        [Inject]
-        internal void Inject(IObjectResolver objectResolver, IAddressablesLoader addressablesLoader)
-        {
-            _objectResolver = objectResolver;
-            _addressablesLoader = addressablesLoader;
-        }
-
-        public async UniTask InitAsync(CancellationToken cancellationToken)
+        public async UniTask InitAsync(
+            IObjectResolver objectResolver,
+            IAddressablesLoader addressablesLoader,
+            CancellationToken cancellationToken)
         {
             var sourceWithDestroy = cancellationToken.CreateLinkedTokenSourceWithDestroy(this);
 
+            await InitScreensAsync(objectResolver, addressablesLoader, sourceWithDestroy.Token);
+            await InitPopUpAsync(objectResolver, addressablesLoader, sourceWithDestroy.Token);
+        }
+
+        private async UniTask InitScreensAsync(
+            IObjectResolver objectResolver,
+            IAddressablesLoader addressablesLoader,
+            CancellationToken cancellationToken)
+        {
             foreach (var screenReference in _screenReferences)
             {
-                var loadedScreen =
-                    await _addressablesLoader.LoadAsync<GameObject>(screenReference, sourceWithDestroy.Token);
-                var createdWindow = _objectResolver.Instantiate(loadedScreen, _screensContainer);
+                var loadedScreen = await addressablesLoader.LoadAsync<GameObject>(screenReference, cancellationToken);
+                var createdWindow = objectResolver.Instantiate(loadedScreen, _screensContainer);
 
                 if (createdWindow.TryGetComponent<ScreenBase>(out var screenBase) is false)
                     continue;
@@ -58,12 +59,17 @@ namespace Source.Scripts.UI.Windows.Base
                 if (screenBase.InitialWindow is false)
                     screenBase.HideImmediately();
             }
+        }
 
+        private async UniTask InitPopUpAsync(
+            IObjectResolver objectResolver,
+            IAddressablesLoader addressablesLoader,
+            CancellationToken cancellationToken)
+        {
             foreach (var popUpReference in _popUpReferences)
             {
-                var loadedPopUp =
-                    await _addressablesLoader.LoadAsync<GameObject>(popUpReference, sourceWithDestroy.Token);
-                var createdWindow = _objectResolver.Instantiate(loadedPopUp, _popUpsContainer);
+                var loadedPopUp = await addressablesLoader.LoadAsync<GameObject>(popUpReference, cancellationToken);
+                var createdWindow = objectResolver.Instantiate(loadedPopUp, _popUpsContainer);
 
                 if (createdWindow.TryGetComponent<PopUpBase>(out var popUpBase) is false)
                     continue;
@@ -75,7 +81,7 @@ namespace Source.Scripts.UI.Windows.Base
                 popUpBase.HideImmediately();
                 popUpBase.OnHidePopUp
                     .Subscribe(this, static (_, controller) => controller.HandlePopUpHide())
-                    .RegisterTo(sourceWithDestroy.Token);
+                    .RegisterTo(cancellationToken);
             }
         }
 

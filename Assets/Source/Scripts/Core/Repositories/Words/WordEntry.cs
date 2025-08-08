@@ -2,7 +2,6 @@
 using MemoryPack;
 using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Words.Base;
-using UnityEditor;
 
 namespace Source.Scripts.Core.Repositories.Words
 {

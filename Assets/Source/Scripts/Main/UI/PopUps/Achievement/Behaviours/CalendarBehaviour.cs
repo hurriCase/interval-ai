@@ -20,7 +20,7 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours
         [SerializeField] private WeekProgressContainer[] _weekProgressContainers
             = new WeekProgressContainer[MaxWeeksInMonth];
 
-        [Inject] private IDateProgressHelper _dateProgressHelper;
+        [Inject] private IDateProgressService _dateProgressService;
         [Inject] private ISettingsRepository _settingsRepository;
 
         private const int MaxWeeksInMonth = 6;
@@ -72,7 +72,7 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours
 
         private void UpdateCalendarDisplay()
         {
-            var (monthData, isInMonth) = _dateProgressHelper.GetMonthWeeks(_currentYear, _currentMonth);
+            var (monthData, isInMonth) = _dateProgressService.GetMonthWeeks(_currentYear, _currentMonth);
             _currentMonthText.text =
                 _settingsRepository.CurrentCulture.Value.DateTimeFormat.GetMonthName(_currentMonth);
 

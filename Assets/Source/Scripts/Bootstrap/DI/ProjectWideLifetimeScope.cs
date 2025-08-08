@@ -4,18 +4,20 @@ using Source.Scripts.Core.Audio;
 using Source.Scripts.Core.Importer;
 using Source.Scripts.Core.Input;
 using Source.Scripts.Core.Loader;
-using Source.Scripts.Core.Repositories;
+using Source.Scripts.Core.Localization.Base;
+using Source.Scripts.Core.Repositories.Base.DefaultConfig;
+using Source.Scripts.Core.Repositories.Base.Id;
+using Source.Scripts.Core.Repositories.Base.Tests;
+using Source.Scripts.Core.Repositories.Base.Tests.Base;
 using Source.Scripts.Core.Repositories.Categories;
+using Source.Scripts.Core.Repositories.Progress;
+using Source.Scripts.Core.Repositories.Settings;
+using Source.Scripts.Core.Repositories.Statistics;
+using Source.Scripts.Core.Repositories.User;
 using Source.Scripts.Core.Repositories.Words;
+using Source.Scripts.Core.Repositories.Words.Advance;
+using Source.Scripts.Core.Repositories.Words.Timer;
 using Source.Scripts.Core.Scenes;
-using Source.Scripts.Data.Repositories;
-using Source.Scripts.Data.Repositories.Categories;
-using Source.Scripts.Data.Repositories.Progress;
-using Source.Scripts.Data.Repositories.Settings;
-using Source.Scripts.Data.Repositories.Statistics;
-using Source.Scripts.Data.Repositories.User;
-using Source.Scripts.Data.Repositories.Words;
-using Source.Scripts.Data.Repositories.Words.Advance;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using VContainer;
@@ -30,10 +32,13 @@ namespace Source.Scripts.Bootstrap.DI
         [SerializeField] private SceneReferences _sceneReferences;
         [SerializeField] private InputActionAsset _uiInputActionAsset;
 
-        [SerializeField] private DefaultSettingsDatabase _defaultSettingsDatabase;
-        [SerializeField] private DefaultUserDataDatabase _defaultUserDataDatabase;
-        [SerializeField] private DefaultWordsConfig _defaultWordsConfig;
-        [SerializeField] private DefaultCategoriesConfig _defaultCategoriesConfig;
+        [SerializeField] private LocalizationKeysDatabase _localizationKeysDatabase;
+
+        [SerializeField] private TestDataConfig _testDataConfig;
+        [SerializeField] private DefaultSettingsConfig _defaultSettingsConfig;
+        [SerializeField] private DefaultUserDataConfig _defaultUserDataConfig;
+        [SerializeField] private DefaultWordsDatabase _defaultWordsDatabase;
+        [SerializeField] private DefaultCategoriesDatabase _defaultCategoriesDatabase;
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -49,6 +54,8 @@ namespace Source.Scripts.Bootstrap.DI
 
             builder.Register<AudioHandlerProvider>(Lifetime.Singleton).As<IAudioHandlerProvider>();
 
+            builder.RegisterComponent(_localizationKeysDatabase).As<ILocalizationKeysDatabase>();
+
             RegisterRepositories(builder);
             RegisterCSV(builder);
 
@@ -58,26 +65,33 @@ namespace Source.Scripts.Bootstrap.DI
         private void RegisterRepositories(IContainerBuilder builder)
         {
             builder.Register<TestDataFactory>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.RegisterInstance(_testDataConfig).AsImplementedInterfaces();
 
             builder.Register<StatisticsRepository>(Lifetime.Singleton).AsImplementedInterfaces();
 
             builder.Register<SettingsRepository>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.RegisterInstance(_defaultSettingsDatabase).AsImplementedInterfaces();
+            builder.RegisterInstance(_defaultSettingsConfig).AsImplementedInterfaces();
 
             builder.Register<ProgressRepository>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<DateProgressHelper>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<DateProgressService>(Lifetime.Singleton).AsImplementedInterfaces();
 
             builder.Register<UserRepository>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.RegisterInstance(_defaultUserDataDatabase).AsImplementedInterfaces();
+            builder.RegisterInstance(_defaultUserDataConfig).AsImplementedInterfaces();
 
-            builder.Register<IdHandler<WordEntry>>(Lifetime.Singleton).As<IIdHandler<WordEntry>>();
-            builder.Register<WordsRepository>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<WordAdvanceHelper>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.RegisterInstance(_defaultWordsConfig).As<IDefaultConfig>().AsSelf();
+            RegisterWordsRepository(builder);
 
             builder.Register<IdHandler<CategoryEntry>>(Lifetime.Singleton).As<IIdHandler<CategoryEntry>>();
             builder.Register<CategoriesRepository>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.RegisterInstance(_defaultCategoriesConfig).As<IDefaultConfig>().AsSelf();
+            builder.RegisterInstance(_defaultCategoriesDatabase).As<IDefaultDatabase>().AsSelf();
+        }
+
+        private void RegisterWordsRepository(IContainerBuilder builder)
+        {
+            builder.Register<IdHandler<WordEntry>>(Lifetime.Singleton).As<IIdHandler<WordEntry>>();
+            builder.Register<WordsRepository>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<WordsTimerService>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<WordAdvanceService>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.RegisterInstance(_defaultWordsDatabase).As<IDefaultDatabase>().AsSelf();
         }
 
         private void RegisterCSV(IContainerBuilder builder)

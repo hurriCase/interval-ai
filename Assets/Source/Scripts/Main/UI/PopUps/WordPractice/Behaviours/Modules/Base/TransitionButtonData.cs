@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading;
 using R3;
-using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.Base;
 using Source.Scripts.UI.Components;
 using UnityEngine;
 
@@ -13,11 +12,12 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base
         [field: SerializeField] internal ButtonComponent Button { get; private set; }
         [field: SerializeField] internal ModuleType ModuleType { get; private set; }
 
-        internal readonly void Init(CancellationToken token)
+        internal readonly void Init(CardBehaviour cardBehaviour, CancellationToken cancellationToken)
         {
             Button.OnClickAsObservable()
-                .Subscribe(ModuleType, static (_, type) => WordPracticePopUp.ModuleTypeChangeSubject.OnNext(type))
-                .RegisterTo(token);
+                .Subscribe((cardBehaviour, ModuleType),
+                    static (_, tuple) => tuple.cardBehaviour.SwitchModule(tuple.ModuleType))
+                .RegisterTo(cancellationToken);
         }
     }
 }

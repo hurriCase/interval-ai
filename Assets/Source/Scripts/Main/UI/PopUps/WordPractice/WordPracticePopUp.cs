@@ -2,11 +2,12 @@
 using R3;
 using R3.Triggers;
 using Source.Scripts.Core.Localization.LocalizationTypes;
-using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.Base;
-using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.CardTypes;
+using Source.Scripts.Core.Repositories.Words.Base;
+using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours;
 using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base;
 using UnityEngine;
+using VContainer;
 
 namespace Source.Scripts.Main.UI.PopUps.WordPractice
 {
@@ -15,15 +16,15 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice
         [SerializeField] private TabComponent _newWordsTab;
         [SerializeField] private TabComponent _repetitionTab;
 
-        [SerializeField] private NewWordsCard _newWordsCard;
-        [SerializeField] private ReviewCard _reviewCard;
+        [SerializeField] private PracticeBehaviour _newWordsCard;
+        [SerializeField] private PracticeBehaviour _reviewCard;
 
         [SerializeField] private RectTransform _cardsContainer;
 
         [SerializeField] private float _spacingBetweenTabsRatio;
         [SerializeField] private float _switchAnimationDuration;
 
-        internal static readonly Subject<ModuleType> ModuleTypeChangeSubject = new();
+        [Inject] private IWordsRepository _wordsRepository;
 
         internal static ReactiveProperty<PracticeState> CurrentState { get; } = new(PracticeState.None);
 
@@ -31,19 +32,6 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice
         {
             _newWordsCard.Init();
             _reviewCard.Init();
-
-            ModuleTypeChangeSubject
-                .Subscribe(this, (moduleType, popUp) =>
-                {
-                    if (CurrentState.Value == PracticeState.NewWords)
-                    {
-                        popUp._newWordsCard.SwitchModule(moduleType);
-                        return;
-                    }
-
-                    popUp._reviewCard.SwitchModule(moduleType);
-                })
-                .RegisterTo(destroyCancellationToken);
 
             _newWordsTab.OnPointerClickAsObservable()
                 .Where(static _ => CurrentState.Value != PracticeState.NewWords)
@@ -62,7 +50,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice
 
         internal override void Show()
         {
-            if (_newWordsCard.CurrentWord is null && _reviewCard.CurrentWord != null)
+            var currentWords = _wordsRepository.CurrentWordsByState.Value;
+            if (currentWords[PracticeState.NewWords] is null && currentWords[PracticeState.Review] != null)
                 CurrentState.Value = PracticeState.Review;
             else
                 CurrentState.Value = PracticeState.NewWords;

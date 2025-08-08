@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Source.Scripts.Data.Repositories;
+using Source.Scripts.Core.Repositories.Base;
 using UnityEngine;
 using VContainer;
-using VContainer.Unity;
 
 namespace Source.Scripts.Bootstrap.Core.Steps
 {

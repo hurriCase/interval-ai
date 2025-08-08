@@ -32,7 +32,7 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
 
         [SerializeField] private EnumArray<LearningState, UILineRenderer> _graphLines = new(EnumMode.SkipFirst);
 
-        [Inject] private IDateProgressHelper _dateProgressHelper;
+        [Inject] private IDateProgressService _dateProgressService;
         [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
         [Inject] private IProgressGraphSettings _progressGraphSettings;
 
@@ -105,7 +105,7 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
                     var segmentDuration = Math.Max(1, segmentEnd - segmentStart);
 
                     var progress =
-                        _dateProgressHelper.GetProgressForRange(segmentStart, segmentDuration, learningState);
+                        _dateProgressService.GetProgressForRange(segmentStart, segmentDuration, learningState);
                     progressPoints.Add(new GraphProgressData(i, progress));
                     maxProgress = Math.Max(maxProgress, progress);
                 }

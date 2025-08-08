@@ -35,7 +35,7 @@ namespace Source.Scripts.UI.Components
                     static (_, component) => component.SwitchContent(component._isExpanded is false))
                 .RegisterTo(destroyCancellationToken);
 
-            SwitchContent(_isInitiallyExpanded);
+            CreateHiddenContentAnimation(_isInitiallyExpanded ? 1f : 0f, 0f);
 
             ShownContent.OnRectTransformDimensionsChangeAsObservable()
                 .Subscribe(this, static (_, component) => component.UpdateContainerHeight())
@@ -80,16 +80,16 @@ namespace Source.Scripts.UI.Components
 
         private Sequence AnimateHiddenContentTweens(bool isExpanded) =>
             isExpanded
-                ? CreateHiddenContentAnimation(1f)
+                ? CreateHiddenContentAnimation(1f, _hiddenElementsAnimationDuration)
                     .OnComplete(HiddenContentContainer, accordionItem => accordionItem.CanvasGroup.Show())
-                : CreateHiddenContentAnimation(0f)
+                : CreateHiddenContentAnimation(0f, _hiddenElementsAnimationDuration)
                     .OnComplete(HiddenContentContainer, accordionItem => accordionItem.CanvasGroup.Hide());
 
-        private Sequence CreateHiddenContentAnimation(float endValue) =>
+        private Sequence CreateHiddenContentAnimation(float endValue, float duration) =>
             Sequence.Create()
-                .Group(Tween.ScaleY(HiddenContentContainer.RectTransform, endValue, _hiddenElementsAnimationDuration))
-                .Group(Tween.Alpha(HiddenContentContainer.CanvasGroup, endValue, _hiddenElementsAnimationDuration))
-                .Group(Tween.Custom(this, 0f, 1f, _hiddenElementsAnimationDuration,
+                .Group(Tween.ScaleY(HiddenContentContainer.RectTransform, endValue, duration))
+                .Group(Tween.Alpha(HiddenContentContainer.CanvasGroup, endValue, duration))
+                .Group(Tween.Custom(this, 0f, 1f, duration,
                     (component, _) => component.UpdateContainerHeight()));
 
         private void UpdateContainerHeight()

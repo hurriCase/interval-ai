@@ -64,10 +64,11 @@ namespace Source.Scripts.Bootstrap.Core
                     await _stepsList[i].Execute(i, cancellationToken);
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
                 Debug.LogError("[StartUpService::InitSteps] " +
-                               $"Initialization failed, with error: {e.Message}");
+                               $"Initialization failed, with error: {ex.Message}");
+                Debug.LogException(ex);
             }
         }
     }

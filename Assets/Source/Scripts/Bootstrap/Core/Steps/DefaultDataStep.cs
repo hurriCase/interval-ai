@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Source.Scripts.Core.Repositories;
+using Source.Scripts.Core.Repositories.Base.DefaultConfig;
 using UnityEngine;
 using VContainer;
-using VContainer.Unity;
 
 namespace Source.Scripts.Bootstrap.Core.Steps
 {
@@ -14,7 +13,7 @@ namespace Source.Scripts.Bootstrap.Core.Steps
     )]
     internal sealed class DefaultDataStep : StepBase
     {
-        [Inject] private IEnumerable<IDefaultConfig> _defaultConfigs;
+        [Inject] private IEnumerable<IDefaultDatabase> _defaultConfigs;
         [Inject] private IObjectResolver _objectResolver;
 
         protected override async UniTask ExecuteInternal(CancellationToken token)

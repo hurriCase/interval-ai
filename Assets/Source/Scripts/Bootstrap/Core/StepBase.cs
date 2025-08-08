@@ -3,8 +3,6 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using R3;
 using UnityEngine;
-using VContainer;
-using VContainer.Unity;
 
 namespace Source.Scripts.Bootstrap.Core
 {

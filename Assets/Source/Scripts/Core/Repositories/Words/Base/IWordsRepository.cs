@@ -2,18 +2,15 @@
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Storage;
 using R3;
-using Source.Scripts.Core.Repositories.Words.CooldownSystem;
+using Source.Scripts.Core.Localization.LocalizationTypes;
 
 namespace Source.Scripts.Core.Repositories.Words.Base
 {
     internal interface IWordsRepository
     {
         public PersistentReactiveProperty<Dictionary<int, WordEntry>> WordEntries { get; }
-        public EnumArray<LearningState, SortedSet<WordEntry>> SortedWordsByState { get; }
-        Observable<CooldownByLearningState> OnAvailabilityTimeUpdate { get; }
-        WordEntry GetAvailableWord(LearningState learningState);
-
+        public ReactiveProperty<EnumArray<LearningState, SortedSet<WordEntry>>> SortedWordsByState { get; }
+        ReactiveProperty<EnumArray<PracticeState, WordEntry>> CurrentWordsByState { get; }
         List<WordEntry> GetRandomWords(WordEntry wordToSkip, int count);
-        void UpdateTimerForState(LearningState learningState);
     }
 }
