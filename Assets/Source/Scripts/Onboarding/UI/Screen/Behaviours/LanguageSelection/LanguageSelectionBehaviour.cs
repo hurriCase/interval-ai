@@ -4,7 +4,6 @@ using R3.Triggers;
 using Source.Scripts.Core.Loader;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
-using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.UI.Components;
 using UnityEngine;
 using VContainer;
@@ -25,8 +24,10 @@ namespace Source.Scripts.Onboarding.UI.Screen.Behaviours.LanguageSelection
         [Inject] private IAddressablesLoader _addressablesLoader;
         [Inject] private IObjectResolver _objectResolver;
 
-        private EnumArray<LanguageType, EnumArray<Language, LanguageSelectionItem>> _createdLanguageSelectionItems =
-            new(new EnumArray<Language, LanguageSelectionItem>(EnumMode.SkipFirst), EnumMode.SkipFirst);
+        private EnumArray<LanguageType, EnumArray<SystemLanguage, LanguageSelectionItem>>
+            _createdLanguageSelectionItems =
+                new(() => new EnumArray<SystemLanguage, LanguageSelectionItem>(EnumMode.Default), EnumMode.SkipFirst);
+
         private Subject<Unit> _continueSubject;
 
         internal override void Init()
@@ -34,10 +35,11 @@ namespace Source.Scripts.Onboarding.UI.Screen.Behaviours.LanguageSelection
             _nativeLanguagesAccordion.AccordionComponent.Init();
             _learningComponentAccordion.AccordionComponent.Init();
 
-            foreach (var (language, localization) in _localizationDatabase.Languages.AsTuples())
+            foreach (var (languageType, systemLanguages) in
+                     _defaultSettingsConfig.SupportedLanguages.AsTuples())
             {
-                CreateLanguageItem(language, localization, LanguageType.Native);
-                CreateLanguageItem(language, localization, LanguageType.Learning);
+                foreach (var systemLanguage in systemLanguages)
+                    CreateLanguageItem(languageType, systemLanguage, _localizationDatabase.Languages[systemLanguage]);
             }
 
             _settingsRepository.LanguageByType
@@ -46,7 +48,7 @@ namespace Source.Scripts.Onboarding.UI.Screen.Behaviours.LanguageSelection
                 .RegisterTo(destroyCancellationToken);
         }
 
-        private void SetActiveLanguageToggle(EnumArray<LanguageType, Language> languages)
+        private void SetActiveLanguageToggle(EnumArray<LanguageType, SystemLanguage> languages)
         {
             foreach (var (languageType, language) in languages.AsTuples())
             {
@@ -55,7 +57,7 @@ namespace Source.Scripts.Onboarding.UI.Screen.Behaviours.LanguageSelection
             }
         }
 
-        private void CreateLanguageItem(Language language, string localization, LanguageType languageType)
+        private void CreateLanguageItem(LanguageType languageType, SystemLanguage language, string localization)
         {
             var accordionItem = languageType == LanguageType.Learning
                 ? _learningComponentAccordion
@@ -66,20 +68,27 @@ namespace Source.Scripts.Onboarding.UI.Screen.Behaviours.LanguageSelection
 
             accordionItem.AccordionComponent.HiddenContent.Value.Add(createdSpacing);
 
-            CreateLanguageButton(accordionItem, language, localization, languageType);
+            CreateLanguageButton(languageType, language, accordionItem, localization);
         }
 
-        private void CreateLanguageButton(LanguageAccordionItem accordionComponent, Language language, string localization,
-            LanguageType languageType)
+        private void CreateLanguageButton(
+            LanguageType languageType,
+            SystemLanguage language,
+            LanguageAccordionItem accordionComponent,
+            string localization)
         {
             var createdLanguageItem = _objectResolver.Instantiate(_languageSelectionItem,
                 accordionComponent.AccordionComponent.HiddenContentContainer.RectTransform);
 
-            createdLanguageItem.LanguageText.text = localization;
+            createdLanguageItem.gameObject.name = $"{languageType}, {language}";
+
+            createdLanguageItem.LanguageText.text = string.IsNullOrWhiteSpace(localization)
+                ? language.ToString()
+                : localization;
 
             createdLanguageItem.CheckboxComponent.OnPointerClickAsObservable()
-                .Subscribe((behaviour: this, language, languageType), static (_, tuple)
-                    => tuple.behaviour._settingsRepository.SetLanguage(tuple.language, tuple.languageType))
+                .Subscribe((self: this, language, languageType), static (_, tuple)
+                    => tuple.self._settingsRepository.SetLanguage(tuple.language, tuple.languageType))
                 .RegisterTo(destroyCancellationToken);
 
             createdLanguageItem.CheckboxComponent.group = accordionComponent.ToggleGroup;
@@ -89,11 +98,13 @@ namespace Source.Scripts.Onboarding.UI.Screen.Behaviours.LanguageSelection
 
             accordionComponent.AccordionComponent.HiddenContent.Value.Add(createdLanguageItem.AccordionItem);
 
-            AssignLanguageItem(createdLanguageItem, language, languageType);
+            AssignLanguageItem(languageType, language, createdLanguageItem);
         }
 
-        private void AssignLanguageItem(LanguageSelectionItem createdLanguageItem, Language language,
-            LanguageType languageType)
+        private void AssignLanguageItem(
+            LanguageType languageType,
+            SystemLanguage language,
+            LanguageSelectionItem createdLanguageItem)
         {
             var createdLanguageSelectionItem =
                 _createdLanguageSelectionItems[languageType];

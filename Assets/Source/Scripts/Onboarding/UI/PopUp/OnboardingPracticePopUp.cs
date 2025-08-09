@@ -1,69 +1,84 @@
 ﻿using System.Collections.Generic;
-using CustomUtils.Runtime.Extensions;
 using R3;
+using Source.Scripts.Core.Localization.LocalizationTypes;
+using Source.Scripts.Core.Repositories.Settings.Base;
+using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours;
+using Source.Scripts.Onboarding.Data;
 using Source.Scripts.Onboarding.UI.PopUp.WordPractice;
 using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base;
 using TMPro;
 using UnityEngine;
+using VContainer;
 
 namespace Source.Scripts.Onboarding.UI.PopUp
 {
     internal sealed class OnboardingPracticePopUp : PopUpBase
     {
-        [SerializeField] private OnboardingPracticeBehaviour _onboardingPracticeBehaviour;
-
         [SerializeField] private TextMeshProUGUI _messageText;
 
         [SerializeField] private Transform _imageTint;
-        [SerializeField] private List<WordPracticeStepData> _wordPracticeSteps;
+        [SerializeReferenceDropdown, SerializeReference] private List<PracticeStepBase> _practiceSteps;
+
+        [SerializeField] private CardBehaviour _cardBehaviour;
+        [SerializeField] private WordProgressBehaviour _wordProgressBehaviour;
+        [SerializeField] private ControlButtonsBehaviour _controlButtonsBehaviour;
+
+        [Inject] private IOnboardingConfig _onboardingConfig;
+        [Inject] private ISettingsRepository _settingsRepository;
 
         private ButtonComponent _continueButton;
         private GameObject _placeholderObject;
 
         private int _currentStepIndex;
 
+        private bool _isPlainSteps;
+
         internal override void Init()
         {
-            _onboardingPracticeBehaviour.Init();
+            _cardBehaviour.Init();
 
-            foreach (var wordPracticeStepData in _wordPracticeSteps)
-                wordPracticeStepData.Init(_imageTint);
+            var onboardingWord = _onboardingConfig.OnboardingWord.CreateWord(_settingsRepository.LanguageByType.Value);
+
+            _cardBehaviour.WordEntry.Value = onboardingWord;
+
+            _wordProgressBehaviour.Init(PracticeState.NewWords);
+            _controlButtonsBehaviour.Init(PracticeState.NewWords);
+
+            foreach (var wordPracticeStepData in _practiceSteps)
+            {
+                wordPracticeStepData.Init(_imageTint, destroyCancellationToken);
+                wordPracticeStepData.ButtonClickObservable.Subscribe(this,
+                        static (_, self) => self.SwitchStep())
+                    .RegisterTo(destroyCancellationToken);
+            }
 
             UpdateView();
         }
 
-        private void SwitchWordPracticeStep()
+        private void SwitchStep()
         {
-            _wordPracticeSteps[_currentStepIndex].RestoreButton();
+            var currentStep = _practiceSteps[_currentStepIndex];
+            currentStep.HideStep();
 
             _currentStepIndex++;
 
-            if (_currentStepIndex >= _wordPracticeSteps.Count)
-            {
+            if (currentStep.IsTransition)
                 Hide();
-                return;
-            }
 
             UpdateView();
         }
 
         private void UpdateView()
         {
-            var currentStep = _wordPracticeSteps[_currentStepIndex];
-
-            currentStep.SwitchButton.OnClickAsObservable()
-                .Subscribe(this, (_, self) => self.SwitchWordPracticeStep())
-                .RegisterTo(destroyCancellationToken);
-
-            _messageText.text = currentStep.LocalizationKey.GetLocalization();
-
-            _wordPracticeSteps[_currentStepIndex].ApplyHighlightEffect();
+            var currentStep = _practiceSteps[_currentStepIndex];
+            currentStep.UpdateText(_messageText);
+            currentStep.ActiveStep();
         }
 
         private void OnDestroy()
         {
-            _wordPracticeSteps[_currentStepIndex].RestoreButton();
+            _practiceSteps[_currentStepIndex].HideStep();
         }
     }
 }

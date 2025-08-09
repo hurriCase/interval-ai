@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using CustomUtils.Runtime.Extensions;
+using Cysharp.Threading.Tasks;
 using R3;
 using Source.Scripts.Core.Repositories.Statistics;
 using Source.Scripts.Core.Scenes;
@@ -56,8 +56,8 @@ namespace Source.Scripts.Onboarding.UI.Screen
         {
             if (index >= _inputOnboardingSteps.Count)
             {
-                // _statisticsRepository.IsCompleteOnboarding.Value = true;
-                // _sceneLoader.LoadSceneAsync(_sceneReferences.MainMenuScene.Address, destroyCancellationToken).Forget();
+                _statisticsRepository.IsCompleteOnboarding.Value = true;
+                _sceneLoader.LoadSceneAsync(_sceneReferences.MainMenuScene.Address, destroyCancellationToken).Forget();
                 return;
             }
 

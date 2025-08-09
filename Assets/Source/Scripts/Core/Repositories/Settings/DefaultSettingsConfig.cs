@@ -19,11 +19,15 @@ namespace Source.Scripts.Core.Repositories.Settings
             = new(EnumMode.SkipFirst);
 
         [field: SerializeField]
-        public EnumArray<Language, AssetReferenceT<Sprite>> LanguageSprites { get; private set; } =
+        public EnumArray<LanguageType, SystemLanguage[]> SupportedLanguages { get; private set; } =
             new(EnumMode.SkipFirst);
 
-        [field: SerializeField] public Language DefaultLearningLanguage { get; private set; }
-        [field: SerializeField] public Language AdditionalDefaultLanguage { get; private set; }
+        [field: SerializeField]
+        public EnumArray<SystemLanguage, AssetReferenceT<Sprite>> LanguageSprites { get; private set; } =
+            new(EnumMode.Default);
+
+        [field: SerializeField] public SystemLanguage DefaultNativeLanguage { get; private set; }
+        [field: SerializeField] public SystemLanguage DefaultLearningLanguage { get; private set; }
         [field: SerializeField] public List<CooldownByDate> Cooldowns { get; private set; }
         [field: SerializeField] public int DailyGoal { get; private set; }
     }

@@ -25,10 +25,6 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
         [SerializeField] private float _horizontalDragThresholdRatio;
         [SerializeField] private float _verticalToleranceRatio;
 
-        internal Observable<SwipeDirection> OnSwipe => _onSwipe.AsObservable();
-
-        private readonly Subject<SwipeDirection> _onSwipe = new();
-
         private Vector2 _originalPosition;
         private Camera _uiCamera;
 
@@ -241,11 +237,6 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
             RectTransform.anchoredPosition = _originalPosition;
             RectTransform.rotation = Quaternion.identity;
             RectTransform.localScale = Vector3.one;
-        }
-
-        private void OnDestroy()
-        {
-            _onSwipe?.Dispose();
         }
     }
 }

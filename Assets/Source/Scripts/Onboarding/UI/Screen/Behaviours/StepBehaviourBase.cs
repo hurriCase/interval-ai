@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Source.Scripts.Onboarding.UI.Screen.Behaviours
 {
-    internal class StepBehaviourBase : MonoBehaviour
+    internal abstract class StepBehaviourBase : MonoBehaviour
     {
         protected readonly Subject<Unit> continueSubject = new();
         internal Observable<Unit> OnContinueSubject => continueSubject.AsObservable();

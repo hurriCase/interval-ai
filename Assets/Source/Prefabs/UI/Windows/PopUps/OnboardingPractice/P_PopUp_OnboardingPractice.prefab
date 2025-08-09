@@ -164,6 +164,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3046501804136550812, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3096858253786931419, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
@@ -207,18 +211,93 @@ MonoBehaviour:
   <WindowType>k__BackingField: 4
   _closeButton: {fileID: 0}
   _animationDuration: 0.1
-  _onboardingPracticeBehaviour: {fileID: 0}
   _messageText: {fileID: 1304059584242376303}
   _imageTint: {fileID: 4717582366601789676}
-  _wordPracticeSteps:
-  - <LocalizationKey>k__BackingField: ui.onboarding.press-to-see
-    <SwitchButton>k__BackingField: {fileID: 7278600007402076764}
-  - <LocalizationKey>k__BackingField: ui.onboarding.swipe-if-know
-    <SwitchButton>k__BackingField: {fileID: 2763948563337084204}
-  - <LocalizationKey>k__BackingField: ui.onboarding.hide
-    <SwitchButton>k__BackingField: {fileID: 1719331164926505835}
-  - <LocalizationKey>k__BackingField: ui.onboarding.swipe-to-start-learn
-    <SwitchButton>k__BackingField: {fileID: 1036025075224803146}
+  _practiceSteps:
+  - rid: 7913752748544229587
+  - rid: 7913752748544229588
+  - rid: 7913752748544229589
+  - rid: 7913752748544229590
+  - rid: 7913752748544229592
+  - rid: 7913752748544229593
+  - rid: 7913752748544229594
+  - rid: 7913752748544229595
+  _cardBehaviour: {fileID: 2954492504756468242}
+  _wordProgressBehaviour: {fileID: 3976975605800592982}
+  _controlButtonsBehaviour: {fileID: 4009069790271423997}
+  references:
+    version: 2
+    RefIds:
+    - rid: 7913752748544229587
+      type: {class: HighlightStep, ns: Source.Scripts.Onboarding.UI.PopUp.WordPractice, asm: Source.Scripts.Onboarding}
+      data:
+        _localizationKey: ui.onboarding.press-to-see
+        _textAnchorMin: {x: 0.1546667, y: 0.6279766}
+        _textAnchorMax: {x: 0.848, y: 0.7045669}
+        <IsTransition>k__BackingField: 0
+        _switchButton: {fileID: 7278600007402076764}
+    - rid: 7913752748544229588
+      type: {class: HighlightStep, ns: Source.Scripts.Onboarding.UI.PopUp.WordPractice, asm: Source.Scripts.Onboarding}
+      data:
+        _localizationKey: ui.onboarding.swipe-if-know
+        _textAnchorMin: {x: 0.06933333, y: 0.6279766}
+        _textAnchorMax: {x: 0.9306667, y: 0.7045669}
+        <IsTransition>k__BackingField: 0
+        _switchButton: {fileID: 2763948563337084204}
+    - rid: 7913752748544229589
+      type: {class: HighlightStep, ns: Source.Scripts.Onboarding.UI.PopUp.WordPractice, asm: Source.Scripts.Onboarding}
+      data:
+        _localizationKey: ui.onboarding.hide
+        _textAnchorMin: {x: 0.088, y: 0.6279766}
+        _textAnchorMax: {x: 0.9146667, y: 0.7045669}
+        <IsTransition>k__BackingField: 0
+        _switchButton: {fileID: 1719331164926505835}
+    - rid: 7913752748544229590
+      type: {class: HighlightStep, ns: Source.Scripts.Onboarding.UI.PopUp.WordPractice, asm: Source.Scripts.Onboarding}
+      data:
+        _localizationKey: ui.onboarding.swipe-to-start-learn
+        _textAnchorMin: {x: 0.1626667, y: 0.6279766}
+        _textAnchorMax: {x: 0.84, y: 0.7045669}
+        <IsTransition>k__BackingField: 1
+        _switchButton: {fileID: 1036025075224803146}
+    - rid: 7913752748544229592
+      type: {class: HighlightStep, ns: Source.Scripts.Onboarding.UI.PopUp.WordPractice, asm: Source.Scripts.Onboarding}
+      data:
+        _localizationKey: ui.onboarding.open-by-one-character
+        _textAnchorMin: {x: 0.09333333, y: 0.8536546}
+        _textAnchorMax: {x: 0.9093333, y: 0.930245}
+        <IsTransition>k__BackingField: 0
+        _switchButton: {fileID: 7770896586560293098}
+    - rid: 7913752748544229593
+      type: {class: HighlightStep, ns: Source.Scripts.Onboarding.UI.PopUp.WordPractice, asm: Source.Scripts.Onboarding}
+      data:
+        _localizationKey: ui.onboarding.select-from-four
+        _textAnchorMin: {x: 0.1413333, y: 0.8536546}
+        _textAnchorMax: {x: 0.8586667, y: 0.930245}
+        <IsTransition>k__BackingField: 0
+        _switchButton: {fileID: 7394419687554778158}
+    - rid: 7913752748544229594
+      type: {class: PlainStep, ns: Source.Scripts.Onboarding.UI.PopUp.WordPractice, asm: Source.Scripts.Onboarding}
+      data:
+        _localizationKey: ui.onboarding.select-from-four
+        _textAnchorMin: {x: 0.1413333, y: 0.88493156}
+        _textAnchorMax: {x: 0.8586667, y: 0.9617031}
+        <IsTransition>k__BackingField: 0
+        _switchButtons:
+        - {fileID: 5332584602940939389}
+        - {fileID: 6520082202997368590}
+        - {fileID: 2207315434898497065}
+        - {fileID: 7582661182842861033}
+    - rid: 7913752748544229595
+      type: {class: PlainStep, ns: Source.Scripts.Onboarding.UI.PopUp.WordPractice, asm: Source.Scripts.Onboarding}
+      data:
+        _localizationKey: ui.onboarding.lets-start-practice
+        _textAnchorMin: {x: 0.1413333, y: 0.88493156}
+        _textAnchorMax: {x: 0.8586667, y: 0.9617031}
+        <IsTransition>k__BackingField: 1
+        _switchButtons:
+        - {fileID: 869488142826324787}
+        - {fileID: 5238861705633667296}
 --- !u!224 &8920873631193008674 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4979877736924295988, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
@@ -1236,6 +1315,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
+--- !u!114 &869488142826324787 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4999457986973321383, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
+  m_PrefabInstance: {fileID: 5291921250688109460}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1036025075224803146 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5120624696210029790, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
@@ -1258,9 +1348,64 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2207315434898497065 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6327940001321948605, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
+  m_PrefabInstance: {fileID: 5291921250688109460}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2763948563337084204 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8010543391860553400, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
+  m_PrefabInstance: {fileID: 5291921250688109460}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2954492504756468242 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6949292894134677894, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
+  m_PrefabInstance: {fileID: 5291921250688109460}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d4f34f624c7481e9d57c547b21036bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Cards.CardBehaviour
+--- !u!114 &3976975605800592982 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9097729094807219650, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
+  m_PrefabInstance: {fileID: 5291921250688109460}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31b21cbc60e440e29554cae5bebc27e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.WordProgress.WordProgressBehaviour
+--- !u!114 &4009069790271423997 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9138856895786503785, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
+  m_PrefabInstance: {fileID: 5291921250688109460}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaa5b73e37ba4fe7bfa00e8df1963b48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Cards.ControlsBehaviour
+--- !u!114 &5238861705633667296 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 127370313601782644, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
   m_PrefabInstance: {fileID: 5291921250688109460}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -1274,9 +1419,64 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 63332687948382500, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
   m_PrefabInstance: {fileID: 5291921250688109460}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5332584602940939389 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 248132456376965097, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
+  m_PrefabInstance: {fileID: 5291921250688109460}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6520082202997368590 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1372281148001627290, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
+  m_PrefabInstance: {fileID: 5291921250688109460}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7278600007402076764 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3202734926600352200, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
+  m_PrefabInstance: {fileID: 5291921250688109460}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7394419687554778158 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3453961648291745722, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
+  m_PrefabInstance: {fileID: 5291921250688109460}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7582661182842861033 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2327138888262811261, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
+  m_PrefabInstance: {fileID: 5291921250688109460}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7770896586560293098 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2497082238934696830, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
   m_PrefabInstance: {fileID: 5291921250688109460}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -1307,19 +1507,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0.85866666
       objectReference: {fileID: 0}
     - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.7045669
+      value: 0.9617031
       objectReference: {fileID: 0}
     - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 0.14133333
       objectReference: {fileID: 0}
     - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.6279766
+      value: 0.88493156
       objectReference: {fileID: 0}
     - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_SizeDelta.x
@@ -1379,7 +1579,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7658068928977278699, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_fontSize
-      value: 46.25
+      value: 46.35
       objectReference: {fileID: 0}
     - target: {fileID: 7658068928977278699, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_fontAsset

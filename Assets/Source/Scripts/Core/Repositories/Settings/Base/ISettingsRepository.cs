@@ -3,6 +3,7 @@ using System.Globalization;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Storage;
 using Source.Scripts.Core.Repositories.Words.Base;
+using UnityEngine;
 
 namespace Source.Scripts.Core.Repositories.Settings.Base
 {
@@ -12,8 +13,8 @@ namespace Source.Scripts.Core.Repositories.Settings.Base
         PersistentReactiveProperty<LearningDirectionType> LearningDirection { get; }
         PersistentReactiveProperty<List<CooldownByDate>> RepetitionByCooldown { get; }
         PersistentReactiveProperty<LanguageLevel> LanguageLevel { get; }
-        PersistentReactiveProperty<EnumArray<LanguageType, Language>> LanguageByType { get; }
+        PersistentReactiveProperty<EnumArray<LanguageType, SystemLanguage>> LanguageByType { get; }
         PersistentReactiveProperty<int> DailyGoal { get; }
-        void SetLanguage(Language language, LanguageType languageType);
+        void SetLanguage(SystemLanguage newLanguage, LanguageType requistedLanguageType);
     }
 }

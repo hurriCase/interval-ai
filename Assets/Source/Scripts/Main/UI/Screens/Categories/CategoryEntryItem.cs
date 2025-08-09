@@ -25,6 +25,7 @@ namespace Source.Scripts.Main.UI.Screens.Categories
 
             _titleText.text = categoryEntry.LocalizationKey.GetLocalization();
             _progressText.text = categoryEntry.WordEntries.Count.ToString();
+            _selectedCheckbox.isOn = categoryEntry.IsSelected;
         }
 
         private async UniTask SetCategoryIcon(string assetGUID)

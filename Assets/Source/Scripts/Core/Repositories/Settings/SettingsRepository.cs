@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Threading;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Localization;
@@ -19,15 +20,8 @@ namespace Source.Scripts.Core.Repositories.Settings
         public PersistentReactiveProperty<int> DailyGoal { get; } = new();
         public PersistentReactiveProperty<CultureInfo> CurrentCulture { get; } = new();
         public PersistentReactiveProperty<List<CooldownByDate>> RepetitionByCooldown { get; } = new();
-        public PersistentReactiveProperty<EnumArray<LanguageType, Language>> LanguageByType { get; } = new();
+        public PersistentReactiveProperty<EnumArray<LanguageType, SystemLanguage>> LanguageByType { get; } = new();
         public PersistentReactiveProperty<LearningDirectionType> LearningDirection { get; } = new();
-
-        private static readonly Dictionary<SystemLanguage, Language> _systemLanguageToLanguage =
-            new()
-            {
-                [SystemLanguage.Russian] = Language.Russian,
-                [SystemLanguage.English] = Language.English
-            };
 
         private readonly IDefaultSettingsConfig _defaultSettingsConfig;
 
@@ -67,37 +61,38 @@ namespace Source.Scripts.Core.Repositories.Settings
             await UniTask.WhenAll(initTasks);
         }
 
-        public void SetLanguage(Language language, LanguageType languageType)
+        public void SetLanguage(SystemLanguage newLanguage, LanguageType requistedLanguageType)
         {
             var currentLanguages = LanguageByType.Value;
-            var oppositeLanguageType = GetOppositeLanguageType(languageType);
+            var oppositeLanguageType = GetOppositeLanguageType(requistedLanguageType);
 
-            if (currentLanguages[oppositeLanguageType] == language)
+            if (currentLanguages[oppositeLanguageType] == newLanguage)
             {
-                var previousRequestedLanguage = currentLanguages[languageType];
+                var previousRequestedLanguage = currentLanguages[requistedLanguageType];
                 currentLanguages[oppositeLanguageType] = previousRequestedLanguage;
             }
 
-            currentLanguages[languageType] = language;
-
-            LanguageByType.Value = currentLanguages;
+            currentLanguages[requistedLanguageType] = newLanguage;
             LanguageByType.Property.OnNext(currentLanguages);
         }
 
         private LanguageType GetOppositeLanguageType(LanguageType languageType) =>
             languageType == LanguageType.Native ? LanguageType.Learning : LanguageType.Native;
 
-        private EnumArray<LanguageType, Language> CreateDefaultLanguageByType()
+        private EnumArray<LanguageType, SystemLanguage> CreateDefaultLanguageByType()
         {
-            var systemLanguage = _systemLanguageToLanguage[LocalizationController.Language.Value];
+            var nativeLanguage = LocalizationController.Language.Value;
 
-            var learningLanguage = _defaultSettingsConfig.DefaultLearningLanguage == systemLanguage
-                ? _defaultSettingsConfig.AdditionalDefaultLanguage
+            if (_defaultSettingsConfig.SupportedLanguages[LanguageType.Native].Contains(nativeLanguage) is false)
+                nativeLanguage = _defaultSettingsConfig.DefaultNativeLanguage;
+
+            var learningLanguage = _defaultSettingsConfig.DefaultLearningLanguage == nativeLanguage
+                ? _defaultSettingsConfig.DefaultNativeLanguage
                 : _defaultSettingsConfig.DefaultLearningLanguage;
 
-            var languageArray = new EnumArray<LanguageType, Language>(EnumMode.SkipFirst)
+            var languageArray = new EnumArray<LanguageType, SystemLanguage>(EnumMode.SkipFirst)
             {
-                [LanguageType.Native] = systemLanguage,
+                [LanguageType.Native] = nativeLanguage,
                 [LanguageType.Learning] = learningLanguage
             };
 

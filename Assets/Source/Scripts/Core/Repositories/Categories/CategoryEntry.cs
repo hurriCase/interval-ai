@@ -14,5 +14,6 @@ namespace Source.Scripts.Core.Repositories.Categories
         public string LocalizationKey { get; private set; }
         public List<WordEntry> WordEntries { get; private set; } = new();
         public CategoryType CategoryType { get; private set; } = CategoryType.Default;
+        public bool IsSelected { get; set; }
     }
 }

@@ -11,9 +11,10 @@ namespace Source.Scripts.Core.Repositories.Settings.Base
     {
         EnumArray<PracticeState, LearningState[]> PracticeToLearningStates { get; }
         EnumArray<LanguageLevel, AssetReferenceT<Sprite>> LevelLanguageIcons { get; }
-        EnumArray<Language, AssetReferenceT<Sprite>> LanguageSprites { get; }
-        Language DefaultLearningLanguage { get; }
-        Language AdditionalDefaultLanguage { get; }
+        EnumArray<LanguageType, SystemLanguage[]> SupportedLanguages { get; }
+        EnumArray<SystemLanguage, AssetReferenceT<Sprite>> LanguageSprites { get; }
+        SystemLanguage DefaultNativeLanguage { get; }
+        SystemLanguage DefaultLearningLanguage { get; }
         List<CooldownByDate> Cooldowns { get; }
         int DailyGoal { get; }
     }
