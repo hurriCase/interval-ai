@@ -55,8 +55,6 @@ namespace Source.Scripts.Core.Repositories.Words.Advance
 
             sortedWords.Value[word.LearningState].Add(word);
             sortedWords.OnNext(sortedWords.Value);
-
-            _wordsRepository.WordEntries.SaveAsync();
         }
 
         private void ExecuteUndo()
@@ -90,8 +88,6 @@ namespace Source.Scripts.Core.Repositories.Words.Advance
 
             _wordsTimerService.UpdateTimerForState(oldState);
             _wordsTimerService.UpdateTimerForState(word.LearningState);
-
-            _wordsRepository.WordEntries.SaveAsync();
         }
 
         public void Dispose()

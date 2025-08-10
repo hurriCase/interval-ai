@@ -19,8 +19,8 @@ namespace Source.Scripts.Core.Repositories.Words
 {
     internal sealed class WordsRepository : IWordsRepository, IRepository
     {
-        //TODO:<Dmitriy.Sukharev> make this immutable
-        public PersistentReactiveProperty<Dictionary<int, WordEntry>> WordEntries { get; } = new();
+        private readonly PersistentReactiveProperty<Dictionary<int, WordEntry>> _wordEntries = new();
+
         public ReactiveProperty<EnumArray<LearningState, SortedSet<WordEntry>>> SortedWordsByState { get; }
             = new(new EnumArray<LearningState, SortedSet<WordEntry>>(() => new SortedSet<WordEntry>(_comparer)));
         public ReactiveProperty<EnumArray<PracticeState, WordEntry>> CurrentWordsByState { get; }
@@ -53,7 +53,7 @@ namespace Source.Scripts.Core.Repositories.Words
             {
                 _idHandler.InitAsync(cancellationToken),
 
-                WordEntries.InitAsync(
+                _wordEntries.InitAsync(
                     PersistentKeys.WordEntryKey,
                     cancellationToken,
                     _idHandler.GenerateWithIds(_defaultWordsDatabase.Defaults))
@@ -61,7 +61,7 @@ namespace Source.Scripts.Core.Repositories.Words
 
             await UniTask.WhenAll(initTasks);
 
-            await WordEntries.InitAsync(
+            await _wordEntries.InitAsync(
                 PersistentKeys.WordEntryKey,
                 cancellationToken,
                 _idHandler.GenerateWithIds(_defaultWordsDatabase.Defaults));
@@ -70,7 +70,7 @@ namespace Source.Scripts.Core.Repositories.Words
 
             _wordsTimerService.Init(this);
 
-            _disposable = WordEntries
+            _disposable = _wordEntries
                 .Subscribe(this, static (_, self) => self.UpdateCurrentWords());
         }
 
@@ -94,12 +94,12 @@ namespace Source.Scripts.Core.Repositories.Words
 
         private void SetSortedWords()
         {
-            foreach (var word in WordEntries.Value.Values)
+            foreach (var word in _wordEntries.Value.Values)
                 SortedWordsByState.Value[word.LearningState].Add(word);
         }
 
         public List<WordEntry> GetRandomWords(WordEntry wordToSkip, int count) =>
-            WordEntries.Value.Values.AsValueEnumerable()
+            _wordEntries.Value.Values.AsValueEnumerable()
                 .Where(word => word != wordToSkip && word.IsHidden is false)
                 .OrderBy(_ => Random.value)
                 .Take(count)
@@ -107,7 +107,7 @@ namespace Source.Scripts.Core.Repositories.Words
 
         public void Dispose()
         {
-            WordEntries?.Dispose();
+            _wordEntries?.Dispose();
             _disposable?.Dispose();
         }
     }
