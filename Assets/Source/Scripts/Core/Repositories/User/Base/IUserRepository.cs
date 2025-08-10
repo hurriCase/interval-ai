@@ -1,6 +1,5 @@
 ﻿using CustomUtils.Runtime.Storage;
-using Source.Scripts.Core.Others;
-using CachedSprite = Source.Scripts.Core.Sprites.CachedSprite;
+using Source.Scripts.Core.Sprites;
 
 namespace Source.Scripts.Core.Repositories.User.Base
 {

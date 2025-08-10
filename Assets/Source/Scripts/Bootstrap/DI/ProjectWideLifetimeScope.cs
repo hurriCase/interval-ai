@@ -17,10 +17,10 @@ using Source.Scripts.Core.Repositories.User;
 using Source.Scripts.Core.Repositories.Words;
 using Source.Scripts.Core.Repositories.Words.Advance;
 using Source.Scripts.Core.Repositories.Words.Timer;
+using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Core.Scenes;
 using Source.Scripts.Core.Sprites;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using VContainer;
 using VContainer.Unity;
 
@@ -108,6 +108,7 @@ namespace Source.Scripts.Bootstrap.DI
         {
             builder.Register<IdHandler<WordEntry>>(Lifetime.Singleton).As<IIdHandler<WordEntry>>();
             builder.Register<WordsRepository>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<WordEntry.WordStateMutator>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<WordsTimerService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<WordAdvanceService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.RegisterInstance(_defaultWordsDatabase).As<IDefaultDatabase>().AsSelf();

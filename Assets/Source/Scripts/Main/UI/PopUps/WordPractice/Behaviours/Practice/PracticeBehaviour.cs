@@ -1,8 +1,9 @@
 ﻿using System;
+using CustomUtils.Runtime.Extensions;
 using R3;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Words.Base;
-using Source.Scripts.Core.Repositories.Words.Timer;
+using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe;
 using UnityEngine;
@@ -26,10 +27,15 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice
         [SerializeField] private LearningCompleteBehaviourBase _learningCompleteBehaviour;
 
         [Inject] private IWordsRepository _wordsRepository;
-        [Inject] private IWordsTimerService _wordsTimerService;
 
         internal void Init()
         {
+            _wordsRepository.CurrentWordsByState
+                .Select(this, (currentWords, self)
+                    => currentWords[self._practiceState])
+                .Subscribe(this, (currentWord, self) => self.SwitchState(currentWord))
+                .RegisterTo(destroyCancellationToken);
+
             _cardBehaviour.Init(_practiceState);
 
             _progressIndicatorBehaviour.Init(_practiceState);
@@ -40,26 +46,21 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice
             _controlButtonsBehaviour.Init(_practiceState);
 
             _learningCompleteBehaviour.Init(_practiceState);
-
-            if (_practiceState == PracticeState.Review)
-                _wordsTimerService.OnAvailabilityTimeUpdate
-                    .Where(cooldown => cooldown.State == LearningState.Review)
-                    .Where(cooldown => DateTime.Now >= cooldown.CurrentTime)
-                    .Subscribe(this, static (_, self) => self.UpdateWord())
-                    .RegisterTo(destroyCancellationToken);
-
-            _wordsRepository.CurrentWordsByState
-                .Select(_practiceState, (currentWordsByState, state)
-                    => currentWordsByState[state])
-                .DistinctUntilChanged()
-                .Subscribe(_cardBehaviour,
-                    static (currentWord, cardBehaviour) => cardBehaviour.WordEntry.Value = currentWord)
-                .RegisterTo(destroyCancellationToken);
         }
 
-        private void UpdateWord()
+        private void SwitchState(WordEntry currentWord)
         {
-            _cardBehaviour.WordEntry.Value = _wordsRepository.CurrentWordsByState.Value[_practiceState];
+            var isComplete = currentWord == null || currentWord.Cooldown > DateTime.Now;
+            _cardBehaviour.SetActive(isComplete is false);
+
+            _progressIndicatorBehaviour.SetActive(isComplete is false);
+
+            _swipeCardBehaviour.SetActive(isComplete is false);
+            _wordProgressBehaviour.SetActive(isComplete is false);
+
+            _controlButtonsBehaviour.SetActive(isComplete is false);
+
+            _learningCompleteBehaviour.SetActive(isComplete);
         }
     }
 }

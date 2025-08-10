@@ -35,14 +35,14 @@ namespace Source.Scripts.UI.Components
                     static (_, component) => component.SwitchContent(component._isExpanded is false))
                 .RegisterTo(destroyCancellationToken);
 
-            CreateHiddenContentAnimation(_isInitiallyExpanded ? 1f : 0f, 0f);
+            SwitchContent(_isInitiallyExpanded, true);
 
             ShownContent.OnRectTransformDimensionsChangeAsObservable()
                 .Subscribe(this, static (_, component) => component.UpdateContainerHeight())
                 .RegisterTo(destroyCancellationToken);
         }
 
-        private void SwitchContent(bool isExpanded)
+        private void SwitchContent(bool isExpanded, bool isInstant = false)
         {
             _isExpanded = isExpanded;
 
@@ -50,11 +50,11 @@ namespace Source.Scripts.UI.Components
                 _currentAnimation.Stop();
 
             _currentAnimation = Sequence.Create()
-                .Chain(RotateExpandButtonTween())
-                .Group(AnimateHiddenContentTweens(isExpanded));
+                .Chain(RotateExpandButtonTween(isInstant ? 0f : _expandButtonAnimationDuration))
+                .Group(AnimateHiddenContentTweens(isExpanded, isInstant ? 0f : _hiddenElementsAnimationDuration));
         }
 
-        private Tween RotateExpandButtonTween()
+        private Tween RotateExpandButtonTween(float duration)
         {
             var targetZ = _isExpanded ? _expandedRotationZ : _collapsedRotationZ;
 
@@ -64,7 +64,7 @@ namespace Source.Scripts.UI.Components
             return Tween.Custom(this,
                 _currentRotationZ,
                 finalTargetZ,
-                _expandButtonAnimationDuration,
+                duration,
                 (component, rotationZ) => component.SetButtonRotation(rotationZ));
         }
 
@@ -78,11 +78,11 @@ namespace Source.Scripts.UI.Components
             _currentRotationZ = rotationZ;
         }
 
-        private Sequence AnimateHiddenContentTweens(bool isExpanded) =>
+        private Sequence AnimateHiddenContentTweens(bool isExpanded, float duration) =>
             isExpanded
-                ? CreateHiddenContentAnimation(1f, _hiddenElementsAnimationDuration)
+                ? CreateHiddenContentAnimation(1f, duration)
                     .OnComplete(HiddenContentContainer, accordionItem => accordionItem.CanvasGroup.Show())
-                : CreateHiddenContentAnimation(0f, _hiddenElementsAnimationDuration)
+                : CreateHiddenContentAnimation(0f, duration)
                     .OnComplete(HiddenContentContainer, accordionItem => accordionItem.CanvasGroup.Hide());
 
         private Sequence CreateHiddenContentAnimation(float endValue, float duration) =>

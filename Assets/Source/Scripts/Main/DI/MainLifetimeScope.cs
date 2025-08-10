@@ -1,6 +1,5 @@
 ﻿using Source.Scripts.Core.AI;
 using Source.Scripts.Main.Data;
-using Source.Scripts.Main.UI.PopUps.WordPractice;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice;
 using Source.Scripts.UI.Windows;
 using Source.Scripts.UI.Windows.Base;

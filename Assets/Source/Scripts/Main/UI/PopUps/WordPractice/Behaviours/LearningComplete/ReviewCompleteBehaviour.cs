@@ -1,6 +1,5 @@
 ﻿using R3;
 using Source.Scripts.Core.Localization.LocalizationTypes;
-using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Timer;
 using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base;
@@ -18,7 +17,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
         protected override void OnInit()
         {
             _wordsTimerService.OnAvailabilityTimeUpdate
-                .Where(cooldownByLearningState => cooldownByLearningState.State == LearningState.Review)
+                .Where(cooldownByLearningState => cooldownByLearningState.PracticeState == PracticeState.Review)
                 .Subscribe(this, static (cooldownByLearningState, card) => card.SetState(
                     CompleteType.Complete,
                     cooldownByLearningState.CurrentTime.ToShortTimeString())

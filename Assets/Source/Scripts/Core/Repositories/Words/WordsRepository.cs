@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Storage;
@@ -11,7 +10,7 @@ using Source.Scripts.Core.Repositories.Base;
 using Source.Scripts.Core.Repositories.Base.Id;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.CooldownSystem;
-using Source.Scripts.Core.Repositories.Words.Timer;
+using Source.Scripts.Core.Repositories.Words.Word;
 using ZLinq;
 using Random = UnityEngine.Random;
 
@@ -19,30 +18,30 @@ namespace Source.Scripts.Core.Repositories.Words
 {
     internal sealed class WordsRepository : IWordsRepository, IRepository
     {
-        private readonly PersistentReactiveProperty<Dictionary<int, WordEntry>> _wordEntries = new();
-
-        public ReactiveProperty<EnumArray<LearningState, SortedSet<WordEntry>>> SortedWordsByState { get; }
+        private readonly ReactiveProperty<EnumArray<LearningState, SortedSet<WordEntry>>> _sortedWordsByState
             = new(new EnumArray<LearningState, SortedSet<WordEntry>>(() => new SortedSet<WordEntry>(_comparer)));
-        public ReactiveProperty<EnumArray<PracticeState, WordEntry>> CurrentWordsByState { get; }
+
+        public ReadOnlyReactiveProperty<EnumArray<PracticeState, WordEntry>> CurrentWordsByState =>
+            _currentWordsByState;
+
+        private readonly ReactiveProperty<EnumArray<PracticeState, WordEntry>> _currentWordsByState
             = new(new EnumArray<PracticeState, WordEntry>(EnumMode.SkipFirst));
 
+        private readonly PersistentReactiveProperty<Dictionary<int, WordEntry>> _wordEntries = new();
         private static readonly WordCooldownComparer _comparer = new();
 
         private readonly DefaultWordsDatabase _defaultWordsDatabase;
-        private readonly IWordsTimerService _wordsTimerService;
         private readonly IIdHandler<WordEntry> _idHandler;
         private readonly IAppConfig _appConfig;
 
-        private IDisposable _disposable;
+        private DisposableBag _disposable;
 
         internal WordsRepository(
             DefaultWordsDatabase defaultWordsDatabase,
-            IWordsTimerService wordsTimerService,
             IIdHandler<WordEntry> idHandler,
             IAppConfig appConfig)
         {
             _defaultWordsDatabase = defaultWordsDatabase;
-            _wordsTimerService = wordsTimerService;
             _idHandler = idHandler;
             _appConfig = appConfig;
         }
@@ -61,41 +60,58 @@ namespace Source.Scripts.Core.Repositories.Words
 
             await UniTask.WhenAll(initTasks);
 
-            await _wordEntries.InitAsync(
-                PersistentKeys.WordEntryKey,
-                cancellationToken,
-                _idHandler.GenerateWithIds(_defaultWordsDatabase.Defaults));
-
             SetSortedWords();
 
-            _wordsTimerService.Init(this);
-
-            _disposable = _wordEntries
-                .Subscribe(this, static (_, self) => self.UpdateCurrentWords());
+            _wordEntries
+                .Subscribe(this, static (_, self) => self.UpdateCurrentWords())
+                .AddTo(ref _disposable);
         }
 
-        private void UpdateCurrentWords()
+        public void SetCurrentWord(PracticeState practiceState, WordEntry word)
         {
-            foreach (var (practiceState, learningStates) in _appConfig.TargetStatesForCurrentWord.AsTuples())
+            var currentWordsByState = _currentWordsByState.Value;
+            currentWordsByState[practiceState] = word;
+            _currentWordsByState.Value = currentWordsByState;
+        }
+
+        public void RemoveHiddenWord(WordEntry word)
+        {
+            if (word.IsHidden is false)
+                return;
+
+            _sortedWordsByState.Value[word.LearningState].Remove(word);
+            UpdateCurrentWords();
+        }
+
+        public void UpdateCurrentWords()
+        {
+            foreach (var (practiceState, learningStates) in
+                     _appConfig.TargetLearningStatesForPractice.AsTuples())
             {
                 foreach (var learningState in learningStates)
                 {
-                    var currentWordsByState = CurrentWordsByState.Value;
-                    var minWord = SortedWordsByState.Value[learningState].Min;
+                    var currentWordsByState = _currentWordsByState.Value;
+                    currentWordsByState[practiceState] = _sortedWordsByState.Value[learningState].Min;
+                    _currentWordsByState.Value = currentWordsByState;
+                    _currentWordsByState.OnNext(currentWordsByState);
 
-                    if (minWord is null)
-                        return;
-
-                    currentWordsByState[practiceState] = minWord.Cooldown <= DateTime.Now ? minWord : null;
-                    CurrentWordsByState.Value = currentWordsByState;
+                    if (currentWordsByState[practiceState] != null)
+                        break;
                 }
             }
+
+            _wordEntries.SaveAsync();
         }
 
         private void SetSortedWords()
         {
             foreach (var word in _wordEntries.Value.Values)
-                SortedWordsByState.Value[word.LearningState].Add(word);
+            {
+                if (word.IsHidden)
+                    continue;
+
+                _sortedWordsByState.Value[word.LearningState].Add(word);
+            }
         }
 
         public List<WordEntry> GetRandomWords(WordEntry wordToSkip, int count) =>
@@ -108,7 +124,7 @@ namespace Source.Scripts.Core.Repositories.Words
         public void Dispose()
         {
             _wordEntries?.Dispose();
-            _disposable?.Dispose();
+            _disposable.Dispose();
         }
     }
 }

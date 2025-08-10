@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using R3;
-using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Repositories.Progress;
 using Source.Scripts.Core.Repositories.Progress.Base;
-using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Timer;
-using ZLinq;
+using Source.Scripts.Core.Repositories.Words.Word;
 
 namespace Source.Scripts.Core.Repositories.Words.Advance
 {
@@ -17,26 +15,23 @@ namespace Source.Scripts.Core.Repositories.Words.Advance
         public ReactiveCommand UndoCommand { get; } = new();
 
         private readonly IWordsRepository _wordsRepository;
-        private readonly IAppConfig _appConfig;
+        private readonly IWordStateMutator _wordStateMutator;
         private readonly IWordsTimerService _wordsTimerService;
         private readonly IProgressRepository _progressRepository;
-        private readonly ISettingsRepository _settingsRepository;
 
         private readonly Stack<(WordMemento, ProgressRepository.ProgressMemento)> _undoStack = new();
         private readonly ReactiveProperty<bool> _canUndo = new(false);
 
         internal WordAdvanceService(
             IWordsRepository wordsRepository,
-            IAppConfig appConfig,
+            IWordStateMutator wordStateMutator,
             IWordsTimerService wordsTimerService,
-            IProgressRepository progressRepository,
-            ISettingsRepository settingsRepository)
+            IProgressRepository progressRepository)
         {
             _wordsRepository = wordsRepository;
-            _appConfig = appConfig;
+            _wordStateMutator = wordStateMutator;
             _wordsTimerService = wordsTimerService;
             _progressRepository = progressRepository;
-            _settingsRepository = settingsRepository;
 
             UndoCommand.Subscribe(this, static (_, service) => service.ExecuteUndo());
         }
@@ -45,16 +40,9 @@ namespace Source.Scripts.Core.Repositories.Words.Advance
         {
             UpdateUndo(word);
 
-            var sortedWords = _wordsRepository.SortedWordsByState;
-            sortedWords.Value[word.LearningState].Remove(word);
-
-            word.AdvanceLearningState(success);
-
-            if (_appConfig.CooldownStates.AsValueEnumerable().Contains(word.LearningState))
-                AdvanceCooldown(word);
-
-            sortedWords.Value[word.LearningState].Add(word);
-            sortedWords.OnNext(sortedWords.Value);
+            _wordStateMutator.AdvanceLearningState(word, success);
+            _wordsTimerService.UpdateTimers();
+            _wordsRepository.UpdateCurrentWords();
         }
 
         private void ExecuteUndo()
@@ -77,17 +65,6 @@ namespace Source.Scripts.Core.Repositories.Words.Advance
 
             _undoStack.Push((wordState, progressState));
             _canUndo.Value = _undoStack.Count > 0;
-        }
-
-        private void AdvanceCooldown(WordEntry word)
-        {
-            var oldState = word.LearningState;
-
-            var cooldownData = _settingsRepository.RepetitionByCooldown.Value[word.RepetitionCount];
-            word.Cooldown = cooldownData.AddToDateTime(DateTime.Now);
-
-            _wordsTimerService.UpdateTimerForState(oldState);
-            _wordsTimerService.UpdateTimerForState(word.LearningState);
         }
 
         public void Dispose()

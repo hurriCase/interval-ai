@@ -1,12 +1,11 @@
 ﻿using System;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions;
-using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Settings.Base;
-using Source.Scripts.Core.Repositories.Words;
+using Source.Scripts.Core.Repositories.Words.Word;
+using Source.Scripts.Core.Sprites;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using CachedSprite = Source.Scripts.Core.Sprites.CachedSprite;
 
 namespace Source.Scripts.Onboarding.Data
 {

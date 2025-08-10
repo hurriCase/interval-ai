@@ -1,5 +1,4 @@
-﻿using System;
-using R3;
+﻿using R3;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.UI.Components;
 using TMPro;

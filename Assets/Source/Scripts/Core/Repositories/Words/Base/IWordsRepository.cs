@@ -1,15 +1,17 @@
 ﻿using System.Collections.Generic;
 using CustomUtils.Runtime.CustomTypes.Collections;
-using CustomUtils.Runtime.Storage;
 using R3;
 using Source.Scripts.Core.Localization.LocalizationTypes;
+using Source.Scripts.Core.Repositories.Words.Word;
 
 namespace Source.Scripts.Core.Repositories.Words.Base
 {
     internal interface IWordsRepository
     {
-        public ReactiveProperty<EnumArray<LearningState, SortedSet<WordEntry>>> SortedWordsByState { get; }
-        ReactiveProperty<EnumArray<PracticeState, WordEntry>> CurrentWordsByState { get; }
+        ReadOnlyReactiveProperty<EnumArray<PracticeState, WordEntry>> CurrentWordsByState { get; }
+        void UpdateCurrentWords();
+        void RemoveHiddenWord(WordEntry word);
         List<WordEntry> GetRandomWords(WordEntry wordToSkip, int count);
+        void SetCurrentWord(PracticeState practiceState, WordEntry word);
     }
 }

@@ -2,5 +2,5 @@
 
 namespace Source.Scripts.Core.Repositories.Words
 {
-    internal sealed class DefaultWordsDatabase : DefaultDataDatabaseBase<WordEntry> { }
+    internal sealed class DefaultWordsDatabase : DefaultDataDatabaseBase<Word.WordEntry> { }
 }

@@ -1,4 +1,4 @@
-﻿namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
+﻿namespace Source.Scripts.Core.Configs
 {
     internal interface ISwipeConfig
     {

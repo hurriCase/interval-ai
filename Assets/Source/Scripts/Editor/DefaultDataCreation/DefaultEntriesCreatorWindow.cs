@@ -5,7 +5,7 @@ using CustomUtils.Editor.SheetsDownloader;
 using CustomUtils.Runtime.Extensions;
 using Source.Scripts.Core.Importer;
 using Source.Scripts.Core.Repositories.Categories;
-using Source.Scripts.Core.Repositories.Words;
+using Source.Scripts.Core.Repositories.Words.Word;
 using UnityEditor;
 using UnityEngine;
 
@@ -18,7 +18,7 @@ namespace Source.Scripts.Editor.DefaultDataCreation
 
         protected override DefaultDataDatabase Database => DefaultDataDatabase.Instance;
 
-        [MenuItem("--Project--/Game Data Manager")]
+        [MenuItem("--Project--/" + nameof(GameDataWindow))]
         internal static void ShowWindow()
         {
             GetWindow<GameDataWindow>(nameof(GameDataWindow).ToSpacedWords());

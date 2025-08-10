@@ -11,7 +11,7 @@ namespace Source.Scripts.Core.Configs
         EnumArray<LearningState, TrackConditionType> TrackConditionTypes { get; }
         EnumArray<LearningState, LearningState> SuccessTransitionMap { get; }
         EnumArray<LearningState, LearningState> FailureTransitionMap { get; }
-        EnumArray<PracticeState, LearningState[]> TargetStatesForCurrentWord { get; }
+        EnumArray<PracticeState, LearningState[]> TargetLearningStatesForPractice { get; }
         EnumArray<PracticeState, LearningState> TargetStateForLearnedWords { get; }
         EnumArray<PracticeState, ModuleType> PracticeToModuleType { get; }
         EnumArray<LanguageType, SystemLanguage[]> SupportedLanguages { get; }

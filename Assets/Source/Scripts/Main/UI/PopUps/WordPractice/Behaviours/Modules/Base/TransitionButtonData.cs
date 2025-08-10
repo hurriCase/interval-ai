@@ -16,7 +16,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base
         {
             Button.OnClickAsObservable()
                 .Subscribe((cardBehaviour, ModuleType),
-                    static (_, tuple) => tuple.cardBehaviour.SwitchModule(tuple.ModuleType))
+                    static (_, tuple) => tuple.cardBehaviour.SwitchModuleCommand.Execute(tuple.ModuleType))
                 .RegisterTo(cancellationToken);
         }
     }

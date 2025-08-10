@@ -2,10 +2,11 @@
 using CustomUtils.Runtime.CustomBehaviours;
 using PrimeTween;
 using R3;
+using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Input;
 using Source.Scripts.Core.Localization.LocalizationTypes;
-using Source.Scripts.Core.Repositories.Words;
 using Source.Scripts.Core.Repositories.Words.Base;
+using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice;
 using UnityEngine;
 using VContainer;
@@ -31,7 +32,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
         private bool _isDragging;
         private bool _isPointerPressed;
 
-        private WordEntry CurrentWord => _wordsRepository.CurrentWordsByState.Value[_currentPracticeState];
+        private WordEntry CurrentWord => _wordsRepository.CurrentWordsByState.CurrentValue[_currentPracticeState];
 
         private PracticeState _currentPracticeState;
 

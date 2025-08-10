@@ -22,7 +22,7 @@ namespace Source.Scripts.Core.Configs
 
         private EnumArray<PracticeState, LearningState> _targetStateForLearnedWords;
         [field: SerializeField]
-        public EnumArray<PracticeState, LearningState[]> TargetStatesForCurrentWord { get; private set; }
+        public EnumArray<PracticeState, LearningState[]> TargetLearningStatesForPractice { get; private set; }
             = new(EnumMode.SkipFirst);
 
         [field: SerializeField]

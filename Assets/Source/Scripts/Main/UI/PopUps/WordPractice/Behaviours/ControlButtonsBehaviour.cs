@@ -1,7 +1,7 @@
 ﻿using R3;
 using Source.Scripts.Core.Localization.LocalizationTypes;
-using Source.Scripts.Core.Repositories.Words;
 using Source.Scripts.Core.Repositories.Words.Base;
+using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.UI.Components;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,9 +22,10 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
         [SerializeField] private GameObject _otherShowContainer;
 
         [Inject] private IWordAdvanceService _wordAdvanceService;
+        [Inject] private IWordStateMutator _wordStateMutator;
         [Inject] private IWordsRepository _wordsRepository;
 
-        private WordEntry CurrentWord => _wordsRepository.CurrentWordsByState.Value[_currentPracticeState];
+        private WordEntry CurrentWord => _wordsRepository.CurrentWordsByState.CurrentValue[_currentPracticeState];
 
         private PracticeState _currentPracticeState;
 
@@ -33,7 +34,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
             _currentPracticeState = practiceState;
 
             _hideButton.OnClickAsObservable()
-                .Subscribe(this, (_, self) => self.CurrentWord.IsHidden = true)
+                .Subscribe(this, (_, self)
+                    => self._wordStateMutator.HideWord(self.CurrentWord))
                 .RegisterTo(destroyCancellationToken);
 
             _wordsRepository.CurrentWordsByState
@@ -59,12 +61,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
 
         private void SubscribeAdvanceButton(Button button, bool success) =>
             button.OnClickAsObservable()
-                .Subscribe((behaviour: this, success), (_, tuple) => tuple.behaviour.AdvanceWord(tuple.success))
+                .Subscribe((self: this, success), static (_, tuple)
+                    => tuple.self._wordAdvanceService.AdvanceWord(tuple.self.CurrentWord, tuple.success))
                 .RegisterTo(destroyCancellationToken);
-
-        private void AdvanceWord(bool success)
-        {
-            _wordAdvanceService.AdvanceWord(CurrentWord, success);
-        }
     }
 }

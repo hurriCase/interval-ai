@@ -4,7 +4,8 @@ using CustomUtils.Runtime.Extensions;
 using R3;
 using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Localization.LocalizationTypes;
-using Source.Scripts.Core.Repositories.Words;
+using Source.Scripts.Core.Repositories.Words.Base;
+using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base;
 using UnityEngine;
 using VContainer;
@@ -15,9 +16,12 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
     {
         [SerializeField] private EnumArray<ModuleType, PracticeModuleBase> _practiceModules = new(EnumMode.SkipFirst);
 
+        [Inject] private IWordsRepository _wordsRepository;
         [Inject] private IAppConfig _appConfig;
 
-        internal ReactiveProperty<WordEntry> WordEntry { get; } = new();
+        internal ReactiveCommand<ModuleType> SwitchModuleCommand { get; } = new();
+
+        private WordEntry WordEntry => _wordsRepository.CurrentWordsByState.CurrentValue[_practiceState];
 
         private PracticeState _practiceState;
 
@@ -28,27 +32,34 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
             foreach (var module in _practiceModules)
                 module.Init(this);
 
-            WordEntry.Subscribe(this, (_, self) => self.UpdateView())
+            _wordsRepository.CurrentWordsByState
+                .Select(_practiceState, (currentWordsByState, state)
+                    => currentWordsByState[state])
+                .Subscribe(this, static (_, self) => self.HandleNewWord())
                 .RegisterTo(destroyCancellationToken);
+
+            SwitchModuleCommand
+                .Subscribe(this, (moduleType, self) => self.SwitchModule(moduleType))
+                .RegisterTo(destroyCancellationToken);
+
+            HandleNewWord();
         }
 
-        private void UpdateView()
+        private void HandleNewWord()
         {
-            var isWordAvailable = WordEntry.Value != null && WordEntry.Value.Cooldown <= DateTime.Now;
+            SwitchModuleCommand.ChangeCanExecute(WordEntry != null && WordEntry.Cooldown <= DateTime.Now);
 
-            gameObject.SetActive(isWordAvailable);
-
-            if (isWordAvailable is false)
+            if (SwitchModuleCommand.CanExecute() is false)
                 return;
 
             SwitchModule(_appConfig.PracticeToModuleType[_practiceState]);
         }
 
-        internal void SwitchModule(ModuleType moduleType)
+        private void SwitchModule(ModuleType moduleType)
         {
             foreach (var (type, module) in _practiceModules.AsTuples())
             {
-                module.SetCurrentWord(WordEntry.Value);
+                module.SetCurrentWord(WordEntry);
                 module.SetActive(type == moduleType);
             }
         }

@@ -1,5 +1,4 @@
 ﻿using CustomUtils.Runtime.Extensions;
-using CustomUtils.Runtime.Localization;
 using Cysharp.Text;
 using R3;
 using Source.Scripts.Core.Localization.Base;
@@ -39,8 +38,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
 
         private void UpdateLearnedText(int wordsCount)
         {
-            var localizationKey = _localizationKeysDatabase.GetLearnedCountLocalization(wordsCount);
-            _learnedText.SetTextFormat(LocalizationController.Localize(localizationKey), wordsCount);
+            var localization = _localizationKeysDatabase.GetLearnedCountLocalization(wordsCount);
+            _learnedText.SetTextFormat(localization, wordsCount);
         }
     }
 }

@@ -6,8 +6,8 @@ using R3;
 using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Localization.LocalizationTypes;
-using Source.Scripts.Core.Repositories.Words;
 using Source.Scripts.Core.Repositories.Words.Base;
+using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice;
 using Source.Scripts.Main.UI.Shared;
 using Source.Scripts.UI.Components;
@@ -65,31 +65,21 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
                     static (_, controller) => controller.OpenScreenByType(ScreenType.LearningWords))
                 .RegisterTo(destroyCancellationToken);
 
-            _wordsRepository.SortedWordsByState
-                .Subscribe(this, static (sortedWords, self)
-                    => self.CheckCompleteness(sortedWords))
+            _wordsRepository.CurrentWordsByState
+                .Subscribe(this, static (currentWords, self)
+                    => self.CheckCompleteness(currentWords))
                 .RegisterTo(destroyCancellationToken);
 
             OnInit();
         }
 
-        private void CheckCompleteness(EnumArray<LearningState, SortedSet<WordEntry>> sortedWords)
+        private void CheckCompleteness(EnumArray<PracticeState, WordEntry> currentWords)
         {
-            foreach (var (learningState, words) in sortedWords.AsTuples())
-            {
-                var targetLearningStates = _appConfig.TargetStatesForCurrentWord[_currentPracticeState];
-
-                foreach (var targetLearningState in targetLearningStates)
-                {
-                    if (targetLearningState != learningState)
-                        continue;
-
-                    if (words.Count == 0)
-                        SetState(CompleteType.NoWords);
-                    else if (words.Min.Cooldown > DateTime.Now)
-                        SetState(CompleteType.Complete);
-                }
-            }
+            var currentWord = currentWords[_currentPracticeState];
+            if (currentWord == null)
+                SetState(CompleteType.NoWords);
+            else if (currentWord.Cooldown > DateTime.Now)
+                SetState(CompleteType.Complete);
         }
 
         protected void SetState(CompleteType completeType, string newWordCount = null)

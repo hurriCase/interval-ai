@@ -1,7 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.Loader;
 using Source.Scripts.Core.Repositories.Settings.Base;
-using Source.Scripts.Core.Repositories.Words;
+using Source.Scripts.Core.Repositories.Words.Word;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

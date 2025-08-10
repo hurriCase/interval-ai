@@ -1,5 +1,4 @@
-﻿using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Source.Scripts.Core.Configs
 {

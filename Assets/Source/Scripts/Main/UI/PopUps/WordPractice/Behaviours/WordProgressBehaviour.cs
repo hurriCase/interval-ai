@@ -2,8 +2,8 @@
 using R3;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Settings.Base;
-using Source.Scripts.Core.Repositories.Words;
 using Source.Scripts.Core.Repositories.Words.Base;
+using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.Shared;
 using UnityEngine;
 using VContainer;
@@ -72,7 +72,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
         {
             for (var i = 0; i < _createdSegments.Count; i++)
             {
-                var state = i < wordEntry.RepetitionCount ? ActivityState.Active : ActivityState.InActive;
+                var state = i < wordEntry.ReviewCount ? ActivityState.Active : ActivityState.InActive;
                 _activityMapping.SetComponentForState(state, _createdSegments[i].ImageTheme);
             }
         }

@@ -1,7 +1,6 @@
 ﻿using System;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using MemoryPack;
-using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Words.Base;
 
 namespace Source.Scripts.Core.Repositories.Progress

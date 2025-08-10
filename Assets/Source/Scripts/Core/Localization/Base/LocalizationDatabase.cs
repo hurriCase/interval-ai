@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using CustomUtils.Runtime.CustomTypes.Collections;
+﻿using CustomUtils.Runtime.CustomTypes.Collections;
 using Source.Scripts.Core.Repositories.Settings.Base;
-using Source.Scripts.Core.Repositories.Words.Base;
 using UnityEngine;
 
 namespace Source.Scripts.Core.Localization.Base

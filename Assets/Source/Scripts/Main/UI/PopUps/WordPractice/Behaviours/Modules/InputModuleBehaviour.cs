@@ -1,5 +1,5 @@
 ﻿using R3;
-using Source.Scripts.Core.Repositories.Words;
+using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base;
 using TMPro;
 using UnityEngine;
@@ -19,16 +19,18 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules
             base.Init(cardBehaviour);
 
             _hintButton.OnClickAsObservable()
-                .Subscribe(this, (_, behaviour) =>
-                {
-                    var hiddenWord = behaviour.currentWord.GetHiddenWord(settingsRepository);
-                    if (behaviour._shownSymbolCount >= hiddenWord.Length)
-                        return;
-
-                    behaviour._inputField.text += hiddenWord[behaviour._shownSymbolCount];
-                    behaviour._shownSymbolCount++;
-                })
+                .Subscribe(this, (_, self) => self.AddHintCharacter())
                 .RegisterTo(destroyCancellationToken);
+        }
+
+        private void AddHintCharacter()
+        {
+            var hiddenWord = currentWord.GetHiddenWord(settingsRepository);
+            if (_shownSymbolCount >= hiddenWord.Length)
+                return;
+
+            _inputField.text += hiddenWord[_shownSymbolCount];
+            _shownSymbolCount++;
         }
 
         protected override void UpdateView()

@@ -3,7 +3,6 @@ using R3;
 using R3.Triggers;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Words.Base;
-using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice;
 using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base;
@@ -15,7 +14,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice
     internal sealed class WordPracticePopUp : PopUpBase
     {
         [SerializeField] private TabComponent _newWordsTab;
-        [SerializeField] private TabComponent _repetitionTab;
+        [SerializeField] private TabComponent _reviewTab;
 
         [SerializeField] private PracticeBehaviour _newWordsPracticeBehaviour;
         [SerializeField] private PracticeBehaviour _reviewPracticeBehaviour;
@@ -39,7 +38,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice
                 .Subscribe(this, static (_, popUp) => popUp.SwitchToState(PracticeState.NewWords))
                 .RegisterTo(destroyCancellationToken);
 
-            _repetitionTab.OnPointerClickAsObservable()
+            _reviewTab.OnPointerClickAsObservable()
                 .Where(_practiceStateService.CurrentState, static (_, state)
                     => state.CurrentValue != PracticeState.Review)
                 .Subscribe(this, static (_, popUp) => popUp.SwitchToState(PracticeState.Review))
@@ -52,7 +51,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice
 
         internal override void Show()
         {
-            var currentWords = _wordsRepository.CurrentWordsByState.Value;
+            var currentWords = _wordsRepository.CurrentWordsByState.CurrentValue;
             if (currentWords[PracticeState.NewWords] is null && currentWords[PracticeState.Review] != null)
                 _practiceStateService.SetState(PracticeState.Review);
             else
@@ -78,7 +77,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice
                 ? 0
                 : -(containerWidth / 2 + containerWidth / _spacingBetweenTabsRatio);
 
-            _repetitionTab.isOn = currentState == PracticeState.Review;
+            _reviewTab.isOn = currentState == PracticeState.Review;
             _newWordsTab.isOn = currentState == PracticeState.NewWords;
 
             Tween.UIAnchoredPositionX(_cardsContainer, endValue, isInstant ? 0 : _switchAnimationDuration);

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using R3;
 using Source.Scripts.Core.Configs;
-using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Settings.Base;
+using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours;
 using Source.Scripts.Onboarding.Data;
 using Source.Scripts.Onboarding.UI.PopUp.WordPractice;
@@ -27,6 +27,7 @@ namespace Source.Scripts.Onboarding.UI.PopUp
 
         [Inject] private IOnboardingConfig _onboardingConfig;
         [Inject] private ISettingsRepository _settingsRepository;
+        [Inject] private IWordsRepository _wordsRepository;
         [Inject] private IAppConfig _appConfig;
 
         private ButtonComponent _continueButton;
@@ -43,7 +44,7 @@ namespace Source.Scripts.Onboarding.UI.PopUp
 
             var onboardingWord = _onboardingConfig.OnboardingWord.CreateWord(_settingsRepository.LanguageByType.Value);
 
-            _cardBehaviour.WordEntry.Value = onboardingWord;
+            _wordsRepository.SetCurrentWord(practiceState, onboardingWord);
 
             _wordProgressBehaviour.Init(practiceState);
             _controlButtonsBehaviour.Init(practiceState);

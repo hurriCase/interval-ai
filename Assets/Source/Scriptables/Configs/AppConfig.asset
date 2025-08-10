@@ -12,17 +12,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eaa60cf7f1f4204ab22b5dbaf41a2a1, type: 3}
   m_Name: AppConfig
   m_EditorClassIdentifier: Source.Scripts.Core::Source.Scripts.Core.Configs.AppConfig
-  <TargetStatesForCurrentWord>k__BackingField:
+  <TrackConditionTypes>k__BackingField:
+    <Entries>k__BackingField:
+    - <Value>k__BackingField: 2
+    - <Value>k__BackingField: 1
+    - <Value>k__BackingField: 2
+    - <Value>k__BackingField: 2
+    - <Value>k__BackingField: 1
+    <EnumMode>k__BackingField: 1
+  <SuccessTransitionMap>k__BackingField:
+    <Entries>k__BackingField:
+    - <Value>k__BackingField: 2
+    - <Value>k__BackingField: 1
+    - <Value>k__BackingField: 3
+    - <Value>k__BackingField: 3
+    - <Value>k__BackingField: 4
+    <EnumMode>k__BackingField: 1
+  <FailureTransitionMap>k__BackingField:
+    <Entries>k__BackingField:
+    - <Value>k__BackingField: 1
+    - <Value>k__BackingField: 1
+    - <Value>k__BackingField: 2
+    - <Value>k__BackingField: 3
+    - <Value>k__BackingField: 4
+    <EnumMode>k__BackingField: 1
+  <TargetLearningStatesForPractice>k__BackingField:
     <Entries>k__BackingField:
     - <Value>k__BackingField: 
-    - <Value>k__BackingField: 
-    - <Value>k__BackingField: 
+    - <Value>k__BackingField: 0000000002000000
+    - <Value>k__BackingField: 03000000
     <EnumMode>k__BackingField: 2
   <TargetStateForLearnedWords>k__BackingField:
     <Entries>k__BackingField:
     - <Value>k__BackingField: 0
     - <Value>k__BackingField: 2
-    - <Value>k__BackingField: 0
+    - <Value>k__BackingField: 3
     <EnumMode>k__BackingField: 2
   <PracticeToModuleType>k__BackingField:
     <Entries>k__BackingField:
@@ -36,7 +60,8 @@ MonoBehaviour:
     - <Value>k__BackingField: 0a0000001e00000022000000
     - <Value>k__BackingField: 0a0000001e00000022000000
     <EnumMode>k__BackingField: 2
+  <CooldownStates>k__BackingField: 03000000
   <OnboardingPracticeState>k__BackingField: 1
   <DefaultNativeLanguage>k__BackingField: 34
   <DefaultLearningLanguage>k__BackingField: 10
-  <LearningStateForDailyGoal>k__BackingField: 0
+  <LearningStateForDailyGoal>k__BackingField: 2
