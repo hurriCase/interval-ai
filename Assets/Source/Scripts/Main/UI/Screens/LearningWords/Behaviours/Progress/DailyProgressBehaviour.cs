@@ -34,12 +34,12 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.Progress
                 .DistinctUntilChangedBy(progress => progress)
                 .Subscribe(this, (progressEntry, behaviour) => behaviour.UpdateProgress(progressEntry));
 
-            UpdateProgress(_progressRepository.ProgressHistory.Value);
+            UpdateProgress(_progressRepository.ProgressHistory.CurrentValue);
         }
 
         private void UpdateProgress(Dictionary<DateTime, DailyProgress> progressHistory)
         {
-            var dailyGoal = Mathf.Max(1, _progressRepository.NewWordsDailyTarget.Value);
+            var dailyGoal = Mathf.Max(1, _progressRepository.NewWordsDailyTarget.CurrentValue);
             var learnedCount = progressHistory.TryGetValue(DateTime.Now, out var dailyProgress)
                 ? Mathf.Max(0, dailyProgress.GetProgressCountData(LearningState.CurrentlyLearning))
                 : 0;

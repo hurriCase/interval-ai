@@ -30,7 +30,7 @@ namespace Source.Scripts.Core.Repositories.Progress
         {
             var today = DateTime.Now.Date;
             var currentWeekStart = GetFirstDayOfWeek(today);
-            var progressEntry = _progressRepository.ProgressHistory.Value;
+            var progressEntry = _progressRepository.ProgressHistory.CurrentValue;
             for (var i = 0; i < DaysPerWeek; i++)
             {
                 var date = currentWeekStart.AddDays(i);
@@ -50,7 +50,7 @@ namespace Source.Scripts.Core.Repositories.Progress
             var monthStart = new DateTime(year, month, 1);
             var firstWeekStart = GetFirstDayOfWeek(monthStart);
             var calendarEnd = firstWeekStart.AddDays(CalendarWeeks * DaysPerWeek - 1);
-            var progressEntry = _progressRepository.ProgressHistory.Value;
+            var progressEntry = _progressRepository.ProgressHistory.CurrentValue;
             var dayIndex = 0;
 
             for (var date = firstWeekStart; date <= calendarEnd; date = date.AddDays(1))
@@ -75,7 +75,7 @@ namespace Source.Scripts.Core.Repositories.Progress
             var endDate = DateTime.Now.Date.AddDays(-daysBack);
             var startDate = endDate.AddDays(-daysDuration + 1);
 
-            var progressEntry = _progressRepository.ProgressHistory.Value;
+            var progressEntry = _progressRepository.ProgressHistory.CurrentValue;
             var totalProgress = 0;
 
             for (var date = startDate.Date; date <= endDate.Date; date = date.AddDays(1))

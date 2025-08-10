@@ -4,8 +4,8 @@ namespace Source.Scripts.Core.Repositories.Words.Base
 {
     internal interface IWordAdvanceService
     {
-        Observable<bool> CanUndo { get; }
+        ReadOnlyReactiveProperty<bool> CanUndo { get; }
+        ReactiveCommand UndoCommand { get; }
         void AdvanceWord(WordEntry word, bool success);
-        void UndoWordAdvance();
     }
 }

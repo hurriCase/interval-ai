@@ -11,9 +11,10 @@ using ZLinq;
 
 namespace Source.Scripts.Core.Repositories.Words.Advance
 {
-    internal sealed class WordAdvanceService : IWordAdvanceService
+    internal sealed class WordAdvanceService : IWordAdvanceService, IDisposable
     {
-        public Observable<bool> CanUndo => _canUndo.AsObservable();
+        public ReadOnlyReactiveProperty<bool> CanUndo => _canUndo;
+        public ReactiveCommand UndoCommand { get; } = new();
 
         private readonly IWordsRepository _wordsRepository;
         private readonly IAppConfig _appConfig;
@@ -21,8 +22,8 @@ namespace Source.Scripts.Core.Repositories.Words.Advance
         private readonly IProgressRepository _progressRepository;
         private readonly ISettingsRepository _settingsRepository;
 
-        private readonly Stack<(WordMemento, ProgressMemento)> _undoStack = new();
-        private readonly Subject<bool> _canUndo = new();
+        private readonly Stack<(WordMemento, ProgressRepository.ProgressMemento)> _undoStack = new();
+        private readonly ReactiveProperty<bool> _canUndo = new(false);
 
         internal WordAdvanceService(
             IWordsRepository wordsRepository,
@@ -36,6 +37,8 @@ namespace Source.Scripts.Core.Repositories.Words.Advance
             _wordsTimerService = wordsTimerService;
             _progressRepository = progressRepository;
             _settingsRepository = settingsRepository;
+
+            UndoCommand.Subscribe(this, static (_, service) => service.ExecuteUndo());
         }
 
         public void AdvanceWord(WordEntry word, bool success)
@@ -56,16 +59,7 @@ namespace Source.Scripts.Core.Repositories.Words.Advance
             _wordsRepository.WordEntries.SaveAsync();
         }
 
-        private void UpdateUndo(WordEntry word)
-        {
-            var wordState = new WordMemento(word);
-            var progressState = new ProgressMemento(_progressRepository);
-
-            _undoStack.Push((wordState, progressState));
-            _canUndo.OnNext(_undoStack.Count > 0);
-        }
-
-        public void UndoWordAdvance()
+        private void ExecuteUndo()
         {
             if (_undoStack.Count == 0)
                 return;
@@ -75,7 +69,16 @@ namespace Source.Scripts.Core.Repositories.Words.Advance
             wordState.Undo();
             progressState.Undo();
 
-            _canUndo.OnNext(_undoStack.Count > 0);
+            _canUndo.Value = _undoStack.Count > 0;
+        }
+
+        private void UpdateUndo(WordEntry word)
+        {
+            var wordState = new WordMemento(word);
+            var progressState = _progressRepository.CreateMemento();
+
+            _undoStack.Push((wordState, progressState));
+            _canUndo.Value = _undoStack.Count > 0;
         }
 
         private void AdvanceCooldown(WordEntry word)
@@ -89,6 +92,12 @@ namespace Source.Scripts.Core.Repositories.Words.Advance
             _wordsTimerService.UpdateTimerForState(word.LearningState);
 
             _wordsRepository.WordEntries.SaveAsync();
+        }
+
+        public void Dispose()
+        {
+            _canUndo.Dispose();
+            UndoCommand.Dispose();
         }
     }
 }

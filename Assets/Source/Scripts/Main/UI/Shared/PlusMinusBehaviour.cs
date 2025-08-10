@@ -1,4 +1,5 @@
-﻿using R3;
+﻿using System;
+using R3;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.UI.Components;
 using TMPro;
@@ -23,18 +24,18 @@ namespace Source.Scripts.Main.UI.Shared
                         => behaviour._dailyWordGoalText.text = wordsTarget.ToString())
                 .RegisterTo(destroyCancellationToken);
 
+            _progressRepository.CanReduceDailyTarget
+                .Subscribe(this, static (canReduce, self) => self._minusButton.interactable = canReduce)
+                .RegisterTo(destroyCancellationToken);
+
             _minusButton.OnClickAsObservable()
-                .Subscribe(this, static (_, behaviour) =>
-                {
-                    var wordsTarget = behaviour._progressRepository.NewWordsDailyTarget;
-                    wordsTarget.Value--;
-                    behaviour._minusButton.interactable = wordsTarget.Value > 0;
-                })
+                .Subscribe(this, static (_, self)
+                    => self._progressRepository.DailyTargetCommand.Execute(-1))
                 .RegisterTo(destroyCancellationToken);
 
             _plusButton.OnClickAsObservable()
-                .Subscribe(this, static (_, behaviour)
-                    => behaviour._progressRepository.NewWordsDailyTarget.Value++)
+                .Subscribe(this, static (_, self)
+                    => self._progressRepository.DailyTargetCommand.Execute(+1))
                 .RegisterTo(destroyCancellationToken);
         }
     }

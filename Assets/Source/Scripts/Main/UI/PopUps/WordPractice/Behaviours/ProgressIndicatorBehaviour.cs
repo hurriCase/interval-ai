@@ -25,14 +25,14 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
         public void Init(PracticeState practiceState)
         {
             _wordAdvanceService.CanUndo
-                .Subscribe(this, (canUndo, self) => self._previousCardButton.SetActive(canUndo))
+                .Subscribe(this, static (canUndo, self) => self._previousCardButton.SetActive(canUndo))
                 .RegisterTo(destroyCancellationToken);
 
             _previousCardButton.OnClickAsObservable()
-                .Subscribe(this, static (_, behaviour) => behaviour._wordAdvanceService.UndoWordAdvance())
+                .Subscribe(_wordAdvanceService.UndoCommand, static (unit, undo) => undo.Execute(unit))
                 .RegisterTo(destroyCancellationToken);
 
-            _progressRepository.LearnedWordCountObservables[practiceState]
+            _progressRepository.LearnedWordCounts[practiceState]
                 .Subscribe(this, static (wordsCount, behaviour) => behaviour.UpdateLearnedText(wordsCount))
                 .RegisterTo(destroyCancellationToken);
         }

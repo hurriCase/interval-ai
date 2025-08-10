@@ -62,18 +62,18 @@ namespace Source.Scripts.Core.Repositories.Settings
             await UniTask.WhenAll(initTasks);
         }
 
-        public void SetLanguage(SystemLanguage newLanguage, LanguageType requistedLanguageType)
+        public void SetLanguage(SystemLanguage newLanguage, LanguageType requestedLanguageType)
         {
             var currentLanguages = LanguageByType.Value;
-            var oppositeLanguageType = GetOppositeLanguageType(requistedLanguageType);
+            var oppositeLanguageType = GetOppositeLanguageType(requestedLanguageType);
 
             if (currentLanguages[oppositeLanguageType] == newLanguage)
             {
-                var previousRequestedLanguage = currentLanguages[requistedLanguageType];
+                var previousRequestedLanguage = currentLanguages[requestedLanguageType];
                 currentLanguages[oppositeLanguageType] = previousRequestedLanguage;
             }
 
-            currentLanguages[requistedLanguageType] = newLanguage;
+            currentLanguages[requestedLanguageType] = newLanguage;
             LanguageByType.Property.OnNext(currentLanguages);
         }
 
