@@ -35,6 +35,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
             _wordsRepository.CurrentWordsByState
                 .Select(practiceState,
                     (currentWordsByState, state) => currentWordsByState[state])
+                .Where(currentWord => currentWord != null)
                 .Subscribe(this, static (currentWord, self) => self.UpdateProgress(currentWord))
                 .RegisterTo(destroyCancellationToken);
         }

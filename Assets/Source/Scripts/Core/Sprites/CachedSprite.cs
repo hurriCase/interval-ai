@@ -1,7 +1,7 @@
 using MemoryPack;
 using UnityEngine.AddressableAssets;
 
-namespace Source.Scripts.Core.Others
+namespace Source.Scripts.Core.Sprites
 {
     [MemoryPackable]
     internal readonly partial struct CachedSprite

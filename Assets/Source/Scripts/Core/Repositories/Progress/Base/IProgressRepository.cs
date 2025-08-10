@@ -16,8 +16,7 @@ namespace Source.Scripts.Core.Repositories.Progress.Base
         PersistentReactiveProperty<int> BestStreak { get; }
         PersistentReactiveProperty<Dictionary<DateTime, DailyProgress>> ProgressHistory { get; }
         EnumArray<PracticeState, Observable<int>> LearnedWordCountObservables { get; }
-        Observable<Unit> GoalAchievedObservable { get; }
+        Observable<int> GoalAchievedObservable { get; }
         void IncrementDailyProgress(LearningState learningState, DateTime date);
-        void IncrementLearnedWordsCount(PracticeState practiceState);
     }
 }

@@ -6,6 +6,7 @@ using Source.Scripts.Core.Loader;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Settings.Base;
+using Source.Scripts.Core.Sprites;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
@@ -22,7 +23,7 @@ namespace Source.Scripts.Onboarding.UI.Screen.Behaviours.LevelSelection
         [SerializeField] private float _spacingRatio;
 
         [Inject] private ISettingsRepository _settingsRepository;
-        [Inject] private IDefaultSettingsConfig _defaultSettingsConfig;
+        [Inject] private ISpriteReferences _spriteReferences;
         [Inject] private ILocalizationDatabase _localizationDatabase;
         [Inject] private IAddressablesLoader _addressablesLoader;
         [Inject] private IObjectResolver _objectResolver;
@@ -39,7 +40,7 @@ namespace Source.Scripts.Onboarding.UI.Screen.Behaviours.LevelSelection
                     .RegisterTo(destroyCancellationToken);
                 createdButton.CheckboxComponent.group = _selectionToggleGroup;
 
-                SetLevelIcon(createdButton.Icon, _defaultSettingsConfig.LevelLanguageIcons[levelType].AssetGUID)
+                SetLevelIcon(createdButton.Icon, _spriteReferences.LevelLanguageIcons[levelType].AssetGUID)
                     .Forget();
 
                 _aspectRatioFitter.CreateSpacing(_spacingRatio, _levelButtonsContainer,

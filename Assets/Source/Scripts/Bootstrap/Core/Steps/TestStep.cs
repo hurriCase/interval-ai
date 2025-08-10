@@ -2,28 +2,32 @@
 using CustomUtils.Runtime.Localization;
 using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.Repositories.Base.Tests.Base;
-using Source.Scripts.Core.Repositories.Progress.Base;
+using Source.Scripts.Core.Repositories.Statistics;
 using UnityEngine;
 using VContainer;
 
 namespace Source.Scripts.Bootstrap.Core.Steps
 {
     [CreateAssetMenu(
-        fileName = nameof(TestsPracticeStepBase),
-        menuName = InitializationStepsPath + nameof(TestsPracticeStepBase)
+        fileName = nameof(TestStep),
+        menuName = InitializationStepsPath + nameof(TestStep)
     )]
-    internal sealed class TestsPracticeStepBase : StepBase
+    internal sealed class TestStep : StepBase
     {
         [Inject] private ITestDataFactory _testDataFactory;
-
-        [SerializeField] private SystemLanguage _testLanguage;
+        [Inject] private IStatisticsRepository _statisticsRepository;
+        [Inject] private ITestConfig _testConfig;
 
         protected override UniTask ExecuteInternal(CancellationToken token)
         {
 #if IS_DEBUG && UNITY_EDITOR
             _testDataFactory.CreateFakeProgress();
 
-            LocalizationController.Language.Value = _testLanguage;
+            if (_testConfig.UseTestLanguage)
+                LocalizationController.Language.Value = _testConfig.TestLanguage;
+
+            if (_testConfig.IsSkipOnboarding)
+                _statisticsRepository.IsCompleteOnboarding.Value = true;
 #endif
 
             return UniTask.CompletedTask;

@@ -2,23 +2,29 @@
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions;
 using R3;
+using Source.Scripts.Core.Configs;
+using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Words;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base;
 using UnityEngine;
+using VContainer;
 
 namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
 {
     internal sealed class CardBehaviour : MonoBehaviour
     {
-        [SerializeField] private GameObject _cardContainer;
-
-        [SerializeField] private ModuleType _initialModuleType;
         [SerializeField] private EnumArray<ModuleType, PracticeModuleBase> _practiceModules = new(EnumMode.SkipFirst);
+
+        [Inject] private IAppConfig _appConfig;
 
         internal ReactiveProperty<WordEntry> WordEntry { get; } = new();
 
-        internal void Init()
+        private PracticeState _practiceState;
+
+        internal void Init(PracticeState practiceState)
         {
+            _practiceState = practiceState;
+
             foreach (var module in _practiceModules)
                 module.Init(this);
 
@@ -30,12 +36,12 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
         {
             var isWordAvailable = WordEntry.Value != null && WordEntry.Value.Cooldown <= DateTime.Now;
 
-            _cardContainer.SetActive(isWordAvailable);
+            gameObject.SetActive(isWordAvailable);
 
             if (isWordAvailable is false)
                 return;
 
-            SwitchModule(_initialModuleType);
+            SwitchModule(_appConfig.PracticeToModuleType[_practiceState]);
         }
 
         internal void SwitchModule(ModuleType moduleType)

@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2855218891915267838, guid: 88c347bff909b9c4abe4ba959b76a318, type: 3}
       propertyPath: m_Name
-      value: P_Toggle_Dictionary
+      value: P_Toggle_Categories
       objectReference: {fileID: 0}
     - target: {fileID: 3733867937657219130, guid: 88c347bff909b9c4abe4ba959b76a318, type: 3}
       propertyPath: m_Sprite
@@ -419,13 +419,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.MenuBehaviour
   _menuToggles:
-    _values:
-    - {fileID: 0}
-    - {fileID: 9179481409628157237}
-    - {fileID: 3593687950238307630}
-    - {fileID: 3172088968704946174}
-    - {fileID: 8970891239283517251}
-    _enumMode: 2
+    <Entries>k__BackingField:
+    - <Value>k__BackingField: {fileID: 0}
+    - <Value>k__BackingField: {fileID: 9179481409628157237}
+    - <Value>k__BackingField: {fileID: 3593687950238307630}
+    - <Value>k__BackingField: {fileID: 3172088968704946174}
+    - <Value>k__BackingField: {fileID: 8970891239283517251}
+    - <Value>k__BackingField: {fileID: 0}
+    <EnumMode>k__BackingField: 2
 --- !u!224 &6271219350017152185 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8629539679633799983, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}

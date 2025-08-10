@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Source.Scripts.Bootstrap.Core;
 using Source.Scripts.Core.Audio;
+using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Importer;
 using Source.Scripts.Core.Input;
 using Source.Scripts.Core.Loader;
@@ -8,7 +9,6 @@ using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Repositories.Base.DefaultConfig;
 using Source.Scripts.Core.Repositories.Base.Id;
 using Source.Scripts.Core.Repositories.Base.Tests;
-using Source.Scripts.Core.Repositories.Base.Tests.Base;
 using Source.Scripts.Core.Repositories.Categories;
 using Source.Scripts.Core.Repositories.Progress;
 using Source.Scripts.Core.Repositories.Settings;
@@ -18,6 +18,7 @@ using Source.Scripts.Core.Repositories.Words;
 using Source.Scripts.Core.Repositories.Words.Advance;
 using Source.Scripts.Core.Repositories.Words.Timer;
 using Source.Scripts.Core.Scenes;
+using Source.Scripts.Core.Sprites;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using VContainer;
@@ -30,11 +31,15 @@ namespace Source.Scripts.Bootstrap.DI
         [SerializeField] private List<StepBase> _stepsList;
 
         [SerializeField] private SceneReferences _sceneReferences;
-        [SerializeField] private InputActionAsset _uiInputActionAsset;
+
+        [SerializeField] private SwipeConfig _swipeConfig;
+
+        [SerializeField] private AppConfig _appConfig;
+        [SerializeField] private SpriteReferences _spriteReferences;
+        [SerializeField] private TestConfig _testConfig;
 
         [SerializeField] private LocalizationKeysDatabase _localizationKeysDatabase;
 
-        [SerializeField] private TestDataConfig _testDataConfig;
         [SerializeField] private DefaultSettingsConfig _defaultSettingsConfig;
         [SerializeField] private DefaultUserDataConfig _defaultUserDataConfig;
         [SerializeField] private DefaultWordsDatabase _defaultWordsDatabase;
@@ -47,25 +52,39 @@ namespace Source.Scripts.Bootstrap.DI
 
             builder.RegisterInstance(_stepsList);
 
-            builder.Register<InputSystemUI>(Lifetime.Singleton);
-            builder.Register<SwipeInputService>(Lifetime.Singleton).AsImplementedInterfaces();
-
             builder.Register<AddressablesLoader>(Lifetime.Singleton).AsImplementedInterfaces();
 
             builder.Register<AudioHandlerProvider>(Lifetime.Singleton).As<IAudioHandlerProvider>();
 
+            builder.RegisterInstance(_appConfig).AsImplementedInterfaces();
+            builder.RegisterInstance(_spriteReferences).AsImplementedInterfaces();
+            builder.RegisterInstance(_testConfig).AsImplementedInterfaces();
+
             builder.RegisterComponent(_localizationKeysDatabase).As<ILocalizationKeysDatabase>();
 
-            RegisterRepositories(builder);
             RegisterCSV(builder);
+            RegisterInput(builder);
+            RegisterRepositories(builder);
 
             builder.RegisterEntryPoint<EntryPoint>();
+        }
+
+        private void RegisterCSV(IContainerBuilder builder)
+        {
+            builder.Register<CSVMapper>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<CSVReader>(Lifetime.Singleton).AsImplementedInterfaces();
+        }
+
+        private void RegisterInput(IContainerBuilder builder)
+        {
+            builder.Register<InputSystemUI>(Lifetime.Singleton);
+            builder.Register<SwipeInputService>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.RegisterInstance(_swipeConfig).AsImplementedInterfaces();
         }
 
         private void RegisterRepositories(IContainerBuilder builder)
         {
             builder.Register<TestDataFactory>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.RegisterInstance(_testDataConfig).AsImplementedInterfaces();
 
             builder.Register<StatisticsRepository>(Lifetime.Singleton).AsImplementedInterfaces();
 
@@ -92,12 +111,6 @@ namespace Source.Scripts.Bootstrap.DI
             builder.Register<WordsTimerService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<WordAdvanceService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.RegisterInstance(_defaultWordsDatabase).As<IDefaultDatabase>().AsSelf();
-        }
-
-        private void RegisterCSV(IContainerBuilder builder)
-        {
-            builder.Register<CSVMapper>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<CSVReader>(Lifetime.Singleton).AsImplementedInterfaces();
         }
     }
 }

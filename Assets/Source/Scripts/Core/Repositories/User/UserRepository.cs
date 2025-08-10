@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Base;
 using Source.Scripts.Core.Repositories.User.Base;
+using CachedSprite = Source.Scripts.Core.Sprites.CachedSprite;
 
 namespace Source.Scripts.Core.Repositories.User
 {

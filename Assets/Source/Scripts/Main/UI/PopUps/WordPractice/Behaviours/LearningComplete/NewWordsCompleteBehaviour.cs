@@ -1,6 +1,7 @@
 ﻿using R3;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Progress.Base;
+using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice;
 using Source.Scripts.UI.Components;
 using UnityEngine;
 using VContainer;
@@ -16,19 +17,13 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
         protected override void OnInit()
         {
             _repeatWordsButton.OnClickAsObservable()
-                .Subscribe(static _ => WordPracticePopUp.CurrentState.OnNext(PracticeState.Review))
+                .Subscribe(practiceStateService, static (_, service) => service.SetState(PracticeState.Review))
                 .RegisterTo(destroyCancellationToken);
 
             _progressRepository.GoalAchievedObservable
-                .Subscribe(this, static (_, self) => self.ShowGoalAchieved())
+                .Subscribe(this,
+                    static (wordsCount, self) => self.SetState(CompleteType.Complete, wordsCount.ToString()))
                 .RegisterTo(destroyCancellationToken);
-        }
-
-        private void ShowGoalAchieved()
-        {
-            // learningCompleteBehaviour.SetState(CompleteType.NoWords, progressRepository.NewWordsCount.ToString());
-            // cardContainer.SetActive(false);
-            // learningCompleteBehaviour.SetActive(true);
         }
     }
 }

@@ -5,6 +5,7 @@ using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Storage;
 using Cysharp.Threading.Tasks;
 using R3;
+using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Base;
 using Source.Scripts.Core.Repositories.Progress.Base;
@@ -23,20 +24,24 @@ namespace Source.Scripts.Core.Repositories.Progress
         public PersistentReactiveProperty<Dictionary<DateTime, DailyProgress>> ProgressHistory { get; } = new();
 
         public EnumArray<PracticeState, Observable<int>> LearnedWordCountObservables { get; } = new(EnumMode.SkipFirst);
-        private readonly EnumArray<PracticeState, Subject<int>> _learnedWordCountSubjects = new(EnumMode.SkipFirst);
+        private readonly EnumArray<PracticeState, Subject<int>> _learnedWordCountSubjects =
+            new(() => new Subject<int>(), EnumMode.SkipFirst);
 
-        public Observable<Unit> GoalAchievedObservable => _goalAchievedSubject.AsObservable();
-        private readonly Subject<Unit> _goalAchievedSubject = new();
-
-        private DailyProgress _todayProgress;
+        public Observable<int> GoalAchievedObservable => _goalAchievedSubject.AsObservable();
+        private readonly Subject<int> _goalAchievedSubject = new();
 
         private readonly ISettingsRepository _settingsRepository;
         private readonly IStatisticsRepository _statisticsRepository;
+        private readonly IAppConfig _appConfig;
 
-        internal ProgressRepository(IStatisticsRepository statisticsRepository, ISettingsRepository settingsRepository)
+        internal ProgressRepository(
+            IStatisticsRepository statisticsRepository,
+            ISettingsRepository settingsRepository,
+            IAppConfig appConfig)
         {
             _settingsRepository = settingsRepository;
             _statisticsRepository = statisticsRepository;
+            _appConfig = appConfig;
 
             foreach (var (practiceState, subject) in _learnedWordCountSubjects.AsTuples())
             {
@@ -79,30 +84,51 @@ namespace Source.Scripts.Core.Repositories.Progress
 
             dailyProgress.AddProgress(learningState);
 
-            if (learningState == LearningState.CurrentlyLearning)
-                IncreaseStreak(ref dailyProgress);
+            TryIncreaseDailyGoal(learningState, ref dailyProgress);
+            CheckLearnedWordsChanges(learningState);
 
             ProgressHistory.Value[date.Date] = dailyProgress;
             IncreaseTotalCount(learningState);
         }
 
-        public void IncrementLearnedWordsCount(PracticeState practiceState)
+        private void CheckLearnedWordsChanges(LearningState requestedLearningState)
         {
-            var today = DateTime.Now.Date;
-            var todayProgress = GetOrCreateDailyProgress(today);
+            foreach (var (practiceState, learningState) in _appConfig.TargetStateForLearnedWords.AsTuples())
+            {
+                if (requestedLearningState != learningState)
+                    continue;
 
-            var todayProgressWordsCount = todayProgress.LearnedWordsCount;
-            todayProgressWordsCount[practiceState]++;
-            todayProgress.LearnedWordsCount = todayProgressWordsCount;
+                var todayProgress = GetOrCreateDailyProgress(DateTime.Today);
+                _learnedWordCountSubjects[practiceState].OnNext(todayProgress.ProgressByState[learningState]);
+            }
+        }
 
-            if (practiceState == PracticeState.NewWords && todayProgress.GoalAchieved is false &&
-                todayProgress.LearnedWordsCount[PracticeState.NewWords] >= _settingsRepository.DailyGoal.Value)
-                IncreaseStreak(ref todayProgress);
+        private void TryIncreaseDailyGoal(LearningState learningState, ref DailyProgress dailyProgress)
+        {
+            if (_appConfig.LearningStateForDailyGoal != learningState)
+                return;
 
-            ProgressHistory.Value[today] = todayProgress;
+            NewWordsDailyTarget.Value--;
+            TryIncreaseStreak(ref dailyProgress);
+        }
 
-            var newWordsCount = todayProgress.LearnedWordsCount[PracticeState.NewWords];
-            _learnedWordCountSubjects[practiceState].OnNext(newWordsCount);
+        private void TryIncreaseStreak(ref DailyProgress dailyProgress)
+        {
+            if (dailyProgress.GoalAchieved)
+                return;
+
+            var targetCount = _settingsRepository.DailyGoal.Value;
+            var currentCount = dailyProgress.ProgressByState[_appConfig.LearningStateForDailyGoal];
+            if (currentCount < targetCount)
+                return;
+
+            CurrentStreak.Value++;
+
+            if (CurrentStreak.Value > BestStreak.Value)
+                BestStreak.Value = CurrentStreak.Value;
+
+            dailyProgress.GoalAchieved = true;
+            _goalAchievedSubject.OnNext(currentCount);
         }
 
         private DailyProgress GetOrCreateDailyProgress(DateTime date)
@@ -123,20 +149,6 @@ namespace Source.Scripts.Core.Repositories.Progress
 
             if (lastDayProgress.GoalAchieved is false)
                 CurrentStreak.Value = 0;
-        }
-
-        private void IncreaseStreak(ref DailyProgress dailyProgress)
-        {
-            CurrentStreak.Value++;
-
-            if (CurrentStreak.Value > BestStreak.Value)
-                BestStreak.Value = CurrentStreak.Value;
-
-            if (dailyProgress.GoalAchieved)
-                return;
-
-            dailyProgress.GoalAchieved = true;
-            _goalAchievedSubject.OnNext(Unit.Default);
         }
 
         private void IncreaseTotalCount(LearningState state)

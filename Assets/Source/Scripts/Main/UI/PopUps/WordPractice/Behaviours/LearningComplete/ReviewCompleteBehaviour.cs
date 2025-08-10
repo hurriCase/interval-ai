@@ -18,7 +18,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
         protected override void OnInit()
         {
             _wordsTimerService.OnAvailabilityTimeUpdate
-                .Where(cooldownByLearningState => cooldownByLearningState.State == LearningState.Repeatable)
+                .Where(cooldownByLearningState => cooldownByLearningState.State == LearningState.Review)
                 .Subscribe(this, static (cooldownByLearningState, card) => card.SetState(
                     CompleteType.Complete,
                     cooldownByLearningState.CurrentTime.ToShortTimeString())

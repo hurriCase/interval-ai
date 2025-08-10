@@ -5,10 +5,10 @@ using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Storage;
 using Cysharp.Threading.Tasks;
 using R3;
+using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Base;
 using Source.Scripts.Core.Repositories.Base.Id;
-using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.CooldownSystem;
 using Source.Scripts.Core.Repositories.Words.Timer;
@@ -31,7 +31,7 @@ namespace Source.Scripts.Core.Repositories.Words
         private readonly DefaultWordsDatabase _defaultWordsDatabase;
         private readonly IWordsTimerService _wordsTimerService;
         private readonly IIdHandler<WordEntry> _idHandler;
-        private readonly IDefaultSettingsConfig _defaultSettingsConfig;
+        private readonly IAppConfig _appConfig;
 
         private IDisposable _disposable;
 
@@ -39,12 +39,12 @@ namespace Source.Scripts.Core.Repositories.Words
             DefaultWordsDatabase defaultWordsDatabase,
             IWordsTimerService wordsTimerService,
             IIdHandler<WordEntry> idHandler,
-            IDefaultSettingsConfig defaultSettingsConfig)
+            IAppConfig appConfig)
         {
             _defaultWordsDatabase = defaultWordsDatabase;
             _wordsTimerService = wordsTimerService;
             _idHandler = idHandler;
-            _defaultSettingsConfig = defaultSettingsConfig;
+            _appConfig = appConfig;
         }
 
         public async UniTask InitAsync(CancellationToken cancellationToken)
@@ -76,8 +76,7 @@ namespace Source.Scripts.Core.Repositories.Words
 
         private void UpdateCurrentWords()
         {
-            foreach (var (practiceState, learningStates) in
-                     _defaultSettingsConfig.PracticeToLearningStates.AsTuples())
+            foreach (var (practiceState, learningStates) in _appConfig.TargetStatesForCurrentWord.AsTuples())
             {
                 foreach (var learningState in learningStates)
                 {

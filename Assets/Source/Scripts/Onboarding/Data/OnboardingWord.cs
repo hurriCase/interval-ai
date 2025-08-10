@@ -6,6 +6,7 @@ using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Core.Repositories.Words;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using CachedSprite = Source.Scripts.Core.Sprites.CachedSprite;
 
 namespace Source.Scripts.Onboarding.Data
 {

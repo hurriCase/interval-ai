@@ -11,14 +11,14 @@ namespace Source.Scripts.Core.Repositories.Base.Tests
     internal sealed class TestDataFactory : ITestDataFactory
     {
         private readonly IProgressRepository _progressRepository;
-        private readonly ITestDataConfig _testDataConfig;
+        private readonly ITestConfig _testConfig;
 
         private EnumArray<LearningState, int> _randomProgress;
 
-        internal TestDataFactory(IProgressRepository progressRepository, ITestDataConfig testDataConfig)
+        internal TestDataFactory(IProgressRepository progressRepository, ITestConfig testConfig)
         {
             _progressRepository = progressRepository;
-            _testDataConfig = testDataConfig;
+            _testConfig = testConfig;
         }
 
         public void CreateFakeProgress()
@@ -32,7 +32,7 @@ namespace Source.Scripts.Core.Repositories.Base.Tests
 
                 var date = today.AddDays(-i);
 
-                foreach (var (learningState, wordCount) in _testDataConfig.WordsCountByState.AsTuples())
+                foreach (var (learningState, wordCount) in _testConfig.WordsCountByState.AsTuples())
                 {
                     for (var j = 0; j < wordCount.RandomValue; j++)
                         _progressRepository.IncrementDailyProgress(learningState, date);

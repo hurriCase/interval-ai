@@ -6,10 +6,9 @@ using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Localization;
 using CustomUtils.Runtime.Storage;
 using Cysharp.Threading.Tasks;
-using Source.Scripts.Core.Localization.LocalizationTypes;
+using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Repositories.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
-using Source.Scripts.Core.Repositories.Words.Base;
 using UnityEngine;
 
 namespace Source.Scripts.Core.Repositories.Settings
@@ -24,10 +23,12 @@ namespace Source.Scripts.Core.Repositories.Settings
         public PersistentReactiveProperty<LearningDirectionType> LearningDirection { get; } = new();
 
         private readonly IDefaultSettingsConfig _defaultSettingsConfig;
+        private readonly IAppConfig _appConfig;
 
-        internal SettingsRepository(IDefaultSettingsConfig defaultSettingsConfig)
+        internal SettingsRepository(IDefaultSettingsConfig defaultSettingsConfig, IAppConfig appConfig)
         {
             _defaultSettingsConfig = defaultSettingsConfig;
+            _appConfig = appConfig;
         }
 
         public async UniTask InitAsync(CancellationToken cancellationToken)
@@ -83,12 +84,12 @@ namespace Source.Scripts.Core.Repositories.Settings
         {
             var nativeLanguage = LocalizationController.Language.Value;
 
-            if (_defaultSettingsConfig.SupportedLanguages[LanguageType.Native].Contains(nativeLanguage) is false)
-                nativeLanguage = _defaultSettingsConfig.DefaultNativeLanguage;
+            if (_appConfig.SupportedLanguages[LanguageType.Native].Contains(nativeLanguage) is false)
+                nativeLanguage = _appConfig.DefaultNativeLanguage;
 
-            var learningLanguage = _defaultSettingsConfig.DefaultLearningLanguage == nativeLanguage
-                ? _defaultSettingsConfig.DefaultNativeLanguage
-                : _defaultSettingsConfig.DefaultLearningLanguage;
+            var learningLanguage = _appConfig.DefaultLearningLanguage == nativeLanguage
+                ? _appConfig.DefaultNativeLanguage
+                : _appConfig.DefaultLearningLanguage;
 
             var languageArray = new EnumArray<LanguageType, SystemLanguage>(EnumMode.SkipFirst)
             {

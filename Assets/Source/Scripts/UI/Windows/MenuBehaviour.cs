@@ -29,6 +29,9 @@ namespace Source.Scripts.UI.Windows
 
             foreach (var (screenType, themeToggle) in _menuToggles.AsTuples())
             {
+                if (screenType == ScreenType.OnboardingInput)
+                    continue;
+
                 themeToggle.OnPointerClickAsObservable()
                     .Subscribe((_windowsController, screenType),
                         static (_, tuple) => tuple._windowsController.OpenScreenByType(tuple.screenType))

@@ -1,6 +1,7 @@
 ﻿using Source.Scripts.Core.AI;
 using Source.Scripts.Main.Data;
-using Source.Scripts.Main.Data.Base;
+using Source.Scripts.Main.UI.PopUps.WordPractice;
+using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice;
 using Source.Scripts.UI.Windows;
 using Source.Scripts.UI.Windows.Base;
 using UnityEngine;
@@ -20,14 +21,16 @@ namespace Source.Scripts.Main.DI
 
         protected override void Configure(IContainerBuilder builder)
         {
-            builder.RegisterComponent(_windowsController).As<IWindowsController>();
-            builder.RegisterComponent(_menuBehaviour).As<IMenuBehaviour>();
+            builder.RegisterComponent(_windowsController).AsImplementedInterfaces();
+            builder.RegisterComponent(_menuBehaviour).AsImplementedInterfaces();
 
-            builder.RegisterComponent(_progressDescriptionsDatabase).As<IProgressDescriptionsDatabase>();
+            builder.RegisterComponent(_progressDescriptionsDatabase).AsImplementedInterfaces();
 
-            builder.RegisterComponent(_progressGraphSettings).As<IProgressGraphSettings>();
+            builder.RegisterComponent(_progressGraphSettings).AsImplementedInterfaces();
 
-            builder.Register<GeminiAPI>(Lifetime.Singleton).As<IAIController>();
+            builder.Register<GeminiAPI>(Lifetime.Singleton).AsImplementedInterfaces();
+
+            builder.Register<PracticeStateService>(Lifetime.Singleton).AsImplementedInterfaces();
 
             builder.RegisterEntryPoint<MainEntryPoint>();
         }

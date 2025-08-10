@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using Cysharp.Text;
 using R3;
+using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Localization.LocalizationTypes;
-using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Core.Repositories.Words;
 using Source.Scripts.Core.Repositories.Words.Base;
+using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice;
 using Source.Scripts.Main.UI.Shared;
 using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base;
@@ -33,9 +34,10 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
         [SerializeField] private PlusMinusBehaviour _plusMinusBehaviour;
 
         [Inject] protected IWindowsController windowsController;
+        [Inject] protected IPracticeStateService practiceStateService;
 
         [Inject] private IWordsRepository _wordsRepository;
-        [Inject] private IDefaultSettingsConfig _defaultSettingsConfig;
+        [Inject] private IAppConfig _appConfig;
         [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
 
         private PracticeState _currentPracticeState;
@@ -55,7 +57,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
                 .RegisterTo(destroyCancellationToken);
 
             _learnButton.OnClickAsObservable()
-                .Subscribe(static _ => WordPracticePopUp.CurrentState.OnNext(PracticeState.NewWords))
+                .Subscribe(practiceStateService,static (_, service) => service.SetState(PracticeState.NewWords))
                 .RegisterTo(destroyCancellationToken);
 
             _exitButton.OnClickAsObservable()
@@ -75,7 +77,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
         {
             foreach (var (learningState, words) in sortedWords.AsTuples())
             {
-                var targetLearningStates = _defaultSettingsConfig.PracticeToLearningStates[_currentPracticeState];
+                var targetLearningStates = _appConfig.TargetStatesForCurrentWord[_currentPracticeState];
 
                 foreach (var targetLearningState in targetLearningStates)
                 {
@@ -90,7 +92,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
             }
         }
 
-        internal void SetState(CompleteType completeType, string newWordCount = null)
+        protected void SetState(CompleteType completeType, string newWordCount = null)
         {
             var localization = _localizationKeysDatabase.GetCompletesLocalization(_currentPracticeState, completeType);
             _completeText.SetTextFormat(localization, newWordCount);

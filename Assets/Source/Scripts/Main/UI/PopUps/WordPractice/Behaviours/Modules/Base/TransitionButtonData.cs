@@ -10,7 +10,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base
     internal struct TransitionButtonData
     {
         [field: SerializeField] internal ButtonComponent Button { get; private set; }
-        [field: SerializeField] internal ModuleType ModuleType { get; private set; }
+        [field: SerializeField] internal Core.Configs.ModuleType ModuleType { get; private set; }
 
         internal readonly void Init(CardBehaviour cardBehaviour, CancellationToken cancellationToken)
         {

@@ -2,10 +2,10 @@ namespace Source.Scripts.Core.Repositories.Words.Base
 {
     internal enum LearningState
     {
-        None = 0,
+        Default = 0,
         AlreadyKnown = 1,
         CurrentlyLearning = 2,
-        Repeatable = 3,
+        Review = 3,
         Studied = 4
     }
 }

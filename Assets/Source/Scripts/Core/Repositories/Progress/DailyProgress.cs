@@ -12,16 +12,13 @@ namespace Source.Scripts.Core.Repositories.Progress
         public DateTime DateTime { get; }
         public bool GoalAchieved { get; set; }
         public EnumArray<LearningState, int> ProgressByState { get; private set; }
-        public EnumArray<PracticeState, int> LearnedWordsCount { get; set; }
 
         [MemoryPackConstructor]
-        public DailyProgress(EnumArray<LearningState, int> progressByState, bool goalAchieved, DateTime dateTime,
-            EnumArray<PracticeState, int> learnedWordsCount)
+        public DailyProgress(EnumArray<LearningState, int> progressByState, bool goalAchieved, DateTime dateTime)
         {
             ProgressByState = progressByState;
             GoalAchieved = goalAchieved;
             DateTime = dateTime;
-            LearnedWordsCount = learnedWordsCount;
         }
 
         public DailyProgress(DateTime dateTime)
@@ -29,7 +26,6 @@ namespace Source.Scripts.Core.Repositories.Progress
             DateTime = dateTime;
             GoalAchieved = false;
             ProgressByState = new EnumArray<LearningState, int>(EnumMode.SkipFirst);
-            LearnedWordsCount = new EnumArray<PracticeState, int>(EnumMode.SkipFirst);
         }
 
         internal void AddProgress(LearningState state)

@@ -1,9 +1,11 @@
 ﻿using CustomUtils.Runtime.CustomTypes.Collections;
 using R3;
 using R3.Triggers;
+using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Loader;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
+using Source.Scripts.Core.Sprites;
 using Source.Scripts.UI.Components;
 using UnityEngine;
 using VContainer;
@@ -19,7 +21,8 @@ namespace Source.Scripts.Onboarding.UI.Screen.Behaviours.LanguageSelection
         [SerializeField] private AccordionItem _spacingItem;
 
         [Inject] private ISettingsRepository _settingsRepository;
-        [Inject] private IDefaultSettingsConfig _defaultSettingsConfig;
+        [Inject] private IAppConfig _appConfig;
+        [Inject] private ISpriteReferences _spriteReferences;
         [Inject] private ILocalizationDatabase _localizationDatabase;
         [Inject] private IAddressablesLoader _addressablesLoader;
         [Inject] private IObjectResolver _objectResolver;
@@ -36,7 +39,7 @@ namespace Source.Scripts.Onboarding.UI.Screen.Behaviours.LanguageSelection
             _learningComponentAccordion.AccordionComponent.Init();
 
             foreach (var (languageType, systemLanguages) in
-                     _defaultSettingsConfig.SupportedLanguages.AsTuples())
+                     _appConfig.SupportedLanguages.AsTuples())
             {
                 foreach (var systemLanguage in systemLanguages)
                     CreateLanguageItem(languageType, systemLanguage, _localizationDatabase.Languages[systemLanguage]);
@@ -94,7 +97,7 @@ namespace Source.Scripts.Onboarding.UI.Screen.Behaviours.LanguageSelection
             createdLanguageItem.CheckboxComponent.group = accordionComponent.ToggleGroup;
 
             _addressablesLoader.AssignImageAsync(createdLanguageItem.Icon,
-                _defaultSettingsConfig.LanguageSprites[language], destroyCancellationToken);
+                _spriteReferences.LanguageSprites[language], destroyCancellationToken);
 
             accordionComponent.AccordionComponent.HiddenContent.Value.Add(createdLanguageItem.AccordionItem);
 

@@ -1,11 +1,11 @@
-﻿using System.Linq;
-using CustomUtils.Runtime.CustomTypes.Collections;
+﻿using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.UI.Theme.Components;
 using CustomUtils.Runtime.UI.Theme.ThemeMapping;
 using Source.Scripts.Core.Repositories.Words.Base;
 using TMPro;
 using UnityEngine;
+using ZLinq;
 
 namespace Source.Scripts.Main.UI.Shared
 {
@@ -36,17 +36,17 @@ namespace Source.Scripts.Main.UI.Shared
         {
             DateIdentifierText.text = dateIdentifierText;
 
-            var totalCount = progress.Entries.Sum(entry => entry.Value);
+            var totalCount = progress.Entries.AsValueEnumerable().Sum(entry => entry.Value);
             var isActive = totalCount > 0 && isOutsideMonth is false;
 
             if (isActive)
                 SetProgress(progress, totalCount, progressColorMapping, ActiveThicknessRatio);
             else
                 SetProgress(DefaultProgressPercentages,
-                    DefaultProgressPercentages.Entries.Sum(entry => entry.Value),
+                    DefaultProgressPercentages.Entries.AsValueEnumerable().Sum(entry => entry.Value),
                     progressColorMapping,
                     InActiveThicknessRatio,
-                    LearningState.None);
+                    LearningState.Default);
 
             if (FireIcon)
                 FireIcon.SetActive(isActive);

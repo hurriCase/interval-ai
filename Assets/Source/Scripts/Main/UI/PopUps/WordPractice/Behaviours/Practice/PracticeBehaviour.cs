@@ -8,7 +8,7 @@ using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe;
 using UnityEngine;
 using VContainer;
 
-namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
+namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice
 {
     internal sealed class PracticeBehaviour : MonoBehaviour
     {
@@ -30,7 +30,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
 
         internal void Init()
         {
-            _cardBehaviour.Init();
+            _cardBehaviour.Init(_practiceState);
 
             _progressIndicatorBehaviour.Init(_practiceState);
 
@@ -43,7 +43,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
 
             if (_practiceState == PracticeState.Review)
                 _wordsTimerService.OnAvailabilityTimeUpdate
-                    .Where(cooldown => cooldown.State == LearningState.Repeatable)
+                    .Where(cooldown => cooldown.State == LearningState.Review)
                     .Where(cooldown => DateTime.Now >= cooldown.CurrentTime)
                     .Subscribe(this, static (_, self) => self.UpdateWord())
                     .RegisterTo(destroyCancellationToken);

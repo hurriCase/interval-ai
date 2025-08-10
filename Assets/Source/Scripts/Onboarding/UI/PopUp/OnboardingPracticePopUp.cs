@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using R3;
+using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours;
@@ -26,6 +27,7 @@ namespace Source.Scripts.Onboarding.UI.PopUp
 
         [Inject] private IOnboardingConfig _onboardingConfig;
         [Inject] private ISettingsRepository _settingsRepository;
+        [Inject] private IAppConfig _appConfig;
 
         private ButtonComponent _continueButton;
         private GameObject _placeholderObject;
@@ -36,14 +38,15 @@ namespace Source.Scripts.Onboarding.UI.PopUp
 
         internal override void Init()
         {
-            _cardBehaviour.Init();
+            var practiceState = _appConfig.OnboardingPracticeState;
+            _cardBehaviour.Init(practiceState);
 
             var onboardingWord = _onboardingConfig.OnboardingWord.CreateWord(_settingsRepository.LanguageByType.Value);
 
             _cardBehaviour.WordEntry.Value = onboardingWord;
 
-            _wordProgressBehaviour.Init(PracticeState.NewWords);
-            _controlButtonsBehaviour.Init(PracticeState.NewWords);
+            _wordProgressBehaviour.Init(practiceState);
+            _controlButtonsBehaviour.Init(practiceState);
 
             foreach (var wordPracticeStepData in _practiceSteps)
             {

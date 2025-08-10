@@ -28,13 +28,14 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts
             _weekDaysBehaviour.Init();
 
             _progressRepository.TotalCountByState.Subscribe(this,
-                    static (totalCountByState, behaviour) => behaviour.UpdateProgress(totalCountByState))
+                    static (totalCountByState, behaviour)
+                        => behaviour.UpdateProgress(totalCountByState))
                 .RegisterTo(destroyCancellationToken);
         }
 
         private void UpdateProgress(EnumArray<LearningState, int> totalCountByState)
         {
-            var totalWords = totalCountByState.Entries.AsValueEnumerable().Sum().ToString();
+            var totalWords = totalCountByState.Entries.AsValueEnumerable().Sum(entry => entry.Value).ToString();
             _totalProgressItem.Init(totalCountByState, totalWords, _progressColorMapping);
 
             foreach (var (state, progressItem) in _progressDescriptionItems.AsTuples())

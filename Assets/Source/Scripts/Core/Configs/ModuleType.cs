@@ -1,4 +1,4 @@
-﻿namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base
+﻿namespace Source.Scripts.Core.Configs
 {
     internal enum ModuleType
     {

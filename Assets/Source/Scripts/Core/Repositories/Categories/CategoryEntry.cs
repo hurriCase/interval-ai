@@ -3,6 +3,7 @@ using MemoryPack;
 using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Base.DefaultConfig;
 using Source.Scripts.Core.Repositories.Words;
+using CachedSprite = Source.Scripts.Core.Sprites.CachedSprite;
 
 namespace Source.Scripts.Core.Repositories.Categories
 {

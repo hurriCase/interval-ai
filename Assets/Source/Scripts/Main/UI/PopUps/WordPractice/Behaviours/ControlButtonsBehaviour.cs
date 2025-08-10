@@ -39,6 +39,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
             _wordsRepository.CurrentWordsByState
                 .Select(this, (currentWordsByState, self)
                     => currentWordsByState[self._currentPracticeState])
+                .Where(currentWord => currentWord != null)
                 .Subscribe(this, static (_, self) => self.UpdateView())
                 .RegisterTo(destroyCancellationToken);
 
@@ -50,7 +51,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
 
         private void UpdateView()
         {
-            var isFirstShow = CurrentWord.LearningState == LearningState.None;
+            var isFirstShow = CurrentWord.LearningState == LearningState.Default;
 
             _firstShowContainer.SetActive(isFirstShow);
             _otherShowContainer.SetActive(isFirstShow is false);

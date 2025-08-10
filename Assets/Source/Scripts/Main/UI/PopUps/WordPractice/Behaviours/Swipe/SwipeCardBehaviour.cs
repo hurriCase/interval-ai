@@ -6,6 +6,7 @@ using Source.Scripts.Core.Input;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Words;
 using Source.Scripts.Core.Repositories.Words.Base;
+using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice;
 using UnityEngine;
 using VContainer;
 
@@ -14,16 +15,11 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
     //TODO:<Dmitriy.Sukharev> refactor
     internal sealed class SwipeCardBehaviour : RectTransformBehaviour
     {
-        [SerializeField] private PracticeState _targetPracticeState;
-
-        [SerializeField] private float _returnDuration;
-        [SerializeField] private float _swipeExecuteDuration;
-        [SerializeField] private float _maxRotationDegrees;
-        [SerializeField] private float _maxLiftHeightRatio;
-        [SerializeField] private float _pickupScale;
-        [SerializeField] private float _pickupDuration;
-        [SerializeField] private float _horizontalDragThresholdRatio;
-        [SerializeField] private float _verticalToleranceRatio;
+        [Inject] private ISwipeInputService _swipeInputService;
+        [Inject] private ISwipeConfig _swipeConfig;
+        [Inject] private IWordsRepository _wordsRepository;
+        [Inject] private IPracticeStateService _practiceStateService;
+        [Inject] private IWordAdvanceService _wordAdvanceService;
 
         private Vector2 _originalPosition;
         private Camera _uiCamera;
@@ -34,10 +30,6 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
         private bool _swipeExecuted;
         private bool _isDragging;
         private bool _isPointerPressed;
-
-        [Inject] private ISwipeInputService _swipeInputService;
-        [Inject] private IWordsRepository _wordsRepository;
-        [Inject] private IWordAdvanceService _wordAdvanceService;
 
         private WordEntry CurrentWord => _wordsRepository.CurrentWordsByState.Value[_currentPracticeState];
 
@@ -53,7 +45,6 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
 
             _swipeInputService.PointerPressed
                 .Where(this, static (_, behaviour) =>
-                    behaviour._currentPracticeState == behaviour._targetPracticeState &&
                     behaviour._swipeExecuted is false)
                 .Subscribe(this, static (_, behaviour) => behaviour.OnPointerPressed())
                 .RegisterTo(destroyCancellationToken);
@@ -65,7 +56,6 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
 
             _swipeInputService.PointerPositionChangedSubject
                 .Where(this, static (_, behaviour) =>
-                    behaviour._currentPracticeState == behaviour._targetPracticeState &&
                     behaviour._swipeExecuted is false &&
                     (behaviour._isPointerPressed || behaviour._isDragging))
                 .Subscribe(this, static (position, behaviour) => behaviour.OnPointerPositionChanged(position))
@@ -74,10 +64,14 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
 
         private void OnPointerPressed()
         {
+            if (_practiceStateService.CurrentState.CurrentValue != _currentPracticeState)
+                return;
+
             var pointerPosition = _swipeInputService.CurrentPointerPosition;
             var canvasPosition = GetScreenToCanvasPosition(pointerPosition);
 
-            if (RectTransformUtility.RectangleContainsScreenPoint(RectTransform, pointerPosition, _uiCamera) is false)
+            if (RectTransform.gameObject.activeInHierarchy &&
+                RectTransformUtility.RectangleContainsScreenPoint(RectTransform, pointerPosition, _uiCamera) is false)
                 return;
 
             _startPosition = canvasPosition;
@@ -113,8 +107,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
             var deltaPosition = canvasPosition - _startPosition;
 
             var rect = RectTransform.rect;
-            var horizontalThreshold = rect.width * _horizontalDragThresholdRatio;
-            var verticalTolerance = rect.height * _verticalToleranceRatio;
+            var horizontalThreshold = rect.width * _swipeConfig.HorizontalDragThresholdRatio;
+            var verticalTolerance = rect.height * _swipeConfig.VerticalToleranceRatio;
 
             if (Mathf.Abs(deltaPosition.y) > verticalTolerance &&
                 Mathf.Abs(deltaPosition.x) < Mathf.Abs(deltaPosition.y))
@@ -140,7 +134,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
 
             _currentSequence.Stop();
             _currentSequence = Sequence.Create()
-                .Chain(Tween.Scale(RectTransform, _pickupScale, _pickupDuration));
+                .Chain(Tween.Scale(RectTransform, _swipeConfig.PickupScale, _swipeConfig.PickupDuration));
         }
 
         private void ApplyDragVisualEffects(Vector2 deltaPosition)
@@ -151,13 +145,13 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
             var dragDirection = Mathf.Sign(normalizedDrag);
 
             var newPosition = _originalPosition + new Vector2(deltaPosition.x, 0);
-            var maxLiftHeight = RectTransform.rect.height * _maxLiftHeightRatio;
+            var maxLiftHeight = RectTransform.rect.height * _swipeConfig.MaxLiftHeightRatio;
             var liftAmount = Mathf.Sin(dragIntensity * Mathf.PI * 0.5f) * maxLiftHeight;
             newPosition.y = _originalPosition.y + liftAmount;
             RectTransform.anchoredPosition = newPosition;
 
             var easedDrag = Mathf.Sin(dragIntensity * Mathf.PI * 0.5f) * dragDirection;
-            var rotation = -easedDrag * _maxRotationDegrees;
+            var rotation = -easedDrag * _swipeConfig.MaxRotationDegrees;
             RectTransform.rotation = Quaternion.Euler(0, 0, rotation);
         }
 
@@ -179,13 +173,13 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
             var targetX = direction == SwipeDirection.Right ? Screen.width : -Screen.width;
             var targetPosition = _originalPosition + new Vector2(targetX, 0);
             var targetRotation = Quaternion.Euler(0, 0,
-                direction == SwipeDirection.Right ? -_maxRotationDegrees : _maxRotationDegrees);
+                direction == SwipeDirection.Right ? -_swipeConfig.MaxRotationDegrees : _swipeConfig.MaxRotationDegrees);
 
             _currentSwipeDirection = direction;
 
             _currentSequence = Sequence.Create()
-                .Chain(Tween.UIAnchoredPosition(RectTransform, targetPosition, _swipeExecuteDuration))
-                .Group(Tween.Rotation(RectTransform, targetRotation, _swipeExecuteDuration))
+                .Chain(Tween.UIAnchoredPosition(RectTransform, targetPosition, _swipeConfig.SwipeExecuteDuration))
+                .Group(Tween.Rotation(RectTransform, targetRotation, _swipeConfig.SwipeExecuteDuration))
                 .OnComplete(this, static self =>
                 {
                     self.HandleSwipe();
@@ -198,11 +192,11 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
             switch (_currentSwipeDirection)
             {
                 case SwipeDirection.Left:
-                    _wordAdvanceService.AdvanceWord(CurrentWord, CurrentWord.LearningState == LearningState.None);
+                    _wordAdvanceService.AdvanceWord(CurrentWord, CurrentWord.LearningState == LearningState.Default);
                     break;
 
                 case SwipeDirection.Right:
-                    _wordAdvanceService.AdvanceWord(CurrentWord, CurrentWord.LearningState != LearningState.None);
+                    _wordAdvanceService.AdvanceWord(CurrentWord, CurrentWord.LearningState != LearningState.Default);
                     break;
 
                 default:
@@ -214,10 +208,12 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
         {
             _currentSequence.Stop();
 
+            var returnDuration = _swipeConfig.ReturnDuration;
+
             _currentSequence = Sequence.Create()
-                .Chain(Tween.UIAnchoredPosition(RectTransform, _originalPosition, _returnDuration))
-                .Group(Tween.Rotation(RectTransform, Quaternion.identity, _returnDuration))
-                .Group(Tween.Scale(RectTransform, Vector3.one, _returnDuration));
+                .Chain(Tween.UIAnchoredPosition(RectTransform, _originalPosition, returnDuration))
+                .Group(Tween.Rotation(RectTransform, Quaternion.identity, returnDuration))
+                .Group(Tween.Scale(RectTransform, Vector3.one, returnDuration));
         }
 
         private void ResetPointerStates()

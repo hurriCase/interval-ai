@@ -40,7 +40,7 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours
                 {
                     var repeatableCount =
                         progress.TryGetValue(DateTime.Now, out var dailyProgress)
-                            ? Mathf.Max(0, dailyProgress.GetProgressCountData(LearningState.Repeatable))
+                            ? Mathf.Max(0, dailyProgress.GetProgressCountData(LearningState.Review))
                             : 0;
 
                     behaviour._repetitionText.text = string.Format(

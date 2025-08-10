@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using R3;
-using Source.Scripts.Core.Localization.LocalizationTypes;
+using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Repositories.Progress;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Timer;
+using ZLinq;
 
 namespace Source.Scripts.Core.Repositories.Words.Advance
 {
@@ -15,6 +16,7 @@ namespace Source.Scripts.Core.Repositories.Words.Advance
         public Observable<bool> CanUndo => _canUndo.AsObservable();
 
         private readonly IWordsRepository _wordsRepository;
+        private readonly IAppConfig _appConfig;
         private readonly IWordsTimerService _wordsTimerService;
         private readonly IProgressRepository _progressRepository;
         private readonly ISettingsRepository _settingsRepository;
@@ -24,11 +26,13 @@ namespace Source.Scripts.Core.Repositories.Words.Advance
 
         internal WordAdvanceService(
             IWordsRepository wordsRepository,
+            IAppConfig appConfig,
             IWordsTimerService wordsTimerService,
             IProgressRepository progressRepository,
             ISettingsRepository settingsRepository)
         {
             _wordsRepository = wordsRepository;
+            _appConfig = appConfig;
             _wordsTimerService = wordsTimerService;
             _progressRepository = progressRepository;
             _settingsRepository = settingsRepository;
@@ -36,15 +40,27 @@ namespace Source.Scripts.Core.Repositories.Words.Advance
 
         public void AdvanceWord(WordEntry word, bool success)
         {
+            UpdateUndo(word);
+
+            var sortedWords = _wordsRepository.SortedWordsByState;
+            sortedWords.Value[word.LearningState].Remove(word);
+
+            word.AdvanceLearningState(success);
+
+            if (_appConfig.CooldownStates.AsValueEnumerable().Contains(word.LearningState))
+                AdvanceCooldown(word);
+
+            sortedWords.Value[word.LearningState].Add(word);
+            sortedWords.OnNext(sortedWords.Value);
+
+            _wordsRepository.WordEntries.SaveAsync();
+        }
+
+        private void UpdateUndo(WordEntry word)
+        {
             var wordState = new WordMemento(word);
             var progressState = new ProgressMemento(_progressRepository);
 
-            if (success)
-                HandleSuccess(word);
-            else
-                HandleFailure(word);
-
-            _wordsRepository.WordEntries.SaveAsync();
             _undoStack.Push((wordState, progressState));
             _canUndo.OnNext(_undoStack.Count > 0);
         }
@@ -62,93 +78,9 @@ namespace Source.Scripts.Core.Repositories.Words.Advance
             _canUndo.OnNext(_undoStack.Count > 0);
         }
 
-        private void HandleSuccess(WordEntry word)
-        {
-            _wordsRepository.SortedWordsByState.Value[word.LearningState].Remove(word);
-
-            switch (word.LearningState)
-            {
-                case LearningState.None:
-                    word.LearningState = LearningState.CurrentlyLearning;
-                    break;
-
-                case LearningState.CurrentlyLearning:
-                    HandleSuccessCurrentlyLearning(word);
-                    break;
-
-                case LearningState.Repeatable:
-                    HandleSuccessRepeatable(word);
-                    break;
-
-                case LearningState.AlreadyKnown:
-                case LearningState.Studied:
-                    break;
-
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            _wordsRepository.SortedWordsByState.Value[word.LearningState].Add(word);
-        }
-
-        private void HandleSuccessCurrentlyLearning(WordEntry word)
-        {
-            _progressRepository.IncrementLearnedWordsCount(PracticeState.NewWords);
-            _progressRepository.NewWordsDailyTarget.Value--;
-
-            word.LearningState = LearningState.Repeatable;
-
-            AdvanceCooldown(word);
-        }
-
-        private void HandleSuccessRepeatable(WordEntry word)
-        {
-            _progressRepository.IncrementLearnedWordsCount(PracticeState.Review);
-
-            if (word.RepetitionCount >= _settingsRepository.RepetitionByCooldown.Value.Count)
-            {
-                word.LearningState = LearningState.Studied;
-                return;
-            }
-
-            word.RepetitionCount++;
-
-            AdvanceCooldown(word);
-        }
-
-        private void HandleFailure(WordEntry word)
-        {
-            _wordsRepository.SortedWordsByState.Value[word.LearningState].Remove(word);
-
-            switch (word.LearningState)
-            {
-                case LearningState.None:
-                    word.LearningState = LearningState.AlreadyKnown;
-                    break;
-
-                case LearningState.Repeatable:
-                    word.RepetitionCount = Math.Max(0, word.RepetitionCount - 1);
-                    AdvanceCooldown(word);
-                    break;
-
-                case LearningState.AlreadyKnown:
-                case LearningState.CurrentlyLearning:
-                case LearningState.Studied:
-                    break;
-
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            _wordsRepository.SortedWordsByState.Value[word.LearningState].Add(word);
-        }
-
         private void AdvanceCooldown(WordEntry word)
         {
             var oldState = word.LearningState;
-
-            if (word.RepetitionCount >= _settingsRepository.RepetitionByCooldown.Value.Count)
-                return;
 
             var cooldownData = _settingsRepository.RepetitionByCooldown.Value[word.RepetitionCount];
             word.Cooldown = cooldownData.AddToDateTime(DateTime.Now);

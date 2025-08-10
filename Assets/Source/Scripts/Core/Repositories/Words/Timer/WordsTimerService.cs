@@ -11,7 +11,7 @@ namespace Source.Scripts.Core.Repositories.Words.Timer
         public Observable<CooldownByLearningState> OnAvailabilityTimeUpdate => _availabilityTimeSubject.AsObservable();
 
         private readonly Subject<CooldownByLearningState> _availabilityTimeSubject = new();
-        private EnumArray<LearningState, AdaptiveTimer> _stateTimers = new(EnumMode.SkipFirst);
+        private EnumArray<LearningState, AdaptiveTimer> _stateTimers = new(EnumMode.Default);
 
         private IWordsRepository _wordsRepository;
 
