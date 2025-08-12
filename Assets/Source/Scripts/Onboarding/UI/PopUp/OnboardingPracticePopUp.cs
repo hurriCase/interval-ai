@@ -7,7 +7,7 @@ using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours;
 using Source.Scripts.Onboarding.Data;
 using Source.Scripts.Onboarding.UI.PopUp.WordPractice;
 using Source.Scripts.UI.Components;
-using Source.Scripts.UI.Windows.Base;
+using Source.Scripts.UI.Windows.Base.PopUp;
 using TMPro;
 using UnityEngine;
 using VContainer;
@@ -46,7 +46,7 @@ namespace Source.Scripts.Onboarding.UI.PopUp
 
             _wordsRepository.SetCurrentWord(practiceState, onboardingWord);
 
-            _wordProgressBehaviour.Init(practiceState);
+            _wordProgressBehaviour.Init();
             _controlButtonsBehaviour.Init(practiceState);
 
             foreach (var wordPracticeStepData in _practiceSteps)

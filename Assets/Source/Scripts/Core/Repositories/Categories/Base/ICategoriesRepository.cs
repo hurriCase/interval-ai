@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
-using CustomUtils.Runtime.Storage;
+using R3;
+using Source.Scripts.Core.Repositories.Categories.Category;
 
 namespace Source.Scripts.Core.Repositories.Categories.Base
 {
     internal interface ICategoriesRepository
     {
-        PersistentReactiveProperty<Dictionary<int, CategoryEntry>> CategoryEntries { get; }
+        ReadOnlyReactiveProperty<Dictionary<int, Category.CategoryEntry>> CategoryEntries { get; }
+        CategoryEntry CreateCategory(string name);
     }
 }

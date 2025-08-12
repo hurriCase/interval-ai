@@ -1,4 +1,4 @@
-﻿namespace Source.Scripts.UI.Windows.Base
+﻿namespace Source.Scripts.UI.Windows.Base.Screen
 {
     internal enum ScreenType
     {

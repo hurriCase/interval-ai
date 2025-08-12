@@ -1,8 +1,8 @@
 ﻿using CustomUtils.Runtime.Extensions;
 using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.Loader;
-using Source.Scripts.Core.Repositories.Categories;
 using Source.Scripts.Core.Repositories.Categories.Base;
+using Source.Scripts.Core.Repositories.Categories.Category;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
@@ -21,7 +21,7 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.CategoryPrevie
 
         internal void Init()
         {
-            foreach (var categoryEntry in _categoriesRepository.CategoryEntries.Value.Values)
+            foreach (var categoryEntry in _categoriesRepository.CategoryEntries.CurrentValue.Values)
             {
                 var createdCategory = Instantiate(_categoryItemPrefab, _contentContainer);
 

@@ -14,9 +14,7 @@ namespace Source.Scripts.UI.Components
         [field: SerializeField] internal ButtonComponent ExpandButton { get; private set; }
         [field: SerializeField] internal AccordionItem HiddenContentContainer { get; private set; }
         [field: SerializeField] internal RectTransform ShownContent { get; private set; }
-        [field: SerializeField]
-        internal SerializableReactiveProperty<List<AccordionItem>> HiddenContent { get; private set; } =
-            new(new List<AccordionItem>());
+        [field: SerializeField] internal List<AccordionItem> HiddenContent { get; private set; }
 
         [SerializeField] private bool _isInitiallyExpanded;
         [SerializeField] private float _expandButtonAnimationDuration;

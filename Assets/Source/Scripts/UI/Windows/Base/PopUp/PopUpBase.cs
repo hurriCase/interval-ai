@@ -4,7 +4,7 @@ using R3;
 using Source.Scripts.UI.Components;
 using UnityEngine;
 
-namespace Source.Scripts.UI.Windows.Base
+namespace Source.Scripts.UI.Windows.Base.PopUp
 {
     internal abstract class PopUpBase : WindowBase<PopUpType>
     {

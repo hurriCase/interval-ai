@@ -517,6 +517,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3418538218136101729, guid: 7c056e9a047ad784b86f527d016c178e, type: 3}
   m_PrefabInstance: {fileID: 1613026700729622672}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8392735141733821097 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7069071528009058873, guid: 7c056e9a047ad784b86f527d016c178e, type: 3}
+  m_PrefabInstance: {fileID: 1613026700729622672}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31b21cbc60e440e29554cae5bebc27e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.WordProgress.WordProgressBehaviour
 --- !u!1001 &1881977309237015054
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -685,6 +696,7 @@ MonoBehaviour:
     - <Value>k__BackingField: {fileID: 1145680088932903520}
     - <Value>k__BackingField: {fileID: 4616406657673852722}
     <EnumMode>k__BackingField: 2
+  _wordProgressBehaviour: {fileID: 8392735141733821097}
 --- !u!114 &7333539576453707713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -697,7 +709,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 668d6c02eb83411da6c7aebd18930c96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe.SwipeCardBehaviour
-  _targetPracticeState: 0
 --- !u!224 &7916317669234510113 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8629539679633799983, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
@@ -921,7 +932,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5461208085814418062, guid: ab15a6a2e21c6e64b8687353d998e2c7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -9.85
+      value: -17.85
       objectReference: {fileID: 0}
     - target: {fileID: 6032719223937984299, guid: ab15a6a2e21c6e64b8687353d998e2c7, type: 3}
       propertyPath: m_SizeDelta.y
@@ -1022,6 +1033,30 @@ PrefabInstance:
     - target: {fileID: 8256646275579997384, guid: ab15a6a2e21c6e64b8687353d998e2c7, type: 3}
       propertyPath: m_PixelsPerUnitMultiplier
       value: 9.333333
+      objectReference: {fileID: 0}
+    - target: {fileID: 8401862705910818613, guid: ab15a6a2e21c6e64b8687353d998e2c7, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8401862705910818613, guid: ab15a6a2e21c6e64b8687353d998e2c7, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8401862705910818613, guid: ab15a6a2e21c6e64b8687353d998e2c7, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8401862705910818613, guid: ab15a6a2e21c6e64b8687353d998e2c7, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8401862705910818613, guid: ab15a6a2e21c6e64b8687353d998e2c7, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8401862705910818613, guid: ab15a6a2e21c6e64b8687353d998e2c7, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8425064385734635936, guid: ab15a6a2e21c6e64b8687353d998e2c7, type: 3}
       propertyPath: m_fontSize

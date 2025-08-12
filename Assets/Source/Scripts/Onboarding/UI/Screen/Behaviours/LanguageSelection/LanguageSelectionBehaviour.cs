@@ -69,7 +69,7 @@ namespace Source.Scripts.Onboarding.UI.Screen.Behaviours.LanguageSelection
             var createdSpacing = _objectResolver.Instantiate(_spacingItem,
                 accordionItem.AccordionComponent.HiddenContentContainer.RectTransform);
 
-            accordionItem.AccordionComponent.HiddenContent.Value.Add(createdSpacing);
+            accordionItem.AccordionComponent.HiddenContent.Add(createdSpacing);
 
             CreateLanguageButton(languageType, language, accordionItem, localization);
         }
@@ -99,7 +99,7 @@ namespace Source.Scripts.Onboarding.UI.Screen.Behaviours.LanguageSelection
             _addressablesLoader.AssignImageAsync(createdLanguageItem.Icon,
                 _spriteReferences.LanguageSprites[language], destroyCancellationToken);
 
-            accordionComponent.AccordionComponent.HiddenContent.Value.Add(createdLanguageItem.AccordionItem);
+            accordionComponent.AccordionComponent.HiddenContent.Add(createdLanguageItem.AccordionItem);
 
             AssignLanguageItem(languageType, language, createdLanguageItem);
         }

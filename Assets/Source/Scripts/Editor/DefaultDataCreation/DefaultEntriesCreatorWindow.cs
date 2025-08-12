@@ -4,7 +4,7 @@ using CustomUtils.Editor.CustomEditorUtilities;
 using CustomUtils.Editor.SheetsDownloader;
 using CustomUtils.Runtime.Extensions;
 using Source.Scripts.Core.Importer;
-using Source.Scripts.Core.Repositories.Categories;
+using Source.Scripts.Core.Repositories.Categories.Category;
 using Source.Scripts.Core.Repositories.Words.Word;
 using UnityEditor;
 using UnityEngine;

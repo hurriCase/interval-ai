@@ -4,7 +4,7 @@ using Source.Scripts.Core.Repositories.Base.DefaultConfig;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Core.Sprites;
 
-namespace Source.Scripts.Core.Repositories.Categories
+namespace Source.Scripts.Core.Repositories.Categories.Category
 {
     [MemoryPackable]
     internal sealed partial class CategoryEntry : IDefaultEntry
@@ -14,6 +14,6 @@ namespace Source.Scripts.Core.Repositories.Categories
         public string LocalizationKey { get; private set; }
         public List<WordEntry> WordEntries { get; private set; } = new();
         public CategoryType CategoryType { get; private set; } = CategoryType.Default;
-        public bool IsSelected { get; set; }
+        public bool IsSelected { get; private set; }
     }
 }

@@ -2,5 +2,5 @@
 
 namespace Source.Scripts.Core.Repositories.Categories
 {
-    internal sealed class DefaultCategoriesDatabase : DefaultDataDatabaseBase<CategoryEntry> { }
+    internal sealed class DefaultCategoriesDatabase : DefaultDataDatabaseBase<Category.CategoryEntry> { }
 }

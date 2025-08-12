@@ -1,12 +1,10 @@
 ﻿using CustomUtils.Runtime.Extensions;
 using UnityEngine;
 
-namespace Source.Scripts.UI.Windows.Base
+namespace Source.Scripts.UI.Windows.Base.Screen
 {
     internal abstract class ScreenBase : WindowBase<ScreenType>
     {
-        [field: SerializeField] internal bool InitialWindow { get; private set; }
-
         internal override void Show()
         {
             CanvasGroup.Show();

@@ -20,7 +20,6 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice
         [SerializeField] private ProgressIndicatorBehaviour _progressIndicatorBehaviour;
 
         [SerializeField] private SwipeCardBehaviour _swipeCardBehaviour;
-        [SerializeField] private WordProgressBehaviour _wordProgressBehaviour;
 
         [SerializeField] private ControlButtonsBehaviour _controlButtonsBehaviour;
 
@@ -41,7 +40,6 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice
             _progressIndicatorBehaviour.Init(_practiceState);
 
             _swipeCardBehaviour.Init(_practiceState);
-            _wordProgressBehaviour.Init(_practiceState);
 
             _controlButtonsBehaviour.Init(_practiceState);
 
@@ -56,7 +54,6 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice
             _progressIndicatorBehaviour.SetActive(isComplete is false);
 
             _swipeCardBehaviour.SetActive(isComplete is false);
-            _wordProgressBehaviour.SetActive(isComplete is false);
 
             _controlButtonsBehaviour.SetActive(isComplete is false);
 

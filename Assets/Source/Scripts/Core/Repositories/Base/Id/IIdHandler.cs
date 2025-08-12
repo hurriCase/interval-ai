@@ -8,9 +8,10 @@ namespace Source.Scripts.Core.Repositories.Base.Id
     internal interface IIdHandler<TEntry>
     {
         UniTask InitAsync(CancellationToken cancellationToken);
+        void AddEntry(TEntry entry, Dictionary<int, TEntry> entries);
         Dictionary<int, TEntry> GenerateWithIds(List<TEntry> entries);
 
-        public Dictionary<int, TEntry> GenerateWithDefaultIds<TDefaultEntry>(List<TDefaultEntry> defaultEntries)
+        Dictionary<int, TEntry> GenerateWithDefaultIds<TDefaultEntry>(List<TDefaultEntry> defaultEntries)
             where TDefaultEntry : class, TEntry, IDefaultEntry;
     }
 }

@@ -23,6 +23,7 @@ using Source.Scripts.Core.Sprites;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
+using CategoryEntry = Source.Scripts.Core.Repositories.Categories.Category.CategoryEntry;
 
 namespace Source.Scripts.Bootstrap.DI
 {
@@ -97,10 +98,15 @@ namespace Source.Scripts.Bootstrap.DI
             builder.Register<UserRepository>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.RegisterInstance(_defaultUserDataConfig).AsImplementedInterfaces();
 
+            RegisterCategoriesRepository(builder);
             RegisterWordsRepository(builder);
+        }
 
+        private void RegisterCategoriesRepository(IContainerBuilder builder)
+        {
             builder.Register<IdHandler<CategoryEntry>>(Lifetime.Singleton).As<IIdHandler<CategoryEntry>>();
             builder.Register<CategoriesRepository>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<CategoryEntry.CategoryStateMutator>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.RegisterInstance(_defaultCategoriesDatabase).As<IDefaultDatabase>().AsSelf();
         }
 

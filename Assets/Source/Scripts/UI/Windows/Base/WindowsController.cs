@@ -4,6 +4,8 @@ using CustomUtils.Runtime.Extensions;
 using Cysharp.Threading.Tasks;
 using R3;
 using Source.Scripts.Core.Loader;
+using Source.Scripts.UI.Windows.Base.PopUp;
+using Source.Scripts.UI.Windows.Base.Screen;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using VContainer;
@@ -27,26 +29,30 @@ namespace Source.Scripts.UI.Windows.Base
         private PopUpBase _currentOpenedPopUp;
         private ScreenBase _currentScreen;
 
-        public async UniTask InitAsync(
-            IObjectResolver objectResolver,
-            IAddressablesLoader addressablesLoader,
-            CancellationToken cancellationToken)
+        private IObjectResolver _objectResolver;
+        private IAddressablesLoader _addressablesLoader;
+
+        [Inject]
+        public void Inject(IObjectResolver objectResolver, IAddressablesLoader addressablesLoader)
+        {
+            _objectResolver = objectResolver;
+            _addressablesLoader = addressablesLoader;
+        }
+
+        public async UniTask InitAsync(CancellationToken cancellationToken)
         {
             var sourceWithDestroy = cancellationToken.CreateLinkedTokenSourceWithDestroy(this);
 
-            await InitScreensAsync(objectResolver, addressablesLoader, sourceWithDestroy.Token);
-            await InitPopUpAsync(objectResolver, addressablesLoader, sourceWithDestroy.Token);
+            await InitScreensAsync(sourceWithDestroy.Token);
+            await InitPopUpAsync(sourceWithDestroy.Token);
         }
 
-        private async UniTask InitScreensAsync(
-            IObjectResolver objectResolver,
-            IAddressablesLoader addressablesLoader,
-            CancellationToken cancellationToken)
+        private async UniTask InitScreensAsync(CancellationToken cancellationToken)
         {
             foreach (var screenReference in _screenReferences)
             {
-                var loadedScreen = await addressablesLoader.LoadAsync<GameObject>(screenReference, cancellationToken);
-                var createdWindow = objectResolver.Instantiate(loadedScreen, _screensContainer);
+                var loadedScreen = await _addressablesLoader.LoadAsync<GameObject>(screenReference, cancellationToken);
+                var createdWindow = _objectResolver.Instantiate(loadedScreen, _screensContainer);
 
                 if (createdWindow.TryGetComponent<ScreenBase>(out var screenBase) is false)
                     continue;
@@ -61,15 +67,12 @@ namespace Source.Scripts.UI.Windows.Base
             }
         }
 
-        private async UniTask InitPopUpAsync(
-            IObjectResolver objectResolver,
-            IAddressablesLoader addressablesLoader,
-            CancellationToken cancellationToken)
+        private async UniTask InitPopUpAsync(CancellationToken cancellationToken)
         {
             foreach (var popUpReference in _popUpReferences)
             {
-                var loadedPopUp = await addressablesLoader.LoadAsync<GameObject>(popUpReference, cancellationToken);
-                var createdWindow = objectResolver.Instantiate(loadedPopUp, _popUpsContainer);
+                var loadedPopUp = await _addressablesLoader.LoadAsync<GameObject>(popUpReference, cancellationToken);
+                var createdWindow = _objectResolver.Instantiate(loadedPopUp, _popUpsContainer);
 
                 if (createdWindow.TryGetComponent<PopUpBase>(out var popUpBase) is false)
                     continue;

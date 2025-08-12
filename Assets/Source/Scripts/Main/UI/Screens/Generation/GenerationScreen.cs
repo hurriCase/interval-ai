@@ -4,6 +4,8 @@ using Source.Scripts.Main.UI.Screens.Generation.Behaviours;
 using Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.CategoryPreview;
 using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base;
+using Source.Scripts.UI.Windows.Base.PopUp;
+using Source.Scripts.UI.Windows.Base.Screen;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

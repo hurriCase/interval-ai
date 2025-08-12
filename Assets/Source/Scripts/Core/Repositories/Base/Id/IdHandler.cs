@@ -20,6 +20,12 @@ namespace Source.Scripts.Core.Repositories.Base.Id
                 cancellationToken);
         }
 
+        public void AddEntry(TEntry entry, Dictionary<int, TEntry> entries)
+        {
+            _currentMaxId.Value++;
+            entries[_currentMaxId.Value] = entry;
+        }
+
         public Dictionary<int, TEntry> GenerateWithIds(List<TEntry> entries)
         {
             var entriesWithIds = new Dictionary<int, TEntry>();

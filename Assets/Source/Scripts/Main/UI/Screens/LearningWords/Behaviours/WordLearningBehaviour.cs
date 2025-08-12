@@ -7,6 +7,7 @@ using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.UI.Shared;
 using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base;
+using Source.Scripts.UI.Windows.Base.PopUp;
 using TMPro;
 using UnityEngine;
 using VContainer;

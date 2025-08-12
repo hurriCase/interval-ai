@@ -1,4 +1,5 @@
 ﻿using Source.Scripts.UI.Windows.Base;
+using Source.Scripts.UI.Windows.Base.PopUp;
 using VContainer;
 
 namespace Source.Scripts.Onboarding.UI.Screen.Behaviours

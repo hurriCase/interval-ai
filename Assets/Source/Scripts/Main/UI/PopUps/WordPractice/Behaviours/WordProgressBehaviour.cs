@@ -18,25 +18,17 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
         [SerializeField] private float _thicknessRatio;
 
         [Inject] private ISettingsRepository _settingsRepository;
-        [Inject] private IWordsRepository _wordsRepository;
 
         private const int Circumference = 360;
 
         private readonly List<ProgressSectionItem> _createdSegments = new();
         private int _previousSegmentCount;
 
-        internal void Init(PracticeState practiceState)
+        internal void Init()
         {
             _settingsRepository.RepetitionByCooldown
                 .Subscribe(this, static (repetitions, behaviour)
                     => behaviour.CreateSegments(repetitions.Count))
-                .RegisterTo(destroyCancellationToken);
-
-            _wordsRepository.CurrentWordsByState
-                .Select(practiceState,
-                    (currentWordsByState, state) => currentWordsByState[state])
-                .Where(currentWord => currentWord != null)
-                .Subscribe(this, static (currentWord, self) => self.UpdateProgress(currentWord))
                 .RegisterTo(destroyCancellationToken);
         }
 
@@ -48,6 +40,11 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
         {
             if (_previousSegmentCount == segmentsCount)
                 return;
+
+            foreach (var segment in _createdSegments)
+                Destroy(segment.gameObject);
+
+            _createdSegments.Clear();
 
             var segmentFill = 1f / segmentsCount;
             var actualSpacing = segmentFill * _spacingRatio;
@@ -68,7 +65,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
             _previousSegmentCount = segmentsCount;
         }
 
-        private void UpdateProgress(WordEntry wordEntry)
+        public void UpdateProgress(WordEntry wordEntry)
         {
             for (var i = 0; i < _createdSegments.Count; i++)
             {

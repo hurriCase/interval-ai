@@ -2,7 +2,7 @@
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Words.Timer;
 using Source.Scripts.UI.Components;
-using Source.Scripts.UI.Windows.Base;
+using Source.Scripts.UI.Windows.Base.Screen;
 using UnityEngine;
 using VContainer;
 

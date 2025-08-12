@@ -1,6 +1,6 @@
 ﻿using R3;
 using Source.Scripts.UI.Components;
-using Source.Scripts.UI.Windows.Base;
+using Source.Scripts.UI.Windows.Base.PopUp;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

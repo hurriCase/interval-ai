@@ -9,7 +9,9 @@ namespace Source.Scripts.UI.Windows.Base
     [RequireComponent(typeof(CanvasGroup))]
     internal abstract class WindowBase<T> : CanvasGroupBehaviour where T : Enum
     {
-        [field: SerializeField] internal T WindowType { get; private set; }
+        //TODO:<Dmitriy.Sukharev> make setter private in some way
+        [field: SerializeField] internal bool InitialWindow { get; private set; }
+        internal T WindowType { get; set; }
 
         internal virtual void BaseInit() { }
 

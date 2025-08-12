@@ -6,7 +6,7 @@ using Source.Scripts.Core.Repositories.Statistics;
 using Source.Scripts.Core.Scenes;
 using Source.Scripts.Onboarding.UI.Screen.Behaviours;
 using Source.Scripts.UI.Components;
-using Source.Scripts.UI.Windows.Base;
+using Source.Scripts.UI.Windows.Base.Screen;
 using UnityEngine;
 using VContainer;
 

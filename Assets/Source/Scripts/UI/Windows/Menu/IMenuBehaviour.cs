@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 
-namespace Source.Scripts.UI.Windows
+namespace Source.Scripts.UI.Windows.Menu
 {
     internal interface IMenuBehaviour
     {

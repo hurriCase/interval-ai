@@ -16,6 +16,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
     {
         [SerializeField] private EnumArray<ModuleType, PracticeModuleBase> _practiceModules = new(EnumMode.SkipFirst);
 
+        [SerializeField] private WordProgressBehaviour _wordProgressBehaviour;
+
         [Inject] private IWordsRepository _wordsRepository;
         [Inject] private IAppConfig _appConfig;
 
@@ -28,6 +30,16 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
         internal void Init(PracticeState practiceState)
         {
             _practiceState = practiceState;
+
+            _wordProgressBehaviour.Init();
+
+            _wordsRepository.CurrentWordsByState
+                .Select(practiceState,
+                    (currentWordsByState, state) => currentWordsByState[state])
+                .Where(currentWord => currentWord != null)
+                .Subscribe(_wordProgressBehaviour, static (currentWord, behaviour)
+                    => behaviour.UpdateProgress(currentWord))
+                .RegisterTo(destroyCancellationToken);
 
             foreach (var module in _practiceModules)
                 module.Init(this);

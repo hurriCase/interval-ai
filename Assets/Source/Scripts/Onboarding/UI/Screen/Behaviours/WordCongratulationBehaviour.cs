@@ -1,6 +1,7 @@
 ﻿using Cysharp.Text;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.UI.Windows.Base;
+using Source.Scripts.UI.Windows.Base.PopUp;
 using TMPro;
 using UnityEngine;
 using VContainer;

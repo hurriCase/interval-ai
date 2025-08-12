@@ -15,7 +15,7 @@ namespace Source.Scripts.Onboarding.UI.Screen.Behaviours
 
         internal override void Init()
         {
-            foreach (var categoryEntry in _categoriesRepository.CategoryEntries.Value.Values)
+            foreach (var categoryEntry in _categoriesRepository.CategoryEntries.CurrentValue.Values)
             {
                 if (categoryEntry.CategoryType != CategoryType.Default)
                     continue;
