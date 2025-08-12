@@ -11,6 +11,11 @@ namespace Source.Scripts.Main.UI.PopUps.Category
 
         internal override void Show()
         {
+            base.Show();
+
+            if (Parameters?.WordEntries == null)
+                return;
+
             foreach (var wordEntry in Parameters.WordEntries)
             {
                 var createdWord = Instantiate(_wordItem, _wordsContainer);

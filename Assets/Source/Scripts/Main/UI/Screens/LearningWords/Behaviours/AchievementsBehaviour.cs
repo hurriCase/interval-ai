@@ -1,8 +1,7 @@
 ﻿using R3;
+using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.Shared;
 using Source.Scripts.UI.Components;
-using Source.Scripts.UI.Windows.Base;
-using Source.Scripts.UI.Windows.Base.PopUp;
 using UnityEngine;
 using VContainer;
 

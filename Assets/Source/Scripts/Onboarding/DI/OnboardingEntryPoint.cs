@@ -1,7 +1,6 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
-using Source.Scripts.Core.Loader;
-using Source.Scripts.UI.Windows.Base;
+using Source.Scripts.Onboarding.UI.Base;
 using VContainer;
 using VContainer.Unity;
 

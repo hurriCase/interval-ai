@@ -1,4 +1,4 @@
-﻿namespace Source.Scripts.UI.Windows.Base.Screen
+﻿namespace Source.Scripts.Main.UI.Base
 {
     internal enum ScreenType
     {
@@ -7,6 +7,5 @@
         Categories = 2,
         Generation = 3,
         Settings = 4,
-        OnboardingInput = 5
     }
 }

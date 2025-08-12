@@ -1,10 +1,10 @@
-﻿using R3;
+﻿using Cysharp.Text;
+using R3;
 using Source.Scripts.Core.AI;
+using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.Screens.Generation.Behaviours;
 using Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.CategoryPreview;
 using Source.Scripts.UI.Components;
-using Source.Scripts.UI.Windows.Base;
-using Source.Scripts.UI.Windows.Base.PopUp;
 using Source.Scripts.UI.Windows.Base.Screen;
 using TMPro;
 using UnityEngine;
@@ -42,7 +42,7 @@ namespace Source.Scripts.Main.UI.Screens.Generation
 
             _percentageSlider.OnValueChangedAsObservable()
                 .Subscribe(this, (percentage, screen)
-                    => screen._percentageText.text = $"{percentage * 100:0}%")
+                    => screen._percentageText.SetTextFormat("{0:0}%", percentage * 100))
                 .RegisterTo(destroyCancellationToken);
         }
     }

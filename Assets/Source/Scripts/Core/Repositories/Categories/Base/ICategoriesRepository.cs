@@ -6,7 +6,7 @@ namespace Source.Scripts.Core.Repositories.Categories.Base
 {
     internal interface ICategoriesRepository
     {
-        ReadOnlyReactiveProperty<Dictionary<int, Category.CategoryEntry>> CategoryEntries { get; }
+        ReadOnlyReactiveProperty<Dictionary<int, CategoryEntry>> CategoryEntries { get; }
         CategoryEntry CreateCategory(string name);
     }
 }

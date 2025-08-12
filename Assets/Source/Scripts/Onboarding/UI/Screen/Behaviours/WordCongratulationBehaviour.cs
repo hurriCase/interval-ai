@@ -1,7 +1,6 @@
 ﻿using Cysharp.Text;
 using Source.Scripts.Core.Repositories.Settings.Base;
-using Source.Scripts.UI.Windows.Base;
-using Source.Scripts.UI.Windows.Base.PopUp;
+using Source.Scripts.Onboarding.UI.Base;
 using TMPro;
 using UnityEngine;
 using VContainer;
@@ -26,7 +25,7 @@ namespace Source.Scripts.Onboarding.UI.Screen.Behaviours
 
         internal override void OnContinue()
         {
-            _windowsController.OpenPopUpByType(PopUpType.OnboardingPractice);
+            _windowsController.OpenPopUpByType(PopUpType.Practice);
         }
     }
 }

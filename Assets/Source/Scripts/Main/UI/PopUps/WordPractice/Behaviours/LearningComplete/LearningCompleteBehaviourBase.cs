@@ -7,11 +7,10 @@ using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
+using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice;
 using Source.Scripts.Main.UI.Shared;
 using Source.Scripts.UI.Components;
-using Source.Scripts.UI.Windows.Base;
-using Source.Scripts.UI.Windows.Base.Screen;
 using TMPro;
 using UnityEngine;
 using VContainer;
@@ -57,7 +56,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
                 .RegisterTo(destroyCancellationToken);
 
             _learnButton.OnClickAsObservable()
-                .Subscribe(practiceStateService,static (_, service) => service.SetState(PracticeState.NewWords))
+                .Subscribe(practiceStateService, static (_, service) => service.SetState(PracticeState.NewWords))
                 .RegisterTo(destroyCancellationToken);
 
             _exitButton.OnClickAsObservable()

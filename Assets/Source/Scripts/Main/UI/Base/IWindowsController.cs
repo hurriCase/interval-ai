@@ -1,15 +1,14 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
-using Source.Scripts.UI.Windows.Base.PopUp;
-using Source.Scripts.UI.Windows.Base.Screen;
 
-namespace Source.Scripts.UI.Windows.Base
+namespace Source.Scripts.Main.UI.Base
 {
     internal interface IWindowsController
     {
+        ScreenType InitialScreenType { get; }
         UniTask InitAsync(CancellationToken cancellationToken);
-        void OpenPopUpByType(PopUpType popUpType);
         void OpenScreenByType(ScreenType screenType);
-        ScreenType GetInitialScreenType();
+        void OpenPopUpByType(PopUpType popUpType);
+        void OpenPopUpByType<TParameters>(PopUpType popUpType, TParameters parameters);
     }
 }

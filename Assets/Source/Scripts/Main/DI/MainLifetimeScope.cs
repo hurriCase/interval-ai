@@ -1,8 +1,7 @@
 ﻿using Source.Scripts.Core.AI;
 using Source.Scripts.Main.Data;
+using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice;
-using Source.Scripts.UI.Windows.Base;
-using Source.Scripts.UI.Windows.Menu;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -11,7 +10,7 @@ namespace Source.Scripts.Main.DI
 {
     internal sealed class MainLifetimeScope : LifetimeScope
     {
-        [SerializeField] private WindowsController _windowsController;
+        [SerializeField] private MainWindowsController _windowsController;
         [SerializeField] private MenuBehaviour _menuBehaviour;
 
         [SerializeField] private ProgressDescriptionsDatabase _progressDescriptionsDatabase;

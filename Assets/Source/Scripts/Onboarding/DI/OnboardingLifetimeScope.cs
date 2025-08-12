@@ -1,6 +1,6 @@
 ﻿using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Onboarding.Data;
-using Source.Scripts.UI.Windows.Base;
+using Source.Scripts.Onboarding.UI.Base;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -9,7 +9,7 @@ namespace Source.Scripts.Onboarding.DI
 {
     internal sealed class OnboardingLifetimeScope : LifetimeScope
     {
-        [SerializeField] private WindowsController _windowsController;
+        [SerializeField] private OnboardingWindowsController _windowsController;
         [SerializeField] private LocalizationDatabase _localizationDatabase;
         [SerializeField] private OnboardingConfig _onboardingConfig;
 

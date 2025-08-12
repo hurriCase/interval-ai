@@ -1,13 +1,11 @@
-﻿using System.Collections.Generic;
-using CustomUtils.Runtime.CustomTypes.Collections;
+﻿using CustomUtils.Runtime.CustomTypes.Collections;
 using R3;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Categories;
 using Source.Scripts.Core.Repositories.Categories.Base;
+using Source.Scripts.Main.UI.Base;
 using Source.Scripts.UI.Components;
-using Source.Scripts.UI.Windows.Base;
-using Source.Scripts.UI.Windows.Base.PopUp;
 using Source.Scripts.UI.Windows.Base.Screen;
 using UnityEngine;
 using UnityEngine.UI;

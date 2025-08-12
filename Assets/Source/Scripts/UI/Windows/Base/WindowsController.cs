@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Threading;
+using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions;
 using Cysharp.Threading.Tasks;
 using R3;
@@ -10,24 +12,32 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using VContainer;
 using VContainer.Unity;
-using ZLinq;
 
 namespace Source.Scripts.UI.Windows.Base
 {
-    internal sealed class WindowsController : MonoBehaviour, IWindowsController
+    internal abstract class WindowsController<TScreenType, TPopUpType> : MonoBehaviour
+        where TScreenType : unmanaged, Enum
+        where TPopUpType : unmanaged, Enum
     {
-        [SerializeField] private AssetReferenceT<GameObject>[] _screenReferences;
-        [SerializeField] private AssetReferenceT<GameObject>[] _popUpReferences;
+        [SerializeField]
+        private EnumArray<TScreenType, AssetReferenceT<GameObject>> _screenReferences = new(EnumMode.SkipFirst);
+
+        [SerializeField]
+        private EnumArray<TPopUpType, AssetReferenceT<GameObject>> _popUpReferences = new(EnumMode.SkipFirst);
 
         [SerializeField] private Transform _screensContainer;
         [SerializeField] private Transform _popUpsContainer;
 
-        private readonly HashSet<PopUpBase> _createdPopUps = new();
-        private readonly HashSet<ScreenBase> _createdScreens = new();
+        public TScreenType InitialScreenType { get; private set; }
+
+        private EnumArray<TScreenType, ScreenBase> _createdScreens = new(EnumMode.SkipFirst);
+        private EnumArray<TPopUpType, PopUpBase> _createdPopUps = new(EnumMode.SkipFirst);
         private readonly Stack<PopUpBase> _previousOpenedPopUps = new();
 
         private PopUpBase _currentOpenedPopUp;
         private ScreenBase _currentScreen;
+
+        private TScreenType _initialScreenType;
 
         private IObjectResolver _objectResolver;
         private IAddressablesLoader _addressablesLoader;
@@ -49,7 +59,7 @@ namespace Source.Scripts.UI.Windows.Base
 
         private async UniTask InitScreensAsync(CancellationToken cancellationToken)
         {
-            foreach (var screenReference in _screenReferences)
+            foreach (var (screenType, screenReference) in _screenReferences.AsTuples())
             {
                 var loadedScreen = await _addressablesLoader.LoadAsync<GameObject>(screenReference, cancellationToken);
                 var createdWindow = _objectResolver.Instantiate(loadedScreen, _screensContainer);
@@ -57,19 +67,24 @@ namespace Source.Scripts.UI.Windows.Base
                 if (createdWindow.TryGetComponent<ScreenBase>(out var screenBase) is false)
                     continue;
 
-                _createdScreens.Add(screenBase);
+                _createdScreens[screenType] = screenBase;
 
                 screenBase.BaseInit();
                 screenBase.Init();
 
-                if (screenBase.InitialWindow is false)
-                    screenBase.HideImmediately();
+                if (screenBase.InitialWindow)
+                {
+                    InitialScreenType = screenType;
+                    continue;
+                }
+
+                screenBase.HideImmediately();
             }
         }
 
         private async UniTask InitPopUpAsync(CancellationToken cancellationToken)
         {
-            foreach (var popUpReference in _popUpReferences)
+            foreach (var (popUpType, popUpReference) in _popUpReferences.AsTuples())
             {
                 var loadedPopUp = await _addressablesLoader.LoadAsync<GameObject>(popUpReference, cancellationToken);
                 var createdWindow = _objectResolver.Instantiate(loadedPopUp, _popUpsContainer);
@@ -77,7 +92,7 @@ namespace Source.Scripts.UI.Windows.Base
                 if (createdWindow.TryGetComponent<PopUpBase>(out var popUpBase) is false)
                     continue;
 
-                _createdPopUps.Add(popUpBase);
+                _createdPopUps[popUpType] = popUpBase;
 
                 popUpBase.BaseInit();
                 popUpBase.Init();
@@ -88,56 +103,61 @@ namespace Source.Scripts.UI.Windows.Base
             }
         }
 
-        public void OpenPopUpByType(PopUpType popUpType)
-        {
-            foreach (var popUpBase in _createdPopUps)
-            {
-                if (popUpBase.WindowType != popUpType)
-                    continue;
-
-                if (_currentOpenedPopUp)
-                {
-                    _previousOpenedPopUps.Push(_currentOpenedPopUp);
-                    _currentOpenedPopUp.HideImmediately();
-                }
-
-                _currentOpenedPopUp = popUpBase;
-                popUpBase.Show();
-                return;
-            }
-
-            Debug.LogError($"[WindowsController::OpenPopUpByType] There is no pop up with type '{popUpType}'");
-        }
-
-        public void OpenScreenByType(ScreenType screenType)
+        public void OpenScreenByType(TScreenType screenType)
         {
             HideAllPopUps();
 
-            foreach (var screenBase in _createdScreens)
-            {
-                if (screenBase.WindowType != screenType)
-                    continue;
+            var screenBase = _createdScreens[screenType];
 
-                if (_currentScreen)
-                    _currentScreen.Hide();
+            if (!screenBase)
+                Debug.LogError($"[WindowsController::OpenScreenByType] There is no screen with type '{screenType}'");
 
-                _currentScreen = screenBase;
-                screenBase.Show();
-                return;
-            }
+            if (_currentScreen)
+                _currentScreen.Hide();
 
-            Debug.LogError($"[WindowsController::OpenScreenByType] There is no screen with type '{screenType}'");
+            _currentScreen = screenBase;
+            screenBase.Show();
         }
 
-        public ScreenType GetInitialScreenType()
+        public void OpenPopUpByType(TPopUpType popUpType)
         {
-            foreach (var screenBase in _createdScreens.AsValueEnumerable())
+            if (TryGetPopUp(popUpType, out var popUpBase) is false)
+                return;
+
+            popUpBase.Show();
+        }
+
+        public void OpenPopUpByType<TParameters>(TPopUpType popUpType, TParameters parameters)
+        {
+            if (TryGetPopUp(popUpType, out var popUpBase) is false)
+                return;
+
+            var parameterizedPopUp = popUpBase as ParameterizedPopUpBase<TParameters>;
+
+            if (!parameterizedPopUp)
+                return;
+
+            parameterizedPopUp.Show();
+            parameterizedPopUp.SetParameters(parameters);
+        }
+
+        private bool TryGetPopUp(TPopUpType popUpType, out PopUpBase popUpBase)
+        {
+            popUpBase = _createdPopUps[popUpType];
+            if (!popUpBase)
             {
-                if (screenBase.InitialWindow)
-                    return screenBase.WindowType;
+                Debug.LogError($"[WindowsController::OpenPopUpByType] There is no pop up with type '{popUpType}'");
+                return false;
             }
 
-            return ScreenType.None;
+            if (_currentOpenedPopUp)
+            {
+                _previousOpenedPopUps.Push(_currentOpenedPopUp);
+                _currentOpenedPopUp.HideImmediately();
+            }
+
+            _currentOpenedPopUp = popUpBase;
+            return true;
         }
 
         private void HideAllPopUps()

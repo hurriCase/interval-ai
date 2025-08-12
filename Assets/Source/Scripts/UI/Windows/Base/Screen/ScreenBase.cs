@@ -1,9 +1,8 @@
 ﻿using CustomUtils.Runtime.Extensions;
-using UnityEngine;
 
 namespace Source.Scripts.UI.Windows.Base.Screen
 {
-    internal abstract class ScreenBase : WindowBase<ScreenType>
+    internal abstract class ScreenBase : WindowBase
     {
         internal override void Show()
         {

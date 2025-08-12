@@ -4,7 +4,7 @@
     {
         protected TParameters Parameters { get; private set; }
 
-        internal virtual void SetParameters(TParameters parameters)
+        internal void SetParameters(TParameters parameters)
         {
             Parameters = parameters;
         }

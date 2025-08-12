@@ -6,10 +6,11 @@ using UnityEngine;
 
 namespace Source.Scripts.UI.Windows.Base.PopUp
 {
-    internal abstract class PopUpBase : WindowBase<PopUpType>
+    internal abstract class PopUpBase : WindowBase
     {
         [SerializeField] private ButtonComponent _closeButton;
         [SerializeField] private float _animationDuration = 0.1f;
+
         internal Observable<Unit> OnHidePopUp => _onHidePopUpSubject.AsObservable();
 
         private readonly Subject<Unit> _onHidePopUpSubject = new();

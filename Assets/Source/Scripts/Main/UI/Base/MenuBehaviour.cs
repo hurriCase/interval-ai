@@ -4,12 +4,11 @@ using CustomUtils.Runtime.Extensions;
 using R3;
 using R3.Triggers;
 using Source.Scripts.UI.Components;
-using Source.Scripts.UI.Windows.Base;
-using Source.Scripts.UI.Windows.Base.Screen;
+using Source.Scripts.UI.Windows.Menu;
 using UnityEngine;
 using VContainer;
 
-namespace Source.Scripts.UI.Windows.Menu
+namespace Source.Scripts.Main.UI.Base
 {
     internal sealed class MenuBehaviour : MonoBehaviour, IMenuBehaviour
     {
@@ -29,15 +28,12 @@ namespace Source.Scripts.UI.Windows.Menu
 
             foreach (var (screenType, themeToggle) in _menuToggles.AsTuples())
             {
-                if (screenType == ScreenType.OnboardingInput)
-                    continue;
-
                 themeToggle.OnPointerClickAsObservable()
                     .Subscribe((_windowsController, screenType),
                         static (_, tuple) => tuple._windowsController.OpenScreenByType(tuple.screenType))
                     .RegisterTo(linkedSource.Token);
 
-                if (screenType == _windowsController.GetInitialScreenType())
+                if (screenType == _windowsController.InitialScreenType)
                     themeToggle.isOn = true;
             }
         }
