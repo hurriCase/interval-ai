@@ -33,7 +33,7 @@ namespace Source.Scripts.Main.UI.PopUps.CategoryCreation
                 return;
 
             var newCategory = _categoriesRepository.CreateCategory(_categoryNameInputField.text);
-           _windowsController.OpenPopUpByType(PopUpType.Category, newCategory);
+            _windowsController.OpenPopUpByType(PopUpType.Category, newCategory);
         }
     }
 }

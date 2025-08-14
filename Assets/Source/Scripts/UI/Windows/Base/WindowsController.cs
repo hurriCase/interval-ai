@@ -137,8 +137,8 @@ namespace Source.Scripts.UI.Windows.Base
             if (!parameterizedPopUp)
                 return;
 
-            parameterizedPopUp.Show();
             parameterizedPopUp.SetParameters(parameters);
+            parameterizedPopUp.Show();
         }
 
         private bool TryGetPopUp(TPopUpType popUpType, out PopUpBase popUpBase)

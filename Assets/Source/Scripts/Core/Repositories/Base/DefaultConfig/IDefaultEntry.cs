@@ -2,6 +2,6 @@
 {
     internal interface IDefaultEntry
     {
-        int DefaultId { get; }
+        int Id { get; }
     }
 }

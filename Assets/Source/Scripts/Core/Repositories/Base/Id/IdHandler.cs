@@ -20,11 +20,7 @@ namespace Source.Scripts.Core.Repositories.Base.Id
                 cancellationToken);
         }
 
-        public void AddEntry(TEntry entry, Dictionary<int, TEntry> entries)
-        {
-            _currentMaxId.Value++;
-            entries[_currentMaxId.Value] = entry;
-        }
+        public int GetId() => _currentMaxId.Value++;
 
         public Dictionary<int, TEntry> GenerateWithIds(List<TEntry> entries)
         {
@@ -49,7 +45,7 @@ namespace Source.Scripts.Core.Repositories.Base.Id
                 if (Validate(entriesWithIds, defaultEntry) is false)
                     continue;
 
-                entriesWithIds[defaultEntry.DefaultId] = defaultEntry;
+                entriesWithIds[defaultEntry.Id] = defaultEntry;
             }
 
             return entriesWithIds;
@@ -57,20 +53,20 @@ namespace Source.Scripts.Core.Repositories.Base.Id
 
         private bool Validate(Dictionary<int, TEntry> entries, IDefaultEntry currentEntry)
         {
-            if (entries.ContainsKey(currentEntry.DefaultId))
+            if (entries.ContainsKey(currentEntry.Id))
             {
                 Debug.LogError("[IdHandler::Validate] " +
-                               $"Encountered duplicate id: {currentEntry.DefaultId}." +
+                               $"Encountered duplicate id: {currentEntry.Id}." +
                                $"skipping entry: {currentEntry}." +
                                $"For type {typeof(TEntry).Name}");
                 return false;
             }
 
-            if (currentEntry.DefaultId < 0)
+            if (currentEntry.Id < 0)
                 return true;
 
             Debug.LogError("[IdHandler::Validate] " +
-                           $"Encountered positive id: {currentEntry.DefaultId} " +
+                           $"Encountered positive id: {currentEntry.Id} " +
                            "for generation with default ids which is prohibited, " +
                            $"skipping entry: {currentEntry}." +
                            $"For type {typeof(TEntry).Name}");

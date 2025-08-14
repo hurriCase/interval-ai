@@ -52,28 +52,28 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
         [MenuItem("References/Default Categories Database", priority = 0)]
         private static void SelectAssetDefaultCategoriesDatabase()
         {
-            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Scriptables/LifetimeRelated/Core/DefaultCategoriesDatabase.asset");
+            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Scriptables/Databases/DefaultCategoriesDatabase.asset");
             Selection.activeObject = asset;
         }
 
         [MenuItem("References/Localization Keys Database", priority = 1)]
         private static void SelectAssetLocalizationKeysDatabase()
         {
-            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Scriptables/LifetimeRelated/Main/LocalizationKeysDatabase.asset");
+            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Scriptables/Databases/LocalizationKeysDatabase.asset");
             Selection.activeObject = asset;
         }
 
         [MenuItem("References/Progress Graph Settings", priority = 3)]
         private static void SelectAssetProgressGraphSettings()
         {
-            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Scriptables/LifetimeRelated/Main/ProgressGraphSettings.asset");
+            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Scriptables/Main/ProgressGraphSettings.asset");
             Selection.activeObject = asset;
         }
 
         [MenuItem("References/SceneReferences", priority = 4)]
         private static void SelectAssetSceneReferences()
         {
-            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Scriptables/LifetimeRelated/Core/SceneReferences.asset");
+            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Scriptables/References/SceneReferences.asset");
             Selection.activeObject = asset;
         }
 
@@ -87,7 +87,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
         [MenuItem("References/Mappings/Progress Color Mapping", priority = 2)]
         private static void SelectAssetMapping_ProgressColor()
         {
-            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Scriptables/ColorMappings/Progress/Mapping_ProgressColor.asset");
+            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Scriptables/ColorMappings/Mapping_ProgressColor.asset");
             Selection.activeObject = asset;
         }
 
@@ -539,6 +539,44 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             if (!instance)
             {
                 Debug.LogError("[GeneratedMenuItems::CreateP_HorizontalLayout] Failed to instantiate prefab");
+                return;
+            }
+
+            var prefabStage = PrefabStageUtility.GetCurrentPrefabStage();
+            if (prefabStage)
+            {
+                var selectedInPrefab = Selection.activeGameObject;
+                if (selectedInPrefab && prefabStage.IsPartOfPrefabContents(selectedInPrefab))
+                    instance.transform.SetParent(selectedInPrefab.transform);
+                else
+                    instance.transform.SetParent(prefabStage.prefabContentsRoot.transform);
+
+                instance.transform.localPosition = Vector3.zero;
+            }
+            else
+                GameObjectUtility.SetParentAndAlign(instance, menuCommand.context as GameObject);
+
+            Undo.RegisterCreatedObjectUndo(instance, "Create " + instance.name);
+
+            Selection.activeObject = instance;
+        }
+
+        [MenuItem("GameObject/UI Custom/Input Field", priority = 14)]
+        private static void CreateP_InputField(MenuCommand menuCommand)
+        {
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/CustomComponents/P_InputField_.prefab");
+
+            if (!prefab)
+            {
+                Debug.LogError("[GeneratedMenuItems::CreateP_InputField] Prefab not found at path: Assets/Source/Prefabs/UI/CustomComponents/P_InputField_.prefab");
+                return;
+            }
+
+            var instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
+
+            if (!instance)
+            {
+                Debug.LogError("[GeneratedMenuItems::CreateP_InputField] Failed to instantiate prefab");
                 return;
             }
 

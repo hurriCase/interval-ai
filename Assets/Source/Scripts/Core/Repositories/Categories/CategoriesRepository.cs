@@ -16,6 +16,12 @@ namespace Source.Scripts.Core.Repositories.Categories
         public ReadOnlyReactiveProperty<Dictionary<int, CategoryEntry>> CategoryEntries => _categoryEntries.Property;
         private readonly PersistentReactiveProperty<Dictionary<int, CategoryEntry>> _categoryEntries = new();
 
+        public Observable<CategoryEntry> CategoryAdded => _categoryAdded;
+        public Observable<CategoryEntry> CategoryRemoved => _categoryRemoved;
+
+        private readonly Subject<CategoryEntry> _categoryAdded = new();
+        private readonly Subject<CategoryEntry> _categoryRemoved = new();
+
         private readonly DefaultCategoriesDatabase _defaultCategoriesDatabase;
         private readonly ICategoryStateMutator _categoryStateMutator;
         private readonly DefaultWordsDatabase _defaultWordsDatabase;
@@ -55,8 +61,21 @@ namespace Source.Scripts.Core.Repositories.Categories
         public CategoryEntry CreateCategory(string name)
         {
             var category = _categoryStateMutator.CreateCategoryEntry(name);
-            _idHandler.AddEntry(category, _categoryEntries.Value);
+
+            _categoryEntries.Value[category.Id] = category;
+            _categoryEntries.SaveAsync();
+
+            _categoryAdded.OnNext(category);
+
             return category;
+        }
+
+        public void RemoveCategory(CategoryEntry categoryEntry)
+        {
+            _categoryEntries.Value.Remove(categoryEntry.Id);
+            _categoryEntries.SaveAsync();
+
+            _categoryRemoved.OnNext(categoryEntry);
         }
 
         public void Dispose()

@@ -9,8 +9,8 @@ namespace Source.Scripts.Core.Repositories.User
 {
     internal sealed class UserRepository : IUserRepository, IRepository
     {
-        public PersistentReactiveProperty<CachedSprite> UserIcon { get; } = new();
         public PersistentReactiveProperty<string> Nickname { get; } = new();
+        public PersistentReactiveProperty<CachedSprite> UserIcon { get; } = new();
 
         private readonly IDefaultUserDataConfig _defaultUserDataConfig;
 
