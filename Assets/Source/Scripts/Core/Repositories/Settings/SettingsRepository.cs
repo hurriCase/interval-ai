@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Localization;
 using CustomUtils.Runtime.Storage;
+using CustomUtils.Runtime.UI.Theme.Base;
 using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Repositories.Base;
@@ -21,9 +23,17 @@ namespace Source.Scripts.Core.Repositories.Settings
         public PersistentReactiveProperty<List<CooldownByDate>> RepetitionByCooldown { get; } = new();
         public PersistentReactiveProperty<EnumArray<LanguageType, SystemLanguage>> LanguageByType { get; } = new();
         public PersistentReactiveProperty<LearningDirectionType> LearningDirection { get; } = new();
+        public PersistentReactiveProperty<ThemeType> CurrentTheme { get; } = new();
+
+        public PersistentReactiveProperty<bool> IsSendNotifications { get; } = new();
+        public PersistentReactiveProperty<bool> IsShowTranscription { get; } = new();
+        public PersistentReactiveProperty<bool> IsSwipeEnabled { get; } = new();
 
         private readonly IDefaultSettingsConfig _defaultSettingsConfig;
         private readonly IAppConfig _appConfig;
+
+        private IDisposable _disposable;
+        private PersistentReactiveProperty<bool> _isSendNotifications;
 
         internal SettingsRepository(IDefaultSettingsConfig defaultSettingsConfig, IAppConfig appConfig)
         {
@@ -56,10 +66,30 @@ namespace Source.Scripts.Core.Repositories.Settings
                 LearningDirection.InitAsync(
                     PersistentKeys.LearningDirectionKey,
                     cancellationToken,
-                    LearningDirectionType.LearningToNative)
+                    LearningDirectionType.LearningToNative),
+
+                CurrentTheme.InitAsync(
+                    PersistentKeys.CurrentThemeKey,
+                    cancellationToken,
+                    AndroidThemeDetector.GetAndroidSystemTheme()),
+
+                IsSendNotifications.InitAsync(
+                    PersistentKeys.IsSendNotificationsKey,
+                    cancellationToken),
+
+                IsShowTranscription.InitAsync(
+                    PersistentKeys.IsShowTranscriptionKey,
+                    cancellationToken),
+
+                IsSwipeEnabled.InitAsync(
+                    PersistentKeys.IsSwipeEnabledKey,
+                    cancellationToken)
             };
 
             await UniTask.WhenAll(initTasks);
+
+            _disposable = CurrentTheme
+                .Subscribe(newTheme => ThemeHandler.Instance.CurrentThemeType.Value = newTheme);
         }
 
         public void SetLanguage(SystemLanguage newLanguage, LanguageType requestedLanguageType)
@@ -107,6 +137,7 @@ namespace Source.Scripts.Core.Repositories.Settings
             RepetitionByCooldown.Dispose();
             LanguageLevel.Dispose();
             LanguageByType.Dispose();
+            _disposable.Dispose();
         }
     }
 }

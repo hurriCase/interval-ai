@@ -8,5 +8,7 @@
         Chat = 3,
         CategoryCreation = 4,
         Category = 5
+        Category = 5,
+        Settings = 6,
     }
 }

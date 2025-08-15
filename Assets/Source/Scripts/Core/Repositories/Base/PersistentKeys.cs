@@ -16,6 +16,10 @@
         internal const string RepetitionByCooldownKey = Prefix + "RepetitionByCooldownKey";
         internal const string LanguageByTypeKey = Prefix + "LanguageByTypeKey";
         internal const string LearningDirectionKey = Prefix + "LearningDirectionKey";
+        internal const string CurrentThemeKey = Prefix + "CurrentThemeKey";
+        internal const string IsSendNotificationsKey = Prefix + "IsSendNotificationsKey";
+        internal const string IsShowTranscriptionKey = Prefix + "IsShowTranscriptionKey";
+        internal const string IsSwipeEnabledKey = Prefix + "IsSwipeEnabledKey";
 
         internal const string IsCompleteOnboardingKey = Prefix + "IsCompleteOnboardingKey";
         internal const string LoginHistoryKey = Prefix + "LoginHistoryKey";
