@@ -14,7 +14,7 @@ using VContainer;
 namespace Source.Scripts.Main.UI.PopUps.Settings
 {
     //TODO:<Dmitriy.Sukharev> refactor
-    internal sealed class SelectionPopUp : ParameterizedPopUpBase<ISelectionParameters>
+    internal sealed class SelectionPopUp : ParameterizedPopUpBase<SelectionParameters>
     {
         [SerializeField] private TextMeshProUGUI _selectionNameText;
 

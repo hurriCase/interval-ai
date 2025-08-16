@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using CustomUtils.Unsafe.CustomUtils.Unsafe;
 using R3;
 using Source.Scripts.Core.Localization.Base;
@@ -19,28 +18,34 @@ namespace Source.Scripts.Main.UI.PopUps.Settings
         [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
         [Inject] private IWindowsController _windowsController;
 
-        internal void Init<TEnum>(
-            ReactiveProperty<TEnum> targetProperty,
-            ISelectionParameters selectionParameters,
-            CancellationToken token)
+        private SelectionParameters _parameters;
+
+        internal void Init<TEnum>(ReactiveProperty<TEnum> targetIndexProperty, SelectionParameters parameters)
             where TEnum : unmanaged, Enum
         {
-            targetProperty
-                .Subscribe(this, static (currentType, self)
-                    => self.ChangeSelectionLocalization(currentType))
-                .RegisterTo(token);
+            _parameters = parameters;
+
+            parameters.SettingName = _settingNameText.text;
+
+            targetIndexProperty
+                .Subscribe(this, static (enumType, self) =>
+                    self.UpdateText<TEnum>(UnsafeEnumConverter<TEnum>.ToInt32(enumType)))
+                .RegisterTo(destroyCancellationToken);
 
             _buttonTextComponent.Button.OnClickAsObservable()
-                .Subscribe((selectionParameters, self: this), static (_, tuple)
-                    => tuple.self._windowsController.OpenPopUpByType(PopUpType.Selection, tuple.selectionParameters))
-                .RegisterTo(token);
+                .Subscribe(this, static (_, self) => self.OpenPopup())
+                .RegisterTo(destroyCancellationToken);
         }
 
-        private void ChangeSelectionLocalization<TEnum>(TEnum selectionType)
+        private void UpdateText<TEnum>(int index)
             where TEnum : unmanaged, Enum
         {
-            var selectionIndex = UnsafeEnumConverter<TEnum>.ToInt32(selectionType);
-            _buttonTextComponent.Text.text = _localizationKeysDatabase.GetLocalization<TEnum>(selectionIndex);
+            _buttonTextComponent.Text.text = _localizationKeysDatabase.GetLocalization<TEnum>(index);
+        }
+
+        private void OpenPopup()
+        {
+            _windowsController.OpenPopUpByType(PopUpType.Selection, _parameters);
         }
     }
 }
