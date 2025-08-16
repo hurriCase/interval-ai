@@ -16,6 +16,9 @@
         internal const string RepetitionByCooldownKey = Prefix + "RepetitionByCooldownKey";
         internal const string LanguageByTypeKey = Prefix + "LanguageByTypeKey";
         internal const string SystemLanguageKey = Prefix + "SystemLanguageKey";
+        internal const string FirstShowLanguageKey = Prefix + "FirstShowLanguageKey";
+        internal const string CardLearnLanguageKey = Prefix + "CardLearnLanguageKey";
+        internal const string CardReviewLanguageKey = Prefix + "CardReviewLanguageKey";
         internal const string LearningDirectionKey = Prefix + "LearningDirectionKey";
         internal const string CurrentThemeKey = Prefix + "CurrentThemeKey";
         internal const string IsSendNotificationsKey = Prefix + "IsSendNotificationsKey";

@@ -11,9 +11,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
 
-namespace Source.Scripts.Main.UI.PopUps.Settings
+namespace Source.Scripts.Main.UI.PopUps.Selection
 {
-    //TODO:<Dmitriy.Sukharev> refactor
     internal sealed class SelectionPopUp : ParameterizedPopUpBase<SelectionParameters>
     {
         [SerializeField] private TextMeshProUGUI _selectionNameText;
@@ -34,7 +33,7 @@ namespace Source.Scripts.Main.UI.PopUps.Settings
         {
             _disposableBag.Clear();
 
-            _selectionNameText.text = Parameters.SettingName;
+            _selectionNameText.text = Parameters.SelectionName;
 
             CreateSelections();
 
@@ -70,20 +69,20 @@ namespace Source.Scripts.Main.UI.PopUps.Settings
 
         private void SetSelectionItem(CheckboxTextComponent selectionItem, int selectionIndex)
         {
-            selectionItem.Text.text = Parameters.GetLocalization(_localizationKeysDatabase, selectionIndex);
+            selectionItem.Text.text = _localizationKeysDatabase.GetLocalization(Parameters.EnumType, selectionIndex);
             selectionItem.Checkbox.OnPointerClickAsObservable()
                 .Subscribe((selectionIndex, self: this), static (_, tuple)
                     => tuple.self.ToggleSelection(tuple.selectionIndex))
                 .AddTo(ref _disposableBag);
 
             selectionItem.Checkbox.group = _selectionToggleGroup;
-            selectionItem.Checkbox.isOn = selectionIndex == Parameters.SelectedIndex;
+            selectionItem.Checkbox.isOn = selectionIndex == Parameters.SelectionIndex.Value;
         }
 
         private void ToggleSelection(int selectionIndex)
         {
-            Parameters.SetValue(selectionIndex);
-            AnimatePivot(0f);
+            Parameters.SelectionIndex.Value = selectionIndex;
+            Hide();
         }
 
         internal override void Hide()

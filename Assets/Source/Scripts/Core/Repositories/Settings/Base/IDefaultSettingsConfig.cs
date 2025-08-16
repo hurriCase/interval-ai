@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Source.Scripts.Core.Repositories.Settings.Base
 {
@@ -6,5 +7,11 @@ namespace Source.Scripts.Core.Repositories.Settings.Base
     {
         List<CooldownByDate> Cooldowns { get; }
         int DailyGoal { get; }
+        SystemLanguage NativeLanguage { get; }
+        SystemLanguage LearningLanguage { get; }
+        LanguageType FirstShowPractice { get; }
+        LanguageType CardLearnPractice { get; }
+        LanguageType CardReviewPractice { get; }
+        WordReviewSourceType WordReviewSourceType { get; }
     }
 }

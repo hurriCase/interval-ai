@@ -1,7 +1,5 @@
-﻿using System;
-using CustomUtils.Runtime.CustomTypes.Collections;
-using CustomUtils.Runtime.UI.Theme.Base;
-using CustomUtils.Unsafe.CustomUtils.Unsafe;
+﻿using CustomUtils.Runtime.CustomTypes.Collections;
+using CustomUtils.Runtime.Localization;
 using R3;
 using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Localization.Base;
@@ -15,10 +13,18 @@ namespace Source.Scripts.Main.UI.PopUps.Settings
     internal sealed class SettingsPopUp : PopUpBase
     {
         [SerializeField] private SelectionSettingsItem _themeSelectionItem;
-        [SerializeField] private SelectionSettingsItem _languageSelectionItem;
+
         [SerializeField] private CheckboxSettingsItem _isSendNotificationsItem;
         [SerializeField] private CheckboxSettingsItem _isShowTranscriptionItem;
         [SerializeField] private CheckboxSettingsItem _isSwipeEnabledItem;
+
+        [SerializeField] private SelectionSettingsItem _languageSelectionItem;
+        [SerializeField] private SelectionSettingsItem _nativeLanguageSelectionItem;
+        [SerializeField] private SelectionSettingsItem _learningLanguageSelectionItem;
+        [SerializeField] private SelectionSettingsItem _showFirstLanguageSelectionItem;
+        [SerializeField] private SelectionSettingsItem _cardLearnLanguageSelectionItem;
+        [SerializeField] private SelectionSettingsItem _cardReviewLanguageSelectionItem;
+        [SerializeField] private SelectionSettingsItem _wordReviewSourceTypeSelectionItem;
 
         [Inject] private ISettingsRepository _settingsRepository;
         [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
@@ -26,41 +32,42 @@ namespace Source.Scripts.Main.UI.PopUps.Settings
 
         internal override void Init()
         {
-            var themeParams = CreateSelectionParameters<ThemeType>(
-                _settingsRepository.CurrentTheme.Property.AsIndexProperty(destroyCancellationToken));
-
-            _themeSelectionItem.Init(_settingsRepository.CurrentTheme.Property, themeParams);
-
-            var languageParams = CreateSelectionParameters(
-                _settingsRepository.SystemLanguage.Property.AsIndexProperty(destroyCancellationToken),
-                _appConfig.SupportedLanguages[LanguageType.Native],
-                enumMode: EnumMode.Default);
-
-            _languageSelectionItem.Init(_settingsRepository.SystemLanguage.Property, languageParams);
-
+            _themeSelectionItem.Init(_settingsRepository.ThemeType.Property);
             _isSendNotificationsItem.Init(_settingsRepository.IsSendNotifications);
             _isShowTranscriptionItem.Init(_settingsRepository.IsShowTranscription);
             _isSwipeEnabledItem.Init(_settingsRepository.IsSwipeEnabled);
+
+            InitLanguageSelection();
+
+            _wordReviewSourceTypeSelectionItem.Init(_settingsRepository.WordReviewSourceType.Property);
         }
 
-        private SelectionParameters CreateSelectionParameters<TEnum>(
-            ReactiveProperty<int> property,
-            TEnum[] customValues = null,
-            EnumMode enumMode = EnumMode.SkipFirst)
-            where TEnum : unmanaged, Enum
+        private void InitLanguageSelection()
         {
-            var values = customValues ?? (TEnum[])Enum.GetValues(typeof(TEnum));
-            var startIndex = enumMode == EnumMode.SkipFirst ? 1 : 0;
+            _languageSelectionItem.Init(
+                _settingsRepository.SystemLanguage.Property,
+                LocalizationController.GetAllLanguages(),
+                EnumMode.Default);
 
-            var supportValues = new int[values.Length - startIndex];
-            for (var i = startIndex; i < values.Length; i++)
-                supportValues[i - startIndex] = UnsafeEnumConverter<TEnum>.ToInt32(values[i]);
+            var nativeProperty = GetProperty(LanguageType.Native);
+            var learningProperty = GetProperty(LanguageType.Learning);
 
-            return new SelectionParameters(
-                property.Value,
-                supportValues,
-                property,
-                (database, index) => database.GetLocalization<TEnum>(index));
+            _nativeLanguageSelectionItem.Init(
+                nativeProperty,
+                _appConfig.SupportedLanguages[LanguageType.Native],
+                EnumMode.Default);
+
+            _learningLanguageSelectionItem.Init(
+                learningProperty,
+                _appConfig.SupportedLanguages[LanguageType.Learning],
+                EnumMode.Default);
+
+            _showFirstLanguageSelectionItem.Init(_settingsRepository.FirstShowPractice.Property);
+            _cardLearnLanguageSelectionItem.Init(_settingsRepository.CardLearnPractice.Property);
+            _cardReviewLanguageSelectionItem.Init(_settingsRepository.CardReviewPractice.Property);
         }
+
+        private ReactiveProperty<SystemLanguage> GetProperty(LanguageType languageType) =>
+            _settingsRepository.LanguageByType.Value[languageType];
     }
 }

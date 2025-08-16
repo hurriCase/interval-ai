@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using MemoryPack;
-using R3;
 using Source.Scripts.Core.Repositories.Base.DefaultConfig;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Core.Sprites;

@@ -51,11 +51,11 @@ namespace Source.Scripts.Onboarding.UI.Screen.Behaviours.LanguageSelection
                 .RegisterTo(destroyCancellationToken);
         }
 
-        private void SetActiveLanguageToggle(EnumArray<LanguageType, SystemLanguage> languages)
+        private void SetActiveLanguageToggle(EnumArray<LanguageType, ReactiveProperty<SystemLanguage>> languages)
         {
             foreach (var (languageType, language) in languages.AsTuples())
             {
-                var targetSelectionItem = _createdLanguageSelectionItems[languageType][language];
+                var targetSelectionItem = _createdLanguageSelectionItems[languageType][language.Value];
                 targetSelectionItem.CheckboxComponent.isOn = true;
             }
         }

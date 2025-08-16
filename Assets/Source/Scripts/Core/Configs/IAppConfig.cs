@@ -17,8 +17,6 @@ namespace Source.Scripts.Core.Configs
         EnumArray<LanguageType, SystemLanguage[]> SupportedLanguages { get; }
         LearningState[] CooldownStates { get; }
         PracticeState OnboardingPracticeState { get; }
-        SystemLanguage DefaultNativeLanguage { get; }
-        SystemLanguage DefaultLearningLanguage { get; }
         LearningState LearningStateForDailyGoal { get; }
     }
 }

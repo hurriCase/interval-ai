@@ -19,6 +19,7 @@ namespace Source.Scripts.Core.Localization.Base
         [SerializeField] private EnumArray<LearningState, string> _progressLearningStates = new(EnumMode.SkipFirst);
         [SerializeField] private EnumArray<PluralForm, string> _learnedCounts = new(EnumMode.SkipFirst);
         [SerializeField] private EnumArray<CategoryType, string> _categoryTypes = new(EnumMode.SkipFirst);
+        [SerializeField] private EnumArray<PracticeState, string> _practiceStates = new(EnumMode.SkipFirst);
 
         [SerializeField] private EnumArray<DateType, EnumArray<PluralForm, string>> _date
             = new(() => new EnumArray<PluralForm, string>(EnumMode.SkipFirst), EnumMode.SkipFirst);
@@ -28,8 +29,10 @@ namespace Source.Scripts.Core.Localization.Base
 
         [SerializeField] private EnumArray<WordReviewSourceType, string> _wordReviewSourceTypes
             = new(EnumMode.SkipFirst);
+
         [SerializeField] private EnumArray<ThemeType, string> _themeTypes = new(EnumMode.SkipFirst);
 
+        [Inject] private ISettingsRepository _settingsRepository;
         [Inject] private ILocalizationDatabase _localizationDatabase;
 
         public string GetLocalization(LocalizationType type) =>
@@ -56,19 +59,21 @@ namespace Source.Scripts.Core.Localization.Base
         public string GetCompletesLocalization(PracticeState practiceState, CompleteType completeType) =>
             LocalizationController.Localize(_learningCompletes[practiceState][completeType]);
 
-        public string GetLocalization<TEnum>(int enumIndex) where TEnum : unmanaged, Enum
+        public string GetLocalization(Type enumType, int enumIndex)
         {
-            var enumType = typeof(TEnum);
-
             if (enumType == typeof(ThemeType))
                 return _themeTypes[enumIndex].GetLocalization();
 
             if (enumType == typeof(WordReviewSourceType))
                 return _wordReviewSourceTypes[enumIndex].GetLocalization();
 
-            return enumType == typeof(SystemLanguage)
-                ? _localizationDatabase.Languages[enumIndex]
-                : enumIndex.ToString().GetLocalization();
+            if (enumType != typeof(LanguageType))
+                return enumType == typeof(SystemLanguage)
+                    ? _localizationDatabase.Languages[enumIndex]
+                    : enumIndex.ToString().GetLocalization();
+
+            var languageType = _settingsRepository.LanguageByType.Value[enumIndex].Value;
+            return _localizationDatabase.Languages[languageType];
         }
     }
 }

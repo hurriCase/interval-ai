@@ -5,6 +5,7 @@ using R3;
 using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Input;
 using Source.Scripts.Core.Localization.LocalizationTypes;
+using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice;
@@ -21,6 +22,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
         [Inject] private IWordsRepository _wordsRepository;
         [Inject] private IPracticeStateService _practiceStateService;
         [Inject] private IWordAdvanceService _wordAdvanceService;
+        [Inject] private ISettingsRepository _settingsRepository;
 
         private Vector2 _originalPosition;
         private Camera _uiCamera;
@@ -65,7 +67,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
 
         private void OnPointerPressed()
         {
-            if (_practiceStateService.CurrentState.CurrentValue != _currentPracticeState)
+            if (_settingsRepository.IsSwipeEnabled.Value
+                && _practiceStateService.CurrentState.CurrentValue != _currentPracticeState)
                 return;
 
             var pointerPosition = _swipeInputService.CurrentPointerPosition;

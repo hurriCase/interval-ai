@@ -8,7 +8,9 @@ using CustomUtils.Runtime.Localization;
 using CustomUtils.Runtime.Storage;
 using CustomUtils.Runtime.UI.Theme.Base;
 using Cysharp.Threading.Tasks;
+using R3;
 using Source.Scripts.Core.Configs;
+using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using UnityEngine;
@@ -21,14 +23,22 @@ namespace Source.Scripts.Core.Repositories.Settings
         public PersistentReactiveProperty<int> DailyGoal { get; } = new();
         public PersistentReactiveProperty<CultureInfo> CurrentCulture { get; } = new();
         public PersistentReactiveProperty<List<CooldownByDate>> RepetitionByCooldown { get; } = new();
-        public PersistentReactiveProperty<EnumArray<LanguageType, SystemLanguage>> LanguageByType { get; } = new();
         public PersistentReactiveProperty<SystemLanguage> SystemLanguage { get; } = new();
+        public PersistentReactiveProperty<LanguageType> FirstShowPractice { get; } = new();
+        public PersistentReactiveProperty<LanguageType> CardLearnPractice { get; } = new();
+        public PersistentReactiveProperty<LanguageType> CardReviewPractice { get; } = new();
         public PersistentReactiveProperty<LearningDirectionType> LearningDirection { get; } = new();
-        public PersistentReactiveProperty<ThemeType> CurrentTheme { get; } = new();
+        public PersistentReactiveProperty<ThemeType> ThemeType { get; } = new();
+        public PersistentReactiveProperty<WordReviewSourceType> WordReviewSourceType { get; } = new();
 
         public PersistentReactiveProperty<bool> IsSendNotifications { get; } = new();
         public PersistentReactiveProperty<bool> IsShowTranscription { get; } = new();
         public PersistentReactiveProperty<bool> IsSwipeEnabled { get; } = new();
+
+        public PersistentReactiveProperty<EnumArray<LanguageType, ReactiveProperty<SystemLanguage>>> LanguageByType
+        {
+            get;
+        } = new();
 
         private readonly IDefaultSettingsConfig _defaultSettingsConfig;
         private readonly IAppConfig _appConfig;
@@ -69,33 +79,53 @@ namespace Source.Scripts.Core.Repositories.Settings
                     cancellationToken,
                     GetNativeLanguage()),
 
+                FirstShowPractice.InitAsync(
+                    PersistentKeys.FirstShowLanguageKey,
+                    cancellationToken,
+                    _defaultSettingsConfig.FirstShowPractice),
+
+                CardLearnPractice.InitAsync(
+                    PersistentKeys.CardLearnLanguageKey,
+                    cancellationToken,
+                    _defaultSettingsConfig.CardLearnPractice),
+
+                CardReviewPractice.InitAsync(
+                    PersistentKeys.CardReviewLanguageKey,
+                    cancellationToken,
+                    _defaultSettingsConfig.CardReviewPractice),
+
                 LearningDirection.InitAsync(
                     PersistentKeys.LearningDirectionKey,
                     cancellationToken,
                     LearningDirectionType.LearningToNative),
 
-                CurrentTheme.InitAsync(
+                ThemeType.InitAsync(
                     PersistentKeys.CurrentThemeKey,
                     cancellationToken,
                     AndroidThemeDetector.GetAndroidSystemTheme()),
 
-                IsSendNotifications.InitAsync(
-                    PersistentKeys.IsSendNotificationsKey,
-                    cancellationToken),
+                WordReviewSourceType.InitAsync(
+                    PersistentKeys.CurrentThemeKey,
+                    cancellationToken,
+                    _defaultSettingsConfig.WordReviewSourceType),
 
-                IsShowTranscription.InitAsync(
-                    PersistentKeys.IsShowTranscriptionKey,
-                    cancellationToken),
-
-                IsSwipeEnabled.InitAsync(
-                    PersistentKeys.IsSwipeEnabledKey,
-                    cancellationToken)
+                IsSendNotifications.InitAsync(PersistentKeys.IsSendNotificationsKey, cancellationToken),
+                IsShowTranscription.InitAsync(PersistentKeys.IsShowTranscriptionKey, cancellationToken),
+                IsSwipeEnabled.InitAsync(PersistentKeys.IsSwipeEnabledKey, cancellationToken)
             };
 
             await UniTask.WhenAll(initTasks);
 
-            _disposable = CurrentTheme
+            SubscribeToChanges();
+        }
+
+        private void SubscribeToChanges()
+        {
+            _disposable = ThemeType
                 .Subscribe(newTheme => ThemeHandler.Instance.CurrentThemeType.Value = newTheme);
+
+            _disposable = SystemLanguage
+                .Subscribe(newLanguage => LocalizationController.Language.Value = newLanguage);
         }
 
         public void SetLanguage(SystemLanguage newLanguage, LanguageType requestedLanguageType)
@@ -103,32 +133,33 @@ namespace Source.Scripts.Core.Repositories.Settings
             var currentLanguages = LanguageByType.Value;
             var oppositeLanguageType = GetOppositeLanguageType(requestedLanguageType);
 
-            if (currentLanguages[oppositeLanguageType] == newLanguage)
+            if (currentLanguages[oppositeLanguageType].Value == newLanguage)
             {
                 var previousRequestedLanguage = currentLanguages[requestedLanguageType];
                 currentLanguages[oppositeLanguageType] = previousRequestedLanguage;
             }
 
-            currentLanguages[requestedLanguageType] = newLanguage;
+            currentLanguages[requestedLanguageType].Value = newLanguage;
             LanguageByType.Property.OnNext(currentLanguages);
         }
 
         private LanguageType GetOppositeLanguageType(LanguageType languageType) =>
             languageType == LanguageType.Native ? LanguageType.Learning : LanguageType.Native;
 
-        private EnumArray<LanguageType, SystemLanguage> CreateDefaultLanguageByType()
+        private EnumArray<LanguageType, ReactiveProperty<SystemLanguage>> CreateDefaultLanguageByType()
         {
             var nativeLanguage = GetNativeLanguage();
 
-            var learningLanguage = _appConfig.DefaultLearningLanguage == nativeLanguage
-                ? _appConfig.DefaultNativeLanguage
-                : _appConfig.DefaultLearningLanguage;
+            var learningLanguage = _defaultSettingsConfig.LearningLanguage == nativeLanguage
+                ? _defaultSettingsConfig.NativeLanguage
+                : _defaultSettingsConfig.LearningLanguage;
 
-            var languageArray = new EnumArray<LanguageType, SystemLanguage>(EnumMode.SkipFirst)
-            {
-                [LanguageType.Native] = nativeLanguage,
-                [LanguageType.Learning] = learningLanguage
-            };
+            var languageArray = new EnumArray<LanguageType, ReactiveProperty<SystemLanguage>>(
+                () => new ReactiveProperty<SystemLanguage>(),
+                EnumMode.SkipFirst);
+
+            languageArray[LanguageType.Native].Value = nativeLanguage;
+            languageArray[LanguageType.Learning].Value = learningLanguage;
 
             return languageArray;
         }
@@ -139,7 +170,7 @@ namespace Source.Scripts.Core.Repositories.Settings
 
             return _appConfig.SupportedLanguages[LanguageType.Native].Contains(nativeLanguage)
                 ? nativeLanguage
-                : _appConfig.DefaultNativeLanguage;
+                : _defaultSettingsConfig.NativeLanguage;
         }
 
         public void Dispose()

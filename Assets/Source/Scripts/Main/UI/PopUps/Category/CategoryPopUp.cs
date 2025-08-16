@@ -4,7 +4,6 @@ using R3;
 using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Core.Repositories.Categories.Category;
 using Source.Scripts.Core.Repositories.Words.Word;
-using Source.Scripts.Main.UI.Screens.Categories;
 using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base.PopUp;
 using UnityEngine;

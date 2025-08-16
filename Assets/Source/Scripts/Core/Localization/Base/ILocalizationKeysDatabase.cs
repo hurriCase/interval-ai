@@ -14,7 +14,6 @@ namespace Source.Scripts.Core.Localization.Base
         string GetLearningStateLocalization(CategoryType categoryType);
         string GetDateLocalization(DateType dateType, int count);
         string GetLearnedCountLocalization(int count);
-
-        string GetLocalization<TEnum>(int enumIndex) where TEnum : unmanaged, Enum;
+        string GetLocalization(Type enumType, int enumIndex);
     }
 }

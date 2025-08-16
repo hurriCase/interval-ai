@@ -38,8 +38,6 @@ namespace Source.Scripts.Core.Configs
 
         [field: SerializeField] public LearningState[] CooldownStates { get; private set; }
         [field: SerializeField] public PracticeState OnboardingPracticeState { get; private set; }
-        [field: SerializeField] public SystemLanguage DefaultNativeLanguage { get; private set; }
-        [field: SerializeField] public SystemLanguage DefaultLearningLanguage { get; private set; }
         [field: SerializeField] public LearningState LearningStateForDailyGoal { get; private set; }
     }
 }

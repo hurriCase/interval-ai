@@ -42,7 +42,9 @@ namespace Source.Scripts.Onboarding.UI.PopUp
             var practiceState = _appConfig.OnboardingPracticeState;
             _cardBehaviour.Init(practiceState);
 
-            var onboardingWord = _onboardingConfig.OnboardingWord.CreateWord(_settingsRepository.LanguageByType.Value);
+            var onboardingWord = _onboardingConfig.OnboardingWord.CreateWord(
+                GetLanguageByType(LanguageType.Native),
+                GetLanguageByType(LanguageType.Learning));
 
             _wordsRepository.SetCurrentWord(practiceState, onboardingWord);
 
@@ -59,6 +61,9 @@ namespace Source.Scripts.Onboarding.UI.PopUp
 
             UpdateView();
         }
+
+        private SystemLanguage GetLanguageByType(LanguageType languageType)
+            => _settingsRepository.LanguageByType.Value[languageType].Value;
 
         private void SwitchStep()
         {
