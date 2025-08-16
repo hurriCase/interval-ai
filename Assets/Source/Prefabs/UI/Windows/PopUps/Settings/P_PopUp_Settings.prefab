@@ -521,7 +521,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 757784457551543097, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
       propertyPath: m_Name
-      value: P_Button_Language
+      value: P_Button_InterfaceLanguage
+      objectReference: {fileID: 0}
+    - target: {fileID: 783453621754397534, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
+      propertyPath: _selectionNameKey
+      value: ui.settings.interface-language
       objectReference: {fileID: 0}
     - target: {fileID: 831605617880340562, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
       propertyPath: m_fontColor.g
@@ -711,6 +715,10 @@ PrefabInstance:
     - target: {fileID: 757784457551543097, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
       propertyPath: m_Name
       value: P_Button_ReviewLanguage
+      objectReference: {fileID: 0}
+    - target: {fileID: 783453621754397534, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
+      propertyPath: _selectionNameKey
+      value: ui.settings.repeat-word-language
       objectReference: {fileID: 0}
     - target: {fileID: 831605617880340562, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
       propertyPath: m_fontColor.g
@@ -1010,6 +1018,10 @@ PrefabInstance:
     - target: {fileID: 757784457551543097, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
       propertyPath: m_Name
       value: P_Button_RepeatFrom
+      objectReference: {fileID: 0}
+    - target: {fileID: 783453621754397534, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
+      propertyPath: _selectionNameKey
+      value: ui.settings.repeat-words
       objectReference: {fileID: 0}
     - target: {fileID: 831605617880340562, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
       propertyPath: m_fontColor.g
@@ -1385,6 +1397,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_Button_NativeLanguage
       objectReference: {fileID: 0}
+    - target: {fileID: 783453621754397534, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
+      propertyPath: _selectionNameKey
+      value: ui.settings.native-language
+      objectReference: {fileID: 0}
     - target: {fileID: 831605617880340562, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
       propertyPath: m_fontColor.g
       value: 0.27058825
@@ -1574,6 +1590,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_Button_DayGoal
       objectReference: {fileID: 0}
+    - target: {fileID: 783453621754397534, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
+      propertyPath: _selectionNameKey
+      value: ui.settings.day-goal
+      objectReference: {fileID: 0}
     - target: {fileID: 831605617880340562, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
       propertyPath: m_fontColor.g
       value: 0.27058825
@@ -1751,6 +1771,10 @@ PrefabInstance:
     - target: {fileID: 757784457551543097, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
       propertyPath: m_Name
       value: P_Button_LearnLanguage
+      objectReference: {fileID: 0}
+    - target: {fileID: 783453621754397534, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
+      propertyPath: _selectionNameKey
+      value: ui.settings.learn-word-language
       objectReference: {fileID: 0}
     - target: {fileID: 831605617880340562, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
       propertyPath: m_fontColor.g
@@ -1940,6 +1964,10 @@ PrefabInstance:
     - target: {fileID: 757784457551543097, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
       propertyPath: m_Name
       value: P_Button_FirstWordLanguage
+      objectReference: {fileID: 0}
+    - target: {fileID: 783453621754397534, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
+      propertyPath: _selectionNameKey
+      value: ui.settings.show-word-first
       objectReference: {fileID: 0}
     - target: {fileID: 831605617880340562, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
       propertyPath: m_fontColor.g
@@ -2462,6 +2490,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_Button_NotificationDelay
       objectReference: {fileID: 0}
+    - target: {fileID: 783453621754397534, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
+      propertyPath: _selectionNameKey
+      value: ui.settings.reminders
+      objectReference: {fileID: 0}
     - target: {fileID: 831605617880340562, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
       propertyPath: m_fontColor.g
       value: 0.27058825
@@ -2640,6 +2672,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_Button_Interval
       objectReference: {fileID: 0}
+    - target: {fileID: 783453621754397534, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
+      propertyPath: _selectionNameKey
+      value: ui.settings.spaced-repetition
+      objectReference: {fileID: 0}
     - target: {fileID: 831605617880340562, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
       propertyPath: m_fontColor.g
       value: 0.27058825
@@ -2806,6 +2842,10 @@ PrefabInstance:
     - target: {fileID: 757784457551543097, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
       propertyPath: m_Name
       value: P_Button_LearningLanguage
+      objectReference: {fileID: 0}
+    - target: {fileID: 783453621754397534, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
+      propertyPath: _selectionNameKey
+      value: ui.settings.learning-language
       objectReference: {fileID: 0}
     - target: {fileID: 831605617880340562, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
       propertyPath: m_fontColor.g
@@ -2995,6 +3035,10 @@ PrefabInstance:
     - target: {fileID: 757784457551543097, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
       propertyPath: m_Name
       value: P_Button_Theme
+      objectReference: {fileID: 0}
+    - target: {fileID: 783453621754397534, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
+      propertyPath: _selectionNameKey
+      value: ui.settings.interface-theme
       objectReference: {fileID: 0}
     - target: {fileID: 831605617880340562, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
       propertyPath: m_fontColor.g

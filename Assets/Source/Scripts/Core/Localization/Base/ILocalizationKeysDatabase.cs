@@ -2,6 +2,7 @@
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Localization.LocalizationTypes.Date;
 using Source.Scripts.Core.Repositories.Categories;
+using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 
 namespace Source.Scripts.Core.Localization.Base

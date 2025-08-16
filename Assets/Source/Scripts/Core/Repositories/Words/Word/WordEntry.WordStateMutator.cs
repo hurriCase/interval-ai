@@ -56,6 +56,14 @@ namespace Source.Scripts.Core.Repositories.Words.Word
                 _wordsRepository.RemoveHiddenWord(word);
             }
 
+            public void ResetWord(WordEntry word)
+            {
+                word.LearningState = LearningState.Review;
+                word.ReviewCount = 0;
+                word.Cooldown = DateTime.MinValue;
+                word.IsHidden = false;
+            }
+
             private void TryAdvanceCooldown(WordEntry word)
             {
                 if (_appConfig.CooldownStates.AsValueEnumerable().Contains(word.LearningState) is false)

@@ -181,6 +181,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_Text_WordsList
       objectReference: {fileID: 0}
+    - target: {fileID: 5098176312871980323, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+      propertyPath: targetComponent
+      value: 
+      objectReference: {fileID: 6776966979310900162}
     - target: {fileID: 5975422674569537273, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
       propertyPath: m_text
       value: List of words
@@ -215,6 +219,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1284860795548734190, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
   m_PrefabInstance: {fileID: 927856751790323003}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6776966979310900162 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5975422674569537273, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+  m_PrefabInstance: {fileID: 927856751790323003}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3121080549200770624
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -409,6 +424,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_Text_AlphabeticalOrder
       objectReference: {fileID: 0}
+    - target: {fileID: 5098176312871980323, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+      propertyPath: targetComponent
+      value: 
+      objectReference: {fileID: 833528493000457400}
     - target: {fileID: 5975422674569537273, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
       propertyPath: m_text
       value: Alphabetical order
@@ -438,6 +457,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+--- !u!114 &833528493000457400 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5975422674569537273, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+  m_PrefabInstance: {fileID: 6448520234964703809}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &5235717050634029231 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1284860795548734190, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
@@ -539,7 +569,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_Block_WordList
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2047513399015992711, guid: f4a7512a7bb93574fbd9d2dd3fa7adfb, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3691833483562493499, guid: f4a7512a7bb93574fbd9d2dd3fa7adfb, type: 3}

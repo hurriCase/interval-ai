@@ -9,6 +9,7 @@
         CategoryCreation = 4,
         Category = 5,
         Settings = 6,
-        Selection = 7
+        Selection = 7,
+        WordInfo = 8
     }
 }

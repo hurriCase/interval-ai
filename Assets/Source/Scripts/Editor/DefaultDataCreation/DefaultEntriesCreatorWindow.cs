@@ -11,17 +11,17 @@ using UnityEngine;
 
 namespace Source.Scripts.Editor.DefaultDataCreation
 {
-    internal sealed class GameDataWindow : SheetsDownloaderWindowBase<DefaultDataDatabase, DefaultDataSheet>
+    internal sealed class DefaultDataWindow : SheetsDownloaderWindowBase<DefaultDataDatabase, DefaultDataSheet>
     {
         private Vector2 _scrollPosition;
         private CSVToBinaryConverter _csvToBinaryConverter;
 
         protected override DefaultDataDatabase Database => DefaultDataDatabase.Instance;
 
-        [MenuItem("--Project--/" + nameof(GameDataWindow))]
+        [MenuItem("--Project--/" + nameof(DefaultDataWindow))]
         internal static void ShowWindow()
         {
-            GetWindow<GameDataWindow>(nameof(GameDataWindow).ToSpacedWords());
+            GetWindow<DefaultDataWindow>(nameof(DefaultDataWindow).ToSpacedWords());
         }
 
         protected override void InitializeWindow()

@@ -6,6 +6,7 @@ using CustomUtils.Runtime.UI.Theme.Base;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Localization.LocalizationTypes.Date;
 using Source.Scripts.Core.Repositories.Categories;
+using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using UnityEngine;
@@ -19,7 +20,7 @@ namespace Source.Scripts.Core.Localization.Base
         [SerializeField] private EnumArray<LearningState, string> _progressLearningStates = new(EnumMode.SkipFirst);
         [SerializeField] private EnumArray<PluralForm, string> _learnedCounts = new(EnumMode.SkipFirst);
         [SerializeField] private EnumArray<CategoryType, string> _categoryTypes = new(EnumMode.SkipFirst);
-        [SerializeField] private EnumArray<PracticeState, string> _practiceStates = new(EnumMode.SkipFirst);
+        [SerializeField] private EnumArray<WordOrderType, string> _wordOrder = new(EnumMode.SkipFirst);
 
         [SerializeField] private EnumArray<DateType, EnumArray<PluralForm, string>> _date
             = new(() => new EnumArray<PluralForm, string>(EnumMode.SkipFirst), EnumMode.SkipFirst);
@@ -66,6 +67,9 @@ namespace Source.Scripts.Core.Localization.Base
 
             if (enumType == typeof(WordReviewSourceType))
                 return _wordReviewSourceTypes[enumIndex].GetLocalization();
+
+            if (enumType == typeof(WordOrderType))
+                return _wordOrder[enumIndex].GetLocalization();
 
             if (enumType != typeof(LanguageType))
                 return enumType == typeof(SystemLanguage)

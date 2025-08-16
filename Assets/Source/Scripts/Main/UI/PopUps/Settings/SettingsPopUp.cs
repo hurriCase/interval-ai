@@ -4,6 +4,7 @@ using R3;
 using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
+using Source.Scripts.Main.UI.PopUps.Selection;
 using Source.Scripts.UI.Windows.Base.PopUp;
 using UnityEngine;
 using VContainer;
@@ -12,19 +13,19 @@ namespace Source.Scripts.Main.UI.PopUps.Settings
 {
     internal sealed class SettingsPopUp : PopUpBase
     {
-        [SerializeField] private SelectionSettingsItem _themeSelectionItem;
+        [SerializeField] private SelectionItem _themeSelectionItem;
 
         [SerializeField] private CheckboxSettingsItem _isSendNotificationsItem;
         [SerializeField] private CheckboxSettingsItem _isShowTranscriptionItem;
         [SerializeField] private CheckboxSettingsItem _isSwipeEnabledItem;
 
-        [SerializeField] private SelectionSettingsItem _languageSelectionItem;
-        [SerializeField] private SelectionSettingsItem _nativeLanguageSelectionItem;
-        [SerializeField] private SelectionSettingsItem _learningLanguageSelectionItem;
-        [SerializeField] private SelectionSettingsItem _showFirstLanguageSelectionItem;
-        [SerializeField] private SelectionSettingsItem _cardLearnLanguageSelectionItem;
-        [SerializeField] private SelectionSettingsItem _cardReviewLanguageSelectionItem;
-        [SerializeField] private SelectionSettingsItem _wordReviewSourceTypeSelectionItem;
+        [SerializeField] private SelectionItem _languageSelectionItem;
+        [SerializeField] private SelectionItem _nativeLanguageSelectionItem;
+        [SerializeField] private SelectionItem _learningLanguageSelectionItem;
+        [SerializeField] private SelectionItem _showFirstLanguageSelectionItem;
+        [SerializeField] private SelectionItem _cardLearnLanguageSelectionItem;
+        [SerializeField] private SelectionItem _cardReviewLanguageSelectionItem;
+        [SerializeField] private SelectionItem _wordReviewSourceTypeSelectionItem;
 
         [Inject] private ISettingsRepository _settingsRepository;
         [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;

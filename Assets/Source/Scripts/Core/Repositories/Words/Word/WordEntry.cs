@@ -9,6 +9,7 @@ namespace Source.Scripts.Core.Repositories.Words.Word
     internal sealed partial class WordEntry
     {
         public int CategoryId { get; private set; }
+        public DateTime CreationData { get; private set; }
         public LearningState LearningState { get; private set; }
         public string NativeWord { get; set; }
         public string LearningWord { get; set; }
