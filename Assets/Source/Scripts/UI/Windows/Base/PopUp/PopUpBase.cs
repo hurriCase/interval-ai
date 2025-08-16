@@ -8,6 +8,8 @@ namespace Source.Scripts.UI.Windows.Base.PopUp
 {
     internal abstract class PopUpBase : WindowBase
     {
+        [field: SerializeField] internal bool IsSingle { get; private set; } = true;
+
         [SerializeField] private ButtonComponent _closeButton;
         [SerializeField] private float _animationDuration = 0.1f;
 

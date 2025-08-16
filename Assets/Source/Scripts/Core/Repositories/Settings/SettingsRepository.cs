@@ -22,6 +22,7 @@ namespace Source.Scripts.Core.Repositories.Settings
         public PersistentReactiveProperty<CultureInfo> CurrentCulture { get; } = new();
         public PersistentReactiveProperty<List<CooldownByDate>> RepetitionByCooldown { get; } = new();
         public PersistentReactiveProperty<EnumArray<LanguageType, SystemLanguage>> LanguageByType { get; } = new();
+        public PersistentReactiveProperty<SystemLanguage> SystemLanguage { get; } = new();
         public PersistentReactiveProperty<LearningDirectionType> LearningDirection { get; } = new();
         public PersistentReactiveProperty<ThemeType> CurrentTheme { get; } = new();
 
@@ -62,6 +63,11 @@ namespace Source.Scripts.Core.Repositories.Settings
                     PersistentKeys.LanguageByTypeKey,
                     cancellationToken,
                     CreateDefaultLanguageByType()),
+
+                SystemLanguage.InitAsync(
+                    PersistentKeys.SystemLanguageKey,
+                    cancellationToken,
+                    GetNativeLanguage()),
 
                 LearningDirection.InitAsync(
                     PersistentKeys.LearningDirectionKey,
@@ -112,10 +118,7 @@ namespace Source.Scripts.Core.Repositories.Settings
 
         private EnumArray<LanguageType, SystemLanguage> CreateDefaultLanguageByType()
         {
-            var nativeLanguage = LocalizationController.Language.Value;
-
-            if (_appConfig.SupportedLanguages[LanguageType.Native].Contains(nativeLanguage) is false)
-                nativeLanguage = _appConfig.DefaultNativeLanguage;
+            var nativeLanguage = GetNativeLanguage();
 
             var learningLanguage = _appConfig.DefaultLearningLanguage == nativeLanguage
                 ? _appConfig.DefaultNativeLanguage
@@ -128,6 +131,15 @@ namespace Source.Scripts.Core.Repositories.Settings
             };
 
             return languageArray;
+        }
+
+        private SystemLanguage GetNativeLanguage()
+        {
+            var nativeLanguage = LocalizationController.Language.Value;
+
+            return _appConfig.SupportedLanguages[LanguageType.Native].Contains(nativeLanguage)
+                ? nativeLanguage
+                : _appConfig.DefaultNativeLanguage;
         }
 
         public void Dispose()

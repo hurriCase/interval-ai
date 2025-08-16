@@ -40,7 +40,6 @@ namespace Source.Scripts.Bootstrap.DI
         [SerializeField] private TestConfig _testConfig;
 
         [SerializeField] private LocalizationKeysDatabase _localizationKeysDatabase;
-        [SerializeField] private SelectionLocalizationKeysDatabase _selectionLocalizationKeysDatabase;
         [SerializeField] private LocalizationDatabase _localizationDatabase;
 
         [SerializeField] private DefaultSettingsConfig _defaultSettingsConfig;
@@ -64,7 +63,6 @@ namespace Source.Scripts.Bootstrap.DI
             builder.RegisterInstance(_testConfig).AsImplementedInterfaces();
 
             builder.RegisterComponent(_localizationKeysDatabase).AsImplementedInterfaces();
-            builder.RegisterComponent(_selectionLocalizationKeysDatabase).AsImplementedInterfaces();
             builder.RegisterComponent(_localizationDatabase).AsImplementedInterfaces();
 
             RegisterCSV(builder);

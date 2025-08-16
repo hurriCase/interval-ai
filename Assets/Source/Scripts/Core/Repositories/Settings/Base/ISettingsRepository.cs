@@ -14,6 +14,7 @@ namespace Source.Scripts.Core.Repositories.Settings.Base
         PersistentReactiveProperty<List<CooldownByDate>> RepetitionByCooldown { get; }
         PersistentReactiveProperty<LanguageLevel> LanguageLevel { get; }
         PersistentReactiveProperty<EnumArray<LanguageType, SystemLanguage>> LanguageByType { get; }
+        PersistentReactiveProperty<SystemLanguage> SystemLanguage { get; }
         PersistentReactiveProperty<int> DailyGoal { get; }
         PersistentReactiveProperty<ThemeType> CurrentTheme { get; }
         PersistentReactiveProperty<bool> IsSendNotifications { get; }

@@ -1,6 +1,7 @@
 ﻿using Source.Scripts.Core.AI;
 using Source.Scripts.Main.Data;
 using Source.Scripts.Main.UI.Base;
+using Source.Scripts.Main.UI.PopUps.Settings;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice;
 using UnityEngine;
 using VContainer;

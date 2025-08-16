@@ -127,18 +127,21 @@ namespace Source.Scripts.UI.Windows.Base
             popUpBase.Show();
         }
 
+        //TODO:<Dmitriy.Sukharev> refactor
         public void OpenPopUpByType<TParameters>(TPopUpType popUpType, TParameters parameters)
         {
             if (TryGetPopUp(popUpType, out var popUpBase) is false)
                 return;
 
-            var parameterizedPopUp = popUpBase as ParameterizedPopUpBase<TParameters>;
-
-            if (!parameterizedPopUp)
+            if (popUpBase is not IParameterizedPopUpBase parameterizedPopUp)
+            {
+                Debug.LogError("[WindowsController::OpenPopUpByType] " +
+                               $"There is no parameterized pop up with type '{popUpType}'");
                 return;
+            }
 
             parameterizedPopUp.SetParameters(parameters);
-            parameterizedPopUp.Show();
+            popUpBase.Show();
         }
 
         private bool TryGetPopUp(TPopUpType popUpType, out PopUpBase popUpBase)
@@ -153,7 +156,9 @@ namespace Source.Scripts.UI.Windows.Base
             if (_currentOpenedPopUp)
             {
                 _previousOpenedPopUps.Push(_currentOpenedPopUp);
-                _currentOpenedPopUp.HideImmediately();
+
+                if (popUpBase.IsSingle)
+                    _currentOpenedPopUp.HideImmediately();
             }
 
             _currentOpenedPopUp = popUpBase;
@@ -173,13 +178,16 @@ namespace Source.Scripts.UI.Windows.Base
 
         private void HandlePopUpHide()
         {
+            var needShow = _currentOpenedPopUp.IsSingle;
+
             _currentOpenedPopUp = null;
 
             if (_previousOpenedPopUps.TryPop(out var previousPopUp) is false)
                 return;
 
             _currentOpenedPopUp = previousPopUp;
-            previousPopUp.Show();
+            if (needShow)
+                previousPopUp.Show();
         }
     }
 }

@@ -48,7 +48,7 @@ namespace Source.Scripts.Main.UI.PopUps.Category
             Hide();
         }
 
-        internal override void SetParameters(CategoryEntry categoryEntry)
+        public override void SetParameters(object categoryEntry)
         {
             base.SetParameters(categoryEntry);
 
@@ -82,7 +82,10 @@ namespace Source.Scripts.Main.UI.PopUps.Category
                     createdWord = cachedWord;
                 }
                 else
+                {
                     createdWord = _objectResolver.Instantiate(_wordItem, _wordsContainer);
+                    _cachedWordItems.Enqueue(createdWord);
+                }
             }
 
             createdWord.Init(wordEntry);

@@ -20,7 +20,6 @@ namespace Source.Scripts.Core.Configs
         public EnumArray<LearningState, LearningState> FailureTransitionMap { get; private set; } =
             new(EnumMode.Default);
 
-        private EnumArray<PracticeState, LearningState> _targetStateForLearnedWords;
         [field: SerializeField]
         public EnumArray<PracticeState, LearningState[]> TargetLearningStatesForPractice { get; private set; }
             = new(EnumMode.SkipFirst);

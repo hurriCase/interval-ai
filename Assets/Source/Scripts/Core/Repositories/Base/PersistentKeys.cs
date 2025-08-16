@@ -15,6 +15,7 @@
         internal const string CurrentCultureKey = Prefix + "CurrentCultureKey";
         internal const string RepetitionByCooldownKey = Prefix + "RepetitionByCooldownKey";
         internal const string LanguageByTypeKey = Prefix + "LanguageByTypeKey";
+        internal const string SystemLanguageKey = Prefix + "SystemLanguageKey";
         internal const string LearningDirectionKey = Prefix + "LearningDirectionKey";
         internal const string CurrentThemeKey = Prefix + "CurrentThemeKey";
         internal const string IsSendNotificationsKey = Prefix + "IsSendNotificationsKey";
