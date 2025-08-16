@@ -1,7 +1,7 @@
 ﻿namespace Source.Scripts.UI.Windows.Base.PopUp
 {
-    internal interface IParameterizedPopUpBase
+    internal interface IParameterizedPopUpBase<in TParameters>
     {
-        void SetParameters(object parameters);
+        void SetParameters(TParameters parameters);
     }
 }

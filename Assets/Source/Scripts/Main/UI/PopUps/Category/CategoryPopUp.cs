@@ -48,11 +48,11 @@ namespace Source.Scripts.Main.UI.PopUps.Category
             Hide();
         }
 
-        public override void SetParameters(object categoryEntry)
+        internal override void Show()
         {
-            base.SetParameters(categoryEntry);
-
             UpdateView();
+
+            base.Show();
         }
 
         private void UpdateView()

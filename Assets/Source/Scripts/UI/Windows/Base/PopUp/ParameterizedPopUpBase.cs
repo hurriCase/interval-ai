@@ -1,13 +1,13 @@
 ﻿namespace Source.Scripts.UI.Windows.Base.PopUp
 {
-    internal class ParameterizedPopUpBase<TParameters> : PopUpBase, IParameterizedPopUpBase
+    internal class ParameterizedPopUpBase<TParameters> : PopUpBase, IParameterizedPopUpBase<TParameters>
         where TParameters : class
     {
         protected TParameters Parameters { get; private set; }
 
-        public virtual void SetParameters(object parameters)
+        public virtual void SetParameters(TParameters parameters)
         {
-            Parameters = parameters as TParameters;
+            Parameters = parameters;
         }
     }
 }
