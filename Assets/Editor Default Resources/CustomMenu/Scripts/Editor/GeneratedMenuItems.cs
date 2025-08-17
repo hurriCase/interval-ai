@@ -372,13 +372,13 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
         }
 
         [MenuItem("GameObject/UI Custom/Spacing _&s", priority = 9)]
-        private static void CreateP_Spaccing(MenuCommand menuCommand)
+        private static void CreateP_Spacing(MenuCommand menuCommand)
         {
-            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/CustomComponents/P_Spaccing.prefab");
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/CustomComponents/P_Spacing.prefab");
 
             if (!prefab)
             {
-                Debug.LogError("[GeneratedMenuItems::CreateP_Spaccing] Prefab not found at path: Assets/Source/Prefabs/UI/CustomComponents/P_Spaccing.prefab");
+                Debug.LogError("[GeneratedMenuItems::CreateP_Spacing] Prefab not found at path: Assets/Source/Prefabs/UI/CustomComponents/P_Spacing.prefab");
                 return;
             }
 
@@ -386,7 +386,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
 
             if (!instance)
             {
-                Debug.LogError("[GeneratedMenuItems::CreateP_Spaccing] Failed to instantiate prefab");
+                Debug.LogError("[GeneratedMenuItems::CreateP_Spacing] Failed to instantiate prefab");
                 return;
             }
 

@@ -162,7 +162,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6829777437454293057, guid: f4a7512a7bb93574fbd9d2dd3fa7adfb, type: 3}
       propertyPath: m_Name
-      value: P_Block_Accordion
+      value: P_Block_Accordion_Base
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2047513399015992711, guid: f4a7512a7bb93574fbd9d2dd3fa7adfb, type: 3}
@@ -204,8 +204,7 @@ MonoBehaviour:
   <ExpandButton>k__BackingField: {fileID: 2359395947403762462}
   <HiddenContentContainer>k__BackingField: {fileID: 54456498881566674}
   <ShownContent>k__BackingField: {fileID: 9206832239587058081}
-  <HiddenContent>k__BackingField:
-    value: []
+  <HiddenContent>k__BackingField: []
   _isInitiallyExpanded: 0
   _expandButtonAnimationDuration: 0.5
   _hiddenElementsAnimationDuration: 0.2
@@ -219,6 +218,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2967035343163360306}
     m_Modifications:
+    - target: {fileID: 833355650617051156, guid: 1c73538d1d0d9a844be8baca22e7b9d2, type: 3}
+      propertyPath: targetComponent
+      value: 
+      objectReference: {fileID: 4676127974658345615}
     - target: {fileID: 4592909722826283005, guid: 1c73538d1d0d9a844be8baca22e7b9d2, type: 3}
       propertyPath: m_Name
       value: P_Text_Adaptive_Shown
@@ -374,6 +377,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ContentSizeFitter
   m_HorizontalFit: 0
   m_VerticalFit: 2
+--- !u!114 &4676127974658345615 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5604511646115717401, guid: 1c73538d1d0d9a844be8baca22e7b9d2, type: 3}
+  m_PrefabInstance: {fileID: 946820505820949398}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3647497010967018603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2025faa740564534a596c7b191dec6b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.AdaptiveTextMeshProUGUI
 --- !u!224 &9206832239587058081 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8279574480887482935, guid: 1c73538d1d0d9a844be8baca22e7b9d2, type: 3}

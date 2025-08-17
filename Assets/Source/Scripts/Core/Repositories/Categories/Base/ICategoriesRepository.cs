@@ -11,5 +11,6 @@ namespace Source.Scripts.Core.Repositories.Categories.Base
         Observable<CategoryEntry> CategoryRemoved { get; }
         CategoryEntry CreateCategory(string name);
         void RemoveCategory(CategoryEntry categoryEntry);
+        string GetCategoryName(int categoryId);
     }
 }

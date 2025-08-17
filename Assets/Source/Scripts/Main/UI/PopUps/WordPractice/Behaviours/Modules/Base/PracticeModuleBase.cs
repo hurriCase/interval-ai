@@ -2,6 +2,7 @@
 using Source.Scripts.Core.Loader;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
+using Source.Scripts.Main.UI.PopUps.WordInfo;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,8 +12,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base
 {
     internal class PracticeModuleBase : MonoBehaviour
     {
-        [SerializeField] protected GameObject descriptiveImageContainer;
-        [SerializeField] protected Image descriptiveImage;
+        [SerializeField] protected DescriptiveImageBehaviour descriptiveImage;
         [SerializeField] protected TextMeshProUGUI shownWordText;
         [SerializeField] protected TransitionButtonData[] transitionButtons;
 
@@ -36,24 +36,10 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base
 
         protected virtual void UpdateView()
         {
-            SetDescriptiveImage().Forget();
+            if (descriptiveImage)
+                descriptiveImage.UpdateView(currentWord.DescriptiveImage);
 
             shownWordText.text = currentWord.GetShownWord(settingsRepository);
-        }
-
-        private async UniTask SetDescriptiveImage()
-        {
-            if (!descriptiveImage)
-                return;
-
-            if (currentWord.DescriptiveImage.IsValid is false)
-            {
-                descriptiveImageContainer.SetActive(false);
-                return;
-            }
-
-            descriptiveImage.sprite = await addressablesLoader
-                .LoadAsync<Sprite>(currentWord.DescriptiveImage.AssetGUID, destroyCancellationToken);
         }
     }
 }

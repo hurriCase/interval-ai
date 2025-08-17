@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.Others;
+using Source.Scripts.Core.Sprites;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
@@ -44,5 +45,11 @@ namespace Source.Scripts.Core.Loader
 
         public async UniTask AssignImageAsync(Image image, AssetReference assetReference, CancellationToken token)
             => image.sprite = await LoadAsync<Sprite>(assetReference, token);
+
+        public async UniTask AssignImageAsync(Image image, CachedSprite cachedSprite, CancellationToken token)
+        {
+            if (cachedSprite.IsValid)
+                image.sprite = await LoadAsync<Sprite>(cachedSprite.AssetGUID, token);
+        }
     }
 }

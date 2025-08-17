@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
+using Source.Scripts.Core.Sprites;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
@@ -20,5 +21,6 @@ namespace Source.Scripts.Core.Loader
             where TComponent : Component;
 
         UniTask AssignImageAsync(Image image, AssetReference assetReference, CancellationToken token);
+        UniTask AssignImageAsync(Image image, CachedSprite cachedSprite, CancellationToken token);
     }
 }

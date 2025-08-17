@@ -15,7 +15,7 @@ namespace Source.Scripts.Core.Repositories.Words.Word
         public string LearningWord { get; set; }
         public string NativeExample { get; set; }
         public string LearningExample { get; set; }
-        public string Transcription { get; set; }
+        public string Transcription { get; private set; }
         public CachedSprite DescriptiveImage { get; set; }
         public int ReviewCount { get; private set; }
         public bool IsHidden { get; private set; }

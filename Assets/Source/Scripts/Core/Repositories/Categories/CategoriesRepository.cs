@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
+using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Storage;
 using Cysharp.Threading.Tasks;
 using R3;
@@ -77,6 +78,11 @@ namespace Source.Scripts.Core.Repositories.Categories
 
             _categoryRemoved.OnNext(categoryEntry);
         }
+
+        public string GetCategoryName(int categoryId) =>
+            _categoryEntries.Value.TryGetValue(categoryId, out var categoryEntry)
+                ? categoryEntry.LocalizationKey.GetLocalization()
+                : string.Empty;
 
         public void Dispose()
         {

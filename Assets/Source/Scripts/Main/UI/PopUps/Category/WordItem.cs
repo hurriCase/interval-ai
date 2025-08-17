@@ -1,5 +1,4 @@
 ﻿using R3;
-using R3.Triggers;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours;
@@ -31,12 +30,14 @@ namespace Source.Scripts.Main.UI.PopUps.Category
             _wordProgressBehaviour.Init();
             _wordProgressBehaviour.UpdateProgress(wordEntry);
 
-            _wordInfoButton.OnCancelAsObservable()
+            _wordInfoButton.OnClickAsObservable()
                 .Subscribe(this, static (_, self) => self.OpenWordInfo())
                 .RegisterTo(destroyCancellationToken);
         }
 
         private void OpenWordInfo()
-            => _windowsController.OpenPopUpByType(PopUpType.WordInfo, _currentWordEntry);
+        {
+            _windowsController.OpenPopUpByType(PopUpType.WordInfo, _currentWordEntry);
+        }
     }
 }

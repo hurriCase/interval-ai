@@ -30,10 +30,6 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
                 .RegisterTo(destroyCancellationToken);
         }
 
-        //TODO:<Dmitriy.Sukharev> There are two problems with current solution.
-        //First, we should use another visual for the segment based on design.
-        //Second, the space isn't proportional between segments, probably due to rounded image internal logic.
-        //And probably, fixing the first issue can resolve the second one as well.
         private void CreateSegments(int segmentsCount)
         {
             if (_previousSegmentCount == segmentsCount)
