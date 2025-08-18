@@ -1,52 +1,137 @@
-﻿using CustomUtils.Runtime.Extensions;
+﻿using System.Collections.Generic;
+using System.Linq;
+using CustomUtils.Runtime.Extensions;
+using Cysharp.Text;
+using R3;
+using Source.Scripts.Core.Localization.Base;
+using Source.Scripts.Core.Localization.LocalizationTypes;
+using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Categories.Base;
+using Source.Scripts.Core.Repositories.Categories.Category;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
+using Source.Scripts.Main.UI.Base;
+using Source.Scripts.Main.UI.PopUps.Selection;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours;
 using Source.Scripts.UI.Components;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using VContainer;
+using ZLinq;
 
 namespace Source.Scripts.Main.UI.PopUps.WordInfo
 {
     internal sealed class WordInfoCardBehaviour : MonoBehaviour
     {
-        [SerializeField] private DescriptiveImageBehaviour _descriptiveImage;
+        [SerializeField] private ComponentWithSpacing<DescriptiveImageBehaviour> _descriptiveImage;
         [SerializeField] private WordProgressBehaviour _wordProgressBehaviour;
-        [SerializeField] private TextMeshProUGUI _transcriptionText;
-        [SerializeField] private TextMeshProUGUI _learningWordText;
-        [SerializeField] private TextMeshProUGUI _nativeWordText;
-        [SerializeField] private TextMeshProUGUI _categoryNameText;
+
+        [SerializeField] private SwitchablePair<AccordionComponent, RectTransform> _exampleDisplay;
         [SerializeField] private TextMeshProUGUI _learningExampleText;
         [SerializeField] private TextMeshProUGUI _nativeExampleText;
+        [SerializeField] private AspectRatioFitter _accordionSpacing;
+
+        [SerializeField] private ComponentWithSpacing<TextMeshProUGUI> _singleExampleText;
+        [SerializeField] private ComponentWithSpacing<TextMeshProUGUI> _transcriptionText;
+        [SerializeField] private ComponentWithSpacing<TextMeshProUGUI> _learningWordText;
+        [SerializeField] private ComponentWithSpacing<TextMeshProUGUI> _nativeWordText;
+        [SerializeField] private ComponentWithSpacing<TextMeshProUGUI> _categoryNameText;
+
         [SerializeField] private ButtonComponent _addToCategoryButton;
 
         [Inject] private ISettingsRepository _settingsRepository;
         [Inject] private ICategoriesRepository _categoriesRepository;
+        [Inject] private IWordStateMutator _wordStateMutator;
+        [Inject] private IWindowsController _windowsController;
+        [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
+
+        private WordEntry _currentWordEntry;
 
         internal void Init()
         {
             _wordProgressBehaviour.Init();
+            _exampleDisplay.PositiveComponent.Init();
+
+            _addToCategoryButton.OnClickAsObservable()
+                .Subscribe(this, static (_, self) => self.OpenCategorySelection())
+                .RegisterTo(destroyCancellationToken);
+        }
+
+        private void OpenCategorySelection()
+        {
+            var categories = _categoriesRepository.CategoryEntries.CurrentValue.Values;
+
+            var selectionName = _localizationKeysDatabase.GetLocalization(LocalizationType.CategorySelectionName);
+
+            var selectionData = new SelectionData[categories.Count];
+
+            var index = 0;
+            foreach (var category in categories)
+            {
+                var categoryName = category.LocalizationKey.GetLocalization();
+                selectionData[index] = new SelectionData(categoryName, category.Id);
+                index++;
+            }
+
+            var selectionParameters
+                = new MultipleSelectionParameters(selectionName, selectionData, _currentWordEntry.CategoryIds);
+
+            selectionParameters.SelectedValues
+                .Subscribe(this, static (selectedValues, self)
+                    => self._wordStateMutator.SetCategories(self._currentWordEntry, selectedValues))
+                .RegisterTo(destroyCancellationToken);
+
+            _windowsController.OpenPopUpByType<ISelectionParameters>(PopUpType.Selection, selectionParameters);
         }
 
         internal void UpdateView(WordEntry wordEntry)
         {
-            _descriptiveImage.UpdateView(wordEntry.DescriptiveImage);
+            _currentWordEntry = wordEntry;
+
+            _descriptiveImage.Component.UpdateView(wordEntry.DescriptiveImage);
+            _descriptiveImage.Toggle(wordEntry.DescriptiveImage.IsValid);
+
             _wordProgressBehaviour.UpdateProgress(wordEntry);
 
             UpdateText(_transcriptionText, wordEntry.Transcription, _settingsRepository.IsShowTranscription.Value);
             UpdateText(_learningWordText, wordEntry.LearningWord);
             UpdateText(_nativeWordText, wordEntry.NativeWord);
-            UpdateText(_categoryNameText, _categoriesRepository.GetCategoryName(wordEntry.CategoryId));
-            UpdateText(_learningExampleText, wordEntry.LearningExample);
-            UpdateText(_nativeExampleText, wordEntry.NativeExample);
+
+            var categoryNames = ZString.Join(",", wordEntry.CategoryIds);
+            UpdateText(_categoryNameText, categoryNames);
+
+            UpdateExampleDisplay(wordEntry.LearningExample, wordEntry.NativeExample);
         }
 
-        private void UpdateText(TMP_Text textComponent, string textToShow, bool additionalRule = true)
+        private void UpdateExampleDisplay(string learningExample, string nativeExample)
         {
-            textComponent.SetActive(string.IsNullOrWhiteSpace(textToShow) is false && additionalRule);
-            textComponent.text = textToShow;
+            var isLearningValid = learningExample.IsValid();
+            var isNativeValid = nativeExample.IsValid();
+
+            var shouldShowAccordion = isLearningValid && isNativeValid;
+            var isHideBoth = isLearningValid is false && isNativeValid is false;
+
+            _exampleDisplay.Toggle(shouldShowAccordion, isHideBoth);
+            _accordionSpacing.SetActive(shouldShowAccordion);
+
+            var singleExample = isLearningValid ? learningExample : nativeExample;
+            UpdateText(_singleExampleText, singleExample, shouldShowAccordion is false);
+
+            if (shouldShowAccordion is false)
+                return;
+
+            _learningExampleText.text = learningExample;
+            _nativeExampleText.text = nativeExample;
+        }
+
+        private void UpdateText(
+            ComponentWithSpacing<TextMeshProUGUI> textComponentWithSpacing,
+            string textToShow,
+            bool additionalRule = true)
+        {
+            textComponentWithSpacing.Toggle(textToShow.IsValid() && additionalRule);
+            textComponentWithSpacing.Component.text = textToShow;
         }
     }
 }

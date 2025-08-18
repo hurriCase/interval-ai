@@ -1,7 +1,10 @@
-﻿using Source.Scripts.Core.Repositories.Words.Word;
+﻿using R3;
+using R3.Triggers;
+using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base.PopUp;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Source.Scripts.Main.UI.PopUps.WordInfo
 {
@@ -18,6 +21,10 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo
         internal override void Init()
         {
             _wordInfoCardBehaviour.Init();
+
+            _cardContent.OnRectTransformDimensionsChangeAsObservable()
+                .Subscribe(this, static (_, component) => component.UpdateContainerHeight())
+                .RegisterTo(destroyCancellationToken);
         }
 
         internal override void Show()
@@ -25,6 +32,13 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo
             _wordInfoCardBehaviour.UpdateView(Parameters);
 
             base.Show();
+        }
+
+        private void UpdateContainerHeight()
+        {
+            _cardContainer.sizeDelta = new Vector2(_cardContainer.sizeDelta.x, _cardContent.rect.height);
+
+            LayoutRebuilder.ForceRebuildLayoutImmediate(_cardContainer.parent as RectTransform);
         }
     }
 }

@@ -133,7 +133,7 @@ namespace Source.Scripts.UI.Windows.Base
             if (TryGetPopUp(popUpType, out var popUpBase) is false)
                 return;
 
-            if (popUpBase is not IParameterizedPopUpBase<TParameters> parameterizedPopUp)
+            if (popUpBase is not ParameterizedPopUpBase<TParameters> parameterizedPopUp)
             {
                 Debug.LogError("[WindowsController::OpenPopUpByType] " +
                                $"There is no parameterized pop up with type '{popUpType}'");

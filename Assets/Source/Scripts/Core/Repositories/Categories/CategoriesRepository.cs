@@ -54,8 +54,11 @@ namespace Source.Scripts.Core.Repositories.Categories
 
             foreach (var wordEntry in _defaultWordsDatabase.Defaults)
             {
-                if (_categoryEntries.Value.TryGetValue(wordEntry.CategoryId, out var categoryEntry))
-                    categoryEntry.WordEntries.Add(wordEntry);
+                foreach (var categoryId in wordEntry.CategoryIds)
+                {
+                    if (_categoryEntries.Value.TryGetValue(categoryId, out var categoryEntry))
+                        categoryEntry.WordEntries.Add(wordEntry);
+                }
             }
         }
 

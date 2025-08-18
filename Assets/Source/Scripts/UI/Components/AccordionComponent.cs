@@ -97,12 +97,7 @@ namespace Source.Scripts.UI.Components
             var totalHeight = ShownContent.rect.height + hiddenContentSize;
             RectTransform.sizeDelta = new Vector2(RectTransform.sizeDelta.x, totalHeight);
 
-            RebuildParent();
-        }
-
-        private void RebuildParent()
-        {
-            LayoutRebuilder.ForceRebuildLayoutImmediate(transform.parent as RectTransform);
+            LayoutRebuilder.ForceRebuildLayoutImmediate(RectTransform.parent as RectTransform);
         }
     }
 }

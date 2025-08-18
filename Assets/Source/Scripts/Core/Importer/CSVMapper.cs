@@ -10,6 +10,8 @@ namespace Source.Scripts.Core.Importer
 {
     internal sealed class CSVMapper : ICSVMapper
     {
+        private const char CollectionDelimiter = ';';
+
         public T[] MapToObjects<T>(CSVTable csvTable) where T : new()
         {
             var propertyMap = GetPropertyMap<T>();
@@ -52,7 +54,7 @@ namespace Source.Scripts.Core.Importer
                 }
                 catch (Exception ex)
                 {
-                    Debug.LogError("[GenericCSVMapper::MapRowToObject] " +
+                    Debug.LogError("[CSVMapper::MapRowToObject] " +
                                    $"Failed to convert '{cellValue}' for '{headerName}': {ex.Message}");
                 }
             }
@@ -61,6 +63,61 @@ namespace Source.Scripts.Core.Importer
         }
 
         private object ConvertValue(string value, Type targetType)
+        {
+            if (targetType == typeof(string))
+                return value;
+
+            if (targetType == typeof(int))
+                return int.Parse(value);
+
+            if (targetType == typeof(bool))
+                return bool.Parse(value);
+
+            if (targetType == typeof(DateTime))
+                return DateTime.Parse(value);
+
+            if (targetType.IsEnum)
+                return Enum.Parse(targetType, value, true);
+
+            if (targetType.IsGenericType && targetType.GetGenericTypeDefinition() == typeof(List<>))
+                return ConvertToList(value, targetType);
+
+            return Convert.ChangeType(value, targetType);
+        }
+
+        private object ConvertToList(string value, Type listType)
+        {
+            var elementType = listType.GetGenericArguments()[0];
+            var listInstance = Activator.CreateInstance(listType);
+            var addMethod = listType.GetMethod("Add");
+
+            if (string.IsNullOrWhiteSpace(value))
+                return listInstance;
+
+            var elements = value.Split(CollectionDelimiter, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (var element in elements)
+            {
+                var trimmedElement = element.Trim();
+                if (string.IsNullOrEmpty(trimmedElement))
+                    continue;
+
+                try
+                {
+                    var convertedElement = ConvertSingleValue(trimmedElement, elementType);
+                    addMethod?.Invoke(listInstance, new[] { convertedElement });
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogError("[CSVMapper::ConvertToList] " +
+                                   $"Failed to convert list element '{trimmedElement}' to {elementType}: {ex.Message}");
+                }
+            }
+
+            return listInstance;
+        }
+
+        private object ConvertSingleValue(string value, Type targetType)
         {
             if (targetType == typeof(string))
                 return value;

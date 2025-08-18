@@ -7,6 +7,7 @@ namespace Source.Scripts.Core.Localization.LocalizationTypes
         ProgressTitle = 2,
         LearnGoal = 3,
         RepetitionGoal = 4,
-        UserWelcome = 5
+        UserWelcome = 5,
+        CategorySelectionName = 6
     }
 }

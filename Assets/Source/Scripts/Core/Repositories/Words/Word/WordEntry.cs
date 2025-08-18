@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using MemoryPack;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Sprites;
@@ -8,7 +9,7 @@ namespace Source.Scripts.Core.Repositories.Words.Word
     [MemoryPackable]
     internal sealed partial class WordEntry
     {
-        public int CategoryId { get; private set; }
+        public List<int> CategoryIds { get; private set; } = new();
         public DateTime CreationData { get; private set; }
         public LearningState LearningState { get; private set; }
         public string NativeWord { get; set; }

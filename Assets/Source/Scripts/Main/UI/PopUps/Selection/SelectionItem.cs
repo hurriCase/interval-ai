@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions;
 using CustomUtils.Unsafe.CustomUtils.Unsafe;
@@ -21,32 +22,70 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
         [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
         [Inject] private IWindowsController _windowsController;
 
-        private SelectionParameters _parameters;
+        private SingleSelectionParameters _parameters;
 
         internal void Init<TEnum>(
-            ReactiveProperty<TEnum> targetIndexProperty,
+            ReactiveProperty<TEnum> targetProperty,
             TEnum[] customValues = null,
             EnumMode enumMode = EnumMode.SkipFirst)
             where TEnum : unmanaged, Enum
         {
-            _parameters = new SelectionParameters();
+            var selectionValues = customValues is null
+                ? CreateSelectionValues<TEnum>(enumMode)
+                : CreateSelectionValues(customValues);
 
+            var selectionName = _selectionNameKey.GetLocalization();
             if (_selectionNameText)
-                _selectionNameText.text = _selectionNameKey.GetLocalization();
+                _selectionNameText.text = selectionName;
 
-            _parameters.SetParameters(
-                _selectionNameKey.GetLocalization(),
-                targetIndexProperty,
-                customValues,
-                enumMode,
-                destroyCancellationToken);
+            _parameters = new SingleSelectionParameters(
+                selectionName,
+                selectionValues,
+                UnsafeEnumConverter<TEnum>.ToInt32(targetProperty.Value));
 
-            targetIndexProperty
+            SubscribeToEvents(targetProperty);
+        }
+
+        private SelectionData[] CreateSelectionValues<TEnum>(EnumMode enumMode)
+            where TEnum : unmanaged, Enum
+        {
+            var enumValues = Enum.GetValues(typeof(TEnum));
+
+            var startIndex = enumMode == EnumMode.SkipFirst ? 1 : 0;
+            var selectionValues = new SelectionData[enumValues.Length - startIndex];
+
+            for (var i = startIndex; i < enumValues.Length; i++)
+            {
+                var selectionName = _localizationKeysDatabase.GetLocalization(typeof(TEnum), i);
+                selectionValues[i - startIndex] = new SelectionData(selectionName, i);
+            }
+
+            return selectionValues;
+        }
+
+        private SelectionData[] CreateSelectionValues<TEnum>(IReadOnlyList<TEnum> customValues)
+            where TEnum : unmanaged, Enum
+        {
+            var selectionValues = new SelectionData[customValues.Count];
+            for (var i = 0; i < customValues.Count; i++)
+            {
+                var enumIndex = UnsafeEnumConverter<TEnum>.ToInt32(customValues[i]);
+                var selectionName = _localizationKeysDatabase.GetLocalization(typeof(TEnum), enumIndex);
+                selectionValues[i] = new SelectionData(selectionName, enumIndex);
+            }
+
+            return selectionValues;
+        }
+
+        private void SubscribeToEvents<TEnum>(ReactiveProperty<TEnum> targetProperty)
+            where TEnum : unmanaged, Enum
+        {
+            targetProperty
                 .Subscribe(this, static (enumType, self) => self.UpdateText(enumType))
                 .RegisterTo(destroyCancellationToken);
 
-            _parameters.SelectionIndex
-                .Subscribe(targetIndexProperty, static (newValue, targetProperty)
+            _parameters.SelectedValue
+                .Subscribe(targetProperty, static (newValue, targetProperty)
                     => targetProperty.Value = UnsafeEnumConverter<TEnum>.FromInt32(newValue))
                 .RegisterTo(destroyCancellationToken);
 
@@ -63,7 +102,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
 
         private void OpenPopup()
         {
-            _windowsController.OpenPopUpByType(PopUpType.Selection, _parameters);
+            _windowsController.OpenPopUpByType<ISelectionParameters>(PopUpType.Selection, _parameters);
         }
     }
 }

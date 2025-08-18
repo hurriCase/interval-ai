@@ -2,7 +2,6 @@
 using CustomUtils.Runtime.Extensions;
 using PrimeTween;
 using R3;
-using R3.Triggers;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base.PopUp;
@@ -13,7 +12,7 @@ using VContainer;
 
 namespace Source.Scripts.Main.UI.PopUps.Selection
 {
-    internal sealed class SelectionPopUp : ParameterizedPopUpBase<SelectionParameters>
+    internal sealed class SelectionPopUp : ParameterizedPopUpBase<ISelectionParameters>
     {
         [SerializeField] private TextMeshProUGUI _selectionNameText;
 
@@ -44,12 +43,12 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
 
         private void CreateSelections()
         {
-            var enumLength = Parameters.SupportValues.Length;
+            var selectionValues = Parameters.SelectionValues;
 
-            EnsureElementsCount(enumLength);
+            EnsureElementsCount(selectionValues.Length);
 
-            for (var i = 0; i < enumLength; i++)
-                SetSelectionItem(_createdSelectionItems[i], Parameters.SupportValues[i]);
+            for (var i = 0; i < selectionValues.Length; i++)
+                SetSelectionItem(i, selectionValues[i]);
         }
 
         private void EnsureElementsCount(int desiredCount)
@@ -67,22 +66,21 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
                 _createdSelectionItems[i].SetActive(true);
         }
 
-        private void SetSelectionItem(CheckboxTextComponent selectionItem, int selectionIndex)
+        private void SetSelectionItem(int index, SelectionData selectionData)
         {
-            selectionItem.Text.text = _localizationKeysDatabase.GetLocalization(Parameters.EnumType, selectionIndex);
-            selectionItem.Checkbox.OnPointerClickAsObservable()
-                .Subscribe((selectionIndex, self: this), static (_, tuple)
-                    => tuple.self.ToggleSelection(tuple.selectionIndex))
+            var selectionItem = _createdSelectionItems[index];
+
+            selectionItem.Text.text = selectionData.SelectionName;
+
+            if (Parameters.IsSingleSelection)
+                selectionItem.Checkbox.group = _selectionToggleGroup;
+
+            selectionItem.Checkbox.isOn = Parameters.GetSelectionState(selectionData.Value);
+
+            selectionItem.Checkbox.OnValueChangedAsObservable()
+                .Subscribe((selectionData.Value, self: this), static (isOn, tuple)
+                    => tuple.self.Parameters.SetValue(tuple.Value, isOn))
                 .AddTo(ref _disposableBag);
-
-            selectionItem.Checkbox.group = _selectionToggleGroup;
-            selectionItem.Checkbox.isOn = selectionIndex == Parameters.SelectionIndex.Value;
-        }
-
-        private void ToggleSelection(int selectionIndex)
-        {
-            Parameters.SelectionIndex.Value = selectionIndex;
-            Hide();
         }
 
         internal override void Hide()

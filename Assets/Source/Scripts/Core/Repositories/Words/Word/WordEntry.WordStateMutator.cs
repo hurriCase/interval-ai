@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
@@ -63,6 +64,8 @@ namespace Source.Scripts.Core.Repositories.Words.Word
                 word.Cooldown = DateTime.MinValue;
                 word.IsHidden = false;
             }
+
+            public void SetCategories(WordEntry word, List<int> categoryIds) => word.CategoryIds = categoryIds;
 
             private void TryAdvanceCooldown(WordEntry word)
             {
