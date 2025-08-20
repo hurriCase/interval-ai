@@ -121,10 +121,15 @@ namespace Source.Scripts.UI.Windows.Base
 
         public void OpenPopUpByType(TPopUpEnum popUpType)
         {
-            if (TryGetPopUp(popUpType, out var popUpBase) is false)
-                return;
+            var popUpBase = _createdPopUps[popUpType];
 
-            popUpBase.Show();
+            if (!popUpBase)
+            {
+                Debug.LogError($"[WindowsController::OpenPopUpByType] There is no pop up with type '{popUpType}'");
+                return;
+            }
+
+            OpenPopUp(popUpBase);
         }
 
         public TPopUpType OpenPopUp<TPopUpType>() where TPopUpType : PopUpBase
@@ -134,16 +139,7 @@ namespace Source.Scripts.UI.Windows.Base
                 if (popUpBase.GetType() != typeof(TPopUpType))
                     continue;
 
-                if (_currentOpenedPopUp)
-                {
-                    _previousOpenedPopUps.Push(_currentOpenedPopUp);
-
-                    if (popUpBase.IsSingle)
-                        _currentOpenedPopUp.HideImmediately();
-                }
-
-                _currentOpenedPopUp = popUpBase;
-                popUpBase.Show();
+                OpenPopUp(popUpBase);
                 return popUpBase as TPopUpType;
             }
 
@@ -151,25 +147,20 @@ namespace Source.Scripts.UI.Windows.Base
             return null;
         }
 
-        private bool TryGetPopUp(TPopUpEnum popUpType, out PopUpBase popUpBase)
+        private void OpenPopUp(PopUpBase popUpBase)
         {
-            popUpBase = _createdPopUps[popUpType];
-            if (!popUpBase)
-            {
-                Debug.LogError($"[WindowsController::OpenPopUpByType] There is no pop up with type '{popUpType}'");
-                return false;
-            }
-
             if (_currentOpenedPopUp)
             {
                 _previousOpenedPopUps.Push(_currentOpenedPopUp);
 
                 if (popUpBase.IsSingle)
                     _currentOpenedPopUp.HideImmediately();
+                else
+                    popUpBase.transform.SetAsLastSibling();
             }
 
             _currentOpenedPopUp = popUpBase;
-            return true;
+            popUpBase.Show();
         }
 
         private void HideAllPopUps()
@@ -185,8 +176,7 @@ namespace Source.Scripts.UI.Windows.Base
 
         private void HandlePopUpHide()
         {
-            var needShow = _currentOpenedPopUp.IsSingle;
-
+            var needShow = _currentOpenedPopUp && _currentOpenedPopUp.IsSingle;
             _currentOpenedPopUp = null;
 
             if (_previousOpenedPopUps.TryPop(out var previousPopUp) is false)
