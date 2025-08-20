@@ -137,10 +137,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 898533494498609577, guid: 96d2f1cc0b5ef2b498dd34e1471db7eb, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 152.32002
+      value: 114.986664
       objectReference: {fileID: 0}
     - target: {fileID: 898533494498609577, guid: 96d2f1cc0b5ef2b498dd34e1471db7eb, type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 898533494498609577, guid: 96d2f1cc0b5ef2b498dd34e1471db7eb, type: 3}
+      propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 898533494498609577, guid: 96d2f1cc0b5ef2b498dd34e1471db7eb, type: 3}
@@ -157,7 +161,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1108774788718468063, guid: 96d2f1cc0b5ef2b498dd34e1471db7eb, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 152.32002
+      value: 114.986664
       objectReference: {fileID: 0}
     - target: {fileID: 1108774788718468063, guid: 96d2f1cc0b5ef2b498dd34e1471db7eb, type: 3}
       propertyPath: m_SizeDelta.y
@@ -185,7 +189,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4810815134817528242, guid: 96d2f1cc0b5ef2b498dd34e1471db7eb, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 152.32002
+      value: 114.986664
       objectReference: {fileID: 0}
     - target: {fileID: 4810815134817528242, guid: 96d2f1cc0b5ef2b498dd34e1471db7eb, type: 3}
       propertyPath: m_SizeDelta.y
@@ -209,7 +213,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6852698362786255714, guid: 96d2f1cc0b5ef2b498dd34e1471db7eb, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 152.32002
+      value: 114.986664
       objectReference: {fileID: 0}
     - target: {fileID: 6852698362786255714, guid: 96d2f1cc0b5ef2b498dd34e1471db7eb, type: 3}
       propertyPath: m_SizeDelta.y
@@ -317,17 +321,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8752022032393368459, guid: 96d2f1cc0b5ef2b498dd34e1471db7eb, type: 3}
   m_PrefabInstance: {fileID: 498947705}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &498947707 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3077099920118186123, guid: 96d2f1cc0b5ef2b498dd34e1471db7eb, type: 3}
-  m_PrefabInstance: {fileID: 498947705}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb9c29a24a4d44b180280f4cc03d4b53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.MenuBehaviour
 --- !u!1001 &522384186
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -463,8 +456,8 @@ MonoBehaviour:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects: []
-  _windowsController: {fileID: 1286705114}
-  _menuBehaviour: {fileID: 498947707}
+  _windowsController: {fileID: 1164994451}
+  _menuBehaviour: {fileID: 1788871177}
   _progressDescriptionsDatabase: {fileID: 11400000, guid: 24479c77929486045995e9577990f5f1, type: 2}
   _progressGraphSettings: {fileID: 11400000, guid: 90ed753f089e85643a2c2ebb3fe28944, type: 2}
 --- !u!4 &806425318
@@ -590,7 +583,7 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5908269230265889705, guid: b0b576c6b29f9ea4caff9b93a9468e7f, type: 3}
   m_PrefabInstance: {fileID: 1076991033}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1286705114 stripped
+--- !u!114 &1164994451 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7751511611619208094, guid: 4c044ad1738271744afef1f3023b54f3, type: 3}
   m_PrefabInstance: {fileID: 522384186}
@@ -601,6 +594,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa39b0bfadc24978b0e0acd95426f6de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.DI.MainWindowsController
+--- !u!114 &1788871177 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3077099920118186123, guid: 96d2f1cc0b5ef2b498dd34e1471db7eb, type: 3}
+  m_PrefabInstance: {fileID: 498947705}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb9c29a24a4d44b180280f4cc03d4b53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.MenuBehaviour
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

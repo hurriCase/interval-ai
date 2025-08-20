@@ -1,8 +1,5 @@
 ﻿using System;
-using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions;
-using R3;
-using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Core.Sprites;
 using UnityEngine;

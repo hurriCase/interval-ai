@@ -20,7 +20,8 @@ namespace Source.Scripts.Main.UI.Screens.Settings
             _userBehaviour.Init();
 
             _settingsButton.OnClickAsObservable()
-                .Subscribe(this, (_, self) => self._windowsController.OpenPopUpByType(PopUpType.Settings))
+                .Subscribe(this, (_, self)
+                    => self._windowsController.OpenPopUpByType(PopUpType.Settings))
                 .RegisterTo(destroyCancellationToken);
         }
     }

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Source.Scripts.Main.UI.Screens.Generation.Behaviours
 {
-    internal sealed class ChatBehaviour : PopUpBase
+    internal sealed class ChatPopUp : PopUpBase
     {
         [SerializeField] private MessageItem _messageItem;
         [SerializeField] private AspectRatioFitter _spacing;

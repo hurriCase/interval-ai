@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
+using Source.Scripts.UI.Windows.Base.PopUp;
 
 namespace Source.Scripts.Main.UI.Base
 {
@@ -7,8 +8,8 @@ namespace Source.Scripts.Main.UI.Base
     {
         ScreenType InitialScreenType { get; }
         UniTask InitAsync(CancellationToken cancellationToken);
-        void OpenScreenByType(ScreenType screenType);
-        void OpenPopUpByType(PopUpType popUpType);
-        void OpenPopUpByType<TParameters>(PopUpType popUpType, TParameters parameters);
+        void OpenScreenByType(ScreenType screenEnum);
+        void OpenPopUpByType(PopUpType popUpEnum);
+        TPopUpType OpenPopUp<TPopUpType>() where TPopUpType : PopUpBase;
     }
 }

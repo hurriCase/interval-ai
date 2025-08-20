@@ -1,6 +1,7 @@
 ﻿using R3;
 using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Main.UI.Base;
+using Source.Scripts.Main.UI.PopUps.Category;
 using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base.PopUp;
 using TMPro;
@@ -33,7 +34,8 @@ namespace Source.Scripts.Main.UI.PopUps.CategoryCreation
                 return;
 
             var newCategory = _categoriesRepository.CreateCategory(_categoryNameInputField.text);
-            _windowsController.OpenPopUpByType(PopUpType.Category, newCategory);
+            var categoryPopUp = _windowsController.OpenPopUp<CategoryPopUp>();
+            categoryPopUp.SetParameters(newCategory);
         }
     }
 }

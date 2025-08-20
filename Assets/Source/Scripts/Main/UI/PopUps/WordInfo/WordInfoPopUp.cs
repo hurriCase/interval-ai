@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace Source.Scripts.Main.UI.PopUps.WordInfo
 {
-    internal sealed class WordInfoPopUp : ParameterizedPopUpBase<WordEntry>
+    internal sealed class WordInfoPopUp : PopUpBase
     {
         [SerializeField] private ButtonComponent _editButton;
         [SerializeField] private ButtonComponent _startLearningButton;
@@ -27,12 +27,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo
                 .RegisterTo(destroyCancellationToken);
         }
 
-        internal override void Show()
-        {
-            _wordInfoCardBehaviour.UpdateView(Parameters);
-
-            base.Show();
-        }
+        internal void SetParameters(WordEntry wordEntry) => _wordInfoCardBehaviour.UpdateView(wordEntry);
 
         private void UpdateContainerHeight()
         {

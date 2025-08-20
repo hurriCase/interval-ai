@@ -15,29 +15,29 @@ using VContainer.Unity;
 
 namespace Source.Scripts.UI.Windows.Base
 {
-    internal abstract class WindowsController<TScreenType, TPopUpType> : MonoBehaviour
-        where TScreenType : unmanaged, Enum
-        where TPopUpType : unmanaged, Enum
+    internal abstract class WindowsController<TScreenEnum, TPopUpEnum> : MonoBehaviour
+        where TScreenEnum : unmanaged, Enum
+        where TPopUpEnum : unmanaged, Enum
     {
         [SerializeField]
-        private EnumArray<TScreenType, AssetReferenceT<GameObject>> _screenReferences = new(EnumMode.SkipFirst);
+        private EnumArray<TScreenEnum, AssetReferenceT<GameObject>> _screenReferences = new(EnumMode.SkipFirst);
 
         [SerializeField]
-        private EnumArray<TPopUpType, AssetReferenceT<GameObject>> _popUpReferences = new(EnumMode.SkipFirst);
+        private EnumArray<TPopUpEnum, AssetReferenceT<GameObject>> _popUpReferences = new(EnumMode.SkipFirst);
 
         [SerializeField] private Transform _screensContainer;
         [SerializeField] private Transform _popUpsContainer;
 
-        public TScreenType InitialScreenType { get; private set; }
+        public TScreenEnum InitialScreenType { get; private set; }
 
-        private EnumArray<TScreenType, ScreenBase> _createdScreens = new(EnumMode.SkipFirst);
-        private EnumArray<TPopUpType, PopUpBase> _createdPopUps = new(EnumMode.SkipFirst);
+        private EnumArray<TScreenEnum, ScreenBase> _createdScreens = new(EnumMode.SkipFirst);
+        private EnumArray<TPopUpEnum, PopUpBase> _createdPopUps = new(EnumMode.SkipFirst);
         private readonly Stack<PopUpBase> _previousOpenedPopUps = new();
 
         private PopUpBase _currentOpenedPopUp;
         private ScreenBase _currentScreen;
 
-        private TScreenType _initialScreenType;
+        private TScreenEnum _initialScreenType;
 
         private IObjectResolver _objectResolver;
         private IAddressablesLoader _addressablesLoader;
@@ -103,7 +103,7 @@ namespace Source.Scripts.UI.Windows.Base
             }
         }
 
-        public void OpenScreenByType(TScreenType screenType)
+        public void OpenScreenByType(TScreenEnum screenType)
         {
             HideAllPopUps();
 
@@ -119,7 +119,7 @@ namespace Source.Scripts.UI.Windows.Base
             screenBase.Show();
         }
 
-        public void OpenPopUpByType(TPopUpType popUpType)
+        public void OpenPopUpByType(TPopUpEnum popUpType)
         {
             if (TryGetPopUp(popUpType, out var popUpBase) is false)
                 return;
@@ -127,24 +127,31 @@ namespace Source.Scripts.UI.Windows.Base
             popUpBase.Show();
         }
 
-        //TODO:<Dmitriy.Sukharev> refactor
-        public void OpenPopUpByType<TParameters>(TPopUpType popUpType, TParameters parameters)
+        public TPopUpType OpenPopUp<TPopUpType>() where TPopUpType : PopUpBase
         {
-            if (TryGetPopUp(popUpType, out var popUpBase) is false)
-                return;
-
-            if (popUpBase is not ParameterizedPopUpBase<TParameters> parameterizedPopUp)
+            foreach (var popUpBase in _createdPopUps)
             {
-                Debug.LogError("[WindowsController::OpenPopUpByType] " +
-                               $"There is no parameterized pop up with type '{popUpType}'");
-                return;
+                if (popUpBase.GetType() != typeof(TPopUpType))
+                    continue;
+
+                if (_currentOpenedPopUp)
+                {
+                    _previousOpenedPopUps.Push(_currentOpenedPopUp);
+
+                    if (popUpBase.IsSingle)
+                        _currentOpenedPopUp.HideImmediately();
+                }
+
+                _currentOpenedPopUp = popUpBase;
+                popUpBase.Show();
+                return popUpBase as TPopUpType;
             }
 
-            parameterizedPopUp.SetParameters(parameters);
-            popUpBase.Show();
+            Debug.LogError($"[WindowsController::OpenPopUpByType] There is no pop up with type '{typeof(TPopUpType)}'");
+            return null;
         }
 
-        private bool TryGetPopUp(TPopUpType popUpType, out PopUpBase popUpBase)
+        private bool TryGetPopUp(TPopUpEnum popUpType, out PopUpBase popUpBase)
         {
             popUpBase = _createdPopUps[popUpType];
             if (!popUpBase)

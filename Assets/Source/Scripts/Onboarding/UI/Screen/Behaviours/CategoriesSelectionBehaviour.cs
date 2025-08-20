@@ -1,5 +1,4 @@
-﻿using Source.Scripts.Core.Repositories.Categories;
-using Source.Scripts.Core.Repositories.Categories.Base;
+﻿using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Main.UI.Screens.Categories;
 using UnityEngine;
 using VContainer;

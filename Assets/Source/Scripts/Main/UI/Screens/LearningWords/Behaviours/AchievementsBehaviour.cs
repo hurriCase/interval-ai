@@ -17,7 +17,8 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours
         internal void Init()
         {
             _achievementPopUpButton.OnClickAsObservable()
-                .Subscribe(_windowsController, (_, controller) => controller.OpenPopUpByType(PopUpType.Achievements))
+                .Subscribe(_windowsController, (_, controller)
+                    => controller.OpenPopUpByType(PopUpType.Achievements))
                 .AddTo(this);
 
             _weekProgressContainer.UpdateCurrentWeeklyProgress();

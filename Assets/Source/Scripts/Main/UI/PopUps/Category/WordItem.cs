@@ -1,6 +1,7 @@
 ﻿using R3;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.Base;
+using Source.Scripts.Main.UI.PopUps.WordInfo;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours;
 using Source.Scripts.UI.Components;
 using TMPro;
@@ -37,7 +38,8 @@ namespace Source.Scripts.Main.UI.PopUps.Category
 
         private void OpenWordInfo()
         {
-            _windowsController.OpenPopUpByType(PopUpType.WordInfo, _currentWordEntry);
+            var wordInfoPopUp = _windowsController.OpenPopUp<WordInfoPopUp>();
+            wordInfoPopUp.SetParameters(_currentWordEntry);
         }
     }
 }
