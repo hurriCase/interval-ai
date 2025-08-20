@@ -41,7 +41,7 @@ namespace Source.Scripts.Main.UI.Screens.Categories
             _selectedCheckbox.isOn = categoryEntry.IsSelected;
 
             _categoryOpenArea.OnPointerClickAsObservable()
-                .Subscribe( this, (_, self) => self.OpenCategoryPopUp())
+                .Subscribe(this, (_, self) => self.OpenCategoryPopUp())
                 .RegisterTo(destroyCancellationToken);
 
             _selectedCheckbox.OnPointerClickAsObservable()

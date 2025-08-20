@@ -65,7 +65,7 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
             var localizationKey
                 = _localizationKeysDatabase.GetDateLocalization(dateRange.DateType, dateRange.Amount);
 
-            graphTypeText.text = string.Format(localizationKey, dateRange.Amount);
+            graphTypeText.SetText(localizationKey, dateRange.Amount);
         }
 
         private void UpdateGraph(DateRange progressRange)

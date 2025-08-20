@@ -1,11 +1,9 @@
-﻿using Cysharp.Threading.Tasks;
-using Source.Scripts.Core.Loader;
+﻿using Source.Scripts.Core.Loader;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.PopUps.WordInfo;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using VContainer;
 
 namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base

@@ -8,6 +8,7 @@ namespace Source.Scripts.Core.Repositories.Settings
     {
         [field: SerializeField] public List<CooldownByDate> Cooldowns { get; private set; }
         [field: SerializeField] public int DailyGoal { get; private set; }
+        [field: SerializeField] public LanguageLevel LanguageLevel { get; private set; }
         [field: SerializeField] public SystemLanguage NativeLanguage { get; private set; }
         [field: SerializeField] public SystemLanguage LearningLanguage { get; private set; }
         [field: SerializeField] public LanguageType FirstShowPractice { get; private set; }

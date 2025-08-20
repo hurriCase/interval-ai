@@ -7,6 +7,7 @@ namespace Source.Scripts.Core.Repositories.Settings.Base
     {
         List<CooldownByDate> Cooldowns { get; }
         int DailyGoal { get; }
+        LanguageLevel LanguageLevel { get; }
         SystemLanguage NativeLanguage { get; }
         SystemLanguage LearningLanguage { get; }
         LanguageType FirstShowPractice { get; }
