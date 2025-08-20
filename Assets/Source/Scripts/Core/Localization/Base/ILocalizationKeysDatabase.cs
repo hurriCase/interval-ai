@@ -28,6 +28,7 @@ namespace Source.Scripts.Core.Localization.Base
         string GetLearnedCountLocalization(int count);
 
         [MustUseReturnValue]
-        string GetLocalization(Type enumType, int enumIndex);
+        string GetLocalizationByValue<TEnum>(TEnum enumValue)
+            where TEnum : unmanaged, Enum;
     }
 }

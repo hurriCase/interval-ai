@@ -6,6 +6,7 @@ using Source.Scripts.Core.Loader;
 using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Core.Repositories.Categories.Category;
 using Source.Scripts.Main.UI.Base;
+using Source.Scripts.Main.UI.PopUps.Category;
 using Source.Scripts.UI.Components;
 using TMPro;
 using UnityEngine;
@@ -27,32 +28,37 @@ namespace Source.Scripts.Main.UI.Screens.Categories
         [Inject] private ICategoriesRepository _categoriesRepository;
         [Inject] private IAddressablesLoader _addressablesLoader;
 
-        private CategoryEntry _categoryEntry;
+        private CategoryEntry _currentCategoryEntry;
 
         internal void Init(CategoryEntry categoryEntry)
         {
             //SetCategoryIcon(categoryEntry.Icon.AssetGUID).Forget();
 
-            _categoryEntry = categoryEntry;
+            _currentCategoryEntry = categoryEntry;
 
             _categoryName.text = categoryEntry.LocalizationKey.GetLocalization();
             _progressText.text = categoryEntry.WordEntries.Count.ToString();
             _selectedCheckbox.isOn = categoryEntry.IsSelected;
 
             _categoryOpenArea.OnPointerClickAsObservable()
-                .Subscribe( this, (_, self) =>
-                    self._windowsController.OpenPopUpByType(PopUpType.Category, self._categoryEntry))
+                .Subscribe( this, (_, self) => self.OpenCategoryPopUp())
                 .RegisterTo(destroyCancellationToken);
 
             _selectedCheckbox.OnPointerClickAsObservable()
                 .Subscribe(this, (_, self) =>
-                    self._categoryEntry.IsSelected = self._selectedCheckbox.isOn)
+                    self._currentCategoryEntry.IsSelected = self._selectedCheckbox.isOn)
                 .RegisterTo(destroyCancellationToken);
+        }
+
+        private void OpenCategoryPopUp()
+        {
+            var selectionPopUp = _windowsController.OpenPopUp<CategoryPopUp>();
+            selectionPopUp.SetParameters(_currentCategoryEntry);
         }
 
         internal void UpdateName()
         {
-            _categoryName.text = _categoryEntry.LocalizationKey.GetLocalization();
+            _categoryName.text = _currentCategoryEntry.LocalizationKey.GetLocalization();
         }
 
         private async UniTask SetCategoryIcon(string assetGUID)

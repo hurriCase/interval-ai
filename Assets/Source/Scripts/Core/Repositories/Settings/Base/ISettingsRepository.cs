@@ -4,7 +4,6 @@ using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Storage;
 using CustomUtils.Runtime.UI.Theme.Base;
 using R3;
-using Source.Scripts.Core.Localization.LocalizationTypes;
 using UnityEngine;
 
 namespace Source.Scripts.Core.Repositories.Settings.Base

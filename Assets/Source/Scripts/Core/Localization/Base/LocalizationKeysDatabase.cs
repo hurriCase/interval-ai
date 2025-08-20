@@ -3,9 +3,9 @@ using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Localization;
 using CustomUtils.Runtime.UI.Theme.Base;
+using CustomUtils.Unsafe.CustomUtils.Unsafe;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Localization.LocalizationTypes.Date;
-using Source.Scripts.Core.Repositories.Categories;
 using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
@@ -60,8 +60,11 @@ namespace Source.Scripts.Core.Localization.Base
         public string GetCompletesLocalization(PracticeState practiceState, CompleteType completeType) =>
             LocalizationController.Localize(_learningCompletes[practiceState][completeType]);
 
-        public string GetLocalization(Type enumType, int enumIndex)
+        public string GetLocalizationByValue<TEnum>(TEnum enumValue)
+            where TEnum : unmanaged, Enum
         {
+            var enumType = typeof(TEnum);
+            var enumIndex = UnsafeEnumConverter<TEnum>.ToInt32(enumValue);
             if (enumType == typeof(ThemeType))
                 return _themeTypes[enumIndex].GetLocalization();
 

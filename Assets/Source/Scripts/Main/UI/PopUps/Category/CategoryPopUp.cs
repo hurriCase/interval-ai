@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using CustomUtils.Runtime.Extensions;
 using R3;
+using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Core.Repositories.Categories.Category;
 using Source.Scripts.Core.Repositories.Words.Word;
@@ -14,7 +15,7 @@ using VContainer.Unity;
 
 namespace Source.Scripts.Main.UI.PopUps.Category
 {
-    internal sealed class CategoryPopUp : ParameterizedPopUpBase<CategoryEntry>
+    internal sealed class CategoryPopUp : PopUpBase
     {
         [SerializeField] private InputFieldComponent _categoryNameText;
 
@@ -31,12 +32,24 @@ namespace Source.Scripts.Main.UI.PopUps.Category
         [Inject] private ICategoriesRepository _categoriesRepository;
         [Inject] private ICategoryStateMutator _categoryStateMutator;
         [Inject] private IObjectResolver _objectResolver;
+        [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
 
         private readonly ReactiveProperty<WordOrderType> _wordReviewSourceType = new(WordOrderType.Default);
-
         private readonly Dictionary<WordEntry, WordItem> _createdWordItems = new();
-
+        private CategoryEntry _currentCategoryEntry;
+        private EnumSelectionService<WordOrderType> _enumSelectionService;
         private int _previousCategoryId;
+
+        internal void SetParameters(CategoryEntry categoryEntry)
+        {
+            _currentCategoryEntry = categoryEntry;
+
+            _wordReviewSourceType.Value = _currentCategoryEntry.WordOrderType;
+
+            UpdateView();
+
+            _previousCategoryId = _currentCategoryEntry.Id;
+        }
 
         internal override void Init()
         {
@@ -46,16 +59,16 @@ namespace Source.Scripts.Main.UI.PopUps.Category
 
             _resetProgressButton.OnClickAsObservable()
                 .Subscribe(this, static (_, self)
-                    => self._categoryStateMutator.ResetWordsProgress(self.Parameters))
+                    => self._categoryStateMutator.ResetWordsProgress(self._currentCategoryEntry))
                 .RegisterTo(destroyCancellationToken);
 
             _categoryNameText.CurrentTextSubjectObservable
                 .Subscribe(this, (newName, self)
-                    => self._categoryStateMutator.ChangeCategoryName(self.Parameters, newName))
+                    => self._categoryStateMutator.ChangeCategoryName(self._currentCategoryEntry, newName))
                 .RegisterTo(destroyCancellationToken);
 
             _wordReviewSourceType
-                .Where(this, static (_, self) => self.Parameters != null)
+                .Where(this, static (_, self) => self._currentCategoryEntry != null)
                 .Subscribe(this, static (newOrder, self) => self.ReorderWordItems(newOrder))
                 .RegisterTo(destroyCancellationToken);
 
@@ -64,36 +77,25 @@ namespace Source.Scripts.Main.UI.PopUps.Category
 
         private void RemoveCategory()
         {
-            _categoriesRepository.RemoveCategory(Parameters);
+            _categoriesRepository.RemoveCategory(_currentCategoryEntry);
 
             Hide();
         }
 
-        internal override void Show()
-        {
-            _wordReviewSourceType.Value = Parameters.WordOrderType;
-
-            UpdateView();
-
-            base.Show();
-
-            _previousCategoryId = Parameters.Id;
-        }
-
         private void UpdateView()
         {
-            _categoryNameText.text = Parameters.LocalizationKey.GetLocalization();
+            _categoryNameText.text = _currentCategoryEntry.LocalizationKey.GetLocalization();
 
             CreateWords();
         }
 
         private void ReorderWordItems(WordOrderType newOrder)
         {
-            _categoryStateMutator.ChangeWordOrder(Parameters, newOrder);
+            _categoryStateMutator.ChangeWordOrder(_currentCategoryEntry, newOrder);
 
-            for (var i = 0; i < Parameters.WordEntries.Count; i++)
+            for (var i = 0; i < _currentCategoryEntry.WordEntries.Count; i++)
             {
-                var wordEntry = Parameters.WordEntries[i];
+                var wordEntry = _currentCategoryEntry.WordEntries[i];
                 if (_createdWordItems.TryGetValue(wordEntry, out var wordItem))
                     wordItem.transform.SetSiblingIndex(i + 1); // First element is header
             }
@@ -103,11 +105,11 @@ namespace Source.Scripts.Main.UI.PopUps.Category
 
         private void CreateWords()
         {
-            if (_previousCategoryId != Parameters.Id)
+            if (_previousCategoryId != _currentCategoryEntry.Id)
                 foreach (var createdWordItem in _createdWordItems)
                     createdWordItem.Value.SetActive(false);
 
-            foreach (var wordEntry in Parameters.WordEntries)
+            foreach (var wordEntry in _currentCategoryEntry.WordEntries)
                 CreateWord(wordEntry);
 
             LayoutRebuilder.ForceRebuildLayoutImmediate(_wordsContainer);

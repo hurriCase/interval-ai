@@ -1,6 +1,4 @@
-﻿using CustomUtils.Runtime.CustomTypes.Collections;
-using CustomUtils.Runtime.Localization;
-using R3;
+﻿using CustomUtils.Runtime.Localization;
 using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
@@ -25,7 +23,7 @@ namespace Source.Scripts.Main.UI.PopUps.Settings
         [SerializeField] private SelectionItem _showFirstLanguageSelectionItem;
         [SerializeField] private SelectionItem _cardLearnLanguageSelectionItem;
         [SerializeField] private SelectionItem _cardReviewLanguageSelectionItem;
-        [SerializeField] private SelectionItem _wordReviewSourceTypeSelectionItem;
+        [SerializeField] private SelectionItem _wordReviewSourceSelectionItem;
 
         [Inject] private ISettingsRepository _settingsRepository;
         [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
@@ -34,41 +32,33 @@ namespace Source.Scripts.Main.UI.PopUps.Settings
         internal override void Init()
         {
             _themeSelectionItem.Init(_settingsRepository.ThemeType.Property);
+
             _isSendNotificationsItem.Init(_settingsRepository.IsSendNotifications);
             _isShowTranscriptionItem.Init(_settingsRepository.IsShowTranscription);
             _isSwipeEnabledItem.Init(_settingsRepository.IsSwipeEnabled);
 
             InitLanguageSelection();
 
-            _wordReviewSourceTypeSelectionItem.Init(_settingsRepository.WordReviewSourceType.Property);
+            _wordReviewSourceSelectionItem.Init(_settingsRepository.WordReviewSourceType.Property);
         }
 
         private void InitLanguageSelection()
         {
             _languageSelectionItem.Init(
                 _settingsRepository.SystemLanguage.Property,
-                LocalizationController.GetAllLanguages(),
-                EnumMode.Default);
-
-            var nativeProperty = GetProperty(LanguageType.Native);
-            var learningProperty = GetProperty(LanguageType.Learning);
+                LocalizationController.GetAllLanguages());
 
             _nativeLanguageSelectionItem.Init(
-                nativeProperty,
-                _appConfig.SupportedLanguages[LanguageType.Native],
-                EnumMode.Default);
+                _settingsRepository.LanguageByType.Value[LanguageType.Native],
+                _appConfig.SupportedLanguages[LanguageType.Native]);
 
             _learningLanguageSelectionItem.Init(
-                learningProperty,
-                _appConfig.SupportedLanguages[LanguageType.Learning],
-                EnumMode.Default);
+                _settingsRepository.LanguageByType.Value[LanguageType.Learning],
+                _appConfig.SupportedLanguages[LanguageType.Learning]);
 
             _showFirstLanguageSelectionItem.Init(_settingsRepository.FirstShowPractice.Property);
             _cardLearnLanguageSelectionItem.Init(_settingsRepository.CardLearnPractice.Property);
             _cardReviewLanguageSelectionItem.Init(_settingsRepository.CardReviewPractice.Property);
         }
-
-        private ReactiveProperty<SystemLanguage> GetProperty(LanguageType languageType) =>
-            _settingsRepository.LanguageByType.Value[languageType];
     }
 }

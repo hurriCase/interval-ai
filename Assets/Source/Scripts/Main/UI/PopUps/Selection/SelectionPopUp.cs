@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Localization;
 using PrimeTween;
 using R3;
 using Source.Scripts.Core.Localization.Base;
@@ -12,7 +13,7 @@ using VContainer;
 
 namespace Source.Scripts.Main.UI.PopUps.Selection
 {
-    internal sealed class SelectionPopUp : ParameterizedPopUpBase<ISelectionParameters>
+    internal sealed class SelectionPopUp : PopUpBase
     {
         [SerializeField] private TextMeshProUGUI _selectionNameText;
 
@@ -28,27 +29,33 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
 
         private DisposableBag _disposableBag;
 
+        public void SetParameters<TValue>(SelectionService<TValue> service)
+        {
+            LocalizationController.Language
+                .Subscribe((self: this, service), static (_, tuple)
+                    => tuple.self._selectionNameText.text = tuple.service.SelectionKey.GetLocalization())
+                .RegisterTo(destroyCancellationToken);
+
+            CreateSelections(service);
+        }
+
         internal override void Show()
         {
             _disposableBag.Clear();
-
-            _selectionNameText.text = Parameters.SelectionName;
-
-            CreateSelections();
 
             base.Show();
 
             AnimatePivot(0f);
         }
 
-        private void CreateSelections()
+        private void CreateSelections<TValue>(SelectionService<TValue> service)
         {
-            var selectionValues = Parameters.SelectionValues;
+            var selectionValues = service.SelectionValues;
 
-            EnsureElementsCount(selectionValues.Length);
+            EnsureElementsCount(selectionValues.Count);
 
-            for (var i = 0; i < selectionValues.Length; i++)
-                SetSelectionItem(i, selectionValues[i]);
+            for (var i = 0; i < selectionValues.Count; i++)
+                SetSelectionItem(i, selectionValues[i], service);
         }
 
         private void EnsureElementsCount(int desiredCount)
@@ -66,20 +73,20 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
                 _createdSelectionItems[i].SetActive(true);
         }
 
-        private void SetSelectionItem(int index, SelectionData selectionData)
+        private void SetSelectionItem<TValue>(int index, TValue selectionValue, SelectionService<TValue> service)
         {
             var selectionItem = _createdSelectionItems[index];
 
-            selectionItem.Text.text = selectionData.SelectionName;
+            selectionItem.Text.text = service.GetSelectionName(selectionValue);
 
-            if (Parameters.IsSingleSelection)
+            if (service.IsSingleSelection)
                 selectionItem.Checkbox.group = _selectionToggleGroup;
 
-            selectionItem.Checkbox.isOn = Parameters.GetSelectionState(selectionData.Value);
+            selectionItem.Checkbox.isOn = service.GetSelectionState(selectionValue);
 
             selectionItem.Checkbox.OnValueChangedAsObservable()
-                .Subscribe((selectionData.Value, self: this), static (isOn, tuple)
-                    => tuple.self.Parameters.SetValue(tuple.Value, isOn))
+                .Subscribe((selectionData: selectionValue, service),
+                    static (isOn, tuple) => tuple.service.SetValue(tuple.selectionData, isOn))
                 .AddTo(ref _disposableBag);
         }
 
