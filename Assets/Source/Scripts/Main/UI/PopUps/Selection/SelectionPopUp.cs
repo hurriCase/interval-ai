@@ -36,13 +36,13 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
                     => tuple.self._selectionNameText.text = tuple.service.SelectionKey.GetLocalization())
                 .RegisterTo(destroyCancellationToken);
 
+            _disposableBag.Clear();
+
             CreateSelections(service);
         }
 
         internal override void Show()
         {
-            _disposableBag.Clear();
-
             base.Show();
 
             AnimatePivot(0f);
@@ -56,6 +56,9 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
 
             for (var i = 0; i < selectionValues.Count; i++)
                 SetSelectionItem(i, selectionValues[i], service);
+
+            for (var i = 0; i < selectionValues.Count; i++)
+                SubscribeToChanges(i, selectionValues[i], service);
         }
 
         private void EnsureElementsCount(int desiredCount)
@@ -83,10 +86,15 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
                 selectionItem.Checkbox.group = _selectionToggleGroup;
 
             selectionItem.Checkbox.isOn = service.GetSelectionState(selectionValue);
+        }
+
+        private void SubscribeToChanges<TValue>(int index, TValue selectionValue, SelectionService<TValue> service)
+        {
+            var selectionItem = _createdSelectionItems[index];
 
             selectionItem.Checkbox.OnValueChangedAsObservable()
-                .Subscribe((selectionData: selectionValue, service),
-                    static (isOn, tuple) => tuple.service.SetValue(tuple.selectionData, isOn))
+                .Subscribe((selectionValue, service),
+                    static (isOn, tuple) => tuple.service.SetValue(tuple.selectionValue, isOn))
                 .AddTo(ref _disposableBag);
         }
 
