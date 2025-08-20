@@ -21,6 +21,7 @@
         internal const string CardReviewLanguageKey = Prefix + "CardReviewLanguageKey";
         internal const string LearningDirectionKey = Prefix + "LearningDirectionKey";
         internal const string CurrentThemeKey = Prefix + "CurrentThemeKey";
+        internal const string WordReviewSourceTypeKey = Prefix + "WordReviewSourceTypeKey";
         internal const string IsSendNotificationsKey = Prefix + "IsSendNotificationsKey";
         internal const string IsShowTranscriptionKey = Prefix + "IsShowTranscriptionKey";
         internal const string IsSwipeEnabledKey = Prefix + "IsSwipeEnabledKey";

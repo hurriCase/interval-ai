@@ -15,7 +15,7 @@ using Source.Scripts.Core.Repositories.Words.Base;
 
 namespace Source.Scripts.Core.Repositories.Progress
 {
-    internal sealed partial class ProgressRepository : IProgressRepository, IRepository
+    internal sealed partial class ProgressRepository : IProgressRepository, IRepository, IDisposable
     {
         public ReadOnlyReactiveProperty<int> CurrentStreak => _currentStreak.Property;
         public ReadOnlyReactiveProperty<int> BestStreak => _bestStreak.Property;
@@ -183,11 +183,13 @@ namespace Source.Scripts.Core.Repositories.Progress
 
         public void Dispose()
         {
-            TotalCountByState.Dispose();
-            NewWordsDailyTarget.Dispose();
-            CurrentStreak.Dispose();
-            BestStreak.Dispose();
-            ProgressHistory.Dispose();
+            _currentStreak.Dispose();
+            _bestStreak.Dispose();
+            _newWordsDailyTarget.Dispose();
+            _totalCountByState.Dispose();
+            _progressHistory.Dispose();
+            _canReduceDailyTarget.Dispose();
+            _goalAchievedSubject.Dispose();
             DailyTargetCommand.Dispose();
         }
     }

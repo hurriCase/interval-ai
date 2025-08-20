@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Storage;
@@ -12,7 +13,7 @@ using Source.Scripts.Core.Repositories.Words;
 
 namespace Source.Scripts.Core.Repositories.Categories
 {
-    internal sealed class CategoriesRepository : ICategoriesRepository, IRepository
+    internal sealed class CategoriesRepository : ICategoriesRepository, IRepository, IDisposable
     {
         public ReadOnlyReactiveProperty<Dictionary<int, CategoryEntry>> CategoryEntries => _categoryEntries.Property;
         private readonly PersistentReactiveProperty<Dictionary<int, CategoryEntry>> _categoryEntries = new();
@@ -89,7 +90,9 @@ namespace Source.Scripts.Core.Repositories.Categories
 
         public void Dispose()
         {
-            CategoryEntries.Dispose();
+            _categoryEntries.Dispose();
+            _categoryAdded.Dispose();
+            _categoryRemoved.Dispose();
         }
     }
 }

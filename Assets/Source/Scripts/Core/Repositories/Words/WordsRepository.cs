@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Storage;
@@ -16,7 +17,7 @@ using Random = UnityEngine.Random;
 
 namespace Source.Scripts.Core.Repositories.Words
 {
-    internal sealed class WordsRepository : IWordsRepository, IRepository
+    internal sealed class WordsRepository : IWordsRepository, IRepository, IDisposable
     {
         private readonly ReactiveProperty<EnumArray<LearningState, SortedSet<WordEntry>>> _sortedWordsByState
             = new(new EnumArray<LearningState, SortedSet<WordEntry>>(() => new SortedSet<WordEntry>(_comparer)));
@@ -123,7 +124,9 @@ namespace Source.Scripts.Core.Repositories.Words
 
         public void Dispose()
         {
-            _wordEntries?.Dispose();
+            _sortedWordsByState.Dispose();
+            _currentWordsByState.Dispose();
+            _wordEntries.Dispose();
             _disposable.Dispose();
         }
     }

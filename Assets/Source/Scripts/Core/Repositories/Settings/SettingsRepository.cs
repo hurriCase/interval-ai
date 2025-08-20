@@ -10,14 +10,13 @@ using CustomUtils.Runtime.UI.Theme.Base;
 using Cysharp.Threading.Tasks;
 using R3;
 using Source.Scripts.Core.Configs;
-using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using UnityEngine;
 
 namespace Source.Scripts.Core.Repositories.Settings
 {
-    internal sealed class SettingsRepository : ISettingsRepository, IRepository
+    internal sealed class SettingsRepository : ISettingsRepository, IRepository, IDisposable
     {
         public PersistentReactiveProperty<LanguageLevel> LanguageLevel { get; } = new();
         public PersistentReactiveProperty<int> DailyGoal { get; } = new();
@@ -43,8 +42,7 @@ namespace Source.Scripts.Core.Repositories.Settings
         private readonly IDefaultSettingsConfig _defaultSettingsConfig;
         private readonly IAppConfig _appConfig;
 
-        private IDisposable _disposable;
-        private PersistentReactiveProperty<bool> _isSendNotifications;
+        private DisposableBag _disposableBag;
 
         internal SettingsRepository(IDefaultSettingsConfig defaultSettingsConfig, IAppConfig appConfig)
         {
@@ -56,8 +54,12 @@ namespace Source.Scripts.Core.Repositories.Settings
         {
             var initTasks = new[]
             {
-                LanguageLevel.InitAsync(PersistentKeys.LanguageLevelKey, cancellationToken),
                 DailyGoal.InitAsync(PersistentKeys.DailyGoalKey, cancellationToken, _defaultSettingsConfig.DailyGoal),
+
+                LanguageLevel.InitAsync(
+                    PersistentKeys.LanguageLevelKey,
+                    cancellationToken,
+                    _defaultSettingsConfig.LanguageLevel),
 
                 CurrentCulture.InitAsync(
                     PersistentKeys.CurrentCultureKey,
@@ -105,7 +107,7 @@ namespace Source.Scripts.Core.Repositories.Settings
                     AndroidThemeDetector.GetAndroidSystemTheme()),
 
                 WordReviewSourceType.InitAsync(
-                    PersistentKeys.CurrentThemeKey,
+                    PersistentKeys.WordReviewSourceTypeKey,
                     cancellationToken,
                     _defaultSettingsConfig.WordReviewSourceType),
 
@@ -113,7 +115,6 @@ namespace Source.Scripts.Core.Repositories.Settings
                 IsShowTranscription.InitAsync(PersistentKeys.IsShowTranscriptionKey, cancellationToken),
                 IsSwipeEnabled.InitAsync(PersistentKeys.IsSwipeEnabledKey, cancellationToken)
             };
-
             await UniTask.WhenAll(initTasks);
 
             SubscribeToChanges();
@@ -121,11 +122,13 @@ namespace Source.Scripts.Core.Repositories.Settings
 
         private void SubscribeToChanges()
         {
-            _disposable = ThemeType
-                .Subscribe(newTheme => ThemeHandler.Instance.CurrentThemeType.Value = newTheme);
+            ThemeType
+                .Subscribe(newTheme => ThemeHandler.Instance.CurrentThemeType.Value = newTheme)
+                .AddTo(ref _disposableBag);
 
-            _disposable = SystemLanguage
-                .Subscribe(newLanguage => LocalizationController.Language.Value = newLanguage);
+            SystemLanguage
+                .Subscribe(newLanguage => LocalizationController.Language.Value = newLanguage)
+                .AddTo(ref _disposableBag);
         }
 
         public void SetLanguage(SystemLanguage newLanguage, LanguageType requestedLanguageType)
@@ -175,12 +178,22 @@ namespace Source.Scripts.Core.Repositories.Settings
 
         public void Dispose()
         {
-            CurrentCulture.Dispose();
-            LearningDirection.Dispose();
-            RepetitionByCooldown.Dispose();
+            _disposableBag.Dispose();
             LanguageLevel.Dispose();
+            DailyGoal.Dispose();
+            CurrentCulture.Dispose();
+            RepetitionByCooldown.Dispose();
+            SystemLanguage.Dispose();
+            FirstShowPractice.Dispose();
+            CardLearnPractice.Dispose();
+            CardReviewPractice.Dispose();
+            LearningDirection.Dispose();
+            ThemeType.Dispose();
+            WordReviewSourceType.Dispose();
+            IsSendNotifications.Dispose();
+            IsShowTranscription.Dispose();
+            IsSwipeEnabled.Dispose();
             LanguageByType.Dispose();
-            _disposable.Dispose();
         }
     }
 }

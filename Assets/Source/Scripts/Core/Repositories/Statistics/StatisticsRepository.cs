@@ -7,7 +7,7 @@ using Source.Scripts.Core.Repositories.Base;
 
 namespace Source.Scripts.Core.Repositories.Statistics
 {
-    internal sealed class StatisticsRepository : IStatisticsRepository, IRepository
+    internal sealed class StatisticsRepository : IStatisticsRepository, IRepository, IDisposable
     {
         public PersistentReactiveProperty<bool> IsCompleteOnboarding { get; } = new();
         public PersistentReactiveProperty<Dictionary<DateTime, bool>> LoginHistory { get; } = new();
@@ -29,8 +29,8 @@ namespace Source.Scripts.Core.Repositories.Statistics
 
         public void Dispose()
         {
-            LoginHistory.Dispose();
             IsCompleteOnboarding.Dispose();
+            LoginHistory.Dispose();
         }
     }
 }

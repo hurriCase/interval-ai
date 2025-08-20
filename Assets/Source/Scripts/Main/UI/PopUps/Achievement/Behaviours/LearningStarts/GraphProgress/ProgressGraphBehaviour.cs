@@ -54,7 +54,9 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
                 createdSpacing.aspectRatio = _spacingRatio;
 
                 LocalizationController.Language.Subscribe((behaviour: this, dateRange, createdGraphType.Text),
-                    (_, tuple) => tuple.behaviour.UpdateLocalization(tuple.dateRange, tuple.Text));
+                        static (_, tuple) => tuple.behaviour
+                            .UpdateLocalization(tuple.dateRange, tuple.Text))
+                    .RegisterTo(destroyCancellationToken);
             }
         }
 
