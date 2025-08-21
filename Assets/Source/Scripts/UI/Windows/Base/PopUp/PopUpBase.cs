@@ -1,6 +1,7 @@
 ﻿using CustomUtils.Runtime.Extensions;
 using PrimeTween;
 using R3;
+using Source.Scripts.Core.Others;
 using Source.Scripts.UI.Components;
 using UnityEngine;
 
@@ -20,9 +21,7 @@ namespace Source.Scripts.UI.Windows.Base.PopUp
         internal override void BaseInit()
         {
             if (_closeButton)
-                _closeButton.OnClickAsObservable()
-                    .Subscribe(this, (_, popUp) => popUp.Hide())
-                    .RegisterTo(destroyCancellationToken);
+                _closeButton.OnClickAsObservable().SubscribeAndRegister(this, static self => self.Hide());
         }
 
         internal override void Show()

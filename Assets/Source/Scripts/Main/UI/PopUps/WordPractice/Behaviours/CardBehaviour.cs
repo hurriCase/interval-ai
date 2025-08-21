@@ -4,6 +4,7 @@ using CustomUtils.Runtime.Extensions;
 using R3;
 using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Localization.LocalizationTypes;
+using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base;
@@ -34,25 +35,20 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
             _wordProgressBehaviour.Init();
 
             _wordsRepository.CurrentWordsByState
-                .Select(practiceState,
-                    (currentWordsByState, state) => currentWordsByState[state])
+                .Select(practiceState, (currentWordsByState, state) => currentWordsByState[state])
                 .Where(currentWord => currentWord != null)
-                .Subscribe(_wordProgressBehaviour, static (currentWord, behaviour)
-                    => behaviour.UpdateProgress(currentWord))
+                .Subscribe(_wordProgressBehaviour,
+                    static (currentWord, behaviour) => behaviour.UpdateProgress(currentWord))
                 .RegisterTo(destroyCancellationToken);
 
             foreach (var module in _practiceModules)
                 module.Init(this);
 
             _wordsRepository.CurrentWordsByState
-                .Select(_practiceState, (currentWordsByState, state)
-                    => currentWordsByState[state])
-                .Subscribe(this, static (_, self) => self.HandleNewWord())
-                .RegisterTo(destroyCancellationToken);
+                .Select(_practiceState, (currentWordsByState, state) => currentWordsByState[state])
+                .SubscribeAndRegister(this, self => self.HandleNewWord());
 
-            SwitchModuleCommand
-                .Subscribe(this, (moduleType, self) => self.SwitchModule(moduleType))
-                .RegisterTo(destroyCancellationToken);
+            SwitchModuleCommand.SubscribeAndRegister(this, (moduleType, self) => self.SwitchModule(moduleType));
 
             HandleNewWord();
         }

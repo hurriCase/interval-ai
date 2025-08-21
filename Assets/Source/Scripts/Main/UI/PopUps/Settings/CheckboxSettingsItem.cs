@@ -1,6 +1,7 @@
 ﻿using CustomUtils.Runtime.Storage;
 using R3;
 using R3.Triggers;
+using Source.Scripts.Core.Others;
 using Source.Scripts.UI.Components;
 using UnityEngine;
 
@@ -18,21 +19,12 @@ namespace Source.Scripts.Main.UI.PopUps.Settings
             _targetProperty = targetProperty;
 
             _checkbox.OnValueChangedAsObservable()
-                .Subscribe(this, static (isOn, self) => self._targetProperty.Value = isOn)
-                .RegisterTo(destroyCancellationToken);
+                .SubscribeAndRegister(this, static (isOn, self) => self._targetProperty.Value = isOn);
 
-            _button.OnPointerClickAsObservable()
-                .Subscribe(this, static (_, self) => self.ToggleProperty())
-                .RegisterTo(destroyCancellationToken);
+            _button.OnPointerClickAsObservable().SubscribeAndRegister(this,
+                static self => self._targetProperty.Value = self._targetProperty.Value is false);
 
-            _targetProperty
-                .Subscribe(this, static (isSend, self) => self._checkbox.isOn = isSend)
-                .RegisterTo(destroyCancellationToken);
-        }
-
-        private void ToggleProperty()
-        {
-            _targetProperty.Value = _targetProperty.Value is false;
+            _targetProperty.SubscribeAndRegister(this, static (isOn, self) => self._checkbox.isOn = isOn);
         }
     }
 }

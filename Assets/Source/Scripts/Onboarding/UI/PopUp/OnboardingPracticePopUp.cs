@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using R3;
 using Source.Scripts.Core.Configs;
-using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
@@ -61,8 +59,7 @@ namespace Source.Scripts.Onboarding.UI.PopUp
             {
                 wordPracticeStepData.Init(_imageTint, destroyCancellationToken);
                 wordPracticeStepData.ButtonClickObservable
-                    .Subscribe(this, static (_, self) => self.SwitchStep())
-                    .RegisterTo(destroyCancellationToken);
+                    .SubscribeAndRegister(this, static self => self.SwitchStep());
             }
 
             UpdateView();

@@ -2,6 +2,7 @@
 using R3;
 using R3.Triggers;
 using Source.Scripts.Core.Localization.LocalizationTypes;
+using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice;
 using Source.Scripts.UI.Components;
@@ -33,20 +34,17 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice
             _reviewPracticeBehaviour.Init();
 
             _newWordsTab.OnPointerClickAsObservable()
-                .Where(_practiceStateService.CurrentState, static (_, state)
-                    => state.CurrentValue != PracticeState.NewWords)
-                .Subscribe(this, static (_, popUp) => popUp.SwitchToState(PracticeState.NewWords))
-                .RegisterTo(destroyCancellationToken);
+                .Where(_practiceStateService.CurrentState,
+                    static (_, state) => state.CurrentValue != PracticeState.NewWords)
+                .SubscribeAndRegister(this, static self => self.SwitchToState(PracticeState.NewWords));
 
             _reviewTab.OnPointerClickAsObservable()
                 .Where(_practiceStateService.CurrentState, static (_, state)
                     => state.CurrentValue != PracticeState.Review)
-                .Subscribe(this, static (_, popUp) => popUp.SwitchToState(PracticeState.Review))
-                .RegisterTo(destroyCancellationToken);
+                .SubscribeAndRegister(this, static self => self.SwitchToState(PracticeState.Review));
 
-            _practiceStateService.CurrentState
-                .Subscribe(this, static (state, popUp) => popUp.SwitchToState(state))
-                .RegisterTo(destroyCancellationToken);
+            _practiceStateService.CurrentState.SubscribeAndRegister(this,
+                static (state, self) => self.SwitchToState(state));
         }
 
         internal override void Show()

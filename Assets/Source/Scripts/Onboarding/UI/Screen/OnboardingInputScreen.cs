@@ -2,6 +2,7 @@
 using CustomUtils.Runtime.Extensions;
 using Cysharp.Threading.Tasks;
 using R3;
+using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Statistics;
 using Source.Scripts.Core.Scenes;
 using Source.Scripts.Onboarding.UI.Screen.Behaviours;
@@ -31,16 +32,12 @@ namespace Source.Scripts.Onboarding.UI.Screen
             {
                 inputOnboardingStep.SetActive(false);
                 inputOnboardingStep.Init();
-                inputOnboardingStep.OnContinueSubject
-                    .Subscribe(this, static (_, self) => self.SwitchModule())
-                    .RegisterTo(destroyCancellationToken);
+                inputOnboardingStep.OnContinueSubject.SubscribeAndRegister(this, static self => self.SwitchModule());
             }
 
             SwitchSettingsStep(_currentStepIndex, true);
 
-            _continueButton.OnClickAsObservable()
-                .Subscribe(this, static (_, self) => self.SwitchModule())
-                .RegisterTo(destroyCancellationToken);
+            _continueButton.OnClickAsObservable().SubscribeAndRegister(this, static self => self.SwitchModule());
         }
 
         private void SwitchModule()

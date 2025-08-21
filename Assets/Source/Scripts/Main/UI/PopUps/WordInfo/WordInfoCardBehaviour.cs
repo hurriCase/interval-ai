@@ -1,4 +1,5 @@
-﻿using CustomUtils.Runtime.Extensions;
+﻿using System.Collections.Generic;
+using CustomUtils.Runtime.Extensions;
 using Cysharp.Text;
 using R3;
 using Source.Scripts.Core.Localization.Base;
@@ -54,8 +55,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo
             _categorySelectionService = new CategorySelectionService(_categoryLocalizationKey);
 
             _addToCategoryButton.OnClickAsObservable()
-                .Subscribe(this, static (_, self) => self.OpenCategorySelection())
-                .RegisterTo(destroyCancellationToken);
+                .SubscribeAndRegister(this, static self => self.OpenCategorySelection());
         }
 
         private void OpenCategorySelection()
@@ -67,10 +67,13 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo
             var selectionPopUp = _windowsController.OpenPopUp<SelectionPopUp>();
             selectionPopUp.SetParameters(_categorySelectionService);
 
-            _categorySelectionService.SelectedValues
-                .Subscribe(this, static (selectedValues, self)
-                    => self._wordStateMutator.SetCategories(self._currentWordEntry, selectedValues))
-                .RegisterTo(destroyCancellationToken);
+            _categorySelectionService.SelectedValues.SubscribeAndRegister(this,
+                static (selectedValues, self) => self.SetCategories(selectedValues));
+        }
+
+        private void SetCategories(List<int> selectedValues)
+        {
+            _wordStateMutator.SetCategories(_currentWordEntry, selectedValues);
         }
 
         internal void UpdateView(WordEntry wordEntry)
@@ -86,7 +89,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo
             UpdateText(_learningWordText, wordEntry.LearningWord);
             UpdateText(_nativeWordText, wordEntry.NativeWord);
 
-            var categoryNames = ZString.Join(",", wordEntry.CategoryIds);
+            var categoryNames = ZString.Join(", ", wordEntry.CategoryIds);
             UpdateText(_categoryNameText, categoryNames);
 
             UpdateExampleDisplay(wordEntry.LearningExample, wordEntry.NativeExample);

@@ -1,5 +1,5 @@
 ﻿using System.Globalization;
-using R3;
+using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using TMPro;
 using UnityEngine;
@@ -9,15 +9,16 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts
 {
     internal sealed class WeekDaysBehaviour : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI[] _weekDayTexts = new TextMeshProUGUI[7];
+        [SerializeField] private TextMeshProUGUI[] _weekDayTexts = new TextMeshProUGUI[DaysPerWeek];
 
         [Inject] private ISettingsRepository _settingsRepository;
+
+        private const int DaysPerWeek = 7;
 
         internal void Init()
         {
             _settingsRepository.CurrentCulture
-                .Subscribe(this, (culture, behaviour) => behaviour.UpdateWeekDays(culture))
-                .RegisterTo(destroyCancellationToken);
+                .SubscribeAndRegister(this, (culture, self) => self.UpdateWeekDays(culture));
         }
 
         private void UpdateWeekDays(CultureInfo culture)

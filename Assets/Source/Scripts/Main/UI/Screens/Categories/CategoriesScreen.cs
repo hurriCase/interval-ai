@@ -42,25 +42,19 @@ namespace Source.Scripts.Main.UI.Screens.Categories
         {
             CreateCategories();
 
-            _spacing.CreateSpacing(_menuSpacingRatio, _categoryItemContainer,
-                AspectRatioFitter.AspectMode.WidthControlsHeight);
+            _spacing.CreateHeightSpacing(_menuSpacingRatio, _categoryItemContainer);
 
-            _addCategoryButton.OnClickAsObservable()
-                .Subscribe(this, (_, self)
-                    => self._windowsController.OpenPopUpByType(PopUpType.CategoryCreation))
-                .RegisterTo(destroyCancellationToken);
+            _addCategoryButton.OnClickAsObservable().SubscribeAndRegister(this,
+                static self => self._windowsController.OpenPopUpByType(PopUpType.CategoryCreation));
 
-            _categoriesRepository.CategoryAdded
-                .Subscribe(this, (entry, self) => self.CreateCategory(entry))
-                .RegisterTo(destroyCancellationToken);
+            _categoriesRepository.CategoryAdded.SubscribeAndRegister(this,
+                static (entry, self) => self.CreateCategory(entry));
 
-            _categoriesRepository.CategoryRemoved
-                .Subscribe(this, (entry, self) => self.RemoveCategory(entry))
-                .RegisterTo(destroyCancellationToken);
+            _categoriesRepository.CategoryRemoved.SubscribeAndRegister(this,
+                static (entry, self) => self.RemoveCategory(entry));
 
-            _categoryStateMutator.CategoryNameChanged
-                .Subscribe(this, (entry, self) => self._createdCategoryItems[entry].UpdateName())
-                .RegisterTo(destroyCancellationToken);
+            _categoryStateMutator.CategoryNameChanged.SubscribeAndRegister(this,
+                static (entry, self) => self._createdCategoryItems[entry].UpdateName());
         }
 
         private void CreateCategories()
@@ -105,8 +99,7 @@ namespace Source.Scripts.Main.UI.Screens.Categories
             categoryContainer.TitleText.text =
                 _localizationKeysDatabase.GetLearningStateLocalization(categoryType);
 
-            _spacing.CreateSpacing(_categoryContainerSpacingRatio, _categoryItemContainer,
-                AspectRatioFitter.AspectMode.WidthControlsHeight);
+            _spacing.CreateHeightSpacing(_categoryContainerSpacingRatio, _categoryItemContainer);
             _createdCategoriesByType[categoryType] = categoryContainer;
             return categoryContainer;
         }

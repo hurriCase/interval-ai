@@ -14,7 +14,7 @@ namespace Source.Scripts.Onboarding.UI.PopUp.WordPractice
     {
         [SerializeField] private List<ButtonComponent> _switchButtons;
 
-        private readonly List<IDisposable> _subscriptions = new();
+        private DisposableBag _disposableBag;
 
         private Transform _tintParent;
 
@@ -25,24 +25,14 @@ namespace Source.Scripts.Onboarding.UI.PopUp.WordPractice
             foreach (var buttonComponent in _switchButtons)
             {
                 var subscription = buttonComponent.OnPointerClickAsObservable()
-                    .Subscribe(buttonClickSubject, static (_, clickSubject) => clickSubject.OnNext(Unit.Default));
+                    .Subscribe(buttonClickSubject, static (_, clickSubject) => clickSubject.OnNext(Unit.Default))
+                    .AddTo(ref _disposableBag);
 
-                _subscriptions.Add(subscription);
                 subscription.RegisterTo(cancellationToken);
             }
         }
 
-        internal override void ActiveStep()
-        {
-            _tintParent.SetActive(false);
-        }
-
-        internal override void HideStep()
-        {
-            foreach (var subscription in _subscriptions)
-                subscription?.Dispose();
-
-            _subscriptions.Clear();
-        }
+        internal override void ActiveStep() => _tintParent.SetActive(false);
+        internal override void HideStep() => _disposableBag.Clear();
     }
 }

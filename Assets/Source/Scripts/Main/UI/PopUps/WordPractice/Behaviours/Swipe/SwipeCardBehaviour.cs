@@ -5,6 +5,7 @@ using R3;
 using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Input;
 using Source.Scripts.Core.Localization.LocalizationTypes;
+using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
@@ -47,23 +48,19 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
             _uiCamera = GetComponentInParent<Canvas>().worldCamera;
 
             _swipeInputService.PointerPressed
-                .Where(this, static (_, behaviour) =>
-                    behaviour._swipeExecuted is false)
-                .Subscribe(this, static (_, behaviour) => behaviour.OnPointerPressed())
-                .RegisterTo(destroyCancellationToken);
+                .Where(this, static (_, behaviour) => behaviour._swipeExecuted is false)
+                .SubscribeAndRegister(this, self => self.OnPointerPressed());
 
             _swipeInputService.PointerReleased
                 .Where(this, static (_, behaviour) => behaviour._isPointerPressed || behaviour._isDragging)
-                .Subscribe(this, static (_, behaviour) => behaviour.OnPointerReleased())
-                .RegisterTo(destroyCancellationToken);
+                .SubscribeAndRegister(this, self => self.OnPointerReleased());
 
             _swipeInputService.PointerPositionChangedSubject
-                .Where(this, static (_, behaviour) =>
-                    behaviour._swipeExecuted is false &&
-                    (behaviour._isPointerPressed || behaviour._isDragging))
-                .Subscribe(this, static (position, behaviour) => behaviour.OnPointerPositionChanged(position))
-                .RegisterTo(destroyCancellationToken);
+                .Where(this, static (_, behaviour) => behaviour.IsValidForSwipe)
+                .SubscribeAndRegister(this, (position, self) => self.OnPointerPositionChanged(position));
         }
+
+        private bool IsValidForSwipe => _swipeExecuted is false && (_isPointerPressed || _isDragging);
 
         private void OnPointerPressed()
         {

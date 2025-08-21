@@ -5,6 +5,7 @@ using CustomUtils.Runtime.Localization;
 using R3;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Localization.LocalizationTypes.Date;
+using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.Data.Base;
@@ -46,17 +47,15 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
                 var createdGraphType = Instantiate(_graphTypeItemPrefab, _graphButtonsContainer);
                 createdGraphType.TabComponent.group = _graphButtonsGroup;
                 createdGraphType.TabComponent.OnValueChangedAsObservable()
-                    .Subscribe((Behaviour: this, progressRange: dateRange),
-                        (_, tuple) => tuple.Behaviour.UpdateGraph(tuple.progressRange));
+                    .SubscribeAndRegister(this, dateRange, static (dateRange, self) => self.UpdateGraph(dateRange));
 
                 var createdSpacing = Instantiate(_spacingPrefab, _graphButtonsContainer);
                 createdSpacing.aspectMode = AspectRatioFitter.AspectMode.HeightControlsWidth;
                 createdSpacing.aspectRatio = _spacingRatio;
 
-                LocalizationController.Language.Subscribe((behaviour: this, dateRange, createdGraphType.Text),
-                        static (_, tuple) => tuple.behaviour
-                            .UpdateLocalization(tuple.dateRange, tuple.Text))
-                    .RegisterTo(destroyCancellationToken);
+                LocalizationController.Language
+                    .SubscribeAndRegister(this, (dateRange, createdGraphType.Text),
+                        static (tuple, self) => self.UpdateLocalization(tuple.dateRange, tuple.Text));
             }
         }
 
@@ -76,8 +75,12 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
             foreach (var (learningState, uiLineRenderer) in _graphLines.AsTuples())
             {
                 uiLineRenderer.color = _progressColorMapping.GetColorForState(learningState);
-                var normalizedPoints = NormalizePoints(_cashedAllProgressData[learningState], maxProgress,
+
+                var normalizedPoints = NormalizePoints(
+                    _cashedAllProgressData[learningState],
+                    maxProgress,
                     _progressGraphSettings.GraphPointsCount);
+
                 uiLineRenderer.SetPoints(normalizedPoints);
             }
         }

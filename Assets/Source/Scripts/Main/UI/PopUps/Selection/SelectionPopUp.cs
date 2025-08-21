@@ -31,12 +31,12 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
 
         public void SetParameters<TValue>(SelectionService<TValue> service)
         {
+            _disposableBag.Clear();
+
             LocalizationController.Language
                 .Subscribe((self: this, service), static (_, tuple)
                     => tuple.self._selectionNameText.text = tuple.service.SelectionKey.GetLocalization())
-                .RegisterTo(destroyCancellationToken);
-
-            _disposableBag.Clear();
+                .AddTo(ref _disposableBag);
 
             CreateSelections(service);
         }

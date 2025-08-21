@@ -1,4 +1,5 @@
 ﻿using CustomUtils.Runtime.UI.Theme.Components;
+using Cysharp.Text;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.UI.Shared;
@@ -18,7 +19,7 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts
         internal void Init(LearningState state, int progress, ProgressColorMapping progressColorMapping)
         {
             var localization = _localizationKeysDatabase.GetLearningStateLocalization(state);
-            DescriptionText.text = string.Format(localization, progress.ToString());
+            DescriptionText.SetTextFormat(localization, progress);
 
             progressColorMapping.SetComponentForState(state, StateIndicatorImage);
         }

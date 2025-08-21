@@ -4,6 +4,7 @@ using R3.Triggers;
 using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Loader;
 using Source.Scripts.Core.Localization.Base;
+using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Core.Sprites;
 using Source.Scripts.UI.Components;
@@ -28,8 +29,8 @@ namespace Source.Scripts.Onboarding.UI.Screen.Behaviours.LanguageSelection
         [Inject] private IObjectResolver _objectResolver;
 
         private EnumArray<LanguageType, EnumArray<SystemLanguage, LanguageSelectionItem>>
-            _createdLanguageSelectionItems =
-                new(() => new EnumArray<SystemLanguage, LanguageSelectionItem>(EnumMode.Default), EnumMode.SkipFirst);
+            _createdLanguageSelectionItems = new(() =>
+                new EnumArray<SystemLanguage, LanguageSelectionItem>(EnumMode.Default), EnumMode.SkipFirst);
 
         private Subject<Unit> _continueSubject;
 
@@ -45,10 +46,8 @@ namespace Source.Scripts.Onboarding.UI.Screen.Behaviours.LanguageSelection
                     CreateLanguageItem(languageType, systemLanguage, _localizationDatabase.Languages[systemLanguage]);
             }
 
-            _settingsRepository.LanguageByType
-                .Subscribe(this, static (languageByType, behaviour)
-                    => behaviour.SetActiveLanguageToggle(languageByType))
-                .RegisterTo(destroyCancellationToken);
+            _settingsRepository.LanguageByType.SubscribeAndRegister(this,
+                static (languageByType, behaviour) => behaviour.SetActiveLanguageToggle(languageByType));
         }
 
         private void SetActiveLanguageToggle(EnumArray<LanguageType, ReactiveProperty<SystemLanguage>> languages)
@@ -90,9 +89,8 @@ namespace Source.Scripts.Onboarding.UI.Screen.Behaviours.LanguageSelection
                 : localization;
 
             createdLanguageItem.CheckboxComponent.OnPointerClickAsObservable()
-                .Subscribe((self: this, language, languageType), static (_, tuple)
-                    => tuple.self._settingsRepository.SetLanguage(tuple.language, tuple.languageType))
-                .RegisterTo(destroyCancellationToken);
+                .SubscribeAndRegister(this, (language, languageType),
+                    static (tuple, self) => self._settingsRepository.SetLanguage(tuple.language, tuple.languageType));
 
             createdLanguageItem.CheckboxComponent.group = accordionComponent.ToggleGroup;
 

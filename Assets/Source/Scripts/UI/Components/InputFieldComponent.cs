@@ -1,4 +1,5 @@
 ﻿using R3;
+using Source.Scripts.Core.Others;
 using TMPro;
 using UnityEngine;
 
@@ -18,9 +19,7 @@ namespace Source.Scripts.UI.Components
             base.Start();
 
             if (EditButton)
-                EditButton.OnClickAsObservable()
-                    .Subscribe(this, static (_, screen) => screen.SwitchEditingState())
-                    .RegisterTo(destroyCancellationToken);
+                EditButton.OnClickAsObservable().SubscribeAndRegister(this, static self => self.SwitchEditingState());
 
             onEndEdit.AddListener(FinishEditing);
         }

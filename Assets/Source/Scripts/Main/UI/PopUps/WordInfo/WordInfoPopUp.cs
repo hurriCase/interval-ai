@@ -1,5 +1,5 @@
-﻿using R3;
-using R3.Triggers;
+﻿using R3.Triggers;
+using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base.PopUp;
@@ -23,8 +23,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo
             _wordInfoCardBehaviour.Init();
 
             _cardContent.OnRectTransformDimensionsChangeAsObservable()
-                .Subscribe(this, static (_, component) => component.UpdateContainerHeight())
-                .RegisterTo(destroyCancellationToken);
+                .SubscribeAndRegister(this, static self => self.UpdateContainerHeight());
         }
 
         internal void SetParameters(WordEntry wordEntry) => _wordInfoCardBehaviour.UpdateView(wordEntry);

@@ -1,5 +1,6 @@
 ﻿using R3;
 using Source.Scripts.Core.Localization.LocalizationTypes;
+using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.UI.Components;
 using UnityEngine;
@@ -19,10 +20,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
                 .Subscribe(practiceStateService, static (_, service) => service.SetState(PracticeState.Review))
                 .RegisterTo(destroyCancellationToken);
 
-            _progressRepository.GoalAchievedObservable
-                .Subscribe(this,
-                    static (wordsCount, self) => self.SetState(CompleteType.Complete, wordsCount.ToString()))
-                .RegisterTo(destroyCancellationToken);
+            _progressRepository.GoalAchievedObservable.SubscribeAndRegister(this,
+                static (wordsCount, self) => self.SetState(CompleteType.Complete, wordsCount.ToString()));
         }
     }
 }

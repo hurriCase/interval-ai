@@ -16,7 +16,9 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours
 
         internal void Init()
         {
-            _learnedWordsText.text = _progressRepository.TotalCountByState.CurrentValue[LearningState.Studied].ToString();
+            _learnedWordsText.text =
+                _progressRepository.TotalCountByState.CurrentValue[LearningState.Studied].ToString();
+
             _bestStreakText.text = _progressRepository.BestStreak.CurrentValue.ToString();
             _currentStreakText.text = _progressRepository.CurrentStreak.CurrentValue.ToString();
         }

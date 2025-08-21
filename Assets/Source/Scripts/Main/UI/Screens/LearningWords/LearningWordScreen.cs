@@ -1,6 +1,7 @@
-﻿using R3;
+﻿using Cysharp.Text;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Localization.LocalizationTypes;
+using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.User.Base;
 using Source.Scripts.Main.UI.Screens.LearningWords.Behaviours;
 using Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.CategoryPreview;
@@ -32,15 +33,14 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords
             _achievementsBehaviour.Init();
 
             _userRepository.Nickname
-                .Subscribe(this,
-                    static (nickname, screen) =>
-                    {
-                        var localization =
-                            screen._localizationKeysDatabase.GetLocalization(LocalizationType.UserWelcome);
+                .SubscribeAndRegister(this, static (nickname, self) => self.UpdateUserWelcome(nickname));
+        }
 
-                        screen._welcomeText.text = string.Format(localization, nickname);
-                    })
-                .RegisterTo(destroyCancellationToken);
+        private void UpdateUserWelcome(string nickname)
+        {
+            var localization = _localizationKeysDatabase.GetLocalization(LocalizationType.UserWelcome);
+
+            _welcomeText.SetTextFormat(localization, nickname);
         }
     }
 }

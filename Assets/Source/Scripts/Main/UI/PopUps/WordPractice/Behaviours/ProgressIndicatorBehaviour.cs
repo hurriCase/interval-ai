@@ -3,6 +3,7 @@ using Cysharp.Text;
 using R3;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Localization.LocalizationTypes;
+using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.UI.Components;
@@ -24,16 +25,14 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
         public void Init(PracticeState practiceState)
         {
             _wordAdvanceService.CanUndo
-                .Subscribe(this, static (canUndo, self) => self._previousCardButton.SetActive(canUndo))
-                .RegisterTo(destroyCancellationToken);
+                .SubscribeAndRegister(this, static (canUndo, self) => self._previousCardButton.SetActive(canUndo));
 
             _previousCardButton.OnClickAsObservable()
                 .Subscribe(_wordAdvanceService.UndoCommand, static (unit, undo) => undo.Execute(unit))
                 .RegisterTo(destroyCancellationToken);
 
-            _progressRepository.LearnedWordCounts[practiceState]
-                .Subscribe(this, static (wordsCount, behaviour) => behaviour.UpdateLearnedText(wordsCount))
-                .RegisterTo(destroyCancellationToken);
+            _progressRepository.LearnedWordCounts[practiceState].SubscribeAndRegister(this,
+                static (wordsCount, self) => self.UpdateLearnedText(wordsCount));
         }
 
         private void UpdateLearnedText(int wordsCount)

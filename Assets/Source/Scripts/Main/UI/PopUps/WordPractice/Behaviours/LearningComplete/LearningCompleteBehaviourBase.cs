@@ -5,6 +5,7 @@ using R3;
 using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Localization.LocalizationTypes;
+using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.Base;
@@ -47,13 +48,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
 
             _plusMinusBehaviour.Init();
 
-            _learnNewWordsButton.OnClickAsObservable()
-                .Subscribe(this, static (_, behaviour) =>
-                {
-                    behaviour._buttonsContainer.SetActive(false);
-                    behaviour._addNewWordsContainer.SetActive(true);
-                })
-                .RegisterTo(destroyCancellationToken);
+            _learnNewWordsButton.OnClickAsObservable().SubscribeAndRegister(this, self => self.ShowAddNewWords());
 
             _learnButton.OnClickAsObservable()
                 .Subscribe(practiceStateService, static (_, service) => service.SetState(PracticeState.NewWords))
@@ -65,11 +60,15 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
                 .RegisterTo(destroyCancellationToken);
 
             _wordsRepository.CurrentWordsByState
-                .Subscribe(this, static (currentWords, self)
-                    => self.CheckCompleteness(currentWords))
-                .RegisterTo(destroyCancellationToken);
+                .SubscribeAndRegister(this, (currentWords, self) => self.CheckCompleteness(currentWords));
 
             OnInit();
+        }
+
+        private void ShowAddNewWords()
+        {
+            _buttonsContainer.SetActive(false);
+            _addNewWordsContainer.SetActive(true);
         }
 
         private void CheckCompleteness(EnumArray<PracticeState, WordEntry> currentWords)

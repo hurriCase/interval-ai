@@ -1,5 +1,5 @@
 ﻿using CustomUtils.Runtime.CustomTypes.Collections;
-using R3;
+using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.GraphProgress;
@@ -27,10 +27,8 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts
             _progressGraphBehaviour.Init();
             _weekDaysBehaviour.Init();
 
-            _progressRepository.TotalCountByState.Subscribe(this,
-                    static (totalCountByState, behaviour)
-                        => behaviour.UpdateProgress(totalCountByState))
-                .RegisterTo(destroyCancellationToken);
+            _progressRepository.TotalCountByState
+                .SubscribeAndRegister(this, static (totalCountByState, self) => self.UpdateProgress(totalCountByState));
         }
 
         private void UpdateProgress(EnumArray<LearningState, int> totalCountByState)

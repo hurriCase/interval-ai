@@ -1,7 +1,7 @@
 ﻿using CustomUtils.Runtime.UI.CustomComponents.Selectables;
-using R3;
 using R3.Triggers;
 using Source.Scripts.Core.Audio;
+using Source.Scripts.Core.Others;
 using UnityEngine;
 using VContainer;
 
@@ -18,10 +18,8 @@ namespace Source.Scripts.UI.Components
             if (Application.isEditor)
                 return;
 
-            this.OnPointerClickAsObservable()
-                .Subscribe(_audioHandlerProvider.AudioHandler,
-                    static (_, handler) => handler.PlayOneShotSound(SoundType.Button))
-                .RegisterTo(destroyCancellationToken);
+            this.OnPointerClickAsObservable().SubscribeAndRegister(this,
+                static self => self._audioHandlerProvider.AudioHandler.PlayOneShotSound(SoundType.Button));
         }
     }
 }

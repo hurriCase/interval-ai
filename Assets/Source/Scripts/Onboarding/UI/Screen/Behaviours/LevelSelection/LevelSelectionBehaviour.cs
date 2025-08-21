@@ -34,17 +34,15 @@ namespace Source.Scripts.Onboarding.UI.Screen.Behaviours.LevelSelection
             {
                 var createdButton = _objectResolver.Instantiate(_selectionToggleItem, _levelButtonsContainer);
                 createdButton.LevelText.text = levelLocalizationKey.GetLocalization();
+                createdButton.CheckboxComponent.group = _selectionToggleGroup;
                 createdButton.CheckboxComponent.OnPointerClickAsObservable()
                     .Subscribe((levelType, _settingsRepository),
                         static (_, tuple) => tuple._settingsRepository.LanguageLevel.Value = tuple.levelType)
                     .RegisterTo(destroyCancellationToken);
-                createdButton.CheckboxComponent.group = _selectionToggleGroup;
 
-                SetLevelIcon(createdButton.Icon, _spriteReferences.LevelLanguageIcons[levelType].AssetGUID)
-                    .Forget();
+                SetLevelIcon(createdButton.Icon, _spriteReferences.LevelLanguageIcons[levelType].AssetGUID).Forget();
 
-                _aspectRatioFitter.CreateSpacing(_spacingRatio, _levelButtonsContainer,
-                    AspectRatioFitter.AspectMode.WidthControlsHeight);
+                _aspectRatioFitter.CreateHeightSpacing(_spacingRatio, _levelButtonsContainer);
             }
         }
 

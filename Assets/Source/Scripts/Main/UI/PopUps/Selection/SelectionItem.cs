@@ -3,6 +3,7 @@ using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Localization;
 using R3;
 using Source.Scripts.Core.Localization.Base;
+using Source.Scripts.Core.Others;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.UI.Components;
 using TMPro;
@@ -29,20 +30,14 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
                 _localizationKey,
                 customValues);
 
-            LocalizationController.Language
-                .Subscribe((self: this, enumSelectionService), static (_, tuple)
-                    => tuple.self.UpdateLocalization(tuple.enumSelectionService))
-                .RegisterTo(destroyCancellationToken);
+            LocalizationController.Language.SubscribeAndRegister(this, enumSelectionService,
+                static (enumSelectionService, self) => self.UpdateLocalization(enumSelectionService));
 
             enumSelectionService.TargetProperty
-                .Subscribe(this,
-                    static (selectedName, self) => self.UpdateText(selectedName))
-                .RegisterTo(destroyCancellationToken);
+                .SubscribeAndRegister(this, static (selectedName, self) => self.UpdateText(selectedName));
 
-            _buttonTextComponent.Button.OnClickAsObservable()
-                .Subscribe((self: this, enumSelectionService), static (_, tuple)
-                    => tuple.self.OpenPopup(tuple.enumSelectionService))
-                .RegisterTo(destroyCancellationToken);
+            _buttonTextComponent.Button.OnClickAsObservable().SubscribeAndRegister(this, enumSelectionService,
+                static (enumSelectionService, self) => self.OpenPopup(enumSelectionService));
         }
 
         private void UpdateLocalization<TEnum>(EnumSelectionService<TEnum> selectionService)

@@ -40,8 +40,7 @@ namespace Source.Scripts.Onboarding.UI.Screen.Behaviours
                 {
                     currentRow = _objectResolver.Instantiate(_rowItem, _contentContainer);
 
-                    _spacing.CreateSpacing(_rowSpacingRatio, _contentContainer,
-                        AspectRatioFitter.AspectMode.WidthControlsHeight);
+                    _spacing.CreateHeightSpacing(_rowSpacingRatio, _contentContainer);
                 }
 
                 CreateWordItem(currentRow, wordGoals[i]);
@@ -54,9 +53,7 @@ namespace Source.Scripts.Onboarding.UI.Screen.Behaviours
 
             createdWordItem.Text.text = wordGoal.ToString();
             createdWordItem.Button.OnClickAsObservable()
-                .Subscribe((self: this, wordGoal),
-                    static (_, tuple) => tuple.self.SelectWordCount(tuple.wordGoal))
-                .RegisterTo(destroyCancellationToken);
+                .SubscribeAndRegister(this, wordGoal, static (wordGoal, self) => self.SelectWordCount(wordGoal));
         }
 
         private void SelectWordCount(int wordsGoal)

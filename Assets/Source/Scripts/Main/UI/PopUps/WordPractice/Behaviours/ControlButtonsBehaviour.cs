@@ -1,5 +1,6 @@
 ﻿using R3;
 using Source.Scripts.Core.Localization.LocalizationTypes;
+using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.UI.Components;
@@ -33,17 +34,13 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
         {
             _currentPracticeState = practiceState;
 
-            _hideButton.OnClickAsObservable()
-                .Subscribe(this, (_, self)
-                    => self._wordStateMutator.HideWord(self.CurrentWord))
-                .RegisterTo(destroyCancellationToken);
+            _hideButton.OnClickAsObservable().SubscribeAndRegister(this,
+                static self => self._wordStateMutator.HideWord(self.CurrentWord));
 
             _wordsRepository.CurrentWordsByState
-                .Select(this, (currentWordsByState, self)
-                    => currentWordsByState[self._currentPracticeState])
+                .Select(this, (currentWordsByState, self) => currentWordsByState[self._currentPracticeState])
                 .Where(currentWord => currentWord != null)
-                .Subscribe(this, static (_, self) => self.UpdateView())
-                .RegisterTo(destroyCancellationToken);
+                .SubscribeAndRegister(this, static self => self.UpdateView());
 
             SubscribeAdvanceButton(_alreadyKnowButton, false);
             SubscribeAdvanceButton(_learnButton, true);
@@ -59,10 +56,10 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
             _otherShowContainer.SetActive(isFirstShow is false);
         }
 
-        private void SubscribeAdvanceButton(Button button, bool success) =>
-            button.OnClickAsObservable()
-                .Subscribe((self: this, success), static (_, tuple)
-                    => tuple.self._wordAdvanceService.AdvanceWord(tuple.self.CurrentWord, tuple.success))
-                .RegisterTo(destroyCancellationToken);
+        private void SubscribeAdvanceButton(Button button, bool success)
+        {
+            button.OnClickAsObservable().SubscribeAndRegister(this, success,
+                static (success, self) => self._wordAdvanceService.AdvanceWord(self.CurrentWord, success));
+        }
     }
 }

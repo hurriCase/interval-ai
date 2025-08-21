@@ -1,4 +1,5 @@
 ﻿using R3;
+using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base;
 using TMPro;
@@ -18,9 +19,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules
         {
             base.Init(cardBehaviour);
 
-            _hintButton.OnClickAsObservable()
-                .Subscribe(this, (_, self) => self.AddHintCharacter())
-                .RegisterTo(destroyCancellationToken);
+            _hintButton.OnClickAsObservable().SubscribeAndRegister(this, self => self.AddHintCharacter());
         }
 
         private void AddHintCharacter()

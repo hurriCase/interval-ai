@@ -4,6 +4,7 @@ using CustomUtils.Runtime.Extensions;
 using PrimeTween;
 using R3;
 using R3.Triggers;
+using Source.Scripts.Core.Others;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,15 +30,12 @@ namespace Source.Scripts.UI.Components
         internal void Init()
         {
             ExpandButton.OnClickAsObservable()
-                .Subscribe(this,
-                    static (_, component) => component.SwitchContent(component._isExpanded is false))
-                .RegisterTo(destroyCancellationToken);
+                .SubscribeAndRegister(this, static self => self.SwitchContent(self._isExpanded is false));
 
             SwitchContent(_isInitiallyExpanded, true);
 
             ShownContent.OnRectTransformDimensionsChangeAsObservable()
-                .Subscribe(this, static (_, component) => component.UpdateContainerHeight())
-                .RegisterTo(destroyCancellationToken);
+                .SubscribeAndRegister(this, static self => self.UpdateContainerHeight());
         }
 
         private void SwitchContent(bool isExpanded, bool isInstant = false)

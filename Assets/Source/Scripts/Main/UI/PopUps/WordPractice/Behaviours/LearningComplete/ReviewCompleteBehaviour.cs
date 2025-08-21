@@ -1,5 +1,6 @@
 ﻿using R3;
 using Source.Scripts.Core.Localization.LocalizationTypes;
+using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Words.Timer;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.UI.Components;
@@ -18,11 +19,9 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
         {
             _wordsTimerService.OnAvailabilityTimeUpdate
                 .Where(cooldownByLearningState => cooldownByLearningState.PracticeState == PracticeState.Review)
-                .Subscribe(this, static (cooldownByLearningState, card) => card.SetState(
-                    CompleteType.Complete,
-                    cooldownByLearningState.CurrentTime.ToShortTimeString())
-                )
-                .RegisterTo(destroyCancellationToken);
+                .SubscribeAndRegister(this,
+                    static (cooldowns, self) =>
+                        self.SetState(CompleteType.Complete, cooldowns.CurrentTime.ToShortTimeString()));
 
             _returnLateButton.OnClickAsObservable()
                 .Subscribe(windowsController,

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using R3;
+using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.Shared;
@@ -24,10 +24,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
 
         internal void Init()
         {
-            _settingsRepository.RepetitionByCooldown
-                .Subscribe(this, static (repetitions, behaviour)
-                    => behaviour.CreateSegments(repetitions.Count))
-                .RegisterTo(destroyCancellationToken);
+            _settingsRepository.RepetitionByCooldown.SubscribeAndRegister(this,
+                static (repetitions, self) => self.CreateSegments(repetitions.Count));
         }
 
         private void CreateSegments(int segmentsCount)

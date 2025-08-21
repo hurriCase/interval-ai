@@ -1,4 +1,5 @@
 ﻿using R3;
+using Source.Scripts.Core.Others;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.Screens.Settings.Behaviours;
 using Source.Scripts.UI.Components;
@@ -20,9 +21,8 @@ namespace Source.Scripts.Main.UI.Screens.Settings
             _userBehaviour.Init();
 
             _settingsButton.OnClickAsObservable()
-                .Subscribe(this, (_, self)
-                    => self._windowsController.OpenPopUpByType(PopUpType.Settings))
-                .RegisterTo(destroyCancellationToken);
+                .SubscribeAndRegister(this,
+                    static self => self._windowsController.OpenPopUpByType(PopUpType.Settings));
         }
     }
 }

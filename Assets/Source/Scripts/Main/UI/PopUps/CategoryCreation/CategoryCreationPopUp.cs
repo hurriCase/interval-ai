@@ -1,4 +1,5 @@
 ﻿using R3;
+using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.PopUps.Category;
@@ -21,9 +22,7 @@ namespace Source.Scripts.Main.UI.PopUps.CategoryCreation
 
         internal override void Init()
         {
-            _saveButton.OnClickAsObservable()
-                .Subscribe(this, static (_, self) => self.CreateCategory())
-                .RegisterTo(destroyCancellationToken);
+            _saveButton.OnClickAsObservable().SubscribeAndRegister(this, static self => self.CreateCategory());
 
             _accordionComponent.Init();
         }

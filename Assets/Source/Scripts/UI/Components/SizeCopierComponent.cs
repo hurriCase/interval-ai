@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using CustomUtils.Runtime.UI;
-using R3;
 using R3.Triggers;
+using Source.Scripts.Core.Others;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,8 +19,7 @@ namespace Source.Scripts.UI.Components
         private void Awake()
         {
             _targetForObserving.OnRectTransformDimensionsChangeAsObservable()
-                .Subscribe(this, static (_, component) => component.UpdateTargetHeight())
-                .RegisterTo(destroyCancellationToken);
+                .SubscribeAndRegister(this, static self => self.UpdateTargetHeight());
         }
 
         private void UpdateTargetHeight()

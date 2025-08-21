@@ -4,8 +4,8 @@ using System.Threading;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions;
 using Cysharp.Threading.Tasks;
-using R3;
 using Source.Scripts.Core.Loader;
+using Source.Scripts.Core.Others;
 using Source.Scripts.UI.Windows.Base.PopUp;
 using Source.Scripts.UI.Windows.Base.Screen;
 using UnityEngine;
@@ -97,9 +97,7 @@ namespace Source.Scripts.UI.Windows.Base
                 popUpBase.BaseInit();
                 popUpBase.Init();
                 popUpBase.HideImmediately();
-                popUpBase.OnHidePopUp
-                    .Subscribe(this, static (_, controller) => controller.HandlePopUpHide())
-                    .RegisterTo(cancellationToken);
+                popUpBase.OnHidePopUp.SubscribeAndRegister(this, static self => self.HandlePopUpHide());
             }
         }
 

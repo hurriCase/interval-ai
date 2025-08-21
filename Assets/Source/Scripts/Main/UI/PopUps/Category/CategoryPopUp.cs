@@ -2,6 +2,7 @@
 using CustomUtils.Runtime.Extensions;
 using R3;
 using Source.Scripts.Core.Localization.Base;
+using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Core.Repositories.Categories.Category;
 using Source.Scripts.Core.Repositories.Words.Word;
@@ -54,23 +55,19 @@ namespace Source.Scripts.Main.UI.PopUps.Category
         internal override void Init()
         {
             _deleteButton.OnClickAsObservable()
-                .Subscribe(this, static (_, self) => self.RemoveCategory())
-                .RegisterTo(destroyCancellationToken);
+                .SubscribeAndRegister(this, static self => self.RemoveCategory());
 
             _resetProgressButton.OnClickAsObservable()
-                .Subscribe(this, static (_, self)
-                    => self._categoryStateMutator.ResetWordsProgress(self._currentCategoryEntry))
-                .RegisterTo(destroyCancellationToken);
+                .SubscribeAndRegister(this, static self
+                    => self._categoryStateMutator.ResetWordsProgress(self._currentCategoryEntry));
 
             _categoryNameText.CurrentTextSubjectObservable
-                .Subscribe(this, (newName, self)
-                    => self._categoryStateMutator.ChangeCategoryName(self._currentCategoryEntry, newName))
-                .RegisterTo(destroyCancellationToken);
+                .SubscribeAndRegister(this, static (newName, self)
+                    => self._categoryStateMutator.ChangeCategoryName(self._currentCategoryEntry, newName));
 
             _wordReviewSourceType
                 .Where(this, static (_, self) => self._currentCategoryEntry != null)
-                .Subscribe(this, static (newOrder, self) => self.ReorderWordItems(newOrder))
-                .RegisterTo(destroyCancellationToken);
+                .SubscribeAndRegister(this, static (newOrder, self) => self.ReorderWordItems(newOrder));
 
             _wordOrderSelectionItem.Init(_wordReviewSourceType);
         }

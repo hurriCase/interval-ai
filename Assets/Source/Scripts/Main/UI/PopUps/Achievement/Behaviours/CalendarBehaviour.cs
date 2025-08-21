@@ -1,5 +1,6 @@
 ﻿using System;
 using R3;
+using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts;
@@ -40,10 +41,10 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours
             UpdateCalendarDisplay();
 
             _previousMonthButton.OnClickAsObservable()
-                .Subscribe(this, static (_, behaviour) => behaviour.GoToPreviousMonth());
+                .SubscribeAndRegister(this, static self => self.GoToPreviousMonth());
 
             _nextMonthButton.OnClickAsObservable()
-                .Subscribe(this, static (_, behaviour) => behaviour.GoToNextMonth());
+                .SubscribeAndRegister(this, static self => self.GoToNextMonth());
         }
 
         private void GoToPreviousMonth()

@@ -10,11 +10,11 @@ namespace Source.Scripts.Onboarding.UI.PopUp.WordPractice
     [Serializable]
     internal abstract class PracticeStepBase
     {
+        [field: SerializeField] internal bool IsTransition { get; private set; }
+
         [SerializeField] private string _localizationKey;
         [SerializeField] private Vector2 _textAnchorMin;
         [SerializeField] private Vector2 _textAnchorMax;
-
-        [field: SerializeField] internal bool IsTransition { get; private set; }
 
         internal Observable<Unit> ButtonClickObservable => buttonClickSubject.AsObservable();
         protected Subject<Unit> buttonClickSubject = new();
