@@ -20,21 +20,15 @@ namespace Source.Scripts.Core.AI
 
         public async Task<string> SendPromptAsync(string prompt)
         {
-            var requestData = new ChatRequest
-            {
-                Contents = new[]
-                {
-                    GetContent(Role.User, prompt)
-                }
-            };
-
+            var requestData = new ChatRequest(new[] { new Content(Role.User, prompt) });
             var response = await SendRequestAsync(requestData);
+
             return ParseResponse(response);
         }
 
         public async Task<string> SendChatMessageAsync(string message)
         {
-            var userContent = GetContent(Role.User, message);
+            var userContent = new Content(Role.User, message);
 
             var contentsList = new List<Content>(_chatHistory.Value)
             {
@@ -42,10 +36,7 @@ namespace Source.Scripts.Core.AI
             };
             _chatHistory.Value = contentsList.ToArray();
 
-            var chatRequest = new ChatRequest
-            {
-                Contents = _chatHistory.Value
-            };
+            var chatRequest = new ChatRequest(_chatHistory.Value);
             var response = await SendRequestAsync(chatRequest);
 
             var parsedResponse = ParseResponse(response);
@@ -53,7 +44,7 @@ namespace Source.Scripts.Core.AI
             if (string.IsNullOrEmpty(parsedResponse))
                 return parsedResponse;
 
-            var botContent = GetContent(Role.Model, parsedResponse);
+            var botContent = new Content(Role.Model, parsedResponse);
 
             contentsList.Add(botContent);
             _chatHistory.Value = contentsList.ToArray();
@@ -63,13 +54,6 @@ namespace Source.Scripts.Core.AI
 
         public void ClearChatHistoryAsync(Content[] initialHistory = null)
             => _chatHistory.Value = initialHistory ?? Array.Empty<Content>();
-
-        private Content GetContent(Role role, string text) =>
-            new()
-            {
-                Role = role.GetJsonPropertyName(),
-                Parts = new[] { new Part { Text = text } }
-            };
 
         private async Task<string> SendRequestAsync(ChatRequest data)
         {
@@ -134,49 +118,55 @@ namespace Source.Scripts.Core.AI
     }
 
     [Serializable]
-    internal struct ChatRequest
+    internal readonly struct ChatRequest
     {
-        [JsonProperty("contents")]
-        public Content[] Contents { get; set; }
+        [JsonProperty("contents")] public Content[] Contents { get; }
+
+        internal ChatRequest(Content[] contents)
+        {
+            Contents = contents;
+        }
     }
 
     [Serializable]
     internal struct Response
     {
-        [JsonProperty("candidates")]
-        public Candidate[] Candidates { get; set; }
+        [JsonProperty("candidates")] public Candidate[] Candidates { get; set; }
     }
 
     [Serializable]
     internal struct Candidate
     {
-        [JsonProperty("content")]
-        public Content Content { get; set; }
+        [JsonProperty("content")] public Content Content { get; set; }
     }
 
     [Serializable]
-    internal struct Content
+    internal readonly struct Content
     {
-        [JsonProperty("role")]
-        public string Role { get; set; }
+        [JsonProperty("role")] public string Role { get; }
+        [JsonProperty("parts")] public Part[] Parts { get; }
 
-        [JsonProperty("parts")]
-        public Part[] Parts { get; set; }
+        internal Content(Role role, string text)
+        {
+            Role = role.GetJsonPropertyName();
+            Parts = new[] { new Part(text) };
+        }
     }
 
     [Serializable]
     internal struct Part
     {
-        [JsonProperty("text")]
-        public string Text { get; set; }
+        [JsonProperty("text")] public string Text { get; }
+
+        internal Part(string text)
+        {
+            Text = text;
+        }
     }
 
     internal enum Role
     {
-        [JsonProperty("user")]
-        User,
-
-        [JsonProperty("model")]
-        Model
+        [JsonProperty("user")] User,
+        [JsonProperty("model")] Model
     }
 }
