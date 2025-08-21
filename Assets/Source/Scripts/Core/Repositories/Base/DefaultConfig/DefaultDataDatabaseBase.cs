@@ -3,13 +3,14 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using MemoryPack;
 using Source.Scripts.Core.Loader;
+using Source.Scripts.Core.Others;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using VContainer;
 
 namespace Source.Scripts.Core.Repositories.Base.DefaultConfig
 {
-    internal abstract class DefaultDataDatabaseBase<TEntry> : ScriptableObject, IDefaultDatabase
+    internal abstract class DefaultDataDatabaseBase<TEntry> : ScriptableObject, ILoadable, IDefaultDataDatabase<TEntry>
     {
         [SerializeField] private AssetReferenceT<TextAsset> _defaultAssetRereference;
 

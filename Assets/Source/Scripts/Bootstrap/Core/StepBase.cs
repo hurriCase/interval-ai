@@ -18,7 +18,8 @@ namespace Source.Scripts.Bootstrap.Core
             try
             {
                 await ExecuteInternal(token);
-                _stepCompletedSubject.OnNext(new StepData { Step = step, StepName = GetType().Name });
+
+                _stepCompletedSubject.OnNext(new StepData(step, GetType().Name));
             }
             catch (Exception ex)
             {

@@ -1,8 +1,14 @@
 namespace Source.Scripts.Bootstrap.Core
 {
-    internal struct StepData
+    internal readonly struct StepData
     {
-        internal int Step { get; set; }
-        internal string StepName { get; set; }
+        internal int Step { get; }
+        internal string StepName { get; }
+
+        internal StepData(int step, string stepName)
+        {
+            Step = step;
+            StepName = stepName;
+        }
     }
 }

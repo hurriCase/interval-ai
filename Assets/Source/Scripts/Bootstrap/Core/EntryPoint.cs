@@ -56,8 +56,7 @@ namespace Source.Scripts.Bootstrap.Core
                 for (var i = 0; i < _stepsList.Count; i++)
                 {
                     _stepsList[i].OnStepCompleted
-                        .Subscribe(static stepData => Debug.Log("[StartUpService::LogStepCompletion] " +
-                                                                $"Step {stepData.Step} completed: {stepData.StepName}"))
+                        .Subscribe(this, static (stepData, self) => self.LogStepCompletion(stepData))
                         .RegisterTo(cancellationToken);
 
                     _objectResolver.Inject(_stepsList[i]);
@@ -66,10 +65,13 @@ namespace Source.Scripts.Bootstrap.Core
             }
             catch (Exception ex)
             {
-                Debug.LogError("[StartUpService::InitSteps] " +
-                               $"Initialization failed, with error: {ex.Message}");
                 Debug.LogException(ex);
             }
+        }
+
+        private void LogStepCompletion(StepData stepData)
+        {
+            Debug.Log($"[StartUpService::LogStepCompletion] Step {stepData.Step} completed: {stepData.StepName}");
         }
     }
 }

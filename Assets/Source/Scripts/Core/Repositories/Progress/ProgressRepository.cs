@@ -7,6 +7,7 @@ using Cysharp.Threading.Tasks;
 using R3;
 using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Localization.LocalizationTypes;
+using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Base;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
@@ -15,7 +16,7 @@ using Source.Scripts.Core.Repositories.Words.Base;
 
 namespace Source.Scripts.Core.Repositories.Progress
 {
-    internal sealed partial class ProgressRepository : IProgressRepository, IRepository, IDisposable
+    internal sealed partial class ProgressRepository : IProgressRepository, ILoadable, IDisposable
     {
         public ReadOnlyReactiveProperty<int> CurrentStreak => _currentStreak.Property;
         public ReadOnlyReactiveProperty<int> BestStreak => _bestStreak.Property;

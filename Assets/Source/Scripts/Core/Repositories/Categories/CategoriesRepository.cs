@@ -5,15 +5,18 @@ using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Storage;
 using Cysharp.Threading.Tasks;
 using R3;
+using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Base;
+using Source.Scripts.Core.Repositories.Base.DefaultConfig;
 using Source.Scripts.Core.Repositories.Base.Id;
 using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Core.Repositories.Categories.Category;
 using Source.Scripts.Core.Repositories.Words;
+using Source.Scripts.Core.Repositories.Words.Word;
 
 namespace Source.Scripts.Core.Repositories.Categories
 {
-    internal sealed class CategoriesRepository : ICategoriesRepository, IRepository, IDisposable
+    internal sealed class CategoriesRepository : ICategoriesRepository, ILoadable, IDisposable
     {
         public ReadOnlyReactiveProperty<Dictionary<int, CategoryEntry>> CategoryEntries => _categoryEntries.Property;
         private readonly PersistentReactiveProperty<Dictionary<int, CategoryEntry>> _categoryEntries = new();
@@ -24,15 +27,15 @@ namespace Source.Scripts.Core.Repositories.Categories
         private readonly Subject<CategoryEntry> _categoryAdded = new();
         private readonly Subject<CategoryEntry> _categoryRemoved = new();
 
-        private readonly DefaultCategoriesDatabase _defaultCategoriesDatabase;
+        private readonly IDefaultDataDatabase<CategoryEntry> _defaultCategoriesDatabase;
         private readonly ICategoryStateMutator _categoryStateMutator;
-        private readonly DefaultWordsDatabase _defaultWordsDatabase;
+        private readonly IDefaultDataDatabase<WordEntry> _defaultWordsDatabase;
         private readonly IIdHandler<CategoryEntry> _idHandler;
 
         internal CategoriesRepository(
-            DefaultCategoriesDatabase defaultCategoriesDatabase,
+            IDefaultDataDatabase<CategoryEntry> defaultCategoriesDatabase,
+            IDefaultDataDatabase<WordEntry> defaultWordsDatabase,
             ICategoryStateMutator categoryStateMutator,
-            DefaultWordsDatabase defaultWordsDatabase,
             IIdHandler<CategoryEntry> idHandler)
         {
             _defaultCategoriesDatabase = defaultCategoriesDatabase;

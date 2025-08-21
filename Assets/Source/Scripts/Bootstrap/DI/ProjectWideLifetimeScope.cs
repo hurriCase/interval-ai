@@ -6,6 +6,7 @@ using Source.Scripts.Core.Importer;
 using Source.Scripts.Core.Input;
 using Source.Scripts.Core.Loader;
 using Source.Scripts.Core.Localization.Base;
+using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Base.DefaultConfig;
 using Source.Scripts.Core.Repositories.Base.Id;
 using Source.Scripts.Core.Repositories.Base.Tests;
@@ -109,7 +110,10 @@ namespace Source.Scripts.Bootstrap.DI
             builder.Register<IdHandler<CategoryEntry>>(Lifetime.Singleton).As<IIdHandler<CategoryEntry>>();
             builder.Register<CategoriesRepository>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<CategoryEntry.CategoryStateMutator>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.RegisterInstance(_defaultCategoriesDatabase).As<IDefaultDatabase>().AsSelf();
+            builder.RegisterComponent(_defaultCategoriesDatabase)
+                .As<ILoadable>()
+                .As<IDefaultDataDatabase<CategoryEntry>>()
+                .As<DefaultDataDatabaseBase<CategoryEntry>>();
         }
 
         private void RegisterWordsRepository(IContainerBuilder builder)
@@ -119,7 +123,10 @@ namespace Source.Scripts.Bootstrap.DI
             builder.Register<WordEntry.WordStateMutator>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<WordsTimerService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<WordAdvanceService>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.RegisterInstance(_defaultWordsDatabase).As<IDefaultDatabase>().AsSelf();
+            builder.RegisterComponent(_defaultWordsDatabase)
+                .As<ILoadable>()
+                .As<IDefaultDataDatabase<WordEntry>>()
+                .As<DefaultDataDatabaseBase<WordEntry>>();
         }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
 
-namespace Source.Scripts.Core.Repositories.Base
+namespace Source.Scripts.Core.Others
 {
-    internal interface IRepository
+    internal interface ILoadable
     {
         UniTask InitAsync(CancellationToken cancellationToken);
     }
