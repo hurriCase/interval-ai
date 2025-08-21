@@ -1,4 +1,5 @@
-﻿using Source.Scripts.Onboarding.Data;
+﻿using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice;
+using Source.Scripts.Onboarding.Data;
 using Source.Scripts.Onboarding.UI.Base;
 using UnityEngine;
 using VContainer;
@@ -15,6 +16,8 @@ namespace Source.Scripts.Onboarding.DI
         {
             builder.RegisterComponent(_windowsController).AsImplementedInterfaces();
             builder.RegisterInstance(_onboardingConfig).AsImplementedInterfaces();
+
+            builder.Register<PracticeStateService>(Lifetime.Singleton).AsImplementedInterfaces();
 
             builder.RegisterEntryPoint<OnboardingEntryPoint>();
         }

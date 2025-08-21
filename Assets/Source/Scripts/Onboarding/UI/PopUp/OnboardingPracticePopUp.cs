@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using R3;
 using Source.Scripts.Core.Configs;
+using Source.Scripts.Core.Localization.LocalizationTypes;
+using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours;
@@ -35,12 +37,14 @@ namespace Source.Scripts.Onboarding.UI.PopUp
 
         private int _currentStepIndex;
 
-        private bool _isPlainSteps;
+        internal void SetPracticeState(ModuleType moduleType)
+        {
+            _cardBehaviour.SwitchModuleCommand.Execute(moduleType);
+        }
 
         internal override void Init()
         {
             var practiceState = _appConfig.OnboardingPracticeState;
-            _cardBehaviour.Init(practiceState);
 
             var onboardingWord = _onboardingConfig.OnboardingWord.CreateWord(
                 GetLanguageByType(LanguageType.Native),
@@ -48,14 +52,16 @@ namespace Source.Scripts.Onboarding.UI.PopUp
 
             _wordsRepository.SetCurrentWord(practiceState, onboardingWord);
 
+            _cardBehaviour.Init(practiceState);
+
             _wordProgressBehaviour.Init();
             _controlButtonsBehaviour.Init(practiceState);
 
             foreach (var wordPracticeStepData in _practiceSteps)
             {
                 wordPracticeStepData.Init(_imageTint, destroyCancellationToken);
-                wordPracticeStepData.ButtonClickObservable.Subscribe(this,
-                        static (_, self) => self.SwitchStep())
+                wordPracticeStepData.ButtonClickObservable
+                    .Subscribe(this, static (_, self) => self.SwitchStep())
                     .RegisterTo(destroyCancellationToken);
             }
 
@@ -74,6 +80,9 @@ namespace Source.Scripts.Onboarding.UI.PopUp
 
             if (currentStep.IsTransition)
                 Hide();
+
+            if (_currentStepIndex >= _practiceSteps.Count)
+                return;
 
             UpdateView();
         }

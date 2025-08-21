@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using CustomUtils.Runtime.Extensions;
+using Cysharp.Threading.Tasks;
 using R3;
 using R3.Triggers;
 using Source.Scripts.UI.Components;
@@ -16,6 +17,8 @@ namespace Source.Scripts.Onboarding.UI.PopUp.WordPractice
         [SerializeField] private ButtonComponent _switchButton;
 
         private GameObject _placeholderObject;
+        // private RectTransform _placeholderRect;
+        // private RectTransform _switchButtonRect;
         private Transform _previousParent;
         private int _siblingIndex;
         private Transform _tintParent;
@@ -61,10 +64,30 @@ namespace Source.Scripts.Onboarding.UI.PopUp.WordPractice
         private void CreatePlaceholder()
         {
             _placeholderObject = Object.Instantiate(_switchButton.gameObject, _previousParent);
+
             _placeholderObject.transform.SetSiblingIndex(_siblingIndex);
             var placeholderCanvas = _placeholderObject.AddComponent<CanvasGroup>();
             placeholderCanvas.alpha = 0f;
+
+            // _placeholderRect = _placeholderObject.GetComponent<RectTransform>();
+            // _switchButtonRect = _switchButton.GetComponent<RectTransform>();
+            // _placeholderRect.OnRectTransformDimensionsChangeAsObservable()
+            //     .Subscribe(this, static (_, self) => self.UpdateButtonToMatchPlaceholder())
+            //     .RegisterTo(_placeholderObject.GetCancellationTokenOnDestroy());
         }
+
+        // private void UpdateButtonToMatchPlaceholder()
+        // {
+        //     var position = _placeholderRect.position;
+        //     var pivot = _placeholderRect.pivot;
+        //     var rect = _placeholderRect.rect;
+        //     var xPosition = position.x + pivot.x * rect.width;
+        //     var yPosition = position.y - pivot.y * rect.height;
+        //     var targetPosition = new Vector3(xPosition, yPosition);
+        //
+        //     _switchButtonRect.position = targetPosition;
+        //     _switchButtonRect.sizeDelta = _placeholderRect.sizeDelta;
+        // }
 
         private void RestoreButton()
         {

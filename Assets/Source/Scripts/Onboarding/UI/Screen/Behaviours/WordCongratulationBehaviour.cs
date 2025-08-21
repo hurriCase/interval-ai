@@ -1,6 +1,8 @@
 ﻿using Cysharp.Text;
+using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Onboarding.UI.Base;
+using Source.Scripts.Onboarding.UI.PopUp;
 using TMPro;
 using UnityEngine;
 using VContainer;
@@ -9,6 +11,7 @@ namespace Source.Scripts.Onboarding.UI.Screen.Behaviours
 {
     internal sealed class WordCongratulationBehaviour : StepBehaviourBase
     {
+        [SerializeField] private ModuleType _moduleType;
         [SerializeField] private TextMeshProUGUI _wordCountText;
 
         [Inject] private ISettingsRepository _settingsRepository;
@@ -25,7 +28,8 @@ namespace Source.Scripts.Onboarding.UI.Screen.Behaviours
 
         internal override void OnContinue()
         {
-            _windowsController.OpenPopUpByType(PopUpType.Practice);
+            var onboardingPracticePopUp = _windowsController.OpenPopUp<OnboardingPracticePopUp>();
+            onboardingPracticePopUp.SetPracticeState(_moduleType);
         }
     }
 }

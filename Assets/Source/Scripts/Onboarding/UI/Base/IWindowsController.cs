@@ -1,11 +1,12 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
+using Source.Scripts.UI.Windows.Base.PopUp;
 
 namespace Source.Scripts.Onboarding.UI.Base
 {
     internal interface IWindowsController
     {
         UniTask InitAsync(CancellationToken cancellationToken);
-        void OpenPopUpByType(PopUpType popUpType);
+        TPopUpType OpenPopUp<TPopUpType>() where TPopUpType : PopUpBase;
     }
 }
