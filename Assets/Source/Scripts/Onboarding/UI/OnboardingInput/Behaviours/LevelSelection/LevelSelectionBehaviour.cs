@@ -12,7 +12,7 @@ using UnityEngine.UI;
 using VContainer;
 using VContainer.Unity;
 
-namespace Source.Scripts.Onboarding.UI.Screen.Behaviours.LevelSelection
+namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours.LevelSelection
 {
     internal sealed class LevelSelectionBehaviour : StepBehaviourBase
     {

@@ -5,20 +5,20 @@ using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours;
 using Source.Scripts.Onboarding.Data;
-using Source.Scripts.Onboarding.UI.PopUp.WordPractice;
+using Source.Scripts.Onboarding.UI.OnboardingPractice.Steps.Base;
 using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base.PopUp;
 using TMPro;
 using UnityEngine;
 using VContainer;
 
-namespace Source.Scripts.Onboarding.UI.PopUp
+namespace Source.Scripts.Onboarding.UI.OnboardingPractice
 {
     internal sealed class OnboardingPracticePopUp : PopUpBase
     {
         [SerializeField] private TextMeshProUGUI _messageText;
+        [SerializeField] private HintTextMapping _hintTextMapping;
 
-        [SerializeField] private Transform _imageTint;
         [SerializeReferenceDropdown, SerializeReference] private List<PracticeStepBase> _practiceSteps;
 
         [SerializeField] private CardBehaviour _cardBehaviour;
@@ -33,11 +33,15 @@ namespace Source.Scripts.Onboarding.UI.PopUp
         private ButtonComponent _continueButton;
         private GameObject _placeholderObject;
 
-        private int _currentStepIndex;
+        private int _currentStepIndex = -1;
 
-        internal void SetPracticeState(ModuleType moduleType)
+        internal void SwitchStep(ModuleType moduleType)
         {
             _cardBehaviour.SwitchModuleCommand.Execute(moduleType);
+
+            _currentStepIndex++;
+
+            UpdateView();
         }
 
         internal override void Init()
@@ -57,12 +61,9 @@ namespace Source.Scripts.Onboarding.UI.PopUp
 
             foreach (var wordPracticeStepData in _practiceSteps)
             {
-                wordPracticeStepData.Init(_imageTint, destroyCancellationToken);
-                wordPracticeStepData.ButtonClickObservable
-                    .SubscribeAndRegister(this, static self => self.SwitchStep());
+                wordPracticeStepData.Init(_hintTextMapping, destroyCancellationToken);
+                wordPracticeStepData.SwitchObservable.SubscribeAndRegister(this, static self => self.SwitchStep());
             }
-
-            UpdateView();
         }
 
         private SystemLanguage GetLanguageByType(LanguageType languageType)
@@ -73,10 +74,13 @@ namespace Source.Scripts.Onboarding.UI.PopUp
             var currentStep = _practiceSteps[_currentStepIndex];
             currentStep.HideStep();
 
-            _currentStepIndex++;
-
             if (currentStep.IsTransition)
+            {
                 Hide();
+                return;
+            }
+
+            _currentStepIndex++;
 
             if (_currentStepIndex >= _practiceSteps.Count)
                 return;
@@ -93,6 +97,9 @@ namespace Source.Scripts.Onboarding.UI.PopUp
 
         private void OnDestroy()
         {
+            if (_currentStepIndex >= _practiceSteps.Count)
+                return;
+
             _practiceSteps[_currentStepIndex].HideStep();
         }
     }

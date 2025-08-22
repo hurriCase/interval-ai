@@ -29,9 +29,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 5845876950995823224}
-  m_Father: {fileID: 8920873631193008674}
+  m_Children: []
+  m_Father: {fileID: 36889145133129032}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -76,6 +75,43 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &6520678928814859290
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 36889145133129032}
+  m_Layer: 5
+  m_Name: Container_Tint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &36889145133129032
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6520678928814859290}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4717582366601789676}
+  - {fileID: 5845876950995823224}
+  m_Father: {fileID: 8920873631193008674}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &4526499324877027606
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -189,11 +225,17 @@ PrefabInstance:
       addedObject: {fileID: 5301210550151056048}
     - targetCorrespondingSourceObject: {fileID: 4979877736924295988, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4717582366601789676}
+      addedObject: {fileID: 36889145133129032}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5166580558972006374, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7126918496141255050}
+    - targetCorrespondingSourceObject: {fileID: 5166580558972006374, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 862739600813106080}
+    - targetCorrespondingSourceObject: {fileID: 5166580558972006374, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3667796172418968170}
   m_SourcePrefab: {fileID: 100100000, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
 --- !u!114 &4716986193086690379 stripped
 MonoBehaviour:
@@ -228,92 +270,142 @@ MonoBehaviour:
   _closeButton: {fileID: 0}
   _animationDuration: 0.1
   _messageText: {fileID: 1304059584242376303}
-  _imageTint: {fileID: 4717582366601789676}
+  _hintTextMapping: {fileID: 11400000, guid: 438c2b69ae29304448dd4d504a6613e1, type: 2}
   _practiceSteps:
-  - rid: 7913752748544229587
-  - rid: 7913752748544229588
-  - rid: 7913752748544229589
-  - rid: 7913752748544229590
-  - rid: 7913752748544229592
-  - rid: 7913752748544229593
-  - rid: 7913752748544229594
-  - rid: 7913752748544229595
+  - rid: 7913753025380352209
+  - rid: 7913753025380352210
+  - rid: 7913753025380352211
+  - rid: 7913753025380352212
+  - rid: 7913753025380352213
+  - rid: 7913753025380352214
+  - rid: 7913753025380352215
+  - rid: 7913753025380352216
   _cardBehaviour: {fileID: 8085324428542655047}
   _wordProgressBehaviour: {fileID: 1592084871447528906}
   _controlButtonsBehaviour: {fileID: 4009069790271423997}
   references:
     version: 2
     RefIds:
-    - rid: 7913752748544229587
-      type: {class: HighlightStep, ns: Source.Scripts.Onboarding.UI.PopUp.WordPractice, asm: Source.Scripts.Onboarding}
+    - rid: 7913753025380352209
+      type: {class: HighlightStep, ns: Source.Scripts.Onboarding.UI.OnboardingPractice.Steps, asm: Source.Scripts.Onboarding}
       data:
-        _localizationKey: ui.onboarding.press-to-see
-        _textAnchorMin: {x: 0.1546667, y: 0.6279766}
-        _textAnchorMax: {x: 0.848, y: 0.7045669}
         <IsTransition>k__BackingField: 0
+        _localizationKey: ui.onboarding.press-to-see
+        _textAnchorMin: {x: 0.15466666, y: 0.6279766}
+        _textAnchorMax: {x: 0.848, y: 0.7045669}
         _switchButton: {fileID: 1777654145483116813}
-    - rid: 7913752748544229588
-      type: {class: HighlightStep, ns: Source.Scripts.Onboarding.UI.PopUp.WordPractice, asm: Source.Scripts.Onboarding}
+        _mainCanvas: {fileID: 862739600813106080}
+    - rid: 7913753025380352210
+      type: {class: HighlightStep, ns: Source.Scripts.Onboarding.UI.OnboardingPractice.Steps, asm: Source.Scripts.Onboarding}
       data:
+        <IsTransition>k__BackingField: 0
         _localizationKey: ui.onboarding.swipe-if-know
         _textAnchorMin: {x: 0.06933333, y: 0.6279766}
         _textAnchorMax: {x: 0.9306667, y: 0.7045669}
-        <IsTransition>k__BackingField: 0
         _switchButton: {fileID: 2763948563337084204}
-    - rid: 7913752748544229589
-      type: {class: HighlightStep, ns: Source.Scripts.Onboarding.UI.PopUp.WordPractice, asm: Source.Scripts.Onboarding}
+        _mainCanvas: {fileID: 862739600813106080}
+    - rid: 7913753025380352211
+      type: {class: HighlightStep, ns: Source.Scripts.Onboarding.UI.OnboardingPractice.Steps, asm: Source.Scripts.Onboarding}
       data:
+        <IsTransition>k__BackingField: 0
         _localizationKey: ui.onboarding.hide
         _textAnchorMin: {x: 0.088, y: 0.6279766}
         _textAnchorMax: {x: 0.9146667, y: 0.7045669}
-        <IsTransition>k__BackingField: 0
         _switchButton: {fileID: 1719331164926505835}
-    - rid: 7913752748544229590
-      type: {class: HighlightStep, ns: Source.Scripts.Onboarding.UI.PopUp.WordPractice, asm: Source.Scripts.Onboarding}
+        _mainCanvas: {fileID: 862739600813106080}
+    - rid: 7913753025380352212
+      type: {class: HighlightStep, ns: Source.Scripts.Onboarding.UI.OnboardingPractice.Steps, asm: Source.Scripts.Onboarding}
       data:
+        <IsTransition>k__BackingField: 1
         _localizationKey: ui.onboarding.swipe-to-start-learn
         _textAnchorMin: {x: 0.1626667, y: 0.6279766}
         _textAnchorMax: {x: 0.84, y: 0.7045669}
-        <IsTransition>k__BackingField: 1
         _switchButton: {fileID: 1036025075224803146}
-    - rid: 7913752748544229592
-      type: {class: HighlightStep, ns: Source.Scripts.Onboarding.UI.PopUp.WordPractice, asm: Source.Scripts.Onboarding}
+        _mainCanvas: {fileID: 862739600813106080}
+    - rid: 7913753025380352213
+      type: {class: HighlightStep, ns: Source.Scripts.Onboarding.UI.OnboardingPractice.Steps, asm: Source.Scripts.Onboarding}
       data:
-        _localizationKey: ui.onboarding.open-by-one-character
-        _textAnchorMin: {x: 0.09333333, y: 0.8536546}
-        _textAnchorMax: {x: 0.9093333, y: 0.930245}
         <IsTransition>k__BackingField: 0
+        _localizationKey: ui.onboarding.open-by-one-character
+        _textAnchorMin: {x: 0.093333334, y: 0.8536546}
+        _textAnchorMax: {x: 0.90933335, y: 0.930245}
         _switchButton: {fileID: 6249392494830361666}
-    - rid: 7913752748544229593
-      type: {class: HighlightStep, ns: Source.Scripts.Onboarding.UI.PopUp.WordPractice, asm: Source.Scripts.Onboarding}
+        _mainCanvas: {fileID: 862739600813106080}
+    - rid: 7913753025380352214
+      type: {class: HighlightStep, ns: Source.Scripts.Onboarding.UI.OnboardingPractice.Steps, asm: Source.Scripts.Onboarding}
       data:
+        <IsTransition>k__BackingField: 0
         _localizationKey: ui.onboarding.select-from-four
         _textAnchorMin: {x: 0.1413333, y: 0.8536546}
         _textAnchorMax: {x: 0.8586667, y: 0.930245}
-        <IsTransition>k__BackingField: 0
         _switchButton: {fileID: 6625861149931360390}
-    - rid: 7913752748544229594
-      type: {class: PlainStep, ns: Source.Scripts.Onboarding.UI.PopUp.WordPractice, asm: Source.Scripts.Onboarding}
+        _mainCanvas: {fileID: 862739600813106080}
+    - rid: 7913753025380352215
+      type: {class: PlainStep, ns: Source.Scripts.Onboarding.UI.OnboardingPractice.Steps, asm: Source.Scripts.Onboarding}
       data:
-        _localizationKey: ui.onboarding.select-from-four
-        _textAnchorMin: {x: 0.1413333, y: 0.88493156}
-        _textAnchorMax: {x: 0.8586667, y: 0.9617031}
         <IsTransition>k__BackingField: 0
+        _localizationKey: ui.onboarding.select-from-four
+        _textAnchorMin: {x: 0.1413333, y: 0.8849316}
+        _textAnchorMax: {x: 0.8586667, y: 0.9617031}
         _switchButtons:
         - {fileID: 98409915803294452}
         - {fileID: 1236033612052619655}
         - {fileID: 6196196125256145056}
         - {fileID: 2479156925647434592}
-    - rid: 7913752748544229595
-      type: {class: PlainStep, ns: Source.Scripts.Onboarding.UI.PopUp.WordPractice, asm: Source.Scripts.Onboarding}
+        - {fileID: 869488142826324787}
+        - {fileID: 5238861705633667296}
+        _tintObject: {fileID: 1998083779215552910}
+    - rid: 7913753025380352216
+      type: {class: PlainStep, ns: Source.Scripts.Onboarding.UI.OnboardingPractice.Steps, asm: Source.Scripts.Onboarding}
       data:
-        _localizationKey: ui.onboarding.lets-start-practice
-        _textAnchorMin: {x: 0.1413333, y: 0.88493156}
-        _textAnchorMax: {x: 0.8586667, y: 0.9617031}
         <IsTransition>k__BackingField: 1
+        _localizationKey: ui.onboarding.lets-start-practice
+        _textAnchorMin: {x: 0.136, y: 0.8849316}
+        _textAnchorMax: {x: 0.864, y: 0.9617031}
         _switchButtons:
         - {fileID: 869488142826324787}
         - {fileID: 5238861705633667296}
+        _tintObject: {fileID: 1998083779215552910}
+--- !u!223 &862739600813106080
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8746617757528758000}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
+--- !u!114 &3667796172418968170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8746617757528758000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GraphicRaycaster
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!224 &8920873631193008674 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4979877736924295988, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
@@ -1723,6 +1815,10 @@ PrefabInstance:
       propertyPath: _progressIndicatorBehaviour
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5799581408961630004, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
+      propertyPath: m_Name
+      value: P_Button_AlreadyKnow
+      objectReference: {fileID: 0}
     - target: {fileID: 5818846396969175495, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
       propertyPath: m_PixelsPerUnitMultiplier
       value: 13.999998
@@ -2732,7 +2828,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 4717582366601789676}
+    m_TransformParent: {fileID: 36889145133129032}
     m_Modifications:
     - target: {fileID: 561403775900978418, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_Name
@@ -2748,7 +2844,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.85866666
+      value: 0.864
       objectReference: {fileID: 0}
     - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2756,7 +2852,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.14133333
+      value: 0.13599999
       objectReference: {fileID: 0}
     - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_AnchorMin.y

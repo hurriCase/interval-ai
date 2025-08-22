@@ -8,7 +8,7 @@ using UnityEngine.UI;
 using VContainer;
 using VContainer.Unity;
 
-namespace Source.Scripts.Onboarding.UI.Screen.Behaviours
+namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours
 {
     internal sealed class WordCountSelectionBehaviour : StepBehaviourBase
     {

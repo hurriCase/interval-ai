@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Source.Scripts.Onboarding.UI.Screen.Behaviours.LanguageSelection
+namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours.LanguageSelection
 {
     internal sealed class LanguageSelectionItem : MonoBehaviour
     {

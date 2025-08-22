@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Source.Scripts.Onboarding.UI.Screen.Behaviours.LevelSelection
+namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours.LevelSelection
 {
     internal sealed class SelectionToggleItem : MonoBehaviour
     {

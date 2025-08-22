@@ -5,13 +5,13 @@ using R3;
 using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Statistics;
 using Source.Scripts.Core.Scenes;
-using Source.Scripts.Onboarding.UI.Screen.Behaviours;
+using Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours;
 using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base.Screen;
 using UnityEngine;
 using VContainer;
 
-namespace Source.Scripts.Onboarding.UI.Screen
+namespace Source.Scripts.Onboarding.UI.OnboardingInput
 {
     internal sealed class OnboardingInputScreen : ScreenBase
     {

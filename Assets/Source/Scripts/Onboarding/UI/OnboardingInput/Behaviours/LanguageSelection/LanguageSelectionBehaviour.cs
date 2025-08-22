@@ -1,4 +1,5 @@
 ﻿using CustomUtils.Runtime.CustomTypes.Collections;
+using Cysharp.Text;
 using R3;
 using R3.Triggers;
 using Source.Scripts.Core.Configs;
@@ -12,7 +13,7 @@ using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace Source.Scripts.Onboarding.UI.Screen.Behaviours.LanguageSelection
+namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours.LanguageSelection
 {
     internal sealed class LanguageSelectionBehaviour : StepBehaviourBase
     {
@@ -82,7 +83,7 @@ namespace Source.Scripts.Onboarding.UI.Screen.Behaviours.LanguageSelection
             var createdLanguageItem = _objectResolver.Instantiate(_languageSelectionItem,
                 accordionComponent.AccordionComponent.HiddenContentContainer.RectTransform);
 
-            createdLanguageItem.gameObject.name = $"{languageType}, {language}";
+            createdLanguageItem.gameObject.name = ZString.Format("{0}, {1}", languageType, language);
 
             createdLanguageItem.LanguageText.text = string.IsNullOrWhiteSpace(localization)
                 ? language.ToString()

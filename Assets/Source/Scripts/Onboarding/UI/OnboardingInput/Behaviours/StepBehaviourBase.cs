@@ -1,7 +1,7 @@
 ﻿using R3;
 using UnityEngine;
 
-namespace Source.Scripts.Onboarding.UI.Screen.Behaviours
+namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours
 {
     internal abstract class StepBehaviourBase : MonoBehaviour
     {

@@ -1,10 +1,10 @@
 ﻿using Source.Scripts.Core.Configs;
 using Source.Scripts.Onboarding.UI.Base;
-using Source.Scripts.Onboarding.UI.PopUp;
+using Source.Scripts.Onboarding.UI.OnboardingPractice;
 using UnityEngine;
 using VContainer;
 
-namespace Source.Scripts.Onboarding.UI.Screen.Behaviours
+namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours
 {
     internal sealed class IntervalBehaviour : StepBehaviourBase
     {
@@ -15,7 +15,7 @@ namespace Source.Scripts.Onboarding.UI.Screen.Behaviours
         internal override void OnContinue()
         {
             var onboardingPracticePopUp = _windowsController.OpenPopUp<OnboardingPracticePopUp>();
-            onboardingPracticePopUp.SetPracticeState(_moduleType);
+            onboardingPracticePopUp.SwitchStep(_moduleType);
         }
     }
 }

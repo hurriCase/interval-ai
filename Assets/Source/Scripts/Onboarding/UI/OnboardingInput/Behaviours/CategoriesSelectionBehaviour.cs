@@ -3,7 +3,7 @@ using Source.Scripts.Main.UI.Screens.Categories;
 using UnityEngine;
 using VContainer;
 
-namespace Source.Scripts.Onboarding.UI.Screen.Behaviours
+namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours
 {
     internal sealed class CategoriesSelectionBehaviour : StepBehaviourBase
     {
