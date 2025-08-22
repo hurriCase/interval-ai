@@ -37,11 +37,11 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo
         [SerializeField] private ButtonComponent _addToCategoryButton;
         [SerializeField] private string _categoryLocalizationKey;
 
-        [Inject] private ISettingsRepository _settingsRepository;
-        [Inject] private ICategoriesRepository _categoriesRepository;
-        [Inject] private IWordStateMutator _wordStateMutator;
-        [Inject] private IWindowsController _windowsController;
         [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
+        [Inject] private IUISettingsRepository _uiSettingsRepository;
+        [Inject] private ICategoriesRepository _categoriesRepository;
+        [Inject] private IWindowsController _windowsController;
+        [Inject] private IWordStateMutator _wordStateMutator;
 
         private CategorySelectionService _categorySelectionService;
 
@@ -85,7 +85,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo
 
             _wordProgressBehaviour.UpdateProgress(wordEntry);
 
-            UpdateText(_transcriptionText, wordEntry.Transcription, _settingsRepository.IsShowTranscription.Value);
+            UpdateText(_transcriptionText, wordEntry.Transcription, _uiSettingsRepository.IsShowTranscription.Value);
             UpdateText(_learningWordText, wordEntry.LearningWord);
             UpdateText(_nativeWordText, wordEntry.NativeWord);
 

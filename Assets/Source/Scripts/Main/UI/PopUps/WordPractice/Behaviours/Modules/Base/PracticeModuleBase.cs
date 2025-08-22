@@ -14,7 +14,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base
         [SerializeField] protected TextMeshProUGUI shownWordText;
         [SerializeField] protected TransitionButtonData[] transitionButtons;
 
-        [Inject] protected ISettingsRepository settingsRepository;
+        [Inject] protected IPracticeSettingsRepository practiceSettingsRepository;
         [Inject] protected IAddressablesLoader addressablesLoader;
 
         protected WordEntry currentWord;
@@ -37,7 +37,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base
             if (descriptiveImage)
                 descriptiveImage.UpdateView(currentWord.DescriptiveImage);
 
-            shownWordText.text = currentWord.GetShownWord(settingsRepository);
+            shownWordText.text = currentWord.GetShownWord(practiceSettingsRepository);
         }
     }
 }

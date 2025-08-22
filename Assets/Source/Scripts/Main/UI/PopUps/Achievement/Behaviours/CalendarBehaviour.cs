@@ -22,7 +22,7 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours
             = new WeekProgressContainer[MaxWeeksInMonth];
 
         [Inject] private IDateProgressService _dateProgressService;
-        [Inject] private ISettingsRepository _settingsRepository;
+        [Inject] private IUISettingsRepository _uiSettingsRepository;
 
         private const int MaxWeeksInMonth = 6;
         private const int MonthsInYear = 12;
@@ -75,7 +75,7 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours
         {
             var (monthData, isInMonth) = _dateProgressService.GetMonthWeeks(_currentYear, _currentMonth);
             _currentMonthText.text =
-                _settingsRepository.CurrentCulture.Value.DateTimeFormat.GetMonthName(_currentMonth);
+                _uiSettingsRepository.CurrentCulture.Value.DateTimeFormat.GetMonthName(_currentMonth);
 
             for (var week = 0; week < MaxWeeksInMonth; week++)
                 _weekProgressContainers[week].UpdateMonthWeeklyProgress(monthData, week, isInMonth);

@@ -29,10 +29,10 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules
                 if (index == correctWordIndex)
                     index++;
 
-                _wordSelectionItems[index].Text.text = wordEntry.GetHiddenWord(settingsRepository);
+                _wordSelectionItems[index].Text.text = wordEntry.GetHiddenWord(practiceSettingsRepository);
             }
 
-            _wordSelectionItems[correctWordIndex].Text.text = currentWord.GetHiddenWord(settingsRepository);
+            _wordSelectionItems[correctWordIndex].Text.text = currentWord.GetHiddenWord(practiceSettingsRepository);
         }
     }
 }

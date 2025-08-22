@@ -43,16 +43,16 @@ namespace Source.Scripts.Core.Repositories.Progress
         public Observable<int> GoalAchievedObservable => _goalAchievedSubject.AsObservable();
         private readonly Subject<int> _goalAchievedSubject = new();
 
-        private readonly ISettingsRepository _settingsRepository;
+        private readonly IPracticeSettingsRepository _practiceSettingsRepository;
         private readonly IStatisticsRepository _statisticsRepository;
         private readonly IAppConfig _appConfig;
 
         internal ProgressRepository(
             IStatisticsRepository statisticsRepository,
-            ISettingsRepository settingsRepository,
+            IPracticeSettingsRepository practiceSettingsRepository,
             IAppConfig appConfig)
         {
-            _settingsRepository = settingsRepository;
+            _practiceSettingsRepository = practiceSettingsRepository;
             _statisticsRepository = statisticsRepository;
             _appConfig = appConfig;
 
@@ -89,7 +89,7 @@ namespace Source.Scripts.Core.Repositories.Progress
             await UniTask.WhenAll(initTasks);
 
             if (_statisticsRepository.LoginHistory.Value.TryGetValue(DateTime.Now, out _) is false)
-                _newWordsDailyTarget.Value = _settingsRepository.DailyGoal.Value;
+                _newWordsDailyTarget.Value = _practiceSettingsRepository.DailyGoal.Value;
 
             CheckStreak();
         }
@@ -140,7 +140,7 @@ namespace Source.Scripts.Core.Repositories.Progress
             if (dailyProgress.GoalAchieved)
                 return;
 
-            var targetCount = _settingsRepository.DailyGoal.Value;
+            var targetCount = _practiceSettingsRepository.DailyGoal.Value;
             var currentCount = dailyProgress.ProgressByState[_appConfig.LearningStateForDailyGoal];
             if (currentCount < targetCount)
                 return;

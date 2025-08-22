@@ -25,8 +25,8 @@ namespace Source.Scripts.Onboarding.UI.OnboardingPractice
         [SerializeField] private WordProgressBehaviour _wordProgressBehaviour;
         [SerializeField] private ControlButtonsBehaviour _controlButtonsBehaviour;
 
+        [Inject] private ILanguageSettingsRepository _languageSettingsRepository;
         [Inject] private IOnboardingConfig _onboardingConfig;
-        [Inject] private ISettingsRepository _settingsRepository;
         [Inject] private IWordsRepository _wordsRepository;
         [Inject] private IAppConfig _appConfig;
 
@@ -67,7 +67,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingPractice
         }
 
         private SystemLanguage GetLanguageByType(LanguageType languageType)
-            => _settingsRepository.LanguageByType.Value[languageType].Value;
+            => _languageSettingsRepository.LanguageByType.CurrentValue[languageType];
 
         private void SwitchStep()
         {
@@ -97,7 +97,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingPractice
 
         private void OnDestroy()
         {
-            if (_currentStepIndex >= _practiceSteps.Count)
+            if (_currentStepIndex < 0 || _currentStepIndex >= _practiceSteps.Count)
                 return;
 
             _practiceSteps[_currentStepIndex].HideStep();

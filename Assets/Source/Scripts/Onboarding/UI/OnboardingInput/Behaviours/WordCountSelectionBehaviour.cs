@@ -19,7 +19,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours
         [SerializeField] private float _rowSpacingRatio;
         [SerializeField] private float _wordCountSpacingRatio;
 
-        [Inject] private ISettingsRepository _settingsRepository;
+        [Inject] private IPracticeSettingsRepository _practiceSettingsRepository;
         [Inject] private IOnboardingConfig _onboardingConfig;
         [Inject] private IObjectResolver _objectResolver;
 
@@ -58,7 +58,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours
 
         private void SelectWordCount(int wordsGoal)
         {
-            _settingsRepository.DailyGoal.Value = wordsGoal;
+            _practiceSettingsRepository.DailyGoal.Value = wordsGoal;
             continueSubject.OnNext(Unit.Default);
         }
     }

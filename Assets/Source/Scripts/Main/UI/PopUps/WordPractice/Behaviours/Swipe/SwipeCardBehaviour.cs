@@ -18,12 +18,12 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
     //TODO:<Dmitriy.Sukharev> refactor
     internal sealed class SwipeCardBehaviour : RectTransformBehaviour
     {
-        [Inject] private ISwipeInputService _swipeInputService;
-        [Inject] private ISwipeConfig _swipeConfig;
-        [Inject] private IWordsRepository _wordsRepository;
+        [Inject] private IUISettingsRepository _uiSettingsRepository;
         [Inject] private IPracticeStateService _practiceStateService;
         [Inject] private IWordAdvanceService _wordAdvanceService;
-        [Inject] private ISettingsRepository _settingsRepository;
+        [Inject] private ISwipeInputService _swipeInputService;
+        [Inject] private IWordsRepository _wordsRepository;
+        [Inject] private ISwipeConfig _swipeConfig;
 
         private Vector2 _originalPosition;
         private Camera _uiCamera;
@@ -64,7 +64,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
 
         private void OnPointerPressed()
         {
-            if (_settingsRepository.IsSwipeEnabled.Value
+            if (_uiSettingsRepository.IsSwipeEnabled.Value
                 && _practiceStateService.CurrentState.CurrentValue != _currentPracticeState)
                 return;
 

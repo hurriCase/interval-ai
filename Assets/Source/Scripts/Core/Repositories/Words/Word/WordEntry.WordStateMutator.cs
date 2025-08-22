@@ -12,19 +12,19 @@ namespace Source.Scripts.Core.Repositories.Words.Word
     {
         internal sealed class WordStateMutator : IWordStateMutator
         {
+            private readonly IPracticeSettingsRepository _practiceSettingsRepository;
             private readonly IProgressRepository _progressRepository;
-            private readonly ISettingsRepository _settingsRepository;
             private readonly IWordsRepository _wordsRepository;
             private readonly IAppConfig _appConfig;
 
             internal WordStateMutator(
                 IProgressRepository progressRepository,
-                ISettingsRepository settingsRepository,
+                IPracticeSettingsRepository practiceSettingsRepository,
                 IWordsRepository wordsRepository,
                 IAppConfig appConfig)
             {
                 _progressRepository = progressRepository;
-                _settingsRepository = settingsRepository;
+                _practiceSettingsRepository = practiceSettingsRepository;
                 _wordsRepository = wordsRepository;
                 _appConfig = appConfig;
             }
@@ -72,7 +72,7 @@ namespace Source.Scripts.Core.Repositories.Words.Word
                 if (_appConfig.CooldownStates.AsValueEnumerable().Contains(word.LearningState) is false)
                     return;
 
-                var cooldownData = _settingsRepository.RepetitionByCooldown.Value[word.ReviewCount];
+                var cooldownData = _practiceSettingsRepository.RepetitionByCooldown.Value[word.ReviewCount];
                 word.Cooldown = cooldownData.AddToDateTime(DateTime.Now);
             }
 
@@ -93,7 +93,7 @@ namespace Source.Scripts.Core.Repositories.Words.Word
                 }
 
                 word.ReviewCount++;
-                if (word.ReviewCount < _settingsRepository.RepetitionByCooldown.Value.Count)
+                if (word.ReviewCount < _practiceSettingsRepository.RepetitionByCooldown.Value.Count)
                     return;
 
                 word.LearningState = LearningState.Studied;

@@ -14,14 +14,14 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours
         [SerializeField] private ModuleType _moduleType;
         [SerializeField] private TextMeshProUGUI _wordCountText;
 
-        [Inject] private ISettingsRepository _settingsRepository;
+        [Inject] private IPracticeSettingsRepository _practiceSettingsRepository;
         [Inject] private IWindowsController _windowsController;
 
         private const int DayInMonths = 30;
 
         internal override void UpdateView()
         {
-            var learnedWordCount = _settingsRepository.DailyGoal.Value * DayInMonths;
+            var learnedWordCount = _practiceSettingsRepository.DailyGoal.Value * DayInMonths;
 
             _wordCountText.SetTextFormat("{0}{1}", learnedWordCount, "!");
         }

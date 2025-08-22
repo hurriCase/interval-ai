@@ -24,9 +24,9 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules
         {
             base.UpdateView();
 
-            _hiddenWord.text = currentWord.GetHiddenWord(settingsRepository);
-            _shownExampleText.text = currentWord.GetShownExample(settingsRepository);
-            _hiddenExampleText.text = currentWord.GetHiddenExample(settingsRepository);
+            _hiddenWord.text = currentWord.GetHiddenWord(practiceSettingsRepository);
+            _shownExampleText.text = currentWord.GetShownExample(practiceSettingsRepository);
+            _hiddenExampleText.text = currentWord.GetHiddenExample(practiceSettingsRepository);
         }
     }
 }

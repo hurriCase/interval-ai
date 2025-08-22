@@ -22,7 +22,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours.LanguageSelect
         [SerializeField] private LanguageSelectionItem _languageSelectionItem;
         [SerializeField] private AccordionItem _spacingItem;
 
-        [Inject] private ISettingsRepository _settingsRepository;
+        [Inject] private ILanguageSettingsRepository _languageSettingsRepository;
         [Inject] private IAppConfig _appConfig;
         [Inject] private ISpriteReferences _spriteReferences;
         [Inject] private ILocalizationDatabase _localizationDatabase;
@@ -47,15 +47,15 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours.LanguageSelect
                     CreateLanguageItem(languageType, systemLanguage, _localizationDatabase.Languages[systemLanguage]);
             }
 
-            _settingsRepository.LanguageByType.SubscribeAndRegister(this,
-                static (languageByType, behaviour) => behaviour.SetActiveLanguageToggle(languageByType));
+            _languageSettingsRepository.LanguageByType.SubscribeAndRegister(this,
+                static (languageByType, self) => self.SetActiveLanguageToggle(languageByType));
         }
 
-        private void SetActiveLanguageToggle(EnumArray<LanguageType, ReactiveProperty<SystemLanguage>> languages)
+        private void SetActiveLanguageToggle(EnumArray<LanguageType, SystemLanguage> languages)
         {
             foreach (var (languageType, language) in languages.AsTuples())
             {
-                var targetSelectionItem = _createdLanguageSelectionItems[languageType][language.Value];
+                var targetSelectionItem = _createdLanguageSelectionItems[languageType][language];
                 targetSelectionItem.CheckboxComponent.isOn = true;
             }
         }
@@ -90,8 +90,8 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours.LanguageSelect
                 : localization;
 
             createdLanguageItem.CheckboxComponent.OnPointerClickAsObservable()
-                .SubscribeAndRegister(this, (language, languageType),
-                    static (tuple, self) => self._settingsRepository.SetLanguage(tuple.language, tuple.languageType));
+                .SubscribeAndRegister(this, (language, languageType), static (tuple, self)
+                    => self._languageSettingsRepository.SetLanguage(tuple.language, tuple.languageType));
 
             createdLanguageItem.CheckboxComponent.group = accordionComponent.ToggleGroup;
 

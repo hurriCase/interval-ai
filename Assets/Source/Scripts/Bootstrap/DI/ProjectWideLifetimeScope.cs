@@ -12,6 +12,7 @@ using Source.Scripts.Core.Repositories.Categories;
 using Source.Scripts.Core.Repositories.Categories.Category;
 using Source.Scripts.Core.Repositories.Progress;
 using Source.Scripts.Core.Repositories.Settings;
+using Source.Scripts.Core.Repositories.Settings.Repositories;
 using Source.Scripts.Core.Repositories.Statistics;
 using Source.Scripts.Core.Repositories.User;
 using Source.Scripts.Core.Repositories.Words;
@@ -90,7 +91,9 @@ namespace Source.Scripts.Bootstrap.DI
 
             builder.Register<StatisticsRepository>(Lifetime.Singleton).AsImplementedInterfaces();
 
-            builder.Register<SettingsRepository>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<UISettingsRepository>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<PracticeSettingsRepository>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<LanguageSettingsRepository>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.RegisterInstance(_defaultSettingsConfig).AsImplementedInterfaces();
 
             builder.Register<ProgressRepository>(Lifetime.Singleton).AsImplementedInterfaces();

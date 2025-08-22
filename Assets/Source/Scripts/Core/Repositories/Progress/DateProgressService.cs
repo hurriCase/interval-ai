@@ -18,12 +18,12 @@ namespace Source.Scripts.Core.Repositories.Progress
         private readonly DailyProgress[] _currentWeek = new DailyProgress[DaysPerWeek];
 
         private readonly IProgressRepository _progressRepository;
-        private readonly ISettingsRepository _settingsRepository;
+        private readonly IUISettingsRepository _uiSettingsRepository;
 
-        internal DateProgressService(IProgressRepository progressRepository, ISettingsRepository settingsRepository)
+        internal DateProgressService(IProgressRepository progressRepository, IUISettingsRepository uiSettingsRepository)
         {
             _progressRepository = progressRepository;
-            _settingsRepository = settingsRepository;
+            _uiSettingsRepository = uiSettingsRepository;
         }
 
         public DailyProgress[] GetCurrentWeek()
@@ -95,7 +95,7 @@ namespace Source.Scripts.Core.Repositories.Progress
 
         private int GetDayIndexInWeek(DateTime date)
         {
-            var firstDayOfWeek = _settingsRepository.CurrentCulture.Value.DateTimeFormat.FirstDayOfWeek;
+            var firstDayOfWeek = _uiSettingsRepository.CurrentCulture.Value.DateTimeFormat.FirstDayOfWeek;
 
             return ((int)date.DayOfWeek - (int)firstDayOfWeek + DaysPerWeek) % DaysPerWeek;
         }

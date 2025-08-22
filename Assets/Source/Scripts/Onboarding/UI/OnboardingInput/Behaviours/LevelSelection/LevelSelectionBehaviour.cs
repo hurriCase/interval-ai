@@ -22,7 +22,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours.LevelSelection
         [SerializeField] private AspectRatioFitter _aspectRatioFitter;
         [SerializeField] private float _spacingRatio;
 
-        [Inject] private ISettingsRepository _settingsRepository;
+        [Inject] private ILanguageSettingsRepository _languageSettingsRepository;
         [Inject] private ISpriteReferences _spriteReferences;
         [Inject] private ILocalizationDatabase _localizationDatabase;
         [Inject] private IAddressablesLoader _addressablesLoader;
@@ -36,8 +36,8 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours.LevelSelection
                 createdButton.LevelText.text = levelLocalizationKey.GetLocalization();
                 createdButton.CheckboxComponent.group = _selectionToggleGroup;
                 createdButton.CheckboxComponent.OnPointerClickAsObservable()
-                    .Subscribe((levelType, _settingsRepository),
-                        static (_, tuple) => tuple._settingsRepository.LanguageLevel.Value = tuple.levelType)
+                    .Subscribe((levelType, _languageSettingsRepository),
+                        static (_, tuple) => tuple._languageSettingsRepository.LanguageLevel.Value = tuple.levelType)
                     .RegisterTo(destroyCancellationToken);
 
                 SetLevelIcon(createdButton.Icon, _spriteReferences.LevelLanguageIcons[levelType].AssetGUID).Forget();

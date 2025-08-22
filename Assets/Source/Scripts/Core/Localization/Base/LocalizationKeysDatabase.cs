@@ -33,7 +33,7 @@ namespace Source.Scripts.Core.Localization.Base
 
         [SerializeField] private EnumArray<ThemeType, string> _themeTypes = new(EnumMode.SkipFirst);
 
-        [Inject] private ISettingsRepository _settingsRepository;
+        [Inject] private ILanguageSettingsRepository _languageSettingsRepository;
         [Inject] private ILocalizationDatabase _localizationDatabase;
 
         public string GetLocalization(LocalizationType type) =>
@@ -79,7 +79,7 @@ namespace Source.Scripts.Core.Localization.Base
                     ? _localizationDatabase.Languages[enumIndex]
                     : enumIndex.ToString().GetLocalization();
 
-            var languageType = _settingsRepository.LanguageByType.Value[enumIndex].Value;
+            var languageType = _languageSettingsRepository.LanguageByType.CurrentValue[enumIndex];
             return _localizationDatabase.Languages[languageType];
         }
     }

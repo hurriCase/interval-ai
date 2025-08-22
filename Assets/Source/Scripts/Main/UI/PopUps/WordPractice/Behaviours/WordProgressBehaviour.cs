@@ -15,7 +15,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
         [SerializeField] private float _spacingRatio;
         [SerializeField] private float _thicknessRatio;
 
-        [Inject] private ISettingsRepository _settingsRepository;
+        [Inject] private IPracticeSettingsRepository _practiceSettingsRepository;
 
         private const int Circumference = 360;
 
@@ -24,7 +24,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
 
         internal void Init()
         {
-            _settingsRepository.RepetitionByCooldown.SubscribeAndRegister(this,
+            _practiceSettingsRepository.RepetitionByCooldown.SubscribeAndRegister(this,
                 static (repetitions, self) => self.CreateSegments(repetitions.Count));
         }
 
