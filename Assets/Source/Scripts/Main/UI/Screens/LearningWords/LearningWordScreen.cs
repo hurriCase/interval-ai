@@ -6,7 +6,7 @@ using Source.Scripts.Core.Repositories.User.Base;
 using Source.Scripts.Main.UI.Screens.LearningWords.Behaviours;
 using Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.CategoryPreview;
 using Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.Progress;
-using Source.Scripts.UI.Windows.Base.Screen;
+using Source.Scripts.UI.Windows.Base;
 using TMPro;
 using UnityEngine;
 using VContainer;

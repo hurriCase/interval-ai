@@ -8,7 +8,7 @@ using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Core.Repositories.Categories.Category;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.UI.Components;
-using Source.Scripts.UI.Windows.Base.Screen;
+using Source.Scripts.UI.Windows.Base;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;

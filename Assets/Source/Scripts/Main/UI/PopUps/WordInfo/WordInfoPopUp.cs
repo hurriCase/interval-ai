@@ -2,7 +2,7 @@
 using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.UI.Components;
-using Source.Scripts.UI.Windows.Base.PopUp;
+using Source.Scripts.UI.Windows.Base;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,7 +26,10 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo
                 .SubscribeAndRegister(this, static self => self.UpdateContainerHeight());
         }
 
-        internal void SetParameters(WordEntry wordEntry) => _wordInfoCardBehaviour.UpdateView(wordEntry);
+        internal void SetParameters(WordEntry wordEntry)
+        {
+            _wordInfoCardBehaviour.UpdateView(wordEntry);
+        }
 
         private void UpdateContainerHeight()
         {

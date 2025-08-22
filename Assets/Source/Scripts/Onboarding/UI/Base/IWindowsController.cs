@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
-using Source.Scripts.UI.Windows.Base.PopUp;
+using Source.Scripts.UI.Windows.Base;
 
 namespace Source.Scripts.Onboarding.UI.Base
 {

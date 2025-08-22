@@ -1,6 +1,7 @@
 ﻿using System;
 using CustomUtils.Runtime.CustomBehaviours;
 using CustomUtils.Runtime.Extensions;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Source.Scripts.UI.Windows.Base
@@ -15,8 +16,8 @@ namespace Source.Scripts.UI.Windows.Base
 
         internal virtual void Init() { }
 
-        internal abstract void Show();
-        internal abstract void Hide();
+        internal abstract UniTask ShowAsync();
+        internal abstract UniTask HideAsync();
 
         internal virtual void HideImmediately() => CanvasGroup.Hide();
     }

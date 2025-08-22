@@ -4,7 +4,7 @@ using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.PopUps.Category;
 using Source.Scripts.UI.Components;
-using Source.Scripts.UI.Windows.Base.PopUp;
+using Source.Scripts.UI.Windows.Base;
 using TMPro;
 using UnityEngine;
 using VContainer;

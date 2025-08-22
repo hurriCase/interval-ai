@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Localization;
+using Cysharp.Threading.Tasks;
 using PrimeTween;
 using R3;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.UI.Components;
-using Source.Scripts.UI.Windows.Base.PopUp;
+using Source.Scripts.UI.Windows.Base;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -41,11 +42,11 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
             CreateSelections(service);
         }
 
-        internal override void Show()
+        internal override async UniTask ShowAsync()
         {
-            base.Show();
+            await base.ShowAsync();
 
-            AnimatePivot(0f);
+            await AnimatePivotAsync(0f);
         }
 
         private void CreateSelections<TValue>(SelectionService<TValue> service)
@@ -98,16 +99,16 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
                 .AddTo(ref _disposableBag);
         }
 
-        internal override void Hide()
+        internal override async UniTask HideAsync()
         {
-            var tween = AnimatePivot(1f);
-            tween.OnComplete(this, self => self.HideBase());
+            var tween = AnimatePivotAsync(1f);
+            await tween.OnComplete(this, self => self.HideBase());
         }
 
-        private Tween AnimatePivot(float endValue)
+        private Tween AnimatePivotAsync(float endValue)
             => Tween.UIPivotY(_selectionsContainer, endValue, _selectionAnimationDuration);
 
-        private void HideBase() => base.Hide();
+        private void HideBase() => base.HideAsync().Forget();
 
         private void OnDestroy()
         {

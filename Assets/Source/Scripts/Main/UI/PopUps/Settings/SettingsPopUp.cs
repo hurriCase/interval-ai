@@ -3,7 +3,7 @@ using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Main.UI.PopUps.Selection;
-using Source.Scripts.UI.Windows.Base.PopUp;
+using Source.Scripts.UI.Windows.Base;
 using UnityEngine;
 using VContainer;
 

@@ -5,7 +5,7 @@ using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.Screens.Generation.Behaviours;
 using Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.CategoryPreview;
 using Source.Scripts.UI.Components;
-using Source.Scripts.UI.Windows.Base.Screen;
+using Source.Scripts.UI.Windows.Base;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

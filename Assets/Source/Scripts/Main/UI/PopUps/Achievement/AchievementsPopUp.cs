@@ -1,6 +1,6 @@
 ﻿using Source.Scripts.Main.UI.PopUps.Achievement.Behaviours;
 using Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts;
-using Source.Scripts.UI.Windows.Base.PopUp;
+using Source.Scripts.UI.Windows.Base;
 using UnityEngine;
 
 namespace Source.Scripts.Main.UI.PopUps.Achievement

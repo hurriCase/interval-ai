@@ -8,7 +8,7 @@ using Source.Scripts.Core.Repositories.Categories.Category;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.PopUps.Selection;
 using Source.Scripts.UI.Components;
-using Source.Scripts.UI.Windows.Base.PopUp;
+using Source.Scripts.UI.Windows.Base;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
@@ -76,7 +76,7 @@ namespace Source.Scripts.Main.UI.PopUps.Category
         {
             _categoriesRepository.RemoveCategory(_currentCategoryEntry);
 
-            Hide();
+            HideAsync();
         }
 
         private void UpdateView()

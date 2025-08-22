@@ -6,8 +6,6 @@ using CustomUtils.Runtime.Extensions;
 using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.Loader;
 using Source.Scripts.Core.Others;
-using Source.Scripts.UI.Windows.Base.PopUp;
-using Source.Scripts.UI.Windows.Base.Screen;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using VContainer;
@@ -111,10 +109,10 @@ namespace Source.Scripts.UI.Windows.Base
                 Debug.LogError($"[WindowsController::OpenScreenByType] There is no screen with type '{screenType}'");
 
             if (_currentScreen)
-                _currentScreen.Hide();
+                _currentScreen.HideAsync();
 
             _currentScreen = screenBase;
-            screenBase.Show();
+            screenBase.ShowAsync();
         }
 
         public void OpenPopUpByType(TPopUpEnum popUpType)
@@ -127,7 +125,7 @@ namespace Source.Scripts.UI.Windows.Base
                 return;
             }
 
-            OpenPopUp(popUpBase);
+            OpenPopUpAsync(popUpBase).Forget();
         }
 
         public TPopUpType OpenPopUp<TPopUpType>() where TPopUpType : PopUpBase
@@ -137,7 +135,7 @@ namespace Source.Scripts.UI.Windows.Base
                 if (popUpBase.GetType() != typeof(TPopUpType))
                     continue;
 
-                OpenPopUp(popUpBase);
+                OpenPopUpAsync(popUpBase).Forget();
                 return popUpBase as TPopUpType;
             }
 
@@ -145,20 +143,22 @@ namespace Source.Scripts.UI.Windows.Base
             return null;
         }
 
-        private void OpenPopUp(PopUpBase popUpBase)
+        private async UniTask OpenPopUpAsync(PopUpBase popUpBase)
         {
+            if (_currentOpenedPopUp && popUpBase.IsInFrontOf(_currentOpenedPopUp) is false)
+                popUpBase.transform.SetAsLastSibling();
+
+            await popUpBase.ShowAsync();
+
             if (_currentOpenedPopUp)
             {
                 _previousOpenedPopUps.Push(_currentOpenedPopUp);
 
                 if (popUpBase.IsSingle)
                     _currentOpenedPopUp.HideImmediately();
-                else
-                    popUpBase.transform.SetAsLastSibling();
             }
 
             _currentOpenedPopUp = popUpBase;
-            popUpBase.Show();
         }
 
         private void HideAllPopUps()
@@ -182,7 +182,7 @@ namespace Source.Scripts.UI.Windows.Base
 
             _currentOpenedPopUp = previousPopUp;
             if (needShow)
-                previousPopUp.Show();
+                previousPopUp.ShowAsync();
         }
     }
 }

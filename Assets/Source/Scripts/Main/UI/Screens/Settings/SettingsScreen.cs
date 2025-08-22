@@ -3,7 +3,7 @@ using Source.Scripts.Core.Others;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.Screens.Settings.Behaviours;
 using Source.Scripts.UI.Components;
-using Source.Scripts.UI.Windows.Base.Screen;
+using Source.Scripts.UI.Windows.Base;
 using UnityEngine;
 using VContainer;
 

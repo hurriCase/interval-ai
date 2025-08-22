@@ -1,4 +1,5 @@
-﻿using PrimeTween;
+﻿using Cysharp.Threading.Tasks;
+using PrimeTween;
 using R3;
 using R3.Triggers;
 using Source.Scripts.Core.Localization.LocalizationTypes;
@@ -6,7 +7,7 @@ using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice;
 using Source.Scripts.UI.Components;
-using Source.Scripts.UI.Windows.Base.PopUp;
+using Source.Scripts.UI.Windows.Base;
 using UnityEngine;
 using VContainer;
 
@@ -47,7 +48,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice
                 static (state, self) => self.SwitchToState(state));
         }
 
-        internal override void Show()
+        internal override async UniTask ShowAsync()
         {
             var currentWords = _wordsRepository.CurrentWordsByState.CurrentValue;
             if (currentWords[PracticeState.NewWords] is null && currentWords[PracticeState.Review] != null)
@@ -55,12 +56,12 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice
             else
                 _practiceStateService.SetState(PracticeState.NewWords);
 
-            base.Show();
+            await base.ShowAsync();
         }
 
-        internal override void Hide()
+        internal override async UniTask HideAsync()
         {
-            base.Hide();
+            await base.HideAsync();
 
             _practiceStateService.SetState(PracticeState.None);
         }

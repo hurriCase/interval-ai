@@ -1,11 +1,12 @@
 ﻿using CustomUtils.Runtime.Extensions;
+using Cysharp.Threading.Tasks;
 using PrimeTween;
 using R3;
 using Source.Scripts.Core.Others;
 using Source.Scripts.UI.Components;
 using UnityEngine;
 
-namespace Source.Scripts.UI.Windows.Base.PopUp
+namespace Source.Scripts.UI.Windows.Base
 {
     internal abstract class PopUpBase : WindowBase
     {
@@ -21,18 +22,18 @@ namespace Source.Scripts.UI.Windows.Base.PopUp
         internal override void BaseInit()
         {
             if (_closeButton)
-                _closeButton.OnClickAsObservable().SubscribeAndRegister(this, static self => self.Hide());
+                _closeButton.OnClickAsObservable().SubscribeAndRegister(this, static self => self.HideAsync().Forget());
         }
 
-        internal override void Show()
+        internal override async UniTask ShowAsync()
         {
-            Tween.Alpha(CanvasGroup, 1f, _animationDuration)
+            await Tween.Alpha(CanvasGroup, 1f, _animationDuration)
                 .OnComplete(this, windowBase => windowBase.CanvasGroup.Show());
         }
 
-        internal override void Hide()
+        internal override async UniTask HideAsync()
         {
-            Tween.Alpha(CanvasGroup, 0f, _animationDuration)
+            await Tween.Alpha(CanvasGroup, 0f, _animationDuration)
                 .OnComplete(this, windowBase => windowBase.HideImmediately());
         }
 

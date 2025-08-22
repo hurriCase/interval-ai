@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Settings.Base;
@@ -7,7 +8,7 @@ using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours;
 using Source.Scripts.Onboarding.Data;
 using Source.Scripts.Onboarding.UI.OnboardingPractice.Steps.Base;
 using Source.Scripts.UI.Components;
-using Source.Scripts.UI.Windows.Base.PopUp;
+using Source.Scripts.UI.Windows.Base;
 using TMPro;
 using UnityEngine;
 using VContainer;
@@ -76,7 +77,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingPractice
 
             if (currentStep.IsTransition)
             {
-                Hide();
+                HideAsync().Forget();
                 return;
             }
 
