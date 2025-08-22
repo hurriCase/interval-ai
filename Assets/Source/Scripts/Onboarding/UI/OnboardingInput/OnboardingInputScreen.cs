@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using CustomUtils.Runtime.Extensions;
 using Cysharp.Threading.Tasks;
 using R3;
@@ -42,6 +43,14 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput
 
         private void SwitchModule()
         {
+            var nextSTep = _currentStepIndex + 1;
+            if (nextSTep >= _inputOnboardingSteps.Count)
+            {
+                _statisticsRepository.IsCompleteOnboarding.Value = true;
+                _sceneLoader.LoadSceneAsync(_sceneReferences.MainMenuScene.Address, CancellationToken.None).Forget();
+                return;
+            }
+
             SwitchSettingsStep(_currentStepIndex, false);
 
             _currentStepIndex++;
@@ -51,13 +60,6 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput
 
         private void SwitchSettingsStep(int index, bool isActive)
         {
-            if (index >= _inputOnboardingSteps.Count)
-            {
-                _statisticsRepository.IsCompleteOnboarding.Value = true;
-                _sceneLoader.LoadSceneAsync(_sceneReferences.MainMenuScene.Address, destroyCancellationToken).Forget();
-                return;
-            }
-
             var inputStep = _inputOnboardingSteps[index];
             if (isActive)
                 inputStep.UpdateView();
