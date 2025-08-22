@@ -17,10 +17,10 @@ namespace Source.Scripts.Core.Repositories.Base.DefaultConfig
 
         public List<TEntry> Defaults { get; private set; }
 
-        public async UniTask InitAsync(CancellationToken cancellationToken)
+        public async UniTask InitAsync(CancellationToken token)
         {
             var bytesAsset =
-                await _addressablesLoader.LoadAsync<TextAsset>(_defaultAssetRereference, cancellationToken);
+                await _addressablesLoader.LoadAsync<TextAsset>(_defaultAssetRereference, token);
 
             Defaults = MemoryPackSerializer.Deserialize<List<TEntry>>(bytesAsset.bytes);
         }

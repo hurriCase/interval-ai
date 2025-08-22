@@ -47,15 +47,15 @@ namespace Source.Scripts.Core.Repositories.Words
             _appConfig = appConfig;
         }
 
-        public async UniTask InitAsync(CancellationToken cancellationToken)
+        public async UniTask InitAsync(CancellationToken token)
         {
             var initTasks = new[]
             {
-                _idHandler.InitAsync(cancellationToken),
+                _idHandler.InitAsync(token),
 
                 _wordEntries.InitAsync(
                     PersistentKeys.WordEntryKey,
-                    cancellationToken,
+                    token,
                     _idHandler.GenerateWithIds(_defaultWordsDatabase.Defaults))
             };
 

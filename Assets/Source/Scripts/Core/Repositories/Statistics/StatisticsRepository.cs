@@ -12,15 +12,15 @@ namespace Source.Scripts.Core.Repositories.Statistics
         public PersistentReactiveProperty<bool> IsCompleteOnboarding { get; } = new();
         public PersistentReactiveProperty<Dictionary<DateTime, bool>> LoginHistory { get; } = new();
 
-        public async UniTask InitAsync(CancellationToken cancellationToken)
+        public async UniTask InitAsync(CancellationToken token)
         {
             var initTasks = new[]
             {
-                IsCompleteOnboarding.InitAsync(PersistentKeys.IsCompleteOnboardingKey, cancellationToken),
+                IsCompleteOnboarding.InitAsync(PersistentKeys.IsCompleteOnboardingKey, token),
 
                 LoginHistory.InitAsync(
                     PersistentKeys.LoginHistoryKey,
-                    cancellationToken,
+                    token,
                     new Dictionary<DateTime, bool>())
             };
 

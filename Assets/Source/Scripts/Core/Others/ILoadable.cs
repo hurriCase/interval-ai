@@ -5,6 +5,6 @@ namespace Source.Scripts.Core.Others
 {
     internal interface ILoadable
     {
-        UniTask InitAsync(CancellationToken cancellationToken);
+        UniTask InitAsync(CancellationToken token);
     }
 }

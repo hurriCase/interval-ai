@@ -20,18 +20,18 @@ namespace Source.Scripts.Core.Repositories.User
             _defaultUserDataConfig = defaultUserDataConfig;
         }
 
-        public async UniTask InitAsync(CancellationToken cancellationToken)
+        public async UniTask InitAsync(CancellationToken token)
         {
             var initTasks = new[]
             {
                 UserIcon.InitAsync(
                     PersistentKeys.UserIconKey,
-                    cancellationToken,
+                    token,
                     new CachedSprite(_defaultUserDataConfig.Icon)),
 
                 Nickname.InitAsync(
                     PersistentKeys.NicknameKey,
-                    cancellationToken,
+                    token,
                     _defaultUserDataConfig.Name)
             };
 

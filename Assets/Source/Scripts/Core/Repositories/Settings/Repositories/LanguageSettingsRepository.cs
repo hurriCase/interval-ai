@@ -40,38 +40,27 @@ namespace Source.Scripts.Core.Repositories.Settings.Repositories
             _appConfig = appConfig;
         }
 
-        public async UniTask InitAsync(CancellationToken cancellationToken)
+        public async UniTask InitAsync(CancellationToken token)
         {
             var initTasks = new[]
             {
-                LanguageLevel.InitAsync(
-                    PersistentKeys.LanguageLevelKey,
-                    cancellationToken,
-                    _defaultSettingsConfig.LanguageLevel),
-
-                _languageByType.InitAsync(
-                    PersistentKeys.LanguageByTypeKey,
-                    cancellationToken,
-                    CreateDefaultLanguageByType()),
-
-                SystemLanguage.InitAsync(
-                    PersistentKeys.SystemLanguageKey,
-                    cancellationToken,
-                    GetNativeLanguage()),
+                _languageByType.InitAsync(PersistentKeys.LanguageByTypeKey, token, CreateDefaultLanguageByType()),
+                LanguageLevel.InitAsync(PersistentKeys.LanguageLevelKey, token, _defaultSettingsConfig.LanguageLevel),
+                SystemLanguage.InitAsync(PersistentKeys.SystemLanguageKey, token, GetNativeLanguage()),
 
                 FirstShowLanguageType.InitAsync(
                     PersistentKeys.FirstShowLanguageKey,
-                    cancellationToken,
+                    token,
                     _defaultSettingsConfig.FirstShowPractice),
 
                 CardLearnLanguageType.InitAsync(
                     PersistentKeys.CardLearnLanguageKey,
-                    cancellationToken,
+                    token,
                     _defaultSettingsConfig.CardLearnPractice),
 
                 CardReviewLanguageType.InitAsync(
                     PersistentKeys.CardReviewLanguageKey,
-                    cancellationToken,
+                    token,
                     _defaultSettingsConfig.CardReviewPractice),
             };
 

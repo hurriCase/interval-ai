@@ -22,25 +22,25 @@ namespace Source.Scripts.Core.Repositories.Settings.Repositories
             _defaultSettingsConfig = defaultSettingsConfig;
         }
 
-        public async UniTask InitAsync(CancellationToken cancellationToken)
+        public async UniTask InitAsync(CancellationToken token)
         {
             var initTasks = new[]
             {
-                DailyGoal.InitAsync(PersistentKeys.DailyGoalKey, cancellationToken, _defaultSettingsConfig.DailyGoal),
+                DailyGoal.InitAsync(PersistentKeys.DailyGoalKey, token, _defaultSettingsConfig.DailyGoal),
 
                 RepetitionByCooldown.InitAsync(
                     PersistentKeys.RepetitionByCooldownKey,
-                    cancellationToken,
+                    token,
                     _defaultSettingsConfig.Cooldowns),
 
                 LearningDirection.InitAsync(
                     PersistentKeys.LearningDirectionKey,
-                    cancellationToken,
+                    token,
                     LearningDirectionType.LearningToNative),
 
                 WordReviewSourceType.InitAsync(
                     PersistentKeys.WordReviewSourceTypeKey,
-                    cancellationToken,
+                    token,
                     _defaultSettingsConfig.WordReviewSourceType),
             };
 

@@ -12,40 +12,38 @@ namespace Source.Scripts.Core.Repositories.Settings.Repositories
 {
     internal sealed class UISettingsRepository : IUISettingsRepository, IRepository, IDisposable
     {
-        public PersistentReactiveProperty<CultureInfo> CurrentCulture { get; } = new();
-
         public PersistentReactiveProperty<ThemeType> ThemeType { get; } = new();
-
+        public PersistentReactiveProperty<CultureInfo> CurrentCulture { get; } = new();
         public PersistentReactiveProperty<bool> IsSendNotifications { get; } = new();
         public PersistentReactiveProperty<bool> IsShowTranscription { get; } = new();
         public PersistentReactiveProperty<bool> IsSwipeEnabled { get; } = new();
 
-        private DisposableBag _disposableBag;
+        private IDisposable _disposable;
 
-        public async UniTask InitAsync(CancellationToken cancellationToken)
+        public async UniTask InitAsync(CancellationToken token)
         {
             var initTasks = new[]
             {
                 ThemeType.InitAsync(
                     PersistentKeys.CurrentThemeKey,
-                    cancellationToken,
+                    token,
                     AndroidThemeDetector.GetAndroidSystemTheme()),
 
-                IsSendNotifications.InitAsync(PersistentKeys.IsSendNotificationsKey, cancellationToken),
-                IsShowTranscription.InitAsync(PersistentKeys.IsShowTranscriptionKey, cancellationToken),
-                IsSwipeEnabled.InitAsync(PersistentKeys.IsSwipeEnabledKey, cancellationToken)
+                CurrentCulture.InitAsync(PersistentKeys.CurrentCultureKey, token, CultureInfo.CurrentCulture),
+                IsSendNotifications.InitAsync(PersistentKeys.IsSendNotificationsKey, token),
+                IsShowTranscription.InitAsync(PersistentKeys.IsShowTranscriptionKey, token),
+                IsSwipeEnabled.InitAsync(PersistentKeys.IsSwipeEnabledKey, token)
             };
 
             await UniTask.WhenAll(initTasks);
 
-            ThemeType
-                .Subscribe(newTheme => ThemeHandler.Instance.CurrentThemeType.Value = newTheme)
-                .AddTo(ref _disposableBag);
+            _disposable = ThemeType
+                .Subscribe(newTheme => ThemeHandler.Instance.CurrentThemeType.Value = newTheme);
         }
 
         public void Dispose()
         {
-            _disposableBag.Dispose();
+            _disposable.Dispose();
             CurrentCulture.Dispose();
             ThemeType.Dispose();
             IsSendNotifications.Dispose();

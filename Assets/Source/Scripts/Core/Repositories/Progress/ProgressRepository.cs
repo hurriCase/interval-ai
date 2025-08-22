@@ -67,22 +67,22 @@ namespace Source.Scripts.Core.Repositories.Progress
             }
         }
 
-        public async UniTask InitAsync(CancellationToken cancellationToken)
+        public async UniTask InitAsync(CancellationToken token)
         {
             var initTasks = new[]
             {
-                _currentStreak.InitAsync(PersistentKeys.CurrentStreakKey, cancellationToken),
-                _bestStreak.InitAsync(PersistentKeys.BestStreakKey, cancellationToken),
-                _newWordsDailyTarget.InitAsync(PersistentKeys.NewWordsDailyTargetKey, cancellationToken),
+                _currentStreak.InitAsync(PersistentKeys.CurrentStreakKey, token),
+                _bestStreak.InitAsync(PersistentKeys.BestStreakKey, token),
+                _newWordsDailyTarget.InitAsync(PersistentKeys.NewWordsDailyTargetKey, token),
 
                 _totalCountByState.InitAsync(
                     PersistentKeys.TotalCountByStateKey,
-                    cancellationToken,
+                    token,
                     new EnumArray<LearningState, int>(EnumMode.SkipFirst)),
 
                 _progressHistory.InitAsync(
                     PersistentKeys.ProgressHistoryKey,
-                    cancellationToken,
+                    token,
                     new Dictionary<DateTime, DailyProgress>())
             };
 

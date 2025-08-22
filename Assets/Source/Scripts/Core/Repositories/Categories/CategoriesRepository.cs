@@ -41,10 +41,10 @@ namespace Source.Scripts.Core.Repositories.Categories
             _idHandler = idHandler;
         }
 
-        public async UniTask InitAsync(CancellationToken cancellationToken)
+        public async UniTask InitAsync(CancellationToken token)
         {
-            await _idHandler.InitAsync(cancellationToken);
-            await _categoryEntries.InitAsync(PersistentKeys.CategoryEntriesKey, cancellationToken,
+            await _idHandler.InitAsync(token);
+            await _categoryEntries.InitAsync(PersistentKeys.CategoryEntriesKey, token,
                 _idHandler.GenerateWithDefaultIds(_defaultCategoriesDatabase.Defaults));
 
             foreach (var wordEntry in _defaultWordsDatabase.Defaults)
