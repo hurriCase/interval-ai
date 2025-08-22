@@ -6,11 +6,10 @@ using Source.Scripts.Core.Importer;
 using Source.Scripts.Core.Input;
 using Source.Scripts.Core.Loader;
 using Source.Scripts.Core.Localization.Base;
-using Source.Scripts.Core.Others;
-using Source.Scripts.Core.Repositories.Base.DefaultConfig;
 using Source.Scripts.Core.Repositories.Base.Id;
 using Source.Scripts.Core.Repositories.Base.Tests;
 using Source.Scripts.Core.Repositories.Categories;
+using Source.Scripts.Core.Repositories.Categories.Category;
 using Source.Scripts.Core.Repositories.Progress;
 using Source.Scripts.Core.Repositories.Settings;
 using Source.Scripts.Core.Repositories.Statistics;
@@ -24,7 +23,6 @@ using Source.Scripts.Core.Sprites;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
-using CategoryEntry = Source.Scripts.Core.Repositories.Categories.Category.CategoryEntry;
 
 namespace Source.Scripts.Bootstrap.DI
 {
@@ -111,9 +109,8 @@ namespace Source.Scripts.Bootstrap.DI
             builder.Register<CategoriesRepository>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<CategoryEntry.CategoryStateMutator>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.RegisterComponent(_defaultCategoriesDatabase)
-                .As<ILoadable>()
-                .As<IDefaultDataDatabase<CategoryEntry>>()
-                .As<DefaultDataDatabaseBase<CategoryEntry>>();
+                .As<DefaultCategoriesDatabase>()
+                .AsImplementedInterfaces();
         }
 
         private void RegisterWordsRepository(IContainerBuilder builder)
@@ -124,9 +121,8 @@ namespace Source.Scripts.Bootstrap.DI
             builder.Register<WordsTimerService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<WordAdvanceService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.RegisterComponent(_defaultWordsDatabase)
-                .As<ILoadable>()
-                .As<IDefaultDataDatabase<WordEntry>>()
-                .As<DefaultDataDatabaseBase<WordEntry>>();
+                .As<DefaultWordsDatabase>()
+                .AsImplementedInterfaces();
         }
     }
 }

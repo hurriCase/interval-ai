@@ -2,14 +2,13 @@
 using System.Threading;
 using CustomUtils.Runtime.Storage;
 using Cysharp.Threading.Tasks;
-using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Base;
 using Source.Scripts.Core.Repositories.User.Base;
 using Source.Scripts.Core.Sprites;
 
 namespace Source.Scripts.Core.Repositories.User
 {
-    internal sealed class UserRepository : IUserRepository, ILoadable, IDisposable
+    internal sealed class UserRepository : IUserRepository, IRepository, IDisposable
     {
         public PersistentReactiveProperty<string> Nickname { get; } = new();
         public PersistentReactiveProperty<CachedSprite> UserIcon { get; } = new();

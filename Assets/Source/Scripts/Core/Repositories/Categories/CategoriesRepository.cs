@@ -5,17 +5,15 @@ using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Storage;
 using Cysharp.Threading.Tasks;
 using R3;
-using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Base;
-using Source.Scripts.Core.Repositories.Base.DefaultConfig;
 using Source.Scripts.Core.Repositories.Base.Id;
 using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Core.Repositories.Categories.Category;
-using Source.Scripts.Core.Repositories.Words.Word;
+using Source.Scripts.Core.Repositories.Words;
 
 namespace Source.Scripts.Core.Repositories.Categories
 {
-    internal sealed class CategoriesRepository : ICategoriesRepository, ILoadable, IDisposable
+    internal sealed class CategoriesRepository : ICategoriesRepository, IRepository, IDisposable
     {
         public ReadOnlyReactiveProperty<Dictionary<int, CategoryEntry>> CategoryEntries => _categoryEntries.Property;
         private readonly PersistentReactiveProperty<Dictionary<int, CategoryEntry>> _categoryEntries = new();
@@ -26,14 +24,14 @@ namespace Source.Scripts.Core.Repositories.Categories
         private readonly Subject<CategoryEntry> _categoryAdded = new();
         private readonly Subject<CategoryEntry> _categoryRemoved = new();
 
-        private readonly IDefaultDataDatabase<CategoryEntry> _defaultCategoriesDatabase;
+        private readonly DefaultCategoriesDatabase _defaultCategoriesDatabase;
         private readonly ICategoryStateMutator _categoryStateMutator;
-        private readonly IDefaultDataDatabase<WordEntry> _defaultWordsDatabase;
+        private readonly DefaultWordsDatabase _defaultWordsDatabase;
         private readonly IIdHandler<CategoryEntry> _idHandler;
 
         internal CategoriesRepository(
-            IDefaultDataDatabase<CategoryEntry> defaultCategoriesDatabase,
-            IDefaultDataDatabase<WordEntry> defaultWordsDatabase,
+            DefaultCategoriesDatabase defaultCategoriesDatabase,
+            DefaultWordsDatabase defaultWordsDatabase,
             ICategoryStateMutator categoryStateMutator,
             IIdHandler<CategoryEntry> idHandler)
         {
@@ -45,15 +43,9 @@ namespace Source.Scripts.Core.Repositories.Categories
 
         public async UniTask InitAsync(CancellationToken cancellationToken)
         {
-            var initTasks = new[]
-            {
-                _idHandler.InitAsync(cancellationToken),
-
-                _categoryEntries.InitAsync(PersistentKeys.CategoryEntriesKey, cancellationToken,
-                    _idHandler.GenerateWithDefaultIds(_defaultCategoriesDatabase.Defaults))
-            };
-
-            await UniTask.WhenAll(initTasks);
+            await _idHandler.InitAsync(cancellationToken);
+            await _categoryEntries.InitAsync(PersistentKeys.CategoryEntriesKey, cancellationToken,
+                _idHandler.GenerateWithDefaultIds(_defaultCategoriesDatabase.Defaults));
 
             foreach (var wordEntry in _defaultWordsDatabase.Defaults)
             {

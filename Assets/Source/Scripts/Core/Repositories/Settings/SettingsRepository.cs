@@ -10,14 +10,13 @@ using CustomUtils.Runtime.UI.Theme.Base;
 using Cysharp.Threading.Tasks;
 using R3;
 using Source.Scripts.Core.Configs;
-using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using UnityEngine;
 
 namespace Source.Scripts.Core.Repositories.Settings
 {
-    internal sealed class SettingsRepository : ISettingsRepository, ILoadable, IDisposable
+    internal sealed class SettingsRepository : ISettingsRepository, IRepository, IDisposable
     {
         public PersistentReactiveProperty<LanguageLevel> LanguageLevel { get; } = new();
         public PersistentReactiveProperty<int> DailyGoal { get; } = new();

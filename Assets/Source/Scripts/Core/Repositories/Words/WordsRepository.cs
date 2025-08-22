@@ -7,9 +7,7 @@ using Cysharp.Threading.Tasks;
 using R3;
 using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Localization.LocalizationTypes;
-using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Base;
-using Source.Scripts.Core.Repositories.Base.DefaultConfig;
 using Source.Scripts.Core.Repositories.Base.Id;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.CooldownSystem;
@@ -19,7 +17,7 @@ using Random = UnityEngine.Random;
 
 namespace Source.Scripts.Core.Repositories.Words
 {
-    internal sealed class WordsRepository : IWordsRepository, ILoadable, IDisposable
+    internal sealed class WordsRepository : IWordsRepository, IRepository, IDisposable
     {
         private readonly ReactiveProperty<EnumArray<LearningState, SortedSet<WordEntry>>> _sortedWordsByState
             = new(new EnumArray<LearningState, SortedSet<WordEntry>>(() => new SortedSet<WordEntry>(_comparer)));
@@ -33,14 +31,14 @@ namespace Source.Scripts.Core.Repositories.Words
         private readonly PersistentReactiveProperty<Dictionary<int, WordEntry>> _wordEntries = new();
         private static readonly WordCooldownComparer _comparer = new();
 
-        private readonly DefaultDataDatabaseBase<WordEntry> _defaultWordsDatabase;
+        private readonly DefaultWordsDatabase _defaultWordsDatabase;
         private readonly IIdHandler<WordEntry> _idHandler;
         private readonly IAppConfig _appConfig;
 
         private DisposableBag _disposable;
 
         internal WordsRepository(
-            DefaultDataDatabaseBase<WordEntry> defaultWordsDatabase,
+            DefaultWordsDatabase defaultWordsDatabase,
             IIdHandler<WordEntry> idHandler,
             IAppConfig appConfig)
         {

@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Source.Scripts.Core.Others;
 
 namespace Source.Scripts.Core.Repositories.Base.DefaultConfig
 {
-    internal interface IDefaultDataDatabase<TEntry>
-    {
-        List<TEntry> Defaults { get; }
-    }
+    internal interface IDefaultDataDatabase : ILoadable { }
 }

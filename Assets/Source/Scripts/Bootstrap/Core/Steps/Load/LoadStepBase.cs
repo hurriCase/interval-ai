@@ -3,18 +3,14 @@ using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.Others;
-using UnityEngine;
 using VContainer;
 
-namespace Source.Scripts.Bootstrap.Core.Steps
+namespace Source.Scripts.Bootstrap.Core.Steps.Load
 {
-    [CreateAssetMenu(
-        fileName = nameof(LoadStep),
-        menuName = InitializationStepsPath + nameof(LoadStep)
-    )]
-    internal sealed class LoadStep : StepBase
+    internal abstract class LoadStepBase<TLoadable> : StepBase
+        where TLoadable : class, ILoadable
     {
-        [Inject] private IReadOnlyList<ILoadable> _entitiesToLoad;
+        [Inject] private IReadOnlyList<TLoadable> _entitiesToLoad;
         [Inject] private IObjectResolver _objectResolver;
 
         protected override async UniTask ExecuteInternal(CancellationToken token)
