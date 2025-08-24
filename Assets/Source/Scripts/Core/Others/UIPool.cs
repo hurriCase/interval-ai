@@ -14,6 +14,9 @@ namespace Source.Scripts.Core.Others
         internal Observable<TPrefab> CreateObservable => _createSubject;
         private readonly Subject<TPrefab> _createSubject;
 
+        internal Observable<PrefabData<TPrefab>> CreateWithSpaceObservable => _createWithSpaceSubject;
+        private readonly Subject<PrefabData<TPrefab>> _createWithSpaceSubject;
+
         private readonly TPrefab _prefab;
         private readonly RectTransform _container;
 
@@ -38,6 +41,7 @@ namespace Source.Scripts.Core.Others
             _objectResolver = objectResolver;
             _pooledItems = new List<TPrefab>();
             _createSubject = new Subject<TPrefab>();
+            _createWithSpaceSubject = spacing && spacingRatio > 0 ? new Subject<PrefabData<TPrefab>>() : null;
             _spacing = spacing;
             _spacingRatio = spacingRatio;
             _aspectMode = aspectMode;
@@ -57,14 +61,29 @@ namespace Source.Scripts.Core.Others
                 _pooledItems.Add(createdItem);
                 _createSubject.OnNext(createdItem);
 
-                if (_spacing && _spacingRatio > 0)
-                    _spacing.CreateSpacing(_spacingRatio, _container, _aspectMode);
+                if (!_spacing || _spacingRatio <= 0)
+                    continue;
+
+                var createdSpacing = _spacing.CreateSpacing(_spacingRatio, _container, _aspectMode);
+                _createWithSpaceSubject.OnNext(new PrefabData<TPrefab>(createdItem, createdSpacing));
             }
 
             for (var i = 0; i < desiredCount && i < _pooledItems.Count; i++)
                 _pooledItems[i].gameObject.SetActive(true);
 
             return _pooledItems;
+        }
+    }
+
+    internal readonly struct PrefabData<TPrefab>
+    {
+        internal TPrefab Prefab { get; }
+        internal AspectRatioFitter Spacing { get; }
+
+        internal PrefabData(TPrefab prefab, AspectRatioFitter spacing)
+        {
+            Prefab = prefab;
+            Spacing = spacing;
         }
     }
 }

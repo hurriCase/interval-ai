@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using CustomUtils.Runtime.Extensions;
 using Cysharp.Text;
 using R3;
@@ -14,7 +15,6 @@ using Source.Scripts.Main.UI.Shared;
 using Source.Scripts.UI.Components;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using VContainer;
 
 namespace Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours
@@ -24,16 +24,11 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours
         [SerializeField] private ComponentWithSpacing<DescriptiveImageBehaviour> _descriptiveImage;
         [SerializeField] private WordProgressBehaviour _wordProgressBehaviour;
 
-        [SerializeField] private SwitchablePair<AccordionComponent, RectTransform> _exampleDisplay;
-        [SerializeField] private TextMeshProUGUI _learningExampleText;
-        [SerializeField] private TextMeshProUGUI _nativeExampleText;
-        [SerializeField] private AspectRatioFitter _accordionSpacing;
-
-        [SerializeField] private ComponentWithSpacing<TextMeshProUGUI> _singleExampleText;
         [SerializeField] private ComponentWithSpacing<TextMeshProUGUI> _transcriptionText;
         [SerializeField] private ComponentWithSpacing<TextMeshProUGUI> _learningWordText;
         [SerializeField] private ComponentWithSpacing<TextMeshProUGUI> _nativeWordText;
         [SerializeField] private ComponentWithSpacing<TextMeshProUGUI> _categoryNameText;
+        [SerializeField] private ComponentWithSpacing<TextMeshProUGUI> _singleExampleText;
 
         [SerializeField] private ButtonComponent _addToCategoryButton;
         [SerializeField] private string _categoryLocalizationKey;
@@ -51,7 +46,6 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours
         internal void Init()
         {
             _wordProgressBehaviour.Init();
-            _exampleDisplay.PositiveComponent.Init();
 
             _categorySelectionService = new CategorySelectionService(_categoryLocalizationKey);
 
@@ -92,8 +86,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours
 
             UpdateCategoryName(wordEntry);
 
-            // var firstExample = wordEntry.Examples.FirstOrDefault();
-            // UpdateExampleDisplay(firstExample.LearningExample, firstExample.NativeExample);
+            var firstExample = wordEntry.Examples?.FirstOrDefault().Learning;
+            UpdateText(_singleExampleText, firstExample);
         }
 
         private void UpdateCategoryName(WordEntry wordEntry)
@@ -109,27 +103,6 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours
             }
 
             UpdateText(_categoryNameText, builder.ToString());
-        }
-
-        private void UpdateExampleDisplay(string learningExample, string nativeExample)
-        {
-            var isLearningValid = learningExample.IsValid();
-            var isNativeValid = nativeExample.IsValid();
-
-            var shouldShowAccordion = isLearningValid && isNativeValid;
-            var isHideBoth = isLearningValid is false && isNativeValid is false;
-
-            _exampleDisplay.Toggle(shouldShowAccordion, isHideBoth);
-            _accordionSpacing.SetActive(shouldShowAccordion);
-
-            var singleExample = isLearningValid ? learningExample : nativeExample;
-            UpdateText(_singleExampleText, singleExample, shouldShowAccordion is false);
-
-            if (shouldShowAccordion is false)
-                return;
-
-            _learningExampleText.text = learningExample;
-            _nativeExampleText.text = nativeExample;
         }
 
         private void UpdateText(

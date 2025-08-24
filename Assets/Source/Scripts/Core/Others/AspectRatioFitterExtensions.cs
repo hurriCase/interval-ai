@@ -6,41 +6,28 @@ namespace Source.Scripts.Core.Others
 {
     internal static class AspectRatioFitterExtensions
     {
-        internal static void CreateWidthSpacing(
+        internal static AspectRatioFitter CreateWidthSpacing(
             this AspectRatioFitter aspectRatioFitter,
             float spacing,
-            RectTransform container)
-        {
-            var createdSpacing = Object.Instantiate(aspectRatioFitter, container);
-            createdSpacing.aspectRatio = spacing;
-            createdSpacing.aspectMode = AspectRatioFitter.AspectMode.WidthControlsHeight;
-        }
+            RectTransform container) =>
+            CreateSpacing(aspectRatioFitter, spacing, container, AspectRatioFitter.AspectMode.WidthControlsHeight);
 
-        internal static void CreateHeightSpacing(
+        internal static AspectRatioFitter CreateHeightSpacing(
             this AspectRatioFitter aspectRatioFitter,
             float spacing,
-            RectTransform container)
-        {
-            var createdSpacing = Object.Instantiate(aspectRatioFitter, container);
-            createdSpacing.aspectRatio = spacing;
-            createdSpacing.aspectMode = AspectRatioFitter.AspectMode.HeightControlsWidth;
-        }
+            RectTransform container) =>
+            CreateSpacing(aspectRatioFitter, spacing, container);
 
-        internal static void CreateSpacing(
+        internal static AspectRatioFitter CreateSpacing(
             this AspectRatioFitter aspectRatioFitter,
             float spacing,
             RectTransform container,
             AspectRatioFitter.AspectMode aspectMode = AspectRatioFitter.AspectMode.HeightControlsWidth)
         {
-            switch (aspectMode)
-            {
-                case AspectRatioFitter.AspectMode.WidthControlsHeight:
-                    CreateWidthSpacing(aspectRatioFitter, spacing, container);
-                    break;
-                case AspectRatioFitter.AspectMode.HeightControlsWidth:
-                    CreateHeightSpacing(aspectRatioFitter, spacing, container);
-                    break;
-            }
+            var createdSpacing = Object.Instantiate(aspectRatioFitter, container);
+            createdSpacing.aspectRatio = spacing;
+            createdSpacing.aspectMode = aspectMode;
+            return createdSpacing;
         }
     }
 }

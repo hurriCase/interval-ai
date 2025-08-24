@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using CustomUtils.Runtime.CustomTypes.Collections;
-using CustomUtils.Runtime.Extensions;
 using R3;
 using R3.Triggers;
 using Source.Scripts.Core.Others;
@@ -32,7 +31,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo
         [SerializeField] private AspectRatioFitter _spacing;
         [SerializeField] private float _additionalItemSpacingRatio;
 
-        [SerializeField] private EnumArray<AdditionalInfoType, AccordionComponent> _sectionAccordions
+        [SerializeField] private EnumArray<AdditionalInfoType, AdditionalSectionItem> _sections
             = new(EnumMode.SkipFirst);
 
         [Inject] private IObjectResolver _objectResolver;
@@ -72,21 +71,36 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo
             where TItem : AccordionItem, IAdditionalInfoItemBase<TTranslation>
             where TTranslation : ITranslation
         {
-            var sectionAccordion = _sectionAccordions[type];
-            sectionAccordion.Init();
+            var section = _sections[type];
+
+            section.Accordion.Init();
+
             var pool = new UIPool<TItem>(
                 additionalInfoItem,
-                sectionAccordion.HiddenContentContainer.RectTransform,
+                section.Accordion.HiddenContentContainer.RectTransform,
                 _spacing,
                 _additionalItemSpacingRatio,
                 AspectRatioFitter.AspectMode.WidthControlsHeight,
                 _objectResolver);
 
-            pool.CreateObservable
-                .Subscribe(sectionAccordion, (item, accordion) => accordion.HiddenContent.Add(item))
-                .RegisterTo(destroyCancellationToken);
+            pool.CreateWithSpaceObservable
+                .SubscribeAndRegister(this, section, static (createdItem, self, sectionData) =>
+                    self.OnCreateSection<TItem, TTranslation>(createdItem, sectionData));
 
             return pool;
+        }
+
+        private void OnCreateSection<TItem, TTranslation>(
+            PrefabData<TItem> createdItem,
+            AdditionalSectionItem sectionItem)
+            where TItem : AccordionItem, IAdditionalInfoItemBase<TTranslation>
+            where TTranslation : ITranslation
+        {
+            sectionItem.Accordion.HiddenContent.Add(createdItem.Prefab);
+            sectionItem.SizeCopier.AddObservedTarget(createdItem.Prefab.RectTransform);
+            sectionItem.SizeCopier.AddSourceToSum(createdItem.Prefab.RectTransform);
+            if (createdItem.Spacing.TryGetComponent<RectTransform>(out var spacingRect))
+                sectionItem.SizeCopier.AddSourceToSum(spacingRect);
         }
 
         internal void SetParameters(WordEntry wordEntry)
@@ -120,10 +134,10 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo
             where TItem : MonoBehaviour, IAdditionalInfoItemBase<TTranslation>
             where TTranslation : ITranslation
         {
-            var accordionComponent = _sectionAccordions[type];
+            var section = _sections[type];
             if (translations is null || translations.Count == 0)
             {
-                accordionComponent.SetActive(false);
+                section.SetActive(false);
                 return;
             }
 
@@ -140,7 +154,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo
                 index++;
             }
 
-            accordionComponent.SetActive(true);
+            section.SetActive(true);
         }
     }
 }

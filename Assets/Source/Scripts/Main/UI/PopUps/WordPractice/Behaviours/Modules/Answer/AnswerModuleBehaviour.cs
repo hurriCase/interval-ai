@@ -31,12 +31,21 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Answer
 
             _hiddenWord.text = currentWord.Word.GetHiddenText(practiceSettingsRepository);
 
-            var examplesCount = currentWord.Examples.Count;
+            TryCreateExamples();
+        }
+
+        private void TryCreateExamples()
+        {
+            var examples = currentWord.Examples;
+            if (examples is null || examples.Count == 0)
+                return;
+
+            var examplesCount = examples.Count;
             _examplesPool.EnsureCount(examplesCount);
 
             for (var i = 0; i < examplesCount; i++)
             {
-                var example = currentWord.Examples[i];
+                var example = examples[i];
                 var item = _examplesPool.PooledItems[i];
 
                 item.AccordionComponent.Init();

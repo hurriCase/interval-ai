@@ -87,11 +87,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4929b63fc88438c8af87532963aed20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.SizeCopierComponent
-  _dimensionType: 2
-  _targetForObserving: {fileID: 4293143162516087431}
-  _sources:
+  _dimensionToCopy: 2
+  _observedTargets:
   - {fileID: 4293143162516087431}
-  _target: {fileID: 764702767229584654}
+  _sourcesToSum:
+  - {fileID: 4293143162516087431}
 --- !u!1001 &1497281467452537549
 PrefabInstance:
   m_ObjectHideFlags: 0

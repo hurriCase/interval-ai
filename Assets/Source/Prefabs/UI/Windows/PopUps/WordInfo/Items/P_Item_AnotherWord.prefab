@@ -50,11 +50,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4929b63fc88438c8af87532963aed20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.SizeCopierComponent
-  _dimensionType: 2
-  _targetForObserving: {fileID: 6742997414820233966}
-  _sources:
+  _dimensionToCopy: 2
+  _observedTargets:
   - {fileID: 6742997414820233966}
-  _target: {fileID: 6293452596684462620}
+  - {fileID: 1330266183271358283}
+  _sourcesToSum:
+  - {fileID: 6742997414820233966}
+  - {fileID: 1330266183271358283}
 --- !u!1001 &196396252036032252
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -177,7 +179,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4550565748832144566, guid: 79b062eab03ed85479d4eb1c3d83c8d6, type: 3}
       propertyPath: m_Pivot.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4550565748832144566, guid: 79b062eab03ed85479d4eb1c3d83c8d6, type: 3}
       propertyPath: m_AnchorMax.x
@@ -323,12 +325,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4929b63fc88438c8af87532963aed20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.SizeCopierComponent
-  _dimensionType: 2
-  _targetForObserving: {fileID: 1330266183271358283}
-  _sources:
+  _dimensionToCopy: 2
+  _observedTargets:
   - {fileID: 1330266183271358283}
-  - {fileID: 8748890171354329912}
-  _target: {fileID: 1350538271982116060}
+  - {fileID: 6293452596684462620}
+  _sourcesToSum:
+  - {fileID: 6293452596684462620}
+  - {fileID: 1330266183271358283}
 --- !u!225 &6214841673361139357
 CanvasGroup:
   m_ObjectHideFlags: 0
