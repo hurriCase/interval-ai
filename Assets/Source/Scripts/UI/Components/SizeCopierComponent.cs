@@ -14,7 +14,7 @@ namespace Source.Scripts.UI.Components
         [SerializeField] private List<RectTransform> _observedTargets;
         [SerializeField] private List<RectTransform> _sourcesToSum;
 
-        private void Awake()
+        private void Start()
         {
             if (_dimensionToCopy == DimensionType.None)
                 return;

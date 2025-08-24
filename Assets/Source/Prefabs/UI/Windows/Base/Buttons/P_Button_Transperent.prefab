@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4575103487669410482}
     m_Modifications:
+    - target: {fileID: 833355650617051156, guid: 1c73538d1d0d9a844be8baca22e7b9d2, type: 3}
+      propertyPath: targetComponent
+      value: 
+      objectReference: {fileID: 6309868420782937078}
     - target: {fileID: 4592909722826283005, guid: 1c73538d1d0d9a844be8baca22e7b9d2, type: 3}
       propertyPath: m_Name
       value: P_Text_Adaptive_
@@ -90,7 +94,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8279574480887482935, guid: 1c73538d1d0d9a844be8baca22e7b9d2, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -3.7114282
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8279574480887482935, guid: 1c73538d1d0d9a844be8baca22e7b9d2, type: 3}
       propertyPath: m_SizeDelta.y
@@ -149,6 +153,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c73538d1d0d9a844be8baca22e7b9d2, type: 3}
+--- !u!114 &6309868420782937078 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5604511646115717401, guid: 1c73538d1d0d9a844be8baca22e7b9d2, type: 3}
+  m_PrefabInstance: {fileID: 1897737553855689455}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2025faa740564534a596c7b191dec6b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.AdaptiveTextMeshProUGUI
 --- !u!224 &7543788172166871256 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8279574480887482935, guid: 1c73538d1d0d9a844be8baca22e7b9d2, type: 3}
@@ -286,6 +301,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6874697588608768504, guid: 98ff577d8c750994b9d022716b297e3d, type: 3}
+      propertyPath: targetComponent
+      value: 
+      objectReference: {fileID: 4953403032040187404}
     - target: {fileID: 9030513201774790734, guid: 98ff577d8c750994b9d022716b297e3d, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -300,10 +319,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9030513201774790734, guid: 98ff577d8c750994b9d022716b297e3d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7543788172166871256}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4527347005704868102, guid: 98ff577d8c750994b9d022716b297e3d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1206903734686738220}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98ff577d8c750994b9d022716b297e3d, type: 3}
 --- !u!224 &4575103487669410482 stripped
 RectTransform:
@@ -321,24 +337,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &9005094334145168378 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4527347005704868102, guid: 98ff577d8c750994b9d022716b297e3d, type: 3}
-  m_PrefabInstance: {fileID: 4768427485231354620}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1206903734686738220
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9005094334145168378}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da34b48bf24b4543a6d5c4c72b73d9a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.DynamicRatioLayoutElement
-  _adaptiveTexts: []
-  _staticDimensionType: 2
-  _staticReferenceSize: 34
-  _otherContentReferenceSize: 24
