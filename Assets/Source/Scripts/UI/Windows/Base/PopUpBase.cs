@@ -2,7 +2,6 @@
 using Cysharp.Threading.Tasks;
 using PrimeTween;
 using R3;
-using Source.Scripts.Core.Others;
 using Source.Scripts.UI.Components;
 using UnityEngine;
 

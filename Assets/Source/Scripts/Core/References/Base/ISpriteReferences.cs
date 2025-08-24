@@ -3,7 +3,7 @@ using Source.Scripts.Core.Repositories.Settings.Base;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace Source.Scripts.Core.Sprites
+namespace Source.Scripts.Core.References.Base
 {
     internal interface ISpriteReferences
     {

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading;
+using CustomUtils.Runtime.AddressableSystem;
 using CustomUtils.Runtime.Storage;
 using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.Repositories.Base;
 using Source.Scripts.Core.Repositories.User.Base;
-using Source.Scripts.Core.Sprites;
 
 namespace Source.Scripts.Core.Repositories.User
 {

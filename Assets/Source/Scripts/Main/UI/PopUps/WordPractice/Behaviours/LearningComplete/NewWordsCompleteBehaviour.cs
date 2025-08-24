@@ -1,6 +1,6 @@
-﻿using R3;
+﻿using CustomUtils.Runtime.Extensions;
+using R3;
 using Source.Scripts.Core.Localization.LocalizationTypes;
-using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.UI.Components;
 using UnityEngine;

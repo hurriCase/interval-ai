@@ -1,5 +1,5 @@
-﻿using CustomUtils.Runtime.Storage;
-using Source.Scripts.Core.Sprites;
+﻿using CustomUtils.Runtime.AddressableSystem;
+using CustomUtils.Runtime.Storage;
 
 namespace Source.Scripts.Core.Repositories.User.Base
 {

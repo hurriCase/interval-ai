@@ -4,7 +4,6 @@ using CustomUtils.Runtime.CustomBehaviours;
 using CustomUtils.Runtime.Extensions;
 using PrimeTween;
 using R3;
-using Source.Scripts.Core.Others;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -53,35 +52,43 @@ namespace Source.Scripts.UI.Components
 
             var sequence = Sequence.Create();
 
-            if (_useExpandButtonAnimation)
-                sequence.Chain(RotateExpandButtonTween(isInstant ? 0f : _expandButtonAnimationDuration));
+            TryAddButtonAnimation(ref sequence, isInstant);
 
             _currentAnimation = sequence
                 .Group(AnimateHiddenContentTweens(isExpanded, isInstant ? 0f : _hiddenElementsAnimationDuration));
         }
 
-        private Tween RotateExpandButtonTween(float duration)
+        private void TryAddButtonAnimation(ref Sequence sequence, bool isInstant)
         {
-            var targetZ = _isExpanded ? _expandedRotationZ : _collapsedRotationZ;
+            if (_useExpandButtonAnimation is false)
+                return;
 
-            var deltaZ = Mathf.DeltaAngle(_currentRotationZ, targetZ);
-            var finalTargetZ = _currentRotationZ + deltaZ;
+            if (isInstant)
+            {
+                SetButtonRotation(CalculateFinalZ());
+                return;
+            }
 
-            return Tween.Custom(this,
+            var buttonAnimation = Tween.Custom(this,
                 _currentRotationZ,
-                finalTargetZ,
-                duration,
+                CalculateFinalZ(),
+                _expandButtonAnimationDuration,
                 (component, rotationZ) => component.SetButtonRotation(rotationZ));
+
+            sequence.Chain(buttonAnimation);
         }
 
-        private void SetButtonRotation(float rotationZ)
+        private void SetHiddenContent(bool isExpanded, float endValue)
         {
-            var buttonTransform = ExpandButton.transform;
-            var euler = buttonTransform.eulerAngles;
-            euler.z = rotationZ;
-            buttonTransform.eulerAngles = euler;
+            if (isExpanded)
+                HiddenContentContainer.CanvasGroup.Show();
 
-            _currentRotationZ = rotationZ;
+            var scale = HiddenContentContainer.RectTransform.localScale;
+            scale.y = endValue;
+            HiddenContentContainer.RectTransform.localScale = scale;
+
+            HiddenContentContainer.CanvasGroup.alpha = endValue;
+            UpdateContainerHeight();
         }
 
         private Sequence AnimateHiddenContentTweens(bool isExpanded, float duration) =>
@@ -98,6 +105,16 @@ namespace Source.Scripts.UI.Components
                 .Group(Tween.Custom(this, 0f, 1f, duration,
                     (component, _) => component.UpdateContainerHeight()));
 
+        private void SetButtonRotation(float rotationZ)
+        {
+            var buttonTransform = ExpandButton.transform;
+            var euler = buttonTransform.eulerAngles;
+            euler.z = rotationZ;
+            buttonTransform.eulerAngles = euler;
+
+            _currentRotationZ = rotationZ;
+        }
+
         private void UpdateContainerHeight()
         {
             var hiddenRectTransform = HiddenContentContainer.RectTransform;
@@ -106,6 +123,14 @@ namespace Source.Scripts.UI.Components
             RectTransform.sizeDelta = new Vector2(RectTransform.sizeDelta.x, totalHeight);
 
             LayoutRebuilder.ForceRebuildLayoutImmediate(RectTransform.parent as RectTransform);
+        }
+
+        private float CalculateFinalZ()
+        {
+            var targetZ = _isExpanded ? _expandedRotationZ : _collapsedRotationZ;
+
+            var deltaZ = Mathf.DeltaAngle(_currentRotationZ, targetZ);
+            return _currentRotationZ + deltaZ;
         }
     }
 }

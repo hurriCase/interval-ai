@@ -1,4 +1,4 @@
-﻿using Source.Scripts.Core.Loader;
+﻿using CustomUtils.Runtime.AddressableSystem;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.Shared;

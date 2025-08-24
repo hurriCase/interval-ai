@@ -1,9 +1,9 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using CustomUtils.Runtime.Extensions;
+using Cysharp.Threading.Tasks;
 using PrimeTween;
 using R3;
 using R3.Triggers;
 using Source.Scripts.Core.Localization.LocalizationTypes;
-using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice;
 using Source.Scripts.UI.Components;

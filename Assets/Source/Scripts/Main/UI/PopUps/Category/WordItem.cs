@@ -1,6 +1,6 @@
-﻿using Cysharp.Text;
+﻿using CustomUtils.Runtime.Extensions;
+using Cysharp.Text;
 using R3;
-using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.PopUps.WordInfo;

@@ -1,6 +1,6 @@
-﻿using R3;
+﻿using CustomUtils.Runtime.Extensions;
+using R3;
 using Source.Scripts.Core.Localization.LocalizationTypes;
-using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Words.Timer;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.UI.Components;

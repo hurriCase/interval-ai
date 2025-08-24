@@ -627,7 +627,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
         [MenuItem("--Project--/Scripting Symbols/Toggle Is RectTransform Extended Enabled", true)]
         private static bool ValidateToggleSymbol_IS_RECTTRANSFORM_EXTENDED_ENABLED()
         {
-            Menu.SetChecked("--Project--/Scripting Symbols/Toggle Is RectTransform Extended Enabled", ScriptingSymbolHandler.IsSymbolEnabled("ScriptingSymbol_IS_RECTTRANSFORM_EXTENDED_ENABLED", false));
+            Menu.SetChecked("--Project--/Scripting Symbols/Toggle Is RectTransform Extended Enabled", ScriptingSymbolHandler.IsSymbolEnabled("ScriptingSymbol_IS_RECTTRANSFORM_EXTENDED_ENABLED"));
             return true;
         }
 
@@ -640,7 +640,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
         [MenuItem("--Project--/Scripting Symbols/Toggle Is Auto Stretch RectTransform", true)]
         private static bool ValidateToggleSymbol_IS_AUTO_STRETCH_RECTTRANSFORM()
         {
-            Menu.SetChecked("--Project--/Scripting Symbols/Toggle Is Auto Stretch RectTransform", ScriptingSymbolHandler.IsSymbolEnabled("ScriptingSymbol_IS_AUTO_STRETCH_RECTTRANSFORM", false));
+            Menu.SetChecked("--Project--/Scripting Symbols/Toggle Is Auto Stretch RectTransform", ScriptingSymbolHandler.IsSymbolEnabled("ScriptingSymbol_IS_AUTO_STRETCH_RECTTRANSFORM"));
             return true;
         }
 
@@ -653,7 +653,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
         [MenuItem("--Project--/Scripting Symbols/Toggle Addressables Log All", true)]
         private static bool ValidateToggleSymbol_ADDRESSABLES_LOG_ALL()
         {
-            Menu.SetChecked("--Project--/Scripting Symbols/Toggle Addressables Log All", ScriptingSymbolHandler.IsSymbolEnabled("ScriptingSymbol_ADDRESSABLES_LOG_ALL", false));
+            Menu.SetChecked("--Project--/Scripting Symbols/Toggle Addressables Log All", ScriptingSymbolHandler.IsSymbolEnabled("ScriptingSymbol_ADDRESSABLES_LOG_ALL"));
             return true;
         }
 
@@ -666,7 +666,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
         [MenuItem("--Project--/Scripting Symbols/Toggle Is Debug", true)]
         private static bool ValidateToggleSymbol_IS_DEBUG()
         {
-            Menu.SetChecked("--Project--/Scripting Symbols/Toggle Is Debug", ScriptingSymbolHandler.IsSymbolEnabled("ScriptingSymbol_IS_DEBUG", false));
+            Menu.SetChecked("--Project--/Scripting Symbols/Toggle Is Debug", ScriptingSymbolHandler.IsSymbolEnabled("ScriptingSymbol_IS_DEBUG"));
             return true;
         }
     }

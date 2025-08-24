@@ -1,7 +1,7 @@
-﻿using Cysharp.Text;
+﻿using CustomUtils.Runtime.Extensions;
+using Cysharp.Text;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Localization.LocalizationTypes;
-using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.User.Base;
 using Source.Scripts.Main.UI.Screens.LearningWords.Behaviours;
 using Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.CategoryPreview;

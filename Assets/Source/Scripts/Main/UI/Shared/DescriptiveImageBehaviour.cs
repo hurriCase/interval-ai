@@ -1,5 +1,4 @@
-﻿using Source.Scripts.Core.Loader;
-using Source.Scripts.Core.Sprites;
+﻿using CustomUtils.Runtime.AddressableSystem;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;

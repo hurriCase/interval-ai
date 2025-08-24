@@ -1,6 +1,6 @@
 ﻿using Eflatun.SceneReference;
 
-namespace Source.Scripts.Core.Scenes
+namespace Source.Scripts.Core.References.Base
 {
     internal interface ISceneReferences
     {

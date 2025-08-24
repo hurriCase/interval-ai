@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using CustomUtils.Runtime.CustomTypes.Collections;
+using CustomUtils.Runtime.Extensions;
 using R3;
 using Source.Scripts.Core.Localization.Base;
-using Source.Scripts.Core.Others;
 
 namespace Source.Scripts.Main.UI.PopUps.Selection
 {

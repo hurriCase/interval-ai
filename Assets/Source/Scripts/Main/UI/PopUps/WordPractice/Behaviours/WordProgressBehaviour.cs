@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Source.Scripts.Core.Others;
+using CustomUtils.Runtime.Extensions;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.Shared;

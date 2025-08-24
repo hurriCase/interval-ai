@@ -1,5 +1,5 @@
-﻿using R3;
-using Source.Scripts.Core.Others;
+﻿using CustomUtils.Runtime.Extensions;
+using R3;
 using TMPro;
 using UnityEngine;
 

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using CustomUtils.Runtime.AddressableSystem;
 using MemoryPack;
 using Source.Scripts.Core.Repositories.Words.Base;
-using Source.Scripts.Core.Sprites;
 
 namespace Source.Scripts.Core.Repositories.Words.Word
 {

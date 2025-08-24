@@ -1,12 +1,11 @@
-﻿using CustomUtils.Runtime.Extensions;
+﻿using CustomUtils.Runtime.AddressableSystem;
+using CustomUtils.Runtime.Extensions;
 using Cysharp.Threading.Tasks;
 using R3;
 using R3.Triggers;
-using Source.Scripts.Core.Loader;
 using Source.Scripts.Core.Localization.Base;
-using Source.Scripts.Core.Others;
+using Source.Scripts.Core.References.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
-using Source.Scripts.Core.Sprites;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;

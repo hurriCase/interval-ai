@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
+using CustomUtils.Runtime.AddressableSystem;
 using MemoryPack;
 using Source.Scripts.Core.Repositories.Base.DefaultConfig;
 using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
-using Source.Scripts.Core.Sprites;
 
 namespace Source.Scripts.Core.Repositories.Categories.Category
 {

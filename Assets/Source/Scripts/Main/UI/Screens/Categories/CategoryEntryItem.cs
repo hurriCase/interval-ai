@@ -1,8 +1,8 @@
-﻿using CustomUtils.Runtime.Extensions;
+﻿using CustomUtils.Runtime.AddressableSystem;
+using CustomUtils.Runtime.Extensions;
 using Cysharp.Threading.Tasks;
 using R3;
 using R3.Triggers;
-using Source.Scripts.Core.Loader;
 using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Core.Repositories.Categories.Category;
 using Source.Scripts.Main.UI.Base;

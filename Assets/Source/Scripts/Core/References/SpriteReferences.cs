@@ -1,9 +1,10 @@
 ﻿using CustomUtils.Runtime.CustomTypes.Collections;
+using Source.Scripts.Core.References.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace Source.Scripts.Core.Sprites
+namespace Source.Scripts.Core.References
 {
     internal sealed class SpriteReferences : ScriptableObject, ISpriteReferences
     {

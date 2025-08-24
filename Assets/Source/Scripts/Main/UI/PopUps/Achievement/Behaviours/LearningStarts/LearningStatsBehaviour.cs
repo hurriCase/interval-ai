@@ -1,5 +1,5 @@
 ﻿using CustomUtils.Runtime.CustomTypes.Collections;
-using Source.Scripts.Core.Others;
+using CustomUtils.Runtime.Extensions;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.GraphProgress;

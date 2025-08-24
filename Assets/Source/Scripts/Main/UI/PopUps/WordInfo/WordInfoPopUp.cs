@@ -1,11 +1,16 @@
 ﻿using System.Collections.Generic;
 using CustomUtils.Runtime.CustomTypes.Collections;
+using CustomUtils.Runtime.Extensions;
 using R3;
 using R3.Triggers;
+using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Others;
+using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
+using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours;
 using Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours.AdditionalItems;
+using Source.Scripts.Main.UI.PopUps.WordPractice;
 using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base;
 using UnityEngine;
@@ -34,6 +39,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo
         [SerializeField] private EnumArray<AdditionalInfoType, AdditionalSectionItem> _sections
             = new(EnumMode.SkipFirst);
 
+        [Inject] private IWindowsController _windowsController;
+        [Inject] private IWordsRepository _wordsRepository;
         [Inject] private IObjectResolver _objectResolver;
 
         private UIPool<TranslatableInfoItem> _exampleInfoPool;
@@ -101,30 +108,6 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo
             sectionItem.SizeCopier.AddSourceToSum(createdItem.Prefab.RectTransform);
             if (createdItem.Spacing.TryGetComponent<RectTransform>(out var spacingRect))
                 sectionItem.SizeCopier.AddSourceToSum(spacingRect);
-        }
-
-        internal void SetParameters(WordEntry wordEntry)
-        {
-            _wordInfoCardBehaviour.UpdateView(wordEntry);
-
-            _currentWordEntry = wordEntry;
-
-            CreateInfoSections();
-        }
-
-        private void UpdateContainerHeight()
-        {
-            _cardContainer.sizeDelta = new Vector2(_cardContainer.sizeDelta.x, _cardContent.rect.height);
-
-            LayoutRebuilder.ForceRebuildLayoutImmediate(_cardContainer.parent as RectTransform);
-        }
-
-        private void CreateInfoSections()
-        {
-            CreateInfoSection(_exampleInfoPool, _currentWordEntry.Examples, AdditionalInfoType.Example);
-            CreateInfoSection(_translationVariantsPool, _currentWordEntry.TranslationVariants, AdditionalInfoType.TranslationVariant);
-            CreateInfoSection(_synonymPool, _currentWordEntry.Synonyms, AdditionalInfoType.Synonym);
-            CreateInfoSection(_grammarPool, _currentWordEntry.Grammar, AdditionalInfoType.Grammar);
         }
 
         private void CreateInfoSection<TItem, TTranslation>(

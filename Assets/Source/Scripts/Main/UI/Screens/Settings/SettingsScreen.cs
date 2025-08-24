@@ -1,5 +1,5 @@
-﻿using R3;
-using Source.Scripts.Core.Others;
+﻿using CustomUtils.Runtime.Extensions;
+using R3;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.Screens.Settings.Behaviours;
 using Source.Scripts.UI.Components;

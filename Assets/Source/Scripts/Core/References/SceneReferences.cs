@@ -1,7 +1,8 @@
 ﻿using Eflatun.SceneReference;
+using Source.Scripts.Core.References.Base;
 using UnityEngine;
 
-namespace Source.Scripts.Core.Scenes
+namespace Source.Scripts.Core.References
 {
     internal sealed class SceneReferences : ScriptableObject, ISceneReferences
     {

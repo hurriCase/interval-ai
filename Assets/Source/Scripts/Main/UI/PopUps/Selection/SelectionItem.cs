@@ -3,7 +3,6 @@ using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Localization;
 using R3;
 using Source.Scripts.Core.Localization.Base;
-using Source.Scripts.Core.Others;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.UI.Components;
 using TMPro;
