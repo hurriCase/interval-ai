@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -27,7 +27,7 @@ namespace CodeStage.Maintainer.Issues
 
 		internal static bool operationCanceled;
 
-		internal static CSSceneTools.OpenSceneResult lastOpenSceneResult;
+		internal static CSSceneUtils.OpenSceneResult lastOpenSceneResult;
 
 		private static int recordsToFixCount;
 
@@ -41,11 +41,11 @@ namespace CodeStage.Maintainer.Issues
 		/// Starts issues search in opened scenes excluding file assets and project settings.
 		/// </summary>
 		/// Changes issues search settings and calls StartSearch() after that.
-		/// <param name="showResults">Shows results in the %Maintainer window if true.</param>
+		/// <param name="showResults">Shows results in the Maintainer window if true.</param>
 		/// <returns>Array of IssueRecords in case you wish to manually iterate over them and make custom report.</returns>
 		public static IssueRecord[] StartSearchInOpenedScenes(bool showResults)
 		{
-			ProjectSettings.Issues.scenesSelection = IssuesFinderSettings.ScenesSelection.OpenedScenesOnly;
+			ProjectSettings.Issues.scenesSelection = IssuesFinderSettings.ScenesSelection.OpenedOnly;
 			ProjectSettings.Issues.lookInScenes = true;
 			ProjectSettings.Issues.lookInAssets = false;
 			ProjectSettings.Issues.scanGameObjects = true;
@@ -55,10 +55,10 @@ namespace CodeStage.Maintainer.Issues
 		}
 		
 		/// <summary>
-		/// Starts issues search and generates report. %Maintainer window is not shown.
-		/// Useful when you wish to integrate %Maintainer in your build pipeline.
+		/// Starts issues search and generates report. Maintainer window is not shown.
+		/// Useful when you wish to integrate Maintainer in your build pipeline.
 		/// </summary>
-		/// <returns>%Issues report, similar to the exported report from the %Maintainer window.</returns>
+		/// <returns>Issues report, similar to the exported report from the Maintainer window.</returns>
 		public static string SearchAndReport()
 		{
 			var foundIssues = StartSearch(false);
@@ -68,7 +68,7 @@ namespace CodeStage.Maintainer.Issues
 		/// <summary>
 		/// Starts search with current settings.
 		/// </summary>
-		/// <param name="showResults">Shows results in the %Maintainer window if true.</param>
+		/// <param name="showResults">Shows results in the Maintainer window if true.</param>
 		/// <returns>Array of IssueRecords in case you wish to manually iterate over them and make custom report.</returns>
 		public static IssueRecord[] StartSearch(bool showResults)
 		{
@@ -79,9 +79,9 @@ namespace CodeStage.Maintainer.Issues
 				return null;
 			}
 			
-			if (ProjectSettings.Issues.lookInScenes && ProjectSettings.Issues.scenesSelection != IssuesFinderSettings.ScenesSelection.OpenedScenesOnly)
+			if (ProjectSettings.Issues.lookInScenes && ProjectSettings.Issues.scenesSelection != IssuesFinderSettings.ScenesSelection.OpenedOnly)
             {
-				if (!CSSceneTools.SaveCurrentModifiedScenes(true))
+				if (!CSSceneUtils.SaveCurrentModifiedScenes(true))
 				{
 					Debug.Log(Maintainer.ConstructLog("Issues search canceled by user!"));
 					return null;
@@ -147,7 +147,7 @@ namespace CodeStage.Maintainer.Issues
 		/// Starts fix of the issues found with StartSearch() method.
 		/// </summary>
 		/// <param name="recordsToFix">Pass records you wish to fix here or leave null to let it load last search results.</param>
-		/// <param name="showResults">Shows results in the %Maintainer window if true.</param>
+		/// <param name="showResults">Shows results in the Maintainer window if true.</param>
 		/// <param name="showConfirmation">Shows confirmation dialog before performing fix if true.</param>
 		/// <returns>Array of IssueRecords which were fixed up.</returns>
 		public static IssueRecord[] StartFix(IssueRecord[] recordsToFix = null, bool showResults = true,
@@ -178,7 +178,7 @@ namespace CodeStage.Maintainer.Issues
 				return null;
 			}
 
-			if (!CSSceneTools.SaveCurrentModifiedScenes(false))
+			if (!CSSceneUtils.SaveCurrentModifiedScenes(false))
 			{
 				Debug.Log(Maintainer.ConstructLog("Issues batch fix canceled by user!"));
 				return null;
@@ -237,8 +237,8 @@ namespace CodeStage.Maintainer.Issues
 
 				if (lastOpenSceneResult != null)
 				{
-					CSSceneTools.SaveScene(lastOpenSceneResult.scene);
-					CSSceneTools.CloseOpenedSceneIfNeeded(lastOpenSceneResult);
+					CSSceneUtils.SaveScene(lastOpenSceneResult.scene);
+					CSSceneUtils.CloseOpenedSceneIfNeeded(lastOpenSceneResult);
 					lastOpenSceneResult = null;
 				}
 

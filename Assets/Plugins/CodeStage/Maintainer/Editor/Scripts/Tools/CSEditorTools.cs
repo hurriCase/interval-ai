@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -19,7 +19,7 @@ namespace CodeStage.Maintainer.Tools
 		private static readonly string[] sizes = { "B", "KB", "MB", "GB" };
 		private static TextInfo textInfo;
 
-		internal static CSSceneTools.OpenSceneResult lastRevealSceneOpenResult;
+		internal static CSSceneUtils.OpenSceneResult lastRevealSceneOpenResult;
 
 		public static string FormatBytes(double bytes)
 		{

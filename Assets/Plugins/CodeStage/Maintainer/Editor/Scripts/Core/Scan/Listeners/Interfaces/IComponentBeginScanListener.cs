@@ -1,12 +1,12 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
 namespace CodeStage.Maintainer.Core.Scan
 {
-	internal interface IComponentBeginScanListener<T> where T : IScanListenerResults
+	public interface IComponentBeginScanListener<T> where T : IScanListenerResults
 	{
 		void ComponentBegin(T results, ComponentLocation location);
 	}

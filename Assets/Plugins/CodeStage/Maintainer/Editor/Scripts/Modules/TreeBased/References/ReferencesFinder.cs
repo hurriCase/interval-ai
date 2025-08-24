@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -34,7 +34,7 @@ namespace CodeStage.Maintainer.References
 		/// <summary>
 		/// Finds references for current Project View selection.
 		/// </summary>
-		/// <param name="showResults">Shows results in %Maintainer window if true.</param>
+		/// <param name="showResults">Shows results in Maintainer window if true.</param>
 		/// <returns>Array of ProjectReferenceItem for the TreeView buildup or manual parsing.</returns>
 		public static ProjectReferenceItem[] FindSelectedAssetsReferences(bool showResults = true)
 		{
@@ -46,7 +46,7 @@ namespace CodeStage.Maintainer.References
 		/// Finds references for specific asset.
 		/// </summary>
 		/// <param name="asset">Specific asset.</param>
-		/// <param name="showResults">Shows results in %Maintainer window if true.</param>
+		/// <param name="showResults">Shows results in Maintainer window if true.</param>
 		/// <returns>Array of ProjectReferenceItem for the TreeView buildup or manual parsing.</returns>
 		public static ProjectReferenceItem[] FindAssetReferences(string asset, bool showResults = true)
 		{
@@ -57,7 +57,7 @@ namespace CodeStage.Maintainer.References
 		/// Finds references for specific assets.
 		/// </summary>
 		/// <param name="assets">Specific assets.</param>
-		/// <param name="showResults">Shows results in %Maintainer window if true.</param>
+		/// <param name="showResults">Shows results in Maintainer window if true.</param>
 		/// <returns>Array of ProjectReferenceItem for the TreeView buildup or manual parsing.</returns>
 		public static ProjectReferenceItem[] FindAssetsReferences(string[] assets, bool showResults = true)
 		{
@@ -93,7 +93,7 @@ namespace CodeStage.Maintainer.References
 		/// <summary>
 		/// Returns references of all assets at the project, e.g. where each asset is referenced.
 		/// </summary>
-		/// <param name="showResults">Shows results in %Maintainer window if true.</param>
+		/// <param name="showResults">Shows results in Maintainer window if true.</param>
 		/// <returns>Array of ProjectReferenceItem for the TreeView buildup or manual parsing.</returns>
 		public static ProjectReferenceItem[] FindAllAssetsReferences(bool showResults = true)
 		{
@@ -118,7 +118,7 @@ namespace CodeStage.Maintainer.References
 		/// </summary>
 		/// <param name="objects">Target objects you wish to look references for (Game Objects, Components)</param>
 		/// <param name="checkAllComponentsOfGameObjects">Includes all Components of passed GameObjects to the references search if True is passed.</param>
-		/// <param name="showResults">Shows results in %Maintainer window if true.</param>
+		/// <param name="showResults">Shows results in Maintainer window if true.</param>
 		/// <returns>Array of HierarchyReferenceItem for the TreeView buildup or manual parsing.</returns>
 		public static HierarchyReferenceItem[] FindObjectsReferencesInHierarchy(Object[] objects, bool checkAllComponentsOfGameObjects = false, bool showResults = true)
 		{

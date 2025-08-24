@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -57,7 +57,7 @@ namespace CodeStage.Maintainer.UI
 		public static void ShowForScreenshot()
 		{
 			var window = Create();
-			window.minSize = new Vector2(1024, 768);
+			window.minSize = new Vector2(768, 768);
 		}
 
 		public static void ShowIssues()

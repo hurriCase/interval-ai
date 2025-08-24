@@ -1,6 +1,6 @@
 ﻿#region copyright
 // ---------------------------------------------------------------
-//  Copyright (C) Dmitriy Yukhanov - focus [https://codestage.net]
+//  Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // ---------------------------------------------------------------
 #endregion
 
@@ -12,27 +12,11 @@ namespace CodeStage.Maintainer.Core.Dependencies
 	using UnityEngine;
 	using Object = UnityEngine.Object;
 
-#if !UNITY_2019_2_OR_NEWER
-	[InitializeOnLoad]
-#endif
 	// ReSharper disable once UnusedType.Global since it's used from TypeCache
 	internal class AddressableAssetGroupParser : DependenciesParser
 	{
-		public override Type Type
-		{
-			get
-			{
-				return null;
-			}
-		}
+		public override Type Type => null;
 
-#if !UNITY_2019_2_OR_NEWER
-		static AddressableAssetGroupParser()
-		{
-			AssetDependenciesSearcher.AddInternalDependencyParser(new AddressableAssetGroupParser());
-		}
-#endif
-		
 		public override IList<string> GetDependenciesGUIDs(AssetInfo asset)
 		{
 			// checking by name since addressables are in optional external package

@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -62,24 +62,72 @@ namespace CodeStage.Maintainer.UI
 			base.PerformPostRefreshActions();
 			resultsStats.Update(filteredRecords);
 		}
-
-		protected override void DrawPagesRightHeader()
+		
+		protected override void DrawEmptyPlaceholderScanButton()
 		{
-			base.DrawPagesRightHeader();
+			using (new GUILayout.HorizontalScope())
+			{
+				GUILayout.FlexibleSpace();
+				using (new GUILayout.VerticalScope())
+				{
+					GUILayout.Space(10);
+					if (UIHelpers.ImageButton(ScanButtonLabel, ScanButtonIcon, GUILayout.Width(100)))
+					{
+						EditorApplication.delayCall += StartSearch;
+					}
 
-			GUILayout.Label("Sorting:", GUILayout.ExpandWidth(false));
+					if (IsLeftPanelCollapsed)
+					{
+						GUILayout.Space(5);
+						if (UIHelpers.ImageButton("Settings", CSEditorIcons.Settings, GUILayout.Width(100)))
+						{
+							EditorApplication.delayCall += () =>
+							{
+								IsLeftPanelCollapsed = false;
+							};
+						}
+					}
+				}
+				GUILayout.FlexibleSpace();
+			}
+		}
+		
+		protected override void DrawCollectionPagesCollapsedToolbar()
+		{
+			base.DrawCollectionPagesCollapsedToolbar();
+			
+			if (UIHelpers.ImageButton(collapsedIcons[0].tooltip, collapsedIcons[0].image, EditorStyles.toolbarButton,
+					GUILayout.Width(UIHelpers.ToolbarButtonWidth)))
+			{
+				EditorApplication.delayCall += StartSearch;
+			}
+			
+			if (UIHelpers.ImageButton(collapsedIcons[1].tooltip, collapsedIcons[1].image, EditorStyles.toolbarButton,
+					GUILayout.Width(UIHelpers.ToolbarButtonWidth)))
+			{
+				EditorApplication.delayCall += StartClean;
+			}
+		}
 
+		protected override void DrawCollectionPagesToolbarSorting()
+		{
+			base.DrawCollectionPagesToolbarSorting();
+			
 			EditorGUI.BeginChangeCheck();
-			UserSettings.Cleaner.sortingType = (CleanerSortingType)EditorGUILayout.EnumPopup(UserSettings.Cleaner.sortingType, GUILayout.Width(100));
+			var sorting = UserSettings.Cleaner.sortingType;
+			sorting = (CleanerSortingType)EditorGUILayout.EnumPopup(sorting, EditorStyles.toolbarDropDown, GUILayout.Width(80));
 			if (EditorGUI.EndChangeCheck())
 			{
+				UserSettings.Cleaner.sortingType = sorting;
 				ApplySorting();
 			}
 
-			EditorGUI.BeginChangeCheck();
-			UserSettings.Cleaner.sortingDirection = (SortingDirection)EditorGUILayout.EnumPopup(UserSettings.Cleaner.sortingDirection, GUILayout.Width(80));
-			if (EditorGUI.EndChangeCheck())
+			var direction = UserSettings.Cleaner.sortingDirection;
+			var index = (int)direction;
+			if (GUILayout.Button(sortingOptions[index], EditorStyles.toolbarButton, GUILayout.Width(20)))
 			{
+				direction = direction == SortingDirection.Ascending ? SortingDirection.Descending : SortingDirection.Ascending;
+				UserSettings.Cleaner.sortingDirection = direction;
 				ApplySorting();
 			}
 		}
@@ -139,17 +187,17 @@ namespace CodeStage.Maintainer.UI
 			{
 				case CleanerSortingType.Unsorted:
 					break;
-				case CleanerSortingType.ByPath:
+				case CleanerSortingType.Path:
 					filteredRecords = UserSettings.Cleaner.sortingDirection == SortingDirection.Ascending ?
 						filteredRecords.OrderBy(RecordsSortings.cleanerRecordByPath).ToArray() :
 						filteredRecords.OrderByDescending(RecordsSortings.cleanerRecordByPath).ToArray();
 					break;
-				case CleanerSortingType.ByType:
+				case CleanerSortingType.Type:
 					filteredRecords = UserSettings.Cleaner.sortingDirection == SortingDirection.Ascending ?
 						filteredRecords.OrderBy(RecordsSortings.cleanerRecordByAssetType).ThenBy(RecordsSortings.cleanerRecordByPath).ToArray() :
 						filteredRecords.OrderByDescending(RecordsSortings.cleanerRecordByAssetType).ThenBy(RecordsSortings.cleanerRecordByPath).ToArray();
 					break;
-				case CleanerSortingType.BySize:
+				case CleanerSortingType.Size:
 					filteredRecords = UserSettings.Cleaner.sortingDirection == SortingDirection.Ascending ?
 						filteredRecords.OrderByDescending(RecordsSortings.cleanerRecordBySize).ThenBy(RecordsSortings.cleanerRecordByPath).ToArray() :
 						filteredRecords.OrderBy(RecordsSortings.cleanerRecordBySize).ThenBy(RecordsSortings.cleanerRecordByPath).ToArray();

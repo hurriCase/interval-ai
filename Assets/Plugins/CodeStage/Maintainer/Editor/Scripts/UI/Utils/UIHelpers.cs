@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -15,6 +15,7 @@ namespace CodeStage.Maintainer.UI
 		public const int EyeButtonSize = 22;
 		public const int WarningIconSize = 16;
 		public const int EyeButtonPadding = 4;
+		public const float ToolbarButtonWidth = 26;
 
 		// -----------------------------------------------------------------------------
 		// static tooling
@@ -23,6 +24,7 @@ namespace CodeStage.Maintainer.UI
 		public static GUIStyle richLabel;
 		public static GUIStyle iconLabel;
 		public static GUIStyle richButton;
+		public static GUIStyle fillingToolbarButton;
 		public static GUIStyle richButtonMid;
 		public static GUIStyle richButtonLeft;
 		public static GUIStyle richButtonRight;
@@ -35,6 +37,7 @@ namespace CodeStage.Maintainer.UI
 		public static GUIStyle centeredLabel;
 		public static GUIStyle line;
 		public static GUIStyle panelWithBackground;
+		public static GUIStyle panelWithBackgroundNoMargins;
 		public static GUIStyle panelWithoutBackground;
 		public static GUIStyle panelWithButtonBackground;
 		public static GUIStyle inspectorTitlebar;
@@ -54,6 +57,8 @@ namespace CodeStage.Maintainer.UI
 			}
 		}
 
+		public static GUIStyle MiniButton { get; private set; }
+
 		public static void SetupStyles()
 		{
 			if (richLabel != null) return;
@@ -64,6 +69,15 @@ namespace CodeStage.Maintainer.UI
 			richButtonMid = new GUIStyle(GUI.skin.FindStyle(GUI.skin.button.name + "mid")) {richText = true};
 			richButtonRight = new GUIStyle(GUI.skin.FindStyle(GUI.skin.button.name + "right")) {richText = true};
 
+			fillingToolbarButton = new GUIStyle(EditorStyles.toolbarButton)
+			{
+				overflow = new RectOffset(0, 0, 0, 0),
+				padding = new RectOffset(0, 0, 0, 0),
+				margin = new RectOffset(0, 0, 0, 0),
+				fixedHeight = 0,
+				richText = true,
+			};
+			
 			var customStyles = GUI.skin.customStyles;
 			var alreadyExists = false;
 
@@ -103,12 +117,8 @@ namespace CodeStage.Maintainer.UI
 			};
 
 			recordButton = new GUIStyle(compactButton) {fixedWidth = 80};
-
-#if UNITY_2019_3_OR_NEWER
+			
 			var topIconPadding = EditorGUIUtility.isProSkin ? -3 : -2;
-#else
-			var topIconPadding = EditorGUIUtility.isProSkin ? -5 : -4;
-#endif
 			
 			iconButton = new GUIStyle(compactButton)
 			{
@@ -138,18 +148,19 @@ namespace CodeStage.Maintainer.UI
 			inspectorFoldout.fontStyle = inspectorTitlebarText.fontStyle;
 
 			centeredLabel = new GUIStyle(richLabel) {alignment = TextAnchor.MiddleCenter};
-
-#if UNITY_2019_3_OR_NEWER
+			
 			line = new GUIStyle(GUI.skin.button);
-#else
-			line = new GUIStyle(GUI.skin.box);
-#endif
 
 			line.border.top = line.border.bottom = 1;
 			line.margin.top = line.margin.bottom = 1;
 			line.padding.top = line.padding.bottom = 1;
 
 			panelWithBackground = new GUIStyle(GUI.skin.box) {padding = new RectOffset()};
+			panelWithBackgroundNoMargins = new GUIStyle(panelWithBackground)
+			{
+				padding = new RectOffset(),
+				margin = new RectOffset()
+			};
 			panelWithButtonBackground = new GUIStyle(GUI.skin.button) {padding = new RectOffset()};
 
 			panelWithoutBackground = new GUIStyle(EditorStyles.helpBox)
@@ -160,20 +171,22 @@ namespace CodeStage.Maintainer.UI
 			treeViewRichLabel = new GUIStyle("PR Label");
 			treeViewRichLabel.padding.left = treeViewRichLabel.padding.right = 2;
 			treeViewRichLabel.richText = true;
+
+			MiniButton = GUI.skin.FindStyle("ToolbarButton");
+			if (MiniButton == null)
+			{
+				Maintainer.ErrorForSupport("Couldn't find style ToolbarButton");
+			}
 		}
 
 		public static void Separator(float addSpace = 0)
 		{
 			if (addSpace > 0)
 				GUILayout.Space(addSpace);
-
-#if UNITY_2019_3_OR_NEWER
+			
 			GUILayout.Space(-2);
 			GUILayout.Box(GUIContent.none, line, GUILayout.ExpandWidth(true), GUILayout.Height(2f));
 			GUILayout.Space(-1);
-#else
-			GUILayout.Box(GUIContent.none, line, GUILayout.ExpandWidth(true), GUILayout.Height(1f));
-#endif
 			
 			if (addSpace > 0)
 				GUILayout.Space(addSpace);
@@ -222,6 +235,11 @@ namespace CodeStage.Maintainer.UI
 		public static void Icon(Rect rect, Texture icon, string hint)
 		{
 			GUI.Label(rect, new GUIContent(icon, hint), iconLabel);
+		}
+
+		public static bool ImageButton(string hint, Texture image, GUIStyle style, params GUILayoutOption[] options)
+		{
+			return ImageButton(null, hint, image, style, options);
 		}
 
 		public static bool ImageButton(string label, Texture image, params GUILayoutOption[] options)
@@ -371,6 +389,11 @@ namespace CodeStage.Maintainer.UI
 			if (Event.current.type != EventType.Repaint)
 				return;
 			treeViewRichLabel.Draw(rect, label, false, false, selected, focreferenced);
+		}
+
+		public static bool LeftPanelButton(Texture image, string hint)
+		{
+			return ImageButton("", hint, image, richButton, GUILayout.Width(25), GUILayout.Height(25));
 		}
 	}
 }

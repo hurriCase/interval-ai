@@ -1,6 +1,6 @@
 #region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -31,5 +31,6 @@ namespace CodeStage.EditorCommon.Tools
 		public static Texture Settings { get { return CSTextureLoader.GetIconTexture("Settings", ImageKind.InternalIcon); } }
 		public static Texture Warn { get { return CSTextureLoader.GetIconTexture("console.warnicon", ImageKind.InternalIcon); } }
 		public static Texture WarnSmall { get { return CSTextureLoader.GetIconTexture("console.warnicon.sml", ImageKind.InternalIcon); } }
+		public static Texture Menu { get { return CSTextureLoader.GetIconTexture("_Menu@2x", ImageKind.InternalIcon); } }
 	}
 }

@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -8,7 +8,10 @@ namespace CodeStage.Maintainer.Issues.Detectors
 {
 	using Core.Scan;
 
-	internal interface IGameObjectEndIssueDetector : IGameObjectEndScanListener<DetectorResults>
+	/// <summary>
+	/// Use this interface to detect issues in Game Objects after scanning their contents.
+	/// </summary>
+	public interface IGameObjectEndIssueDetector : IGameObjectEndScanListener<DetectorResults>
 	{
 	}
 }

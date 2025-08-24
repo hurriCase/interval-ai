@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -31,7 +31,7 @@ namespace CodeStage.Maintainer.Settings
 
 		[SerializeField] internal RecordsTabState tabState = new RecordsTabState();
 		/* sorting */
-		[SerializeField] internal CleanerSortingType sortingType = CleanerSortingType.BySize;
+		[SerializeField] internal CleanerSortingType sortingType = CleanerSortingType.Size;
 		[SerializeField] internal SortingDirection sortingDirection = SortingDirection.Ascending;
 	}
 }

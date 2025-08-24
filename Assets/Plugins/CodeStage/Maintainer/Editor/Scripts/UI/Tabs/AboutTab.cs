@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -19,13 +19,13 @@ namespace CodeStage.Maintainer.UI
 
 	internal class AboutTab : BaseTab
 	{
-		private const string UasLink = "https://assetstore.unity.com/packages/slug/32199?aid=1011lGBp&pubref=Maintainer";
+		private const string UasLink = "https://assetstore.unity.com/packages/slug/310179?aid=1011lGBp&pubref=Maintainer";
 		private const string UasReviewLink = UasLink + "#reviews";
 		private const string UasProfileLink = "https://assetstore.unity.com/publishers/3918?aid=1011lGBp&pubref=Maintainer";
 		private const string Homepage = "https://codestage.net/uas/maintainer";
 		private const string DiscordLink = "https://discord.gg/FRK5HRzZvq";
 		private const string SupportLink = "https://codestage.net/contacts/";
-		private const string ChangelogLink = "https://codestage.net/uas_files/maintainer/CHANGELOG.md";
+		private const string ChangelogLink = "https://docs.codestage.net/maintainer/changelog/";
 
 		private bool showDebug = false;
 
@@ -113,7 +113,7 @@ namespace CodeStage.Maintainer.UI
 			GUILayout.Label("<b>Version " + Maintainer.Version + "</b>",
 				UIHelpers.centeredLabel);
 			GUILayout.Space(10);
-			GUILayout.Label("Developed by Dmitriy Yukhanov\n" +
+			GUILayout.Label("Developed by Dmitry Yuhanov\n" +
 							"Logo by Daniele Giardini\n" +
 							"Icons by Google, Austin Andrews, Cody", UIHelpers.centeredLabel);
 			GUILayout.Space(10);
@@ -224,7 +224,7 @@ namespace CodeStage.Maintainer.UI
 
 				if (GUILayout.Button("Re-save all scenes in project"))
 				{
-					CSSceneTools.ReSaveAllScenes();
+					CSSceneUtils.ReSaveAllScenes();
 				}
 				
 				if (GUILayout.Button("Reload settings"))

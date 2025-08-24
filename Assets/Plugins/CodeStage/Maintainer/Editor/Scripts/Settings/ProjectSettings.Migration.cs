@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -9,7 +9,6 @@ namespace CodeStage.Maintainer.Settings
 	using System;
 	using System.Collections.Generic;
 	using System.Text;
-	using Cleaner;
 	using Core;
 	using Issues.Detectors;
 	using Tools;
@@ -178,10 +177,8 @@ namespace CodeStage.Maintainer.Settings
 			settings.issuesFinderSettings.SetDetectorEnabled<MissingReferenceDetector>(
 					settings.issuesFinderSettings.missingReferences);
 			
-#if UNITY_2019_1_OR_NEWER
 			settings.issuesFinderSettings.SetDetectorEnabled<ShaderErrorDetector>(
 				settings.issuesFinderSettings.shadersWithErrors);
-#endif
 			
 			settings.issuesFinderSettings.SetDetectorEnabled<MissingComponentDetector>(
 				settings.issuesFinderSettings.missingComponents);

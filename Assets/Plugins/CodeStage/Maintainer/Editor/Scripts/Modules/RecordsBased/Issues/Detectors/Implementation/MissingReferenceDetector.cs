@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -16,41 +16,30 @@ namespace CodeStage.Maintainer.Issues.Detectors
 	using UnityEngine.Events;
 	using Object = UnityEngine.Object;
 	
-#if !UNITY_2019_2_OR_NEWER
-	[InitializeOnLoad]
-#endif
 	// ReSharper disable once ClassNeverInstantiated.Global since it's used from TypeCache
-	internal class MissingReferenceDetector : IssueDetector, 
+	public class MissingReferenceDetector : IssueDetector, 
 		ISceneBeginIssueDetector,
 		IAssetBeginIssueDetector, 
 		ISettingsAssetBeginIssueDetector,
 		IPropertyIssueDetector,
 		IUnityEventIssueDetector
 	{
-		public override DetectorInfo Info { get { return 
+		public override DetectorInfo Info =>
 			DetectorInfo.From(
 				IssueGroup.Global,
 				DetectorKind.Defect,
 				IssueSeverity.Warning,
 				"Missing reference", 
 				"Search for any missing references in Components, Project Settings, Scriptable Objects, and so on.");
-		}}
-		
-		public Type[] AssetTypes { get { return null; } } // we check all types including nulls!
-		public AssetSettingsKind SettingsKind { get { return AssetSettingsKind.Undefined; } }  // to check all settings
+
+		public Type[] AssetTypes => null; // we check all types including nulls!
+		public AssetSettingsKind SettingsKind => AssetSettingsKind.Undefined; // to check all settings
 
 		private UnityEventIssuesScanner unityEventScanner;
 		
-#if !UNITY_2019_2_OR_NEWER
-		static MissingReferenceDetector()
-		{
-			IssuesFinderDetectors.AddInternalDetector(new MissingReferenceDetector());
-		}
-#endif
-		
 		public void AssetBegin(DetectorResults results, AssetLocation location)
 		{
-			if (location.Asset.Kind == AssetKind.Settings)
+			if (location.Asset.Origin == AssetOrigin.Settings)
 			{
 				var issues = SettingsChecker.CheckSettingsAssetForMissingReferences(this, location);
 				results.Add(issues);
@@ -120,7 +109,7 @@ namespace CodeStage.Maintainer.Issues.Detectors
 			else // for the rest supported asset types 
 			{
 				var target = AssetDatabase.LoadMainAssetAtPath(location.Asset.Path);
-				if (target == null)
+				if (!target)
 					return; // skip
 				ProcessUnityObjectAsset(results, location, target);
 			}
@@ -173,7 +162,7 @@ namespace CodeStage.Maintainer.Issues.Detectors
 
 					var narrow = location.Narrow();
 					narrow.ComponentOverride("Material");
-					narrow.PropertyOverride(texEnvTexture, texEnvName);
+					narrow.PropertyOverrideWithHumanReadableName(texEnvTexture, texEnvName);
 					var issue = TryDetectSerializedPropertyIssue(narrow);
 					if (issue != null)
 						results.Add(issue);
@@ -194,7 +183,7 @@ namespace CodeStage.Maintainer.Issues.Detectors
 
 				var narrow = location.Narrow();
 				narrow.ComponentOverride("MonoScript");
-				narrow.PropertyOverride(sp, propertyName);
+				narrow.PropertyOverrideWithHumanReadableName(sp, propertyName);
 				var issue = TryDetectSerializedPropertyIssue(narrow);
 				if (issue != null)
 					results.Add(issue);

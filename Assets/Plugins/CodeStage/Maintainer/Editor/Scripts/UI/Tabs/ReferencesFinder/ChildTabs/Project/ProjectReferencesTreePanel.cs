@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -26,6 +26,8 @@ namespace CodeStage.Maintainer.UI
 
 		private object splitterState;
 
+		public Action DrawGUIBeforeSearchAction { get; set; }
+
 		public ProjectReferencesTreePanel(MaintainerWindow window)
 		{
 			exactReferencesPanel = new ProjectExactReferencesListPanel(window);
@@ -35,7 +37,13 @@ namespace CodeStage.Maintainer.UI
 		{
 			if (newData)
 			{
-				UserSettings.References.projectReferencesTreeViewState = new TreeViewState();
+				UserSettings.References.projectReferencesTreeViewState = new 
+#if UNITY_6000_2_OR_NEWER
+					TreeViewState<int>
+#else
+					TreeViewState
+#endif
+					();
 				treeModel = null;
 			}
 
@@ -64,7 +72,13 @@ namespace CodeStage.Maintainer.UI
 
 			if (firstInit)
 			{
-				UserSettings.References.projectReferencesTreeViewState = new TreeViewState();
+				UserSettings.References.projectReferencesTreeViewState = new 
+#if UNITY_6000_2_OR_NEWER
+					TreeViewState<int>
+#else
+					TreeViewState
+#endif
+					();
 			}
 
 			treeElements = LoadLastTreeElements();
@@ -90,17 +104,26 @@ namespace CodeStage.Maintainer.UI
 				GUILayout.Space(5);
 				using (new GUILayout.VerticalScope())
 				{
-					EditorGUI.BeginChangeCheck();
-					var searchString =
-						searchField.OnGUI(
-							GUILayoutUtility.GetRect(0, 0, 20, 20, GUILayout.ExpandWidth(true),
-								GUILayout.ExpandHeight(false)), SessionState.GetString("projectTabSearchString", string.Empty));
-					if (EditorGUI.EndChangeCheck())
+					using (new GUILayout.HorizontalScope())
 					{
-						SessionState.SetString("projectTabSearchString", searchString);
-						 
-						treeView.SetSearchString(searchString);
-						treeView.Reload();
+						if (DrawGUIBeforeSearchAction != null)
+						{
+							DrawGUIBeforeSearchAction();
+							GUILayout.Space(5);
+						}
+
+						EditorGUI.BeginChangeCheck();
+						var searchString =
+							searchField.OnGUI(
+								GUILayoutUtility.GetRect(0, 0, 20, 20, GUILayout.ExpandWidth(true),
+									GUILayout.ExpandHeight(false)), SessionState.GetString("projectTabSearchString", string.Empty));
+						if (EditorGUI.EndChangeCheck())
+						{
+							SessionState.SetString("projectTabSearchString", searchString);
+							 
+							treeView.SetSearchString(searchString);
+							treeView.Reload();
+						}
 					}
 
 					GUILayout.Space(3);

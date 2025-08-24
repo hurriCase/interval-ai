@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -22,11 +22,7 @@ namespace CodeStage.Maintainer.Settings
 	[Serializable]
 	public class UserSettings : ScriptableObject
 	{
-#if UNITY_2020_1_OR_NEWER
 		private const string Directory = "UserSettings";
-#else
-		private const string Directory = "Library";
-#endif
 		private const string Path = Directory + "/MaintainerPersonalSettings.asset";
 		private static UserSettings instance;
 
@@ -46,6 +42,9 @@ namespace CodeStage.Maintainer.Settings
 
 		[SerializeField]
 		internal Vector2 scroll;
+
+		[SerializeField]
+		internal bool leftPanelCollapsed;
 
 		[SerializeField]
 		private string version = Maintainer.Version; // for backward compatibility in future versions
@@ -193,6 +192,7 @@ namespace CodeStage.Maintainer.Settings
 			newInstance.issuesFinderSettings = new IssuesFinderPersonalSettings();
 			newInstance.projectCleanerSettings = new ProjectCleanerPersonalSettings();
 			newInstance.referencesFinder = new ReferencesFinderPersonalSettings();
+			
 			return newInstance;
 		}
 	}

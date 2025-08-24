@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -34,6 +34,24 @@ namespace CodeStage.Maintainer.Tools
 
 			Debug.LogError(Maintainer.ErrorForSupport("Can't retrieve RenderSettings object via reflection!"));
 			return null;
+		}
+		
+		public static (bool staticBatching, bool dynamicBatching) GetBuildTargetBatching(BuildTarget target)
+		{
+			var mi = CSReflectionTools.GetGetBatchingForPlatformMethodInfo();
+			if (mi != null)
+			{
+				object[] parameters = { target, null, null };
+				mi.Invoke(null, parameters);
+				
+				var staticBatching = (int)parameters[1] != 0;
+				var dynamicBatching = (int)parameters[2] != 0;
+
+				return (staticBatching, dynamicBatching);
+			}
+
+			Debug.LogError(Maintainer.ErrorForSupport("Can't retrieve LightmapSettings object via reflection!"));
+			return (false,false);
 		}
 
 #if !UNITY_6000_0_OR_NEWER

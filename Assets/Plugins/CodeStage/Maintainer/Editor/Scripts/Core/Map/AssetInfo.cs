@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -12,77 +12,62 @@ namespace CodeStage.Maintainer.Core
 	using Dependencies;
 	using UnityEditor;
 	using UnityEngine;
+	using System.Runtime.Serialization;
 
 	using Tools;
-
-	[Serializable]
-	public enum AssetKind : byte
-	{
-		Regular = 0,
-		Settings = 10,
-		FromPackage = 20,
-		FromEmbeddedPackage = 30,
-		Unsupported = 100
-	}
-
-	[Serializable]
-	public enum AssetSettingsKind : byte
-	{
-		Undefined = 0,
-		AudioManager = 10,
-		ClusterInputManager = 20,
-		DynamicsManager = 30,
-		EditorBuildSettings = 40,
-		EditorSettings = 50,
-		GraphicsSettings = 60,
-		InputManager = 70,
-		NavMeshAreas = 80,
-		NavMeshLayers = 90,
-		NavMeshProjectSettings = 100,
-		NetworkManager = 110,
-		Physics2DSettings = 120,
-		ProjectSettings = 130,
-		PresetManager = 140,
-		QualitySettings = 150,
-		TagManager = 160,
-		TimeManager = 170,
-		UnityAdsSettings = 180,
-		UnityConnectSettings = 190,
-		VFXManager = 200,
-		UnknownSettingAsset = 250
-	}
 
 	internal class RawAssetInfo
 	{
 		public string path;
 		public string guid;
-		public AssetKind kind;
+		public AssetOrigin origin;
 	}
 
 	[Serializable]
-	public class AssetInfo : IEquatable<AssetInfo>
+	public class AssetInfo : IEquatable<AssetInfo>, IDeserializationCallback
 	{
+		/// <summary>
+		/// Asset GUID as reported by AssetDatabase.
+		/// </summary>
 		public string GUID { get; private set; }
+		
+		/// <summary>
+		/// Path to the Asset, as reported by AssetDatabase, with enforced forward slash delimiter (/).
+		/// </summary>
 		public string Path { get; private set; }
-		public AssetKind Kind { get; private set; }
+		
+		/// <summary>
+		/// Represents the asset origin.
+		/// </summary>
+		public AssetOrigin Origin { get; private set; }
+		
 		public AssetSettingsKind SettingsKind { get; private set; }
 		public Type Type { get; private set; }
+
+		[NonSerialized] 
+		private long size = -1;
 		
-		[field:NonSerialized]
-		public long Size { get; private set; }
+		public long Size 
+		{ 
+			get
+            {
+                if (size == -1 && !string.IsNullOrEmpty(Path) && File.Exists(Path))
+                    size = new FileInfo(Path).Length;
+                return size;
+            }
+            private set => size = value;
+		}
 		
 		[field:NonSerialized]
 		public bool IsUntitledScene { get; private set; }
 
-		internal string[] dependenciesGUIDs = new string[0];
-		internal AssetReferenceInfo[] assetReferencesInfo = new AssetReferenceInfo[0];
-		internal ReferencedAtAssetInfo[] referencedAtInfoList = new ReferencedAtAssetInfo[0];
+		internal string[] dependenciesGUIDs = Array.Empty<string>();
+		internal AssetReferenceInfo[] assetReferencesInfo = Array.Empty<AssetReferenceInfo>();
+		internal ReferencedAtAssetInfo[] referencedAtInfoList = Array.Empty<ReferencedAtAssetInfo>();
 
-		private ulong lastHash;
+		private int lastHash;
+		internal bool needToRebuildReferences = true;
 
-		[NonSerialized] internal bool needToRebuildReferences = true;
-		[NonSerialized] private FileInfo fileInfo;
-		[NonSerialized] private FileInfo metaFileInfo;
 		[NonSerialized] private int[] allAssetObjects;
 
 		internal static AssetInfo Create(RawAssetInfo rawAssetInfo, Type type, AssetSettingsKind settingsKind)
@@ -97,7 +82,7 @@ namespace CodeStage.Maintainer.Core
 			{
 				GUID = rawAssetInfo.guid,
 				Path = rawAssetInfo.path,
-				Kind = rawAssetInfo.kind,
+				Origin = rawAssetInfo.origin,
 				Type = type,
 				SettingsKind = settingsKind,
 			};
@@ -113,7 +98,7 @@ namespace CodeStage.Maintainer.Core
 			{
 				GUID = CSPathTools.UntitledScenePath,
 				Path = CSPathTools.UntitledScenePath,
-				Kind = AssetKind.Regular,
+				Origin = AssetOrigin.AssetsFolder,
 				Type = CSReflectionTools.sceneAssetType,
 				IsUntitledScene = true
 			};
@@ -121,24 +106,19 @@ namespace CodeStage.Maintainer.Core
 
 		private AssetInfo() { }
 
-		internal bool Exists()
+		internal bool Exists(bool actualizePath = true)
 		{
-			ActualizePath();
-			
-			if (fileInfo == null)
-				fileInfo = new FileInfo(Path);
-			else
-				fileInfo.Refresh();
-			
-			return fileInfo.Exists;
+			if (actualizePath)
+				ActualizePath();
+			return File.Exists(Path);
 		}
 
-		internal void UpdateIfNeeded()
+		internal bool UpdateIfNeeded()
 		{
 			if (string.IsNullOrEmpty(Path))
 			{
 				Debug.LogWarning(Maintainer.ConstructLog("Can't update Asset since path is not set!"));
-				return;
+				return false;
 			}
 
 			/*if (Path.Contains("qwerty.unity"))
@@ -146,55 +126,43 @@ namespace CodeStage.Maintainer.Core
 				Debug.Log(Path);
 			}*/
 
-			if (fileInfo == null)
-				fileInfo = new FileInfo(Path);
-			else
-				fileInfo.Refresh();
-
-			if (!fileInfo.Exists)
+			if (!Exists(false))
 			{
-				Debug.LogWarning(Maintainer.ConstructLog("Can't update asset since file at path is not found:\n" + fileInfo.FullName + "\nAsset Path: " + Path));
-				return;
+				Debug.LogWarning(Maintainer.ConstructLog("Can't update asset since file is not found:\n" + Path));
+				return false;
 			}
 
-			ulong currentHash = 0;
-
-			if (metaFileInfo == null)
-				metaFileInfo = new FileInfo(Path + ".meta");
-			else
-				metaFileInfo.Refresh();
-			
-			if (metaFileInfo.Exists)
-			{
-				currentHash += (ulong)metaFileInfo.LastWriteTimeUtc.Ticks;
-				currentHash += (ulong)metaFileInfo.Length;
-			}
-
-			currentHash += (ulong)fileInfo.LastWriteTimeUtc.Ticks;
-			currentHash += (ulong)fileInfo.Length;
-			
-			Size = fileInfo.Length;
-
+			var currentHash = AssetDatabase.GetAssetDependencyHash(Path).GetHashCode();
 			if (lastHash == currentHash)
 			{
+				var dirty = false;
+
 				for (var i = dependenciesGUIDs.Length - 1; i > -1; i--)
 				{
 					var guid = dependenciesGUIDs[i];
 					var path = AssetDatabase.GUIDToAssetPath(guid);
 					path = CSPathTools.EnforceSlashes(path);
-					if (!string.IsNullOrEmpty(path) && File.Exists(path)) continue;
+					if (!string.IsNullOrEmpty(path) && (File.Exists(path) || AssetDatabase.IsValidFolder(path))) 
+						continue;
+
+					dirty = true;
 
 					ArrayUtility.RemoveAt(ref dependenciesGUIDs, i);
 					foreach (var referenceInfo in assetReferencesInfo)
 					{
-						if (referenceInfo.assetInfo.GUID != guid) continue;
+						if (referenceInfo.assetInfo.GUID != guid) 
+							continue;
 
 						ArrayUtility.Remove(ref assetReferencesInfo, referenceInfo);
 						break;
 					}
 				}
 
-				if (!needToRebuildReferences) return;
+				if (!needToRebuildReferences) return dirty;
+			}
+			else
+			{
+				Size = -1;
 			}
 
 			foreach (var referenceInfo in assetReferencesInfo)
@@ -207,12 +175,14 @@ namespace CodeStage.Maintainer.Core
 					break;
 				}
 			}
-
+			
 			lastHash = currentHash;
 			needToRebuildReferences = true;
 
-			assetReferencesInfo = new AssetReferenceInfo[0];
+			assetReferencesInfo = Array.Empty<AssetReferenceInfo>();
 			dependenciesGUIDs = AssetDependenciesSearcher.FindDependencies(this);
+			
+			return true;
 		}
 
 		internal List<AssetInfo> GetReferencesRecursive()
@@ -273,9 +243,7 @@ namespace CodeStage.Maintainer.Core
 				assetTypeName == "AudioMixerController" ||
 				Path.EndsWith("LightingData.asset")) &&
 				assetType != CSReflectionTools.lightingDataAsset
-#if UNITY_2020_1_OR_NEWER
 			    && assetType != CSReflectionTools.lightingSettings
-#endif
 				)
 			{
 				var loadedObjects = AssetDatabase.LoadAllAssetsAtPath(Path);
@@ -336,15 +304,11 @@ namespace CodeStage.Maintainer.Core
 
 		private void ActualizePath()
 		{
-			if (Kind == AssetKind.FromPackage) return;
+			if (Origin == AssetOrigin.ImmutablePackage) return;
 
 			var actualPath = CSPathTools.EnforceSlashes(AssetDatabase.GUIDToAssetPath(GUID));
 			if (!string.IsNullOrEmpty(actualPath) && actualPath != Path)
-			{
-				fileInfo = new FileInfo(actualPath);
-				metaFileInfo = new FileInfo(actualPath + ".meta");
 				Path = actualPath;
-			}
 		}
 
 		public override string ToString()
@@ -356,7 +320,7 @@ namespace CodeStage.Maintainer.Core
 			return "Asset Info\n" +
 				   "Path: " + Path + "\n" +
 				   "GUID: " + GUID + "\n" +
-				   "Kind: " + Kind + "\n" +
+				   "Kind: " + Origin + "\n" +
 				   "SettingsKind: " + SettingsKind + "\n" +
 				   "Size: " + Size + "\n" +
 				   "Type: " + Type + "\n" +
@@ -391,6 +355,13 @@ namespace CodeStage.Maintainer.Core
 		public override int GetHashCode()
 		{
 			return GUID != null ? GUID.GetHashCode() : 0;
+		}
+
+		public void OnDeserialization(object sender)
+		{
+			// Reset size to -1 after deserialization since it's [NonSerialized]
+			// This ensures Size property will recalculate the file size correctly
+			size = -1;
 		}
 	}
 }

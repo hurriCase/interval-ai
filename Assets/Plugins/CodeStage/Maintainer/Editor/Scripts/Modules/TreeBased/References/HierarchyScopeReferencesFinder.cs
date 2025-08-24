@@ -1,6 +1,6 @@
 ﻿#region copyright
 // ---------------------------------------------------------------
-//  Copyright (C) Dmitriy Yukhanov - focus [https://codestage.net]
+//  Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // ---------------------------------------------------------------
 #endregion
 
@@ -367,16 +367,9 @@ namespace CodeStage.Maintainer.References
 			if (showProgress) EditorUtility.DisplayProgressBar(ReferencesFinder.ModuleName, "Parsing results...", 0);
 
 			var rootItems = new List<int>(resultsCount);
-#if !UNITY_2020_1_OR_NEWER
-			var updateStep = Math.Max(resultsCount / ProjectSettings.UpdateProgressStep, 1);
-#endif
 			for (var i = 0; i < resultsCount; i++)
 			{
-				if (showProgress
-#if !UNITY_2020_1_OR_NEWER
-				    && i % updateStep == 0
-#endif
-				    ) EditorUtility.DisplayProgressBar(ReferencesFinder.ModuleName, "Parsing results...", (float)i / resultsCount);
+				if (showProgress) EditorUtility.DisplayProgressBar(ReferencesFinder.ModuleName, "Parsing results...", (float)i / resultsCount);
 
 				var result = objects[i];
 				rootItems.Add(result.GetInstanceID());

@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -23,7 +23,6 @@ namespace CodeStage.Maintainer.UI
 
 				using (new GUILayout.HorizontalScope())
 				{
-					GUILayout.Space(10);
 					GUILayout.Label("<size=16><b>Search scope</b></size>", UIHelpers.richLabel);
 					GUILayout.FlexibleSpace();
 
@@ -39,14 +38,11 @@ namespace CodeStage.Maintainer.UI
 								"OK");
 						}
 					}
-					GUILayout.Space(10);
 				}
 
 				using (new GUILayout.HorizontalScope())
 				{
-					GUILayout.Space(10);
 					UIHelpers.Separator();
-					GUILayout.Space(10);
 				}
 
 				GUILayout.Space(10);
@@ -54,10 +50,8 @@ namespace CodeStage.Maintainer.UI
 				EditorGUI.BeginChangeCheck();
 				using (new GUILayout.HorizontalScope())
 				{
-					GUILayout.Space(10);
 					currentTab = (ReferenceFinderTab)GUILayout.SelectionGrid((int)currentTab, tabsCaptions, 1,
 						GUILayout.Height(56), GUILayout.ExpandWidth(true));
-					GUILayout.Space(10);
 				}
 
 				if (EditorGUI.EndChangeCheck())
@@ -78,8 +72,6 @@ namespace CodeStage.Maintainer.UI
 						throw new ArgumentOutOfRangeException();
 				}
 			}
-
-			base.DrawLeftColumnHeader();
 		}
 
 		protected override void DrawLeftColumnBody()

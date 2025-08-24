@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -9,29 +9,23 @@ namespace CodeStage.Maintainer.Issues.Detectors
 	using System;
 	using Core.Scan;
 	using UnityEngine;
-
-#if !UNITY_2019_2_OR_NEWER
-	[UnityEditor.InitializeOnLoad]
-#endif
-	// ReSharper disable once UnusedType.Global since it's used from TypeCache
+	
+	// ReSharper disable once ClassNeverInstantiated.Global since it's used from TypeCache
 	internal class InconsistentTerrainDataDetector : IssueDetector, IComponentBeginIssueDetector, IGameObjectEndIssueDetector
 	{
-		public override DetectorInfo Info { get { return 
+		public override DetectorInfo Info =>
 			DetectorInfo.From(
 				IssueGroup.GameObject,
 				DetectorKind.Defect,
 				IssueSeverity.Warning,
 				"Inconsistent Terrain Data", 
 				"Search for Game Objects where Terrain and TerrainCollider have different Terrain Data.");
-		}}
 
-		public Type[] ComponentTypes
-		{
-			get { return new[] { 
+		public Type[] ComponentTypes =>
+			new[] { 
 				typeof(Terrain), 
 				typeof(TerrainCollider) 
-			}; }
-		}
+			};
 
 		private TerrainData terrainData;
 		private TerrainData colliderTerrainData;
@@ -42,21 +36,20 @@ namespace CodeStage.Maintainer.Issues.Detectors
 		private string componentName;
 		private int componentIndex;
 		
-#if !UNITY_2019_2_OR_NEWER
-		static InconsistentTerrainDataDetector()
-		{
-			IssuesFinderDetectors.AddInternalDetector(new InconsistentTerrainDataDetector());
-		}
-#endif
-		
 		public void ComponentBegin(DetectorResults results, ComponentLocation location)
 		{
-			if (location.Component is Terrain)
-				ProcessTerrainComponent(location.Component as Terrain, location.ComponentType, location.ComponentName, location.ComponentIndex);
-			else if (location.Component is TerrainCollider)
-				ProcessTerrainColliderComponent(location.Component as TerrainCollider);
-			else
-				Debug.LogError(Maintainer.ErrorForSupport("Unexpected component: " + location.Component + " (" + location.ComponentType + ")"));
+			switch (location.Component)
+			{
+				case Terrain terrain:
+					ProcessTerrainComponent(terrain, location.ComponentType, location.ComponentName, location.ComponentIndex);
+					break;
+				case TerrainCollider collider:
+					ProcessTerrainColliderComponent(collider);
+					break;
+				default:
+					Debug.LogError(Maintainer.ErrorForSupport("Unexpected component: " + location.Component + " (" + location.ComponentType + ")"));
+					break;
+			}
 		}
 
 		public void GameObjectEnd(DetectorResults results, GameObjectLocation location)

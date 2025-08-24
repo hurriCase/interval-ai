@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -93,7 +93,13 @@ namespace CodeStage.Maintainer.UI
 		{
 			listElements = GetTreeElementsFromRow(lastSelectedRow);
 			listModel = new TreeModel<HierarchyReferenceItem>(listElements);
-			list = new ExactReferencesList<HierarchyReferenceItem>(new TreeViewState(), listModel);
+			list = new ExactReferencesList<HierarchyReferenceItem>(new 
+#if UNITY_6000_2_OR_NEWER
+				TreeViewState<int>
+#else
+				TreeViewState
+#endif
+				(), listModel);
 			list.Reload();
 		}
 

@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -8,7 +8,10 @@ namespace CodeStage.Maintainer.Issues.Detectors
 {
 	using Core.Scan;
 
-	internal interface IPropertyIssueDetector : IGenericPropertyScanListener<DetectorResults>
+	/// <summary>
+	/// Use this interface to detect issues in Serialized Properties inside Components, Assets and other Objects.
+	/// </summary>
+	public interface IPropertyIssueDetector : IGenericPropertyScanListener<DetectorResults>
 	{
 		
 	}

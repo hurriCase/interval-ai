@@ -1,6 +1,6 @@
 ﻿#region copyright
 // ---------------------------------------------------------------
-//  Copyright (C) Dmitriy Yukhanov - focus [https://codestage.net]
+//  Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // ---------------------------------------------------------------
 #endregion
 

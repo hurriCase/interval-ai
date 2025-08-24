@@ -1,6 +1,6 @@
 ﻿#region copyright
 // ---------------------------------------------------------------
-//  Copyright (C) Dmitriy Yukhanov - focus [https://codestage.net]
+//  Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // ---------------------------------------------------------------
 #endregion
 
@@ -25,17 +25,10 @@ namespace CodeStage.Maintainer.References.Entry
 
 	internal static class HierarchyEntryFinder
 	{
-#if !UNITY_2020_1_OR_NEWER
-		private static int updateStep = -1;
-#endif
-		
 		public static bool FillHierarchyReferenceEntries(Object[] objects, ProcessObjectReferenceHandler processReferenceCallback)
 		{
 			EntryFinder.currentScope = EntryFinderScope.Hierarchy;
 			EntryFinder.currentProcessReferenceCallback = processReferenceCallback;
-#if !UNITY_2020_1_OR_NEWER
-			updateStep = -1;
-#endif
 
 			var prefabStage = PrefabStageUtility.GetCurrentPrefabStage();
 			if (prefabStage != null)
@@ -62,18 +55,7 @@ namespace CodeStage.Maintainer.References.Entry
 
 		private static void OnRootTraverse(int index, int total, out bool canceled)
 		{
-#if !UNITY_2020_1_OR_NEWER
-			if (updateStep == -1)
-			{
-				updateStep = Math.Max(total / ProjectSettings.UpdateProgressStep, 1);
-			}
-#endif
-			
-			canceled =
-#if !UNITY_2020_1_OR_NEWER
-				(index < 10 || index % updateStep == 0) &&
-#endif
-				EditorUtility.DisplayCancelableProgressBar(string.Format(ReferencesFinder.ProgressCaption, 2, ReferencesFinder.PhasesCount), 
+			canceled = EditorUtility.DisplayCancelableProgressBar(string.Format(ReferencesFinder.ProgressCaption, 2, ReferencesFinder.PhasesCount), 
 				           string.Format(ReferencesFinder.ProgressText, "Filling reference details", index + 1, total),
 				           (float)index / total);
 		}

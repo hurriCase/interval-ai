@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -8,11 +8,12 @@ namespace CodeStage.Maintainer.Tools
 {
 	using Core;
 	using System;
+	using System.IO;
 	using UI;
 	using UnityEditor;
 	using UnityEngine;
 	using UnityEngine.SceneManagement;
-	
+
 #if UNITY_2021_2_OR_NEWER
 	using UnityEditor.SceneManagement;
 #else
@@ -29,6 +30,7 @@ namespace CodeStage.Maintainer.Tools
 				Selection.activeObject = null;
 				EditorApplication.delayCall += () =>
 				{
+					CSEditorTools.GetInspectorWindow();
 					Selection.activeInstanceID = instanceId;
 				};
 				
@@ -52,6 +54,7 @@ namespace CodeStage.Maintainer.Tools
 				var assetId = CSObjectTools.GetUniqueObjectId(targetAsset);
 				if (assetId != objectId) continue;
 
+				CSEditorTools.GetInspectorWindow();
 				Selection.activeInstanceID = targetAsset.GetInstanceID();
 				return true;
 			}
@@ -61,92 +64,86 @@ namespace CodeStage.Maintainer.Tools
 
 		public static void RevealAndSelectReferencingEntry(string assetPath, ReferencingEntryData referencingEntry)
 		{
-			if (!string.IsNullOrEmpty(assetPath) && 
-			    (referencingEntry.location == Location.SceneLightingSettings ||
-			    referencingEntry.location == Location.SceneNavigationSettings))
+			if (!File.Exists(assetPath))
 			{
-				var sceneOpenResult = CSSceneTools.OpenSceneWithSavePrompt(assetPath);
-				if (!sceneOpenResult.success)
-				{
-					Debug.LogError(Maintainer.ErrorForSupport("Can't open scene " + assetPath));
-					MaintainerWindow.ShowNotification("Can't show it properly");
-					return;
-				}
+				Debug.LogError(Maintainer.ConstructLog("Can't find asset at path: " + assetPath));
+				MaintainerWindow.ShowNotification("Can't show it properly");
+				return;
 			}
 
-			switch (referencingEntry.location)
+			try
 			{
-				case Location.ScriptAsset:
-				case Location.UnityObjectAsset:
-
-					if (!RevealAndSelectFileAsset(assetPath))
+				if (!string.IsNullOrEmpty(assetPath) && 
+					(referencingEntry.location == Location.SceneLightingSettings ||
+					 referencingEntry.location == Location.SceneNavigationSettings))
+				{
+					var sceneOpenResult = CSSceneUtils.OpenSceneWithSavePrompt(assetPath);
+					if (!sceneOpenResult.success)
 					{
+						Debug.LogError(Maintainer.ErrorForSupport("Can't open scene " + assetPath));
 						MaintainerWindow.ShowNotification("Can't show it properly");
+						return;
 					}
+				}
 
-					break;
-				case Location.PrefabAssetObject:
-					if (!RevealAndSelectSubAsset(assetPath, referencingEntry.transformPath,
-						referencingEntry.objectId))
-					{
-						MaintainerWindow.ShowNotification("Can't show it properly");
-					}
+				var success = false;
 
-					break;
-				case Location.PrefabAssetGameObject:
-				case Location.SceneGameObject:
+				switch (referencingEntry.location)
+				{
+					case Location.ScriptAsset:
+					case Location.UnityObjectAsset:
+						success = RevealAndSelectFileAsset(assetPath);
+						break;
+					case Location.PrefabAssetObject:
+						success = RevealAndSelectSubAsset(assetPath, referencingEntry.transformPath,
+							referencingEntry.objectId);
+						break;
+					case Location.PrefabAssetGameObject:
+					case Location.SceneGameObject:
+						success = RevealAndSelectGameObject(assetPath, referencingEntry.transformPath,
+							referencingEntry.objectId, referencingEntry.componentId);
+						break;
 
-					if (!RevealAndSelectGameObject(assetPath, referencingEntry.transformPath,
-						referencingEntry.objectId, referencingEntry.componentId))
-					{
-						MaintainerWindow.ShowNotification("Can't show it properly");
-					}
+					case Location.SceneLightingSettings:
+						success = CSMenuTools.ShowSceneSettingsLighting();
+						break;
 
-					break;
+					case Location.SceneNavigationSettings:
+						success = CSMenuTools.ShowSceneSettingsNavigation();
+						break;
 
-				case Location.SceneLightingSettings:
+					case Location.NotFound:
+					case Location.Invisible:
+						break;
 
-					if (!CSMenuTools.ShowSceneSettingsLighting())
-					{
-						Debug.LogError(Maintainer.ErrorForSupport("Can't open Lighting settings!"));
-						MaintainerWindow.ShowNotification("Can't show it properly");
-					}
+					case Location.TileMap:
+						success = RevealAndSelectGameObject(assetPath, referencingEntry.transformPath,
+							referencingEntry.objectId, referencingEntry.componentId);
 
-					break;
+						// TODO: open tile map editor window?
 
-				case Location.SceneNavigationSettings:
+						break;
+					default:
+						throw new ArgumentOutOfRangeException();
+				}
 
-					if (!CSMenuTools.ShowSceneSettingsNavigation())
-					{
-						Debug.LogError(Maintainer.ErrorForSupport("Can't open Navigation settings!"));
-						MaintainerWindow.ShowNotification("Can't show it properly");
-					}
-
-					break;
-
-				case Location.NotFound:
-				case Location.Invisible:
-					break;
-
-				case Location.TileMap:
-
-					if (!RevealAndSelectGameObject(assetPath, referencingEntry.transformPath,
-						referencingEntry.objectId, referencingEntry.componentId))
-					{
-						MaintainerWindow.ShowNotification("Can't show it properly");
-					}
-
-					// TODO: open tile map editor window?
-
-					break;
-				default:
-					throw new ArgumentOutOfRangeException();
+				if (!success)
+					MaintainerWindow.ShowNotification("Can't show it properly");
+#if UNITY_2021_3_OR_NEWER
+				else
+					CSHighlightTools.TryHighlightProperty(referencingEntry);
+#endif
+			}
+			catch (Exception e)
+			{
+				Debug.LogError(Maintainer.ErrorForSupport("Error while revealing and selecting referencing entry: " + e));
+				MaintainerWindow.ShowNotification("Can't show it properly");
 			}
 		}
 
 		public static bool RevealAndSelectGameObject(string assetPath, string transformPath, long objectId, long componentId)
 		{
-			var enclosingAssetType =  AssetDatabase.GetMainAssetTypeAtPath(assetPath);
+			var enclosingAssetType = AssetDatabase.GetMainAssetTypeAtPath(assetPath);
 			if (enclosingAssetType == CSReflectionTools.sceneAssetType 
 				|| string.IsNullOrEmpty(assetPath) 
 				|| assetPath == CSPathTools.UntitledScenePath)
@@ -157,28 +154,28 @@ namespace CodeStage.Maintainer.Tools
 			return RevealAndSelectGameObjectInPrefab(assetPath, transformPath, objectId, componentId);
 		}
 
-		public static CSSceneTools.OpenSceneResult OpenSceneForReveal(string path)
+		public static CSSceneUtils.OpenSceneResult OpenSceneForReveal(string path)
 		{
-			var result = CSSceneTools.OpenScene(path);
+			var result = CSSceneUtils.OpenScene(path);
 			if (result.success)
 			{
-				CSSceneTools.CloseUntitledSceneIfNotDirty();
+				CSSceneUtils.CloseUntitledSceneIfNotDirty();
 
 				if (CSEditorTools.lastRevealSceneOpenResult != null)
 				{
-					if (CSSceneTools.IsOpenedSceneNeedsToBeClosed(CSEditorTools.lastRevealSceneOpenResult, path, true))
+					if (CSSceneUtils.IsOpenedSceneNeedsToBeClosed(CSEditorTools.lastRevealSceneOpenResult, path, true))
 					{
 						if (CSEditorTools.lastRevealSceneOpenResult.scene.isDirty)
 						{
-							if (!CSSceneTools.SaveDirtyScenesWithPrompt(
+							if (!CSSceneUtils.SaveDirtyScenesWithPrompt(
 								new[] { CSEditorTools.lastRevealSceneOpenResult.scene }))
 							{
-								return new CSSceneTools.OpenSceneResult();
+								return new CSSceneUtils.OpenSceneResult();
 							}
 						}
 					}
 
-					CSSceneTools.CloseOpenedSceneIfNeeded(CSEditorTools.lastRevealSceneOpenResult, path, true);
+					CSSceneUtils.CloseOpenedSceneIfNeeded(CSEditorTools.lastRevealSceneOpenResult, path, true);
 				}
 
 				CSEditorTools.lastRevealSceneOpenResult = result;
@@ -217,7 +214,9 @@ namespace CodeStage.Maintainer.Tools
 
 					if (i - skipCount == componentId)
 					{
-						targetFound = true;
+						var hiddenFlags = HideFlags.HideInInspector | HideFlags.HideAndDontSave;
+						var isHidden = (editor.target.hideFlags & hiddenFlags) != 0;
+						targetFound = !isHidden;
 
 						/* known corner cases when editor can't be set to visible via tracker */
 
@@ -232,10 +231,8 @@ namespace CodeStage.Maintainer.Tools
 					}
 				}
 
-				if (componentId != -1 && !targetFound)
-				{
+				if (componentId == -1 || !targetFound)
 					return false;
-				}
 
 				SwitchTrackersVisibility(tracker, componentId, skipCount);
 
@@ -291,7 +288,7 @@ namespace CodeStage.Maintainer.Tools
 			}
 			else
 			{
-				targetScene = CSSceneTools.GetUntitledScene();
+				targetScene = CSSceneUtils.GetUntitledScene();
 			}
 
 			if (!targetScene.IsValid())
@@ -322,7 +319,7 @@ namespace CodeStage.Maintainer.Tools
 				EditorGUIUtility.PingObject(enclosingAssetInstanceId);
 			};
 
-			return TryFoldAllComponentsExceptId(componentId);
+			return componentId == -1 || TryFoldAllComponentsExceptId(componentId);
 		}
 
 		private static bool RevealAndSelectGameObjectInPrefab(string path, string transformPath, long objectId, long componentId)
@@ -342,10 +339,13 @@ namespace CodeStage.Maintainer.Tools
 				SelectGameObject(target, false);
 				EditorGUIUtility.PingObject(AssetDatabase.LoadMainAssetAtPath(path));
 
-				EditorApplication.delayCall += () =>
+				if (componentId != -1)
 				{
-					TryFoldAllComponentsExceptId(componentId);
-				};
+					EditorApplication.delayCall += () =>
+					{
+						TryFoldAllComponentsExceptId(componentId);
+					};
+				}
 			};
 
 			return true;
@@ -353,6 +353,7 @@ namespace CodeStage.Maintainer.Tools
 
 		public static void SelectGameObject(GameObject go, bool inScene)
 		{
+			CSEditorTools.GetInspectorWindow();
 			if (inScene)
 			{
 				Selection.activeTransform = go == null ? null : go.transform;

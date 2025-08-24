@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -10,6 +10,7 @@ namespace CodeStage.Maintainer.Issues.Routines
 	using System.Collections.Generic;
 	using System.Linq;
 	using Core;
+	using EditorCommon.Tools;
 	using Settings;
 	using Tools;
 	using UnityEditor;
@@ -29,7 +30,7 @@ namespace CodeStage.Maintainer.Issues.Routines
 
 			EditorUtility.DisplayProgressBar(IssuesFinder.ModuleName, "Collecting input data...", 0);
 
-			var supportedKinds = new List<AssetKind> {AssetKind.Regular, AssetKind.Settings};
+			var supportedKinds = new List<AssetOrigin> {AssetOrigin.AssetsFolder, AssetOrigin.Settings};
 			var assets = CSFilterTools.GetAssetInfosWithKinds(map.assets, supportedKinds);
 			
 			var result = new HashSet<AssetInfo>();
@@ -42,18 +43,18 @@ namespace CodeStage.Maintainer.Issues.Routines
 				{
 					switch (ProjectSettings.Issues.scenesSelection)
 					{
-						case IssuesFinderSettings.ScenesSelection.AllScenes:
+						case IssuesFinderSettings.ScenesSelection.All:
 						{
 							targetAssetTypes.Add(new TypeFilter(CSReflectionTools.sceneAssetType, false));
 							TryIncludeUntitledScene(result);
 							
 							break;
 						}
-						case IssuesFinderSettings.ScenesSelection.IncludedScenes:
+						case IssuesFinderSettings.ScenesSelection.IncludedOnly:
 						{
 							if (ProjectSettings.Issues.includeScenesInBuild)
 							{
-								var paths = CSSceneTools.GetScenesInBuild(!ProjectSettings.Issues.includeOnlyEnabledScenesInBuild);
+								var paths = CSSceneTools.GetBuildProfilesScenesPaths(!ProjectSettings.Issues.includeOnlyEnabledScenesInBuild);
 								result.UnionWith(CSFilterTools.GetAssetInfosWithPaths(assets, paths));
 							}
 
@@ -62,9 +63,9 @@ namespace CodeStage.Maintainer.Issues.Routines
 
 							break;
 						}
-						case IssuesFinderSettings.ScenesSelection.OpenedScenesOnly:
+						case IssuesFinderSettings.ScenesSelection.OpenedOnly:
 						{
-							var paths = CSSceneTools.GetScenesSetup().Select(scene => scene.path).ToArray();
+							var paths = CSSceneUtils.GetScenesSetup().Select(scene => scene.path).ToArray();
 							result.UnionWith(CSFilterTools.GetAssetInfosWithPaths(assets, paths));
 							TryIncludeUntitledScene(result);
 
@@ -99,7 +100,7 @@ namespace CodeStage.Maintainer.Issues.Routines
 
 				if (ProjectSettings.Issues.lookInProjectSettings)
 				{
-					result.UnionWith(CSFilterTools.GetAssetInfosWithKind(assets, AssetKind.Settings));
+					result.UnionWith(CSFilterTools.GetAssetInfosWithKind(assets, AssetOrigin.Settings));
 				}
 			}
 			catch (Exception e)
@@ -115,7 +116,7 @@ namespace CodeStage.Maintainer.Issues.Routines
 
 		private static void TryIncludeUntitledScene(HashSet<AssetInfo> result)
 		{
-			var untitledScene = CSSceneTools.GetUntitledScene();
+			var untitledScene = CSSceneUtils.GetUntitledScene();
 			if (!untitledScene.IsValid())
 				return;
 

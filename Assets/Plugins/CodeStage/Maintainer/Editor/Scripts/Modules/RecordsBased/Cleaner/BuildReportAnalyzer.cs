@@ -1,10 +1,9 @@
 ﻿#region copyright
 // ---------------------------------------------------------------
-//  Copyright (C) Dmitriy Yukhanov - focus [https://codestage.net]
+//  Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // ---------------------------------------------------------------
 #endregion
 
-#if UNITY_2019_3_OR_NEWER
 namespace CodeStage.Maintainer.Cleaner
 {
 	using System.Collections.Generic;
@@ -73,4 +72,3 @@ namespace CodeStage.Maintainer.Cleaner
 		}
 	}
 }
-#endif

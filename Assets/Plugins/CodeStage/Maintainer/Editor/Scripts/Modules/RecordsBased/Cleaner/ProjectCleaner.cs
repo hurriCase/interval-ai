@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -14,6 +14,7 @@ namespace CodeStage.Maintainer.Cleaner
 	using UnityEngine;
 	using Core;
 	using Core.Dependencies;
+	using EditorCommon.Tools;
 	using Settings;
 	using Tools;
 	using UI;
@@ -37,13 +38,14 @@ namespace CodeStage.Maintainer.Cleaner
 
 		private static long cleanedBytes;
 		private static List<FilterItem> editorIgnoresFilters = new List<FilterItem>();
+		private static List<FilterItem> hdrpIgnoresFilters = new List<FilterItem>();
 
 		/// <summary>
 		/// Starts garbage search and generates report.
 		/// </summary>
-		/// <returns>Project Cleaner report, similar to the exported report from the %Maintainer window.</returns>
-		/// %Maintainer window is not shown.
-		/// <br/>Useful when you wish to integrate %Maintainer in your build pipeline.
+		/// <returns>Project Cleaner report, similar to the exported report from the Maintainer window.</returns>
+		/// Maintainer window is not shown.
+		/// <br/>Useful when you wish to integrate Maintainer in your build pipeline.
 		public static string SearchAndReport()
 		{
 			var foundGarbage = StartSearch(false);
@@ -58,8 +60,8 @@ namespace CodeStage.Maintainer.Cleaner
 		/// </summary>
 		/// <param name="showConfirmation">Enables or disables confirmation dialog about cleaning up found stuff.</param>
 		/// <returns>Project Cleaner report about removed items.</returns>
-		/// %Maintainer window is not shown.
-		/// <br/>Useful when you wish to integrate %Maintainer in your build pipeline.
+		/// Maintainer window is not shown.
+		/// <br/>Useful when you wish to integrate Maintainer in your build pipeline.
 		public static string SearchAndCleanAndReport(bool showConfirmation = true)
 		{
 			var foundGarbage = StartSearch(false);
@@ -75,7 +77,7 @@ namespace CodeStage.Maintainer.Cleaner
 		/// <summary>
 		/// Starts garbage search with current settings.
 		/// </summary>
-		/// <param name="showResults">Shows results in %Maintainer window if true.</param>
+		/// <param name="showResults">Shows results in Maintainer window if true.</param>
 		/// <returns>Array of CleanerRecords in case you wish to manually iterate over them and make custom report.</returns>
 		public static CleanerRecord[] StartSearch(bool showResults)
 		{
@@ -87,7 +89,7 @@ namespace CodeStage.Maintainer.Cleaner
 			if (ProjectSettings.Cleaner.findEmptyFolders) phasesCount++;
 			if (ProjectSettings.Cleaner.findUnreferencedAssets) phasesCount++;
 
-			var searchCanceled = !CSSceneTools.SaveCurrentModifiedScenes(true);
+			var searchCanceled = !CSSceneUtils.SaveCurrentModifiedScenes(true);
 
 			if (searchCanceled)
 			{
@@ -146,7 +148,7 @@ namespace CodeStage.Maintainer.Cleaner
 		/// Starts clean of the garbage found with StartSearch() method.
 		/// </summary>
 		/// <param name="recordsToClean">Pass records you wish to clean here or leave null to let it load last search results.</param>
-		/// <param name="showResults">Shows results in the %Maintainer window if true.</param>
+		/// <param name="showResults">Shows results in the Maintainer window if true.</param>
 		/// <param name="showConfirmation">Shows confirmation dialog before performing cleanup if true.</param>
 		/// <returns>Array of CleanRecords which were cleaned up.</returns>
 		public static CleanerRecord[] StartClean(CleanerRecord[] recordsToClean = null, bool showResults = true, bool showConfirmation = true)
@@ -294,7 +296,7 @@ namespace CodeStage.Maintainer.Cleaner
 			if (ProjectSettings.Cleaner.ignoreScenesInBuild)
 			{
 				ignoredScenes.AddRange(
-					CSSceneTools.GetScenesInBuild(!ProjectSettings.Cleaner.ignoreOnlyEnabledScenesInBuild));
+					CSSceneTools.GetBuildProfilesScenesPaths(!ProjectSettings.Cleaner.ignoreOnlyEnabledScenesInBuild));
 			}
 
 			if (ProjectSettings.Cleaner.scenesSelection == ProjectCleanerSettings.ScenesSelection.ScenesInFilters)
@@ -312,7 +314,7 @@ namespace CodeStage.Maintainer.Cleaner
 			}
 			else
 			{
-				ignoredScenes.AddRange(CSSceneTools.GetAllScenes());
+				ignoredScenes.AddRange(CSSceneUtils.GetAllScenes());
 			}
 			
 			CheckScenesForExistence(results, ignoredScenes);
@@ -354,17 +356,11 @@ namespace CodeStage.Maintainer.Cleaner
 
 			EditorUtility.DisplayCancelableProgressBar(string.Format(ProgressCaption, currentPhase, phasesCount, 0, 0),
 				"Analyzing Assets Map for references...", 0);
-
-#if UNITY_2019_3_OR_NEWER
+			
 			BuildReportAnalyzer.Init();
-#endif
 			
 			var allAssetsInProject = map.assets;
 			var count = allAssetsInProject.Count;
-			
-#if !UNITY_2020_1_OR_NEWER
-			var updateStep = Math.Max(count / ProjectSettings.UpdateProgressStep, 1);
-#endif
 			var referencedAssets = new HashSet<AssetInfo>();
 			
 			if (ProjectSettings.Cleaner.ignoreEditorAssets)
@@ -376,7 +372,7 @@ namespace CodeStage.Maintainer.Cleaner
 				{
 					var asset = allAssetsInProject[i];
 
-					if (asset.Kind != AssetKind.Regular ||
+					if (asset.Origin != AssetOrigin.AssetsFolder ||
 						asset.Type != CSReflectionTools.assemblyDefinitionAssetType)
 						continue;
 
@@ -388,12 +384,17 @@ namespace CodeStage.Maintainer.Cleaner
 				}
 			}
 
+			// Add HDRP default resources folder to ignore list
+			hdrpIgnoresFilters.Clear();
+			var hdrpFolder = GetHDRPDefaultResourcesFolder();
+			if (!string.IsNullOrEmpty(hdrpFolder))
+			{
+				hdrpIgnoresFilters.Add(FilterItem.Create(hdrpFolder, FilterKind.Directory));
+			}
+
 			for (var i = 0; i < count; i++)
 			{
 				if (showProgress
-#if !UNITY_2020_1_OR_NEWER
-				    && i % updateStep == 0
-#endif
 					&& i != 0 && EditorUtility.DisplayCancelableProgressBar(
 						string.Format(ProgressCaption, currentPhase, phasesCount, i + 1, count),
 						"Analyzing Assets Map for references...",
@@ -414,20 +415,26 @@ namespace CodeStage.Maintainer.Cleaner
 					}
 				}*/
 
-				if (asset.Kind != AssetKind.Regular) 
+				// Process Settings assets to include their dependencies as referenced
+				if (asset.Origin == AssetOrigin.Settings)
+				{
+					AddReferencedAsset(referencedAssets, asset);
+					continue;
+				}
+
+				if (asset.Origin != AssetOrigin.AssetsFolder) 
 					continue;
 				
 				if (AssetInIgnores(asset, ignoredScenes))
 				{
 					AddReferencedAsset(referencedAssets, asset);
 				}
-
-#if UNITY_2019_3_OR_NEWER
+				
 				if (BuildReportAnalyzer.IsFileInBuildReport(asset.GUID))
 				{
 					AddReferencedAsset(referencedAssets, asset);
 				}
-#endif
+
 				if (AssetInIgnoresSecondPass(asset, referencedAssets))
 				{
 					AddReferencedAsset(referencedAssets, asset);
@@ -438,9 +445,6 @@ namespace CodeStage.Maintainer.Cleaner
 			for (var i = 0; i < count; i++)
 			{
 				if (showProgress
-#if !UNITY_2020_1_OR_NEWER
-				    && i % updateStep == 0 
-#endif
 					&& i != 0 && EditorUtility.DisplayCancelableProgressBar(
 						string.Format(ProgressCaption, currentPhase, phasesCount, i + 1, count),
 						"Filtering out unreferenced assets...",
@@ -451,7 +455,7 @@ namespace CodeStage.Maintainer.Cleaner
 
 				var asset = allAssetsInProject[i];
 				
-				if (asset.Kind != AssetKind.Regular) 
+				if (asset.Origin != AssetOrigin.AssetsFolder) 
 					continue;
 				
 				if (CSFilterTools.HasEnabledFilters(ProjectSettings.Cleaner.pathIncludesFilters))
@@ -472,17 +476,10 @@ namespace CodeStage.Maintainer.Cleaner
 			}
 
 			count = unreferencedAssets.Count;
-			
-#if !UNITY_2020_1_OR_NEWER
-			updateStep = Math.Max(count / ProjectSettings.UpdateProgressStep, 1);
-#endif
 
 			for (var i = count - 1; i > -1; i--)
 			{
 				if (showProgress
-#if !UNITY_2020_1_OR_NEWER
-				    && i % updateStep == 0 
-#endif
 				    && i != 0)
 				{
 					var index = count - i;
@@ -557,7 +554,7 @@ namespace CodeStage.Maintainer.Cleaner
 				if (importer != null && importer.ToString() == " (UnityEngine.DefaultImporter)") return true;
 			}
 
-			if (CSFilterTools.IsValueMatchesAnyFilter(assetInfo.Path, ProjectSettings.Cleaner.MandatoryFilters))
+			if (CSFilterTools.IsAssetInfoMatchesAnyFilter(assetInfo, ProjectSettings.Cleaner.MandatoryFilters))
 				return true;
 
 			if (CSFilterTools.IsValueMatchesAnyFilter(assetInfo.Path, ProjectSettings.Cleaner.pathIgnoresFilters))
@@ -568,6 +565,9 @@ namespace CodeStage.Maintainer.Cleaner
 				if (CSFilterTools.IsValueMatchesAnyFilter(assetInfo.Path, editorIgnoresFilters))
 					return true;
 			}
+
+			if (CSFilterTools.IsValueMatchesAnyFilter(assetInfo.Path, hdrpIgnoresFilters))
+				return true;
 
 			if (assetInfo.Type == CSReflectionTools.sceneAssetType &&
 				ignoredScenes.IndexOf(assetInfo.Path) != -1)
@@ -580,7 +580,7 @@ namespace CodeStage.Maintainer.Cleaner
 					referencedAtAsset.SettingsKind != AssetSettingsKind.EditorBuildSettings)
 					return true;
 
-				if (referencedAtAsset.Kind == AssetKind.FromPackage)
+				if (referencedAtAsset.Origin == AssetOrigin.ImmutablePackage)
 					return true;
 			}
 
@@ -673,10 +673,6 @@ namespace CodeStage.Maintainer.Cleaner
 			var emptySubFolders = true;
 
 			var count = rootSubFolders.Length;
-			
-#if !UNITY_2020_1_OR_NEWER
-			var updateStep = Math.Max(count / ProjectSettings.UpdateProgressStep, 1);
-#endif
 
 			for (var i = 0; i < count; i++)
 			{
@@ -684,9 +680,6 @@ namespace CodeStage.Maintainer.Cleaner
 				folderIndex++;
 
 				if (showProgress
-#if !UNITY_2020_1_OR_NEWER
-				    && i % updateStep == 0
-#endif
 				    && EditorUtility.DisplayCancelableProgressBar(
 					    string.Format(ProgressCaption, currentPhase, phasesCount, folderIndex, foldersCount), "Scanning folders...",
 					    (float) folderIndex / foldersCount))
@@ -761,6 +754,54 @@ namespace CodeStage.Maintainer.Cleaner
 			AssetDatabase.Refresh();
 
 			return canceled;
+		}
+
+		/// <summary>
+		/// Gets the HDRP default resources folder path from HDRPProjectSettings.asset.
+		/// Uses InternalEditorUtility.LoadSerializedFileAndForget to avoid compilation errors when HDRP package is not installed.
+		/// </summary>
+		/// <returns>The HDRP default resources folder path, or null if not found or HDRP not installed.</returns>
+		private static string GetHDRPDefaultResourcesFolder()
+		{
+			try
+			{
+				const string hdrpSettingsPath = "ProjectSettings/HDRPProjectSettings.asset";
+				
+				// Check if HDRPProjectSettings.asset exists
+				if (!File.Exists(hdrpSettingsPath))
+					return null;
+
+				// Use InternalEditorUtility.LoadSerializedFileAndForget to load ProjectSettings files
+				var settingsObjects = UnityEditorInternal.InternalEditorUtility.LoadSerializedFileAndForget(hdrpSettingsPath);
+				if (settingsObjects == null || settingsObjects.Length == 0)
+					return null;
+
+				var settingsObject = new SerializedObject(settingsObjects[0]);
+				var folderPathProperty = settingsObject.FindProperty("m_ProjectSettingFolderPath");
+				
+				if (folderPathProperty != null && folderPathProperty.propertyType == SerializedPropertyType.String)
+				{
+					var folderPath = folderPathProperty.stringValue;
+					if (!string.IsNullOrEmpty(folderPath))
+					{
+						// Ensure the path uses forward slashes and starts with Assets/
+						folderPath = CSPathTools.EnforceSlashes(folderPath);
+						if (!folderPath.StartsWith("Assets/"))
+						{
+							folderPath = "Assets/" + folderPath.TrimStart('/');
+						}
+						return folderPath;
+					}
+				}
+
+				// Fallback to default path if property is empty or not found
+				return "Assets/HDRPDefaultResources";
+			}
+			catch (System.Exception)
+			{
+				// Silently handle any exceptions (e.g., HDRP not installed, file format changes)
+				return null;
+			}
 		}
 	}
 }

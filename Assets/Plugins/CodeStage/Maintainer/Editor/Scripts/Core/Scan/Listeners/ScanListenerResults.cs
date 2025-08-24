@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -8,18 +8,12 @@ namespace CodeStage.Maintainer.Core.Scan
 {
 	using System.Collections.Generic;
 
-	internal class ScanListenerResults<T> : IScanListenerResults<T> where T : IScanListenerResult
+	public class ScanListenerResults<T> : IScanListenerResults<T> where T : IScanListenerResult
 	{
 		protected List<T> results;
 
-		public bool IsEmpty
-		{
-			get
-			{
-				return results == null || results.Count == 0;
-			}
-		}
-		
+		public bool IsEmpty => results == null || results.Count == 0;
+
 		public void Add(T newResult)
 		{
 			if (newResult == null)

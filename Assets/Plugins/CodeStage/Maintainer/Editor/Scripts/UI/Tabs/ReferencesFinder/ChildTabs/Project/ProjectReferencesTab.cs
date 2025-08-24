@@ -1,6 +1,6 @@
 ﻿#region copyright
 // ---------------------------------------------------------------
-//  Copyright (C) Dmitriy Yukhanov - focus [https://codestage.net]
+//  Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // ---------------------------------------------------------------
 #endregion
 
@@ -28,7 +28,7 @@ namespace CodeStage.Maintainer.UI
 			get { return CSEditorIcons.ProjectView; }
 		}
 
-		private readonly ProjectReferencesTreePanel treePanel;
+		internal readonly ProjectReferencesTreePanel treePanel;
 
 		public ProjectReferencesTab(MaintainerWindow window) : base(window)
 		{
@@ -39,7 +39,6 @@ namespace CodeStage.Maintainer.UI
 		{
 			using (new GUILayout.HorizontalScope())
 			{
-				GUILayout.Space(10);
 				using (new GUILayout.VerticalScope())
 				{
 					GUILayout.Space(10);
@@ -75,7 +74,6 @@ namespace CodeStage.Maintainer.UI
 						EditorApplication.delayCall += () => ReferencesFinder.FindSelectedAssetsReferences();
 					}
 				}
-				GUILayout.Space(10);
 			}
 
 			GUI.enabled = true;
@@ -86,10 +84,9 @@ namespace CodeStage.Maintainer.UI
 			GUILayout.Space(10);
 			using (new GUILayout.HorizontalScope(/*UIHelpers.panelWithBackground*/))
 			{
-				GUILayout.Space(10);
 				using (new GUILayout.VerticalScope())
 				{
-					GUILayout.Label("<size=16><b>Settings:</b></size>", UIHelpers.richLabel);
+					GUILayout.Label("<size=16><b>Settings</b></size>", UIHelpers.richLabel);
 					UIHelpers.Separator();
 					GUILayout.Space(10);
 
@@ -138,8 +135,6 @@ namespace CodeStage.Maintainer.UI
 
 					GUILayout.Space(10);
 				}
-
-				GUILayout.Space(10);
 			}
 		}
 
@@ -167,65 +162,24 @@ namespace CodeStage.Maintainer.UI
 
 		public void DrawFooter()
 		{
-			using (new GUILayout.HorizontalScope())
-			{
-				GUILayout.Space(10);
+			
+		}
 
-				if (SearchResultsStorage.ProjectReferencesLastSearched.Length == 0)
-				{
-					GUI.enabled = false;
-				}
+		internal override void ClearResults()
+		{
+			SearchResultsStorage.ProjectReferencesSearchResults = null;
+			SearchResultsStorage.ProjectReferencesLastSearched = null;
+			Refresh(true);
+		}
 
-				if (UIHelpers.ImageButton("Refresh", "Restarts references search for the previous results.",
-					CSIcons.Repeat))
-				{
-					if (Event.current.control && Event.current.shift)
-					{
-						ReferencesFinder.debugMode = true;
-						AssetsMap.Delete();
-						Event.current.Use();
-					}
-					else
-					{
-						ReferencesFinder.debugMode = false;
-					}
+		internal override void CollapseAllElements()
+		{
+			treePanel.CollapseAll();
+		}
 
-					EditorApplication.delayCall += () =>
-					{
-						ProjectScopeReferencesFinder.FindAssetsReferences(SearchResultsStorage.ProjectReferencesLastSearched, null);
-					};
-				}
-
-				GUI.enabled = true;
-
-				// either 0 or 1 is empty (since it can contain invisible root item)
-				if (SearchResultsStorage.ProjectReferencesSearchResults.Length < 2)
-				{
-					GUI.enabled = false;
-				}
-
-				if (UIHelpers.ImageButton("Collapse all", "Collapses all tree items.", CSIcons.Collapse))
-				{
-					treePanel.CollapseAll();
-				}
-
-				if (UIHelpers.ImageButton("Expand all", "Expands all tree items.", CSIcons.Expand))
-				{
-					treePanel.ExpandAll();
-				}
-
-				if (UIHelpers.ImageButton("Clear results", "Clears results tree and empties cache.", CSIcons.Clear))
-				{
-					SearchResultsStorage.ProjectReferencesSearchResults = null;
-					SearchResultsStorage.ProjectReferencesLastSearched = null;
-					Refresh(true);
-				}
-
-				GUI.enabled = true;
-
-				GUILayout.Space(10);
-			}
-			GUILayout.Space(10);
+		internal override void ExpandAllElements()
+		{
+			treePanel.ExpandAll();
 		}
 
 		private void SelectItemWithPath(string autoSelectPath)

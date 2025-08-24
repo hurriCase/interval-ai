@@ -1,10 +1,9 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
-#if UNITY_2019_1_OR_NEWER
 namespace CodeStage.Maintainer.Issues
 {
 	using System;
@@ -36,13 +35,7 @@ namespace CodeStage.Maintainer.Issues
 			return false;
 		}
 
-		public override bool IsFixable
-		{
-			get
-			{
-				return false;
-			}
-		}
+		public override bool IsFixable => false;
 
 		protected ShaderIssueRecord(IIssueDetector detector, AssetLocation location):base(detector, IssueKind.ShaderError, location)
 		{
@@ -56,4 +49,3 @@ namespace CodeStage.Maintainer.Issues
 		}
 	}
 }
-#endif

@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -16,28 +16,36 @@ namespace CodeStage.Maintainer.UI
 	
 	internal partial class CleanerTab
 	{
+		private const string ScanButtonLabel = "Scan Project";
+		private const string DeleteButtonLabel = "Delete selected garbage";
+
+		private static readonly Texture ScanButtonIcon = CSEditorIcons.Search;
+		private static readonly Texture DeleteButtonIcon = CSIcons.Delete;
+		
+		private readonly GUIContent[] collapsedIcons =
+		{
+			new GUIContent(ScanButtonIcon, ScanButtonLabel),
+			new GUIContent(DeleteButtonIcon, DeleteButtonLabel),
+		};
+		
 		protected override void DrawLeftColumnHeader()
 		{
-			base.DrawLeftColumnHeader();
-
 			using (new GUILayout.HorizontalScope())
 			{
-				GUILayout.Space(10);
 				using (new GUILayout.VerticalScope())
 				{
 					GUILayout.Space(10);
-					if (UIHelpers.ImageButton("1. Scan Project", CSEditorIcons.Search))
+					if (UIHelpers.ImageButton(ScanButtonLabel, ScanButtonIcon))
 					{
 						EditorApplication.delayCall += StartSearch;
 					}
 					GUILayout.Space(5);
-					if (UIHelpers.ImageButton("2. Delete selected garbage", CSIcons.Delete))
+					if (UIHelpers.ImageButton(DeleteButtonLabel, DeleteButtonIcon))
 					{
 						EditorApplication.delayCall += StartClean;
 					}
 					GUILayout.Space(10);
 				}
-				GUILayout.Space(10);
 			}
 		}
 		
@@ -45,27 +53,27 @@ namespace CodeStage.Maintainer.UI
 		{
 			using (new GUILayout.VerticalScope(/*UIHelpers.panelWithBackground*/))
 			{
-#if  UNITY_2019_3_OR_NEWER
 				if (!BuildReportAnalyzer.IsReportExists())
 				{
-					EditorGUILayout.HelpBox("No build data found: search will be more accurate if you'll make a build", MessageType.Warning);
+					using (new GUILayout.HorizontalScope())
+					{
+						EditorGUILayout.HelpBox(
+							"No build data found: search will be more accurate if you'll make a build",
+							MessageType.Warning);
+					}
 				}
-#endif
+
 				using (new GUILayout.HorizontalScope())
 				{
-					GUILayout.Space(10);
 					using (new GUILayout.VerticalScope(/*UIHelpers.panelWithButtonBackground*/))
 					{
 						GUILayout.Label("<b><size=16>Settings</size></b>", UIHelpers.richLabel);
 						UIHelpers.Separator();
 					}
-					GUILayout.Space(10);
 				}
 
 				using (new GUILayout.HorizontalScope())
 				{
-					GUILayout.Space(10);
-
 					using (new GUILayout.VerticalScope())
 					{
 						GUILayout.Space(10);
@@ -129,23 +137,17 @@ namespace CodeStage.Maintainer.UI
 						}
 
 						GUILayout.Space(10);
+						
+						using (new GUILayout.VerticalScope(GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true)))
+						{
+							GUILayout.Label("<b><size=16>Stats</size></b>", UIHelpers.richLabel);
+							UIHelpers.Separator();
+							GUILayout.Space(10);
+							DrawStatsBody();
+						}
+						GUILayout.Space(10);
 					}
-
-					GUILayout.Space(10);
 				}
-			}
-
-			using (new GUILayout.HorizontalScope())
-			{
-				GUILayout.Space(10);
-				using (new GUILayout.VerticalScope(GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true)))
-				{
-					GUILayout.Label("<b><size=16>Stats</size></b>", UIHelpers.richLabel);
-					UIHelpers.Separator();
-					GUILayout.Space(10);
-					DrawStatsBody();
-				}
-				GUILayout.Space(10);
 			}
 		}
 		

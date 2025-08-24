@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -17,7 +17,13 @@ namespace CodeStage.Maintainer.UI
 	using UnityEditor.VersionControl;
 	using UnityEngine;
 
-	internal abstract class MaintainerTreeViewItem<T> : TreeViewItem where T : TreeItem
+	internal abstract class MaintainerTreeViewItem<T> : 
+#if UNITY_6000_2_OR_NEWER
+		TreeViewItem<int> 
+#else
+		TreeViewItem
+#endif
+		where T : TreeItem
 	{
 		public readonly T data;
 
@@ -37,29 +43,55 @@ namespace CodeStage.Maintainer.UI
 		}
 	}
 
-	internal abstract class MaintainerTreeView<T> : TreeView where T : TreeItem
+	internal abstract class MaintainerTreeView<T> : 
+#if UNITY_6000_2_OR_NEWER
+		TreeView<int> 
+#else
+		TreeView
+#endif
+		where T : TreeItem
 	{
 		public event Action TreeChanged;
 
 		protected const float RowHeight = 25f;
-#if UNITY_2019_3_OR_NEWER
 		protected const int IconWidth = 20;
-#else
-		protected const int IconWidth = 16;
-#endif
 		protected const int IconPadding = 7;
 
-		protected readonly List<TreeViewItem> rows = new List<TreeViewItem>(100);
+		protected readonly List<
+#if UNITY_6000_2_OR_NEWER
+			TreeViewItem<int>
+#else
+			TreeViewItem
+#endif
+			> rows = new List<
+#if UNITY_6000_2_OR_NEWER
+				TreeViewItem<int>
+#else
+				TreeViewItem
+#endif
+			>(100);
 
 		private TreeModel<T> TreeModel { get; set; }
 		private string newSearchString;
 
-		protected MaintainerTreeView(TreeViewState state, TreeModel<T> model) : base(state)
+		protected MaintainerTreeView(
+#if UNITY_6000_2_OR_NEWER
+			TreeViewState<int> 
+#else
+			TreeViewState
+#endif
+			state, TreeModel<T> model) : base(state)
 		{
 			Init(model);
 		}
 
-		protected MaintainerTreeView(TreeViewState state, MultiColumnHeader multiColumnHeader, TreeModel<T> model) : base(state, multiColumnHeader)
+		protected MaintainerTreeView(
+#if UNITY_6000_2_OR_NEWER
+			TreeViewState<int> 
+#else
+			TreeViewState
+#endif
+			state, MultiColumnHeader multiColumnHeader, TreeModel<T> model) : base(state, multiColumnHeader)
 		{
 			multiColumnHeader.sortingChanged += OnSortingChanged;
 			Init(model);
@@ -86,10 +118,6 @@ namespace CodeStage.Maintainer.UI
 		private void Init(TreeModel<T> model)
 		{
 			rowHeight = RowHeight;
-			
-#if !UNITY_2019_3_OR_NEWER
-			customFoldoutYOffset = (RowHeight - EditorGUIUtility.singleLineHeight) * 0.5f;
-#endif
 
 			showBorder = true;
 			showAlternatingRowBackgrounds = true;
@@ -100,12 +128,30 @@ namespace CodeStage.Maintainer.UI
 			PostInit();
 		}
 
-		protected override TreeViewItem BuildRoot()
+		protected override 
+#if UNITY_6000_2_OR_NEWER
+			TreeViewItem<int> 
+#else
+			TreeViewItem
+#endif
+			BuildRoot()
 		{
 			return GetNewTreeViewItemInstance(TreeModel.root.id, -1, TreeModel.root.name, TreeModel.root);
 		}
 
-		protected override IList<TreeViewItem> BuildRows(TreeViewItem root)
+		protected override IList<
+#if UNITY_6000_2_OR_NEWER
+			TreeViewItem<int>
+#else
+			TreeViewItem
+#endif
+			> BuildRows(
+#if UNITY_6000_2_OR_NEWER
+			TreeViewItem<int> 
+#else
+			TreeViewItem
+#endif
+			root)
 		{
 			if (TreeModel.root == null)
 			{
@@ -126,7 +172,13 @@ namespace CodeStage.Maintainer.UI
 			return rows;
 		}
 
-		protected override bool CanMultiSelect(TreeViewItem item)
+		protected override bool CanMultiSelect(
+#if UNITY_6000_2_OR_NEWER
+			TreeViewItem<int> 
+#else
+			TreeViewItem
+#endif
+			item)
 		{
 			return false;
 		}
@@ -167,7 +219,13 @@ namespace CodeStage.Maintainer.UI
 			return TreeModel.GetDescendantsThatHaveChildren(id);
 		}
 
-		private void AddChildrenRecursive(T parent, int depth, IList<TreeViewItem> result)
+		private void AddChildrenRecursive(T parent, int depth, IList<
+#if UNITY_6000_2_OR_NEWER
+			TreeViewItem<int>
+#else
+			TreeViewItem
+#endif
+			> result)
 		{
 			foreach (var treeElement in parent.Children)
 			{
@@ -192,7 +250,19 @@ namespace CodeStage.Maintainer.UI
 			}
 		}
 
-		private void SortIfNeeded(TreeViewItem root, IList<TreeViewItem> rowsToSort)
+		private void SortIfNeeded(
+#if UNITY_6000_2_OR_NEWER
+			TreeViewItem<int> 
+#else
+			TreeViewItem
+#endif
+			root, IList<
+#if UNITY_6000_2_OR_NEWER
+			TreeViewItem<int>
+#else
+			TreeViewItem
+#endif
+			> rowsToSort)
 		{
 			if (rowsToSort.Count <= 1)
 				return;
@@ -216,7 +286,19 @@ namespace CodeStage.Maintainer.UI
 			SortIfNeeded(rootItem, GetRows());
 		}
 
-		private static void TreeToList(TreeViewItem root, IList<TreeViewItem> result)
+		private static void TreeToList(
+#if UNITY_6000_2_OR_NEWER
+			TreeViewItem<int> 
+#else
+			TreeViewItem
+#endif
+			root, IList<
+#if UNITY_6000_2_OR_NEWER
+			TreeViewItem<int>
+#else
+			TreeViewItem
+#endif
+			> result)
 		{
 			if (root == null)
 				throw new NullReferenceException("root");
@@ -228,7 +310,13 @@ namespace CodeStage.Maintainer.UI
 			if (root.children == null)
 				return;
 
-			var stack = new Stack<TreeViewItem>();
+			var stack = new Stack<
+#if UNITY_6000_2_OR_NEWER
+				TreeViewItem<int>
+#else
+				TreeViewItem
+#endif
+				>();
 			for (var i = root.children.Count - 1; i >= 0; i--)
 				stack.Push(root.children[i]);
 
@@ -276,7 +364,13 @@ namespace CodeStage.Maintainer.UI
 			};
 		}
 
-		protected Rect DrawIconAndGetEntryRect(Rect cellRect, TreeViewItem item, bool indentWithNoIcon = false)
+		protected Rect DrawIconAndGetEntryRect(Rect cellRect, 
+#if UNITY_6000_2_OR_NEWER
+			TreeViewItem<int> 
+#else
+			TreeViewItem
+#endif
+			item, bool indentWithNoIcon = false)
 		{
 			var iconPadding = !Provider.isActive ? 0 : IconPadding;
 			var entryRect = cellRect;
@@ -320,7 +414,13 @@ namespace CodeStage.Maintainer.UI
 			return entryRect;
 		}
 
-		protected abstract TreeViewItem GetNewTreeViewItemInstance(int id, int depth, string name, T data);
+		protected abstract 
+#if UNITY_6000_2_OR_NEWER
+			TreeViewItem<int> 
+#else
+			TreeViewItem
+#endif
+			GetNewTreeViewItemInstance(int id, int depth, string name, T data);
 		protected abstract void SortByMultipleColumns();
 
 		protected virtual void PostInit()
@@ -333,7 +433,13 @@ namespace CodeStage.Maintainer.UI
 			return 10;
 		}
 
-		protected virtual void ShowItem(TreeViewItem item) {}
+		protected virtual void ShowItem(
+#if UNITY_6000_2_OR_NEWER
+			TreeViewItem<int> 
+#else
+			TreeViewItem
+#endif
+			item) {}
 	}
 
 	internal static class EnumerableExtensionMethods

@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -8,13 +8,13 @@ namespace CodeStage.Maintainer.Issues.Detectors
 {
 	using UnityEngine;
 
-	internal struct DetectorInfo
+	public struct DetectorInfo
 	{
-		public IssueGroup Group { get; private set; }
-		public DetectorKind Kind { get; private set; }
-		public IssueSeverity Severity { get; private set; }
-		public string Name { get; private set; }
-		public string Tooltip { get; private set; }
+		public IssueGroup Group { get; }
+		public DetectorKind Kind { get; }
+		public IssueSeverity Severity { get; }
+		public string Name { get; }
+		public string Tooltip { get; }
 		
 		private DetectorInfo(IssueGroup group, DetectorKind kind, IssueSeverity severity, string name, string tooltip = null) : this()
 		{

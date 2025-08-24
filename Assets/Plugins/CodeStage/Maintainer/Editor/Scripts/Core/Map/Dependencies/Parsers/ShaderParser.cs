@@ -1,6 +1,6 @@
 ﻿#region copyright
 // ---------------------------------------------------------------
-//  Copyright (C) Dmitriy Yukhanov - focus [https://codestage.net]
+//  Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // ---------------------------------------------------------------
 #endregion
 
@@ -12,26 +12,10 @@ namespace CodeStage.Maintainer.Core.Dependencies
 	using Tools;
 	using UnityEditor;
 
-#if !UNITY_2019_2_OR_NEWER
-	[InitializeOnLoad]
-#endif
-	// ReSharper disable once UnusedType.Global since it's used from TypeCache
+	// ReSharper disable once UnusedType.Global ClassNeverInstantiated.Global since it's used from TypeCache
 	internal class ShaderParser : DependenciesParser
 	{
-		public override Type Type
-		{
-			get
-			{
-				return CSReflectionTools.shaderType;
-			}
-		}
-		
-#if !UNITY_2019_2_OR_NEWER
-		static ShaderParser()
-		{
-			AssetDependenciesSearcher.AddInternalDependencyParser(new ShaderParser());
-		}
-#endif
+		public override Type Type => CSReflectionTools.shaderType;
 
 		public override IList<string> GetDependenciesGUIDs(AssetInfo asset)
 		{
@@ -93,11 +77,11 @@ namespace CodeStage.Maintainer.Core.Dependencies
 				}
 				else if (path.IndexOf('/') != -1)
 				{
-					var folder = System.IO.Path.GetDirectoryName(filePath);
+					var folder = Path.GetDirectoryName(filePath);
 					if (folder == null) continue;
 
-					var combinedPath = System.IO.Path.Combine(folder, path);
-					var fullPath = CSPathTools.EnforceSlashes(System.IO.Path.GetFullPath(combinedPath));
+					var combinedPath = Path.Combine(folder, path);
+					var fullPath = CSPathTools.EnforceSlashes(Path.GetFullPath(combinedPath));
 					var assetsIndex = fullPath.IndexOf("Assets/", StringComparison.Ordinal);
 					if (assetsIndex == -1) continue;
 
@@ -105,10 +89,10 @@ namespace CodeStage.Maintainer.Core.Dependencies
 				}
 				else
 				{
-					var folder = System.IO.Path.GetDirectoryName(filePath);
+					var folder = Path.GetDirectoryName(filePath);
 					if (folder == null) continue;
 
-					assetPath = CSPathTools.EnforceSlashes(System.IO.Path.Combine(folder, path));
+					assetPath = CSPathTools.EnforceSlashes(Path.Combine(folder, path));
 				}
 
 				if (!File.Exists(assetPath)) continue;

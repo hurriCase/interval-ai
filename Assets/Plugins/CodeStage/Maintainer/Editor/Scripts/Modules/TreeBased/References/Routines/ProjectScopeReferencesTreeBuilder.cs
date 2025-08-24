@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -35,7 +35,7 @@ namespace CodeStage.Maintainer.References.Routines
 			var element = new ProjectReferenceItem
 			{
 				id = id + results.Count,
-				name = CSPathTools.NicifyAssetPath(referencedAsset.Path, referencedAsset.Kind),
+				name = CSPathTools.NicifyAssetPath(referencedAsset.Path, referencedAsset.Origin),
 				assetPath = assetPath,
 				assetTypeName = assetTypeName,
 				assetSize = referencedAsset.Size,
@@ -63,7 +63,7 @@ namespace CodeStage.Maintainer.References.Routines
 					//if (CSFilterTools.IsValueMatchesAnyFilter(referencedAtInfo.assetInfo.Path, MaintainerSettings.References.pathIgnoresFilters))
 					//	continue;
 					
-					if (referencedAtInfo.assetInfo.Kind == AssetKind.FromPackage) 
+					if (referencedAtInfo.assetInfo.Origin == AssetOrigin.ImmutablePackage) 
 						continue;
 					
 					var newDepth = depth + 1;
@@ -129,7 +129,7 @@ namespace CodeStage.Maintainer.References.Routines
 				if (CSFilterTools.IsValueMatchesAnyFilter(referencedAtInfo.assetInfo.Path, ProjectSettings.References.pathIgnoresFilters)) 
 					continue;
 				
-				if (referencedAtInfo.assetInfo.Kind == AssetKind.FromPackage) 
+				if (referencedAtInfo.assetInfo.Origin == AssetOrigin.ImmutablePackage) 
 					continue;
 				
 				allIgnored = false;

@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -9,10 +9,15 @@ namespace CodeStage.Maintainer.Issues.Detectors
 	using System;
 	using Core.Scan;
 
-	internal interface IComponentBeginIssueDetector : IComponentBeginScanListener<DetectorResults>
+	/// <summary>
+	/// Use this interface to detect issues in Components before scanning their contents.
+	/// </summary>
+	public interface IComponentBeginIssueDetector : IComponentBeginScanListener<DetectorResults>
 	{
-		// return null to check all types
-		// checked using Type.IsAssignableFrom() API
+		/// <summary>
+		/// Specifies which Component Types this detector should check.
+		/// </summary>
+		/// Set null to check all types; checked using Type.IsAssignableFrom() API.
 		Type[] ComponentTypes { get; }
 	}
 }

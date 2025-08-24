@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -25,9 +25,6 @@ namespace CodeStage.Maintainer.Issues.Routines
 		}
 
 		private const int TotalPhases = 3;
-#if !UNITY_2020_1_OR_NEWER
-		private const int ObjectTraverseUpdateStep = 100;
-#endif
 
 		private static int currentObjectIndex;
 		private static int itemIndex;
@@ -73,10 +70,6 @@ namespace CodeStage.Maintainer.Issues.Routines
 			Phase phase, string progressAssetLabel)
 		{
 			var targetsCount = targetAssets.Count;
-			
-#if !UNITY_2020_1_OR_NEWER
-			var updateStep = Math.Max(targetsCount / ProjectSettings.UpdateProgressStep, 1);
-#endif
 			for (var i = 0; i < targetsCount; i++)
 			{
 				var targetAsset = targetAssets[i];
@@ -89,11 +82,7 @@ namespace CodeStage.Maintainer.Issues.Routines
 						continue;
 				}
 
-				if (
-#if !UNITY_2020_1_OR_NEWER
-					i % updateStep == 0 || 
-#endif
-					phase == Phase.Scenes)
+				if (phase == Phase.Scenes)
 				{
 					if (IssuesFinder.ShowProgressBar((int)phase, TotalPhases, i, targetsCount, progressAssetLabel + ": " + assetName))
 					{
@@ -116,7 +105,7 @@ namespace CodeStage.Maintainer.Issues.Routines
 
 			currentAssetName = assetName;
 
-			var openSceneResult = CSSceneTools.OpenScene(asset.Path);
+			var openSceneResult = CSSceneUtils.OpenScene(asset.Path);
 			if (!openSceneResult.success)
 			{
 				Debug.LogWarning(Maintainer.ConstructLog("Can't open scene " + asset.Path));
@@ -130,7 +119,7 @@ namespace CodeStage.Maintainer.Issues.Routines
 				CSTraverseTools.TraverseSceneGameObjects(openSceneResult.scene, skipCleanPrefabInstances, false, OnGameObjectTraverse);
 			IssuesFinderDetectors.SceneEnd(asset);
 
-			CSSceneTools.CloseOpenedSceneIfNeeded(openSceneResult);
+			CSSceneUtils.CloseOpenedSceneIfNeeded(openSceneResult);
 		}
 
 		private static void ProcessPrefab(AssetInfo asset, string assetName, int prefabIndex, int totalPrefabs)
@@ -164,16 +153,9 @@ namespace CodeStage.Maintainer.Issues.Routines
 
 		private static bool OnGameObjectTraverse(ObjectTraverseInfo objectInfo)
 		{
-#if !UNITY_2020_1_OR_NEWER
-			if (currentObjectIndex % ObjectTraverseUpdateStep == 0)
-#endif
-			{
-				if (IssuesFinder.ShowProgressBar(1, 3, itemIndex, totalItems,
+			if (IssuesFinder.ShowProgressBar(1, 3, itemIndex, totalItems,
 					string.Format("Processing scene: {0} root {1}/{2}", currentAssetName, objectInfo.rootIndex + 1, objectInfo.TotalRoots)))
-				{
-					return false;
-				}
-			}
+				return false;
 
 			currentObjectIndex++;
 
@@ -190,17 +172,9 @@ namespace CodeStage.Maintainer.Issues.Routines
 
 		private static bool OnPrefabGameObjectTraverse(ObjectTraverseInfo objectInfo)
 		{
-#if !UNITY_2020_1_OR_NEWER
-			if (currentObjectIndex % ObjectTraverseUpdateStep == 0)
-#endif			
-			{
-
-				if (IssuesFinder.ShowProgressBar(2, 3, itemIndex, totalItems,
+			if (IssuesFinder.ShowProgressBar(2, 3, itemIndex, totalItems,
 					string.Format("Processing prefab: {0}", currentAssetName)))
-				{
-					return false;
-				}
-			}
+				return false;
 
 			currentObjectIndex++;
 

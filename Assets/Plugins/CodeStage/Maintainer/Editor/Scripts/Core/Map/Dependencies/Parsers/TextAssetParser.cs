@@ -1,6 +1,6 @@
 ﻿#region copyright
 // ---------------------------------------------------------------
-//  Copyright (C) Dmitriy Yukhanov - focus [https://codestage.net]
+//  Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // ---------------------------------------------------------------
 #endregion
 
@@ -10,26 +10,10 @@ namespace CodeStage.Maintainer.Core.Dependencies
 	using System.Collections.Generic;
 	using Tools;
 
-#if !UNITY_2019_2_OR_NEWER
-	[UnityEditor.InitializeOnLoad]
-#endif
 	// ReSharper disable once UnusedType.Global since it's used from TypeCache
 	internal class TextAssetParser : DependenciesParser
 	{
-		public override Type Type
-		{
-			get
-			{
-				return CSReflectionTools.textAssetType;
-			}
-		}
-		
-#if !UNITY_2019_2_OR_NEWER
-		static TextAssetParser()
-		{
-			AssetDependenciesSearcher.AddInternalDependencyParser(new TextAssetParser());
-		}
-#endif
+		public override Type Type => CSReflectionTools.textAssetType;
 
 		public override IList<string> GetDependenciesGUIDs(AssetInfo asset)
 		{

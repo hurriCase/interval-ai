@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -18,20 +18,12 @@ namespace CodeStage.Maintainer.Core.Extension
 		
 		bool IMaintainerExtension.Enabled
 		{
-			get { return Enabled; }
-			set { Enabled = value; }
+			get => Enabled;
+			set => Enabled = value;
 		}
 		
-		string IMaintainerExtension.Id
-		{
-			get
-			{
-				if (Id == null)
-					Id = GetId(this);
-				return Id;
-			}
-		}
-		
+		string IMaintainerExtension.Id => Id ?? (Id = GetId(this));
+
 		internal static string GetId(IMaintainerExtension instance)
 		{
 			return instance.GetType().Name;

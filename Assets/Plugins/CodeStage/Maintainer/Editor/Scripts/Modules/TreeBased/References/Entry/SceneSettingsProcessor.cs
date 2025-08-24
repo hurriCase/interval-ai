@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -16,13 +16,8 @@ namespace CodeStage.Maintainer.References.Entry
 
 	internal static class SceneSettingsProcessor
 	{
-#if UNITY_2020_1_OR_NEWER
 		private const string EnvironmentSettingsPath = "Lighting settings (Environment tab > Environment fold > ";
 		private const string OtherSettingsPath = "Lighting settings (Environment tab > Other Settings fold > ";
-#else
-		private const string EnvironmentSettingsPath = "Lighting settings (Scene tab > Environment fold > ";
-		private const string OtherSettingsPath = "Lighting settings (Scene tab > Other Settings fold > ";
-#endif
 		
 		private static Object lightmapSettings;
 		private static SerializedObject lightmapSettingsSo;
@@ -67,12 +62,10 @@ namespace CodeStage.Maintainer.References.Entry
 					{
 						CheckLightingDataAsset(conjunction, candidateInstanceId);
 					}
-#if UNITY_2020_1_OR_NEWER
 					else if (candidate is LightingSettings)
 					{
 						CheckLightingSettingsAsset(conjunction, candidateInstanceId);
 					}
-#endif
 					else if (candidate is Material)
 					{
 						CheckSkybox(conjunction, candidateInstanceId);
@@ -148,7 +141,6 @@ namespace CodeStage.Maintainer.References.Entry
 			conjunction.referencedAtInfo.AddNewEntry(entry);
 		}
 		
-#if UNITY_2020_1_OR_NEWER
 		private static void CheckLightingSettingsAsset(TreeConjunction conjunction, int candidateInstanceId)
 		{
 			try
@@ -172,7 +164,7 @@ namespace CodeStage.Maintainer.References.Entry
 
 			conjunction.referencedAtInfo.AddNewEntry(entry);
 		}
-#endif
+		
 		private static void CheckSkybox(TreeConjunction conjunction, int candidateInstanceId)
 		{
 			if (RenderSettings.skybox == null || RenderSettings.skybox.GetInstanceID() != candidateInstanceId) return;

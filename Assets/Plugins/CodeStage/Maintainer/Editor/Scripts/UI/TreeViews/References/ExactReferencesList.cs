@@ -1,21 +1,28 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
+using CodeStage.EditorCommon.Tools;
+using CodeStage.Maintainer.Core;
+using CodeStage.Maintainer.References;
+using CodeStage.Maintainer.Tools;
+using UnityEditor;
+using UnityEditor.IMGUI.Controls;
+using UnityEngine;
+
 namespace CodeStage.Maintainer.UI
 {
-	using Core;
-	using EditorCommon.Tools;
-	using References;
-	using Tools;
-	using UnityEditor.IMGUI.Controls;
-	using UnityEngine;
-
 	internal class ExactReferencesList<T> : ListTreeView<T> where T : HierarchyReferenceItem
 	{
-		public ExactReferencesList(TreeViewState state, TreeModel<T> model):base(state, model)
+		public ExactReferencesList(
+#if UNITY_6000_2_OR_NEWER
+			TreeViewState<int> 
+#else
+			TreeViewState
+#endif
+			state, TreeModel<T> model):base(state, model)
 		{
 		}
 
@@ -25,7 +32,13 @@ namespace CodeStage.Maintainer.UI
 			rowHeight = RowHeight - 4;
 		}
 
-		protected override TreeViewItem GetNewTreeViewItemInstance(int id, int depth, string name, T data)
+		protected override 
+#if UNITY_6000_2_OR_NEWER
+			TreeViewItem<int> 
+#else
+			TreeViewItem
+#endif
+			GetNewTreeViewItemInstance(int id, int depth, string name, T data)
 		{
 			return new ExactReferencesListItem<T>(id, depth, name, data);
 		}
@@ -86,14 +99,20 @@ namespace CodeStage.Maintainer.UI
 			DefaultGUI.Label(lastRect, label, args.selected, args.focused);
 		}
 
-		protected override void ShowItem(TreeViewItem clickedItem)
+		protected override void ShowItem(
+#if UNITY_6000_2_OR_NEWER
+			TreeViewItem<int> 
+#else
+			TreeViewItem
+#endif
+			clickedItem)
 		{
 			var item = (ExactReferencesListItem<T>)clickedItem;
 
 			var assetPath = item.data.AssetPath;
 			var referencingEntry = item.data.Reference;
 
-			CSSelectionTools.RevealAndSelectReferencingEntry(assetPath, referencingEntry);
+			EditorApplication.delayCall += () => CSSelectionTools.RevealAndSelectReferencingEntry(assetPath, referencingEntry);
 		}
 	}
 }

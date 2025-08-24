@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -34,19 +34,19 @@ namespace CodeStage.Maintainer.Settings
 			/// All project scenes will be included.
 			/// </summary>
 			/// Filtering settings have higher priority so you still can filter out some of them.
-			AllScenes,
+			All,
 			
 			/// <summary>
 			/// Only scenes added to the Scene Includes will be included.
 			/// This includes the includeScenesInBuild and sceneIncludesFilters.
 			/// </summary>
 			/// Filtering settings have higher priority so you still can filter included scenes further.
-			IncludedScenes,
+			IncludedOnly,
 			
 			/// <summary>
 			/// Includes only opened scenes into the issues search.
 			/// </summary>
-			OpenedScenesOnly
+			OpenedOnly
 		}
 
 		/// <summary>
@@ -67,7 +67,7 @@ namespace CodeStage.Maintainer.Settings
 		// TODO: refactor into the single enum
 		
 		/// <summary>
-		/// Determines if scenes added to the Build Settings should be included into the issues search while using ScenesSelection.IncludedScenes.
+		/// Determines if scenes added to the Build Settings should be included into the issues search while using ScenesSelection.IncludedOnly.
 		/// </summary>
 		public bool includeScenesInBuild = true;
 		
@@ -77,15 +77,15 @@ namespace CodeStage.Maintainer.Settings
 		public bool includeOnlyEnabledScenesInBuild = true;
 
 		// obsolete settings, left for migration purposes only
-		[SerializeField] internal string[] sceneIncludes = new string[0];
-		[SerializeField] internal string[] pathIgnores = new string[0];
-		[SerializeField] internal string[] pathIncludes = new string[0];
-		[SerializeField] internal string[] componentIgnores = new string[0];
+		[SerializeField] internal string[] sceneIncludes = Array.Empty<string>();
+		[SerializeField] internal string[] pathIgnores = Array.Empty<string>();
+		[SerializeField] internal string[] pathIncludes = Array.Empty<string>();
+		[SerializeField] internal string[] componentIgnores = Array.Empty<string>();
 
-		public FilterItem[] sceneIncludesFilters = new FilterItem[0];
-		public FilterItem[] pathIgnoresFilters = new FilterItem[0];
-		public FilterItem[] pathIncludesFilters = new FilterItem[0];
-		public FilterItem[] componentIgnoresFilters = new FilterItem[0];
+		public FilterItem[] sceneIncludesFilters = Array.Empty<FilterItem>();
+		public FilterItem[] pathIgnoresFilters = Array.Empty<FilterItem>();
+		public FilterItem[] pathIncludesFilters = Array.Empty<FilterItem>();
+		public FilterItem[] componentIgnoresFilters = Array.Empty<FilterItem>();
 
 		// -----------------------------------------------------------------------------
 		// where to look
@@ -118,51 +118,49 @@ namespace CodeStage.Maintainer.Settings
 		public bool missingReferences;
 		public bool MissingReferences
 		{
-			get { return GetDetectorEnabled<MissingReferenceDetector>(); }
-			set { SetDetectorEnabled<MissingReferenceDetector>(value); }
+			get => GetDetectorEnabled<MissingReferenceDetector>();
+			set => SetDetectorEnabled<MissingReferenceDetector>(value);
 		}
-
-#if UNITY_2019_1_OR_NEWER
+		
 		[Obsolete("Please use ShadersWithErrors property instead!", true)]
 		public bool shadersWithErrors;
 		public bool ShadersWithErrors
 		{
-			get { return GetDetectorEnabled<ShaderErrorDetector>(); }
-			set { SetDetectorEnabled<ShaderErrorDetector>(value); }
+			get => GetDetectorEnabled<ShaderErrorDetector>();
+			set => SetDetectorEnabled<ShaderErrorDetector>(value);
 		}
-#endif
 
 		/* game objects common  */
 		[Obsolete("Please use MissingComponents property instead!", true)]
 		public bool missingComponents;
 		public bool MissingComponents
 		{
-			get { return GetDetectorEnabled<MissingComponentDetector>(); }
-			set { SetDetectorEnabled<MissingComponentDetector>(value); }
+			get => GetDetectorEnabled<MissingComponentDetector>();
+			set => SetDetectorEnabled<MissingComponentDetector>(value);
 		}
 		
 		[Obsolete("Please use MissingPrefabs property instead!", true)]
 		public bool missingPrefabs;
 		public bool MissingPrefabs
 		{
-			get { return GetDetectorEnabled<MissingPrefabDetector>(); }
-			set { SetDetectorEnabled<MissingPrefabDetector>(value); }
+			get => GetDetectorEnabled<MissingPrefabDetector>();
+			set => SetDetectorEnabled<MissingPrefabDetector>(value);
 		}
 
 		[Obsolete("Please use DuplicateComponents property instead!", true)]
 		public bool duplicateComponents;
 		public bool DuplicateComponents
 		{
-			get { return GetDetectorEnabled<DuplicateComponentDetector>(); }
-			set { SetDetectorEnabled<DuplicateComponentDetector>(value); }
+			get => GetDetectorEnabled<DuplicateComponentDetector>();
+			set => SetDetectorEnabled<DuplicateComponentDetector>(value);
 		}
 		
 		[Obsolete("Please use InconsistentTerrainData property instead!", true)]
 		public bool inconsistentTerrainData;
 		public bool InconsistentTerrainData
 		{
-			get { return GetDetectorEnabled<InconsistentTerrainDataDetector>(); }
-			set { SetDetectorEnabled<InconsistentTerrainDataDetector>(value); }
+			get => GetDetectorEnabled<InconsistentTerrainDataDetector>();
+			set => SetDetectorEnabled<InconsistentTerrainDataDetector>(value);
 		}
 
 		/* game objects neatness */
@@ -171,16 +169,16 @@ namespace CodeStage.Maintainer.Settings
 		public bool unnamedLayers;
 		public bool InvalidLayers
 		{
-			get { return GetDetectorEnabled<InvalidLayerDetector>(); }
-			set { SetDetectorEnabled<InvalidLayerDetector>(value); }
+			get => GetDetectorEnabled<InvalidLayerDetector>();
+			set => SetDetectorEnabled<InvalidLayerDetector>(value);
 		}
 		
 		[Obsolete("Please use HugePositions property instead!", true)]
 		public bool hugePositions;
 		public bool HugePositions
 		{
-			get { return GetDetectorEnabled<HugePositionDetector>(); }
-			set { SetDetectorEnabled<HugePositionDetector>(value); }
+			get => GetDetectorEnabled<HugePositionDetector>();
+			set => SetDetectorEnabled<HugePositionDetector>(value);
 		}
 
 		/* project settings */
@@ -189,8 +187,8 @@ namespace CodeStage.Maintainer.Settings
 		public bool duplicateLayers;
 		public bool DuplicateLayers
 		{
-			get { return GetDetectorEnabled<DuplicateLayersDetector>(); }
-			set { SetDetectorEnabled<DuplicateLayersDetector>(value); }
+			get => GetDetectorEnabled<DuplicateLayersDetector>();
+			set => SetDetectorEnabled<DuplicateLayersDetector>(value);
 		}
 		
 		public IssuesFinderSettings()
@@ -296,10 +294,8 @@ namespace CodeStage.Maintainer.Settings
 		internal void SwitchAllIssues(bool enable)
 		{
 			MissingReferences = enable;
-
-#if UNITY_2019_1_OR_NEWER
 			ShadersWithErrors = enable;
-#endif
+			
 			SwitchCommon(enable);
 			SwitchNeatness(enable);
 			SwitchProjectSettings(enable);
@@ -334,7 +330,7 @@ namespace CodeStage.Maintainer.Settings
 			scanGameObjects = true;
 			lookInProjectSettings = true;
 			lookInScenes = true;
-			scenesSelection = ScenesSelection.AllScenes;
+			scenesSelection = ScenesSelection.All;
 			lookInAssets = true;
 			touchInactiveGameObjects = true;
 			touchDisabledComponents = true;
@@ -345,7 +341,7 @@ namespace CodeStage.Maintainer.Settings
 		private bool GetDetectorEnabled(string id)
 		{
 			if (detectors == null)
-				detectors = new DetectorSetting[0];
+				detectors = Array.Empty<DetectorSetting>();
 			
 			foreach (var detectorSetting in detectors)
 			{
@@ -362,7 +358,7 @@ namespace CodeStage.Maintainer.Settings
 		private void SetDetectorEnabled(string id, bool enabled)
 		{
 			if (detectors == null)
-				detectors = new DetectorSetting[0];
+				detectors = Array.Empty<DetectorSetting>();
 			
 			foreach (var detectorSetting in detectors)
 			{

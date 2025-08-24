@@ -1,6 +1,6 @@
 #region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -40,10 +40,6 @@ namespace CodeStage.Maintainer.Core
 		public static T ArrayToTree<T>(T[] array) where T : TreeItem
 		{
 			var count = array.Length;
-			
-#if !UNITY_2020_1_OR_NEWER
-			var updateStep = Math.Max(count / ProjectSettings.UpdateProgressStep, 1);
-#endif
 			var showProgress = count > 500000;
 
 			if (showProgress)
@@ -61,11 +57,7 @@ namespace CodeStage.Maintainer.Core
 
 			for (var parentIndex = 0; parentIndex < count; parentIndex++)
 			{
-				if (showProgress
-#if !UNITY_2020_1_OR_NEWER
-				    && parentIndex % updateStep == 0
-#endif
-)
+				if (showProgress)
 				{
 					EditorUtility.DisplayProgressBar("Building tree model...", string.Format("Item {0} of {1}", parentIndex + 1, count), (float)parentIndex / count);
 				}

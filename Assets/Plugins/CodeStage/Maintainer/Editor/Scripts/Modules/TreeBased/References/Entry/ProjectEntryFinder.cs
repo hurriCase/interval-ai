@@ -1,6 +1,6 @@
 ﻿#region copyright
 // ---------------------------------------------------------------
-//  Copyright (C) Dmitriy Yukhanov - focus [https://codestage.net]
+//  Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // ---------------------------------------------------------------
 #endregion
 
@@ -23,18 +23,10 @@ namespace CodeStage.Maintainer.References.Entry
 			EntryFinder.currentProcessReferenceCallback = processReferenceCallback;
 
 			var count = conjunctionInfoList.Count;
-		
-#if !UNITY_2020_1_OR_NEWER
-			var updateStep = Math.Max(count / ProjectSettings.UpdateProgressStep, 1);
-#endif
 
 			for (var i = 0; i < count; i++)
 			{
-				if (
-#if !UNITY_2020_1_OR_NEWER
-					(i < 10 || i % updateStep == 0) && 
-#endif
-				    EditorUtility.DisplayCancelableProgressBar(
+				if (EditorUtility.DisplayCancelableProgressBar(
 						string.Format(ReferencesFinder.ProgressCaption, 2, ReferencesFinder.PhasesCount), string.Format(ReferencesFinder.ProgressText, "Filling reference details", i + 1, count),
 						(float)i / count))
 				{
@@ -204,7 +196,7 @@ namespace CodeStage.Maintainer.References.Entry
 
 		private static void ProcessSceneForProjectLevelReferences(string path, List<TreeConjunction> conjunctions)
 		{
-			var openSceneResult = CSSceneTools.OpenScene(path);
+			var openSceneResult = CSSceneUtils.OpenScene(path);
 			if (!openSceneResult.success)
 			{
 				Debug.LogWarning(Maintainer.ConstructLog("Can't open scene " + path));
@@ -216,7 +208,7 @@ namespace CodeStage.Maintainer.References.Entry
 			EntryFinder.currentLocation = Location.SceneGameObject;
 			CSTraverseTools.TraverseSceneGameObjects(openSceneResult.scene, true, false, EntryFinder.OnGameObjectTraverse);
 
-			CSSceneTools.CloseOpenedSceneIfNeeded(openSceneResult);
+			CSSceneUtils.CloseOpenedSceneIfNeeded(openSceneResult);
 		}
 		
 		private static void ProcessScriptAsset(string path)

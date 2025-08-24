@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -37,7 +37,6 @@ namespace CodeStage.Maintainer.Tools
 			return false;
 		}
 		
-		// TODO: compare duplicate search performance at 1.2.x and 1.3.0 in Unity 2022.1
 #if UNITY_2022_1_OR_NEWER
 		public static uint GetPropertyHash(SerializedProperty sp)
 		{
@@ -144,11 +143,9 @@ namespace CodeStage.Maintainer.Tools
 					case SerializedPropertyType.FixedBufferSize:
 						stringHash.Append(sp.fixedBufferSize);
 						break;
-#if UNITY_2019_3_OR_NEWER
 					case SerializedPropertyType.ManagedReference:
 						stringHash.Append(sp.managedReferenceFullTypename);
 						break;
-#endif
 					default:
 						Debug.LogWarning(Maintainer.ErrorForSupport("Unknown SerializedPropertyType: " + sp.propertyType));
 						break;

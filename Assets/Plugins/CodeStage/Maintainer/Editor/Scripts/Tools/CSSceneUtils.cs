@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -10,12 +10,13 @@ namespace CodeStage.Maintainer.Tools
 	using System.Collections.Generic;
 	using System.Linq;
 	using Core;
+	using EditorCommon.Tools;
 	using UnityEditor;
 	using UnityEditor.SceneManagement;
 	using UnityEngine;
 	using UnityEngine.SceneManagement;
 
-	internal static class CSSceneTools
+	internal static class CSSceneUtils
 	{
 		public class OpenSceneResult
 		{
@@ -199,23 +200,8 @@ namespace CodeStage.Maintainer.Tools
 
 		public static string[] GetScenesInBuildGUIDs(bool includeDisabled = false)
 		{
-			var scenesInBuild = GetScenesInBuild(includeDisabled);
+			var scenesInBuild = CSSceneTools.GetBuildProfilesScenesPaths(includeDisabled);
 			return CSAssetTools.GetAssetsGUIDs(scenesInBuild);
-		}
-		
-		public static string[] GetScenesInBuild(bool includeDisabled = false)
-		{
-			var scenesForBuild = EditorBuildSettings.scenes;
-			var scenesInBuild = new List<string>(scenesForBuild.Length);
-
-			foreach (var sceneInBuild in scenesForBuild)
-			{
-				if (sceneInBuild.enabled || includeDisabled)
-				{
-					scenesInBuild.Add(CSPathTools.EnforceSlashes(sceneInBuild.path));
-				}
-			}
-			return scenesInBuild.ToArray();
 		}
 		
 		public static IEnumerable<string> GetAllScenes()
@@ -225,8 +211,8 @@ namespace CodeStage.Maintainer.Tools
 			foreach (var scene in allScenes)
 			{
 				var scenePath = AssetDatabase.GUIDToAssetPath(scene);
-				var kind = CSAssetTools.GetAssetKind(scenePath);
-				if (kind == AssetKind.Regular || kind == AssetKind.FromEmbeddedPackage)
+				var kind = CSAssetTools.GetAssetOrigin(scenePath);
+				if (kind == AssetOrigin.AssetsFolder || kind == AssetOrigin.EmbeddedPackage)
 				{
 					scenesPaths.Add(scenePath);
 				}

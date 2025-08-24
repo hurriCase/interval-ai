@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -15,6 +15,7 @@ namespace CodeStage.Maintainer.Issues
 	using Object = UnityEngine.Object;
 	using Tools;
 	using UI;
+	using Location = Core.Location;
 
 	[Serializable]
 	public class GameObjectIssueRecord : AssetIssueRecord, IShowableRecord
@@ -25,6 +26,7 @@ namespace CodeStage.Maintainer.Issues
 		public string componentNamePostfix;
 		public long componentIndex = -1;
 		public string propertyPath;
+		public string humanReadablePropertyName;
 
 		[SerializeField]
 		private bool missingEventMethod;
@@ -39,23 +41,35 @@ namespace CodeStage.Maintainer.Issues
 
 		public void Show()
 		{
-			if (!CSSelectionTools.RevealAndSelectGameObject(Path, transformPath, objectId, componentIndex))
+			var entry = new ReferencingEntryData
 			{
-				MaintainerWindow.ShowNotification("Can't show it properly");
-			}
+				location =
+					LocationGroup == LocationGroup.Scene
+						? Location.SceneGameObject
+						: Location.PrefabAssetGameObject,
+				transformPath = transformPath,
+				componentId = componentIndex,
+				propertyPath = propertyPath,
+				objectId = objectId
+			};
+
+			if (Kind == IssueKind.UnnamedLayer)
+				entry.propertyPath = "Layer";
+			
+			CSSelectionTools.RevealAndSelectReferencingEntry(Path, entry);
 		}
 
-		internal static GameObjectIssueRecord ForGameObject(IIssueDetector detector, IssueKind type, GameObjectLocation location)
+		public static GameObjectIssueRecord ForGameObject(IIssueDetector detector, IssueKind type, GameObjectLocation location)
 		{
 			return new GameObjectIssueRecord(detector, type, location);
 		}
 		
-		internal static GameObjectIssueRecord ForComponent(IIssueDetector detector, IssueKind type, ComponentLocation location)
+		public static GameObjectIssueRecord ForComponent(IIssueDetector detector, IssueKind type, ComponentLocation location)
 		{
 			return new GameObjectIssueRecord(detector, type, location);
 		}
 		
-		internal static GameObjectIssueRecord ForProperty(IIssueDetector detector, IssueKind type, PropertyLocation location)
+		public static GameObjectIssueRecord ForProperty(IIssueDetector detector, IssueKind type, PropertyLocation location)
 		{
 			return new GameObjectIssueRecord(detector, type, location);
 		}
@@ -86,6 +100,7 @@ namespace CodeStage.Maintainer.Issues
 		internal GameObjectIssueRecord(IIssueDetector detector, IssueKind kind, PropertyLocation location) : this(detector, kind, location as ComponentLocation)
 		{
 			propertyPath = location.PropertyPath;
+			humanReadablePropertyName = location.HumanReadablePropertyName;
 
 			if (!string.IsNullOrEmpty(propertyPath) &&
 				propertyPath.EndsWith("].m_MethodName", StringComparison.OrdinalIgnoreCase))
@@ -129,11 +144,7 @@ namespace CodeStage.Maintainer.Issues
 			if (!string.IsNullOrEmpty(transformPath)) text.Append("\n<b>Object:</b> ").Append(transformPath);
 			if (!string.IsNullOrEmpty(componentName)) text.Append("\n<b>Component:</b> ").Append(componentName);
 			if (!string.IsNullOrEmpty(componentNamePostfix)) text.Append(componentNamePostfix);
-			if (!string.IsNullOrEmpty(propertyPath))
-			{
-				var propertyName = CSObjectTools.GetNicePropertyPath(propertyPath);
-				text.Append("\n<b>Property:</b> ").Append(propertyName);
-			}
+			AppendPropertyInfo(text, propertyPath, humanReadablePropertyName);
 		}
 
 		internal override FixResult PerformFix(bool batchMode)
@@ -141,11 +152,11 @@ namespace CodeStage.Maintainer.Issues
 			Component component = null;
 			FixResult result;
 
-			CSSceneTools.OpenSceneResult openSceneResult = null;
+			CSSceneUtils.OpenSceneResult openSceneResult = null;
 
 			if (!batchMode && LocationGroup == LocationGroup.Scene)
 			{
-				openSceneResult = CSSceneTools.OpenScene(Path);
+				openSceneResult = CSSceneUtils.OpenScene(Path);
 				if (!openSceneResult.success)
 				{
 					return FixResult.CreateError("Couldn't open scene");
@@ -191,8 +202,8 @@ namespace CodeStage.Maintainer.Issues
 
 			if (!batchMode && LocationGroup == LocationGroup.Scene && openSceneResult != null)
 			{
-				CSSceneTools.SaveScene(openSceneResult.scene);
-				CSSceneTools.CloseOpenedSceneIfNeeded(openSceneResult);
+				CSSceneUtils.SaveScene(openSceneResult.scene);
+				CSSceneUtils.CloseOpenedSceneIfNeeded(openSceneResult);
 			}
 
 			return result;
@@ -204,7 +215,7 @@ namespace CodeStage.Maintainer.Issues
 
 			if (LocationGroup == LocationGroup.Scene)
 			{
-				var scene = CSSceneTools.GetSceneByPath(Path);
+				var scene = CSSceneUtils.GetSceneByPath(Path);
 				result = CSObjectTools.FindGameObjectInScene(scene, objectId, transformPath);
 			}
 			else

@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -77,7 +77,7 @@ namespace CodeStage.Maintainer.Cleaner
 				case FilterKind.Extension:
 					return !string.IsNullOrEmpty(assetDatabasePath) && CSFilterTools.IsValueMatchesAnyFilterOfKind(assetDatabasePath, filters, newFilter.kind);
 				case FilterKind.Type:
-					return assetType != null && CSFilterTools.IsValueMatchesAnyFilterOfKind(assetType.Name, filters, newFilter.kind);
+					return assetType != null && CSFilterTools.IsValueMatchesAnyFilterOfKind(assetType.FullName, filters, newFilter.kind);
 				case FilterKind.NotSet:
 					return false;
 				default:

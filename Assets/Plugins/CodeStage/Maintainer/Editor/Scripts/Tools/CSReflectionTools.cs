@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -15,6 +15,7 @@ namespace CodeStage.Maintainer.Tools
 
 	using Core;
 	using UnityEngine.Events;
+	using UnityEngine.Rendering;
 	using Object = UnityEngine.Object;
 
 	internal static class CSReflectionTools
@@ -24,9 +25,7 @@ namespace CodeStage.Maintainer.Tools
 		// assets
 		public static readonly Type defaultAssetType = typeof(DefaultAsset);
 		public static readonly Type lightingDataAsset = typeof(LightingDataAsset);
-#if UNITY_2020_1_OR_NEWER
 		public static readonly Type lightingSettings = typeof(LightingSettings);
-#endif
 		public static readonly Type sceneAssetType = typeof(SceneAsset);
 		public static readonly Type textAssetType = typeof(TextAsset);
 		public static readonly Type fontType = typeof(Font);
@@ -38,9 +37,7 @@ namespace CodeStage.Maintainer.Tools
 		public static readonly Type textureType = typeof(Texture);
 		public static readonly Type texture2DType = typeof(Texture2D);
 		public static readonly Type materialType = typeof(Material);
-#if UNITY_2019_2_OR_NEWER
 		public static readonly Type assemblyDefinitionReferenceAssetType = typeof(AssemblyDefinitionReferenceAsset);
-#endif
 
 		// ui
 		public static readonly Type splitterGUILayoutType = EditorWindowType.Assembly.GetType("UnityEditor.SplitterGUILayout");
@@ -52,27 +49,8 @@ namespace CodeStage.Maintainer.Tools
 		// other
 		public static readonly Type assetImporterType = typeof(AssetImporter);
 		public static readonly Type rendererType = typeof(Renderer);
-
-/*#if UNITY_2018_2_OR_NEWER
-		public static readonly Type addressableAssetGroupType = FindTypeInAssembly("Unity.Addressables.Editor", "UnityEditor.AddressableAssets.AddressableAssetGroup");
-		private static Type FindTypeInAssembly(string assemblyName, string typeName)
-		{
-			var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-			foreach (var assembly in assemblies)
-			{
-				if (assembly != null)
-				{
-					if (assembly.GetName().Name == assemblyName)
-					{
-						var type = assembly.GetType(typeName);
-						return type;
-					}
-				}
-			}
-
-			return null;
-		}
-#endif*/
+		public static readonly Type sortingGroup = typeof(SortingGroup);
+		public static readonly Type canvas = typeof(Canvas);
 
 		public static readonly Type settingsWindowType = EditorWindowType.Assembly.GetType("UnityEditor.SettingsWindow", false);
 		public static readonly Type assetSettingsKindType = typeof(AssetSettingsKind);
@@ -92,6 +70,8 @@ namespace CodeStage.Maintainer.Tools
 		private static MethodInfo endVerticalSplitMethodInfo;
 		private static MethodInfo getDummyEventMethodInfo;
 		private static MethodInfo getFieldInfoFromPropertyMethodInfo;
+		private static MethodInfo hasInstancingMethodInfo;
+		private static MethodInfo getBatchingForPlatformMethodInfo;
 
 		private static Action<SerializedObject, InspectorMode> inspectorModeCachedSetter;
 
@@ -239,6 +219,25 @@ namespace CodeStage.Maintainer.Tools
 		{
 			return IsPropertyIsSubclassOf(property, typeof(T));
 		}
+		
+		public static MethodInfo GetHasInstancingMethodInfo()
+		{
+			if (hasInstancingMethodInfo == null)
+				hasInstancingMethodInfo = typeof(ShaderUtil).GetMethod("HasInstancing", BindingFlags.NonPublic | BindingFlags.Static);
+
+			if (hasInstancingMethodInfo == null)
+			{
+				Debug.LogError(Maintainer.ErrorForSupport("Can't get ShaderUtil.HasInstancing method!"));
+				return null;
+			}
+			
+			return hasInstancingMethodInfo;
+		}
+		
+		public static bool IsShaderHasInstancing(Shader shader)
+		{
+			return (bool)GetHasInstancingMethodInfo().Invoke(null, new object[] {shader});
+		}
 
 		public static bool IsPropertyIsSubclassOf(SerializedProperty property, Type type)
 		{
@@ -290,6 +289,20 @@ namespace CodeStage.Maintainer.Tools
 			}
 			
 			return result;
+		}
+
+		public static MethodInfo GetGetBatchingForPlatformMethodInfo()
+		{
+			if (getBatchingForPlatformMethodInfo == null)
+				getBatchingForPlatformMethodInfo = typeof(PlayerSettings).GetMethod("GetBatchingForPlatform", BindingFlags.NonPublic | BindingFlags.Static);
+
+			if (getBatchingForPlatformMethodInfo == null)
+			{
+				Debug.LogError(Maintainer.ErrorForSupport("Can't get PlayerSettings.GetBatchingForPlatform method!"));
+				return null;
+			}
+
+			return getBatchingForPlatformMethodInfo;
 		}
 	}
 }

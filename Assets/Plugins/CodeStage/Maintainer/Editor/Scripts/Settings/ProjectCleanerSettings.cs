@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -136,6 +136,7 @@ namespace CodeStage.Maintainer.Settings
 			{
 				FilterItem.Create("/Resources/", FilterKind.Path, true),
 				FilterItem.Create("/StreamingAssets/", FilterKind.Path, true),
+				FilterItem.Create("UnityEditor.Build.Profile.BuildProfile", FilterKind.Type, true),
 			};
 		}
 	}

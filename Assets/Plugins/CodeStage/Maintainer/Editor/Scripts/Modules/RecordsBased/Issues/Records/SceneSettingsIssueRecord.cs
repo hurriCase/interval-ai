@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -14,6 +14,7 @@ namespace CodeStage.Maintainer.Issues
 	using Tools;
 	using UnityEditor;
 	using UnityEngine;
+	using Location = Core.Location;
 	using Object = UnityEngine.Object;
 
 	public enum SceneSettingsKind
@@ -49,7 +50,12 @@ namespace CodeStage.Maintainer.Issues
 			{
 				case SceneSettingsKind.RenderSettings:
 				case SceneSettingsKind.LightmapSettings:
-					CSMenuTools.ShowSceneSettingsLighting();
+					var entry = new ReferencingEntryData
+					{
+						location = Location.SceneLightingSettings,
+						propertyPath = PropertyPath,
+					};
+					CSSelectionTools.RevealAndSelectReferencingEntry(Path, entry);
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
@@ -85,11 +91,11 @@ namespace CodeStage.Maintainer.Issues
 
 		internal override FixResult PerformFix(bool batchMode)
 		{
-			CSSceneTools.OpenSceneResult openSceneResult = null;
+			CSSceneUtils.OpenSceneResult openSceneResult = null;
 
 			if (!batchMode)
 			{
-				openSceneResult = CSSceneTools.OpenScene(Path);
+				openSceneResult = CSSceneUtils.OpenScene(Path);
 				if (!openSceneResult.success)
 				{
 					return FixResult.CreateError("Couldn't open scene");
@@ -117,8 +123,8 @@ namespace CodeStage.Maintainer.Issues
 
 			if (!batchMode)
 			{
-				CSSceneTools.SaveScene(openSceneResult.scene);
-				CSSceneTools.CloseOpenedSceneIfNeeded(openSceneResult);
+				CSSceneUtils.SaveScene(openSceneResult.scene);
+				CSSceneUtils.CloseOpenedSceneIfNeeded(openSceneResult);
 			}
 
 			return result;

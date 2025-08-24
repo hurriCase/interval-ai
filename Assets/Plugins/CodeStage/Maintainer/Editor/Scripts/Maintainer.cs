@@ -1,6 +1,6 @@
 #region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -19,7 +19,7 @@ namespace CodeStage.Maintainer
 		/// <summary>
 		/// Current version in X.Y.Z format (using Semantic Versioning 2.0 scheme).
 		/// </summary>
-		public const string Version = "1.17.1";
+		public const string Version = "2.0.0";
 
 		internal const string LogPrefix = "<b>[Maintainer]</b> ";
 		internal const string HomePage = "https://codestage.net/uas/maintainer";

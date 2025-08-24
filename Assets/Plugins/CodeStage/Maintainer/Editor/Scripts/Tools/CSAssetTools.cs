@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -78,31 +78,31 @@ namespace CodeStage.Maintainer.Tools
 			return null;
 		}
 
-		public static AssetKind GetAssetKind(string path)
+		public static AssetOrigin GetAssetOrigin(string path)
 		{
 			if (!Path.IsPathRooted(path))
 			{
 				if (path.IndexOf("Assets/", StringComparison.Ordinal) == 0)
-					return AssetKind.Regular;
+					return AssetOrigin.AssetsFolder;
 
 				if (path.IndexOf("ProjectSettings/", StringComparison.Ordinal) == 0)
-					return AssetKind.Settings;
+					return AssetOrigin.Settings;
 
 				if (path.IndexOf("Packages/", StringComparison.Ordinal) == 0)
 				{
 					var projectRelativePath = CSPathTools.EnforceSlashes(CSPathTools.GetProjectRelativePath(Path.GetFullPath(path)));
 					return projectRelativePath.IndexOf("Packages/", StringComparison.Ordinal) == 0 ? 
-						AssetKind.FromEmbeddedPackage : 
-						AssetKind.FromPackage;
+						AssetOrigin.EmbeddedPackage : 
+						AssetOrigin.ImmutablePackage;
 				}
 			}
 			else
 			{
 				if (path.IndexOf("/unity/cache/packages/", StringComparison.OrdinalIgnoreCase) > 0)
-					return AssetKind.FromPackage;
+					return AssetOrigin.ImmutablePackage;
 			}
 
-			return AssetKind.Unsupported;
+			return AssetOrigin.Unknown;
 		}
 	}
 }

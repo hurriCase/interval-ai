@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -51,7 +51,6 @@ namespace CodeStage.Maintainer.Issues.Detectors
 
 		private static bool missingComponentDetectorEnabled;
 		
-#if UNITY_2019_2_OR_NEWER
 		static IssuesFinderDetectors()
 		{
 			detectors = new ExtensibleModule<IIssueDetector>(new IssueDetectorComparer());
@@ -59,25 +58,7 @@ namespace CodeStage.Maintainer.Issues.Detectors
 
 			// TODO: call sync detectors here if settings exist
 		}
-#else
-		// gets called from internal parsers
-		internal static void AddInternalDetector(IIssueDetector detector)
-		{
-			if (detectors == null)
-				detectors = new ExtensibleModule<IIssueDetector>(new IssueDetectorComparer());
 
-			detectors.AddInternal(detector); 
-		}
-		
-		/*internal static void AddInternalPropertyScanner(IPropertyScanner<DetectorResults> scanner)
-		{
-			if (propertyScanners == null)
-				propertyScanners = new ExtensibleModule<IPropertyScanner<DetectorResults>>();
-
-			propertyScanners.AddInternal(scanner);
-		}*/
-#endif
-		
 		public static void Init(List<IssueRecord> issues)
 		{
 			if (foundIssues == null)
@@ -222,12 +203,8 @@ namespace CodeStage.Maintainer.Issues.Detectors
 		{
 			currentLocation.ComponentBegin(component, orderIndex);
 			
-#if !UNITY_2019_1_OR_NEWER
-			if (missingComponentDetectorEnabled)
-				MissingComponentDetector.Instance.TrackMissingComponent(currentLocation);
-#endif
 			// skipping missing components (we detected them earlier)
-			if (component == null) 
+			if (!component) 
 				return;
 
 			// skipping components we don't see in Inspector
@@ -293,7 +270,7 @@ namespace CodeStage.Maintainer.Issues.Detectors
 				return;
 			}
 			
-			if (asset.Kind == AssetKind.Settings)
+			if (asset.Origin == AssetOrigin.Settings)
 				CheckSettingsAssetIssues();
 			else
 				CheckAssetIssues();

@@ -1,6 +1,6 @@
 ﻿#region copyright
 // ---------------------------------------------------------------
-//  Copyright (C) Dmitriy Yukhanov - focus [https://codestage.net]
+//  Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // ---------------------------------------------------------------
 #endregion
 
@@ -12,27 +12,11 @@ namespace CodeStage.Maintainer.Core.Dependencies
 	using UnityEditor;
 	using UnityEngine;
 
-#if !UNITY_2019_2_OR_NEWER
-	[InitializeOnLoad]
-#endif
 	// ReSharper disable once UnusedType.Global since it's used from TypeCache
 	internal class SpriteAtlasParser : DependenciesParser
 	{
-		public override Type Type
-		{
-			get
-			{
-				return CSReflectionTools.spriteAtlasType; 
-			}
-		} 
-		
-#if !UNITY_2019_2_OR_NEWER
-		static SpriteAtlasParser()
-		{
-			AssetDependenciesSearcher.AddInternalDependencyParser(new SpriteAtlasParser());
-		}
-#endif
-		
+		public override Type Type => CSReflectionTools.spriteAtlasType;
+
 		public override IList<string> GetDependenciesGUIDs(AssetInfo asset)
 		{
 			return GetAssetsGUIDsInFoldersReferencedFromSpriteAtlas(asset.Path);

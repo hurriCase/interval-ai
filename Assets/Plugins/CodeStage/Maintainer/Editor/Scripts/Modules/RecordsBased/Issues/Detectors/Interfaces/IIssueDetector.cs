@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -8,7 +8,7 @@ namespace CodeStage.Maintainer.Issues.Detectors
 {
 	using Core.Extension;
 
-	internal interface IIssueDetector : IMaintainerExtension
+	public interface IIssueDetector : IMaintainerExtension
 	{
 		DetectorInfo Info { get; }
 	}

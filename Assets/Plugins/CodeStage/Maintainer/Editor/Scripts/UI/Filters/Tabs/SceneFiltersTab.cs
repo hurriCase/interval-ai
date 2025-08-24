@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -106,9 +106,9 @@ namespace CodeStage.Maintainer.UI.Filters
 			using (new GUILayout.HorizontalScope())
 			{
 				GUILayout.Space(5);
-				ignoreScenesInBuild = EditorGUILayout.ToggleLeft(new GUIContent("Scenes in build", "Take into account scenes added to the 'Scenes In Build' list at the Build Settings."), ignoreScenesInBuild,GUILayout.Width(110));
+				ignoreScenesInBuild = EditorGUILayout.ToggleLeft(new GUIContent("Scenes in build", "Keep scenes added to the build through the Build Profiles / Build Settings."), ignoreScenesInBuild,GUILayout.Width(110));
 				GUI.enabled = ignoreScenesInBuild;
-				ignoreOnlyEnabledScenesInBuild = EditorGUILayout.ToggleLeft(new GUIContent("Only enabled", "Take into account only enabled 'Scenes In Build'."), ignoreOnlyEnabledScenesInBuild, GUILayout.Width(110));
+				ignoreOnlyEnabledScenesInBuild = EditorGUILayout.ToggleLeft(new GUIContent("Only enabled", "Keep only enabled scenes from Build Profiles / Build Settings."), ignoreOnlyEnabledScenesInBuild, GUILayout.Width(110));
 
 				if (GUILayout.Button(new GUIContent("Manage build scenes...", "Opens standard Build Settings window.")))
 				{

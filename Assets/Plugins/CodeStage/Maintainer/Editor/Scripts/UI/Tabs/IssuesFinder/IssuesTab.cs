@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -11,41 +11,30 @@ namespace CodeStage.Maintainer.UI
 	using System.Linq;
 	using Cleaner;
 	using Core;
+	using Core.Extension;
 	using Core.Scan;
 	using EditorCommon.Tools;
 	using Issues;
 	using Settings;
 	using Tools;
 	using Filters;
-
+	using Issues.Detectors;
 	using UnityEditor;
 	using UnityEngine;
 
 	internal partial class IssuesTab : RecordsTab<IssueRecord>
 	{
-		protected override string CaptionName
-		{
-			get { return IssuesFinder.ModuleName; }
-		}
-
-		protected override Texture CaptionIcon
-		{
-			get { return CSIcons.Issue; }
-		}
+		protected override string CaptionName => IssuesFinder.ModuleName;
+		protected override Texture CaptionIcon => CSIcons.Issue;
 
 		public IssuesTab(MaintainerWindow maintainerWindow) : base(maintainerWindow)
 		{
+			IssuesFinderDetectors.detectors ??= new ExtensibleModule<IIssueDetector>();
 		}
 
 		protected override IssueRecord[] LoadLastRecords()
 		{
-			var loadedRecords = SearchResultsStorage.IssuesSearchResults;
-
-			if (loadedRecords == null)
-			{
-				loadedRecords = new IssueRecord[0];
-			}
-
+			var loadedRecords = SearchResultsStorage.IssuesSearchResults ?? Array.Empty<IssueRecord>();
 			return loadedRecords;
 		}
 
@@ -62,17 +51,17 @@ namespace CodeStage.Maintainer.UI
 			{
 				case IssuesSortingType.Unsorted:
 					break;
-				case IssuesSortingType.ByIssueType:
+				case IssuesSortingType.IssueType:
 					filteredRecords = UserSettings.Issues.sortingDirection == SortingDirection.Ascending ?
 						filteredRecords.OrderBy(RecordsSortings.issueRecordByType).ThenBy(RecordsSortings.issueRecordByPath).ToArray() :
 						filteredRecords.OrderByDescending(RecordsSortings.issueRecordByType).ThenBy(RecordsSortings.issueRecordByPath).ToArray();
 					break;
-				case IssuesSortingType.BySeverity:
+				case IssuesSortingType.Severity:
 					filteredRecords = UserSettings.Issues.sortingDirection == SortingDirection.Ascending ?
 						filteredRecords.OrderByDescending(RecordsSortings.issueRecordBySeverity).ThenBy(RecordsSortings.issueRecordByPath).ToArray() :
 						filteredRecords.OrderBy(RecordsSortings.issueRecordBySeverity).ThenBy(RecordsSortings.issueRecordByPath).ToArray();
 					break;
-				case IssuesSortingType.ByPath:
+				case IssuesSortingType.Path:
 					filteredRecords = UserSettings.Issues.sortingDirection == SortingDirection.Ascending ?
 						filteredRecords.OrderBy(RecordsSortings.issueRecordByPath).ToArray() :
 						filteredRecords.OrderByDescending(RecordsSortings.issueRecordByPath).ToArray();
@@ -92,23 +81,71 @@ namespace CodeStage.Maintainer.UI
 			return IssuesFinder.ModuleName;
 		}
 
-		protected override void DrawPagesRightHeader()
+		protected override void DrawEmptyPlaceholderScanButton()
 		{
-			base.DrawPagesRightHeader();
+			using (new GUILayout.HorizontalScope())
+			{
+				GUILayout.FlexibleSpace();
+				using (new GUILayout.VerticalScope())
+				{
+					GUILayout.Space(10);
+					if (UIHelpers.ImageButton(ScanButtonLabel, ScanButtonIcon, GUILayout.Width(100)))
+					{
+						EditorApplication.delayCall += StartSearch;
+					}
 
-			GUILayout.Label("Sorting:", GUILayout.ExpandWidth(false));
+					if (IsLeftPanelCollapsed)
+					{
+						GUILayout.Space(5);
+						if (UIHelpers.ImageButton("Settings", CSEditorIcons.Settings, GUILayout.Width(100)))
+						{
+							EditorApplication.delayCall += () =>
+							{
+								IsLeftPanelCollapsed = false;
+							};
+						}
+					}
+				}
+				GUILayout.FlexibleSpace();
+			}
+		}
+
+		protected override void DrawCollectionPagesCollapsedToolbar()
+		{
+			base.DrawCollectionPagesCollapsedToolbar();
+			
+			if (UIHelpers.ImageButton(collapsedIcons[0].tooltip, collapsedIcons[0].image, EditorStyles.toolbarButton,
+					GUILayout.Width(UIHelpers.ToolbarButtonWidth)))
+			{
+				EditorApplication.delayCall += StartSearch;
+			}
+			
+			if (UIHelpers.ImageButton(collapsedIcons[1].tooltip, collapsedIcons[1].image, EditorStyles.toolbarButton,
+					GUILayout.Width(UIHelpers.ToolbarButtonWidth)))
+			{
+				EditorApplication.delayCall += StartFix;
+			}
+		}
+
+		protected override void DrawCollectionPagesToolbarSorting()
+		{
+			base.DrawCollectionPagesToolbarSorting();
 
 			EditorGUI.BeginChangeCheck();
-			UserSettings.Issues.sortingType = (IssuesSortingType)EditorGUILayout.EnumPopup(UserSettings.Issues.sortingType, GUILayout.Width(100));
+			var sorting = UserSettings.Issues.sortingType;
+			sorting = (IssuesSortingType)EditorGUILayout.EnumPopup(sorting, EditorStyles.toolbarDropDown, GUILayout.Width(80));
 			if (EditorGUI.EndChangeCheck())
 			{
+				UserSettings.Issues.sortingType = sorting;
 				ApplySorting();
 			}
 
-			EditorGUI.BeginChangeCheck();
-			UserSettings.Issues.sortingDirection = (SortingDirection)EditorGUILayout.EnumPopup(UserSettings.Issues.sortingDirection, GUILayout.Width(80));
-			if (EditorGUI.EndChangeCheck())
+			var direction = UserSettings.Issues.sortingDirection;
+			var index = (int)direction;
+			if (GUILayout.Button(sortingOptions[index], EditorStyles.toolbarButton, GUILayout.Width(20)))
 			{
+				direction = direction == SortingDirection.Ascending ? SortingDirection.Descending : SortingDirection.Ascending;
+				UserSettings.Issues.sortingDirection = direction;
 				ApplySorting();
 			}
 		}
@@ -199,19 +236,15 @@ namespace CodeStage.Maintainer.UI
 				DrawHideButton(record, recordIndex);
 			}
 
-			var objectIssue = record as GameObjectIssueRecord;
-			if (objectIssue != null)
+			switch (record)
 			{
-				DrawMoreButton(objectIssue);
+				case GameObjectIssueRecord objectIssue:
+					DrawMoreButton(objectIssue);
+					break;
+				case ShaderIssueRecord shaderIssue:
+					DrawMoreButton(shaderIssue);
+					break;
 			}
-
-#if UNITY_2019_1_OR_NEWER
-			var shaderIssue = record as ShaderIssueRecord;
-			if (shaderIssue != null)
-			{
-				DrawMoreButton(shaderIssue);
-			}
-#endif
 		}
 
 		private void DrawFixButton(IssueRecord record, int recordIndex)
@@ -371,7 +404,6 @@ namespace CodeStage.Maintainer.UI
 			Texture result;
 			switch (severity)
 			{
-#if UNITY_2019_3_OR_NEWER
 				case IssueSeverity.Error:
 					result = CSEditorIcons.Error;
 					break;
@@ -383,19 +415,6 @@ namespace CodeStage.Maintainer.UI
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
-#else
-				case IssueSeverity.Error:
-					result = CSEditorIcons.ErrorSmall;
-					break;
-				case IssueSeverity.Warning:
-					result = CSEditorIcons.WarnSmall;
-					break;
-				case IssueSeverity.Info:
-					result = CSEditorIcons.InfoSmall;
-					break;
-				default:
-					throw new ArgumentOutOfRangeException();
-#endif
 			}
 
 			return result;

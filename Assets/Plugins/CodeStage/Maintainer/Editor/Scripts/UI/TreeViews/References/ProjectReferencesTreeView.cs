@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -46,7 +46,13 @@ namespace CodeStage.Maintainer.UI
 			SortOption.ReferencesCount
 		};
 
-		public ProjectReferencesTreeView(TreeViewState state, MultiColumnHeader multiColumnHeader, TreeModel<T> model) : base(state, multiColumnHeader, model) {}
+		public ProjectReferencesTreeView(
+#if UNITY_6000_2_OR_NEWER
+			TreeViewState<int> 
+#else
+			TreeViewState
+#endif
+			state, MultiColumnHeader multiColumnHeader, TreeModel<T> model) : base(state, multiColumnHeader, model) {}
 
 		public void SelectRowWithPath(string path)
 		{
@@ -61,7 +67,13 @@ namespace CodeStage.Maintainer.UI
 			}
 		}
 
-		protected override TreeViewItem GetNewTreeViewItemInstance(int id, int depth, string name, T data)
+		protected override 
+#if UNITY_6000_2_OR_NEWER
+			TreeViewItem<int> 
+#else
+			TreeViewItem
+#endif
+			GetNewTreeViewItemInstance(int id, int depth, string name, T data)
 		{
 			return new ProjectReferencesTreeViewItem<T>(id, depth, name, data);
 		}
@@ -99,7 +111,13 @@ namespace CodeStage.Maintainer.UI
 				}
 			}
 
-			rootItem.children = orderedQuery.Cast<TreeViewItem>().ToList();
+			rootItem.children = orderedQuery.Cast<
+#if UNITY_6000_2_OR_NEWER
+				TreeViewItem<int>
+#else
+				TreeViewItem
+#endif
+				>().ToList();
 		}
 
 		private IOrderedEnumerable<ProjectReferencesTreeViewItem<T>> InitialOrder(IEnumerable<ProjectReferencesTreeViewItem<T>> myTypes, IList<int> history)
@@ -236,24 +254,34 @@ namespace CodeStage.Maintainer.UI
 			}
 		}
 
-		protected override void ShowItem(TreeViewItem clickedItem)
+		protected override void ShowItem(
+#if UNITY_6000_2_OR_NEWER
+			TreeViewItem<int> 
+#else
+			TreeViewItem
+#endif
+			clickedItem)
 		{
 			var item = (ProjectReferencesTreeViewItem<T>)clickedItem;
 			var assetPath = item.data.assetPath;
-			if (item.data.assetSettingsKind == AssetSettingsKind.Undefined)
+
+			EditorApplication.delayCall += () =>
 			{
-				if (!CSSelectionTools.RevealAndSelectFileAsset(assetPath))
+				if (item.data.assetSettingsKind == AssetSettingsKind.Undefined)
 				{
-					MaintainerWindow.ShowNotification("Can't show it properly");
+					if (!CSSelectionTools.RevealAndSelectFileAsset(assetPath))
+					{
+						MaintainerWindow.ShowNotification("Can't show it properly");
+					}
 				}
-			}
-			else
-			{
-				if (!CSEditorTools.RevealInSettings(item.data.assetSettingsKind, assetPath))
+				else
 				{
-					MaintainerWindow.ShowNotification("Can't show it properly");
+					if (!CSEditorTools.RevealInSettings(item.data.assetSettingsKind, assetPath))
+					{
+						MaintainerWindow.ShowNotification("Can't show it properly");
+					}
 				}
-			}
+			};
 		}
 
 		public static MultiColumnHeaderState CreateDefaultMultiColumnHeaderState()

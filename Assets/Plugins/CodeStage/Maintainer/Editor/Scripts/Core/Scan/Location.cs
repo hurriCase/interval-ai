@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -13,7 +13,7 @@ namespace CodeStage.Maintainer.Core.Scan
 	
 	// TODO: try switching to struct and compare performance
 
-	internal class NarrowLocation : GenericLocation
+	public class NarrowLocation : GenericLocation
 	{
 		public void PropertyOverride(SerializedProperty property)
 		{
@@ -30,6 +30,13 @@ namespace CodeStage.Maintainer.Core.Scan
 		{
 			Property = property;
 			propertyPath = propertyPathOverride;
+		}
+		
+		public void PropertyOverrideWithHumanReadableName(SerializedProperty property, string humanReadableName)
+		{
+			Property = property;
+			propertyPath = null; // Will use property.propertyPath
+			humanReadablePropertyName = humanReadableName;
 		}
 		
 		public void ComponentOverride(Type typeOverride, string nameOverride, int index)
@@ -49,14 +56,15 @@ namespace CodeStage.Maintainer.Core.Scan
 		}
 	}
 	
-	internal class GenericLocation : PropertyLocation
+	public class GenericLocation : PropertyLocation
 	{
 		
 	}
 
-	internal class PropertyLocation : ComponentLocation
+	public class PropertyLocation : ComponentLocation
 	{
 		protected string propertyPath;
+		protected string humanReadablePropertyName;
 		
 		public SerializedProperty Property { get; protected set; }
 		public string PropertyPath 
@@ -70,29 +78,40 @@ namespace CodeStage.Maintainer.Core.Scan
 			}
 		}
 		
+		public string HumanReadablePropertyName 
+		{
+			get
+			{
+				return humanReadablePropertyName;
+			}
+		}
+		
 		protected PropertyLocation() { } // to avoid explicit construction
 
 		internal void PropertyBegin(SerializedProperty property)
 		{
 			Property = property;
 			propertyPath = null;
+			humanReadablePropertyName = null;
 		}
 		
 		internal void PropertyEnd()
 		{
 			Property = null;
 			propertyPath = null;
+			humanReadablePropertyName = null;
 		}
 		
 		internal void FillFrom(PropertyLocation source)
 		{
 			Property = source.Property;
 			propertyPath = source.PropertyPath;
+			humanReadablePropertyName = source.HumanReadablePropertyName;
 			FillFrom(source as ComponentLocation);
 		}
 	}
 
-	internal class ComponentLocation : GameObjectLocation
+	public class ComponentLocation : GameObjectLocation
 	{
 		public Component Component { get; protected set; }
 		public Type ComponentType { get; protected set; }
@@ -130,7 +149,7 @@ namespace CodeStage.Maintainer.Core.Scan
 		}
 	}
 
-	internal class GameObjectLocation : AssetLocation
+	public class GameObjectLocation : AssetLocation
 	{
 		protected GameObjectLocation() { } // to avoid explicit construction
 		
@@ -153,8 +172,14 @@ namespace CodeStage.Maintainer.Core.Scan
 		}
 	}
 
-	internal class AssetLocation : Location
+	/// <summary>
+	/// Represents location of the asset in the project.
+	/// </summary>
+	public class AssetLocation : Location
 	{
+		/// <summary>
+		/// Holds all the information about the asset.
+		/// </summary>
 		public AssetInfo Asset { get; private set; }
 
 		protected AssetLocation() { } // to avoid explicit construction
@@ -178,7 +203,10 @@ namespace CodeStage.Maintainer.Core.Scan
 		}
 	}
 
-	internal class Location
+	/// <summary>
+	/// Base class for locations.
+	/// </summary>
+	public class Location
 	{
 		public LocationGroup Group { get; protected set; }
 		

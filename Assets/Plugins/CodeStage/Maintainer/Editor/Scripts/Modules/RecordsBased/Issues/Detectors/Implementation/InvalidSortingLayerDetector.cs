@@ -1,10 +1,8 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
-
-#if false // for future use
 
 namespace CodeStage.Maintainer.Issues.Detectors
 {
@@ -14,10 +12,7 @@ namespace CodeStage.Maintainer.Issues.Detectors
 	using UnityEditor;
 	using UnityEngine;
 
-#if !UNITY_2019_2_OR_NEWER
-	[UnityEditor.InitializeOnLoad]
-#endif
-	// ReSharper disable once UnusedType.Global since it's used from TypeCache
+	// ReSharper disable once ClassNeverInstantiated.Global since it's used from TypeCache
 	internal class InvalidSortingLayerDetector : IssueDetector, IComponentBeginIssueDetector
 	{
 		public override DetectorInfo Info { get { return 
@@ -26,20 +21,24 @@ namespace CodeStage.Maintainer.Issues.Detectors
 				DetectorKind.Defect,
 				IssueSeverity.Info,
 				"Invalid Sorting Layer", 
-				"Search for Renderer-derived components with invalid Sorting Layer.");
+				"Search for components with invalid Sorting Layer.");
 		}}
 		
-		public Type[] ComponentTypes { get { return new[] { CSReflectionTools.rendererType }; } }
-		
-#if !UNITY_2019_2_OR_NEWER
-		static InvalidSortingLayerDetector()
+		public Type[] ComponentTypes => new[]
 		{
-			IssuesFinderDetectors.AddInternalDetector(new InvalidSortingLayerDetector());
-		}
-#endif
-		
+			CSReflectionTools.rendererType,
+			CSReflectionTools.sortingGroup,
+			CSReflectionTools.canvas,
+		};
+
 		public void ComponentBegin(DetectorResults results, ComponentLocation location)
 		{
+			if (location.Component is Canvas canvas)
+			{
+				if (canvas.renderMode != RenderMode.WorldSpace)
+					return;
+			}
+			
 			var so = new SerializedObject(location.Component);
 			var sortingLayerIdProperty = so.FindProperty("m_SortingLayerID");
 			if (sortingLayerIdProperty == null)
@@ -55,10 +54,8 @@ namespace CodeStage.Maintainer.Issues.Detectors
 			{
 				var narrow = location.Narrow();
 				narrow.PropertyOverride("Sorting Layer");
-				results.Add(GameObjectIssueRecord.ForProperty(this, Issues.IssueKind.InvalidSortingLayer, narrow));
+				results.Add(GameObjectIssueRecord.ForProperty(this, IssueKind.InvalidSortingLayer, narrow));
 			}
 		}
 	}
 }
-
-#endif

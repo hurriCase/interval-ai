@@ -1,6 +1,6 @@
 ﻿#region copyright
 // ---------------------------------------------------------------
-//  Copyright (C) Dmitriy Yukhanov - focus [https://codestage.net]
+//  Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // ---------------------------------------------------------------
 #endregion
 
@@ -35,7 +35,7 @@ namespace CodeStage.Maintainer.UI
 			get { return CSEditorIcons.HierarchyView; }
 		}
 
-		private readonly HierarchyReferencesTreePanel treePanel;
+		internal readonly HierarchyReferencesTreePanel treePanel;
 
 		public HierarchyReferencesTab(MaintainerWindow window):base(window)
 		{
@@ -48,11 +48,7 @@ namespace CodeStage.Maintainer.UI
 			var prefabStage = PrefabStageUtility.GetCurrentPrefabStage();
 			if (prefabStage != null)
 			{
-#if UNITY_2020_1_OR_NEWER
 				assetPath = prefabStage.assetPath;
-#else
-				assetPath = prefabStage.prefabAssetPath;
-#endif
 			}
 		}
 
@@ -62,7 +58,6 @@ namespace CodeStage.Maintainer.UI
 
 			using (new GUILayout.HorizontalScope())
 			{
-				GUILayout.Space(10);
 				using (new GUILayout.VerticalScope())
 				{
 					EditorGUILayout.HelpBox("Hold 'alt' key while dropping Game Objects to skip their components", MessageType.Info);
@@ -85,7 +80,6 @@ namespace CodeStage.Maintainer.UI
 
 					GUILayout.Space(10);
 				}
-				GUILayout.Space(10);
 			}
 		}
 
@@ -113,61 +107,24 @@ namespace CodeStage.Maintainer.UI
 
 		public void DrawFooter()
 		{
-			using (new GUILayout.HorizontalScope())
-			{
-				GUILayout.Space(10);
-
-				if (SearchResultsStorage.HierarchyReferencesLastSearched.Length == 0)
-					GUI.enabled = false;
-
-				if (UIHelpers.ImageButton("Refresh", "Restarts references search for the previous results.",
-					CSIcons.Repeat))
-				{
-					if (Event.current.control && Event.current.shift)
-					{
-						ReferencesFinder.debugMode = true;
-						Event.current.Use();
-					}
-					else
-					{
-						ReferencesFinder.debugMode = false;
-					}
-
-					EditorApplication.delayCall += () =>
-					{
-						var sceneObjects =
-							CSObjectTools.GetObjectsFromInstanceIds(SearchResultsStorage.HierarchyReferencesLastSearched);
-						HierarchyScopeReferencesFinder.FindHierarchyObjectsReferences(sceneObjects, null);
-					};
-				}
-
-				GUI.enabled = true;
-
-				if (SearchResultsStorage.HierarchyReferencesSearchResults.Length == 0)
-					GUI.enabled = false;
-
-				if (UIHelpers.ImageButton("Collapse all", "Collapses all tree items.", CSIcons.Collapse))
-					treePanel.CollapseAll();
-
-				if (UIHelpers.ImageButton("Expand all", "Expands all tree items.", CSIcons.Expand))
-					treePanel.ExpandAll();
-
-				if (UIHelpers.ImageButton("Clear results", "Clears results tree and empties cache.", CSIcons.Clear))
-					ClearResults();
-
-				GUI.enabled = true;
-
-				GUILayout.Space(10);
-			}
-
-			GUILayout.Space(10);
+			
 		}
 
-		private void ClearResults()
+		internal override void ClearResults()
 		{
 			SearchResultsStorage.HierarchyReferencesSearchResults = null;
 			SearchResultsStorage.HierarchyReferencesLastSearched = null;
 			Refresh(true);
+		}
+
+		internal override void CollapseAllElements()
+		{
+			treePanel.CollapseAll();
+		}
+
+		internal override void ExpandAllElements()
+		{
+			treePanel.ExpandAll();
 		}
 
 		private void SelectRow(ReferencingEntryData reference)

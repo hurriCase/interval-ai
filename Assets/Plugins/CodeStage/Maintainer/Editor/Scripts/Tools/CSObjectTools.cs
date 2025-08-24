@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -252,11 +252,7 @@ namespace CodeStage.Maintainer.Tools
 	            var prefabStage = PrefabStageUtility.GetPrefabStage(gameObject);
 				if (prefabStage != null)
 				{
-#if UNITY_2020_1_OR_NEWER
 					assetPath = prefabStage.assetPath;
-#else
-					assetPath = prefabStage.prefabAssetPath;
-#endif
 				}
             }
 			

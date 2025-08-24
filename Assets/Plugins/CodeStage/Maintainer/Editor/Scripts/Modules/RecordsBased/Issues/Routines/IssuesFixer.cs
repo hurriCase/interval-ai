@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -26,24 +26,15 @@ namespace CodeStage.Maintainer.Issues
 				
 				var sortedRecords = GetFixableRecordsSorted(results);
 				var count = sortedRecords.Length;
-			
-#if !UNITY_2020_1_OR_NEWER
-				var updateStep = Math.Max(count / ProjectSettings.UpdateProgressStep, 1);
-#endif
 
 				for (var i = 0; i < count; i++)
 				{
 					if (showProgress)
 					{
-#if !UNITY_2020_1_OR_NEWER
-						if (i % updateStep == 0)
-#endif
+						if (IssuesFinder.ShowProgressBar(1, 1, i, count, "Resolving selected issues..."))
 						{
-							if (IssuesFinder.ShowProgressBar(1, 1, i, count, "Resolving selected issues..."))
-							{
-								IssuesFinder.operationCanceled = true;
-								break;
-							}
+							IssuesFinder.operationCanceled = true;
+							break;
 						}
 					}
 				
@@ -78,7 +69,7 @@ namespace CodeStage.Maintainer.Issues
 				var assetIssue = item as AssetIssueRecord;
 				if (assetIssue != null)
 				{
-					var newOpenSceneResult = CSSceneTools.OpenScene(assetIssue.Path);
+					var newOpenSceneResult = CSSceneUtils.OpenScene(assetIssue.Path);
 					if (!newOpenSceneResult.success)
 						return FixResult.CreateError("Couldn't open scene at " + assetIssue.Path);
 
@@ -86,8 +77,8 @@ namespace CodeStage.Maintainer.Issues
 					{
 						if (IssuesFinder.lastOpenSceneResult != null)
 						{
-							CSSceneTools.SaveScene(IssuesFinder.lastOpenSceneResult.scene);
-							CSSceneTools.CloseOpenedSceneIfNeeded(IssuesFinder.lastOpenSceneResult);
+							CSSceneUtils.SaveScene(IssuesFinder.lastOpenSceneResult.scene);
+							CSSceneUtils.CloseOpenedSceneIfNeeded(IssuesFinder.lastOpenSceneResult);
 						}
 					}
 
@@ -250,7 +241,7 @@ namespace CodeStage.Maintainer.Issues
 			{
 				if (issue.LocationGroup == LocationGroup.Scene)
 				{
-					CSSceneTools.MarkSceneDirty();
+					CSSceneUtils.MarkSceneDirty();
 				}
 				else
 				{
@@ -311,7 +302,7 @@ namespace CodeStage.Maintainer.Issues
 
 				if (locationGroup == LocationGroup.Scene)
 				{
-					CSSceneTools.MarkSceneDirty();
+					CSSceneUtils.MarkSceneDirty();
 				}
 				else
 				{

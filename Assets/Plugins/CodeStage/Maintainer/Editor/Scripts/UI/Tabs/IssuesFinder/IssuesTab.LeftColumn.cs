@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -22,265 +22,159 @@ namespace CodeStage.Maintainer.UI
 		private static SortedDictionary<IssueGroup, IList<IIssueDetector>> detectorsGroups;
 		private static SortedDictionary<IssueGroup, bool> detectorsGroupsFoldouts;
 		
+		private const string ScanButtonLabel = "Scan Project";
+		private const string FixButtonLabel = "Fix fixable selected issues";
+
+		private static readonly Texture ScanButtonIcon = CSEditorIcons.Search;
+		private static readonly Texture FixButtonIcon = CSIcons.AutoFix;
+
+		private readonly GUIContent[] collapsedIcons =
+		{
+			new GUIContent(ScanButtonIcon, ScanButtonLabel),
+			new GUIContent(FixButtonIcon, FixButtonLabel),
+		};
+		
 		protected override void DrawLeftColumnHeader()
 		{
-			using (new GUILayout.HorizontalScope())
+			using (new GUILayout.VerticalScope())
 			{
 				GUILayout.Space(10);
-				using (new GUILayout.VerticalScope())
+				if (UIHelpers.ImageButton(ScanButtonLabel, ScanButtonIcon))
 				{
-					GUILayout.Space(10);
-					if (UIHelpers.ImageButton("1. Scan Project", CSEditorIcons.Search))
-					{
-						EditorApplication.delayCall += StartSearch;
-					}
+					EditorApplication.delayCall += StartSearch;
+				}
 
-					GUILayout.Space(5);
+				GUILayout.Space(5);
 
-					if (UIHelpers.ImageButton("2. Fix fixable selected issues", CSIcons.AutoFix))
-					{
-						EditorApplication.delayCall += StartFix;
-					}
-					GUILayout.Space(10);
+				if (UIHelpers.ImageButton(FixButtonLabel, FixButtonIcon))
+				{
+					EditorApplication.delayCall += StartFix;
 				}
 				GUILayout.Space(10);
 			}
 		}
-		
+
 		protected override void DrawLeftColumnBody()
 		{
 			// -----------------------------------------------------------------------------
 			// filtering settings
 			// -----------------------------------------------------------------------------
 
-			DrawWhereSection(); 
-
-			GUILayout.Space(5);
-			DrawWhatSectionLegacy(ref leftColumnScrollPosition);
-			//DrawWhatSection(ref leftColumnScrollPosition);
-			GUILayout.Space(10);
-
-			using (new GUILayout.HorizontalScope())
+			using (new GUILayout.VerticalScope())
 			{
+				DrawWhereSection(); 
+				GUILayout.Space(5);
+				DrawWhatSection();
 				GUILayout.Space(10);
-				if (UIHelpers.ImageButton("Reset Settings", "Resets settings to defaults.", CSIcons.Restore))
-				{
-					ProjectSettings.Issues.Reset();
-					UserSettings.Issues.Reset();
-				}
-				GUILayout.Space(10);
-			}
-			GUILayout.Space(10);
-		}
-
-		private void DrawWhereSection(/*ref Vector2 settingsSectionScrollPosition*/)
-		{
-			// -----------------------------------------------------------------------------
-			// where to look
-			// -----------------------------------------------------------------------------
-
-			using (new GUILayout.VerticalScope(/*UIHelpers.panelWithBackground*/))
-			{
+				
 				using (new GUILayout.HorizontalScope())
 				{
-					GUILayout.Space(10);
-					using (new GUILayout.VerticalScope())
+					if (UIHelpers.ImageButton("Reset Settings", "Resets settings to defaults.", CSIcons.Restore))
 					{
-						GUILayout.Label("<b><size=16>Where</size></b>", UIHelpers.richLabel);
-						UIHelpers.Separator();
+						ProjectSettings.Issues.Reset();
+						UserSettings.Issues.Reset();
 					}
-					GUILayout.Space(10);
 				}
-
-				using (new GUILayout.HorizontalScope())
-				{
-					GUILayout.Space(10);
-
-					using (new GUILayout.VerticalScope())
-					{
-						GUILayout.Space(10);
-
-						if (UIHelpers.ImageButton("Filters (" + ProjectSettings.Issues.GetFiltersCount() + ")", CSIcons.Filter))
-						{
-							IssuesFiltersWindow.Create();
-						}
-
-						GUILayout.Space(10);
-
-						using (new GUILayout.HorizontalScope())
-						{
-							ProjectSettings.Issues.lookInScenes = EditorGUILayout.ToggleLeft(new GUIContent("Scenes",
-									"Uncheck to exclude all scenes from search or select filtering level:\n\n" +
-									"All Scenes: all project scenes with respect to configured filters.\n" +
-									"Included Scenes: scenes included via Manage Filters > Scene Includes.\n" +
-									"Current Scene: currently opened scene including any additional loaded scenes."),
-								ProjectSettings.Issues.lookInScenes, GUILayout.Width(70));
-							GUI.enabled = ProjectSettings.Issues.lookInScenes;
-							ProjectSettings.Issues.scenesSelection = (IssuesFinderSettings.ScenesSelection)EditorGUILayout.EnumPopup(ProjectSettings.Issues.scenesSelection);
-							GUI.enabled = true;
-						}
-
-						ProjectSettings.Issues.lookInAssets = EditorGUILayout.ToggleLeft(new GUIContent("File assets", "Uncheck to exclude all file assets like prefabs, ScriptableObjects and such from the search. Check readme for additional details."), ProjectSettings.Issues.lookInAssets);
-						ProjectSettings.Issues.lookInProjectSettings = EditorGUILayout.ToggleLeft(new GUIContent("Project Settings", "Uncheck to exclude project settings file assets like PlayerSettings and such from the search."), ProjectSettings.Issues.lookInProjectSettings);
-
-						UIHelpers.Separator(5);
-
-						var canScanGamObjects = ProjectSettings.Issues.lookInScenes || ProjectSettings.Issues.lookInAssets;
-						GUI.enabled = canScanGamObjects;
-						var scanGameObjects = UIHelpers.ToggleFoldout(ref ProjectSettings.Issues.scanGameObjects, ref UserSettings.Issues.scanGameObjectsFoldout, new GUIContent("Game Objects", "Specify if you wish to look for GameObjects issues."), GUILayout.Width(110));
-						GUI.enabled = scanGameObjects && canScanGamObjects;
-						if (UserSettings.Issues.scanGameObjectsFoldout)
-						{
-							UIHelpers.IndentLevel();
-							ProjectSettings.Issues.touchInactiveGameObjects = EditorGUILayout.ToggleLeft(new GUIContent("Inactive Game Objects", "Uncheck to exclude all inactive Game Objects from the search."), ProjectSettings.Issues.touchInactiveGameObjects);
-							ProjectSettings.Issues.touchDisabledComponents = EditorGUILayout.ToggleLeft(new GUIContent("Disabled Components", "Uncheck to exclude all disabled Components from the search."), ProjectSettings.Issues.touchDisabledComponents);
-							UIHelpers.UnIndentLevel();
-						}
-
-						GUI.enabled = true;
-					}
-
-					GUILayout.Space(10);
-				}
-
-				GUILayout.Space(10);
-			}
-		}
-
-		private void DrawWhatSectionLegacy(ref Vector2 settingsSectionScrollPosition)
-		{
-			// -----------------------------------------------------------------------------
-			// what to look for
-			// -----------------------------------------------------------------------------
-
-			using (new GUILayout.VerticalScope(/*UIHelpers.panelWithBackground*/))
-			{
-				DrawSettingsSearchSectionHeader(SettingsSearchSection.All, "<b><size=16>What</size></b>");
-				settingsSectionScrollPosition = GUILayout.BeginScrollView(settingsSectionScrollPosition, GUIStyle.none, GUI.skin.verticalScrollbar);
-
-				using (new GUILayout.HorizontalScope())
-				{
-					GUILayout.Space(10);
-
-					using (new GUILayout.VerticalScope())
-					{
-						GUILayout.Space(10);
-
-						// -----------------------------------------------------------------------------
-						// Defect Issues
-						// -----------------------------------------------------------------------------
-
-						ProjectSettings.Issues.MissingReferences = EditorGUILayout.ToggleLeft(new GUIContent("Missing references", "Search for any missing references in Components, Project Settings, Scriptable Objects, and so on."), ProjectSettings.Issues.MissingReferences);
-
-#if UNITY_2019_1_OR_NEWER
-						ProjectSettings.Issues.ShadersWithErrors = EditorGUILayout.ToggleLeft(new GUIContent("Shaders errors", "Search for shaders with compilation errors."), ProjectSettings.Issues.ShadersWithErrors);
-#endif
-						UIHelpers.Separator(5);
-
-						// -----------------------------------------------------------------------------
-						// Game Object Issues
-						// -----------------------------------------------------------------------------
-
-						using (new GUILayout.VerticalScope(UIHelpers.panelWithBackground))
-						{
-							UIHelpers.Foldout(ref UserSettings.Issues.gameObjectsFoldout, "<b>Game Object Issues</b>");
-						}
-
-						if (UserSettings.Issues.gameObjectsFoldout)
-						{
-							GUILayout.Space(-2);
-							UIHelpers.IndentLevel();
-							if (DrawSettingsFoldoutSectionHeader(SettingsSearchSection.Common, ref UserSettings.Issues.commonFoldout))
-							{
-								UIHelpers.IndentLevel();
-								ProjectSettings.Issues.MissingComponents = EditorGUILayout.ToggleLeft(new GUIContent("Missing components", "Search for the missing components on the Game Objects."), ProjectSettings.Issues.MissingComponents);
-								ProjectSettings.Issues.MissingPrefabs = EditorGUILayout.ToggleLeft(new GUIContent("Missing prefabs", "Search for instances of prefabs which were removed from project."), ProjectSettings.Issues.MissingPrefabs);
-								ProjectSettings.Issues.DuplicateComponents = EditorGUILayout.ToggleLeft(new GUIContent("Duplicate components", "Search for the multiple instances of the same component with same values on the same object."), ProjectSettings.Issues.DuplicateComponents);
-								ProjectSettings.Issues.InconsistentTerrainData = EditorGUILayout.ToggleLeft(new GUIContent("Inconsistent Terrain Data", "Search for Game Objects where Terrain and TerrainCollider have different Terrain Data."), ProjectSettings.Issues.InconsistentTerrainData);
-								UIHelpers.UnIndentLevel();
-							}
-
-							if (DrawSettingsFoldoutSectionHeader(SettingsSearchSection.Neatness, ref UserSettings.Issues.neatnessFoldout))
-							{
-								UIHelpers.IndentLevel();
-								ProjectSettings.Issues.InvalidLayers = EditorGUILayout.ToggleLeft(new GUIContent("Objects with unnamed layers", "Search for GameObjects with unnamed layers."), ProjectSettings.Issues.InvalidLayers);
-								ProjectSettings.Issues.HugePositions = EditorGUILayout.ToggleLeft(new GUIContent("Objects with huge positions", "Search for GameObjects with huge world positions (> |100 000| on any axis)."), ProjectSettings.Issues.HugePositions);
-								UIHelpers.UnIndentLevel();
-							}
-							UIHelpers.UnIndentLevel();
-							GUILayout.Space(5);
-						}
-
-						GUI.enabled = true;
-
-						// -----------------------------------------------------------------------------
-						// Project Settings Issues
-						// -----------------------------------------------------------------------------
-
-						using (new GUILayout.VerticalScope(UIHelpers.panelWithBackground))
-						{
-							UIHelpers.Foldout(ref UserSettings.Issues.projectSettingsFoldout, "<b>Project Settings Issues</b>");
-						}
-
-						if (UserSettings.Issues.projectSettingsFoldout)
-						{
-							UIHelpers.IndentLevel();
-							ProjectSettings.Issues.DuplicateLayers = EditorGUILayout.ToggleLeft(new GUIContent("Duplicate Layers", "Search for the duplicate layers and sorting layers at the 'Tags and Layers' Project Settings."), ProjectSettings.Issues.DuplicateLayers);
-							UIHelpers.UnIndentLevel();
-						}
-						GUI.enabled = true;
-
-						GUILayout.Space(10);
-					}
-					GUILayout.Space(10);
-				}
-				GUILayout.EndScrollView();
 			}
 		}
 		
-		private void DrawWhatSection(ref Vector2 settingsSectionScrollPosition)
+		private void DrawWhereSection()
 		{
+			using (new GUILayout.VerticalScope())
+			{
+				GUILayout.Label("<b><size=16>Where</size></b>", UIHelpers.richLabel);
+				UIHelpers.Separator();
+			}
+
+			using (new GUILayout.VerticalScope())
+			{
+				GUILayout.Space(10);
+
+				if (UIHelpers.ImageButton("Filters (" + ProjectSettings.Issues.GetFiltersCount() + ")", CSIcons.Filter))
+				{
+					IssuesFiltersWindow.Create();
+				}
+
+				GUILayout.Space(5);
+
+				using (new GUILayout.VerticalScope())
+				{
+					DrawScenesGUI();
+					DrawGameObjectsGUI();
+				}
+
+				GUILayout.Space(10);
+			}
+		}
+
+		private void DrawScenesGUI()
+		{
+			using (new GUILayout.HorizontalScope())
+			{
+				ProjectSettings.Issues.lookInScenes = EditorGUILayout.ToggleLeft(new GUIContent("Scenes",
+						"Uncheck to exclude all scenes from search or select filtering level:\n\n" +
+						"All Scenes: all project scenes with respect to configured filters.\n" +
+						"Included Scenes: scenes included via Manage Filters > Scene Includes.\n" +
+						"Current Scene: currently opened scene including any additional loaded scenes."),
+					ProjectSettings.Issues.lookInScenes, GUILayout.Width(70));
+				GUI.enabled = ProjectSettings.Issues.lookInScenes;
+				ProjectSettings.Issues.scenesSelection = (IssuesFinderSettings.ScenesSelection)EditorGUILayout.EnumPopup(ProjectSettings.Issues.scenesSelection);
+				GUI.enabled = true;
+			}
+
+			ProjectSettings.Issues.lookInAssets = EditorGUILayout.ToggleLeft(new GUIContent("File assets", "Uncheck to exclude all file assets like prefabs, ScriptableObjects and such from the search. Check readme for additional details."), ProjectSettings.Issues.lookInAssets);
+			ProjectSettings.Issues.lookInProjectSettings = EditorGUILayout.ToggleLeft(new GUIContent("Project Settings", "Uncheck to exclude project settings file assets like PlayerSettings and such from the search."), ProjectSettings.Issues.lookInProjectSettings);
+		}
+
+		private void DrawGameObjectsGUI()
+		{
+			UIHelpers.Separator(5);
+
+			var canScanGamObjects = ProjectSettings.Issues.lookInScenes || ProjectSettings.Issues.lookInAssets;
+			GUI.enabled = canScanGamObjects;
+			var scanGameObjects = UIHelpers.ToggleFoldout(ref ProjectSettings.Issues.scanGameObjects, ref UserSettings.Issues.scanGameObjectsFoldout, new GUIContent("Game Objects", "Specify if you wish to look for GameObjects issues."), GUILayout.Width(110));
+			GUI.enabled = scanGameObjects && canScanGamObjects;
+			if (UserSettings.Issues.scanGameObjectsFoldout)
+			{
+				UIHelpers.IndentLevel();
+				ProjectSettings.Issues.touchInactiveGameObjects = EditorGUILayout.ToggleLeft(new GUIContent("Inactive Game Objects", "Uncheck to exclude all inactive Game Objects from the search."), ProjectSettings.Issues.touchInactiveGameObjects);
+				ProjectSettings.Issues.touchDisabledComponents = EditorGUILayout.ToggleLeft(new GUIContent("Disabled Components", "Uncheck to exclude all disabled Components from the search."), ProjectSettings.Issues.touchDisabledComponents);
+				UIHelpers.UnIndentLevel();
+			}
+			GUI.enabled = true;
+		}
+
+		private void DrawWhatSection()
+		{
+			InitDetectorsGroups();
+				
 			// change vars affecting OnGUI layout at the EventType.Layout
 			// to avoid errors while painting OnGUI
 			if (Event.current.type == EventType.Layout)
 			{
-				if (detectorsGroups == null)
-				{
-					FillDetectorsGroups(IssuesFinderDetectors.detectors?.extensions);
-				}
-
+				FillDetectorsGroups(IssuesFinderDetectors.detectors?.extensions);
 				FillDetectorsGroupsFoldouts();
 			}
 			
-			// -----------------------------------------------------------------------------
-			// what to look for
-			// -----------------------------------------------------------------------------
-
-			using (new GUILayout.VerticalScope(/*UIHelpers.panelWithBackground*/))
+			using (new GUILayout.VerticalScope())
 			{
 				DrawSettingsSearchSectionHeader(SettingsSearchSection.All, "<b><size=16>What</size></b>");
-				settingsSectionScrollPosition = GUILayout.BeginScrollView(settingsSectionScrollPosition, GUIStyle.none, GUI.skin.verticalScrollbar);
-
-				using (new GUILayout.HorizontalScope())
+				UIHelpers.Separator();
+				
+				using (new GUILayout.VerticalScope())
 				{
 					GUILayout.Space(10);
-
-					using (new GUILayout.VerticalScope())
-					{
-						GUILayout.Space(10);
-
-						DrawDetectors();
-
-						GUILayout.Space(10);
-					}
+					DrawDetectors();
 					GUILayout.Space(10);
 				}
-				GUILayout.EndScrollView();
 			}
 		}
 
 		private void DrawDetectors()
 		{
+			if (detectorsGroups == null || detectorsGroupsFoldouts == null)
+				return;
+			
 			foreach (var detectorsGroup in detectorsGroups)
 			{
 				if (detectorsGroup.Key != IssueGroup.Global)
@@ -326,20 +220,24 @@ namespace CodeStage.Maintainer.UI
 					GetGroupIcon(group));
 				foldout = detectorsGroupsFoldouts[group];
 				var toggle = mixedSelection || allEnabled;
-				bool toggleChanged;
-				bool foldoutChanged;
 
 				UIHelpers.ToggleFoldout(ref toggle, mixedSelection, ref foldout, 
-					out toggleChanged, out foldoutChanged,
+					out var toggleChanged, out var foldoutChanged,
 					guiContent,
 					UIHelpers.richFoldout,
-					GUILayout.Width(195));
+					GUILayout.ExpandWidth(true));
 				
 				if (toggleChanged)
 					ProjectSettings.Issues.SwitchDetectors(detectorsInGroup, toggle);
 				
 				if (foldoutChanged)
 					UserSettings.Issues.SetGroupFoldout(group, foldout);
+				
+				var (enabled, total) = GetDetectorsCount(detectorsInGroup);
+				var rect = GUILayoutUtility.GetLastRect();
+				var counterRect = rect;
+				counterRect.xMin = counterRect.xMax - 50;
+				DrawDetectorsCounter(counterRect, enabled, total);
 			}
 
 			return foldout;
@@ -376,12 +274,15 @@ namespace CodeStage.Maintainer.UI
 			}
 		}
 
+		private void InitDetectorsGroups()
+		{
+			detectorsGroups ??= new SortedDictionary<IssueGroup, IList<IIssueDetector>>();
+		}
+
 		private void FillDetectorsGroups(IList<IIssueDetector> detectors)
 		{
-			if (detectorsGroups != null)
+			if (detectorsGroups == null || detectorsGroups.Count > 0)
 				return;
-			
-			detectorsGroups = new SortedDictionary<IssueGroup, IList<IIssueDetector>>();
 			
 			foreach (var detector in detectors)
 			{
@@ -395,9 +296,7 @@ namespace CodeStage.Maintainer.UI
 		
 		private void FillDetectorsGroupsFoldouts()
 		{
-			if (detectorsGroupsFoldouts == null)
-				detectorsGroupsFoldouts = new SortedDictionary<IssueGroup, bool>();
-			
+			detectorsGroupsFoldouts ??= new SortedDictionary<IssueGroup, bool>();
 			detectorsGroupsFoldouts.Clear();
 
 			foreach (var group in detectorsGroups)
@@ -406,61 +305,29 @@ namespace CodeStage.Maintainer.UI
 			}
 		}
 
-		private bool DrawSettingsFoldoutSectionHeader(SettingsSearchSection section, ref bool foldout)
-		{
-			GUILayout.Space(5);
-			using (new GUILayout.HorizontalScope())
-			{
-				foldout = EditorGUI.Foldout(EditorGUILayout.GetControlRect(true, GUILayout.Width(100)), foldout, ObjectNames.NicifyVariableName(section.ToString()), true, UIHelpers.richFoldout);
-				GUILayout.FlexibleSpace();
-
-				if (UIHelpers.IconButton(CSIcons.SelectAll, "Select all"))
-				{
-					SettingsSectionGroupSwitch(section, true);
-				}
-
-				if (UIHelpers.IconButton(CSIcons.SelectNone, "Clear selection"))
-				{
-					SettingsSectionGroupSwitch(section, false);
-				}
-
-				GUILayout.Space(5);
-			}
-
-			/*if (foldout)
-			{
-				UIHelpers.Separator();
-			}*/
-
-			return foldout;
-		}
-
 		private void DrawSettingsSearchSectionHeader(SettingsSearchSection section, string caption)
 		{
 			using (new GUILayout.HorizontalScope())
 			{
-				GUILayout.Space(10);
-
 				GUILayout.Label(caption, UIHelpers.richLabel, GUILayout.Width(100));
-
 				GUILayout.FlexibleSpace();
-				using (new GUILayout.VerticalScope())
+				
+				var (enabled, total) = GetDetectorsCount();
+				var rect = EditorGUILayout.GetControlRect(false, EditorGUIUtility.singleLineHeight, GUILayout.Width(50));
+				rect.height += 2;
+				DrawDetectorsCounter(rect, enabled, total);
+				
+				var menuContent = new GUIContent(CSEditorIcons.Menu);
+				var menuRect = EditorGUILayout.GetControlRect(false, EditorGUIUtility.singleLineHeight, GUILayout.Width(20));
+				menuRect.y += 2; // Adjust vertical position to center the icon
+				
+				if (GUI.Button(menuRect, menuContent, UIHelpers.BuiltinIconButtonStyle))
 				{
-					//GUILayout.Space(-3);
-					using (new GUILayout.HorizontalScope())
-					{
-						if (UIHelpers.IconButton(CSIcons.SelectAll, "Select all"))
-						{
-							SettingsSectionGroupSwitch(section, true);
-						}
-
-						if (UIHelpers.IconButton(CSIcons.SelectNone, "Clear selection"))
-						{
-							SettingsSectionGroupSwitch(section, false);
-						}
-					}
+					var menu = new GenericMenu();
+					menu.AddItem(new GUIContent("Enable All"), false, () => SettingsSectionGroupSwitch(section, true));
+					menu.AddItem(new GUIContent("Disable All"), false, () => SettingsSectionGroupSwitch(section, false));
+					menu.ShowAsContext();
 				}
-				GUILayout.Space(10);
 			}
 
 			using (new GUILayout.HorizontalScope())
@@ -504,6 +371,36 @@ namespace CodeStage.Maintainer.UI
 				default:
 					return null;
 			}
+		}
+
+		private (int enabled, int total) GetDetectorsCount(IList<IIssueDetector> detectors = null)
+		{
+			if (detectors == null)
+				detectors = IssuesFinderDetectors.detectors?.extensions;
+				
+			if (detectors == null)
+				return (0, 0);
+				
+			var enabled = 0;
+			var total = detectors.Count;
+			
+			foreach (var detector in detectors)
+			{
+				if (detector.Enabled)
+					enabled++;
+			}
+			
+			return (enabled, total);
+		}
+
+		private void DrawDetectorsCounter(Rect rect, int enabled, int total)
+		{
+			var content = $"{enabled} / {total}";
+			var color = GUI.color;
+			GUI.color = CSColorTools.DimmedColor;
+			var style = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleRight };
+			GUI.Label(rect, content, style);
+			GUI.color = color;
 		}
 	}
 }

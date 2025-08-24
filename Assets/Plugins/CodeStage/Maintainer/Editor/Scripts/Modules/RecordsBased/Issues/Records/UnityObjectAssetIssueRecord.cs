@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -15,12 +15,14 @@ namespace CodeStage.Maintainer.Issues
 	using UI;
 	using UnityEditor;
 	using UnityEngine;
+	using Location = Core.Location;
 
 	[Serializable]
 	public class UnityObjectAssetIssueRecord : AssetIssueRecord, IShowableRecord
 	{
 		public string propertyPath;
 		public string typeName;
+		public string humanReadablePropertyName;
 
 		[SerializeField]
 		private bool missingEventMethod;
@@ -35,10 +37,13 @@ namespace CodeStage.Maintainer.Issues
 
 		public void Show()
 		{
-			if (!CSSelectionTools.RevealAndSelectFileAsset(Path))
+			var entry = new ReferencingEntryData
 			{
-				MaintainerWindow.ShowNotification("Can't show it properly");
-			}
+				location = Location.UnityObjectAsset,
+				propertyPath = propertyPath,
+			};
+			
+			CSSelectionTools.RevealAndSelectReferencingEntry(Path, entry);
 		}
 
 		internal static UnityObjectAssetIssueRecord Create(IIssueDetector detector, IssueKind type, AssetLocation location)
@@ -92,6 +97,7 @@ namespace CodeStage.Maintainer.Issues
 		internal UnityObjectAssetIssueRecord(IIssueDetector detector, IssueKind kind, PropertyLocation location) : this(detector, kind, location as ComponentLocation)
 		{
 			propertyPath = location.PropertyPath;
+			humanReadablePropertyName = location.HumanReadablePropertyName;
 
 			if (propertyPath.EndsWith("].m_MethodName", StringComparison.OrdinalIgnoreCase))
 			{
@@ -109,11 +115,7 @@ namespace CodeStage.Maintainer.Issues
 				text.Append("\n<b>Type:</b> ").Append(typeName);
 			}
 
-			if (!string.IsNullOrEmpty(propertyPath))
-			{
-				var propertyName = CSObjectTools.GetNicePropertyPath(propertyPath);
-				text.Append("\n<b>Property:</b> ").Append(propertyName);
-			}
+			AppendPropertyInfo(text, propertyPath, humanReadablePropertyName);
 		}
 
 		internal override FixResult PerformFix(bool batchMode)

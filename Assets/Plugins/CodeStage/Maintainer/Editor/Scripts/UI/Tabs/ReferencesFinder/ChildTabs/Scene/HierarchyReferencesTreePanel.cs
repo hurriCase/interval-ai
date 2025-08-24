@@ -1,6 +1,6 @@
 ﻿#region copyright
 // ---------------------------------------------------------------
-//  Copyright (C) Dmitriy Yukhanov - focus [https://codestage.net]
+//  Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // ---------------------------------------------------------------
 #endregion
 
@@ -21,11 +21,19 @@ namespace CodeStage.Maintainer.UI
 
 		private HierarchyReferenceItem[] treeElements;
 
+		public System.Action DrawGUIBeforeSearchAction { get; set; }
+
 		public void Refresh(bool newData)
 		{
 			if (newData)
 			{
-				UserSettings.References.hierarchyReferencesTreeViewState = new TreeViewState();
+				UserSettings.References.hierarchyReferencesTreeViewState = new 
+#if UNITY_6000_2_OR_NEWER
+					TreeViewState<int>
+#else
+					TreeViewState
+#endif
+					();
 				treeModel = null;
 			}
 
@@ -54,7 +62,13 @@ namespace CodeStage.Maintainer.UI
 			var multiColumnHeader = new MaintainerMultiColumnHeader(headerState);
 
 			if (firstInit)
-				UserSettings.References.hierarchyReferencesTreeViewState = new TreeViewState();
+				UserSettings.References.hierarchyReferencesTreeViewState = new 
+#if UNITY_6000_2_OR_NEWER
+					TreeViewState<int>
+#else
+					TreeViewState
+#endif
+					();
 
 			treeElements = LoadLastTreeElements();
 			treeModel = new TreeModel<HierarchyReferenceItem>(treeElements);
@@ -79,16 +93,25 @@ namespace CodeStage.Maintainer.UI
 				GUILayout.Space(5);
 				using (new GUILayout.VerticalScope())
 				{
-					EditorGUI.BeginChangeCheck();
-					var searchString =
-						searchField.OnGUI(
-							GUILayoutUtility.GetRect(0, 0, 20, 20, GUILayout.ExpandWidth(true),
-								GUILayout.ExpandHeight(false)), SessionState.GetString("sceneTabSearchString", string.Empty));
-					if (EditorGUI.EndChangeCheck())
+					using (new GUILayout.HorizontalScope())
 					{
-						SessionState.SetString("sceneTabSearchString", searchString);
-						treeView.SetSearchString(searchString);
-						treeView.Reload();
+						if (DrawGUIBeforeSearchAction != null)
+						{
+							DrawGUIBeforeSearchAction();
+							GUILayout.Space(5);
+						}
+
+						EditorGUI.BeginChangeCheck();
+						var searchString =
+							searchField.OnGUI(
+								GUILayoutUtility.GetRect(0, 0, 20, 20, GUILayout.ExpandWidth(true),
+									GUILayout.ExpandHeight(false)), SessionState.GetString("sceneTabSearchString", string.Empty));
+						if (EditorGUI.EndChangeCheck())
+						{
+							SessionState.SetString("sceneTabSearchString", searchString);
+							treeView.SetSearchString(searchString);
+							treeView.Reload();
+						}
 					}
 
 					GUILayout.Space(3);

@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -13,6 +13,7 @@ namespace CodeStage.Maintainer.UI
 	using References;
 	using UnityEditor;
 	using UnityEngine;
+	using System.Linq;
 
 	internal static class MaintainerMenu
 	{
@@ -23,7 +24,8 @@ namespace CodeStage.Maintainer.UI
 		private const string CodeStage = "Code Stage/";
 		private const string SearchMaintainer = "🔍 Maintainer";
 
-		private const string ReferencesFinderMenuName = "🔍 Find References in Project";
+		private const string ReferencesFinderMenuName = "🔍 Find References";
+		private const string DependenciesReferencesFinderMenuName = "🔍 Find Dependencies References";
 		private const string ContextComponentMenu = ContextMenu + "Component/";
 		private const string ScriptReferencesContextMenuName = SearchMaintainer + ": Script File References";
 		private const string ComponentContextSceneReferencesMenuName = SearchMaintainer + ": References In Scene";
@@ -39,6 +41,7 @@ namespace CodeStage.Maintainer.UI
 		private const string ProjectBrowserContextReferencesFinderName = MenuSection + "/" + ReferencesFinderMenuName;
 		private const string ProjectBrowserContextReferencesFinderNoHotKey = ProjectBrowserContextStart + ProjectBrowserContextReferencesFinderName;
 		private const string ProjectBrowserContextReferencesFinder = ProjectBrowserContextReferencesFinderNoHotKey + " %#&s";
+		private const string ProjectBrowserContextDependenciesReferencesFinder = ProjectBrowserContextStart + MenuSection + "/" + DependenciesReferencesFinderMenuName;
 		private const string MainMenu = "Tools/" + CodeStage + MenuSection + "/";
 
 		private static float lastMenuCallTimestamp;
@@ -89,6 +92,31 @@ namespace CodeStage.Maintainer.UI
 		public static void FindReferences()
 		{
 			ReferencesFinder.FindSelectedAssetsReferences();
+		}
+
+		[MenuItem(ProjectBrowserContextDependenciesReferencesFinder, true, 40)]
+		public static bool ValidateFindDependenciesReferences()
+		{
+			return ProjectScopeReferencesFinder.GetSelectedAssets().Length > 0;
+		}
+
+		[MenuItem(ProjectBrowserContextDependenciesReferencesFinder, false, 40)]
+		public static void FindDependenciesReferences()
+		{
+			var selectedAssets = ProjectScopeReferencesFinder.GetSelectedAssets();
+			var dependencies = AssetDatabase.GetDependencies(selectedAssets, false);
+			
+			// Filter out the original selected assets
+			dependencies = dependencies.Where(d => !selectedAssets.Contains(d)).ToArray();
+			
+			if (dependencies.Length == 0)
+			{
+				MaintainerWindow.ShowAssetReferences();
+				MaintainerWindow.ShowNotification("No direct dependencies found for selected assets");
+				return;
+			}
+			
+			ReferencesFinder.FindAssetsReferences(dependencies);
 		}
 
 		[MenuItem(ScriptReferencesContextMenu, true, 144445)]

@@ -1,6 +1,6 @@
 ﻿#region copyright
 // ---------------------------------------------------------------
-//  Copyright (C) Dmitriy Yukhanov - focus [https://codestage.net]
+//  Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // ---------------------------------------------------------------
 #endregion
 
@@ -13,11 +13,7 @@ namespace CodeStage.Maintainer.Core.Dependencies
 	using UnityEditor.Compilation;
 	using UnityEngine;
 	
-#if !UNITY_2019_2_OR_NEWER
-	[InitializeOnLoad]
-#endif
-	// ReSharper disable once UnusedType.Global
-	// TODO: check if bug 1020737 is fixed and this can be removed
+	// ReSharper disable once UnusedType.Global ClassNeverInstantiated.Global since it's used from TypeCache
 	internal class AssemblyDefinitionParser : DependenciesParser
 	{
 		private static string editorPlatformName;
@@ -43,24 +39,11 @@ namespace CodeStage.Maintainer.Core.Dependencies
 			}
 		}
 		
-		public override Type Type
-		{
-			get
-			{
-				return CSReflectionTools.assemblyDefinitionAssetType;
-			}
-		}
-		
-#if !UNITY_2019_2_OR_NEWER
-		static AssemblyDefinitionParser()
-		{
-			AssetDependenciesSearcher.AddInternalDependencyParser(new AssemblyDefinitionParser());
-		}
-#endif
-		
+		public override Type Type => CSReflectionTools.assemblyDefinitionAssetType;
+
 		public override IList<string> GetDependenciesGUIDs(AssetInfo asset)
 		{
-			if (asset.Kind != AssetKind.Regular)
+			if (asset.Origin != AssetOrigin.AssetsFolder)
 				return null;
 			
 			return GetAssetsReferencedFromAssemblyDefinition(asset.Path);
@@ -68,16 +51,11 @@ namespace CodeStage.Maintainer.Core.Dependencies
 
 		public static bool IsEditorOnlyAssembly(string asmdefPath)
 		{
-			var result = false;
 			var data = ParseAssemblyDefinitionAsset(asmdefPath);
 			if (data.includePlatforms == null || data.includePlatforms.Length == 0)
 				return false;
 
-			result = data.includePlatforms.Length == 1 && data.includePlatforms[0] == EditorPlatformName;
-
-			data.includePlatforms = null; // to workaround compiler warning
-			
-			return result;
+			return data.includePlatforms.Length == 1 && data.includePlatforms[0] == EditorPlatformName;
 		}
 		
 		private static IList<string> GetAssetsReferencedFromAssemblyDefinition(string assetPath)
@@ -89,11 +67,7 @@ namespace CodeStage.Maintainer.Core.Dependencies
 			{
 				foreach (var reference in data.references)
 				{
-#if !UNITY_2019_1_OR_NEWER
-					var assemblyDefinitionFilePathFromAssemblyName = CompilationPipeline.GetAssemblyDefinitionFilePathFromAssemblyName(reference);
-#else
 					var assemblyDefinitionFilePathFromAssemblyName = CompilationPipeline.GetAssemblyDefinitionFilePathFromAssemblyReference(reference);
-#endif
 					if (!string.IsNullOrEmpty(assemblyDefinitionFilePathFromAssemblyName))
 					{
 						assemblyDefinitionFilePathFromAssemblyName = CSPathTools.EnforceSlashes(assemblyDefinitionFilePathFromAssemblyName);
@@ -121,7 +95,7 @@ namespace CodeStage.Maintainer.Core.Dependencies
 		private class AssemblyDefinitionData
 		{
 			public string[] references;
-			public string[] includePlatforms;
+			public string[] includePlatforms = default;
 		}
 	}
 }

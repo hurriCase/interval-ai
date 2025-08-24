@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -44,29 +44,29 @@ namespace CodeStage.Maintainer.Tools
 
 		public static string NicifyAssetPath(string path, bool trimExtension = false)
 		{
-			return NicifyAssetPath(path, AssetKind.Regular, trimExtension);
+			return NicifyAssetPath(path, AssetOrigin.AssetsFolder, trimExtension);
 		}
 
-		public static string NicifyAssetPath(string path, AssetKind kind, bool trimExtension = false)
+		public static string NicifyAssetPath(string path, AssetOrigin origin, bool trimExtension = false)
 		{
 			var nicePath = path;
 
 			if (nicePath == UntitledScenePath)
 				return Path.GetFileNameWithoutExtension(nicePath);
 
-			switch (kind)
+			switch (origin)
 			{
-				case AssetKind.Regular:
+				case AssetOrigin.AssetsFolder:
 					if (path.Length <= 7) return path;
 					nicePath = nicePath.Remove(0, 7);
 					break;
-				case AssetKind.Settings:
-				case AssetKind.FromPackage:
-				case AssetKind.FromEmbeddedPackage:
-				case AssetKind.Unsupported:
+				case AssetOrigin.Settings:
+				case AssetOrigin.ImmutablePackage:
+				case AssetOrigin.EmbeddedPackage:
+				case AssetOrigin.Unknown:
 					break;
 				default:
-					throw new ArgumentOutOfRangeException("kind", kind, null);
+					throw new ArgumentOutOfRangeException("origin", origin, null);
 			}
 
 			if (trimExtension)

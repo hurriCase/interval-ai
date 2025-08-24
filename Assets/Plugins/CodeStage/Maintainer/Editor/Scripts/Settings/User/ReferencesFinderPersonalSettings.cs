@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -57,9 +57,21 @@ namespace CodeStage.Maintainer.Settings
 
 		public bool fullProjectScanWarningShown;
 
-		[SerializeField] internal TreeViewState projectReferencesTreeViewState;
+		[SerializeField] internal 
+#if UNITY_6000_2_OR_NEWER
+			TreeViewState<int> 
+#else
+			TreeViewState
+#endif
+			projectReferencesTreeViewState;
 		[SerializeField] internal MultiColumnHeaderState projectReferencesTreeHeaderState;
-		[SerializeField] internal TreeViewState hierarchyReferencesTreeViewState;
+		[SerializeField] internal 
+#if UNITY_6000_2_OR_NEWER
+			TreeViewState<int> 
+#else
+			TreeViewState
+#endif
+			hierarchyReferencesTreeViewState;
 		[SerializeField] internal MultiColumnHeaderState sceneReferencesTreeHeaderState;
 		[SerializeField] internal string splitterState;
 

@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -19,12 +19,11 @@ namespace CodeStage.Maintainer.Issues
 		MissingPrefab = 300,
 		UnnamedLayer = 800,
 		InvalidSortingLayer = 850,
+		InvalidRendererMaterials = 875,
+		InvalidRendererBatching = 885,
 		HugePosition = 900,
 		InconsistentTerrainData = 1100,
-
-#if UNITY_2019_1_OR_NEWER
 		ShaderError = 1200,
-#endif
 
 		/* project settings issues */
 

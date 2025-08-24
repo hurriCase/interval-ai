@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -10,7 +10,7 @@ namespace CodeStage.Maintainer.Core.Scan
 	using System.Collections.Generic;
 	using Extension;
 
-	internal enum PropertyScanDepth
+	public enum PropertyScanDepth
 	{
 		None = 0,
 		VisibleOnly = 2,

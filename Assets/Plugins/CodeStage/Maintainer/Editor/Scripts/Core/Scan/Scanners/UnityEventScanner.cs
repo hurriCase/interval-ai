@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -17,7 +17,7 @@ namespace CodeStage.Maintainer.Core.Scan
 	using UnityEngine.Events;
 	using Object = UnityEngine.Object;
 
-	internal enum UnityEventScanPhase
+	public enum UnityEventScanPhase
 	{
 		Begin = 0, // before UnityEvent processing
 		Calls = 5, // m_PersistentCalls.m_Calls
@@ -39,13 +39,7 @@ namespace CodeStage.Maintainer.Core.Scan
 
 		public IList<IUnityEventScanListener<T>> ScanListeners { get; protected set; }
 
-		public Type ScanListenerType
-		{
-			get
-			{
-				return typeof(IUnityEventScanListener<T>);
-			}
-		}
+		public Type ScanListenerType => typeof(IUnityEventScanListener<T>);
 
 		public void RegisterScanListeners(IUnityEventScanListener<T>[] listeners)
 		{
@@ -183,7 +177,7 @@ namespace CodeStage.Maintainer.Core.Scan
 
 			foreach (var listener in ScanListeners)
 			{
-				listener.UnityEventProperty(results, narrow != null ? narrow : location, phase);
+				listener.UnityEventProperty(results, narrow ?? location, phase);
 			}
 		}
 	}

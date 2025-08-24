@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -8,22 +8,14 @@ namespace CodeStage.Maintainer.Core.Extension
 {
 	using System;
 	using System.Collections.Generic;
-#if UNITY_2019_2_OR_NEWER
 	using UnityEditor;
-	using UnityEngine;
-#endif
 
 	internal class ExtensibleModule<T> where T : IMaintainerExtension
 	{
 		public readonly List<T> extensions = new List<T>();
 		
-#if !UNITY_2019_2_OR_NEWER
-		private readonly IComparer<T> comparer;
-#endif
-		
 		public ExtensibleModule(IComparer<T> comparer = null)
 		{
-#if UNITY_2019_2_OR_NEWER
 			var targetType = typeof(T);
 			var foundTypes = TypeCache.GetTypesDerivedFrom<T>();
 			foreach (var foundType in foundTypes)
@@ -46,9 +38,6 @@ namespace CodeStage.Maintainer.Core.Extension
 			
 			if (comparer != null)
 				extensions.Sort(comparer);
-#else
-			this.comparer = comparer;
-#endif
 		}
 
 		internal void AddInternal(T extension)
@@ -89,10 +78,6 @@ namespace CodeStage.Maintainer.Core.Extension
 			{
 				extension.External = external;
 				extensions.Add(extension);
-#if !UNITY_2019_2_OR_NEWER
-				if (comparer != null)
-					extensions.Sort(comparer);
-#endif
 			}
 		}
 		

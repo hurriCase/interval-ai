@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -19,17 +19,35 @@ namespace CodeStage.Maintainer.UI
 
 	internal class ListTreeView<T> : MaintainerTreeView<T> where T : TreeItem
 	{
-		public ListTreeView(TreeViewState state, TreeModel<T> model) : base(state, model)
+		public ListTreeView(
+#if UNITY_6000_2_OR_NEWER
+			TreeViewState<int> 
+#else
+			TreeViewState
+#endif
+			state, TreeModel<T> model) : base(state, model)
 		{
 
 		}
 
-		public ListTreeView(TreeViewState state, MultiColumnHeader multiColumnHeader, TreeModel<T> model) : base(state, multiColumnHeader, model)
+		public ListTreeView(
+#if UNITY_6000_2_OR_NEWER
+			TreeViewState<int> 
+#else
+			TreeViewState
+#endif
+			state, MultiColumnHeader multiColumnHeader, TreeModel<T> model) : base(state, multiColumnHeader, model)
 		{
 
 		}
 
-		protected override TreeViewItem GetNewTreeViewItemInstance(int id, int depth, string name, T data)
+		protected override 
+#if UNITY_6000_2_OR_NEWER
+			TreeViewItem<int> 
+#else
+			TreeViewItem
+#endif
+			GetNewTreeViewItemInstance(int id, int depth, string name, T data)
 		{
 			return new ListTreeViewItem<T>(id, depth, name, data);
 		}

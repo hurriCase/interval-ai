@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -50,13 +50,13 @@ namespace CodeStage.Maintainer.Tools
 			return result;
 		}
 
-		public static List<AssetInfo> GetAssetInfosWithKind(List<AssetInfo> assets, AssetKind kind)
+		public static List<AssetInfo> GetAssetInfosWithKind(List<AssetInfo> assets, AssetOrigin origin)
 		{
 			var result = new List<AssetInfo>();
 
 			foreach (var asset in assets)
 			{
-				if (asset.Kind == kind)
+				if (asset.Origin == origin)
 				{
 					result.Add(asset);
 				}
@@ -65,13 +65,13 @@ namespace CodeStage.Maintainer.Tools
 			return result;
 		}
 
-		public static List<AssetInfo> GetAssetInfosWithKinds(List<AssetInfo> assets, List<AssetKind> kinds)
+		public static List<AssetInfo> GetAssetInfosWithKinds(List<AssetInfo> assets, List<AssetOrigin> kinds)
 		{
 			var result = new List<AssetInfo>();
 
 			foreach (var asset in assets)
 			{
-				if (kinds.Contains(asset.Kind))
+				if (kinds.Contains(asset.Origin))
 				{
 					result.Add(asset);
 				}
@@ -143,6 +143,64 @@ namespace CodeStage.Maintainer.Tools
 
 			ArrayUtility.Add(ref filters, newItem);
 			return true;
+		}
+
+		public static bool IsAssetInfoMatchesAnyFilter(AssetInfo assetInfo, IEnumerable<FilterItem> filters)
+		{
+			if (assetInfo == null || filters == null)
+				return false;
+
+			foreach (var filter in filters)
+			{
+				if (!filter.enabled)
+					continue;
+
+				var match = false;
+
+				switch (filter.kind)
+				{
+					case FilterKind.Path:
+						match = FilterMatchHelper(assetInfo.Path, filter);
+						break;
+					case FilterKind.Type:
+						if (assetInfo.Type != null)
+						{
+							match = FilterMatchHelper(assetInfo.Type.FullName, filter);
+						}
+						break;
+					case FilterKind.Directory:
+						var directory = Path.GetDirectoryName(assetInfo.Path);
+						if (directory != null)
+						{
+							directory = CSPathTools.EnforceSlashes(directory);
+							match = FilterMatchHelper(directory, filter);
+						}
+						break;
+					case FilterKind.FileName:
+						var filename = Path.GetFileName(assetInfo.Path);
+						if (filename != null)
+						{
+							filename = CSPathTools.EnforceSlashes(filename);
+							match = FilterMatchHelper(filename, filter);
+						}
+						break;
+					case FilterKind.Extension:
+						var extension = Path.GetExtension(assetInfo.Path);
+						match = string.Equals(extension, filter.value, StringComparison.OrdinalIgnoreCase);
+						break;
+					case FilterKind.NotSet:
+						break;
+					default:
+						throw new ArgumentOutOfRangeException();
+				}
+
+				if (match)
+				{
+					return true;
+				}
+			}
+
+			return false;
 		}
 
 		public static bool IsValueMatchesAnyFilter(string value, IEnumerable<FilterItem> filters)

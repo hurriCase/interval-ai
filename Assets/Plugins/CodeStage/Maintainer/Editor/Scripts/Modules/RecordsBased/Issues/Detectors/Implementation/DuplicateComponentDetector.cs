@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -12,10 +12,7 @@ namespace CodeStage.Maintainer.Issues.Detectors
 	using Tools;
 	using UnityEditor;
 	using UnityEngine;
-
-#if !UNITY_2019_2_OR_NEWER
-	[InitializeOnLoad]
-#endif
+	
 	// ReSharper disable once ClassNeverInstantiated.Global since it's used from TypeCache
 	internal class DuplicateComponentDetector : IssueDetector, 
 		IGameObjectBeginIssueDetector, 
@@ -26,7 +23,7 @@ namespace CodeStage.Maintainer.Issues.Detectors
 #endif
 		IComponentEndIssueDetector
 	{
-		private struct ComponentHash : IEquatable<ComponentHash>
+		private readonly struct ComponentHash : IEquatable<ComponentHash>
 		{
 			private readonly long typeHash;
 			private readonly long hash;
@@ -47,7 +44,7 @@ namespace CodeStage.Maintainer.Issues.Detectors
 				if (ReferenceEquals(null, obj))
 					return false;
 
-				return obj is ComponentHash && Equals((ComponentHash)obj);
+				return obj is ComponentHash componentHash && Equals(componentHash);
 			}
 
 			public override int GetHashCode()
@@ -63,27 +60,19 @@ namespace CodeStage.Maintainer.Issues.Detectors
 		private List<Type> duplicateTypes;
 		private List<Component> gameObjectComponents;
 
-		public override DetectorInfo Info { get { return 
+		public override DetectorInfo Info =>
 			DetectorInfo.From(
 				IssueGroup.Component,
 				DetectorKind.Defect,
 				IssueSeverity.Warning,
 				"Duplicate Component", 
 				"Search for the multiple instances of the same Component with same values on the same Game Object.");
-		}}
-		
-		public Type[] ComponentTypes { get { return new []{CSReflectionTools.componentType}; } }
-		
+
+		public Type[] ComponentTypes => new []{CSReflectionTools.componentType};
+
 		private HashSet<ComponentHash> componentHashes;
 		private long newHash;
 		private bool skipComponent;
-		
-#if !UNITY_2019_2_OR_NEWER
-		static DuplicateComponentDetector()
-		{
-			IssuesFinderDetectors.AddInternalDetector(new DuplicateComponentDetector());
-		}
-#endif
 		
 		public void GameObjectBegin(DetectorResults results, GameObjectLocation location)
 		{
@@ -110,10 +99,7 @@ namespace CodeStage.Maintainer.Issues.Detectors
 		
 		public PropertyScanDepth GetPropertyScanDepth(ComponentLocation location)
 		{
-			if (skipComponent)
-				return PropertyScanDepth.None;
-
-			return PropertyScanDepth.VisibleOnly;
+			return skipComponent ? PropertyScanDepth.None : PropertyScanDepth.VisibleOnly;
 		}
 
 		public void Property(DetectorResults results, PropertyLocation location)
@@ -149,11 +135,11 @@ namespace CodeStage.Maintainer.Issues.Detectors
 					ProcessProperty(location.Property);
 					break;
 				default:
-					throw new ArgumentOutOfRangeException("phase", phase, null);
+					throw new ArgumentOutOfRangeException(nameof(phase), phase, null);
 			}
 		}
-		
 #endif
+		
 		public void ComponentEnd(DetectorResults results, ComponentLocation location)
 		{
 			if (skipComponent)
@@ -166,24 +152,17 @@ namespace CodeStage.Maintainer.Issues.Detectors
 
 			if (!componentHashes.Add(componentHash))
 			{
-				var issue = GameObjectIssueRecord.ForComponent(this, Issues.IssueKind.DuplicateComponent, location);
+				var issue = GameObjectIssueRecord.ForComponent(this, IssueKind.DuplicateComponent, location);
 				results.Add(issue);
 			}
 		}
 		
 		private void Reset()
 		{
-			if (componentHashes != null)
-				componentHashes.Clear();
-			
-			if (duplicateTypes != null)
-				duplicateTypes.Clear();
-			
-			if (duplicateDetector != null)
-				duplicateDetector.Clear();
-			
-			if (gameObjectComponents != null)
-				gameObjectComponents.Clear();
+			componentHashes?.Clear();
+			duplicateTypes?.Clear();
+			duplicateDetector?.Clear();
+			gameObjectComponents?.Clear();
 		}
 		
 		private void FindDuplicateTypes(GameObject target)
@@ -203,7 +182,7 @@ namespace CodeStage.Maintainer.Issues.Detectors
 				
 				foreach (var component in gameObjectComponents)
 				{
-					if (component == null)
+					if (!component)
 						continue;
 					
 					var type = component.GetType();

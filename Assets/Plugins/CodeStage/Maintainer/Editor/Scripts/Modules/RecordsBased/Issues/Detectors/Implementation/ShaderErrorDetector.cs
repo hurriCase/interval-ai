@@ -1,10 +1,9 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
-#if UNITY_2019_1_OR_NEWER
 namespace CodeStage.Maintainer.Issues.Detectors
 {
 	using System;
@@ -13,30 +12,19 @@ namespace CodeStage.Maintainer.Issues.Detectors
 	using UnityEditor;
 	using UnityEngine;
 	
-#if !UNITY_2019_2_OR_NEWER
-	[InitializeOnLoad]
-#endif
-	// ReSharper disable once UnusedType.Global since it's used from TypeCache
+	// ReSharper disable once ClassNeverInstantiated.Global since it's used from TypeCache
 	internal class ShaderErrorDetector : IssueDetector, IAssetBeginIssueDetector
 	{
 
-		public override DetectorInfo Info { get { return 
+		public override DetectorInfo Info =>
 			DetectorInfo.From(
 				IssueGroup.Asset,
 				DetectorKind.Defect,
 				IssueSeverity.Error,
 				"Shader with error(s)", 
 				"Search for Shaders with compilation errors.");
-		}}
 
-		public Type[] AssetTypes { get { return new[] { CSReflectionTools.shaderType }; } }
-		
-#if !UNITY_2019_2_OR_NEWER
-		static ShaderErrorDetector()
-		{
-			IssuesFinderDetectors.AddInternalDetector(new ShaderErrorDetector());
-		}
-#endif
+		public Type[] AssetTypes => new[] { CSReflectionTools.shaderType };
 
 		public void AssetBegin(DetectorResults results, AssetLocation location)
 		{
@@ -49,4 +37,3 @@ namespace CodeStage.Maintainer.Issues.Detectors
 		}
 	}
 }
-#endif

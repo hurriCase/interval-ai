@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -9,44 +9,24 @@ namespace CodeStage.Maintainer.Issues.Detectors
 	using System;
 	using Core.Scan;
 	using Tools;
-#if UNITY_2019_1_OR_NEWER
 	using UnityEditor;
-#endif
-
-#if !UNITY_2019_2_OR_NEWER
-	[UnityEditor.InitializeOnLoad]
-#endif
+	
 	// ReSharper disable once ClassNeverInstantiated.Global since it's used from TypeCache
 	internal class MissingComponentDetector : IssueDetector, 
 		IGameObjectBeginIssueDetector
-#if !UNITY_2019_1_OR_NEWER
-		, IGameObjectEndIssueDetector
-#endif
 	{
 		public static MissingComponentDetector Instance { get; private set; }
 		
-		public override DetectorInfo Info { get { return 
+		public override DetectorInfo Info =>
 			DetectorInfo.From(
 				IssueGroup.Component,
 				DetectorKind.Defect,
 				IssueSeverity.Error,
 				"Missing Component", 
 				"Search for the missing Components on the Game Objects or Scriptable Objects.");
-		}}
 
-		public Type[] AssetTypes { get { return null; } } // we are checking all assets
-		public Type[] ComponentTypes { get { return null; } } // we are checking all components
-
-#if !UNITY_2019_1_OR_NEWER
-		private int missingComponentsCount;
-#endif
-		
-#if !UNITY_2019_2_OR_NEWER
-		static MissingComponentDetector()
-		{
-			IssuesFinderDetectors.AddInternalDetector(new MissingComponentDetector());
-		}
-#endif
+		public Type[] AssetTypes => null; // we are checking all assets
+		public Type[] ComponentTypes => null; // we are checking all components
 
 		public MissingComponentDetector()
 		{
@@ -72,32 +52,11 @@ namespace CodeStage.Maintainer.Issues.Detectors
 
 		public void GameObjectBegin(DetectorResults results, GameObjectLocation location)
 		{
-#if !UNITY_2019_1_OR_NEWER
-			missingComponentsCount = 0;
-#else
 			var missingCount = GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(location.GameObject);
 			var issue = TryGenerateIssue(missingCount, location);
 			if (issue != null)
 				results.Add(issue);
-#endif
 		}
-		
-#if !UNITY_2019_1_OR_NEWER
-		public void TrackMissingComponent(ComponentLocation location)
-		{
-			if (location.Component != null) 
-				return;
-
-			missingComponentsCount++;
-		}
-
-		public void GameObjectEnd(DetectorResults results, GameObjectLocation location)
-		{
-			var issue = TryGenerateIssue(missingComponentsCount, location);
-			if (issue != null)
-				results.Add(issue);
-		}
-#endif
 
 		private IssueRecord TryGenerateIssue(int missingCount, GameObjectLocation location)
 		{
@@ -110,7 +69,7 @@ namespace CodeStage.Maintainer.Issues.Detectors
 			var record = GameObjectIssueRecord.ForComponent(this, Issues.IssueKind.MissingComponent,  narrow);
 			if (missingCount > 1)
 			{
-				record.Header = string.Format("{0} missing components", missingCount);
+				record.Header = $"{missingCount} missing components";
 			}
 			
 			return record;

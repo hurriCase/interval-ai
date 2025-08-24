@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -9,10 +9,15 @@ namespace CodeStage.Maintainer.Issues.Detectors
 	using System;
 	using Core.Scan;
 
-	internal interface IAssetBeginIssueDetector : IAssetBeginScanListener<DetectorResults>
+	/// <summary>
+	/// Use this interface to detect issues in Assets before scanning their contents.
+	/// </summary>
+	public interface IAssetBeginIssueDetector : IAssetBeginScanListener<DetectorResults>
 	{
-		// return null to check all types
-		// checked using Type.IsAssignableFrom() API
+		/// <summary>
+		/// Specifies which asset types this detector should check.
+		/// </summary>
+		/// Set null to check all types; checked using Type.IsAssignableFrom() API.
 		Type[] AssetTypes { get; }
 	}
 }

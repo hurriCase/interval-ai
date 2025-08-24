@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -24,9 +24,6 @@ namespace CodeStage.Maintainer.Settings
 	[Serializable]
 	public partial class ProjectSettings : ScriptableObject
 	{
-#if !UNITY_2020_1_OR_NEWER
-		internal const int UpdateProgressStep = 10;
-#endif
 
 		private const string Directory = "ProjectSettings";
 		private const string Path = Directory + "/MaintainerSettings.asset";

@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -11,6 +11,7 @@ namespace CodeStage.Maintainer.UI
 	using Settings;
 	using System;
 	using EditorCommon.Tools;
+	using Tools;
 	using UnityEditor;
 
 	public enum ReferenceFinderTab
@@ -26,6 +27,9 @@ namespace CodeStage.Maintainer.UI
 
 		[NonSerialized]
 		private readonly GUIContent[] tabsCaptions;
+		
+		[NonSerialized]
+		private readonly GUIContent[] tabsIcons;
 
 		[NonSerialized]
 		private readonly ProjectReferencesTab projectTab;
@@ -45,15 +49,111 @@ namespace CodeStage.Maintainer.UI
 
 		public ReferencesTab(MaintainerWindow window) : base(window)
 		{
-			if (projectTab == null)
-				projectTab = new ProjectReferencesTab(window);
+			projectTab = new ProjectReferencesTab(window);
+			hierarchyTab = new HierarchyReferencesTab(window);
+			tabsCaptions = new[] { projectTab.Caption, hierarchyTab.Caption };
+			tabsIcons = new[] { new GUIContent(projectTab.Caption.image, projectTab.Caption.text), 
+				new GUIContent(hierarchyTab.Caption.image, hierarchyTab.Caption.text) };
 
-			if (hierarchyTab == null)
-				hierarchyTab = new HierarchyReferencesTab(window);
-
-			if (tabsCaptions == null)
+			projectTab.treePanel.DrawGUIBeforeSearchAction = () =>
 			{
-				tabsCaptions = new[] { projectTab.Caption, hierarchyTab.Caption };
+				DrawToolbar();
+				GUILayout.Space(5);
+			};
+			hierarchyTab.treePanel.DrawGUIBeforeSearchAction = () =>
+			{
+				DrawToolbar();
+				GUILayout.Space(5);
+			};
+		}
+
+		private void DrawToolbar()
+		{
+			using (new GUILayout.HorizontalScope(EditorStyles.toolbar))
+			{
+				// Draw tab switcher if panel is collapsed
+				if (IsLeftPanelCollapsed)
+				{
+					using var change = new EditorGUI.ChangeCheckScope();
+
+					var projectToggle = currentTab == ReferenceFinderTab.Project;
+					projectToggle = GUILayout.Toggle(projectToggle, new GUIContent(tabsIcons[0]), UIHelpers.MiniButton, GUILayout.Width(UIHelpers.ToolbarButtonWidth));
+					projectToggle = !GUILayout.Toggle(!projectToggle, new GUIContent(tabsIcons[1]), UIHelpers.MiniButton, GUILayout.Width(UIHelpers.ToolbarButtonWidth));
+					
+					if (change.changed)
+					{
+						currentTab = projectToggle ? ReferenceFinderTab.Project : ReferenceFinderTab.Scene;
+						UserSettings.Instance.referencesFinder.selectedTab = currentTab;
+						Refresh(false);
+					}
+				}
+
+				var hasLastSearchResults = currentTab == ReferenceFinderTab.Project ? 
+					SearchResultsStorage.ProjectReferencesLastSearched.Length > 0 :
+					SearchResultsStorage.HierarchyReferencesLastSearched.Length > 0;
+
+				GUI.enabled = hasLastSearchResults;
+
+				if (UIHelpers.ImageButton("Refresh", CSIcons.Repeat, EditorStyles.toolbarButton, GUILayout.Width(UIHelpers.ToolbarButtonWidth)))
+				{
+					if (Event.current.control && Event.current.shift)
+					{
+						ReferencesFinder.debugMode = true;
+						Event.current.Use();
+					}
+					else
+					{
+						ReferencesFinder.debugMode = false;
+					}
+
+					if (currentTab == ReferenceFinderTab.Project)
+					{
+						EditorApplication.delayCall += () =>
+						{
+							ProjectScopeReferencesFinder.FindAssetsReferences(SearchResultsStorage.ProjectReferencesLastSearched, null);
+						};
+					}
+					else
+					{
+						EditorApplication.delayCall += () =>
+						{
+							var sceneObjects = CSObjectTools.GetObjectsFromInstanceIds(SearchResultsStorage.HierarchyReferencesLastSearched);
+							HierarchyScopeReferencesFinder.FindHierarchyObjectsReferences(sceneObjects, null);
+						};
+					}
+				}
+
+				var hasResults = currentTab == ReferenceFinderTab.Project ? 
+					SearchResultsStorage.ProjectReferencesSearchResults.Length >= 2 :
+					SearchResultsStorage.HierarchyReferencesSearchResults.Length >= 2;
+
+				GUI.enabled = hasResults;
+
+				if (UIHelpers.ImageButton("Collapse all", CSIcons.Collapse, EditorStyles.toolbarButton, GUILayout.Width(UIHelpers.ToolbarButtonWidth)))
+				{
+					if (currentTab == ReferenceFinderTab.Project)
+						projectTab.CollapseAllElements();
+					else
+						hierarchyTab.CollapseAllElements();
+				}
+
+				if (UIHelpers.ImageButton("Expand all", CSIcons.Expand, EditorStyles.toolbarButton, GUILayout.Width(UIHelpers.ToolbarButtonWidth)))
+				{
+					if (currentTab == ReferenceFinderTab.Project)
+						projectTab.ExpandAllElements();
+					else
+						hierarchyTab.ExpandAllElements();
+				}
+
+				if (UIHelpers.ImageButton("Clear results", CSIcons.Clear, EditorStyles.toolbarButton, GUILayout.Width(UIHelpers.ToolbarButtonWidth)))
+				{
+					if (currentTab == ReferenceFinderTab.Project)
+						projectTab.ClearResults();
+					else
+						hierarchyTab.ClearResults();
+				}
+
+				GUI.enabled = true;
 			}
 		}
 

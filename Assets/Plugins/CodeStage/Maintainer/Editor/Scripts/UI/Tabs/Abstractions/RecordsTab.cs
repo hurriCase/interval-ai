@@ -1,6 +1,6 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
@@ -12,7 +12,6 @@ namespace CodeStage.Maintainer.UI
 	using System.Linq;
 	using Core;
 	using Core.Scan;
-	using Tools;
 
 	using UnityEditor;
 	using UnityEngine;
@@ -36,12 +35,13 @@ namespace CodeStage.Maintainer.UI
 		private IShowableRecord gotoRecord;
 
 		protected T[] filteredRecords;
+		protected readonly GUIContent[] sortingOptions;
 
 		/* virtual methods */
 
 		protected RecordsTab(MaintainerWindow window) : base(window)
 		{
-
+			sortingOptions = new[] { new GUIContent("↓"), new GUIContent("↑") };
 		}
 
 		public override void Refresh(bool newData)
@@ -72,8 +72,11 @@ namespace CodeStage.Maintainer.UI
 
 			if (gotoRecord != null)
 			{
-				gotoRecord.Show();
-				gotoRecord = null;
+				EditorApplication.delayCall += () =>
+				{
+					gotoRecord?.Show();
+					gotoRecord = null;
+				};
 				GUIUtility.ExitGUI();
 			}
 		}
@@ -102,32 +105,50 @@ namespace CodeStage.Maintainer.UI
 				DrawEmptyPlaceholder();
 				return false;
 			}
+			
 			DrawCollectionPages();
 
 			return true;
 		}
 
-		protected override void DrawRightColumnBottom()
+		protected virtual void DrawPagesControls()
 		{
-			using (new GUILayout.HorizontalScope())
+			GUILayout.Label(recordsCurrentPage + 1 + " / " + recordsTotalPages, UIHelpers.centeredLabel);
+			
+			GUI.enabled = recordsCurrentPage > 0;
+			if (GUILayout.Button(CSIcons.DoubleArrowLeft, EditorStyles.toolbarButton))
 			{
-				GUILayout.Space(10);
-				DrawSelectAllButton();
-				DrawSelectNoneButton();
-				DrawExpandAllButton();
-				DrawCollapseAllButton();
-				GUILayout.Space(10);
+				window.RemoveNotification();
+				recordsCurrentPage = 0;
+				rightColumnScrollPosition = Vector2.zero;
+				GetState().scrollPosition = Vector2.zero;
 			}
 
-			using (new GUILayout.HorizontalScope())
+			if (GUILayout.Button(CSIcons.ArrowLeft, EditorStyles.toolbarButton))
 			{
-				GUILayout.Space(10);
-				DrawCopyReportButton();
-				DrawExportReportButton();
-				DrawClearResultsButton();
-				GUILayout.Space(10);
+				window.RemoveNotification();
+				recordsCurrentPage--;
+				rightColumnScrollPosition = Vector2.zero;
+				GetState().scrollPosition = Vector2.zero;
 			}
-			GUILayout.Space(10);
+			GUI.enabled = recordsCurrentPage < recordsTotalPages - 1;
+			if (GUILayout.Button(CSIcons.ArrowRight, EditorStyles.toolbarButton))
+			{
+				window.RemoveNotification();
+				recordsCurrentPage++;
+				rightColumnScrollPosition = Vector2.zero;
+				GetState().scrollPosition = Vector2.zero;
+			}
+
+			if (GUILayout.Button(CSIcons.DoubleArrowRight, EditorStyles.toolbarButton))
+			{
+				window.RemoveNotification();
+				recordsCurrentPage = recordsTotalPages - 1;
+				rightColumnScrollPosition = Vector2.zero;
+				GetState().scrollPosition = Vector2.zero;
+			}
+
+			GUI.enabled = true;
 		}
 
 		protected virtual void DrawCollectionPages()
@@ -135,79 +156,53 @@ namespace CodeStage.Maintainer.UI
 			var fromItem = recordsCurrentPage * RecordsPerPage;
 			var toItem = fromItem + Math.Min(RecordsPerPage, filteredRecords.Length - fromItem);
 
-			using (new GUILayout.HorizontalScope(GUILayout.Height(30)))
-			{
-				GUILayout.Space(10);
-				using (new GUILayout.VerticalScope())
-				{
-					GUILayout.FlexibleSpace();
-					using (new GUILayout.HorizontalScope())
-					{
-						GUILayout.Label(fromItem + 1 + " - " + toItem + " from " + filteredRecords.Length /* + " (" + records.Count + " total)"*/);
-						GUILayout.FlexibleSpace();
-						using (new GUILayout.HorizontalScope())
-						{
-							DrawPagesRightHeader();
-						}
-					}
-					GUILayout.FlexibleSpace();
-				}
+			DrawCollectionPagesToolbar();
 
-				GUILayout.Space(10);
-			}
+			if (filteredRecords == null)
+				return;
+			
 			UIHelpers.Separator();
 
 			DrawRecords(fromItem, toItem);
 
 			UIHelpers.Separator();
+		}
 
-			if (recordsTotalPages <= 1)
+		protected virtual void DrawCollectionPagesToolbar()
+		{
+			using (new GUILayout.HorizontalScope(EditorStyles.toolbar))
 			{
-				GUILayout.Space(5);
-				return;
-			}
+				if (IsLeftPanelCollapsed)
+					DrawCollectionPagesCollapsedToolbar();
+				
+				if (filteredRecords.Length > 0)
+					GUI.enabled = true;
+				
+				DrawSelectAllButton();
+				DrawSelectNoneButton();
+				
+				DrawExpandAllButton();
+				DrawCollapseAllButton();
+				
+				DrawCopyReportButton();
+				DrawExportReportButton();
+				
+				DrawClearResultsButton();
 
-			GUILayout.Space(5);
-			using (new GUILayout.HorizontalScope())
-			{
-				GUILayout.FlexibleSpace();
-
-				GUI.enabled = recordsCurrentPage > 0;
-				if (UIHelpers.IconButton(CSIcons.DoubleArrowLeft))
-				{
-					window.RemoveNotification();
-					recordsCurrentPage = 0;
-					rightColumnScrollPosition = Vector2.zero;
-					GetState().scrollPosition = Vector2.zero;
-				}
-				if (UIHelpers.IconButton(CSIcons.ArrowLeft))
-				{
-					window.RemoveNotification();
-					recordsCurrentPage--;
-					rightColumnScrollPosition = Vector2.zero;
-					GetState().scrollPosition = Vector2.zero;
-				}
 				GUI.enabled = true;
-				GUILayout.Label(recordsCurrentPage + 1 + " of " + recordsTotalPages, UIHelpers.centeredLabel);
-				GUI.enabled = recordsCurrentPage < recordsTotalPages - 1;
-				if (UIHelpers.IconButton(CSIcons.ArrowRight))
-				{
-					window.RemoveNotification();
-					recordsCurrentPage++;
-					rightColumnScrollPosition = Vector2.zero;
-					GetState().scrollPosition = Vector2.zero;
-				}
-				if (UIHelpers.IconButton(CSIcons.DoubleArrowRight))
-				{
-					window.RemoveNotification();
-					recordsCurrentPage = recordsTotalPages - 1;
-					rightColumnScrollPosition = Vector2.zero;
-					GetState().scrollPosition = Vector2.zero;
-				}
-				GUI.enabled = true;
-
+				
 				GUILayout.FlexibleSpace();
+				
+				if (recordsTotalPages > 1)
+					DrawPagesControls();
+				
+				DrawCollectionPagesToolbarSorting();
 			}
+		}
+
+		protected virtual void DrawCollectionPagesCollapsedToolbar()
+		{
+			
 		}
 
 		protected virtual void DrawRecords(int fromItem, int toItem)
@@ -261,7 +256,7 @@ namespace CodeStage.Maintainer.UI
 
 		protected virtual void PerformPostRefreshActions() { }
 
-		protected virtual void DrawPagesRightHeader() { }
+		protected virtual void DrawCollectionPagesToolbarSorting() { }
 
 		protected virtual string GetReportHeader() { return null; }
 
@@ -272,6 +267,7 @@ namespace CodeStage.Maintainer.UI
 		protected virtual void AfterClearRecords() { }
 
 		protected virtual void OnSelectionChanged() { }
+		protected virtual void DrawEmptyPlaceholderScanButton() { }
 
 		protected virtual void DrawRecord(T record, int recordIndex) { }
 
@@ -338,7 +334,7 @@ namespace CodeStage.Maintainer.UI
 
 		protected void DrawSelectAllButton()
 		{
-			if (UIHelpers.ImageButton("Select all", CSIcons.SelectAll))
+			if (UIHelpers.ImageButton("Select all items", CSIcons.SelectAll, EditorStyles.toolbarButton))
 			{
 				foreach (var record in filteredRecords)
 				{
@@ -351,7 +347,7 @@ namespace CodeStage.Maintainer.UI
 
 		protected void DrawSelectNoneButton()
 		{
-			if (UIHelpers.ImageButton("Select none", CSIcons.SelectNone))
+			if (UIHelpers.ImageButton("Deselect all items", CSIcons.SelectNone, EditorStyles.toolbarButton))
 			{
 				foreach (var record in filteredRecords)
 				{
@@ -364,7 +360,7 @@ namespace CodeStage.Maintainer.UI
 
 		protected void DrawExpandAllButton()
 		{
-			if (UIHelpers.ImageButton("Expand all", CSIcons.Expand))
+			if (UIHelpers.ImageButton("Expand all items", CSIcons.Expand, EditorStyles.toolbarButton))
 			{
 				for (var i = 0; i < filteredRecords.Length; i++)
 				{
@@ -377,7 +373,7 @@ namespace CodeStage.Maintainer.UI
 
 		protected void DrawCollapseAllButton()
 		{
-			if (UIHelpers.ImageButton("Collapse all", CSIcons.Collapse))
+			if (UIHelpers.ImageButton("Collapse all items", CSIcons.Collapse, EditorStyles.toolbarButton))
 			{
 				for (var i = 0; i < filteredRecords.Length; i++)
 				{
@@ -390,7 +386,7 @@ namespace CodeStage.Maintainer.UI
 
 		protected void DrawCopyReportButton()
 		{
-			if (UIHelpers.ImageButton("Copy report to clipboard", CSIcons.Copy))
+			if (UIHelpers.ImageButton("Copy report to clipboard", CSIcons.Copy, EditorStyles.toolbarButton))
 			{
 				EditorGUIUtility.systemCopyBuffer = ReportsBuilder.GenerateReport(GetModuleName(), filteredRecords, GetReportHeader(), GetReportFooter());
 				MaintainerWindow.ShowNotification("Report copied to clipboard!");
@@ -399,7 +395,7 @@ namespace CodeStage.Maintainer.UI
 
 		protected void DrawExportReportButton()
 		{
-			if (UIHelpers.ImageButton("Export report...", CSIcons.Export))
+			if (UIHelpers.ImageButton("Export report to file...", CSIcons.Export, EditorStyles.toolbarButton))
 			{
 				var filePath = EditorUtility.SaveFilePanel("Save " + GetModuleName() + " report", "", "Maintainer " + GetReportFileNamePart() + "Report.txt", "txt");
 				if (!string.IsNullOrEmpty(filePath))
@@ -414,7 +410,7 @@ namespace CodeStage.Maintainer.UI
 
 		protected void DrawClearResultsButton()
 		{
-			if (UIHelpers.ImageButton("Clear results", CSIcons.Clear))
+			if (UIHelpers.ImageButton("Clear all results", CSIcons.Clear, EditorStyles.toolbarButton))
 			{
 				ClearRecords();
 				AfterClearRecords();
@@ -450,7 +446,7 @@ namespace CodeStage.Maintainer.UI
 					GUILayout.FlexibleSpace();
 
 					var icon = CSIcons.RevealBig;
-					if (icon != null)
+					if (icon)
 					{
 						icon.wrapMode = TextureWrapMode.Clamp;
 						var iconRect = EditorGUILayout.GetControlRect(GUILayout.Width(icon.width),
@@ -461,7 +457,8 @@ namespace CodeStage.Maintainer.UI
 					GUILayout.FlexibleSpace();
 				}
 				GUILayout.Space(25);
-				GUILayout.Label("<b><size=12>Please perform new scan</size></b>", UIHelpers.centeredLabel);
+				GUILayout.Label("<b><size=12>Please perform a new scan</size></b>", UIHelpers.centeredLabel);
+				DrawEmptyPlaceholderScanButton();
 				GUILayout.FlexibleSpace();
 			}
 		}

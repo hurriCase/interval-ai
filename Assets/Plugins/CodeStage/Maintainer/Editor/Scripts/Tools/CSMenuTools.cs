@@ -1,12 +1,13 @@
 ﻿#region copyright
 // -------------------------------------------------------
-// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // -------------------------------------------------------
 #endregion
 
 namespace CodeStage.Maintainer.Tools
 {
 	using UnityEditor;
+	using UnityEngine;
 
 	internal static class CSMenuTools
 	{
@@ -53,17 +54,20 @@ namespace CodeStage.Maintainer.Tools
 
 		public static bool ShowSceneSettingsLighting()
 		{
-#if UNITY_2020_1_OR_NEWER
-			return EditorApplication.ExecuteMenuItem("Window/Rendering/Lighting");
-#else
-			return EditorApplication.ExecuteMenuItem("Window/Rendering/Lighting Settings");
-#endif
-			
+			var success = EditorApplication.ExecuteMenuItem("Window/Rendering/Lighting");
+			if (!success)
+				Debug.LogError(Maintainer.ErrorForSupport("Can't open Lighting settings!"));
+
+			return success;
 		}
 
 		public static bool ShowSceneSettingsNavigation()
 		{
-			return EditorApplication.ExecuteMenuItem("Window/AI/Navigation");
+			var result = EditorApplication.ExecuteMenuItem("Window/AI/Navigation");
+			if (!result)
+				Debug.LogError(Maintainer.ErrorForSupport("Can't open Navigation settings!"));
+			
+			return result;
 		}
 
 		private static bool CallUnifiedSettings(string providerName)
@@ -74,7 +78,13 @@ namespace CodeStage.Maintainer.Tools
 		
 		public static bool ShowEditorBuildSettings()
 		{
-			return (EditorWindow.GetWindow(CSReflectionTools.buildPlayerWindowType, true) != null);
+#if UNITY_6000_0_OR_NEWER
+			if (EditorApplication.ExecuteMenuItem("File/Build Profiles"))
+				return true;
+
+			// Fallback to classic Build Settings if Build Profiles failed
+#endif
+			return EditorWindow.GetWindow(CSReflectionTools.buildPlayerWindowType, true);
 		}
 	}
 }

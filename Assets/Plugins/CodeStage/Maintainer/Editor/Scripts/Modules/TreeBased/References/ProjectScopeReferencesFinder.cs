@@ -1,6 +1,6 @@
 ﻿#region copyright
 // ---------------------------------------------------------------
-//  Copyright (C) Dmitriy Yukhanov - focus [https://codestage.net]
+//  Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // ---------------------------------------------------------------
 #endregion
 
@@ -174,7 +174,7 @@ namespace CodeStage.Maintainer.References
 
 		private static bool LookForAssetsReferences(FilterItem[] selectedAssets, List<ProjectReferenceItem> results)
 		{
-			var canceled = !CSSceneTools.SaveCurrentModifiedScenes(false);
+			var canceled = !CSSceneUtils.SaveCurrentModifiedScenes(false);
 
 			if (!canceled)
 			{
@@ -182,10 +182,6 @@ namespace CodeStage.Maintainer.References
 				if (map == null) return canceled;
 
 				var count = map.assets.Count;
-				
-#if !UNITY_2020_1_OR_NEWER
-				var updateStep = Math.Max(count / ProjectSettings.UpdateProgressStep, 1);
-#endif
 				var root = new ProjectReferenceItem
 				{
 					id = results.Count,
@@ -196,11 +192,7 @@ namespace CodeStage.Maintainer.References
 
 				for (var i = 0; i < count; i++)
 				{
-					if (
-#if !UNITY_2020_1_OR_NEWER
-						i % updateStep == 0 && 
-#endif
-					    EditorUtility.DisplayCancelableProgressBar(
+					if (EditorUtility.DisplayCancelableProgressBar(
 						    string.Format(ReferencesFinder.ProgressCaption, 1, ReferencesFinder.PhasesCount),
 						    string.Format(ReferencesFinder.ProgressText, "Building references tree", i + 1, count),
 						    (float) i / count))
@@ -212,7 +204,7 @@ namespace CodeStage.Maintainer.References
 					var assetInfo = map.assets[i];
 
 					// excludes settings assets from the list depth 0 items
-					if (assetInfo.Kind == AssetKind.Settings) continue;
+					if (assetInfo.Origin == AssetOrigin.Settings) continue;
 
 					// excludes all assets except selected ones from the list depth 0 items, if any was selected
 					if (selectedAssets != null)
@@ -301,16 +293,9 @@ namespace CodeStage.Maintainer.References
 				EditorUtility.DisplayProgressBar(ReferencesFinder.ModuleName, "Parsing results...", 0);
 
 			var rootItems = new List<FilterItem>(resultsCount);
-#if !UNITY_2020_1_OR_NEWER
-			var updateStep = Math.Max(resultsCount / ProjectSettings.UpdateProgressStep, 1);
-#endif
 			for (var i = 0; i < resultsCount; i++)
 			{
-				if (showProgress
-#if !UNITY_2020_1_OR_NEWER
-				    && i % updateStep == 0
-#endif
-				    ) EditorUtility.DisplayProgressBar(ReferencesFinder.ModuleName, "Parsing results...", (float)i / resultsCount);
+				if (showProgress) EditorUtility.DisplayProgressBar(ReferencesFinder.ModuleName, "Parsing results...", (float)i / resultsCount);
 
 				var result = results[i];
 				if (result.depth != 0) 

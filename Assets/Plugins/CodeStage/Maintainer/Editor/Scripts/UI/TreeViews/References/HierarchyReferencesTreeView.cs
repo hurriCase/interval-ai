@@ -1,6 +1,6 @@
 ﻿#region copyright
 // ---------------------------------------------------------------
-//  Copyright (C) Dmitriy Yukhanov - focus [https://codestage.net]
+//  Copyright (C) Dmitry Yuhanov [https://codestage.net]
 // ---------------------------------------------------------------
 #endregion
 
@@ -54,7 +54,13 @@ namespace CodeStage.Maintainer.UI
 			SortOption.ReferencesCount,
 		};
 
-		public HierarchyReferencesTreeView(TreeViewState state, MultiColumnHeader multiColumnHeader, TreeModel<T> model) : base(state, multiColumnHeader, model) {}
+		public HierarchyReferencesTreeView(
+#if UNITY_6000_2_OR_NEWER
+			TreeViewState<int> 
+#else
+			TreeViewState
+#endif
+			state, MultiColumnHeader multiColumnHeader, TreeModel<T> model) : base(state, multiColumnHeader, model) {}
 
 		public void SelectRow(long objectId, long componentId)
 		{
@@ -69,7 +75,13 @@ namespace CodeStage.Maintainer.UI
 			}
 		}
 
-		protected override TreeViewItem GetNewTreeViewItemInstance(int id, int depth, string name, T data)
+		protected override 
+#if UNITY_6000_2_OR_NEWER
+			TreeViewItem<int> 
+#else
+			TreeViewItem
+#endif
+			GetNewTreeViewItemInstance(int id, int depth, string name, T data)
 		{
 			return new HierarchyReferencesTreeViewItem<T>(id, depth, name, data);
 		}
@@ -118,7 +130,13 @@ namespace CodeStage.Maintainer.UI
 						throw new ArgumentOutOfRangeException();
 				}
 			}
-			rootItem.children = orderedQuery.Cast<TreeViewItem>().ToList();
+			rootItem.children = orderedQuery.Cast<
+#if UNITY_6000_2_OR_NEWER
+				TreeViewItem<int>
+#else
+				TreeViewItem
+#endif
+				>().ToList();
 		}
 
 		private IOrderedEnumerable<HierarchyReferencesTreeViewItem<T>> InitialOrder(IEnumerable<HierarchyReferencesTreeViewItem<T>> myTypes, IList<int> history)
@@ -313,13 +331,19 @@ namespace CodeStage.Maintainer.UI
 			}
 		}
 
-		protected override void ShowItem(TreeViewItem clickedItem)
+		protected override void ShowItem(
+#if UNITY_6000_2_OR_NEWER
+			TreeViewItem<int> 
+#else
+			TreeViewItem
+#endif
+			clickedItem)
 		{
 			var item = (HierarchyReferencesTreeViewItem<T>)clickedItem;
 			var target = item.data.Reference;
 			var assetPath = item.data.AssetPath;
 			
-			CSSelectionTools.RevealAndSelectReferencingEntry(assetPath, target);
+			EditorApplication.delayCall += () => CSSelectionTools.RevealAndSelectReferencingEntry(assetPath, target);
 		}
 
 		public static MultiColumnHeaderState CreateDefaultMultiColumnHeaderState()
