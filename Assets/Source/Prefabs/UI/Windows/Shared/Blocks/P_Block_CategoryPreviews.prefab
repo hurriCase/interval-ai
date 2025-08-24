@@ -139,6 +139,10 @@ PrefabInstance:
       value: Image_Background
       objectReference: {fileID: 0}
     - target: {fileID: 2103113811015452546, guid: 6a0a59920e35f7042ba319b1d8e0d2e0, type: 3}
+      propertyPath: targetComponent
+      value: 
+      objectReference: {fileID: 5668273870056846375}
+    - target: {fileID: 2103113811015452546, guid: 6a0a59920e35f7042ba319b1d8e0d2e0, type: 3}
       propertyPath: _targetComponent
       value: 
       objectReference: {fileID: 5668273870056846375}
@@ -378,6 +382,10 @@ PrefabInstance:
       value: P_Text_AllCategories
       objectReference: {fileID: 0}
     - target: {fileID: 5098176312871980323, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+      propertyPath: targetComponent
+      value: 
+      objectReference: {fileID: 6809498848241786658}
+    - target: {fileID: 5098176312871980323, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
       propertyPath: _targetComponent
       value: 
       objectReference: {fileID: 6809498848241786658}
@@ -462,6 +470,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6138437702272687446}
     m_Modifications:
+    - target: {fileID: 696796402270073332, guid: 609894671b7a45b4786cedee10092d51, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 696796402270073332, guid: 609894671b7a45b4786cedee10092d51, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 696796402270073332, guid: 609894671b7a45b4786cedee10092d51, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2709381259195146498, guid: 609894671b7a45b4786cedee10092d51, type: 3}
       propertyPath: m_Name
       value: P_ScrollView
@@ -630,12 +650,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4467060691131489386, guid: 609894671b7a45b4786cedee10092d51, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8595495298840508375}
-    - targetCorrespondingSourceObject: {fileID: 4467060691131489386, guid: 609894671b7a45b4786cedee10092d51, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2706794095247591464}
-    - targetCorrespondingSourceObject: {fileID: 4467060691131489386, guid: 609894671b7a45b4786cedee10092d51, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1762785216680447917}
   m_SourcePrefab: {fileID: 100100000, guid: 609894671b7a45b4786cedee10092d51, type: 3}
 --- !u!224 &1833595945670439514 stripped
 RectTransform:
@@ -655,49 +669,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1885104026513676831}
   m_CullTransparentMesh: 1
---- !u!114 &2706794095247591464
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1885104026513676831}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!114 &1762785216680447917
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1885104026513676831}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Mask
-  m_ShowMaskGraphic: 0
 --- !u!224 &2440512821460817504 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 435016704195825685, guid: 609894671b7a45b4786cedee10092d51, type: 3}

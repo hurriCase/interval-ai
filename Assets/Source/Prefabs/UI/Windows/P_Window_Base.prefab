@@ -8,6 +8,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9037373788153580393}
     m_Modifications:
+    - target: {fileID: 696796402270073332, guid: 609894671b7a45b4786cedee10092d51, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 696796402270073332, guid: 609894671b7a45b4786cedee10092d51, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 696796402270073332, guid: 609894671b7a45b4786cedee10092d51, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2709381259195146498, guid: 609894671b7a45b4786cedee10092d51, type: 3}
       propertyPath: m_Name
       value: P_ScrollView_Theme
@@ -84,7 +96,8 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 536042616505986231, guid: 609894671b7a45b4786cedee10092d51, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -118,6 +131,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1578145378762482099, guid: 4601d67b0dfc84b4e81a1c3b8487ade4, type: 3}
+      propertyPath: targetComponent
+      value: 
+      objectReference: {fileID: 5174747207095563520}
     - target: {fileID: 1578145378762482099, guid: 4601d67b0dfc84b4e81a1c3b8487ade4, type: 3}
       propertyPath: <ColorType>k__BackingField
       value: 1
@@ -193,6 +210,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 3509544800295699800}
   m_SourcePrefab: {fileID: 100100000, guid: 4601d67b0dfc84b4e81a1c3b8487ade4, type: 3}
+--- !u!114 &5174747207095563520 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1340956828193965922, guid: 4601d67b0dfc84b4e81a1c3b8487ade4, type: 3}
+  m_PrefabInstance: {fileID: 6146406388416574050}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &9037373788153580393 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2893386424723241227, guid: 4601d67b0dfc84b4e81a1c3b8487ade4, type: 3}
