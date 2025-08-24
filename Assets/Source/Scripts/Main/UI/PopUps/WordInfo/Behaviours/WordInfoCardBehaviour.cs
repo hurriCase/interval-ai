@@ -28,7 +28,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours
         [SerializeField] private ComponentWithSpacing<TextMeshProUGUI> _learningWordText;
         [SerializeField] private ComponentWithSpacing<TextMeshProUGUI> _nativeWordText;
         [SerializeField] private ComponentWithSpacing<TextMeshProUGUI> _categoryNameText;
-        [SerializeField] private ComponentWithSpacing<TextMeshProUGUI> _singleExampleText;
+        [SerializeField] private ComponentWithSpacing<RectTransform> _singleExampleContainer;
+        [SerializeField] private TextMeshProUGUI _singleExampleText;
 
         [SerializeField] private ButtonComponent _addToCategoryButton;
         [SerializeField] private string _categoryLocalizationKey;
@@ -87,7 +88,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours
             UpdateCategoryName(wordEntry);
 
             var firstExample = wordEntry.Examples?.FirstOrDefault().Learning;
-            UpdateText(_singleExampleText, firstExample);
+            _singleExampleText.text = firstExample;
+            _singleExampleContainer.Toggle(firstExample.IsValid());
         }
 
         private void UpdateCategoryName(WordEntry wordEntry)
