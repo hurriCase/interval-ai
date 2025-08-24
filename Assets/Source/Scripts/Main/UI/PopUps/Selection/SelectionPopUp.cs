@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using CustomUtils.Runtime.Extensions;
+﻿using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Localization;
 using Cysharp.Threading.Tasks;
 using PrimeTween;
 using R3;
 using Source.Scripts.Core.Localization.Base;
+using Source.Scripts.Core.Others;
 using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base;
 using TMPro;
@@ -26,9 +26,14 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
 
         [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
 
-        private readonly List<CheckboxTextComponent> _createdSelectionItems = new();
+        private UIPool<CheckboxTextComponent> _selectionPool;
 
         private DisposableBag _disposableBag;
+
+        internal override void Init()
+        {
+            _selectionPool = new UIPool<CheckboxTextComponent>(_selectionItem, _selectionsContainer);
+        }
 
         public void SetParameters<TValue>(SelectionService<TValue> service)
         {
@@ -53,7 +58,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
         {
             var selectionValues = service.SelectionValues;
 
-            EnsureElementsCount(selectionValues.Count);
+            _selectionPool.EnsureCount(selectionValues.Count);
 
             for (var i = 0; i < selectionValues.Count; i++)
                 SetSelectionItem(i, selectionValues[i], service);
@@ -62,24 +67,9 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
                 SubscribeToChanges(i, selectionValues[i], service);
         }
 
-        private void EnsureElementsCount(int desiredCount)
-        {
-            for (var i = desiredCount; i < _createdSelectionItems.Count; i++)
-                _createdSelectionItems[i].SetActive(false);
-
-            for (var i = _createdSelectionItems.Count; i < desiredCount; i++)
-            {
-                var createdItem = Instantiate(_selectionItem, _selectionsContainer);
-                _createdSelectionItems.Add(createdItem);
-            }
-
-            for (var i = 0; i < desiredCount && i < _createdSelectionItems.Count; i++)
-                _createdSelectionItems[i].SetActive(true);
-        }
-
         private void SetSelectionItem<TValue>(int index, TValue selectionValue, SelectionService<TValue> service)
         {
-            var selectionItem = _createdSelectionItems[index];
+            var selectionItem = _selectionPool.PooledItems[index];
 
             selectionItem.Text.text = service.GetSelectionName(selectionValue);
 
@@ -91,7 +81,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
 
         private void SubscribeToChanges<TValue>(int index, TValue selectionValue, SelectionService<TValue> service)
         {
-            var selectionItem = _createdSelectionItems[index];
+            var selectionItem = _selectionPool.PooledItems[index];
 
             selectionItem.Checkbox.OnValueChangedAsObservable()
                 .Subscribe((selectionValue, service),

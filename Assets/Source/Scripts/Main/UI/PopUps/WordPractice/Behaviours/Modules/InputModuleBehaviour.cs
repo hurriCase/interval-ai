@@ -24,7 +24,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules
 
         private void AddHintCharacter()
         {
-            var hiddenWord = currentWord.GetHiddenWord(practiceSettingsRepository);
+            var hiddenWord = currentWord.Word.GetHiddenText(practiceSettingsRepository);
             if (_shownSymbolCount >= hiddenWord.Length)
                 return;
 

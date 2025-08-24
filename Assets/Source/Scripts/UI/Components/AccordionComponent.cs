@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using CustomUtils.Runtime.Attributes;
 using CustomUtils.Runtime.CustomBehaviours;
 using CustomUtils.Runtime.Extensions;
 using PrimeTween;
@@ -18,9 +19,18 @@ namespace Source.Scripts.UI.Components
         [field: SerializeField] internal List<AccordionItem> HiddenContent { get; private set; }
 
         [SerializeField] private bool _isInitiallyExpanded;
-        [SerializeField] private float _expandButtonAnimationDuration;
+
         [SerializeField] private float _hiddenElementsAnimationDuration;
+
+        [SerializeField] private bool _useExpandButtonAnimation;
+
+        [HideIf(nameof(_useExpandButtonAnimation))]
+        [SerializeField] private float _expandButtonAnimationDuration;
+
+        [HideIf(nameof(_useExpandButtonAnimation))]
         [SerializeField] private float _expandedRotationZ;
+
+        [HideIf(nameof(_useExpandButtonAnimation))]
         [SerializeField] private float _collapsedRotationZ;
 
         private bool _isExpanded;
@@ -45,8 +55,12 @@ namespace Source.Scripts.UI.Components
             if (_currentAnimation.isAlive)
                 _currentAnimation.Stop();
 
-            _currentAnimation = Sequence.Create()
-                .Chain(RotateExpandButtonTween(isInstant ? 0f : _expandButtonAnimationDuration))
+            var sequence = Sequence.Create();
+
+            if (_useExpandButtonAnimation)
+                sequence.Chain(RotateExpandButtonTween(isInstant ? 0f : _expandButtonAnimationDuration));
+
+            _currentAnimation = sequence
                 .Group(AnimateHiddenContentTweens(isExpanded, isInstant ? 0f : _hiddenElementsAnimationDuration));
         }
 

@@ -1,4 +1,4 @@
-﻿namespace Source.Scripts.Core.Audio
+﻿namespace Source.Scripts.Core.Audio.Base
 {
     internal interface IAudioHandler
     {

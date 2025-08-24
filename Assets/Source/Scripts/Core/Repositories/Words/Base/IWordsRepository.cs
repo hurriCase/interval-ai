@@ -9,6 +9,7 @@ namespace Source.Scripts.Core.Repositories.Words.Base
     internal interface IWordsRepository
     {
         ReadOnlyReactiveProperty<EnumArray<PracticeState, WordEntry>> CurrentWordsByState { get; }
+        void AddWord(TranslationSet word);
         void UpdateCurrentWords();
         void RemoveHiddenWord(WordEntry word);
         List<WordEntry> GetRandomWords(WordEntry wordToSkip, int count);

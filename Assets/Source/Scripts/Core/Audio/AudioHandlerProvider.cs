@@ -1,3 +1,5 @@
+using Source.Scripts.Core.Audio.Base;
+
 namespace Source.Scripts.Core.Audio
 {
     internal sealed class AudioHandlerProvider : IAudioHandlerProvider

@@ -1,4 +1,5 @@
-﻿using R3;
+﻿using Cysharp.Text;
+using R3;
 using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.Base;
@@ -26,8 +27,8 @@ namespace Source.Scripts.Main.UI.PopUps.Category
         {
             _currentWordEntry = wordEntry;
 
-            _learningWordText.text = wordEntry.LearningWord;
-            _translationsText.text = wordEntry.NativeWord;
+            _learningWordText.text = wordEntry.Word.Learning;
+            _translationsText.text = ZString.Join(", ", wordEntry.Word.Natives);
 
             _wordProgressBehaviour.Init();
             _wordProgressBehaviour.UpdateProgress(wordEntry);

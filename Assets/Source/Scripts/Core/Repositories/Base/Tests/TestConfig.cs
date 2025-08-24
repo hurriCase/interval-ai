@@ -14,7 +14,7 @@ namespace Source.Scripts.Core.Repositories.Base.Tests
         [field: SerializeField] public bool IsSkipOnboarding { get; private set; }
         [field: SerializeField] public bool UseTestLanguage { get; private set; }
 
-        [field: SerializeField, HideIf(nameof(UseTestLanguage), true)]
+        [field: SerializeField, HideIf(nameof(UseTestLanguage))]
         public SystemLanguage TestLanguage { get; private set; }
     }
 }

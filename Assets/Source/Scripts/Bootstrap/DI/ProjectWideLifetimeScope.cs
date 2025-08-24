@@ -56,7 +56,8 @@ namespace Source.Scripts.Bootstrap.DI
 
             builder.Register<AddressablesLoader>(Lifetime.Singleton).AsImplementedInterfaces();
 
-            builder.Register<AudioHandlerProvider>(Lifetime.Singleton).As<IAudioHandlerProvider>();
+            builder.Register<AudioHandlerProvider>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<TextToSpeech>(Lifetime.Singleton).AsImplementedInterfaces();
 
             builder.RegisterInstance(_appConfig).AsImplementedInterfaces();
             builder.RegisterInstance(_spriteReferences).AsImplementedInterfaces();

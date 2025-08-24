@@ -245,7 +245,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 385260810748804253, guid: c8cac319b9516a549bdf72d616a6fff3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0
+      value: -21.72
       objectReference: {fileID: 0}
     - target: {fileID: 2359395947403762462, guid: c8cac319b9516a549bdf72d616a6fff3, type: 3}
       propertyPath: m_Colors.m_NormalColor.b
@@ -453,7 +453,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9206832239587058081, guid: c8cac319b9516a549bdf72d616a6fff3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0
+      value: -10.86
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -464,13 +464,58 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 385260810748804253, guid: c8cac319b9516a549bdf72d616a6fff3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7829988822978608703}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6835245785625879095, guid: c8cac319b9516a549bdf72d616a6fff3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2159045304457724734}
   m_SourcePrefab: {fileID: 100100000, guid: c8cac319b9516a549bdf72d616a6fff3, type: 3}
+--- !u!114 &114984727760929149 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4676127974658345615, guid: c8cac319b9516a549bdf72d616a6fff3, type: 3}
+  m_PrefabInstance: {fileID: 4718773632171379698}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2025faa740564534a596c7b191dec6b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.AdaptiveTextMeshProUGUI
+--- !u!1 &2281029564827789765 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6835245785625879095, guid: c8cac319b9516a549bdf72d616a6fff3, type: 3}
+  m_PrefabInstance: {fileID: 4718773632171379698}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2159045304457724734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2281029564827789765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 439c31a57fdc470ba032debfac21ba80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Answer.ExampleItem
+  <AccordionComponent>k__BackingField: {fileID: 7204058425483676619}
+  <ShownExampleText>k__BackingField: {fileID: 114984727760929149}
+  <HiddenExampleText>k__BackingField: {fileID: 6019194918015030545}
 --- !u!224 &4910272920145737583 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 385260810748804253, guid: c8cac319b9516a549bdf72d616a6fff3, type: 3}
   m_PrefabInstance: {fileID: 4718773632171379698}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7204058425483676619 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2487543242037608505, guid: c8cac319b9516a549bdf72d616a6fff3, type: 3}
+  m_PrefabInstance: {fileID: 4718773632171379698}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2281029564827789765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8c24ecf1dde43438556146f9c83e79c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.AccordionComponent
 --- !u!1001 &9092425528865661319
 PrefabInstance:
   m_ObjectHideFlags: 0

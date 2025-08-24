@@ -10,13 +10,14 @@ using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.PopUps.Selection;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours;
+using Source.Scripts.Main.UI.Shared;
 using Source.Scripts.UI.Components;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
 
-namespace Source.Scripts.Main.UI.PopUps.WordInfo
+namespace Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours
 {
     internal sealed class WordInfoCardBehaviour : MonoBehaviour
     {
@@ -86,13 +87,28 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo
             _wordProgressBehaviour.UpdateProgress(wordEntry);
 
             UpdateText(_transcriptionText, wordEntry.Transcription, _uiSettingsRepository.IsShowTranscription.Value);
-            UpdateText(_learningWordText, wordEntry.LearningWord);
-            UpdateText(_nativeWordText, wordEntry.NativeWord);
+            UpdateText(_learningWordText, wordEntry.Word.Learning);
+            UpdateText(_nativeWordText, ZString.Join(", ", wordEntry.Word.Natives));
 
-            var categoryNames = ZString.Join(", ", wordEntry.CategoryIds);
-            UpdateText(_categoryNameText, categoryNames);
+            UpdateCategoryName(wordEntry);
 
-            UpdateExampleDisplay(wordEntry.LearningExample, wordEntry.NativeExample);
+            // var firstExample = wordEntry.Examples.FirstOrDefault();
+            // UpdateExampleDisplay(firstExample.LearningExample, firstExample.NativeExample);
+        }
+
+        private void UpdateCategoryName(WordEntry wordEntry)
+        {
+            using var builder = ZString.CreateStringBuilder();
+
+            for (var i = 0; i < wordEntry.CategoryIds.Count; i++)
+            {
+                if (i > 0)
+                    builder.Append(", ");
+
+                builder.Append(_categoriesRepository.GetCategoryName(wordEntry.CategoryIds[i]));
+            }
+
+            UpdateText(_categoryNameText, builder.ToString());
         }
 
         private void UpdateExampleDisplay(string learningExample, string nativeExample)

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using CustomUtils.Runtime.Extensions;
+using Cysharp.Threading.Tasks;
 using R3;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Others;
@@ -76,7 +77,7 @@ namespace Source.Scripts.Main.UI.PopUps.Category
         {
             _categoriesRepository.RemoveCategory(_currentCategoryEntry);
 
-            HideAsync();
+            HideAsync().Forget();
         }
 
         private void UpdateView()

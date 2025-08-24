@@ -1,7 +1,7 @@
 ﻿using Source.Scripts.Core.Loader;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
-using Source.Scripts.Main.UI.PopUps.WordInfo;
+using Source.Scripts.Main.UI.Shared;
 using TMPro;
 using UnityEngine;
 using VContainer;
@@ -37,7 +37,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base
             if (descriptiveImage)
                 descriptiveImage.UpdateView(currentWord.DescriptiveImage);
 
-            shownWordText.text = currentWord.GetShownWord(practiceSettingsRepository);
+            shownWordText.text = currentWord.Word.GetShownText(practiceSettingsRepository);
         }
     }
 }

@@ -84,6 +84,11 @@ namespace Source.Scripts.Core.Repositories.Words
             UpdateCurrentWords();
         }
 
+        public void AddWord(TranslationSet translationSet)
+        {
+            _wordEntries.Value.Add(_idHandler.GetId(), new WordEntry { Word = translationSet });
+        }
+
         public void UpdateCurrentWords()
         {
             foreach (var (practiceState, learningStates) in

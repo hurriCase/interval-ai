@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
 
-namespace Source.Scripts.Main.UI.PopUps.WordInfo
+namespace Source.Scripts.Main.UI.Shared
 {
     internal sealed class DescriptiveImageBehaviour : MonoBehaviour
     {

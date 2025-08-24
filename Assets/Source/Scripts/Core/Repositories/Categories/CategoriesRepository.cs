@@ -4,6 +4,7 @@ using System.Threading;
 using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Storage;
 using Cysharp.Threading.Tasks;
+using JetBrains.Annotations;
 using R3;
 using Source.Scripts.Core.Repositories.Base;
 using Source.Scripts.Core.Repositories.Base.Id;
@@ -77,6 +78,7 @@ namespace Source.Scripts.Core.Repositories.Categories
             _categoryRemoved.OnNext(categoryEntry);
         }
 
+        [MustUseReturnValue]
         public string GetCategoryName(int categoryId) =>
             _categoryEntries.Value.TryGetValue(categoryId, out var categoryEntry)
                 ? categoryEntry.LocalizationKey.GetLocalization()

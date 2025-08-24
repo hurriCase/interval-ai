@@ -70,7 +70,7 @@ namespace Source.Scripts.Core.Repositories.Categories.Category
                             .CompareTo(UnsafeEnumConverter<LearningState>.ToInt32(y.LearningState)),
 
                     WordOrderType.Alphabetically => (x, y)
-                        => string.Compare(x.LearningWord, y.LearningWord, StringComparison.OrdinalIgnoreCase),
+                        => string.Compare(x.Word.Learning, y.Word.Learning, StringComparison.OrdinalIgnoreCase),
 
                     WordOrderType.ReviewCount => (Comparison<WordEntry>)((x, y)
                         => y.ReviewCount.CompareTo(x.ReviewCount)),

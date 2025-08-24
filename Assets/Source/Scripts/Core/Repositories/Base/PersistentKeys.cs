@@ -13,6 +13,7 @@
         internal const string LanguageLevelKey = Prefix + "LanguageLevelKey";
         internal const string DailyGoalKey = Prefix + "DailyGoalKey";
         internal const string CurrentCultureKey = Prefix + "CurrentCultureKey";
+        internal const string MaxShownExamplesKey = Prefix + "MaxShownExamplesKey";
         internal const string RepetitionByCooldownKey = Prefix + "RepetitionByCooldownKey";
         internal const string LanguageByTypeKey = Prefix + "LanguageByTypeKey";
         internal const string SystemLanguageKey = Prefix + "SystemLanguageKey";

@@ -49,11 +49,11 @@ namespace Source.Scripts.Onboarding.UI.OnboardingPractice
         {
             var practiceState = _appConfig.OnboardingPracticeState;
 
-            var onboardingWord = _onboardingConfig.OnboardingWord.CreateWord(
-                GetLanguageByType(LanguageType.Native),
-                GetLanguageByType(LanguageType.Learning));
+            // var onboardingWord = _onboardingConfig.OnboardingWord.CreateWord(
+            //     GetLanguageByType(LanguageType.Native),
+            //     GetLanguageByType(LanguageType.Learning));
 
-            _wordsRepository.SetCurrentWord(practiceState, onboardingWord);
+            //_wordsRepository.SetCurrentWord(practiceState, onboardingWord);
 
             _cardBehaviour.Init(practiceState);
 
