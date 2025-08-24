@@ -57,6 +57,25 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo
             _cardContent.OnRectTransformDimensionsChangeAsObservable()
                 .SubscribeAndRegister(this, static self => self.UpdateContainerHeight());
 
+            _startLearningButton.OnClickAsObservable()
+                .SubscribeAndRegister(this, static self => self.StartPracticeForCurrentWord());
+
+            CreatePools();
+        }
+
+        internal void SetParameters(WordEntry wordEntry)
+        {
+            _wordInfoCardBehaviour.UpdateView(wordEntry);
+
+            _currentWordEntry = wordEntry;
+
+            _startLearningButton.SetActive(_currentWordEntry.LearningState == LearningState.Default);
+
+            CreateInfoSections();
+        }
+
+        private void CreatePools()
+        {
             _exampleInfoPool = CreatePool<TranslatableInfoItem, Translation>(
                 _translatableInfoItem,
                 AdditionalInfoType.Example);
@@ -72,6 +91,14 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo
             _grammarPool = CreatePool<TranslatableInfoItemWithNote, AnnotatedTranslation>(
                 _translatableInfoItemWithNote,
                 AdditionalInfoType.Grammar);
+        }
+
+        private void CreateInfoSections()
+        {
+            CreateInfoSection(_exampleInfoPool, _currentWordEntry.Examples, AdditionalInfoType.Example);
+            CreateInfoSection(_translationVariantsPool, _currentWordEntry.TranslationVariants, AdditionalInfoType.TranslationVariant);
+            CreateInfoSection(_synonymPool, _currentWordEntry.Synonyms, AdditionalInfoType.Synonym);
+            CreateInfoSection(_grammarPool, _currentWordEntry.Grammar, AdditionalInfoType.Grammar);
         }
 
         private UIPool<TItem> CreatePool<TItem, TTranslation>(TItem additionalInfoItem, AdditionalInfoType type)
@@ -138,6 +165,19 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo
             }
 
             section.SetActive(true);
+        }
+
+        private void StartPracticeForCurrentWord()
+        {
+            _wordsRepository.SetCurrentWord(PracticeState.NewWords, _currentWordEntry);
+            _windowsController.OpenPopUp<WordPracticePopUp>();
+        }
+
+        private void UpdateContainerHeight()
+        {
+            _cardContainer.sizeDelta = new Vector2(_cardContainer.sizeDelta.x, _cardContent.rect.height);
+
+            LayoutRebuilder.ForceRebuildLayoutImmediate(_cardContainer.parent as RectTransform);
         }
     }
 }
