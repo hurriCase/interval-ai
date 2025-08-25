@@ -26,7 +26,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice
         [SerializeField] private float _spacingBetweenTabsRatio;
         [SerializeField] private float _switchAnimationDuration;
 
-        [Inject] private IWordsRepository _wordsRepository;
+        [Inject] private ICurrentWordsService _currentWordsService;
         [Inject] private IPracticeStateService _practiceStateService;
 
         internal override void Init()
@@ -50,7 +50,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice
 
         internal override async UniTask ShowAsync()
         {
-            var currentWords = _wordsRepository.CurrentWordsByState.CurrentValue;
+            var currentWords = _currentWordsService.CurrentWordsByState.CurrentValue;
             if (currentWords[PracticeState.NewWords] is null && currentWords[PracticeState.Review] != null)
                 _practiceStateService.SetState(PracticeState.Review);
             else

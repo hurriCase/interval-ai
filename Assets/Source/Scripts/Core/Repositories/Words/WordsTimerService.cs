@@ -9,7 +9,7 @@ using Source.Scripts.Core.Repositories.Words.CooldownSystem;
 using Source.Scripts.Core.Repositories.Words.Word;
 using ZLinq;
 
-namespace Source.Scripts.Core.Repositories.Words.Timer
+namespace Source.Scripts.Core.Repositories.Words
 {
     internal sealed class WordsTimerService : IWordsTimerService, IDisposable
     {
@@ -18,24 +18,23 @@ namespace Source.Scripts.Core.Repositories.Words.Timer
         private readonly Subject<CooldownByPracticeState> _availabilityTimeSubject = new();
         private EnumArray<PracticeState, AdaptiveTimer?> _stateTimers = new(EnumMode.SkipFirst);
 
+        private readonly ICurrentWordsService _currentWordsService;
         private readonly IAppConfig _appConfig;
-        private readonly IWordsRepository _wordsRepository;
 
         private readonly IDisposable _disposable;
 
-        internal WordsTimerService(IWordsRepository wordsRepository, IAppConfig appConfig)
+        internal WordsTimerService(ICurrentWordsService currentWordsService, IAppConfig appConfig)
         {
+            _currentWordsService = currentWordsService;
             _appConfig = appConfig;
-            _wordsRepository = wordsRepository;
 
-            _disposable = _wordsRepository.CurrentWordsByState
-                .Subscribe(this, (_, self)
-                    => self.UpdateTimers());
+            _disposable = _currentWordsService.CurrentWordsByState
+                .Subscribe(this, (_, self) => self.UpdateTimers());
         }
 
         public void UpdateTimers()
         {
-            foreach (var (practiceState, currentWord) in _wordsRepository.CurrentWordsByState.CurrentValue.AsTuples())
+            foreach (var (practiceState, currentWord) in _currentWordsService.CurrentWordsByState.CurrentValue.AsTuples())
                 UpdateTimerForPractice(practiceState, currentWord);
         }
 
@@ -61,7 +60,7 @@ namespace Source.Scripts.Core.Repositories.Words.Timer
                     static (currentTime, tuple) => tuple.self._availabilityTimeSubject
                         .OnNext(new CooldownByPracticeState(tuple.practiceState, currentTime)),
                     static (_, tuple)
-                        => tuple.self._wordsRepository.UpdateCurrentWords());
+                        => tuple.self._currentWordsService.UpdateCurrentWords());
         }
 
         private void DisposeTimer(PracticeState practiceState)

@@ -18,12 +18,12 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
 
         [SerializeField] private WordProgressBehaviour _wordProgressBehaviour;
 
-        [Inject] private IWordsRepository _wordsRepository;
+        [Inject] private ICurrentWordsService _currentWordsService;
         [Inject] private IAppConfig _appConfig;
 
         internal ReactiveCommand<ModuleType> SwitchModuleCommand { get; } = new();
 
-        private WordEntry WordEntry => _wordsRepository.CurrentWordsByState.CurrentValue[_practiceState];
+        private WordEntry WordEntry => _currentWordsService.CurrentWordsByState.CurrentValue[_practiceState];
 
         private PracticeState _practiceState;
 
@@ -33,7 +33,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
 
             _wordProgressBehaviour.Init();
 
-            _wordsRepository.CurrentWordsByState
+            _currentWordsService.CurrentWordsByState
                 .Select(practiceState, (currentWordsByState, state) => currentWordsByState[state])
                 .Where(currentWord => currentWord != null)
                 .Subscribe(_wordProgressBehaviour,
@@ -43,7 +43,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
             foreach (var module in _practiceModules)
                 module.Init(this);
 
-            _wordsRepository.CurrentWordsByState
+            _currentWordsService.CurrentWordsByState
                 .Select(_practiceState, (currentWordsByState, state) => currentWordsByState[state])
                 .SubscribeAndRegister(this, self => self.HandleNewWord());
 

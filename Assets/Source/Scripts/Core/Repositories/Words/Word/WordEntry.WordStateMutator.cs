@@ -59,6 +59,7 @@ namespace Source.Scripts.Core.Repositories.Words.Word
             public void HideWord(WordEntry word)
             {
                 word.IsHidden = true;
+
                 _wordsRepository.RemoveHiddenWord(word);
             }
 

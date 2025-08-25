@@ -46,7 +46,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
             if (_categoriesRepository.TrySelectRandomCategory())
                 return;
 
-            if (wordsRepository.HasWordByState(PracticeState.Review))
+            if (currentWordsService.HasWordByState(PracticeState.Review))
             {
                 practiceStateService.SetState(PracticeState.Review);
                 return;
@@ -63,7 +63,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
 
         private void UpdateCurrentWord()
         {
-            wordsRepository.UpdateCurrentWords();
+            currentWordsService.UpdateCurrentWords();
         }
     }
 }

@@ -75,16 +75,4 @@ namespace Source.Scripts.Core.Others
             return _pooledItems;
         }
     }
-
-    internal readonly struct PrefabData<TPrefab>
-    {
-        internal TPrefab Prefab { get; }
-        internal AspectRatioFitter Spacing { get; }
-
-        internal PrefabData(TPrefab prefab, AspectRatioFitter spacing)
-        {
-            Prefab = prefab;
-            Spacing = spacing;
-        }
-    }
 }

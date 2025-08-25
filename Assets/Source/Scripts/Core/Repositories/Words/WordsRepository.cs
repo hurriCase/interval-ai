@@ -5,8 +5,6 @@ using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Storage;
 using Cysharp.Threading.Tasks;
 using R3;
-using Source.Scripts.Core.Configs;
-using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Base;
 using Source.Scripts.Core.Repositories.Base.Id;
 using Source.Scripts.Core.Repositories.Words.Base;
@@ -19,32 +17,26 @@ namespace Source.Scripts.Core.Repositories.Words
 {
     internal sealed class WordsRepository : IWordsRepository, IRepository, IDisposable
     {
+        public ReadOnlyReactiveProperty<EnumArray<LearningState, SortedSet<WordEntry>>> SortedWordsByState
+            => _sortedWordsByState;
+
         private readonly ReactiveProperty<EnumArray<LearningState, SortedSet<WordEntry>>> _sortedWordsByState
             = new(new EnumArray<LearningState, SortedSet<WordEntry>>(() => new SortedSet<WordEntry>(_comparer)));
-
-        public ReadOnlyReactiveProperty<EnumArray<PracticeState, WordEntry>> CurrentWordsByState =>
-            _currentWordsByState;
-
-        private readonly ReactiveProperty<EnumArray<PracticeState, WordEntry>> _currentWordsByState
-            = new(new EnumArray<PracticeState, WordEntry>(EnumMode.SkipFirst));
 
         private readonly PersistentReactiveProperty<Dictionary<int, WordEntry>> _wordEntries = new();
         private static readonly WordCooldownComparer _comparer = new();
 
         private readonly DefaultWordsDatabase _defaultWordsDatabase;
         private readonly IIdHandler<WordEntry> _idHandler;
-        private readonly IAppConfig _appConfig;
 
         private DisposableBag _disposable;
 
         internal WordsRepository(
             DefaultWordsDatabase defaultWordsDatabase,
-            IIdHandler<WordEntry> idHandler,
-            IAppConfig appConfig)
+            IIdHandler<WordEntry> idHandler)
         {
             _defaultWordsDatabase = defaultWordsDatabase;
             _idHandler = idHandler;
-            _appConfig = appConfig;
         }
 
         public async UniTask InitAsync(CancellationToken token)
@@ -62,17 +54,6 @@ namespace Source.Scripts.Core.Repositories.Words
             await UniTask.WhenAll(initTasks);
 
             SetSortedWords();
-
-            _wordEntries
-                .Subscribe(this, static (_, self) => self.UpdateCurrentWords())
-                .AddTo(ref _disposable);
-        }
-
-        public void SetCurrentWord(PracticeState practiceState, WordEntry word)
-        {
-            var currentWordsByState = _currentWordsByState.Value;
-            currentWordsByState[practiceState] = word;
-            _currentWordsByState.Value = currentWordsByState;
         }
 
         public void RemoveHiddenWord(WordEntry word)
@@ -81,32 +62,17 @@ namespace Source.Scripts.Core.Repositories.Words
                 return;
 
             _sortedWordsByState.Value[word.LearningState].Remove(word);
-            UpdateCurrentWords();
+            _sortedWordsByState.OnNext(_sortedWordsByState.Value);
         }
 
         public void AddWord(TranslationSet translationSet)
         {
-            _wordEntries.Value.Add(_idHandler.GetId(), new WordEntry { Word = translationSet });
-        }
+            var newWord = new WordEntry { Word = translationSet };
 
-        public void UpdateCurrentWords()
-        {
-            foreach (var (practiceState, learningStates) in
-                     _appConfig.TargetLearningStatesForPractice.AsTuples())
-            {
-                foreach (var learningState in learningStates)
-                {
-                    var currentWordsByState = _currentWordsByState.Value;
-                    currentWordsByState[practiceState] = _sortedWordsByState.Value[learningState].Min;
-                    _currentWordsByState.Value = currentWordsByState;
-                    _currentWordsByState.OnNext(currentWordsByState);
+            _wordEntries.Value.Add(_idHandler.GetId(), newWord);
 
-                    if (currentWordsByState[practiceState] != null)
-                        break;
-                }
-            }
-
-            _wordEntries.SaveAsync();
+            _sortedWordsByState.Value[newWord.LearningState].Add(newWord);
+            _sortedWordsByState.OnNext(_sortedWordsByState.Value);
         }
 
         public void OnWordStateChanged(WordEntry word, LearningState oldState, LearningState newState)
@@ -114,11 +80,8 @@ namespace Source.Scripts.Core.Repositories.Words
             _sortedWordsByState.Value[oldState].Remove(word);
             _sortedWordsByState.Value[newState].Add(word);
 
-            UpdateCurrentWords();
+            _sortedWordsByState.OnNext(_sortedWordsByState.Value);
         }
-
-        public bool HasWordByState(PracticeState practiceState)
-            => CurrentWordsByState.CurrentValue[practiceState] != null;
 
         private void SetSortedWords()
         {
@@ -141,7 +104,6 @@ namespace Source.Scripts.Core.Repositories.Words
         public void Dispose()
         {
             _sortedWordsByState.Dispose();
-            _currentWordsByState.Dispose();
             _wordEntries.Dispose();
             _disposable.Dispose();
         }

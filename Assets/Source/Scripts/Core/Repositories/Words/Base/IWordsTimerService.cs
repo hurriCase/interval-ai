@@ -1,7 +1,7 @@
 ﻿using R3;
 using Source.Scripts.Core.Repositories.Words.CooldownSystem;
 
-namespace Source.Scripts.Core.Repositories.Words.Timer
+namespace Source.Scripts.Core.Repositories.Words.Base
 {
     internal interface IWordsTimerService
     {

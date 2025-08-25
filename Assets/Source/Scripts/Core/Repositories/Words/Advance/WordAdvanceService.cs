@@ -4,7 +4,6 @@ using R3;
 using Source.Scripts.Core.Repositories.Progress;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
-using Source.Scripts.Core.Repositories.Words.Timer;
 using Source.Scripts.Core.Repositories.Words.Word;
 
 namespace Source.Scripts.Core.Repositories.Words.Advance
@@ -14,7 +13,7 @@ namespace Source.Scripts.Core.Repositories.Words.Advance
         public ReadOnlyReactiveProperty<bool> CanUndo => _canUndo;
         public ReactiveCommand UndoCommand { get; } = new();
 
-        private readonly IWordsRepository _wordsRepository;
+        private readonly ICurrentWordsService _currentWordsService;
         private readonly IWordStateMutator _wordStateMutator;
         private readonly IWordsTimerService _wordsTimerService;
         private readonly IProgressRepository _progressRepository;
@@ -23,12 +22,12 @@ namespace Source.Scripts.Core.Repositories.Words.Advance
         private readonly ReactiveProperty<bool> _canUndo = new(false);
 
         internal WordAdvanceService(
-            IWordsRepository wordsRepository,
+            ICurrentWordsService currentWordsService,
             IWordStateMutator wordStateMutator,
             IWordsTimerService wordsTimerService,
             IProgressRepository progressRepository)
         {
-            _wordsRepository = wordsRepository;
+            _currentWordsService = currentWordsService;
             _wordStateMutator = wordStateMutator;
             _wordsTimerService = wordsTimerService;
             _progressRepository = progressRepository;
@@ -42,7 +41,7 @@ namespace Source.Scripts.Core.Repositories.Words.Advance
 
             _wordStateMutator.AdvanceLearningState(word, success);
             _wordsTimerService.UpdateTimers();
-            _wordsRepository.UpdateCurrentWords();
+            _currentWordsService.UpdateCurrentWords();
         }
 
         private void ExecuteUndo()

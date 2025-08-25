@@ -19,7 +19,6 @@ using Source.Scripts.Core.Repositories.Statistics;
 using Source.Scripts.Core.Repositories.User;
 using Source.Scripts.Core.Repositories.Words;
 using Source.Scripts.Core.Repositories.Words.Advance;
-using Source.Scripts.Core.Repositories.Words.Timer;
 using Source.Scripts.Core.Repositories.Words.Word;
 using UnityEngine;
 using VContainer;
@@ -124,6 +123,7 @@ namespace Source.Scripts.Bootstrap.DI
             builder.Register<WordEntry.WordStateMutator>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<WordsTimerService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<WordAdvanceService>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<CurrentWordsService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.RegisterComponent(_defaultWordsDatabase)
                 .As<DefaultWordsDatabase>()
                 .AsImplementedInterfaces();

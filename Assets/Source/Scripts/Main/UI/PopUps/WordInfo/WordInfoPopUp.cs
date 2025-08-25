@@ -40,7 +40,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo
             = new(EnumMode.SkipFirst);
 
         [Inject] private IWindowsController _windowsController;
-        [Inject] private IWordsRepository _wordsRepository;
+        [Inject] private ICurrentWordsService _currentWordsService;
         [Inject] private IObjectResolver _objectResolver;
 
         private UIPool<TranslatableInfoItem> _exampleInfoPool;
@@ -169,7 +169,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo
 
         private void StartPracticeForCurrentWord()
         {
-            _wordsRepository.SetCurrentWord(PracticeState.NewWords, _currentWordEntry);
+            _currentWordsService.SetCurrentWord(PracticeState.NewWords, _currentWordEntry);
             _windowsController.OpenPopUp<WordPracticePopUp>();
         }
 

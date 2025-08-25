@@ -20,9 +20,9 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
     {
         [Inject] private IUISettingsRepository _uiSettingsRepository;
         [Inject] private IPracticeStateService _practiceStateService;
+        [Inject] private ICurrentWordsService _currentWordsService;
         [Inject] private IWordAdvanceService _wordAdvanceService;
         [Inject] private ISwipeInputService _swipeInputService;
-        [Inject] private IWordsRepository _wordsRepository;
         [Inject] private ISwipeConfig _swipeConfig;
 
         private Vector2 _originalPosition;
@@ -35,7 +35,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
         private bool _isDragging;
         private bool _isPointerPressed;
 
-        private WordEntry CurrentWord => _wordsRepository.CurrentWordsByState.CurrentValue[_currentPracticeState];
+        private WordEntry CurrentWord => _currentWordsService.CurrentWordsByState.CurrentValue[_currentPracticeState];
 
         private PracticeState _currentPracticeState;
 

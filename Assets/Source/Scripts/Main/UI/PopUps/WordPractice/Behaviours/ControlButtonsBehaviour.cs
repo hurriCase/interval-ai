@@ -24,9 +24,9 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
 
         [Inject] private IWordAdvanceService _wordAdvanceService;
         [Inject] private IWordStateMutator _wordStateMutator;
-        [Inject] private IWordsRepository _wordsRepository;
+        [Inject] private ICurrentWordsService _currentWordsService;
 
-        private WordEntry CurrentWord => _wordsRepository.CurrentWordsByState.CurrentValue[_currentPracticeState];
+        private WordEntry CurrentWord => _currentWordsService.CurrentWordsByState.CurrentValue[_currentPracticeState];
 
         private PracticeState _currentPracticeState;
 
@@ -37,7 +37,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
             _hideButton.OnClickAsObservable().SubscribeAndRegister(this,
                 static self => self._wordStateMutator.HideWord(self.CurrentWord));
 
-            _wordsRepository.CurrentWordsByState
+            _currentWordsService.CurrentWordsByState
                 .Select(this, (currentWordsByState, self) => currentWordsByState[self._currentPracticeState])
                 .Where(currentWord => currentWord != null)
                 .SubscribeAndRegister(this, static self => self.UpdateView());

@@ -68,8 +68,6 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours
 
             var selectionPopUp = _windowsController.OpenPopUp<SelectionPopUp>();
             selectionPopUp.SetParameters(_categorySelectionService);
-
-
         }
 
         private void SetCategories(List<int> selectedValues)

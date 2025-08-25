@@ -29,10 +29,10 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
 
         [SerializeField] private PlusMinusBehaviour _plusMinusBehaviour;
 
-        [Inject] protected IWindowsController windowsController;
-        [Inject] protected IPracticeStateService practiceStateService;
         [Inject] protected ILocalizationKeysDatabase localizationKeysDatabase;
-        [Inject] protected IWordsRepository wordsRepository;
+        [Inject] protected IPracticeStateService practiceStateService;
+        [Inject] protected ICurrentWordsService currentWordsService;
+        [Inject] protected IWindowsController windowsController;
 
         private PracticeState _currentPracticeState;
 
@@ -42,7 +42,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
 
             _plusMinusBehaviour.Init();
 
-            wordsRepository.CurrentWordsByState
+            currentWordsService.CurrentWordsByState
                 .SubscribeAndRegister(this, (currentWords, self) => self.CheckCompleteness(currentWords));
 
             LocalizationController.Language.SubscribeAndRegister(this, static self => self.UpdateButtonTexts());

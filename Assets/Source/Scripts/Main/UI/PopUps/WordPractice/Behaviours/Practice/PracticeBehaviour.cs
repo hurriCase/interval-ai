@@ -21,11 +21,11 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice
         [SerializeField] private ControlButtonsBehaviour _controlButtonsBehaviour;
         [SerializeField] private LearningCompleteBehaviourBase _learningCompleteBehaviour;
 
-        [Inject] private IWordsRepository _wordsRepository;
+        [Inject] private ICurrentWordsService _currentWordsService;
 
         internal void Init()
         {
-            _wordsRepository.CurrentWordsByState
+            _currentWordsService.CurrentWordsByState
                 .Select(this, (currentWords, self) => currentWords[self._practiceState])
                 .SubscribeAndRegister(this, (currentWord, self) => self.SwitchState(currentWord));
 
