@@ -21,7 +21,7 @@ namespace Source.Scripts.Main.UI.Screens.Settings.Behaviours
 
         internal void Init()
         {
-            SetUserIcon(_userRepository.UserIcon.Value.AssetGUID).Forget();
+            SetUserIcon(_userRepository.UserIcon.CurrentValue.AssetGUID).Forget();
 
             _userRepository.Nickname
                 .Subscribe(this, static (newName, self) => self._nicknameField.text = newName)
@@ -33,7 +33,7 @@ namespace Source.Scripts.Main.UI.Screens.Settings.Behaviours
                 .RegisterTo(destroyCancellationToken);
 
             _nicknameField.CurrentTextSubjectObservable
-                .Subscribe(this, static (newName, self) => self._userRepository.Nickname.Value = newName)
+                .Subscribe(this, static (newName, self) => self._userRepository.SetNickname(newName))
                 .RegisterTo(destroyCancellationToken);
         }
 

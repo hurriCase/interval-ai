@@ -39,7 +39,8 @@ namespace Source.Scripts.Main.UI.Screens.Categories
 
         internal override void Init()
         {
-            CreateCategories();
+            foreach (var categoryEntry in _categoriesRepository.CategoryEntries.CurrentValue.Values)
+                CreateCategory(categoryEntry);
 
             _spacing.CreateHeightSpacing(_menuSpacingRatio, _categoryItemContainer);
 
@@ -54,12 +55,6 @@ namespace Source.Scripts.Main.UI.Screens.Categories
 
             _categoryStateMutator.CategoryNameChanged.SubscribeAndRegister(this,
                 static (entry, self) => self._createdCategoryItems[entry].UpdateName());
-        }
-
-        private void CreateCategories()
-        {
-            foreach (var categoryEntry in _categoriesRepository.CategoryEntries.CurrentValue.Values)
-                CreateCategory(categoryEntry);
         }
 
         private void CreateCategory(CategoryEntry categoryEntry)
@@ -95,8 +90,7 @@ namespace Source.Scripts.Main.UI.Screens.Categories
         private CategoryContainerItem CreateCategoriesContainer(CategoryType categoryType)
         {
             var categoryContainer = _objectResolver.Instantiate(_categoryContainerItemPrefab, _categoryItemContainer);
-            categoryContainer.TitleText.text =
-                _localizationKeysDatabase.GetLearningStateLocalization(categoryType);
+            categoryContainer.Init(categoryType);
 
             _spacing.CreateHeightSpacing(_categoryContainerSpacingRatio, _categoryItemContainer);
             _createdCategoriesByType[categoryType] = categoryContainer;

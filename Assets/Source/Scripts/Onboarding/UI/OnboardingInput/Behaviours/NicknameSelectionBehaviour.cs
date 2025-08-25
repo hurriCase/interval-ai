@@ -14,18 +14,12 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours
 
         internal override void Init()
         {
-            _placeholderText.text = _userRepository.Nickname.Value;
+            _placeholderText.text = _userRepository.Nickname.CurrentValue;
         }
 
         internal override void OnContinue()
         {
-            if (string.IsNullOrEmpty(_nicknameInputField.text))
-            {
-                _userRepository.Nickname.Value = _placeholderText.text;
-                return;
-            }
-
-            _userRepository.Nickname.Value = _nicknameInputField.text;
+            _userRepository.SetNickname(_nicknameInputField.text);
         }
     }
 }

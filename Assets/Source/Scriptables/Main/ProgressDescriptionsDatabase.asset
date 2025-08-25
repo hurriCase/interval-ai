@@ -12,79 +12,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4355a1ca411a4a8aa811c312e02ee022, type: 3}
   m_Name: ProgressDescriptionsDatabase
   m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.Screens.LearningWords.Behaviours.Progress.ProgressDescriptionsDatabase
-  <DescriptionLocalizations>k__BackingField:
-  - <TitleKey>k__BackingField: ui.learning-words.progress.title-zero
-    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.zero-start
-    <Type>k__BackingField: 1
-    <Percent>k__BackingField:
-      _randomStart: 0
-      _randomEnd: 0
-  - <TitleKey>k__BackingField: ui.learning-words.progress.title-zero-ready
-    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.zero-motivation
-    <Type>k__BackingField: 1
-    <Percent>k__BackingField:
-      _randomStart: 0
-      _randomEnd: 0
-  - <TitleKey>k__BackingField: ui.learning-words.progress.title-zero-lets-go
-    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.zero-challenge
-    <Type>k__BackingField: 1
-    <Percent>k__BackingField:
-      _randomStart: 0
-      _randomEnd: 0
-  - <TitleKey>k__BackingField: ui.learning-words.progress.title-low
-    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.low-encouragement
-    <Type>k__BackingField: 2
-    <Percent>k__BackingField:
-      _randomStart: 5
-      _randomEnd: 25
-  - <TitleKey>k__BackingField: ui.learning-words.progress.title-low-momentum
-    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.low-momentum
-    <Type>k__BackingField: 2
-    <Percent>k__BackingField:
-      _randomStart: 5
-      _randomEnd: 25
-  - <TitleKey>k__BackingField: ui.learning-words.progress.title-low-progress
-    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.low-progress
-    <Type>k__BackingField: 2
-    <Percent>k__BackingField:
-      _randomStart: 5
-      _randomEnd: 25
-  - <TitleKey>k__BackingField: ui.learning-words.progress.title-medium
-    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.medium-halfway
-    <Type>k__BackingField: 3
-    <Percent>k__BackingField:
-      _randomStart: 5
-      _randomEnd: 25
-  - <TitleKey>k__BackingField: ui.learning-words.progress.title-medium-halfway
-    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.medium-strong
-    <Type>k__BackingField: 3
-    <Percent>k__BackingField:
-      _randomStart: 5
-      _randomEnd: 25
-  - <TitleKey>k__BackingField: ui.learning-words.progress.title-medium-strong
-    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.medium-climbing
-    <Type>k__BackingField: 3
-    <Percent>k__BackingField:
-      _randomStart: 5
-      _randomEnd: 25
-  - <TitleKey>k__BackingField: ui.learning-words.progress.title-high
-    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.high-excellent
-    <Type>k__BackingField: 3
-    <Percent>k__BackingField:
-      _randomStart: 5
-      _randomEnd: 25
-  - <TitleKey>k__BackingField: ui.learning-words.progress.title-high-champion
-    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.high-champion
-    <Type>k__BackingField: 3
-    <Percent>k__BackingField:
-      _randomStart: 40
-      _randomEnd: 90
-  - <TitleKey>k__BackingField: ui.learning-words.progress.title-high-amazing
-    <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.high-outstanding
-    <Type>k__BackingField: 3
-    <Percent>k__BackingField:
-      _randomStart: 40
-      _randomEnd: 90
+  <Descriptions>k__BackingField:
+    <Entries>k__BackingField:
+    - <Value>k__BackingField:
+        <Percent>k__BackingField:
+          _randomStart: 0
+          _randomEnd: 0
+        <ProgressLocalizationData>k__BackingField: []
+    - <Value>k__BackingField:
+        <Percent>k__BackingField:
+          _randomStart: 0
+          _randomEnd: 0
+        <ProgressLocalizationData>k__BackingField:
+        - <TitleKey>k__BackingField: ui.learning-words.progress.title-zero
+          <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.zero-start
+        - <TitleKey>k__BackingField: ui.learning-words.progress.title-zero-ready
+          <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.zero-motivation
+        - <TitleKey>k__BackingField: ui.learning-words.progress.title-zero-lets-go
+          <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.zero-challenge
+    - <Value>k__BackingField:
+        <Percent>k__BackingField:
+          _randomStart: 5
+          _randomEnd: 25
+        <ProgressLocalizationData>k__BackingField:
+        - <TitleKey>k__BackingField: ui.learning-words.progress.title-low
+          <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.low-encouragement
+        - <TitleKey>k__BackingField: ui.learning-words.progress.title-low-momentum
+          <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.low-momentum
+        - <TitleKey>k__BackingField: ui.learning-words.progress.title-low-progress
+          <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.low-progress
+    - <Value>k__BackingField:
+        <Percent>k__BackingField:
+          _randomStart: 25
+          _randomEnd: 40
+        <ProgressLocalizationData>k__BackingField:
+        - <TitleKey>k__BackingField: ui.learning-words.progress.title-medium
+          <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.medium-halfway
+        - <TitleKey>k__BackingField: ui.learning-words.progress.title-medium-halfway
+          <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.medium-strong
+        - <TitleKey>k__BackingField: ui.learning-words.progress.title-medium-strong
+          <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.medium-climbing
+    - <Value>k__BackingField:
+        <Percent>k__BackingField:
+          _randomStart: 40
+          _randomEnd: 100
+        <ProgressLocalizationData>k__BackingField:
+        - <TitleKey>k__BackingField: ui.learning-words.progress.title-high
+          <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.high-excellent
+        - <TitleKey>k__BackingField: ui.learning-words.progress.title-high-champion
+          <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.high-champion
+        - <TitleKey>k__BackingField: ui.learning-words.progress.title-high-amazing
+          <ProgressDescriptionKey>k__BackingField: ui.learning-words.progress.high-outstanding
+    <EnumMode>k__BackingField: 2
   <LowMediumTransitionRandom>k__BackingField:
     _randomStart: 4
     _randomEnd: 7

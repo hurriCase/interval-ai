@@ -1,4 +1,5 @@
 ﻿using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Localization;
 using Cysharp.Text;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Localization.LocalizationTypes;
@@ -32,15 +33,15 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords
             _wordLearningBehaviour.Init();
             _achievementsBehaviour.Init();
 
-            _userRepository.Nickname
-                .SubscribeAndRegister(this, static (nickname, self) => self.UpdateUserWelcome(nickname));
+            _userRepository.Nickname.SubscribeAndRegister(this, static self => self.UpdateUserWelcome());
+            LocalizationController.Language.SubscribeAndRegister(this, static self => self.UpdateUserWelcome());
         }
 
-        private void UpdateUserWelcome(string nickname)
+        private void UpdateUserWelcome()
         {
             var localization = _localizationKeysDatabase.GetLocalization(LocalizationType.UserWelcome);
 
-            _welcomeText.SetTextFormat(localization, nickname);
+            _welcomeText.SetTextFormat(localization, _userRepository.Nickname.CurrentValue);
         }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Threading;
 using CustomUtils.Runtime.AddressableSystem;
+using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Storage;
 using Cysharp.Threading.Tasks;
+using R3;
 using Source.Scripts.Core.Repositories.Base;
 using Source.Scripts.Core.Repositories.User.Base;
 
@@ -10,8 +12,11 @@ namespace Source.Scripts.Core.Repositories.User
 {
     internal sealed class UserRepository : IUserRepository, IRepository, IDisposable
     {
-        public PersistentReactiveProperty<string> Nickname { get; } = new();
-        public PersistentReactiveProperty<CachedSprite> UserIcon { get; } = new();
+        public ReadOnlyReactiveProperty<string> Nickname => _nickname.Property;
+        public ReadOnlyReactiveProperty<CachedSprite> UserIcon => _userIcon.Property;
+
+        private readonly PersistentReactiveProperty<string> _nickname = new();
+        private readonly PersistentReactiveProperty<CachedSprite> _userIcon = new();
 
         private readonly IDefaultUserDataConfig _defaultUserDataConfig;
 
@@ -24,12 +29,12 @@ namespace Source.Scripts.Core.Repositories.User
         {
             var initTasks = new[]
             {
-                UserIcon.InitAsync(
+                _userIcon.InitAsync(
                     PersistentKeys.UserIconKey,
                     token,
                     new CachedSprite(_defaultUserDataConfig.Icon)),
 
-                Nickname.InitAsync(
+                _nickname.InitAsync(
                     PersistentKeys.NicknameKey,
                     token,
                     _defaultUserDataConfig.Name)
@@ -38,10 +43,16 @@ namespace Source.Scripts.Core.Repositories.User
             await UniTask.WhenAll(initTasks);
         }
 
+        public void SetNickname(string nickname)
+        {
+            if (nickname.IsValid())
+                _nickname.Value = nickname;
+        }
+
         public void Dispose()
         {
-            Nickname.Dispose();
-            UserIcon.Dispose();
+            _nickname.Dispose();
+            _userIcon.Dispose();
         }
     }
 }

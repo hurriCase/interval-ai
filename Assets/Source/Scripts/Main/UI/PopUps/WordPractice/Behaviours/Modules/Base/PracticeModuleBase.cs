@@ -1,5 +1,4 @@
-﻿using CustomUtils.Runtime.AddressableSystem;
-using Source.Scripts.Core.Repositories.Settings.Base;
+﻿using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.Shared;
 using TMPro;
@@ -15,7 +14,6 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base
         [SerializeField] protected TransitionButtonData[] transitionButtons;
 
         [Inject] protected IPracticeSettingsRepository practiceSettingsRepository;
-        [Inject] protected IAddressablesLoader addressablesLoader;
 
         protected WordEntry currentWord;
 

@@ -1,19 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Localization;
 using CustomUtils.Runtime.UI.CustomComponents;
 using Cysharp.Text;
 using R3;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Localization.LocalizationTypes;
-using Source.Scripts.Core.Repositories.Progress;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.Data.Base;
 using TMPro;
 using UnityEngine;
 using VContainer;
-using ZLinq;
 
 namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.Progress
 {
@@ -31,65 +29,80 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.Progress
         internal void Init()
         {
             _progressRepository.ProgressHistory
-                .AsObservable()
                 .DistinctUntilChangedBy(progress => progress)
-                .Subscribe(this, (progressEntry, behaviour) => behaviour.UpdateProgress(progressEntry));
+                .SubscribeAndRegister(this, static self => self.UpdateProgress());
 
-            UpdateProgress(_progressRepository.ProgressHistory.CurrentValue);
+            LocalizationController.Language.SubscribeAndRegister(this, static self => self.UpdateProgress());
         }
 
-        private void UpdateProgress(Dictionary<DateTime, DailyProgress> progressHistory)
+        private void UpdateProgress()
         {
+            var (learnedCount, dailyGoal) = GetProgressData();
+            var progressRatio = (float)learnedCount / dailyGoal;
+
+            UpdateProgressUI(progressRatio);
+            UpdateDescriptionUI(learnedCount, dailyGoal);
+        }
+
+        private (int learnedCount, int dailyGoal) GetProgressData()
+        {
+            var progressHistory = _progressRepository.ProgressHistory.CurrentValue;
             var dailyGoal = Mathf.Max(1, _progressRepository.NewWordsDailyTarget.CurrentValue);
+
             var learnedCount = progressHistory.TryGetValue(DateTime.Now, out var dailyProgress)
                 ? Mathf.Max(0, dailyProgress.GetProgressCountData(LearningState.CurrentlyLearning))
                 : 0;
 
-            var currentProgressRatio = learnedCount / dailyGoal;
-
-            var displayRatio = Mathf.Min(currentProgressRatio, 1.0f);
-
-            var currentProgressPercent = Mathf.RoundToInt(currentProgressRatio * 100);
-
-            _currentProgressPercentText.SetTextFormat("{0}%", currentProgressPercent);
-            _progressComponent.fillAmount = displayRatio;
-
-            var (titleLocalization, progressLocalization, percent) =
-                GetRandomDescription(DetermineProgressType(learnedCount));
-
-            _titleText.text = titleLocalization;
-            _progressDescriptionText.SetTextFormat(progressLocalization, learnedCount, dailyGoal, percent);
+            return (learnedCount, dailyGoal);
         }
 
-        private ProgressDescriptionType DetermineProgressType(int learnedWordCount)
+        private void UpdateProgressUI(float progressRatio)
         {
-            if (learnedWordCount <= 0)
+            var progressPercent = Mathf.RoundToInt(progressRatio * 100);
+            var fillAmount = Mathf.Min(progressRatio, 1.0f);
+
+            _currentProgressPercentText.SetTextFormat("{0}%", progressPercent);
+            _progressComponent.fillAmount = fillAmount;
+        }
+
+        private void UpdateDescriptionUI(int learnedCount, int dailyGoal)
+        {
+            var progressType = DetermineProgressType(learnedCount);
+            var descriptionData = GetDescriptionData(progressType);
+
+            _titleText.text = descriptionData.Title;
+            _progressDescriptionText.SetTextFormat(descriptionData.Description,
+                learnedCount, dailyGoal, descriptionData.Percent);
+        }
+
+        private ProgressDescriptionType DetermineProgressType(int learnedCount)
+        {
+            if (learnedCount <= 0)
                 return ProgressDescriptionType.Zero;
 
-            if (learnedWordCount < _progressDescriptionsDatabase.LowMediumTransitionRandom.RandomValue)
+            if (learnedCount < _progressDescriptionsDatabase.LowMediumTransitionRandom.RandomValue)
                 return ProgressDescriptionType.Low;
 
-            return learnedWordCount < _progressDescriptionsDatabase.MediumHighTransitionRandom.RandomValue
+            return learnedCount < _progressDescriptionsDatabase.MediumHighTransitionRandom.RandomValue
                 ? ProgressDescriptionType.Medium
                 : ProgressDescriptionType.High;
         }
 
-        private (string, string, int) GetRandomDescription(ProgressDescriptionType progressType)
+        private DescriptionData GetDescriptionData(ProgressDescriptionType progressType)
         {
-            var localizationData =
-                _progressDescriptionsDatabase.DescriptionLocalizations.AsValueEnumerable()
-                    .Where(progressDescriptionData => progressDescriptionData.Type == progressType);
+            var description = _progressDescriptionsDatabase.Descriptions[progressType];
+            var localizations = description.ProgressLocalizationData;
 
-            if (localizationData.Count() == 0)
-                return (_localizationKeysDatabase.GetLocalization(LocalizationType.ProgressTitle),
+            if (localizations.Count == 0)
+                return new DescriptionData(
+                    _localizationKeysDatabase.GetLocalization(LocalizationType.ProgressTitle),
                     _localizationKeysDatabase.GetLocalization(LocalizationType.ProgressDescription),
                     _progressDescriptionsDatabase.DefaultRandomPercent.RandomValue);
 
-            var randomData = localizationData.Random();
-
-            return (randomData.TitleKey.GetLocalization(),
+            var randomData = localizations.Random();
+            return new DescriptionData(randomData.TitleKey.GetLocalization(),
                 randomData.ProgressDescriptionKey.GetLocalization(),
-                randomData.Percent.RandomValue);
+                description.Percent.RandomValue);
         }
     }
 }

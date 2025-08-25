@@ -40,8 +40,8 @@ namespace Source.Scripts.UI.Components
         private void FinishEditing(string newText)
         {
             readOnly = true;
-            if (string.IsNullOrEmpty(newText) is false)
-                _currentTextSubjectObservable.OnNext(newText);
+
+            _currentTextSubjectObservable.OnNext(newText);
         }
 
         protected override void OnDestroy()

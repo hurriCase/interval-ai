@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Localization;
 using Cysharp.Text;
 using R3;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Localization.LocalizationTypes;
-using Source.Scripts.Core.Repositories.Progress;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.UI.Base;
@@ -39,15 +38,20 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours
                     static (_, controller) => controller.OpenPopUpByType(PopUpType.WordPractice))
                 .RegisterTo(destroyCancellationToken);
 
-            _progressRepository.ProgressHistory
-                .SubscribeAndRegister(this, static (progress, self) => self.UpdateProgressText(progress));
+            _progressRepository.ProgressHistory.SubscribeAndRegister(this, static self => self.UpdateProgressText());
+            _progressRepository.NewWordsDailyTarget.SubscribeAndRegister(this,
+                static self => self.UpdateWordsGoalText());
 
-            _progressRepository.NewWordsDailyTarget
-                .SubscribeAndRegister(this, static (wordsTarget, self) => self.UpdateWordsGoalText(wordsTarget));
+            LocalizationController.Language.SubscribeAndRegister(this, static self =>
+            {
+                self.UpdateProgressText();
+                self.UpdateWordsGoalText();
+            });
         }
 
-        private void UpdateProgressText(Dictionary<DateTime, DailyProgress> progress)
+        private void UpdateProgressText()
         {
+            var progress = _progressRepository.ProgressHistory.CurrentValue;
             var repeatableCount =
                 progress.TryGetValue(DateTime.Now, out var dailyProgress)
                     ? Mathf.Max(0, dailyProgress.GetProgressCountData(LearningState.Review))
@@ -58,8 +62,10 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours
                 repeatableCount);
         }
 
-        private void UpdateWordsGoalText(int wordsTarget)
+        private void UpdateWordsGoalText()
         {
+            var wordsTarget = _progressRepository.NewWordsDailyTarget;
+
             var localization =
                 _localizationKeysDatabase.GetLocalization(LocalizationType.LearnGoal);
 
