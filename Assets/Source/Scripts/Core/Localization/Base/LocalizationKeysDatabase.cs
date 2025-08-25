@@ -16,6 +16,10 @@ namespace Source.Scripts.Core.Localization.Base
 {
     internal sealed class LocalizationKeysDatabase : ScriptableObject, ILocalizationKeysDatabase
     {
+        [field: SerializeField]
+        public EnumArray<PracticeState, CompleteLocalizationData> LearningCompleteButtons { get; private set; } =
+            new(EnumMode.SkipFirst);
+
         [SerializeField] private EnumArray<LocalizationType, string> _localizationData = new(EnumMode.SkipFirst);
         [SerializeField] private EnumArray<LearningState, string> _progressLearningStates = new(EnumMode.SkipFirst);
         [SerializeField] private EnumArray<PluralForm, string> _learnedCounts = new(EnumMode.SkipFirst);
@@ -25,8 +29,10 @@ namespace Source.Scripts.Core.Localization.Base
         [SerializeField] private EnumArray<DateType, EnumArray<PluralForm, string>> _date
             = new(() => new EnumArray<PluralForm, string>(EnumMode.SkipFirst), EnumMode.SkipFirst);
 
-        [SerializeField] private EnumArray<PracticeState, EnumArray<CompleteType, string>> _learningCompletes =
-            new(() => new EnumArray<CompleteType, string>(EnumMode.SkipFirst), EnumMode.SkipFirst);
+        [SerializeField]
+        private EnumArray<PracticeState, EnumArray<CompleteType, string>> _learningCompleteDescriptions =
+            new(() => new EnumArray<CompleteType, string>(EnumMode.SkipFirst),
+                EnumMode.SkipFirst);
 
         [SerializeField] private EnumArray<WordReviewSourceType, string> _wordReviewSourceTypes
             = new(EnumMode.SkipFirst);
@@ -57,8 +63,10 @@ namespace Source.Scripts.Core.Localization.Base
             return LocalizationController.Localize(_learnedCounts[pluralForm]);
         }
 
-        public string GetCompletesLocalization(PracticeState practiceState, CompleteType completeType) =>
-            LocalizationController.Localize(_learningCompletes[practiceState][completeType]);
+        public string GetCompleteDescriptionLocalization(
+            PracticeState practiceState,
+            CompleteType completeType) =>
+            LocalizationController.Localize(_learningCompleteDescriptions[practiceState][completeType]);
 
         public string GetLocalizationByValue<TEnum>(TEnum enumValue)
             where TEnum : unmanaged, Enum

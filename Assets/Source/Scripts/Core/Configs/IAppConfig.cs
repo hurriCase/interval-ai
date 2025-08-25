@@ -18,5 +18,7 @@ namespace Source.Scripts.Core.Configs
         LearningState[] CooldownStates { get; }
         PracticeState OnboardingPracticeState { get; }
         LearningState LearningStateForDailyGoal { get; }
+
+        bool IsTargetLearningState(PracticeState practiceState, LearningState learningState);
     }
 }

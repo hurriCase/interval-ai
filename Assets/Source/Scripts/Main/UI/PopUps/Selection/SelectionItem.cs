@@ -43,7 +43,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
             where TEnum : unmanaged, Enum
         {
             if (_selectionNameText)
-                _selectionNameText.text = selectionService.SelectionKey.GetLocalization();
+                _selectionNameText.text = selectionService.GetSelectionTitle();
 
             UpdateText(selectionService.TargetProperty.CurrentValue);
         }

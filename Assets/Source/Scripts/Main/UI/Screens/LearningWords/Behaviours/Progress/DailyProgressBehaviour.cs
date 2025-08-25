@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.UI.CustomComponents;
+using Cysharp.Text;
 using R3;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Localization.LocalizationTypes;
@@ -50,14 +51,14 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.Progress
 
             var currentProgressPercent = Mathf.RoundToInt(currentProgressRatio * 100);
 
-            _currentProgressPercentText.text = $"{currentProgressPercent}%";
+            _currentProgressPercentText.SetTextFormat("{0}%", currentProgressPercent);
             _progressComponent.fillAmount = displayRatio;
 
             var (titleLocalization, progressLocalization, percent) =
                 GetRandomDescription(DetermineProgressType(learnedCount));
 
             _titleText.text = titleLocalization;
-            _progressDescriptionText.text = string.Format(progressLocalization, learnedCount, dailyGoal, percent);
+            _progressDescriptionText.SetTextFormat(progressLocalization, learnedCount, dailyGoal, percent);
         }
 
         private ProgressDescriptionType DetermineProgressType(int learnedWordCount)

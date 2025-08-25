@@ -14,21 +14,25 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
 
         private readonly ReactiveProperty<TEnum> _targetProperty;
         private readonly ILocalizationKeysDatabase _localizationKeysDatabase;
+        private readonly string _selectionTitleKey;
 
         internal EnumSelectionService(
             ILocalizationKeysDatabase localizationKeysDatabase,
             ReactiveProperty<TEnum> targetProperty,
-            string selectionKey,
+            string selectionTitleKey,
             TEnum[] customValues = null,
             EnumMode enumMode = EnumMode.SkipFirst)
-            : base(customValues ?? enumMode.GetEnumValues<TEnum>(), true, selectionKey)
+            : base(customValues ?? enumMode.GetEnumValues<TEnum>(), true)
         {
             _localizationKeysDatabase = localizationKeysDatabase;
             _targetProperty = targetProperty;
+            _selectionTitleKey = selectionTitleKey;
         }
 
         public override string GetSelectionName(TEnum value)
             => _localizationKeysDatabase.GetLocalizationByValue(value);
+
+        public override string GetSelectionTitle() => _selectionTitleKey.GetLocalization();
 
         public override void SetValue(TEnum value, bool isSelected)
         {

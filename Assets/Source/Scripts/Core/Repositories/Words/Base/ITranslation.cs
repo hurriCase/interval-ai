@@ -1,4 +1,4 @@
-﻿namespace Source.Scripts.Core.Repositories.Words.Word
+﻿namespace Source.Scripts.Core.Repositories.Words.Base
 {
     internal interface ITranslation
     {

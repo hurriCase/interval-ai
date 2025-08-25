@@ -47,7 +47,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1122175907150420463, guid: fc6884491410b73459021fb3fe22d414, type: 3}
       propertyPath: m_fontSize
-      value: 14.2
+      value: 15.05
       objectReference: {fileID: 0}
     - target: {fileID: 1305964301053101744, guid: fc6884491410b73459021fb3fe22d414, type: 3}
       propertyPath: m_Pivot.x
@@ -129,24 +129,88 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1999156307360248373, guid: fc6884491410b73459021fb3fe22d414, type: 3}
+      propertyPath: targetComponent
+      value: 
+      objectReference: {fileID: 2222781788427457319}
+    - target: {fileID: 2186502099493974068, guid: fc6884491410b73459021fb3fe22d414, type: 3}
+      propertyPath: targetComponent
+      value: 
+      objectReference: {fileID: 6262011240584976372}
     - target: {fileID: 5164801132258450748, guid: fc6884491410b73459021fb3fe22d414, type: 3}
       propertyPath: m_PixelsPerUnitMultiplier
       value: 6.1762056
       objectReference: {fileID: 0}
     - target: {fileID: 9217618319187572938, guid: fc6884491410b73459021fb3fe22d414, type: 3}
       propertyPath: m_Name
-      value: P_Button_Learn
+      value: P_Button_Positive
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4309087794738634603, guid: fc6884491410b73459021fb3fe22d414, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9217618319187572938, guid: fc6884491410b73459021fb3fe22d414, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5767547924714857477}
   m_SourcePrefab: {fileID: 100100000, guid: fc6884491410b73459021fb3fe22d414, type: 3}
 --- !u!224 &240268392819477624 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1305964301053101744, guid: fc6884491410b73459021fb3fe22d414, type: 3}
   m_PrefabInstance: {fileID: 1245858035278990024}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2222781788427457319 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1122175907150420463, guid: fc6884491410b73459021fb3fe22d414, type: 3}
+  m_PrefabInstance: {fileID: 1245858035278990024}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5906127983285717902 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4664855461259084102, guid: fc6884491410b73459021fb3fe22d414, type: 3}
+  m_PrefabInstance: {fileID: 1245858035278990024}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7971831273311187458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6262011240584976372 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5164801132258450748, guid: fc6884491410b73459021fb3fe22d414, type: 3}
+  m_PrefabInstance: {fileID: 1245858035278990024}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &7971831273311187458 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9217618319187572938, guid: fc6884491410b73459021fb3fe22d414, type: 3}
+  m_PrefabInstance: {fileID: 1245858035278990024}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5767547924714857477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7971831273311187458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 111acc062e79430ea7bc31cfa2731386, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.ButtonTextComponent
+  <Button>k__BackingField: {fileID: 5906127983285717902}
+  <Text>k__BackingField: {fileID: 2222781788427457319}
 --- !u!1001 &6451099340058296287
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -382,11 +446,26 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9109170191897869617, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+      propertyPath: targetComponent
+      value: 
+      objectReference: {fileID: 442860137391683555}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+--- !u!114 &442860137391683555 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7658068928977278699, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+  m_PrefabInstance: {fileID: 7810288416843424008}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &4980158373914952692 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
@@ -512,7 +591,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1148873379567902182, guid: 69fefda3488f889499563a6d98b0c8d3, type: 3}
       propertyPath: m_Name
-      value: P_Button_ComeBackLater
+      value: P_Button_Negative
       objectReference: {fileID: 0}
     - target: {fileID: 7063235048163402652, guid: 69fefda3488f889499563a6d98b0c8d3, type: 3}
       propertyPath: m_Pivot.x
@@ -601,13 +680,57 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1148873379567902182, guid: 69fefda3488f889499563a6d98b0c8d3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2029861616514528636}
   m_SourcePrefab: {fileID: 100100000, guid: 69fefda3488f889499563a6d98b0c8d3, type: 3}
+--- !u!114 &1442803033970934922 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7137501905526464784, guid: 69fefda3488f889499563a6d98b0c8d3, type: 3}
+  m_PrefabInstance: {fileID: 8577208422140061082}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1517144932475454982 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7063235048163402652, guid: 69fefda3488f889499563a6d98b0c8d3, type: 3}
   m_PrefabInstance: {fileID: 8577208422140061082}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5165252226125709808 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3505757734737896554, guid: 69fefda3488f889499563a6d98b0c8d3, type: 3}
+  m_PrefabInstance: {fileID: 8577208422140061082}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8717213911451547772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &8717213911451547772 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1148873379567902182, guid: 69fefda3488f889499563a6d98b0c8d3, type: 3}
+  m_PrefabInstance: {fileID: 8577208422140061082}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2029861616514528636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8717213911451547772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 111acc062e79430ea7bc31cfa2731386, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.ButtonTextComponent
+  <Button>k__BackingField: {fileID: 5165252226125709808}
+  <Text>k__BackingField: {fileID: 1442803033970934922}
 --- !u!1001 &9072490617654942015
 PrefabInstance:
   m_ObjectHideFlags: 0

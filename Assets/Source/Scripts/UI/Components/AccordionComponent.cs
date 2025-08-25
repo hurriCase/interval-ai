@@ -4,7 +4,6 @@ using CustomUtils.Runtime.CustomBehaviours;
 using CustomUtils.Runtime.Extensions;
 using PrimeTween;
 using R3;
-using R3.Triggers;
 using UnityEngine;
 using UnityEngine.UI;
 

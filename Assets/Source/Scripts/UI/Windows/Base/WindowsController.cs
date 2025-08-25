@@ -181,7 +181,7 @@ namespace Source.Scripts.UI.Windows.Base
 
             _currentOpenedPopUp = previousPopUp;
             if (needShow)
-                previousPopUp.ShowAsync();
+                previousPopUp.ShowAsync().Forget();
         }
     }
 }

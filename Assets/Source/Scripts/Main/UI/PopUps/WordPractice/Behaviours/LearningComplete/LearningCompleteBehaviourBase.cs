@@ -1,9 +1,8 @@
 ﻿using System;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Localization;
 using Cysharp.Text;
-using R3;
-using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Words.Base;
@@ -20,25 +19,20 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
 {
     internal abstract class LearningCompleteBehaviourBase : MonoBehaviour
     {
-        [SerializeField] private GameObject _buttonsContainer;
-        [SerializeField] private ButtonComponent _learnNewWordsButton;
+        [SerializeField] protected GameObject buttonsContainer;
+        [SerializeField] protected ButtonTextComponent positiveButton;
+        [SerializeField] protected ButtonTextComponent negativeButton;
 
         [SerializeField] private TextMeshProUGUI _completeText;
         [SerializeField] private GameObject _noWordsImage;
         [SerializeField] private GameObject _completeImage;
 
-        [SerializeField] private GameObject _addNewWordsContainer;
-        [SerializeField] private ButtonComponent _exitButton;
-        [SerializeField] private ButtonComponent _learnButton;
-
         [SerializeField] private PlusMinusBehaviour _plusMinusBehaviour;
 
         [Inject] protected IWindowsController windowsController;
         [Inject] protected IPracticeStateService practiceStateService;
-
-        [Inject] private IWordsRepository _wordsRepository;
-        [Inject] private IAppConfig _appConfig;
-        [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
+        [Inject] protected ILocalizationKeysDatabase localizationKeysDatabase;
+        [Inject] protected IWordsRepository wordsRepository;
 
         private PracticeState _currentPracticeState;
 
@@ -48,27 +42,33 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
 
             _plusMinusBehaviour.Init();
 
-            _learnNewWordsButton.OnClickAsObservable().SubscribeAndRegister(this, self => self.ShowAddNewWords());
-
-            _learnButton.OnClickAsObservable()
-                .Subscribe(practiceStateService, static (_, service) => service.SetState(PracticeState.NewWords))
-                .RegisterTo(destroyCancellationToken);
-
-            _exitButton.OnClickAsObservable()
-                .Subscribe(windowsController,
-                    static (_, controller) => controller.OpenScreenByType(ScreenType.LearningWords))
-                .RegisterTo(destroyCancellationToken);
-
-            _wordsRepository.CurrentWordsByState
+            wordsRepository.CurrentWordsByState
                 .SubscribeAndRegister(this, (currentWords, self) => self.CheckCompleteness(currentWords));
+
+            LocalizationController.Language.SubscribeAndRegister(this, static self => self.UpdateButtonTexts());
 
             OnInit();
         }
 
-        private void ShowAddNewWords()
+        protected abstract void OnInit();
+
+        protected void SetState(CompleteType completeType, string additionalInfo = null)
         {
-            _buttonsContainer.SetActive(false);
-            _addNewWordsContainer.SetActive(true);
+            var localization = localizationKeysDatabase
+                .GetCompleteDescriptionLocalization(_currentPracticeState, completeType);
+
+            _completeText.SetTextFormat(localization, additionalInfo);
+
+            _noWordsImage.SetActive(completeType == CompleteType.NoWords);
+            _completeImage.SetActive(completeType == CompleteType.Complete);
+        }
+
+        private void UpdateButtonTexts()
+        {
+            var localizationByValue = localizationKeysDatabase.LearningCompleteButtons[_currentPracticeState];
+
+            positiveButton.Text.text = localizationByValue.ButtonPositive.GetLocalization();
+            negativeButton.Text.text = localizationByValue.ButtonNegative.GetLocalization();
         }
 
         private void CheckCompleteness(EnumArray<PracticeState, WordEntry> currentWords)
@@ -79,16 +79,5 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
             else if (currentWord.Cooldown > DateTime.Now)
                 SetState(CompleteType.Complete);
         }
-
-        protected void SetState(CompleteType completeType, string newWordCount = null)
-        {
-            var localization = _localizationKeysDatabase.GetCompletesLocalization(_currentPracticeState, completeType);
-            _completeText.SetTextFormat(localization, newWordCount);
-
-            _noWordsImage.SetActive(completeType == CompleteType.NoWords);
-            _completeImage.SetActive(completeType == CompleteType.Complete);
-        }
-
-        protected abstract void OnInit();
     }
 }

@@ -1,4 +1,4 @@
-﻿using Source.Scripts.Core.Repositories.Words.Word;
+﻿using Source.Scripts.Core.Repositories.Words.Base;
 
 namespace Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours.AdditionalItems
 {

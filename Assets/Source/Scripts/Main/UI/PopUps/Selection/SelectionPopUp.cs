@@ -1,6 +1,4 @@
-﻿using CustomUtils.Runtime.Extensions;
-using CustomUtils.Runtime.Localization;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using PrimeTween;
 using R3;
 using Source.Scripts.Core.Localization.Base;
@@ -39,10 +37,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
         {
             _disposableBag.Clear();
 
-            LocalizationController.Language
-                .Subscribe((self: this, service), static (_, tuple)
-                    => tuple.self._selectionNameText.text = tuple.service.SelectionKey.GetLocalization())
-                .AddTo(ref _disposableBag);
+            _selectionNameText.text = service.GetSelectionTitle();
 
             CreateSelections(service);
         }
@@ -91,14 +86,13 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
 
         internal override async UniTask HideAsync()
         {
-            var tween = AnimatePivotAsync(1f);
-            await tween.OnComplete(this, self => self.HideBase());
+            await AnimatePivotAsync(1f);
+
+            base.HideAsync().Forget();
         }
 
         private Tween AnimatePivotAsync(float endValue)
             => Tween.UIPivotY(_selectionsContainer, endValue, _selectionAnimationDuration);
-
-        private void HideBase() => base.HideAsync().Forget();
 
         private void OnDestroy()
         {

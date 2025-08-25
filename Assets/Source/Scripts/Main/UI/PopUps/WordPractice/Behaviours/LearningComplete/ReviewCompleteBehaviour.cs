@@ -11,22 +11,44 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
 {
     internal sealed class ReviewCompleteBehaviour : LearningCompleteBehaviourBase
     {
-        [SerializeField] private ButtonComponent _returnLateButton;
+        [SerializeField] private GameObject _addNewWordsContainer;
+        [SerializeField] private ButtonComponent _exitButton;
+        [SerializeField] private ButtonComponent _learnButton;
 
         [Inject] private IWordsTimerService _wordsTimerService;
 
         protected override void OnInit()
         {
+            positiveButton.Button.OnClickAsObservable()
+                .SubscribeAndRegister(this, self => self.SetActiveNewWords(true));
+
+            _learnButton.OnClickAsObservable().SubscribeAndRegister(this, static self => self.AddNewWords());
+
             _wordsTimerService.OnAvailabilityTimeUpdate
                 .Where(cooldownByLearningState => cooldownByLearningState.PracticeState == PracticeState.Review)
-                .SubscribeAndRegister(this,
-                    static (cooldowns, self) =>
-                        self.SetState(CompleteType.Complete, cooldowns.CurrentTime.ToShortTimeString()));
+                .SubscribeAndRegister(this, static (cooldowns, self) =>
+                    self.SetState(CompleteType.Complete, cooldowns.CurrentTime.ToShortTimeString()));
 
-            _returnLateButton.OnClickAsObservable()
-                .Subscribe(windowsController,
-                    static (_, controller) => controller.OpenScreenByType(ScreenType.LearningWords))
-                .RegisterTo(destroyCancellationToken);
+            _exitButton.OnClickAsObservable().SubscribeAndRegister(this, self => self.OpenLearnWords());
+            negativeButton.Button.OnClickAsObservable().SubscribeAndRegister(this, self => self.OpenLearnWords());
+        }
+
+        private void AddNewWords()
+        {
+            practiceStateService.SetState(PracticeState.NewWords);
+
+            SetActiveNewWords(false);
+        }
+
+        private void OpenLearnWords()
+        {
+            windowsController.OpenScreenByType(ScreenType.LearningWords);
+        }
+
+        private void SetActiveNewWords(bool isActive)
+        {
+            buttonsContainer.SetActive(isActive is false);
+            _addNewWordsContainer.SetActive(isActive);
         }
     }
 }

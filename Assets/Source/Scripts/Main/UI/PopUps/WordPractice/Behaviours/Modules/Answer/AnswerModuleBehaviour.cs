@@ -22,7 +22,12 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Answer
         {
             base.Init(cardBehaviour);
 
-            _examplesPool = new UIPool<ExampleItem>(_exampleItem, _exampleContainer, _spacing, _exampleSpacingRatio);
+            _examplesPool = new UIPool<ExampleItem>(
+                _exampleItem,
+                _exampleContainer,
+                _spacing,
+                _exampleSpacingRatio,
+                AspectRatioFitter.AspectMode.WidthControlsHeight);
         }
 
         protected override void UpdateView()

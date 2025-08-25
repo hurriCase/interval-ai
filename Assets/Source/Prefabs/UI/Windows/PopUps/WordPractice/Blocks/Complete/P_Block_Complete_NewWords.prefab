@@ -131,6 +131,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11670955674971984, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
+      propertyPath: targetComponent
+      value: 
+      objectReference: {fileID: 7832702360262487620}
     - target: {fileID: 240268392819477624, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
@@ -139,6 +143,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_Block_Complete_NewWords
       objectReference: {fileID: 0}
+    - target: {fileID: 789329886642616573, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
+      propertyPath: targetComponent
+      value: 
+      objectReference: {fileID: 7380956383381010921}
+    - target: {fileID: 1085975932808018684, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
+      propertyPath: targetComponent
+      value: 
+      objectReference: {fileID: 3337632351548915002}
+    - target: {fileID: 1299835954158820409, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
+      propertyPath: targetComponent
+      value: 
+      objectReference: {fileID: 9120877804082683181}
     - target: {fileID: 1442803033970934922, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
       propertyPath: m_text
       value: Repeat words
@@ -149,7 +165,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2222781788427457319, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
       propertyPath: m_text
-      value: Add more words
+      value: Text
+      objectReference: {fileID: 0}
+    - target: {fileID: 2222781788427457319, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
+      propertyPath: m_fontSize
+      value: 15.05
       objectReference: {fileID: 0}
     - target: {fileID: 2331716962169405966, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
       propertyPath: <LocalizationKey>k__BackingField
@@ -253,7 +273,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8717213911451547772, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
       propertyPath: m_Name
-      value: P_Button_RepeatWords
+      value: P_Button_Negative
       objectReference: {fileID: 0}
     - target: {fileID: 8954716266699401336, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
       propertyPath: m_Name
@@ -263,7 +283,8 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3064376069051176355, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 7690721365267896804, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
@@ -284,37 +305,26 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7690721365267896804, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
   m_PrefabInstance: {fileID: 8698285943993313998}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2747507028227053300 stripped
+--- !u!114 &2935492347067436747 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6816092409175374906, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5767547924714857477, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
   m_PrefabInstance: {fileID: 8698285943993313998}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
+  m_Script: {fileID: 11500000, guid: 111acc062e79430ea7bc31cfa2731386, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2972460282775068992 stripped
+  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.ButtonTextComponent
+--- !u!114 &3337632351548915002 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5906127983285717902, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
+  m_CorrespondingSourceObject: {fileID: 6262011240584976372, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
   m_PrefabInstance: {fileID: 8698285943993313998}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4100393170113007958 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4634486754504129432, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
-  m_PrefabInstance: {fileID: 8698285943993313998}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &4178587806019968329 stripped
@@ -328,22 +338,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33ed2775d8fe4f5bbe7dd217ab90f3eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.Shared.PlusMinusBehaviour
---- !u!114 &4546433797787904830 stripped
+--- !u!114 &7249951635318955954 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5165252226125709808, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2029861616514528636, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
   m_PrefabInstance: {fileID: 8698285943993313998}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
+  m_Script: {fileID: 11500000, guid: 111acc062e79430ea7bc31cfa2731386, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &6283015738501074695 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3424782446924998089, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
+  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.ButtonTextComponent
+--- !u!114 &7380956383381010921 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2222781788427457319, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
   m_PrefabInstance: {fileID: 8698285943993313998}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7832702360262487620 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1442803033970934922, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
+  m_PrefabInstance: {fileID: 8698285943993313998}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7941175261984683566 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1621924960916856032, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
@@ -377,13 +404,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b30de183fad849b9bd84e615e94f6fa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Cards.LearningComplete.NewWordsCompleteBehaviour
-  _buttonsContainer: {fileID: 7941175261984683566}
-  _learnNewWordsButton: {fileID: 2972460282775068992}
+  buttonsContainer: {fileID: 7941175261984683566}
+  positiveButton: {fileID: 2935492347067436747}
+  negativeButton: {fileID: 7249951635318955954}
   _completeText: {fileID: 9120877804082683181}
   _noWordsImage: {fileID: 3705092784030298794}
   _completeImage: {fileID: 356646366664524470}
-  _addNewWordsContainer: {fileID: 6283015738501074695}
-  _exitButton: {fileID: 4100393170113007958}
-  _learnButton: {fileID: 2747507028227053300}
   _plusMinusBehaviour: {fileID: 4178587806019968329}
-  _repeatWordsButton: {fileID: 4546433797787904830}

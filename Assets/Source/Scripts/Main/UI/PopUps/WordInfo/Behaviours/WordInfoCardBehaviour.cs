@@ -4,9 +4,11 @@ using CustomUtils.Runtime.Extensions;
 using Cysharp.Text;
 using R3;
 using Source.Scripts.Core.Localization.Base;
+using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
+using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.PopUps.Selection;
@@ -48,7 +50,11 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours
         {
             _wordProgressBehaviour.Init();
 
-            _categorySelectionService = new CategorySelectionService(_categoryLocalizationKey);
+            var localization = _localizationKeysDatabase.GetLocalization(LocalizationType.CategorySelectionName);
+            _categorySelectionService = new CategorySelectionService(localization);
+
+            _categorySelectionService.SelectedValues.SubscribeAndRegister(this,
+                static (selectedValues, self) => self.SetCategories(selectedValues));
 
             _addToCategoryButton.OnClickAsObservable()
                 .SubscribeAndRegister(this, static self => self.OpenCategorySelection());
@@ -63,13 +69,13 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours
             var selectionPopUp = _windowsController.OpenPopUp<SelectionPopUp>();
             selectionPopUp.SetParameters(_categorySelectionService);
 
-            _categorySelectionService.SelectedValues.SubscribeAndRegister(this,
-                static (selectedValues, self) => self.SetCategories(selectedValues));
+
         }
 
         private void SetCategories(List<int> selectedValues)
         {
-            _wordStateMutator.SetCategories(_currentWordEntry, selectedValues);
+            if (_currentWordEntry != null)
+                _wordStateMutator.SetCategories(_currentWordEntry, selectedValues);
         }
 
         internal void UpdateView(WordEntry wordEntry)

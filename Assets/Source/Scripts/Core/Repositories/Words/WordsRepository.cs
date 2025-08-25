@@ -109,6 +109,17 @@ namespace Source.Scripts.Core.Repositories.Words
             _wordEntries.SaveAsync();
         }
 
+        public void OnWordStateChanged(WordEntry word, LearningState oldState, LearningState newState)
+        {
+            _sortedWordsByState.Value[oldState].Remove(word);
+            _sortedWordsByState.Value[newState].Add(word);
+
+            UpdateCurrentWords();
+        }
+
+        public bool HasWordByState(PracticeState practiceState)
+            => CurrentWordsByState.CurrentValue[practiceState] != null;
+
         private void SetSortedWords()
         {
             foreach (var word in _wordEntries.Value.Values)

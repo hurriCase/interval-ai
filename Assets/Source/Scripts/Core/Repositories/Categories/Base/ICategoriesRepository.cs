@@ -12,5 +12,8 @@ namespace Source.Scripts.Core.Repositories.Categories.Base
         CategoryEntry CreateCategory(string name);
         void RemoveCategory(CategoryEntry categoryEntry);
         string GetCategoryName(int categoryId);
+        bool TrySelectRandomCategory();
+        Dictionary<int, CategoryEntry> GetUnselectedCategories();
+        void SetSelectedCategories(List<int> categoryIds);
     }
 }

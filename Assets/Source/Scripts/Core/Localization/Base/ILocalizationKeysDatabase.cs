@@ -1,4 +1,5 @@
 ﻿using System;
+using CustomUtils.Runtime.CustomTypes.Collections;
 using JetBrains.Annotations;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Localization.LocalizationTypes.Date;
@@ -9,11 +10,13 @@ namespace Source.Scripts.Core.Localization.Base
 {
     internal interface ILocalizationKeysDatabase
     {
+        EnumArray<PracticeState, CompleteLocalizationData> LearningCompleteButtons { get; }
+
         [MustUseReturnValue]
         string GetLocalization(LocalizationType type);
 
         [MustUseReturnValue]
-        string GetCompletesLocalization(PracticeState practiceState, CompleteType completeType);
+        string GetCompleteDescriptionLocalization(PracticeState practiceState, CompleteType completeType);
 
         [MustUseReturnValue]
         string GetLearningStateLocalization(LearningState state);

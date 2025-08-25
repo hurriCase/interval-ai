@@ -31,6 +31,8 @@ namespace Source.Scripts.Core.Repositories.Words.Word
 
             public void AdvanceLearningState(WordEntry word, bool success)
             {
+                var oldState = word.LearningState;
+
                 if (success)
                     IncrementProgress(word, TrackConditionType.OnEnter);
 
@@ -42,6 +44,9 @@ namespace Source.Scripts.Core.Repositories.Words.Word
                     : _appConfig.FailureTransitionMap;
 
                 word.LearningState = transitionMap[word.LearningState];
+
+                if (oldState != word.LearningState)
+                    _wordsRepository.OnWordStateChanged(word, oldState, word.LearningState);
 
                 if (!success)
                     return;
