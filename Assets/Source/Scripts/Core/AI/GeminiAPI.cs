@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CustomUtils.Runtime.CustomTypes.Singletons;
 using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Storage;
+using Cysharp.Text;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -77,19 +78,25 @@ namespace Source.Scripts.Core.AI
                 if (request.result == UnityWebRequest.Result.Success)
                     return request.downloadHandler.text;
 
-                Debug.LogError($"[GeminiAPI::SendRequestAsync] Request failed: {request.error}" +
-                               $"Response Code: {request.responseCode}" +
-                               $"Response Headers: {request.GetResponseHeaders()}" +
-                               $"Response Body: {request.downloadHandler?.text}" +
-                               $"With Json Data: {jsonData}");
+                var message = ZString.Format("[GeminiAPI::SendRequestAsync] " +
+                                             "Request failed: {0} " +
+                                             "Response Code: {1}" +
+                                             "Response Headers: {2} " +
+                                             "Response Body: {3} With Json Data: {4}",
+                    request.responseCode, request.GetResponseHeaders(), request.downloadHandler?.text, jsonData);
+
+                Debug.LogError(message);
                 return null;
             }
             catch (Exception e)
             {
-                Debug.LogError($"[GeminiAPI::SendRequestAsync] Request failed with exception: {e}" +
-                               $"Stack trace: {e.StackTrace}" +
-                               $"Request failed: {e.Message}" +
-                               $"With Json Data: {jsonData}");
+                var message = ZString.Format("[GeminiAPI::SendRequestAsync] Request failed with exception: {0}" +
+                                             "Stack trace: {1}" +
+                                             "Request failed: {2}" +
+                                             "With Json Data: {3}",
+                    e, e.StackTrace, e.Message, jsonData);
+
+                Debug.LogError(message);
                 return null;
             }
         }
@@ -148,7 +155,7 @@ namespace Source.Scripts.Core.AI
 
         internal Content(Role role, string text)
         {
-            Role = role.GetJsonPropertyName();
+            Role = typeof(Role).GetJsonPropertyName();
             Parts = new[] { new Part(text) };
         }
     }

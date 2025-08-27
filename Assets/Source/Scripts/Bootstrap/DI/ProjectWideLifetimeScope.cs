@@ -18,7 +18,6 @@ using Source.Scripts.Core.Repositories.Settings.Repositories;
 using Source.Scripts.Core.Repositories.Statistics;
 using Source.Scripts.Core.Repositories.User;
 using Source.Scripts.Core.Repositories.Words;
-using Source.Scripts.Core.Repositories.Words.Advance;
 using Source.Scripts.Core.Repositories.Words.Word;
 using UnityEngine;
 using VContainer;
@@ -111,7 +110,7 @@ namespace Source.Scripts.Bootstrap.DI
             builder.Register<IdHandler<CategoryEntry>>(Lifetime.Singleton).As<IIdHandler<CategoryEntry>>();
             builder.Register<CategoriesRepository>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<CategoryEntry.CategoryStateMutator>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.RegisterComponent(_defaultCategoriesDatabase)
+            builder.RegisterInstance(_defaultCategoriesDatabase)
                 .As<DefaultCategoriesDatabase>()
                 .AsImplementedInterfaces();
         }
@@ -121,10 +120,7 @@ namespace Source.Scripts.Bootstrap.DI
             builder.Register<IdHandler<WordEntry>>(Lifetime.Singleton).As<IIdHandler<WordEntry>>();
             builder.Register<WordsRepository>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<WordEntry.WordStateMutator>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<WordsTimerService>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<WordAdvanceService>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<CurrentWordsService>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.RegisterComponent(_defaultWordsDatabase)
+            builder.RegisterInstance(_defaultWordsDatabase)
                 .As<DefaultWordsDatabase>()
                 .AsImplementedInterfaces();
         }

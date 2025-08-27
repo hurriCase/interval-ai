@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using CustomUtils.Runtime.Extensions;
 using Source.Scripts.Core.Repositories.Settings.Base;
+using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.Shared;
 using UnityEngine;
@@ -16,6 +17,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
         [SerializeField] private float _thicknessRatio;
 
         [Inject] private IPracticeSettingsRepository _practiceSettingsRepository;
+        [Inject] private ICurrentWordsService _currentWordsService;
 
         private const int Circumference = 360;
 

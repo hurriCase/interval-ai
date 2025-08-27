@@ -16,7 +16,6 @@ namespace Source.Scripts.Core.Configs
         EnumArray<PracticeState, ModuleType> PracticeToModuleType { get; }
         EnumArray<LanguageType, SystemLanguage[]> SupportedLanguages { get; }
         LearningState[] CooldownStates { get; }
-        PracticeState OnboardingPracticeState { get; }
         LearningState LearningStateForDailyGoal { get; }
 
         bool IsTargetLearningState(PracticeState practiceState, LearningState learningState);

@@ -13,7 +13,13 @@ namespace Source.Scripts.Core.Repositories.Base.DefaultConfig
     {
         [SerializeField] private AssetReferenceT<TextAsset> _defaultAssetRereference;
 
-        [Inject] private IAddressablesLoader _addressablesLoader;
+        private IAddressablesLoader _addressablesLoader;
+
+        [Inject]
+        internal void Inject(IAddressablesLoader addressablesLoader)
+        {
+            _addressablesLoader = addressablesLoader;
+        }
 
         public List<TEntry> Defaults { get; private set; }
 

@@ -38,7 +38,6 @@ namespace Source.Scripts.Core.Configs
             new(EnumMode.SkipFirst);
 
         [field: SerializeField] public LearningState[] CooldownStates { get; private set; }
-        [field: SerializeField] public PracticeState OnboardingPracticeState { get; private set; }
         [field: SerializeField] public LearningState LearningStateForDailyGoal { get; private set; }
 
         public bool IsTargetLearningState(PracticeState practiceState, LearningState learningState) =>

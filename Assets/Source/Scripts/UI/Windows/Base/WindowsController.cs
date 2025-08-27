@@ -4,6 +4,7 @@ using System.Threading;
 using CustomUtils.Runtime.AddressableSystem;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions;
+using Cysharp.Text;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -105,7 +106,11 @@ namespace Source.Scripts.UI.Windows.Base
             var screenBase = _createdScreens[screenType];
 
             if (!screenBase)
-                Debug.LogError($"[WindowsController::OpenScreenByType] There is no screen with type '{screenType}'");
+            {
+                var message = ZString.Format("[WindowsController::OpenScreenByType] There is no screen with type: {0}",
+                    screenType);
+                Debug.LogError(message);
+            }
 
             if (_currentScreen)
                 _currentScreen.HideAsync();
@@ -120,7 +125,9 @@ namespace Source.Scripts.UI.Windows.Base
 
             if (!popUpBase)
             {
-                Debug.LogError($"[WindowsController::OpenPopUpByType] There is no pop up with type '{popUpType}'");
+                var message = ZString.Format("[WindowsController::OpenPopUpByType] There is no pop up with type: {0}",
+                    popUpType);
+                Debug.LogError(message);
                 return;
             }
 
@@ -138,7 +145,9 @@ namespace Source.Scripts.UI.Windows.Base
                 return popUpBase as TPopUpType;
             }
 
-            Debug.LogError($"[WindowsController::OpenPopUpByType] There is no pop up with type '{typeof(TPopUpType)}'");
+            var message = ZString.Format("[WindowsController::OpenPopUp] There is no pop up with type: {0}",
+                typeof(TPopUpType));
+            Debug.LogError(message);
             return null;
         }
 

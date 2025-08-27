@@ -48,9 +48,14 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
             SubscribeAdvanceButton(_forgotButton, false);
         }
 
+        internal void SetPracticeState(PracticeState practiceState)
+        {
+            _currentPracticeState = practiceState;
+        }
+
         private void UpdateView()
         {
-            var isFirstShow = CurrentWord.LearningState == LearningState.Default;
+            var isFirstShow = CurrentWord.LearningState.IsFirstShown(_currentPracticeState);
 
             _firstShowContainer.SetActive(isFirstShow);
             _otherShowContainer.SetActive(isFirstShow is false);

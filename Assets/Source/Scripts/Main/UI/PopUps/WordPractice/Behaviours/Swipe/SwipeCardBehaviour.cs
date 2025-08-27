@@ -193,11 +193,15 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
             switch (_currentSwipeDirection)
             {
                 case SwipeDirection.Left:
-                    _wordAdvanceService.AdvanceWord(CurrentWord, CurrentWord.LearningState == LearningState.Default);
+                    _wordAdvanceService.AdvanceWord(
+                        CurrentWord,
+                        CurrentWord.LearningState.IsFirstShown(_currentPracticeState));
                     break;
 
                 case SwipeDirection.Right:
-                    _wordAdvanceService.AdvanceWord(CurrentWord, CurrentWord.LearningState != LearningState.Default);
+                    _wordAdvanceService.AdvanceWord(
+                        CurrentWord,
+                        CurrentWord.LearningState.IsFirstShown(_currentPracticeState) is false);
                     break;
 
                 default:

@@ -8,7 +8,7 @@ using Source.Scripts.Core.Repositories.Words.Word;
 
 namespace Source.Scripts.Core.Repositories.Words
 {
-    internal sealed class CurrentWordsService : ICurrentWordsService, IDisposable
+    internal sealed class MainCurrentWordsService : ICurrentWordsService, IDisposable
     {
         public ReadOnlyReactiveProperty<EnumArray<PracticeState, WordEntry>> CurrentWordsByState =>
             _currentWordsByState;
@@ -19,7 +19,7 @@ namespace Source.Scripts.Core.Repositories.Words
         private readonly IWordsRepository _wordsRepository;
         private readonly IAppConfig _appConfig;
 
-        internal CurrentWordsService(IWordsRepository wordsRepository, IAppConfig appConfig)
+        internal MainCurrentWordsService(IWordsRepository wordsRepository, IAppConfig appConfig)
         {
             _wordsRepository = wordsRepository;
             _appConfig = appConfig;

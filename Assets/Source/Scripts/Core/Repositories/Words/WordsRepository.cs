@@ -31,9 +31,7 @@ namespace Source.Scripts.Core.Repositories.Words
 
         private DisposableBag _disposable;
 
-        internal WordsRepository(
-            DefaultWordsDatabase defaultWordsDatabase,
-            IIdHandler<WordEntry> idHandler)
+        internal WordsRepository(DefaultWordsDatabase defaultWordsDatabase, IIdHandler<WordEntry> idHandler)
         {
             _defaultWordsDatabase = defaultWordsDatabase;
             _idHandler = idHandler;

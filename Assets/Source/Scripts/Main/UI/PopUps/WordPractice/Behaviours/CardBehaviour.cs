@@ -15,7 +15,6 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
     internal sealed class CardBehaviour : MonoBehaviour
     {
         [SerializeField] private EnumArray<ModuleType, PracticeModuleBase> _practiceModules = new(EnumMode.SkipFirst);
-
         [SerializeField] private WordProgressBehaviour _wordProgressBehaviour;
 
         [Inject] private ICurrentWordsService _currentWordsService;
@@ -37,7 +36,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
                 .Select(practiceState, (currentWordsByState, state) => currentWordsByState[state])
                 .Where(currentWord => currentWord != null)
                 .Subscribe(_wordProgressBehaviour,
-                    static (currentWord, behaviour) => behaviour.UpdateProgress(currentWord))
+                    static (currentWord, wordProgress) => wordProgress.UpdateProgress(currentWord))
                 .RegisterTo(destroyCancellationToken);
 
             foreach (var module in _practiceModules)
@@ -48,8 +47,6 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
                 .SubscribeAndRegister(this, self => self.HandleNewWord());
 
             SwitchModuleCommand.SubscribeAndRegister(this, (moduleType, self) => self.SwitchModule(moduleType));
-
-            HandleNewWord();
         }
 
         private void HandleNewWord()

@@ -3,9 +3,8 @@ using CustomUtils.Runtime.Extensions;
 using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Repositories.Settings.Base;
-using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours;
-using Source.Scripts.Onboarding.Data;
+using Source.Scripts.Onboarding.Data.Config;
 using Source.Scripts.Onboarding.UI.OnboardingPractice.Steps.Base;
 using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base;
@@ -28,8 +27,6 @@ namespace Source.Scripts.Onboarding.UI.OnboardingPractice
 
         [Inject] private ILanguageSettingsRepository _languageSettingsRepository;
         [Inject] private IOnboardingConfig _onboardingConfig;
-        [Inject] private IWordsRepository _wordsRepository;
-        [Inject] private IAppConfig _appConfig;
 
         private ButtonComponent _continueButton;
         private GameObject _placeholderObject;
@@ -47,17 +44,9 @@ namespace Source.Scripts.Onboarding.UI.OnboardingPractice
 
         internal override void Init()
         {
-            var practiceState = _appConfig.OnboardingPracticeState;
-
-            // var onboardingWord = _onboardingConfig.OnboardingWord.CreateWord(
-            //     GetLanguageByType(LanguageType.Native),
-            //     GetLanguageByType(LanguageType.Learning));
-
-            //_wordsRepository.SetCurrentWord(practiceState, onboardingWord);
+            var practiceState = _onboardingConfig.OnboardingPracticeState;
 
             _cardBehaviour.Init(practiceState);
-
-            _wordProgressBehaviour.Init();
             _controlButtonsBehaviour.Init(practiceState);
 
             foreach (var wordPracticeStepData in _practiceSteps)
@@ -66,9 +55,6 @@ namespace Source.Scripts.Onboarding.UI.OnboardingPractice
                 wordPracticeStepData.SwitchObservable.SubscribeAndRegister(this, static self => self.SwitchStep());
             }
         }
-
-        private SystemLanguage GetLanguageByType(LanguageType languageType)
-            => _languageSettingsRepository.LanguageByType.CurrentValue[languageType];
 
         private void SwitchStep()
         {
