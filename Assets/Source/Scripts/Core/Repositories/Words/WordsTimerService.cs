@@ -13,67 +13,55 @@ namespace Source.Scripts.Core.Repositories.Words
 {
     internal sealed class WordsTimerService : IWordsTimerService, IDisposable
     {
-        public Observable<CooldownByPracticeState> OnAvailabilityTimeUpdate => _availabilityTimeSubject.AsObservable();
+        public Observable<DateTime> OnAvailabilityTimeUpdate => _availabilityTimeSubject.AsObservable();
 
-        private readonly Subject<CooldownByPracticeState> _availabilityTimeSubject = new();
-        private EnumArray<PracticeState, AdaptiveTimer?> _stateTimers = new(EnumMode.SkipFirst);
+        private readonly Subject<DateTime> _availabilityTimeSubject = new();
+        private AdaptiveTimer? _stateTimers;
 
         private readonly ICurrentWordsService _currentWordsService;
-        private readonly IAppConfig _appConfig;
 
         private readonly IDisposable _disposable;
 
-        internal WordsTimerService(ICurrentWordsService currentWordsService, IAppConfig appConfig)
+        internal WordsTimerService(ICurrentWordsService currentWordsService)
         {
             _currentWordsService = currentWordsService;
-            _appConfig = appConfig;
 
             _disposable = _currentWordsService.CurrentWordsByState
-                .Subscribe(this, (_, self) => self.UpdateTimers());
+                .Subscribe(this, (_, self) => self.UpdateTimer());
         }
 
-        public void UpdateTimers()
+        public void UpdateTimer()
         {
-            foreach (var (practiceState, currentWord) in _currentWordsService.CurrentWordsByState.CurrentValue.AsTuples())
-                UpdateTimerForPractice(practiceState, currentWord);
-        }
+            var currentWord = _currentWordsService.CurrentWordsByState.CurrentValue[PracticeState.Review];
 
-        private void UpdateTimerForPractice(PracticeState practiceState, [CanBeNull] WordEntry currentWord)
-        {
-            if (currentWord is null
-                || _appConfig.CooldownStates.AsValueEnumerable().Contains(currentWord.LearningState) is false)
+            if (currentWord is null || currentWord.LearningState != LearningState.Review)
             {
-                DisposeTimer(practiceState);
+                DisposeTimer();
                 return;
             }
 
-            if (_stateTimers[practiceState].HasValue)
+            if (_stateTimers.HasValue)
             {
-                _stateTimers[practiceState].Value.UpdateTargetTime(currentWord.Cooldown);
+                _stateTimers.Value.UpdateTargetTime(currentWord.Cooldown);
                 return;
             }
 
-            _stateTimers[practiceState] = new AdaptiveTimer(currentWord.Cooldown);
+            _stateTimers = new AdaptiveTimer(currentWord.Cooldown);
 
-            _stateTimers[practiceState].Value.TimeUpdates
-                .Subscribe((self: this, practiceState),
-                    static (currentTime, tuple) => tuple.self._availabilityTimeSubject
-                        .OnNext(new CooldownByPracticeState(tuple.practiceState, currentTime)),
-                    static (_, tuple)
-                        => tuple.self._currentWordsService.UpdateCurrentWords());
+            _stateTimers.Value.TimeUpdates.Subscribe(this,
+                static (currentTime, self) => self._availabilityTimeSubject.OnNext(currentTime),
+                static (_, self) => self._currentWordsService.UpdateCurrentWords());
         }
 
-        private void DisposeTimer(PracticeState practiceState)
+        private void DisposeTimer()
         {
-            _stateTimers[practiceState]?.Dispose();
-            _stateTimers[practiceState] = null;
+            _stateTimers?.Dispose();
+            _stateTimers = null;
         }
 
         public void Dispose()
         {
-            foreach (var timer in _stateTimers)
-                timer?.Dispose();
-
+            _stateTimers?.Dispose();
             _availabilityTimeSubject.Dispose();
             _disposable.Dispose();
         }

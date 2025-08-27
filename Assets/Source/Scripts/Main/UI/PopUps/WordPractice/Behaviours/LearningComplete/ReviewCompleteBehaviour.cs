@@ -25,9 +25,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
             _learnButton.OnClickAsObservable().SubscribeAndRegister(this, static self => self.AddNewWords());
 
             _wordsTimerService.OnAvailabilityTimeUpdate
-                .Where(cooldownByLearningState => cooldownByLearningState.PracticeState == PracticeState.Review)
-                .SubscribeAndRegister(this, static (cooldowns, self) =>
-                    self.SetState(CompleteType.Complete, cooldowns.CurrentTime.ToShortTimeString()));
+                .SubscribeAndRegister(this, static (time, self) =>
+                    self.SetState(CompleteType.Complete, time.ToShortTimeString()));
 
             _exitButton.OnClickAsObservable().SubscribeAndRegister(this, self => self.OpenLearnWords());
             negativeButton.Button.OnClickAsObservable().SubscribeAndRegister(this, self => self.OpenLearnWords());

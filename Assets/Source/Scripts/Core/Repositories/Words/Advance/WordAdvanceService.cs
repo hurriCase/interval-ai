@@ -40,7 +40,7 @@ namespace Source.Scripts.Core.Repositories.Words.Advance
             UpdateUndo(word);
 
             _wordStateMutator.AdvanceLearningState(word, success);
-            _wordsTimerService.UpdateTimers();
+            _wordsTimerService.UpdateTimer();
             _currentWordsService.UpdateCurrentWords();
         }
 

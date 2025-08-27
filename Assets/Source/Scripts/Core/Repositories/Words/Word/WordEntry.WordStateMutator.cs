@@ -75,7 +75,7 @@ namespace Source.Scripts.Core.Repositories.Words.Word
 
             private void TryAdvanceCooldown(WordEntry word)
             {
-                if (_appConfig.CooldownStates.AsValueEnumerable().Contains(word.LearningState) is false)
+                if (word.LearningState != LearningState.Review)
                     return;
 
                 var cooldownData = _practiceSettingsRepository.RepetitionByCooldown.Value[word.ReviewCount];

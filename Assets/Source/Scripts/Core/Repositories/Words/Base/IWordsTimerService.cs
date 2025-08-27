@@ -1,11 +1,11 @@
-﻿using R3;
-using Source.Scripts.Core.Repositories.Words.CooldownSystem;
+﻿using System;
+using R3;
 
 namespace Source.Scripts.Core.Repositories.Words.Base
 {
     internal interface IWordsTimerService
     {
-        Observable<CooldownByPracticeState> OnAvailabilityTimeUpdate { get; }
-        void UpdateTimers();
+        Observable<DateTime> OnAvailabilityTimeUpdate { get; }
+        void UpdateTimer();
     }
 }
