@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CustomUtils.Runtime.Extensions;
 using R3;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Core.Repositories.Progress.Base;
+using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.PopUps.Selection;
 using VContainer;
@@ -30,6 +32,15 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
 
             _progressRepository.GoalAchievedObservable.SubscribeAndRegister(this,
                 static (wordsCount, self) => self.SetState(CompleteType.Complete, wordsCount.ToString()));
+        }
+
+        protected override void OnCheckCompleteness(CompleteType completeType)
+        {
+            if (CompleteType.Complete != completeType)
+                return;
+
+            var learnedCount = _progressRepository.LearnedWordCounts[PracticeState.NewWords].ToString();
+            SetState(completeType, learnedCount);
         }
 
         private void OpenCategorySelection()

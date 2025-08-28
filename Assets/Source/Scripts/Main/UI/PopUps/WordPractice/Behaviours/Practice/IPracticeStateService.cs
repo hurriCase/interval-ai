@@ -7,5 +7,6 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice
     {
         ReadOnlyReactiveProperty<PracticeState> CurrentState { get; }
         void SetState(PracticeState state);
+        void UpdatePracticeState();
     }
 }

@@ -25,13 +25,16 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours
 
         [SerializeField] private PlusMinusBehaviour _plusMinusBehaviour;
 
-        [Inject] private IWindowsController _windowsController;
-        [Inject] private IProgressRepository _progressRepository;
         [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
+        [Inject] private IProgressRepository _progressRepository;
+        [Inject] private IWindowsController _windowsController;
 
         internal void Init()
         {
             _plusMinusBehaviour.Init();
+
+            _progressRepository.HasDailyTarget.SubscribeAndRegister(this,
+                static (canReduce, self) => self._startPracticeButton.interactable = canReduce);
 
             _startPracticeButton.OnClickAsObservable()
                 .Subscribe(_windowsController,
@@ -39,8 +42,8 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours
                 .RegisterTo(destroyCancellationToken);
 
             _progressRepository.ProgressHistory.SubscribeAndRegister(this, static self => self.UpdateProgressText());
-            _progressRepository.NewWordsDailyTarget.SubscribeAndRegister(this,
-                static self => self.UpdateWordsGoalText());
+            _progressRepository.NewWordsDailyTarget
+                .SubscribeAndRegister(this, static self => self.UpdateWordsGoalText());
 
             LocalizationController.Language.SubscribeAndRegister(this, static self =>
             {

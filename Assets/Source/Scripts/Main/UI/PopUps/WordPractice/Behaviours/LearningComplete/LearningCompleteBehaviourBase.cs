@@ -3,6 +3,7 @@ using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Localization;
 using Cysharp.Text;
+using R3;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Words.Base;
@@ -34,6 +35,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
         [Inject] protected ICurrentWordsService currentWordsService;
         [Inject] protected IWindowsController windowsController;
 
+        [Inject] private ICompleteStateService _completeStateService;
+
         private PracticeState _currentPracticeState;
 
         internal void Init(PracticeState practiceState)
@@ -42,10 +45,11 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
 
             _plusMinusBehaviour.Init();
 
-            currentWordsService.CurrentWordsByState
-                .SubscribeAndRegister(this, (currentWords, self) => self.CheckCompleteness(currentWords));
-
             LocalizationController.Language.SubscribeAndRegister(this, static self => self.UpdateButtonTexts());
+
+            _completeStateService.CompleteStates
+                .Select(_currentPracticeState, (completeTypes, state) => completeTypes[state])
+                .SubscribeAndRegister(this, static (completeType, self) => self.CheckCompleteness(completeType));
 
             OnInit();
         }
@@ -63,21 +67,25 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
             _completeImage.SetActive(completeType == CompleteType.Complete);
         }
 
+        private void CheckCompleteness(CompleteType completeType)
+        {
+            if (completeType == CompleteType.NoWords)
+            {
+                SetState(completeType);
+                return;
+            }
+
+            OnCheckCompleteness(completeType);
+        }
+
+        protected abstract void OnCheckCompleteness(CompleteType completeType);
+
         private void UpdateButtonTexts()
         {
             var localizationByValue = localizationKeysDatabase.LearningCompleteButtons[_currentPracticeState];
 
             positiveButton.Text.text = localizationByValue.ButtonPositive.GetLocalization();
             negativeButton.Text.text = localizationByValue.ButtonNegative.GetLocalization();
-        }
-
-        private void CheckCompleteness(EnumArray<PracticeState, WordEntry> currentWords)
-        {
-            var currentWord = currentWords[_currentPracticeState];
-            if (currentWord == null)
-                SetState(CompleteType.NoWords);
-            else if (currentWord.Cooldown > DateTime.Now)
-                SetState(CompleteType.Complete);
         }
     }
 }

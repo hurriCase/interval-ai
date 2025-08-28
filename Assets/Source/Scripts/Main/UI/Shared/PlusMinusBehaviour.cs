@@ -1,4 +1,5 @@
-﻿using R3;
+﻿using CustomUtils.Runtime.Extensions;
+using R3;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.UI.Components;
 using TMPro;
@@ -18,24 +19,17 @@ namespace Source.Scripts.Main.UI.Shared
 
         internal void Init()
         {
-            _progressRepository.NewWordsDailyTarget.Subscribe(this,
-                    static (wordsTarget, behaviour)
-                        => behaviour._dailyWordGoalText.text = wordsTarget.ToString())
-                .RegisterTo(destroyCancellationToken);
+            _progressRepository.NewWordsDailyTarget.SubscribeAndRegister(this,
+                static (wordsTarget, behaviour) => behaviour._dailyWordGoalText.text = wordsTarget.ToString());
 
-            _progressRepository.CanReduceDailyTarget
-                .Subscribe(this, static (canReduce, self) => self._minusButton.interactable = canReduce)
-                .RegisterTo(destroyCancellationToken);
+            _progressRepository.HasDailyTarget
+                .SubscribeAndRegister(this, static (canReduce, self) => self._minusButton.interactable = canReduce);
 
             _minusButton.OnClickAsObservable()
-                .Subscribe(this, static (_, self)
-                    => self._progressRepository.DailyTargetCommand.Execute(-1))
-                .RegisterTo(destroyCancellationToken);
+                .SubscribeAndRegister(this, static self => self._progressRepository.ChangeDailyTarget(-1));
 
             _plusButton.OnClickAsObservable()
-                .Subscribe(this, static (_, self)
-                    => self._progressRepository.DailyTargetCommand.Execute(+1))
-                .RegisterTo(destroyCancellationToken);
+                .SubscribeAndRegister(this, static self => self._progressRepository.ChangeDailyTarget(+1));
         }
     }
 }

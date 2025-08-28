@@ -1,7 +1,10 @@
-﻿using CustomUtils.Runtime.Extensions;
+﻿using System;
+using CustomUtils.Runtime.CustomTypes.Collections;
+using CustomUtils.Runtime.Extensions;
 using R3;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Words.Base;
+using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.UI.Components;
 using UnityEngine;
@@ -30,6 +33,15 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
 
             _exitButton.OnClickAsObservable().SubscribeAndRegister(this, self => self.OpenLearnWords());
             negativeButton.Button.OnClickAsObservable().SubscribeAndRegister(this, self => self.OpenLearnWords());
+        }
+
+        protected override void OnCheckCompleteness(CompleteType completeType)
+        {
+            if (CompleteType.Complete != completeType)
+                return;
+
+            var currentWord = currentWordsService.CurrentWordsByState.CurrentValue[PracticeState.Review];
+            SetState(CompleteType.Complete, currentWord.Cooldown.ToShortTimeString());
         }
 
         private void AddNewWords()

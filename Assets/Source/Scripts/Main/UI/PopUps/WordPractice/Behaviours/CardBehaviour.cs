@@ -33,7 +33,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
             _wordProgressBehaviour.Init();
 
             _currentWordsService.CurrentWordsByState
-                .Select(practiceState, (currentWordsByState, state) => currentWordsByState[state])
+                .Select(_practiceState, (currentWordsByState, state) => currentWordsByState[state])
                 .Where(currentWord => currentWord != null)
                 .Subscribe(_wordProgressBehaviour,
                     static (currentWord, wordProgress) => wordProgress.UpdateProgress(currentWord))

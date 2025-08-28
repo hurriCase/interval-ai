@@ -36,9 +36,8 @@ namespace Source.Scripts.Core.Repositories.Progress
         private readonly EnumArray<PracticeState, ReactiveProperty<int>> _learnedWordCounts =
             new(() => new ReactiveProperty<int>(), EnumMode.SkipFirst);
 
-        public ReactiveCommand<int> DailyTargetCommand { get; } = new();
-        public ReadOnlyReactiveProperty<bool> CanReduceDailyTarget => _canReduceDailyTarget;
-        private readonly ReactiveProperty<bool> _canReduceDailyTarget = new(true);
+        public ReadOnlyReactiveProperty<bool> HasDailyTarget => _hasDailyTarget;
+        private readonly ReactiveProperty<bool> _hasDailyTarget = new(false);
 
         public Observable<int> GoalAchievedObservable => _goalAchievedSubject.AsObservable();
         private readonly Subject<int> _goalAchievedSubject = new();
@@ -46,6 +45,8 @@ namespace Source.Scripts.Core.Repositories.Progress
         private readonly IPracticeSettingsRepository _practiceSettingsRepository;
         private readonly IStatisticsRepository _statisticsRepository;
         private readonly IAppConfig _appConfig;
+
+        private IDisposable _disposable;
 
         internal ProgressRepository(
             IStatisticsRepository statisticsRepository,
@@ -55,9 +56,6 @@ namespace Source.Scripts.Core.Repositories.Progress
             _practiceSettingsRepository = practiceSettingsRepository;
             _statisticsRepository = statisticsRepository;
             _appConfig = appConfig;
-
-            DailyTargetCommand.Subscribe(this,
-                static (valueToAdd, self) => self.ChangeDailyTarget(valueToAdd));
 
             foreach (var (practiceState, learnedCountProperty) in _learnedWordCounts.AsTuples())
             {
@@ -91,6 +89,9 @@ namespace Source.Scripts.Core.Repositories.Progress
             if (_statisticsRepository.LoginHistory.Value.TryGetValue(DateTime.Now, out _) is false)
                 _newWordsDailyTarget.Value = _practiceSettingsRepository.DailyGoal.Value;
 
+            _disposable = _newWordsDailyTarget
+                .Subscribe(this, (newTarget, self) => self._hasDailyTarget.Value = newTarget > 0);
+
             CheckStreak();
         }
 
@@ -114,13 +115,12 @@ namespace Source.Scripts.Core.Repositories.Progress
 
         public ProgressMemento CreateMemento() => new(this);
 
-        private void ChangeDailyTarget(int valueToAdd)
+        public void ChangeDailyTarget(int valueToAdd)
         {
-            if (_canReduceDailyTarget.Value is false && valueToAdd < 0)
+            if (_hasDailyTarget.Value is false && valueToAdd < 0)
                 return;
 
             _newWordsDailyTarget.Value += valueToAdd;
-            _canReduceDailyTarget.Value = _newWordsDailyTarget.Value > 0;
         }
 
         private void CheckLearnedWordsChanges(LearningState requestedLearningState)
@@ -188,9 +188,8 @@ namespace Source.Scripts.Core.Repositories.Progress
             _newWordsDailyTarget.Dispose();
             _totalCountByState.Dispose();
             _progressHistory.Dispose();
-            _canReduceDailyTarget.Dispose();
             _goalAchievedSubject.Dispose();
-            DailyTargetCommand.Dispose();
+            _disposable.Dispose();
         }
     }
 }

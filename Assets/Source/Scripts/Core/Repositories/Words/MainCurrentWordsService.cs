@@ -3,6 +3,7 @@ using CustomUtils.Runtime.CustomTypes.Collections;
 using R3;
 using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Localization.LocalizationTypes;
+using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
 
@@ -16,11 +17,16 @@ namespace Source.Scripts.Core.Repositories.Words
         private readonly ReactiveProperty<EnumArray<PracticeState, WordEntry>> _currentWordsByState
             = new(new EnumArray<PracticeState, WordEntry>(EnumMode.SkipFirst));
 
+        private readonly IProgressRepository _progressRepository;
         private readonly IWordsRepository _wordsRepository;
         private readonly IAppConfig _appConfig;
 
-        internal MainCurrentWordsService(IWordsRepository wordsRepository, IAppConfig appConfig)
+        internal MainCurrentWordsService(
+            IProgressRepository progressRepository,
+            IWordsRepository wordsRepository,
+            IAppConfig appConfig)
         {
+            _progressRepository = progressRepository;
             _wordsRepository = wordsRepository;
             _appConfig = appConfig;
 
@@ -32,6 +38,7 @@ namespace Source.Scripts.Core.Repositories.Words
             var currentWordsByState = _currentWordsByState.Value;
             currentWordsByState[practiceState] = word;
             _currentWordsByState.Value = currentWordsByState;
+            _currentWordsByState.OnNext(currentWordsByState);
         }
 
         public void UpdateCurrentWords()
@@ -41,17 +48,20 @@ namespace Source.Scripts.Core.Repositories.Words
             {
                 foreach (var learningState in learningStates)
                 {
-                    var currentWordsByState = _currentWordsByState.Value;
-                    currentWordsByState[practiceState] =
-                        _wordsRepository.SortedWordsByState.CurrentValue[learningState].Min;
-                    _currentWordsByState.Value = currentWordsByState;
-                    _currentWordsByState.OnNext(currentWordsByState);
+                    var nearestWord = _wordsRepository.SortedWordsByState.CurrentValue[learningState].Min;
+                    if (nearestWord != null && CheckDailyComplete(nearestWord.LearningState) is false)
+                        continue;
 
-                    if (currentWordsByState[practiceState] != null)
+                    SetCurrentWord(practiceState, nearestWord);
+
+                    if (nearestWord != null)
                         break;
                 }
             }
         }
+
+        private bool CheckDailyComplete(LearningState learningState)
+            => LearningState.Default != learningState || _progressRepository.HasDailyTarget.CurrentValue;
 
         public bool HasWordByState(PracticeState practiceState)
             => CurrentWordsByState.CurrentValue[practiceState] != null;

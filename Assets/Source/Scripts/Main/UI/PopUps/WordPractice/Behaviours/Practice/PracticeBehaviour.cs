@@ -22,23 +22,24 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice
         [SerializeField] private LearningCompleteBehaviourBase _learningCompleteBehaviour;
 
         [Inject] private ICurrentWordsService _currentWordsService;
+        [Inject] private ICompleteStateService _completeStateService;
 
         internal void Init()
         {
-            _currentWordsService.CurrentWordsByState
-                .Select(this, (currentWords, self) => currentWords[self._practiceState])
-                .SubscribeAndRegister(this, (currentWord, self) => self.SwitchState(currentWord));
-
             _cardBehaviour.Init(_practiceState);
             _progressIndicatorBehaviour.Init(_practiceState);
             _swipeCardBehaviour.Init(_practiceState);
             _controlButtonsBehaviour.Init(_practiceState);
             _learningCompleteBehaviour.Init(_practiceState);
+
+            _completeStateService.CompleteStates
+                .Select(_practiceState, (completeTypes, state) => completeTypes[state])
+                .SubscribeAndRegister(this, static (completeType, self) => self.SwitchState(completeType));
         }
 
-        private void SwitchState(WordEntry currentWord)
+        private void SwitchState(CompleteType completeType)
         {
-            var isComplete = currentWord == null || currentWord.Cooldown > DateTime.Now;
+            var isComplete = completeType != CompleteType.None;
 
             _cardBehaviour.SetActive(isComplete is false);
             _progressIndicatorBehaviour.SetActive(isComplete is false);

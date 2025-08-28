@@ -3,6 +3,7 @@ using Source.Scripts.Core.Repositories.Words;
 using Source.Scripts.Core.Repositories.Words.Advance;
 using Source.Scripts.Main.Data;
 using Source.Scripts.Main.UI.Base;
+using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice;
 using UnityEngine;
 using VContainer;
@@ -34,6 +35,7 @@ namespace Source.Scripts.Main.DI
             builder.Register<WordsTimerService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<WordAdvanceService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<MainCurrentWordsService>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.Register<CompleteStateService>(Lifetime.Scoped).AsImplementedInterfaces();
 
             builder.RegisterEntryPoint<MainEntryPoint>();
         }
