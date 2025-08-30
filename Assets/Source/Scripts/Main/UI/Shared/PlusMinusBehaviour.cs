@@ -1,7 +1,7 @@
 ﻿using CustomUtils.Runtime.Extensions;
 using R3;
 using Source.Scripts.Core.Repositories.Progress.Base;
-using Source.Scripts.UI.Components;
+using Source.Scripts.UI.Components.Button;
 using TMPro;
 using UnityEngine;
 using VContainer;

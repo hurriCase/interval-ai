@@ -1,20 +1,17 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using CustomUtils.Runtime.Extensions;
 using Cysharp.Text;
 using R3;
-using Source.Scripts.Core.Localization.Base;
-using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
-using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.PopUps.Selection;
+using Source.Scripts.Main.UI.PopUps.Selection.Category;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours;
 using Source.Scripts.Main.UI.Shared;
-using Source.Scripts.UI.Components;
+using Source.Scripts.UI.Components.Button;
 using TMPro;
 using UnityEngine;
 using VContainer;
@@ -36,13 +33,10 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours
         [SerializeField] private ButtonComponent _addToCategoryButton;
         [SerializeField] private string _categoryLocalizationKey;
 
-        [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
+        [Inject] private WordCategorySelectionService _wordCategorySelectionService;
         [Inject] private IUISettingsRepository _uiSettingsRepository;
         [Inject] private ICategoriesRepository _categoriesRepository;
         [Inject] private IWindowsController _windowsController;
-        [Inject] private IWordStateMutator _wordStateMutator;
-
-        private CategorySelectionService _categorySelectionService;
 
         private WordEntry _currentWordEntry;
 
@@ -50,30 +44,17 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours
         {
             _wordProgressBehaviour.Init();
 
-            var localization = _localizationKeysDatabase.GetLocalization(LocalizationType.CategorySelectionName);
-            _categorySelectionService = new CategorySelectionService(localization);
-
-            _categorySelectionService.SelectedValues.SubscribeAndRegister(this,
-                static (selectedValues, self) => self.SetCategories(selectedValues));
-
             _addToCategoryButton.OnClickAsObservable()
-                .SubscribeAndRegister(this, static self => self.OpenCategorySelection());
+                .SubscribeAndRegister(this, static self => self.ShowCategorySelection());
         }
 
-        private void OpenCategorySelection()
+        private void ShowCategorySelection()
         {
-            _categorySelectionService.UpdateData(
-                _categoriesRepository.CategoryEntries.CurrentValue,
-                _currentWordEntry.CategoryIds);
+            _wordCategorySelectionService.UpdateWord(_currentWordEntry);
+            _wordCategorySelectionService.UpdateData();
 
             var selectionPopUp = _windowsController.OpenPopUp<SelectionPopUp>();
-            selectionPopUp.SetParameters(_categorySelectionService);
-        }
-
-        private void SetCategories(List<int> selectedValues)
-        {
-            if (_currentWordEntry != null)
-                _wordStateMutator.SetCategories(_currentWordEntry, selectedValues);
+            selectionPopUp.SetParameters(_wordCategorySelectionService);
         }
 
         internal void UpdateView(WordEntry wordEntry)

@@ -3,7 +3,7 @@ using System.Threading;
 using R3;
 using R3.Triggers;
 using Source.Scripts.Onboarding.UI.OnboardingPractice.Steps.Base;
-using Source.Scripts.UI.Components;
+using Source.Scripts.UI.Components.Button;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

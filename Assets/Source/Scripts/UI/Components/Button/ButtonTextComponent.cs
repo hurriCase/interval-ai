@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-namespace Source.Scripts.UI.Components
+namespace Source.Scripts.UI.Components.Button
 {
     internal sealed class ButtonTextComponent : MonoBehaviour
     {

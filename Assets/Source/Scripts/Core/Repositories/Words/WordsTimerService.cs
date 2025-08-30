@@ -1,13 +1,8 @@
 ﻿using System;
-using CustomUtils.Runtime.CustomTypes.Collections;
-using JetBrains.Annotations;
 using R3;
-using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.CooldownSystem;
-using Source.Scripts.Core.Repositories.Words.Word;
-using ZLinq;
 
 namespace Source.Scripts.Core.Repositories.Words
 {

@@ -3,6 +3,7 @@ using Source.Scripts.Core.Repositories.Words;
 using Source.Scripts.Core.Repositories.Words.Advance;
 using Source.Scripts.Main.Data;
 using Source.Scripts.Main.UI.Base;
+using Source.Scripts.Main.UI.PopUps.Selection.Category;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice;
 using UnityEngine;
@@ -36,6 +37,9 @@ namespace Source.Scripts.Main.DI
             builder.Register<WordAdvanceService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<MainCurrentWordsService>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.Register<CompleteStateService>(Lifetime.Scoped).AsImplementedInterfaces();
+
+            builder.Register<CategorySelectionService>(Lifetime.Scoped).AsSelf();
+            builder.Register<WordCategorySelectionService>(Lifetime.Scoped).AsSelf();
 
             builder.RegisterEntryPoint<MainEntryPoint>();
         }

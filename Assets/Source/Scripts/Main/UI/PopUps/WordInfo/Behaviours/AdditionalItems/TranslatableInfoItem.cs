@@ -1,5 +1,6 @@
 ﻿using Source.Scripts.Core.Repositories.Words.Word;
-using Source.Scripts.UI.Components;
+using Source.Scripts.UI.Components.Accordion;
+using Source.Scripts.UI.Components.Button;
 using TMPro;
 using UnityEngine;
 

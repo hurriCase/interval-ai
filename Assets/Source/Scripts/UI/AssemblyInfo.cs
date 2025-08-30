@@ -3,3 +3,4 @@
 [assembly: InternalsVisibleTo("Source.Scripts.Editor")]
 [assembly: InternalsVisibleTo("Source.Scripts.Main")]
 [assembly: InternalsVisibleTo("Source.Scripts.Onboarding")]
+[assembly: InternalsVisibleTo("Source.Scripts.Bootstrap")]

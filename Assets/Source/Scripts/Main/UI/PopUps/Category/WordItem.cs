@@ -5,7 +5,7 @@ using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.PopUps.WordInfo;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours;
-using Source.Scripts.UI.Components;
+using Source.Scripts.UI.Components.Button;
 using TMPro;
 using UnityEngine;
 using VContainer;

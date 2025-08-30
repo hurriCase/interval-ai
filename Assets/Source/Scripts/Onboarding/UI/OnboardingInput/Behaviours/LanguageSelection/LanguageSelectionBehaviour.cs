@@ -8,7 +8,7 @@ using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.References.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
-using Source.Scripts.UI.Components;
+using Source.Scripts.UI.Components.Accordion;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -85,6 +85,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours.LanguageSelect
 
             createdLanguageItem.gameObject.name = ZString.Format("{0}, {1}", languageType, language);
 
+            // ReSharper disable once HeapView.BoxingAllocation . It's find, because this is done for safety reason
             createdLanguageItem.LanguageText.text = string.IsNullOrWhiteSpace(localization)
                 ? language.ToString()
                 : localization;

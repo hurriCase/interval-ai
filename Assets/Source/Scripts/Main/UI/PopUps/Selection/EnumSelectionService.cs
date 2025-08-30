@@ -4,37 +4,39 @@ using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions;
 using R3;
 using Source.Scripts.Core.Localization.Base;
+using VContainer;
 
 namespace Source.Scripts.Main.UI.PopUps.Selection
 {
-    internal sealed class EnumSelectionService<TEnum> : SelectionService<TEnum>
+    internal sealed class EnumSelectionService<TEnum> : ISelectionService<TEnum>
         where TEnum : unmanaged, Enum
     {
+        [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
+
+        public IReadOnlyList<TEnum> SelectionValues { get; }
+        public bool IsSingleSelection => true;
         public ReadOnlyReactiveProperty<TEnum> TargetProperty => _targetProperty;
 
         private readonly ReactiveProperty<TEnum> _targetProperty;
-        private readonly ILocalizationKeysDatabase _localizationKeysDatabase;
+
         private readonly string _selectionTitleKey;
 
         internal EnumSelectionService(
-            ILocalizationKeysDatabase localizationKeysDatabase,
             ReactiveProperty<TEnum> targetProperty,
             string selectionTitleKey,
             TEnum[] customValues = null,
             EnumMode enumMode = EnumMode.SkipFirst)
-            : base(customValues ?? enumMode.GetEnumValues<TEnum>(), true)
         {
-            _localizationKeysDatabase = localizationKeysDatabase;
+            SelectionValues = customValues ?? enumMode.GetEnumValues<TEnum>();
             _targetProperty = targetProperty;
             _selectionTitleKey = selectionTitleKey;
         }
 
-        public override string GetSelectionName(TEnum value)
-            => _localizationKeysDatabase.GetLocalizationByValue(value);
+        public string GetSelectionName(TEnum value) => _localizationKeysDatabase.GetLocalizationByValue(value);
 
-        public override string GetSelectionTitle() => _selectionTitleKey.GetLocalization();
+        public string GetSelectionTitle() => _selectionTitleKey.GetLocalization();
 
-        public override void SetValue(TEnum value, bool isSelected)
+        public void SetValue(TEnum value, bool isSelected)
         {
             if (isSelected is false)
                 return;
@@ -42,7 +44,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
             _targetProperty.Value = value;
         }
 
-        public override bool GetSelectionState(TEnum value)
+        public bool GetSelectionState(TEnum value)
             => EqualityComparer<TEnum>.Default.Equals(value, _targetProperty.Value);
     }
 }

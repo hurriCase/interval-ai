@@ -1,4 +1,4 @@
-﻿using Source.Scripts.UI.Components;
+﻿using Source.Scripts.UI.Components.Accordion;
 using TMPro;
 using UnityEngine;
 

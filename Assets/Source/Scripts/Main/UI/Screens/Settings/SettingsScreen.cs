@@ -2,7 +2,7 @@
 using R3;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.Screens.Settings.Behaviours;
-using Source.Scripts.UI.Components;
+using Source.Scripts.UI.Components.Button;
 using Source.Scripts.UI.Windows.Base;
 using UnityEngine;
 using VContainer;

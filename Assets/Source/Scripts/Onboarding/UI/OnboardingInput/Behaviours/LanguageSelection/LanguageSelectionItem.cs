@@ -1,4 +1,5 @@
-﻿using Source.Scripts.UI.Components;
+﻿using Source.Scripts.UI.Components.Accordion;
+using Source.Scripts.UI.Components.Checkbox;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

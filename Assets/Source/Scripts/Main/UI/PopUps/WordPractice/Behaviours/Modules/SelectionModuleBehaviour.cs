@@ -1,7 +1,7 @@
 ﻿using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base;
-using Source.Scripts.UI.Components;
+using Source.Scripts.UI.Components.Button;
 using UnityEngine;
 using VContainer;
 

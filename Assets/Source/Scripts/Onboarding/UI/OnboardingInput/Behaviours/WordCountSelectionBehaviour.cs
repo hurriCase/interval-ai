@@ -2,7 +2,7 @@
 using R3;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Onboarding.Data.Config;
-using Source.Scripts.UI.Components;
+using Source.Scripts.UI.Components.Button;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;

@@ -19,6 +19,7 @@ using Source.Scripts.Core.Repositories.Statistics;
 using Source.Scripts.Core.Repositories.User;
 using Source.Scripts.Core.Repositories.Words;
 using Source.Scripts.Core.Repositories.Words.Word;
+using Source.Scripts.UI.Data;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -33,17 +34,18 @@ namespace Source.Scripts.Bootstrap.DI
 
         [SerializeField] private SwipeConfig _swipeConfig;
 
-        [SerializeField] private AppConfig _appConfig;
         [SerializeField] private SpriteReferences _spriteReferences;
+        [SerializeField] private AnimationsConfig _animationsConfig;
         [SerializeField] private TestConfig _testConfig;
+        [SerializeField] private AppConfig _appConfig;
 
         [SerializeField] private LocalizationKeysDatabase _localizationKeysDatabase;
         [SerializeField] private LocalizationDatabase _localizationDatabase;
 
+        [SerializeField] private DefaultCategoriesDatabase _defaultCategoriesDatabase;
         [SerializeField] private DefaultSettingsConfig _defaultSettingsConfig;
         [SerializeField] private DefaultUserDataConfig _defaultUserDataConfig;
         [SerializeField] private DefaultWordsDatabase _defaultWordsDatabase;
-        [SerializeField] private DefaultCategoriesDatabase _defaultCategoriesDatabase;
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -57,9 +59,10 @@ namespace Source.Scripts.Bootstrap.DI
             builder.Register<AudioHandlerProvider>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<TextToSpeech>(Lifetime.Singleton).AsImplementedInterfaces();
 
-            builder.RegisterInstance(_appConfig).AsImplementedInterfaces();
             builder.RegisterInstance(_spriteReferences).AsImplementedInterfaces();
+            builder.RegisterInstance(_animationsConfig).AsImplementedInterfaces();
             builder.RegisterInstance(_testConfig).AsImplementedInterfaces();
+            builder.RegisterInstance(_appConfig).AsImplementedInterfaces();
 
             builder.RegisterComponent(_localizationKeysDatabase).AsImplementedInterfaces();
             builder.RegisterComponent(_localizationDatabase).AsImplementedInterfaces();

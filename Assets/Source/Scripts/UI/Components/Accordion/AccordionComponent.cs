@@ -4,10 +4,11 @@ using CustomUtils.Runtime.CustomBehaviours;
 using CustomUtils.Runtime.Extensions;
 using PrimeTween;
 using R3;
+using Source.Scripts.UI.Components.Button;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Source.Scripts.UI.Components
+namespace Source.Scripts.UI.Components.Accordion
 {
     internal sealed class AccordionComponent : RectTransformBehaviour
     {

@@ -1,13 +1,13 @@
 ﻿using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.UI.CustomComponents.Selectables;
-using R3.Triggers;
+using R3;
 using Source.Scripts.Core.Audio.Base;
-using UnityEngine;
+using UnityEngine.Device;
 using VContainer;
 
-namespace Source.Scripts.UI.Components
+namespace Source.Scripts.UI.Components.Button
 {
-    internal sealed class CheckboxComponent : SwitchableToggle
+    internal sealed class ButtonComponent : ThemeButton
     {
         [Inject] private IAudioHandlerProvider _audioHandlerProvider;
 
@@ -18,7 +18,7 @@ namespace Source.Scripts.UI.Components
             if (Application.isEditor)
                 return;
 
-            this.OnPointerClickAsObservable().SubscribeAndRegister(this,
+            this.OnClickAsObservable().SubscribeAndRegister(this,
                 static self => self._audioHandlerProvider.AudioHandler.PlayOneShotSound(SoundType.Button));
         }
     }

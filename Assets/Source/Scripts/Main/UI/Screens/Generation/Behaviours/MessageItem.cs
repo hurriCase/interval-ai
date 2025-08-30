@@ -1,7 +1,7 @@
 ﻿using CustomUtils.Runtime.CustomBehaviours;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.UI.Theme.Components;
-using Source.Scripts.UI.Components;
+using Source.Scripts.UI.Components.Button;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

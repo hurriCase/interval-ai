@@ -2,7 +2,8 @@
 using CustomUtils.Runtime.Storage;
 using R3;
 using R3.Triggers;
-using Source.Scripts.UI.Components;
+using Source.Scripts.UI.Components.Button;
+using Source.Scripts.UI.Components.Checkbox;
 using UnityEngine;
 
 namespace Source.Scripts.Main.UI.PopUps.Settings

@@ -7,7 +7,7 @@ using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Core.Repositories.Categories.Category;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.PopUps.Category;
-using Source.Scripts.UI.Components;
+using Source.Scripts.UI.Components.Checkbox;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

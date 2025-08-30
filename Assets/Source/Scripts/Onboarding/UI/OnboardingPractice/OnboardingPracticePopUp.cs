@@ -6,7 +6,7 @@ using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours;
 using Source.Scripts.Onboarding.Data.Config;
 using Source.Scripts.Onboarding.UI.OnboardingPractice.Steps.Base;
-using Source.Scripts.UI.Components;
+using Source.Scripts.UI.Components.Button;
 using Source.Scripts.UI.Windows.Base;
 using TMPro;
 using UnityEngine;

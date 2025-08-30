@@ -4,7 +4,7 @@ using CustomUtils.Runtime.Localization;
 using R3;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Main.UI.Base;
-using Source.Scripts.UI.Components;
+using Source.Scripts.UI.Components.Button;
 using TMPro;
 using UnityEngine;
 using VContainer;
@@ -23,11 +23,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
         internal void Init<TEnum>(ReactiveProperty<TEnum> targetProperty, TEnum[] customValues = null)
             where TEnum : unmanaged, Enum
         {
-            var enumSelectionService = new EnumSelectionService<TEnum>(
-                _localizationKeysDatabase,
-                targetProperty,
-                _localizationKey,
-                customValues);
+            var enumSelectionService = new EnumSelectionService<TEnum>(targetProperty, _localizationKey, customValues);
 
             LocalizationController.Language.SubscribeAndRegister(this, enumSelectionService,
                 static (enumSelectionService, self) => self.UpdateLocalization(enumSelectionService));
@@ -52,7 +48,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
             where TEnum : unmanaged, Enum
             => _buttonTextComponent.Text.text = _localizationKeysDatabase.GetLocalizationByValue(selectedValue);
 
-        private void OpenPopup<T>(SelectionService<T> selectionService)
+        private void OpenPopup<T>(ISelectionService<T> selectionService)
         {
             var selectionPopUp = _windowsController.OpenPopUp<SelectionPopUp>();
             selectionPopUp.SetParameters(selectionService);

@@ -2,8 +2,10 @@
 using Cysharp.Threading.Tasks;
 using PrimeTween;
 using R3;
-using Source.Scripts.UI.Components;
+using Source.Scripts.UI.Components.Button;
+using Source.Scripts.UI.Data;
 using UnityEngine;
+using VContainer;
 
 namespace Source.Scripts.UI.Windows.Base
 {
@@ -12,7 +14,8 @@ namespace Source.Scripts.UI.Windows.Base
         [field: SerializeField] internal bool IsSingle { get; private set; } = true;
 
         [SerializeField] private ButtonComponent _closeButton;
-        [SerializeField] private float _animationDuration = 0.1f;
+
+        [Inject] protected IAnimationsConfig animationsConfig;
 
         internal Observable<Unit> OnHidePopUp => _onHidePopUpSubject.AsObservable();
 
@@ -26,13 +29,13 @@ namespace Source.Scripts.UI.Windows.Base
 
         internal override async UniTask ShowAsync()
         {
-            await Tween.Alpha(CanvasGroup, 1f, _animationDuration)
+            await Tween.Alpha(CanvasGroup, 1f, animationsConfig.PopUpShowDuration)
                 .OnComplete(this, windowBase => windowBase.CanvasGroup.Show());
         }
 
         internal override async UniTask HideAsync()
         {
-            await Tween.Alpha(CanvasGroup, 0f, _animationDuration)
+            await Tween.Alpha(CanvasGroup, 0f, animationsConfig.PopUpHideDuration)
                 .OnComplete(this, windowBase => windowBase.HideImmediately());
         }
 

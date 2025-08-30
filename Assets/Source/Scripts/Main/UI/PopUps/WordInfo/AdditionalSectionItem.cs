@@ -1,5 +1,6 @@
 ﻿using CustomUtils.Runtime.Extensions;
 using Source.Scripts.UI.Components;
+using Source.Scripts.UI.Components.Accordion;
 using UnityEngine;
 using UnityEngine.UI;
 

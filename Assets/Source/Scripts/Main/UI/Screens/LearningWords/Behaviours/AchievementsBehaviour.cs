@@ -1,7 +1,7 @@
 ﻿using R3;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.Shared;
-using Source.Scripts.UI.Components;
+using Source.Scripts.UI.Components.Button;
 using UnityEngine;
 using VContainer;
 

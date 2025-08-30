@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Source.Scripts.UI.Components
+namespace Source.Scripts.UI.Components.Accordion
 {
     [RequireComponent(typeof(CanvasGroup))]
     internal class AccordionItem : MonoBehaviour

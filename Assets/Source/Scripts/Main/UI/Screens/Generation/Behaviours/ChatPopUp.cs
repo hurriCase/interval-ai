@@ -1,5 +1,5 @@
 ﻿using R3;
-using Source.Scripts.UI.Components;
+using Source.Scripts.UI.Components.Button;
 using Source.Scripts.UI.Windows.Base;
 using TMPro;
 using UnityEngine;

@@ -92,11 +92,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7338217707518036644, guid: 5f748c3660e31d64abde40f9259bdf69, type: 3}
+      propertyPath: targetComponent
+      value: 
+      objectReference: {fileID: 1842473767371333710}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f748c3660e31d64abde40f9259bdf69, type: 3}
+--- !u!114 &1842473767371333710 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4333480374147426220, guid: 5f748c3660e31d64abde40f9259bdf69, type: 3}
+  m_PrefabInstance: {fileID: 2716327335565182946}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3446949903691832621 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 748815785519323855, guid: 5f748c3660e31d64abde40f9259bdf69, type: 3}
@@ -209,6 +224,10 @@ PrefabInstance:
       propertyPath: m_fontSize
       value: 9.9
       objectReference: {fileID: 0}
+    - target: {fileID: 9109170191897869617, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+      propertyPath: targetComponent
+      value: 
+      objectReference: {fileID: 5479342738586754574}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -466,8 +485,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5008822bf7b84c0fa7b10d6f51954c63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.ProgressIndicatorBehaviour
-  _previousCardButton: {fileID: 3446949903691832621}
   _learnedText: {fileID: 5479342738586754574}
+  _moreButton: {fileID: 4630163190429763555}
+  _previousCardButton: {fileID: 3446949903691832621}
 --- !u!224 &5812217547860073033 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3691833483562493499, guid: f4a7512a7bb93574fbd9d2dd3fa7adfb, type: 3}
@@ -484,6 +504,66 @@ PrefabInstance:
     - target: {fileID: 1897527480213660204, guid: e0960de82118fe942b9330a2955d6951, type: 3}
       propertyPath: m_Name
       value: P_Button_More
+      objectReference: {fileID: 0}
+    - target: {fileID: 2666752638321695648, guid: e0960de82118fe942b9330a2955d6951, type: 3}
+      propertyPath: m_Colors.m_NormalColor.b
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2666752638321695648, guid: e0960de82118fe942b9330a2955d6951, type: 3}
+      propertyPath: m_Colors.m_NormalColor.g
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2666752638321695648, guid: e0960de82118fe942b9330a2955d6951, type: 3}
+      propertyPath: m_Colors.m_NormalColor.r
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2666752638321695648, guid: e0960de82118fe942b9330a2955d6951, type: 3}
+      propertyPath: m_Colors.m_PressedColor.b
+      value: 0.09019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 2666752638321695648, guid: e0960de82118fe942b9330a2955d6951, type: 3}
+      propertyPath: m_Colors.m_PressedColor.g
+      value: 0.09019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 2666752638321695648, guid: e0960de82118fe942b9330a2955d6951, type: 3}
+      propertyPath: m_Colors.m_PressedColor.r
+      value: 0.09019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 2666752638321695648, guid: e0960de82118fe942b9330a2955d6951, type: 3}
+      propertyPath: m_Colors.m_DisabledColor.b
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2666752638321695648, guid: e0960de82118fe942b9330a2955d6951, type: 3}
+      propertyPath: m_Colors.m_DisabledColor.g
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2666752638321695648, guid: e0960de82118fe942b9330a2955d6951, type: 3}
+      propertyPath: m_Colors.m_DisabledColor.r
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2666752638321695648, guid: e0960de82118fe942b9330a2955d6951, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.b
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2666752638321695648, guid: e0960de82118fe942b9330a2955d6951, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.g
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2666752638321695648, guid: e0960de82118fe942b9330a2955d6951, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.r
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2666752638321695648, guid: e0960de82118fe942b9330a2955d6951, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.b
+      value: 0.09019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 2666752638321695648, guid: e0960de82118fe942b9330a2955d6951, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.g
+      value: 0.09019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 2666752638321695648, guid: e0960de82118fe942b9330a2955d6951, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.r
+      value: 0.09019608
       objectReference: {fileID: 0}
     - target: {fileID: 8620285143392656470, guid: e0960de82118fe942b9330a2955d6951, type: 3}
       propertyPath: m_Pivot.x
@@ -575,3 +655,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8620285143392656470, guid: e0960de82118fe942b9330a2955d6951, type: 3}
   m_PrefabInstance: {fileID: 7296835829851741251}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4630163190429763555 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2666752638321695648, guid: e0960de82118fe942b9330a2955d6951, type: 3}
+  m_PrefabInstance: {fileID: 7296835829851741251}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

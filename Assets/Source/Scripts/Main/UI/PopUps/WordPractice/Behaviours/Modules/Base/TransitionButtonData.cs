@@ -2,7 +2,7 @@
 using System.Threading;
 using R3;
 using Source.Scripts.Core.Configs;
-using Source.Scripts.UI.Components;
+using Source.Scripts.UI.Components.Button;
 using UnityEngine;
 
 namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base

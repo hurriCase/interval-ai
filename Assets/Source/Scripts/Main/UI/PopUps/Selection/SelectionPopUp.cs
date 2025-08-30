@@ -3,7 +3,8 @@ using PrimeTween;
 using R3;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Others;
-using Source.Scripts.UI.Components;
+using Source.Scripts.UI.Components.Checkbox;
+using Source.Scripts.UI.Data;
 using Source.Scripts.UI.Windows.Base;
 using TMPro;
 using UnityEngine;
@@ -20,9 +21,8 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
         [SerializeField] private CheckboxTextComponent _selectionItem;
         [SerializeField] private ToggleGroup _selectionToggleGroup;
 
-        [SerializeField] private float _selectionAnimationDuration;
-
         [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
+        [Inject] private IAnimationsConfig _animationsConfig;
 
         private UIPool<CheckboxTextComponent> _selectionPool;
 
@@ -33,7 +33,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
             _selectionPool = new UIPool<CheckboxTextComponent>(_selectionItem, _selectionsContainer);
         }
 
-        public void SetParameters<TValue>(SelectionService<TValue> service)
+        public void SetParameters<TValue>(ISelectionService<TValue> service)
         {
             _disposableBag.Clear();
 
@@ -49,7 +49,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
             await AnimatePivotAsync(0f);
         }
 
-        private void CreateSelections<TValue>(SelectionService<TValue> service)
+        private void CreateSelections<TValue>(ISelectionService<TValue> service)
         {
             var selectionValues = service.SelectionValues;
 
@@ -62,7 +62,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
                 SubscribeToChanges(i, selectionValues[i], service);
         }
 
-        private void SetSelectionItem<TValue>(int index, TValue selectionValue, SelectionService<TValue> service)
+        private void SetSelectionItem<TValue>(int index, TValue selectionValue, ISelectionService<TValue> service)
         {
             var selectionItem = _selectionPool.PooledItems[index];
 
@@ -74,7 +74,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
             selectionItem.Checkbox.isOn = service.GetSelectionState(selectionValue);
         }
 
-        private void SubscribeToChanges<TValue>(int index, TValue selectionValue, SelectionService<TValue> service)
+        private void SubscribeToChanges<TValue>(int index, TValue selectionValue, ISelectionService<TValue> service)
         {
             var selectionItem = _selectionPool.PooledItems[index];
 
@@ -92,7 +92,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
         }
 
         private Tween AnimatePivotAsync(float endValue)
-            => Tween.UIPivotY(_selectionsContainer, endValue, _selectionAnimationDuration);
+            => Tween.UIPivotY(_selectionsContainer, endValue, _animationsConfig.SelectionSwitchDuration);
 
         private void OnDestroy()
         {

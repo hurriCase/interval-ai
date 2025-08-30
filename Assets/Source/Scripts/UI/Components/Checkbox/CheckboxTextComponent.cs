@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-namespace Source.Scripts.UI.Components
+namespace Source.Scripts.UI.Components.Checkbox
 {
     internal sealed class CheckboxTextComponent : MonoBehaviour
     {
