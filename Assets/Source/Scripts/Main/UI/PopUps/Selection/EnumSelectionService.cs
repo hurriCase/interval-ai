@@ -4,7 +4,6 @@ using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions;
 using R3;
 using Source.Scripts.Core.Localization.Base;
-using VContainer;
 
 namespace Source.Scripts.Main.UI.PopUps.Selection
 {

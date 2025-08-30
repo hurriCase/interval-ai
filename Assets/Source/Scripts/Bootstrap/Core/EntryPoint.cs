@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-using CustomUtils.Runtime.Scenes;
+using CustomUtils.Runtime.Scenes.Base;
 using Cysharp.Threading.Tasks;
 using R3;
 using Source.Scripts.Core.References.Base;
@@ -14,38 +14,38 @@ namespace Source.Scripts.Bootstrap.Core
 {
     internal sealed class EntryPoint : IAsyncStartable
     {
-        private readonly IObjectResolver _objectResolver;
-        private readonly ISceneLoader _sceneLoader;
+        private readonly ISceneTransitionController _sceneTransitionController;
         private readonly IStatisticsRepository _statisticsRepository;
         private readonly ISceneReferences _sceneReferences;
+        private readonly IObjectResolver _objectResolver;
 
         private readonly List<StepBase> _stepsList;
 
         internal EntryPoint(
-            List<StepBase> stepsList,
-            IObjectResolver objectResolver,
-            ISceneLoader sceneLoader,
+            ISceneTransitionController sceneTransitionController,
             IStatisticsRepository statisticsRepository,
-            ISceneReferences sceneReferences)
+            ISceneReferences sceneReferences,
+            IObjectResolver objectResolver,
+            List<StepBase> stepsList)
         {
             _stepsList = stepsList;
             _objectResolver = objectResolver;
-            _sceneLoader = sceneLoader;
+            _sceneTransitionController = sceneTransitionController;
             _statisticsRepository = statisticsRepository;
             _sceneReferences = sceneReferences;
         }
 
-        public async UniTask StartAsync(CancellationToken cancellationToken)
+        public async UniTask StartAsync(CancellationToken token)
         {
-            await InitSteps(cancellationToken);
+            await InitSteps(token);
 
             _statisticsRepository.LoginHistory.Value[DateTime.Now] = true;
 
-            var addressToLoad = _statisticsRepository.IsCompleteOnboarding.Value
+            var sceneAddressToLoad = _statisticsRepository.IsCompleteOnboarding.Value
                 ? _sceneReferences.MainMenuScene.Address
                 : _sceneReferences.Onboarding.Address;
 
-            _sceneLoader.LoadSceneAsync(addressToLoad, cancellationToken).Forget();
+            _sceneTransitionController.StartTransition(_sceneReferences.Splash.Address, sceneAddressToLoad).Forget();
         }
 
         private async UniTask InitSteps(CancellationToken cancellationToken)

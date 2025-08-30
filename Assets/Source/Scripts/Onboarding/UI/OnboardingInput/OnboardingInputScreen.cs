@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Threading;
 using CustomUtils.Runtime.Extensions;
-using CustomUtils.Runtime.Scenes;
-using Cysharp.Threading.Tasks;
+using CustomUtils.Runtime.Scenes.Base;
 using R3;
 using Source.Scripts.Core.References.Base;
 using Source.Scripts.Core.Repositories.Statistics;
@@ -23,19 +21,19 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput
         private int _currentStepIndex;
         private bool _isWordPracticeOnBoarding;
 
+        private ISceneTransitionController _sceneTransitionController;
         private IStatisticsRepository _statisticsRepository;
         private ISceneReferences _sceneReferences;
-        private ISceneLoader _sceneLoader;
 
         [Inject]
         internal void Inject(
+            ISceneTransitionController sceneTransitionController,
             IStatisticsRepository statisticsRepository,
-            ISceneReferences sceneReferences,
-            ISceneLoader sceneLoader)
+            ISceneReferences sceneReferences)
         {
+            _sceneTransitionController = sceneTransitionController;
             _statisticsRepository = statisticsRepository;
             _sceneReferences = sceneReferences;
-            _sceneLoader = sceneLoader;
         }
 
         internal override void Init()
@@ -58,7 +56,9 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput
             if (nextSTep >= _inputOnboardingSteps.Count)
             {
                 _statisticsRepository.IsCompleteOnboarding.Value = true;
-                _sceneLoader.LoadSceneAsync(_sceneReferences.MainMenuScene.Address, CancellationToken.None).Forget();
+                _sceneTransitionController.StartTransition(_sceneReferences.Splash.Address,
+                    _sceneReferences.MainMenuScene.Address);
+
                 return;
             }
 

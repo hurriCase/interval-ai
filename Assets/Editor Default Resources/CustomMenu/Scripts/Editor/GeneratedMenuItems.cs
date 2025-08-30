@@ -49,6 +49,16 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Single);
         }
 
+        [MenuItem("Scenes/Splash", priority = 5)]
+        private static void OpenSceneSplash()
+        {
+            if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo() is false)
+                return;
+
+            var scenePath = "Assets/Source/Scenes/Splash.unity";
+            EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Single);
+        }
+
         [MenuItem("References/Default Categories Database", priority = 0)]
         private static void SelectAssetDefaultCategoriesDatabase()
         {

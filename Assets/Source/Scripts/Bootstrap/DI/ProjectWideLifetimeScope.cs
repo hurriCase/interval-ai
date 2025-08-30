@@ -50,6 +50,7 @@ namespace Source.Scripts.Bootstrap.DI
         protected override void Configure(IContainerBuilder builder)
         {
             builder.Register<SceneLoader>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<SceneTransitionController>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.RegisterInstance(_sceneReferences).AsImplementedInterfaces();
 
             builder.RegisterInstance(_stepsList);
