@@ -3,7 +3,6 @@ using CustomUtils.Runtime.Extensions;
 using Cysharp.Threading.Tasks;
 using R3;
 using R3.Triggers;
-using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Core.Repositories.Categories.Category;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.PopUps.Category;
@@ -24,11 +23,17 @@ namespace Source.Scripts.Main.UI.Screens.Categories
         [SerializeField] private Image _categoryOpenArea;
         [SerializeField] private CheckboxComponent _selectedCheckbox;
 
-        [Inject] private IWindowsController _windowsController;
-        [Inject] private ICategoriesRepository _categoriesRepository;
-        [Inject] private IAddressablesLoader _addressablesLoader;
+        private IAddressablesLoader _addressablesLoader;
+        private IWindowsController _windowsController;
 
         private CategoryEntry _currentCategoryEntry;
+
+        [Inject]
+        internal void Inject(IAddressablesLoader addressablesLoader, IWindowsController windowsController)
+        {
+            _addressablesLoader = addressablesLoader;
+            _windowsController = windowsController;
+        }
 
         internal void Init(CategoryEntry categoryEntry)
         {

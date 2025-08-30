@@ -18,7 +18,13 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours.AdditionalItems
         [SerializeField] private TextMeshProUGUI _translationsText;
         [SerializeField] private ButtonComponent _addButton;
 
-        [Inject] private IWordsRepository _wordsRepository;
+        private IWordsRepository _wordsRepository;
+
+        [Inject]
+        internal void Inject(IWordsRepository wordsRepository)
+        {
+            _wordsRepository = wordsRepository;
+        }
 
         public void Init(TranslationSet translationSet)
         {

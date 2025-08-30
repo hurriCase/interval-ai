@@ -21,8 +21,6 @@ namespace Source.Scripts.Bootstrap.Core
 
         private readonly List<StepBase> _stepsList;
 
-        [Inject] private LifetimeScope _projectWideLifetimeScope;
-
         internal EntryPoint(
             List<StepBase> stepsList,
             IObjectResolver objectResolver,

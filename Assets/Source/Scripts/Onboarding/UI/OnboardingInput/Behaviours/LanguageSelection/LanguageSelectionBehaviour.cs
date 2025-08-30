@@ -22,18 +22,35 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours.LanguageSelect
         [SerializeField] private LanguageSelectionItem _languageSelectionItem;
         [SerializeField] private AccordionItem _spacingItem;
 
-        [Inject] private ILanguageSettingsRepository _languageSettingsRepository;
-        [Inject] private IAppConfig _appConfig;
-        [Inject] private ISpriteReferences _spriteReferences;
-        [Inject] private ILocalizationDatabase _localizationDatabase;
-        [Inject] private IAddressablesLoader _addressablesLoader;
-        [Inject] private IObjectResolver _objectResolver;
-
         private EnumArray<LanguageType, EnumArray<SystemLanguage, LanguageSelectionItem>>
             _createdLanguageSelectionItems = new(() =>
                 new EnumArray<SystemLanguage, LanguageSelectionItem>(EnumMode.Default), EnumMode.SkipFirst);
 
         private Subject<Unit> _continueSubject;
+
+        private ILanguageSettingsRepository _languageSettingsRepository;
+        private ILocalizationDatabase _localizationDatabase;
+        private IAddressablesLoader _addressablesLoader;
+        private ISpriteReferences _spriteReferences;
+        private IObjectResolver _objectResolver;
+        private IAppConfig _appConfig;
+
+        [Inject]
+        internal void Inject(
+            ILanguageSettingsRepository languageSettingsRepository,
+            ILocalizationDatabase localizationDatabase,
+            IAddressablesLoader addressablesLoader,
+            ISpriteReferences spriteReferences,
+            IObjectResolver objectResolver,
+            IAppConfig appConfig)
+        {
+            _languageSettingsRepository = languageSettingsRepository;
+            _localizationDatabase = localizationDatabase;
+            _addressablesLoader = addressablesLoader;
+            _spriteReferences = spriteReferences;
+            _objectResolver = objectResolver;
+            _appConfig = appConfig;
+        }
 
         internal override void Init()
         {

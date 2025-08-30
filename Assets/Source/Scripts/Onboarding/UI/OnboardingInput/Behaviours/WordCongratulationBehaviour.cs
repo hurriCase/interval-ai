@@ -14,10 +14,17 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours
         [SerializeField] private ModuleType _moduleType;
         [SerializeField] private TextMeshProUGUI _wordCountText;
 
-        [Inject] private IPracticeSettingsRepository _practiceSettingsRepository;
-        [Inject] private IWindowsController _windowsController;
-
         private const int DayInMonths = 30;
+
+        private IPracticeSettingsRepository _practiceSettingsRepository;
+        private IWindowsController _windowsController;
+
+        [Inject]
+        public void Inject(IPracticeSettingsRepository practiceSettingsRepository, IWindowsController windowsController)
+        {
+            _practiceSettingsRepository = practiceSettingsRepository;
+            _windowsController = windowsController;
+        }
 
         internal override void UpdateView()
         {

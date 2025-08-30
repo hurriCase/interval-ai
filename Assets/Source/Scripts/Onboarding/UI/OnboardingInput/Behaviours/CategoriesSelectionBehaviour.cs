@@ -10,7 +10,13 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours
         [SerializeField] private RectTransform _categoriesContainer;
         [SerializeField] private CategoryEntryItem _categoryEntryItem;
 
-        [Inject] private ICategoriesRepository _categoriesRepository;
+        private ICategoriesRepository _categoriesRepository;
+
+        [Inject]
+        internal void Inject(ICategoriesRepository categoriesRepository)
+        {
+            _categoriesRepository = categoriesRepository;
+        }
 
         internal override void Init()
         {

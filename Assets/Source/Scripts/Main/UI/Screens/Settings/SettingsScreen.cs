@@ -14,7 +14,13 @@ namespace Source.Scripts.Main.UI.Screens.Settings
         [SerializeField] private UserBehaviour _userBehaviour;
         [SerializeField] private ButtonComponent _settingsButton;
 
-        [Inject] private IWindowsController _windowsController;
+        private IWindowsController _windowsController;
+
+        [Inject]
+        internal void Inject(IWindowsController windowsController)
+        {
+            _windowsController = windowsController;
+        }
 
         internal override void Init()
         {

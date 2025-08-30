@@ -18,8 +18,15 @@ namespace Source.Scripts.Main.UI.PopUps.CategoryCreation
         [SerializeField] private ButtonComponent _saveButton;
         [SerializeField] private AccordionComponent _accordionComponent;
 
-        [Inject] private IWindowsController _windowsController;
-        [Inject] private ICategoriesRepository _categoriesRepository;
+        private IWindowsController _windowsController;
+        private ICategoriesRepository _categoriesRepository;
+
+        [Inject]
+        public void Inject(IWindowsController windowsController, ICategoriesRepository categoriesRepository)
+        {
+            _windowsController = windowsController;
+            _categoriesRepository = categoriesRepository;
+        }
 
         internal override void Init()
         {

@@ -2,7 +2,6 @@
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions;
 using R3;
-using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Core.Repositories.Categories.Category;
 using Source.Scripts.Main.UI.Base;
@@ -26,16 +25,28 @@ namespace Source.Scripts.Main.UI.Screens.Categories
         [SerializeField] private float _categoryContainerSpacingRatio;
         [SerializeField] private float _menuSpacingRatio;
 
-        [Inject] private IWindowsController _windowsController;
-        [Inject] private ICategoriesRepository _categoriesRepository;
-        [Inject] private ICategoryStateMutator _categoryStateMutator;
-        [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
-        [Inject] private IObjectResolver _objectResolver;
-
         private EnumArray<CategoryType, CategoryContainerItem> _createdCategoriesByType = new(EnumMode.SkipFirst);
         private readonly Dictionary<CategoryEntry, CategoryEntryItem> _createdCategoryItems = new();
 
         private readonly Queue<CategoryEntryItem> _cachedCategoryItems = new();
+
+        private ICategoriesRepository _categoriesRepository;
+        private ICategoryStateMutator _categoryStateMutator;
+        private IWindowsController _windowsController;
+        private IObjectResolver _objectResolver;
+
+        [Inject]
+        internal void Inject(
+            ICategoriesRepository categoriesRepository,
+            ICategoryStateMutator categoryStateMutator,
+            IWindowsController windowsController,
+            IObjectResolver objectResolver)
+        {
+            _categoriesRepository = categoriesRepository;
+            _categoryStateMutator = categoryStateMutator;
+            _windowsController = windowsController;
+            _objectResolver = objectResolver;
+        }
 
         internal override void Init()
         {

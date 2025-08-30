@@ -33,12 +33,25 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours
         [SerializeField] private ButtonComponent _addToCategoryButton;
         [SerializeField] private string _categoryLocalizationKey;
 
-        [Inject] private WordCategorySelectionService _wordCategorySelectionService;
-        [Inject] private IUISettingsRepository _uiSettingsRepository;
-        [Inject] private ICategoriesRepository _categoriesRepository;
-        [Inject] private IWindowsController _windowsController;
+        private WordCategorySelectionService _wordCategorySelectionService;
+        private ICategoriesRepository _categoriesRepository;
+        private IUISettingsRepository _uiSettingsRepository;
+        private IWindowsController _windowsController;
 
         private WordEntry _currentWordEntry;
+
+        [Inject]
+        internal void Inject(
+            WordCategorySelectionService wordCategorySelectionService,
+            IUISettingsRepository uiSettingsRepository,
+            ICategoriesRepository categoriesRepository,
+            IWindowsController windowsController)
+        {
+            _wordCategorySelectionService = wordCategorySelectionService;
+            _categoriesRepository = categoriesRepository;
+            _uiSettingsRepository = uiSettingsRepository;
+            _windowsController = windowsController;
+        }
 
         internal void Init()
         {

@@ -40,16 +40,27 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo
         [SerializeField] private EnumArray<AdditionalInfoType, AdditionalSectionItem> _sections
             = new(EnumMode.SkipFirst);
 
-        [Inject] private IWindowsController _windowsController;
-        [Inject] private ICurrentWordsService _currentWordsService;
-        [Inject] private IObjectResolver _objectResolver;
-
         private UIPool<TranslatableInfoItem> _exampleInfoPool;
         private UIPool<TranslatableInfoItem> _translationVariantsPool;
         private UIPool<AnotherWordItem> _synonymPool;
         private UIPool<TranslatableInfoItemWithNote> _grammarPool;
 
         private WordEntry _currentWordEntry;
+
+        private ICurrentWordsService _currentWordsService;
+        private IWindowsController _windowsController;
+        private IObjectResolver _objectResolver;
+
+        [Inject]
+        internal void Inject(
+            ICurrentWordsService currentWordsService,
+            IWindowsController windowsController,
+            IObjectResolver objectResolver)
+        {
+            _currentWordsService = currentWordsService;
+            _windowsController = windowsController;
+            _objectResolver = objectResolver;
+        }
 
         internal override void Init()
         {
@@ -97,7 +108,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo
         private void CreateInfoSections()
         {
             CreateInfoSection(_exampleInfoPool, _currentWordEntry.Examples, AdditionalInfoType.Example);
-            CreateInfoSection(_translationVariantsPool, _currentWordEntry.TranslationVariants, AdditionalInfoType.TranslationVariant);
+            CreateInfoSection(_translationVariantsPool, _currentWordEntry.TranslationVariants,
+                AdditionalInfoType.TranslationVariant);
             CreateInfoSection(_synonymPool, _currentWordEntry.Synonyms, AdditionalInfoType.Synonym);
             CreateInfoSection(_grammarPool, _currentWordEntry.Grammar, AdditionalInfoType.Grammar);
         }

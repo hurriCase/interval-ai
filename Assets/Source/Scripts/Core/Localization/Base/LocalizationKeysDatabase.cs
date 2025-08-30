@@ -39,8 +39,17 @@ namespace Source.Scripts.Core.Localization.Base
 
         [SerializeField] private EnumArray<ThemeType, string> _themeTypes = new(EnumMode.SkipFirst);
 
-        [Inject] private ILanguageSettingsRepository _languageSettingsRepository;
-        [Inject] private ILocalizationDatabase _localizationDatabase;
+        private ILanguageSettingsRepository _languageSettingsRepository;
+        private ILocalizationDatabase _localizationDatabase;
+
+        [Inject]
+        internal void Inject(
+            ILanguageSettingsRepository languageSettingsRepository,
+            ILocalizationDatabase localizationDatabase)
+        {
+            _languageSettingsRepository = languageSettingsRepository;
+            _localizationDatabase = localizationDatabase;
+        }
 
         public string GetLocalization(LocalizationType type) =>
             LocalizationController.Localize(_localizationData[type]);

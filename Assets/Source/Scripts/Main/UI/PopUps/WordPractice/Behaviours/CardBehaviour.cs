@@ -17,14 +17,21 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
         [SerializeField] private EnumArray<ModuleType, PracticeModuleBase> _practiceModules = new(EnumMode.SkipFirst);
         [SerializeField] private WordProgressBehaviour _wordProgressBehaviour;
 
-        [Inject] private ICurrentWordsService _currentWordsService;
-        [Inject] private IAppConfig _appConfig;
-
         internal ReactiveCommand<ModuleType> SwitchModuleCommand { get; } = new();
 
         private WordEntry WordEntry => _currentWordsService.CurrentWordsByState.CurrentValue[_practiceState];
 
         private PracticeState _practiceState;
+
+        private ICurrentWordsService _currentWordsService;
+        private IAppConfig _appConfig;
+
+        [Inject]
+        internal void Inject(ICurrentWordsService currentWordsService, IAppConfig appConfig)
+        {
+            _currentWordsService = currentWordsService;
+            _appConfig = appConfig;
+        }
 
         internal void Init(PracticeState practiceState)
         {

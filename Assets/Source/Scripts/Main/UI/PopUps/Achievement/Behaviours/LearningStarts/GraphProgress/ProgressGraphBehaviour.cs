@@ -33,12 +33,23 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
 
         [SerializeField] private EnumArray<LearningState, UILineRenderer> _graphLines = new(EnumMode.SkipFirst);
 
-        [Inject] private IDateProgressService _dateProgressService;
-        [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
-        [Inject] private IProgressGraphSettings _progressGraphSettings;
-
         private readonly Dictionary<LearningState, List<GraphProgressData>> _cashedAllProgressData = new();
         private readonly List<Vector2> _cashedNormalizedPoints = new();
+
+        private ILocalizationKeysDatabase _localizationKeysDatabase;
+        private IProgressGraphSettings _progressGraphSettings;
+        private IDateProgressService _dateProgressService;
+
+        [Inject]
+        internal void Inject(
+            ILocalizationKeysDatabase localizationKeysDatabase,
+            IProgressGraphSettings progressGraphSettings,
+            IDateProgressService dateProgressService)
+        {
+            _localizationKeysDatabase = localizationKeysDatabase;
+            _progressGraphSettings = progressGraphSettings;
+            _dateProgressService = dateProgressService;
+        }
 
         internal void Init()
         {

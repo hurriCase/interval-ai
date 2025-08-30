@@ -14,10 +14,17 @@ namespace Source.Scripts.Main.UI.Screens.Settings.Behaviours
         [SerializeField] private InputFieldComponent _nicknameField;
         [SerializeField] private Image _userIcon;
 
-        [Inject] private IUserRepository _userRepository;
-        [Inject] private IAddressablesLoader _addressablesLoader;
-
         private string _originalNickname;
+
+        private IAddressablesLoader _addressablesLoader;
+        private IUserRepository _userRepository;
+
+        [Inject]
+        internal void Inject(IAddressablesLoader addressablesLoader, IUserRepository userRepository)
+        {
+            _addressablesLoader = addressablesLoader;
+            _userRepository = userRepository;
+        }
 
         internal void Init()
         {

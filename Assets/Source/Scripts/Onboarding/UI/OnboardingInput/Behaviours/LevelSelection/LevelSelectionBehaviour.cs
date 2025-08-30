@@ -21,11 +21,26 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours.LevelSelection
         [SerializeField] private AspectRatioFitter _aspectRatioFitter;
         [SerializeField] private float _spacingRatio;
 
-        [Inject] private ILanguageSettingsRepository _languageSettingsRepository;
-        [Inject] private ISpriteReferences _spriteReferences;
-        [Inject] private ILocalizationDatabase _localizationDatabase;
-        [Inject] private IAddressablesLoader _addressablesLoader;
-        [Inject] private IObjectResolver _objectResolver;
+        private ILanguageSettingsRepository _languageSettingsRepository;
+        private ILocalizationDatabase _localizationDatabase;
+        private IAddressablesLoader _addressablesLoader;
+        private ISpriteReferences _spriteReferences;
+        private IObjectResolver _objectResolver;
+
+        [Inject]
+        internal void Inject(
+            ILanguageSettingsRepository languageSettingsRepository,
+            ILocalizationDatabase localizationDatabase,
+            IAddressablesLoader addressablesLoader,
+            ISpriteReferences spriteReferences,
+            IObjectResolver objectResolver)
+        {
+            _languageSettingsRepository = languageSettingsRepository;
+            _localizationDatabase = localizationDatabase;
+            _addressablesLoader = addressablesLoader;
+            _spriteReferences = spriteReferences;
+            _objectResolver = objectResolver;
+        }
 
         internal override void Init()
         {

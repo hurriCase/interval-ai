@@ -15,7 +15,13 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
         [SerializeField] private ButtonComponent _exitButton;
         [SerializeField] private ButtonComponent _learnButton;
 
-        [Inject] private IWordsTimerService _wordsTimerService;
+        private IWordsTimerService _wordsTimerService;
+
+        [Inject]
+        public void Inject(IWordsTimerService wordsTimerService)
+        {
+            _wordsTimerService = wordsTimerService;
+        }
 
         protected override void OnInit()
         {

@@ -22,13 +22,24 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
         [SerializeField] private GameObject _firstShowContainer;
         [SerializeField] private GameObject _otherShowContainer;
 
-        [Inject] private IWordAdvanceService _wordAdvanceService;
-        [Inject] private IWordStateMutator _wordStateMutator;
-        [Inject] private ICurrentWordsService _currentWordsService;
-
         private WordEntry CurrentWord => _currentWordsService.CurrentWordsByState.CurrentValue[_currentPracticeState];
 
         private PracticeState _currentPracticeState;
+
+        private ICurrentWordsService _currentWordsService;
+        private IWordAdvanceService _wordAdvanceService;
+        private IWordStateMutator _wordStateMutator;
+
+        [Inject]
+        internal void Inject(
+            ICurrentWordsService currentWordsService,
+            IWordAdvanceService wordAdvanceService,
+            IWordStateMutator wordStateMutator)
+        {
+            _wordAdvanceService = wordAdvanceService;
+            _wordStateMutator = wordStateMutator;
+            _currentWordsService = currentWordsService;
+        }
 
         internal void Init(PracticeState practiceState)
         {

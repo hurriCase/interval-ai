@@ -7,7 +7,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection.Category
 {
     internal sealed class CategorySelectionService : CategorySelectionServiceBase
     {
-        public CategorySelectionService(
+        internal CategorySelectionService(
             ICategoriesRepository categoriesRepository,
             ILocalizationKeysDatabase localizationKeysDatabase)
             : base(categoriesRepository, localizationKeysDatabase) { }

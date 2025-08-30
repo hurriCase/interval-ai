@@ -20,7 +20,13 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts
         [SerializeField] private EnumArray<LearningState, ProgressDescriptionItem> _progressDescriptionItems =
             new(EnumMode.SkipFirst);
 
-        [Inject] private IProgressRepository _progressRepository;
+        private IProgressRepository _progressRepository;
+
+        [Inject]
+        internal void Inject(IProgressRepository progressRepository)
+        {
+            _progressRepository = progressRepository;
+        }
 
         internal void Init()
         {

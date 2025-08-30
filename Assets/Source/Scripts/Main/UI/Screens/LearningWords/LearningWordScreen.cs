@@ -23,8 +23,15 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords
 
         [SerializeField] private TextMeshProUGUI _welcomeText;
 
-        [Inject] private IUserRepository _userRepository;
-        [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
+        private ILocalizationKeysDatabase _localizationKeysDatabase;
+        private IUserRepository _userRepository;
+
+        [Inject]
+        internal void Inject(IUserRepository userRepository, ILocalizationKeysDatabase localizationKeysDatabase)
+        {
+            _userRepository = userRepository;
+            _localizationKeysDatabase = localizationKeysDatabase;
+        }
 
         internal override void Init()
         {

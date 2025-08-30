@@ -14,9 +14,20 @@ namespace Source.Scripts.Bootstrap.Core.Steps
     )]
     internal sealed class TestStep : StepBase
     {
-        [Inject] private ITestDataFactory _testDataFactory;
-        [Inject] private IStatisticsRepository _statisticsRepository;
-        [Inject] private ITestConfig _testConfig;
+        private IStatisticsRepository _statisticsRepository;
+        private ITestDataFactory _testDataFactory;
+        private ITestConfig _testConfig;
+
+        [Inject]
+        internal void Inject(
+            IStatisticsRepository statisticsRepository,
+            ITestDataFactory testDataFactory,
+            ITestConfig testConfig)
+        {
+            _statisticsRepository = statisticsRepository;
+            _testDataFactory = testDataFactory;
+            _testConfig = testConfig;
+        }
 
         protected override UniTask ExecuteInternal(CancellationToken token)
         {

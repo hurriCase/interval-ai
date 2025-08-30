@@ -14,9 +14,15 @@ namespace Source.Scripts.Main.UI.Screens.Categories
 
         [SerializeField] private TextMeshProUGUI _titleText;
 
-        [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
-
         private CategoryType _currentCategoryType;
+
+        private ILocalizationKeysDatabase _localizationKeysDatabase;
+
+        [Inject]
+        internal void Inject(ILocalizationKeysDatabase localizationKeysDatabase)
+        {
+            _localizationKeysDatabase = localizationKeysDatabase;
+        }
 
         internal void Init(CategoryType categoryType)
         {

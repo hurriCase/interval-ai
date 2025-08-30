@@ -9,7 +9,13 @@ namespace Source.Scripts.UI.Components.Checkbox
 {
     internal sealed class CheckboxComponent : SwitchableToggle
     {
-        [Inject] private IAudioHandlerProvider _audioHandlerProvider;
+        private IAudioHandlerProvider _audioHandlerProvider;
+
+        [Inject]
+        public void Inject(IAudioHandlerProvider audioHandlerProvider)
+        {
+            _audioHandlerProvider = audioHandlerProvider;
+        }
 
         protected override void Start()
         {

@@ -2,7 +2,6 @@
 using CustomUtils.Runtime.Extensions;
 using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.Configs;
-using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours;
 using Source.Scripts.Onboarding.Data.Config;
 using Source.Scripts.Onboarding.UI.OnboardingPractice.Steps.Base;
@@ -25,13 +24,18 @@ namespace Source.Scripts.Onboarding.UI.OnboardingPractice
         [SerializeField] private WordProgressBehaviour _wordProgressBehaviour;
         [SerializeField] private ControlButtonsBehaviour _controlButtonsBehaviour;
 
-        [Inject] private ILanguageSettingsRepository _languageSettingsRepository;
-        [Inject] private IOnboardingConfig _onboardingConfig;
-
         private ButtonComponent _continueButton;
         private GameObject _placeholderObject;
 
         private int _currentStepIndex = -1;
+
+        private IOnboardingConfig _onboardingConfig;
+
+        [Inject]
+        internal void Inject(IOnboardingConfig onboardingConfig)
+        {
+            _onboardingConfig = onboardingConfig;
+        }
 
         internal void SwitchStep(ModuleType moduleType)
         {

@@ -22,9 +22,20 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.Progress
         [SerializeField] private TextMeshProUGUI _progressDescriptionText;
         [SerializeField] private RoundedFilledImageComponent _progressComponent;
 
-        [Inject] private IProgressRepository _progressRepository;
-        [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
-        [Inject] private IProgressDescriptionsDatabase _progressDescriptionsDatabase;
+        private IProgressDescriptionsDatabase _progressDescriptionsDatabase;
+        private ILocalizationKeysDatabase _localizationKeysDatabase;
+        private IProgressRepository _progressRepository;
+
+        [Inject]
+        internal void Inject(
+            IProgressDescriptionsDatabase progressDescriptionsDatabase,
+            ILocalizationKeysDatabase localizationKeysDatabase,
+            IProgressRepository progressRepository)
+        {
+            _progressDescriptionsDatabase = progressDescriptionsDatabase;
+            _localizationKeysDatabase = localizationKeysDatabase;
+            _progressRepository = progressRepository;
+        }
 
         internal void Init()
         {

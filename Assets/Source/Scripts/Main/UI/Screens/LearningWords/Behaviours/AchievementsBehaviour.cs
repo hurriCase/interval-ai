@@ -12,7 +12,13 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours
         [SerializeField] private ButtonComponent _achievementPopUpButton;
         [SerializeField] private WeekProgressContainer _weekProgressContainer;
 
-        [Inject] private IWindowsController _windowsController;
+        private IWindowsController _windowsController;
+
+        [Inject]
+        internal void Inject(IWindowsController windowsController)
+        {
+            _windowsController = windowsController;
+        }
 
         internal void Init()
         {

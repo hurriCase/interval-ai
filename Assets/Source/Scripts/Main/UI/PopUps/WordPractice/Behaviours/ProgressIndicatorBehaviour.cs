@@ -20,13 +20,28 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
         [SerializeField] private ButtonComponent _previousCardButton;
         [SerializeField] private ButtonComponent _moreButton;
 
-        [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
-        [Inject] private ICurrentWordsService _currentWordsService;
-        [Inject] private IWordAdvanceService _wordAdvanceService;
-        [Inject] private IProgressRepository _progressRepository;
-        [Inject] private IWindowsController _windowsController;
+        private ILocalizationKeysDatabase _localizationKeysDatabase;
+        private ICurrentWordsService _currentWordsService;
+        private IWordAdvanceService _wordAdvanceService;
+        private IProgressRepository _progressRepository;
+        private IWindowsController _windowsController;
 
         private PracticeState _currentPracticeState;
+
+        [Inject]
+        internal void Inject(
+            ILocalizationKeysDatabase localizationKeysDatabase,
+            ICurrentWordsService currentWordsService,
+            IWordAdvanceService wordAdvanceService,
+            IProgressRepository progressRepository,
+            IWindowsController windowsController)
+        {
+            _localizationKeysDatabase = localizationKeysDatabase;
+            _currentWordsService = currentWordsService;
+            _wordAdvanceService = wordAdvanceService;
+            _progressRepository = progressRepository;
+            _windowsController = windowsController;
+        }
 
         public void Init(PracticeState practiceState)
         {

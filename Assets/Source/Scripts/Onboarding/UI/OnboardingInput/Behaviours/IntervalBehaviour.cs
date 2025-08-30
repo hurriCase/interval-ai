@@ -10,7 +10,13 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours
     {
         [SerializeField] private ModuleType _moduleType;
 
-        [Inject] private IWindowsController _windowsController;
+        private IWindowsController _windowsController;
+
+        [Inject]
+        internal void Inject(IWindowsController windowsController)
+        {
+            _windowsController = windowsController;
+        }
 
         internal override void OnContinue()
         {

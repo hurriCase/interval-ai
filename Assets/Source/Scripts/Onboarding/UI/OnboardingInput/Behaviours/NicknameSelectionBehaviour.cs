@@ -10,7 +10,13 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours
         [SerializeField] private TMP_InputField _nicknameInputField;
         [SerializeField] private TextMeshProUGUI _placeholderText;
 
-        [Inject] private IUserRepository _userRepository;
+        private IUserRepository _userRepository;
+
+        [Inject]
+        internal void Inject(IUserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
 
         internal override void Init()
         {

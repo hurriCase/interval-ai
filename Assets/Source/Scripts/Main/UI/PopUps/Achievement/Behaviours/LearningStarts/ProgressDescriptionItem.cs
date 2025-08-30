@@ -16,10 +16,16 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts
         [field: SerializeField] internal TextMeshProUGUI DescriptionText { get; private set; }
         [field: SerializeField] internal ImageThemeComponent StateIndicatorImage { get; private set; }
 
-        [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
-
         private LearningState _currentLearningState;
         private int _currentProgress;
+
+        private ILocalizationKeysDatabase _localizationKeysDatabase;
+
+        [Inject]
+        internal void Inject(ILocalizationKeysDatabase localizationKeysDatabase)
+        {
+            _localizationKeysDatabase = localizationKeysDatabase;
+        }
 
         internal void Init(LearningState state, int progress, ProgressColorMapping progressColorMapping)
         {

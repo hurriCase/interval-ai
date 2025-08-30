@@ -15,7 +15,13 @@ namespace Source.Scripts.Main.UI.Shared
         [SerializeField] private ButtonComponent _minusButton;
         [SerializeField] private ButtonComponent _plusButton;
 
-        [Inject] private IProgressRepository _progressRepository;
+        private IProgressRepository _progressRepository;
+
+        [Inject]
+        internal void Inject(IProgressRepository progressRepository)
+        {
+            _progressRepository = progressRepository;
+        }
 
         internal void Init()
         {

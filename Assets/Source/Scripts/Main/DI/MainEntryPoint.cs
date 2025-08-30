@@ -9,8 +9,15 @@ namespace Source.Scripts.Main.DI
 {
     internal sealed class MainEntryPoint : IAsyncStartable
     {
-        [Inject] private IWindowsController _windowsController;
-        [Inject] private IMenuBehaviour _menuBehaviour;
+        private IWindowsController _windowsController;
+        private IMenuBehaviour _menuBehaviour;
+
+        [Inject]
+        internal void Inject(IWindowsController windowsController, IMenuBehaviour menuBehaviour)
+        {
+            _windowsController = windowsController;
+            _menuBehaviour = menuBehaviour;
+        }
 
         public async UniTask StartAsync(CancellationToken cancellationToken)
         {

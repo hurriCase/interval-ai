@@ -16,8 +16,17 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.CategoryPrevie
         [SerializeField] private AspectRatioFitter _spacingPrefab;
         [SerializeField] private float _spacingRatio;
 
-        [Inject] private ICategoriesRepository _categoriesRepository;
-        [Inject] private IAddressablesLoader _addressablesLoader;
+        private ICategoriesRepository _categoriesRepository;
+        private IAddressablesLoader _addressablesLoader;
+
+        [Inject]
+        internal void Inject(
+            ICategoriesRepository categoriesRepository,
+            IAddressablesLoader addressablesLoader)
+        {
+            _categoriesRepository = categoriesRepository;
+            _addressablesLoader = addressablesLoader;
+        }
 
         internal void Init()
         {

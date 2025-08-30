@@ -20,12 +20,23 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput
 
         [SerializeField] private List<StepBehaviourBase> _inputOnboardingSteps;
 
-        [Inject] private ISceneLoader _sceneLoader;
-        [Inject] private IStatisticsRepository _statisticsRepository;
-        [Inject] private ISceneReferences _sceneReferences;
-
         private int _currentStepIndex;
         private bool _isWordPracticeOnBoarding;
+
+        private IStatisticsRepository _statisticsRepository;
+        private ISceneReferences _sceneReferences;
+        private ISceneLoader _sceneLoader;
+
+        [Inject]
+        internal void Inject(
+            IStatisticsRepository statisticsRepository,
+            ISceneReferences sceneReferences,
+            ISceneLoader sceneLoader)
+        {
+            _statisticsRepository = statisticsRepository;
+            _sceneReferences = sceneReferences;
+            _sceneLoader = sceneLoader;
+        }
 
         internal override void Init()
         {

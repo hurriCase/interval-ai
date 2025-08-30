@@ -2,7 +2,6 @@
 using CustomUtils.Runtime.Extensions;
 using Cysharp.Threading.Tasks;
 using R3;
-using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Core.Repositories.Categories.Category;
 using Source.Scripts.Core.Repositories.Words.Word;
@@ -31,16 +30,26 @@ namespace Source.Scripts.Main.UI.PopUps.Category
 
         [SerializeField] private SelectionItem _wordOrderSelectionItem;
 
-        [Inject] private ICategoriesRepository _categoriesRepository;
-        [Inject] private ICategoryStateMutator _categoryStateMutator;
-        [Inject] private IObjectResolver _objectResolver;
-        [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
-
         private readonly ReactiveProperty<WordOrderType> _wordReviewSourceType = new(WordOrderType.Default);
         private readonly Dictionary<WordEntry, WordItem> _createdWordItems = new();
         private CategoryEntry _currentCategoryEntry;
         private EnumSelectionService<WordOrderType> _enumSelectionService;
         private int _previousCategoryId;
+
+        private ICategoriesRepository _categoriesRepository;
+        private ICategoryStateMutator _categoryStateMutator;
+        private IObjectResolver _objectResolver;
+
+        [Inject]
+        public void Inject(
+            ICategoriesRepository categoriesRepository,
+            ICategoryStateMutator categoryStateMutator,
+            IObjectResolver objectResolver)
+        {
+            _categoriesRepository = categoriesRepository;
+            _categoryStateMutator = categoryStateMutator;
+            _objectResolver = objectResolver;
+        }
 
         internal void SetParameters(CategoryEntry categoryEntry)
         {

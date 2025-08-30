@@ -1,7 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
 using PrimeTween;
-using Source.Scripts.Core.Localization.Base;
-using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.Base;
@@ -25,13 +23,22 @@ namespace Source.Scripts.Main.UI.PopUps.WordControl
         [SerializeField] private RectTransform _selectionsContainer;
         [SerializeField] private float _selectionAnimationDuration;
 
-        [Inject] private WordCategorySelectionService _wordCategorySelectionService;
-        [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
-        [Inject] private ICategoriesRepository _categoriesRepository;
-        [Inject] private IWindowsController _windowsController;
-        [Inject] private IWordStateMutator _wordStateMutator;
-
         private WordEntry _currentWordEntry;
+
+        private WordCategorySelectionService _wordCategorySelectionService;
+        private IWindowsController _windowsController;
+        private IWordStateMutator _wordStateMutator;
+
+        [Inject]
+        internal void Inject(
+            WordCategorySelectionService wordCategorySelectionService,
+            IWindowsController windowsController,
+            IWordStateMutator wordStateMutator)
+        {
+            _wordCategorySelectionService = wordCategorySelectionService;
+            _windowsController = windowsController;
+            _wordStateMutator = wordStateMutator;
+        }
 
         internal void SetParameters(WordEntry wordEntry)
         {

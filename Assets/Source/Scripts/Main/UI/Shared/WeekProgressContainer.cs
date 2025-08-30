@@ -13,8 +13,15 @@ namespace Source.Scripts.Main.UI.Shared
         [SerializeField] private ActivityMapping _activityMapping;
         [SerializeField] private List<ProgressItem> _progressItems;
 
-        [Inject] private IUISettingsRepository _uiSettingsRepository;
-        [Inject] private IDateProgressService _dateProgressService;
+        private IUISettingsRepository _uiSettingsRepository;
+        private IDateProgressService _dateProgressService;
+
+        [Inject]
+        internal void Inject(IUISettingsRepository uiSettingsRepository, IDateProgressService dateProgressService)
+        {
+            _uiSettingsRepository = uiSettingsRepository;
+            _dateProgressService = dateProgressService;
+        }
 
         internal void UpdateMonthWeeklyProgress(DailyProgress[] monthData, int weekIndex, bool[] isInMonth)
         {

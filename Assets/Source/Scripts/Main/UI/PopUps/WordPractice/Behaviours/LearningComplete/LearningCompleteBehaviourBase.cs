@@ -27,11 +27,11 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
 
         [SerializeField] private PlusMinusBehaviour _plusMinusBehaviour;
 
-        [Inject] protected ILocalizationKeysDatabase localizationKeysDatabase;
         [Inject] protected IPracticeStateService practiceStateService;
         [Inject] protected ICurrentWordsService currentWordsService;
         [Inject] protected IWindowsController windowsController;
 
+        [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
         [Inject] private ICompleteStateService _completeStateService;
 
         private PracticeState _currentPracticeState;
@@ -55,7 +55,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
 
         protected void SetState(CompleteType completeType, string additionalInfo = null)
         {
-            var localization = localizationKeysDatabase
+            var localization = _localizationKeysDatabase
                 .GetCompleteDescriptionLocalization(_currentPracticeState, completeType);
 
             _completeText.SetTextFormat(localization, additionalInfo);
@@ -79,7 +79,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
 
         private void UpdateButtonTexts()
         {
-            var localizationByValue = localizationKeysDatabase.LearningCompleteButtons[_currentPracticeState];
+            var localizationByValue = _localizationKeysDatabase.LearningCompleteButtons[_currentPracticeState];
 
             positiveButton.Text.text = localizationByValue.ButtonPositive.GetLocalization();
             negativeButton.Text.text = localizationByValue.ButtonNegative.GetLocalization();

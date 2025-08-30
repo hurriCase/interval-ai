@@ -55,21 +55,23 @@ namespace Source.Scripts.Core.Repositories.Base.Id
         {
             if (entries.ContainsKey(currentEntry.Id))
             {
-                Debug.LogError("[IdHandler::Validate] " +
-                               $"Encountered duplicate id: {currentEntry.Id}." +
-                               $"skipping entry: {currentEntry}." +
-                               $"For type {typeof(TEntry).Name}");
+                Debug.LogError(ZString.Format("[IdHandler::Validate] Encountered duplicate " +
+                                              "id: {0} " +
+                                              "skipping entry: " +
+                                              "{1} For type {2}",
+                    currentEntry.Id, currentEntry, typeof(TEntry).Name));
                 return false;
             }
 
             if (currentEntry.Id < 0)
                 return true;
 
-            Debug.LogError("[IdHandler::Validate] " +
-                           $"Encountered positive id: {currentEntry.Id} " +
-                           "for generation with default ids which is prohibited, " +
-                           $"skipping entry: {currentEntry}." +
-                           $"For type {typeof(TEntry).Name}");
+            Debug.LogError(ZString.Format("[IdHandler::Validate] Encountered positive " +
+                                          "id: {0} " +
+                                          "for generation with default ids which is prohibited" +
+                                          "skipping entry: " +
+                                          "{1} For type {2}",
+                currentEntry.Id, currentEntry, typeof(TEntry).Name));
             return false;
         }
 

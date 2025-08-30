@@ -10,8 +10,15 @@ namespace Source.Scripts.Bootstrap.Core.Steps.Load
     internal abstract class LoadStepBase<TLoadable> : StepBase
         where TLoadable : class, ILoadable
     {
-        [Inject] private IReadOnlyList<TLoadable> _entitiesToLoad;
-        [Inject] private IObjectResolver _objectResolver;
+        private IReadOnlyList<TLoadable> _entitiesToLoad;
+        private IObjectResolver _objectResolver;
+
+        [Inject]
+        internal void Inject(IReadOnlyList<TLoadable> entitiesToLoad, IObjectResolver objectResolver)
+        {
+            _entitiesToLoad = entitiesToLoad;
+            _objectResolver = objectResolver;
+        }
 
         protected override async UniTask ExecuteInternal(CancellationToken token)
         {

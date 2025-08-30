@@ -19,9 +19,20 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours
         [SerializeField] private float _rowSpacingRatio;
         [SerializeField] private float _wordCountSpacingRatio;
 
-        [Inject] private IPracticeSettingsRepository _practiceSettingsRepository;
-        [Inject] private IOnboardingConfig _onboardingConfig;
-        [Inject] private IObjectResolver _objectResolver;
+        private IPracticeSettingsRepository _practiceSettingsRepository;
+        private IOnboardingConfig _onboardingConfig;
+        private IObjectResolver _objectResolver;
+
+        [Inject]
+        internal void Inject(
+            IPracticeSettingsRepository practiceSettingsRepository,
+            IOnboardingConfig onboardingConfig,
+            IObjectResolver objectResolver)
+        {
+            _practiceSettingsRepository = practiceSettingsRepository;
+            _onboardingConfig = onboardingConfig;
+            _objectResolver = objectResolver;
+        }
 
         private const int WordCountPerRow = 3;
 

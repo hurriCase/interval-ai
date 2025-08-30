@@ -1,6 +1,5 @@
 ﻿using CustomUtils.Runtime.Localization;
 using Source.Scripts.Core.Configs;
-using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Main.UI.PopUps.Selection;
 using Source.Scripts.UI.Windows.Base;
@@ -25,11 +24,23 @@ namespace Source.Scripts.Main.UI.PopUps.Settings
         [SerializeField] private SelectionItem _cardReviewLanguageSelectionItem;
         [SerializeField] private SelectionItem _wordReviewSourceSelectionItem;
 
-        [Inject] private ILanguageSettingsRepository _languageSettingsRepository;
-        [Inject] private IPracticeSettingsRepository _practiceSettingsRepository;
-        [Inject] private IUISettingsRepository _iuiSettingsRepository;
-        [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
-        [Inject] private IAppConfig _appConfig;
+        private ILanguageSettingsRepository _languageSettingsRepository;
+        private IPracticeSettingsRepository _practiceSettingsRepository;
+        private IUISettingsRepository _iuiSettingsRepository;
+        private IAppConfig _appConfig;
+
+        [Inject]
+        internal void Inject(
+            ILanguageSettingsRepository languageSettingsRepository,
+            IPracticeSettingsRepository practiceSettingsRepository,
+            IUISettingsRepository iuiSettingsRepository,
+            IAppConfig appConfig)
+        {
+            _languageSettingsRepository = languageSettingsRepository;
+            _practiceSettingsRepository = practiceSettingsRepository;
+            _iuiSettingsRepository = iuiSettingsRepository;
+            _appConfig = appConfig;
+        }
 
         internal override void Init()
         {

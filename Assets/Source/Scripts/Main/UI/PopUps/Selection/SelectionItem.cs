@@ -17,8 +17,15 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
         [SerializeField] private TextMeshProUGUI _selectionNameText;
         [SerializeField] private string _localizationKey;
 
-        [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
-        [Inject] private IWindowsController _windowsController;
+        private ILocalizationKeysDatabase _localizationKeysDatabase;
+        private IWindowsController _windowsController;
+
+        [Inject]
+        internal void Inject(ILocalizationKeysDatabase localizationKeysDatabase, IWindowsController windowsController)
+        {
+            _localizationKeysDatabase = localizationKeysDatabase;
+            _windowsController = windowsController;
+        }
 
         internal void Init<TEnum>(ReactiveProperty<TEnum> targetProperty, TEnum[] customValues = null)
             where TEnum : unmanaged, Enum

@@ -10,10 +10,22 @@ namespace Source.Scripts.Onboarding.DI
 {
     internal sealed class OnboardingEntryPoint : IAsyncStartable
     {
-        [Inject] private IWindowsController _windowsController;
-        [Inject] private ICurrentWordsService _currentWordsService;
-        [Inject] private IObjectResolver _objectResolver;
-        [Inject] private IDefaultDataDatabase _defaultOnboardingDatabase;
+        private readonly IDefaultDataDatabase _defaultOnboardingDatabase;
+        private readonly ICurrentWordsService _currentWordsService;
+        private readonly IWindowsController _windowsController;
+        private readonly IObjectResolver _objectResolver;
+
+        internal OnboardingEntryPoint(
+            IDefaultDataDatabase defaultOnboardingDatabase,
+            ICurrentWordsService currentWordsService,
+            IWindowsController windowsController,
+            IObjectResolver objectResolver)
+        {
+            _defaultOnboardingDatabase = defaultOnboardingDatabase;
+            _currentWordsService = currentWordsService;
+            _windowsController = windowsController;
+            _objectResolver = objectResolver;
+        }
 
         public async UniTask StartAsync(CancellationToken cancellationToken)
         {

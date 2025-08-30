@@ -1,7 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using PrimeTween;
 using R3;
-using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Others;
 using Source.Scripts.UI.Components.Checkbox;
 using Source.Scripts.UI.Data;
@@ -21,12 +20,17 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
         [SerializeField] private CheckboxTextComponent _selectionItem;
         [SerializeField] private ToggleGroup _selectionToggleGroup;
 
-        [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
-        [Inject] private IAnimationsConfig _animationsConfig;
+        private IAnimationsConfig _animationsConfig;
 
         private UIPool<CheckboxTextComponent> _selectionPool;
 
         private DisposableBag _disposableBag;
+
+        [Inject]
+        internal void Inject(IAnimationsConfig animationsConfig)
+        {
+            _animationsConfig = animationsConfig;
+        }
 
         internal override void Init()
         {

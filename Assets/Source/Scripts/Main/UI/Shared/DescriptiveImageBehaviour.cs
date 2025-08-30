@@ -9,7 +9,13 @@ namespace Source.Scripts.Main.UI.Shared
     {
         [SerializeField] private Image _descriptiveImage;
 
-        [Inject] private IAddressablesLoader _addressablesLoader;
+        private IAddressablesLoader _addressablesLoader;
+
+        [Inject]
+        internal void Inject(IAddressablesLoader addressablesLoader)
+        {
+            _addressablesLoader = addressablesLoader;
+        }
 
         internal void UpdateView(CachedSprite cachedSprite)
         {

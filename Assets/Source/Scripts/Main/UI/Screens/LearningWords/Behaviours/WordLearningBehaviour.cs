@@ -25,9 +25,20 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours
 
         [SerializeField] private PlusMinusBehaviour _plusMinusBehaviour;
 
-        [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
-        [Inject] private IProgressRepository _progressRepository;
-        [Inject] private IWindowsController _windowsController;
+        private ILocalizationKeysDatabase _localizationKeysDatabase;
+        private IProgressRepository _progressRepository;
+        private IWindowsController _windowsController;
+
+        [Inject]
+        internal void Inject(
+            ILocalizationKeysDatabase localizationKeysDatabase,
+            IProgressRepository progressRepository,
+            IWindowsController windowsController)
+        {
+            _localizationKeysDatabase = localizationKeysDatabase;
+            _progressRepository = progressRepository;
+            _windowsController = windowsController;
+        }
 
         internal void Init()
         {

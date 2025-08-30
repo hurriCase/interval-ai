@@ -17,8 +17,15 @@ namespace Source.Scripts.Bootstrap.Core.Steps
     {
         [SerializeField] private AssetReferenceT<AudioHandler> _audioHandler;
 
-        [Inject] private IAddressablesLoader _addressablesLoader;
-        [Inject] private IAudioHandlerProvider _audioHandlerProvider;
+        private IAddressablesLoader _addressablesLoader;
+        private IAudioHandlerProvider _audioHandlerProvider;
+
+        [Inject]
+        internal void Inject(IAddressablesLoader addressablesLoader, IAudioHandlerProvider audioHandlerProvider)
+        {
+            _addressablesLoader = addressablesLoader;
+            _audioHandlerProvider = audioHandlerProvider;
+        }
 
         protected override async UniTask ExecuteInternal(CancellationToken token)
         {

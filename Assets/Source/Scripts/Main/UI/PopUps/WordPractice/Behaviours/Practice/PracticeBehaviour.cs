@@ -1,7 +1,6 @@
 ﻿using CustomUtils.Runtime.Extensions;
 using R3;
 using Source.Scripts.Core.Localization.LocalizationTypes;
-using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe;
 using UnityEngine;
@@ -19,8 +18,13 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice
         [SerializeField] private ControlButtonsBehaviour _controlButtonsBehaviour;
         [SerializeField] private LearningCompleteBehaviourBase _learningCompleteBehaviour;
 
-        [Inject] private ICurrentWordsService _currentWordsService;
-        [Inject] private ICompleteStateService _completeStateService;
+        private ICompleteStateService _completeStateService;
+
+        [Inject]
+        public void Inject(ICompleteStateService completeStateService)
+        {
+            _completeStateService = completeStateService;
+        }
 
         internal void Init()
         {

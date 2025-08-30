@@ -4,20 +4,23 @@ using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
-using VContainer;
 
 namespace Source.Scripts.Main.UI.PopUps.Selection.Category
 {
     internal sealed class WordCategorySelectionService : CategorySelectionServiceBase
     {
-        [Inject] private IWordStateMutator _wordStateMutator;
-
         private WordEntry _currentWordEntry;
 
-        public WordCategorySelectionService(
+        private readonly IWordStateMutator _wordStateMutator;
+
+        internal WordCategorySelectionService(
             ICategoriesRepository categoriesRepository,
-            ILocalizationKeysDatabase localizationKeysDatabase)
-            : base(categoriesRepository, localizationKeysDatabase) { }
+            ILocalizationKeysDatabase localizationKeysDatabase,
+            IWordStateMutator wordStateMutator)
+            : base(categoriesRepository, localizationKeysDatabase)
+        {
+            _wordStateMutator = wordStateMutator;
+        }
 
         internal void UpdateWord(WordEntry wordEntry)
         {

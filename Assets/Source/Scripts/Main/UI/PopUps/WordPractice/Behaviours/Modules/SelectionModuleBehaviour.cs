@@ -11,9 +11,15 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules
     {
         [SerializeField] private ButtonTextComponent[] _wordSelectionItems = new ButtonTextComponent[SelectionCount];
 
-        [Inject] private IWordsRepository _wordsRepository;
-
         private const int SelectionCount = 4;
+
+        private IWordsRepository _wordsRepository;
+
+        [Inject]
+        internal void Inject(IWordsRepository wordsRepository)
+        {
+            _wordsRepository = wordsRepository;
+        }
 
         protected override void UpdateView()
         {
@@ -32,7 +38,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules
                 _wordSelectionItems[index].Text.text = wordEntry.Word.GetHiddenText(practiceSettingsRepository);
             }
 
-            _wordSelectionItems[correctWordIndex].Text.text = currentWord.Word.GetHiddenText(practiceSettingsRepository);
+            _wordSelectionItems[correctWordIndex].Text.text =
+                currentWord.Word.GetHiddenText(practiceSettingsRepository);
         }
     }
 }

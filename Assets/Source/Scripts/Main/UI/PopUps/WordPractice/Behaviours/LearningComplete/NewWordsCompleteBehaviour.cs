@@ -12,13 +12,25 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
 {
     internal sealed class NewWordsCompleteBehaviour : LearningCompleteBehaviourBase
     {
-        [Inject] private CategorySelectionService _categorySelectionService;
-        [Inject] private ICategoriesRepository _categoriesRepository;
-        [Inject] private IProgressRepository _progressRepository;
+        private CategorySelectionService _categorySelectionService;
+        private ICategoriesRepository _categoriesRepository;
+        private IProgressRepository _progressRepository;
+
+        [Inject]
+        public void Inject(
+            CategorySelectionService categorySelectionService,
+            ICategoriesRepository categoriesRepository,
+            IProgressRepository progressRepository)
+        {
+            _categorySelectionService = categorySelectionService;
+            _categoriesRepository = categoriesRepository;
+            _progressRepository = progressRepository;
+        }
 
         protected override void OnInit()
         {
-            positiveButton.Button.OnClickAsObservable().SubscribeAndRegister(this, self => self.OpenCategorySelection());
+            positiveButton.Button.OnClickAsObservable()
+                .SubscribeAndRegister(this, self => self.OpenCategorySelection());
             negativeButton.Button.OnClickAsObservable().SubscribeAndRegister(this, self => self.TryContinueLearning());
 
             _progressRepository.GoalAchievedObservable.SubscribeAndRegister(this,

@@ -18,13 +18,6 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
     //TODO:<Dmitriy.Sukharev> refactor
     internal sealed class SwipeCardBehaviour : RectTransformBehaviour
     {
-        [Inject] private IUISettingsRepository _uiSettingsRepository;
-        [Inject] private IPracticeStateService _practiceStateService;
-        [Inject] private ICurrentWordsService _currentWordsService;
-        [Inject] private IWordAdvanceService _wordAdvanceService;
-        [Inject] private ISwipeInputService _swipeInputService;
-        [Inject] private ISwipeConfig _swipeConfig;
-
         private Vector2 _originalPosition;
         private Camera _uiCamera;
 
@@ -38,6 +31,30 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
         private WordEntry CurrentWord => _currentWordsService.CurrentWordsByState.CurrentValue[_currentPracticeState];
 
         private PracticeState _currentPracticeState;
+
+        private IUISettingsRepository _uiSettingsRepository;
+        private IPracticeStateService _practiceStateService;
+        private ICurrentWordsService _currentWordsService;
+        private IWordAdvanceService _wordAdvanceService;
+        private ISwipeInputService _swipeInputService;
+        private ISwipeConfig _swipeConfig;
+
+        [Inject]
+        public void Inject(
+            IUISettingsRepository uiSettingsRepository,
+            IPracticeStateService practiceStateService,
+            ICurrentWordsService currentWordsService,
+            IWordAdvanceService wordAdvanceService,
+            ISwipeInputService swipeInputService,
+            ISwipeConfig swipeConfig)
+        {
+            _uiSettingsRepository = uiSettingsRepository;
+            _practiceStateService = practiceStateService;
+            _currentWordsService = currentWordsService;
+            _wordAdvanceService = wordAdvanceService;
+            _swipeInputService = swipeInputService;
+            _swipeConfig = swipeConfig;
+        }
 
         internal void Init(PracticeState practiceState)
         {

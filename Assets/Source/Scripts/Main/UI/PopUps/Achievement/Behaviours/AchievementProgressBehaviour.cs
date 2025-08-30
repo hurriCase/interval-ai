@@ -12,7 +12,13 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours
         [SerializeField] private TextMeshProUGUI _bestStreakText;
         [SerializeField] private TextMeshProUGUI _currentStreakText;
 
-        [Inject] private IProgressRepository _progressRepository;
+        private IProgressRepository _progressRepository;
+
+        [Inject]
+        internal void Inject(IProgressRepository progressRepository)
+        {
+            _progressRepository = progressRepository;
+        }
 
         internal void Init()
         {

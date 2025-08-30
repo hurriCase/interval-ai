@@ -21,14 +21,21 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours
         [SerializeField] private WeekProgressContainer[] _weekProgressContainers
             = new WeekProgressContainer[MaxWeeksInMonth];
 
-        [Inject] private IDateProgressService _dateProgressService;
-        [Inject] private IUISettingsRepository _uiSettingsRepository;
-
         private const int MaxWeeksInMonth = 6;
         private const int MonthsInYear = 12;
 
         private int _currentYear;
         private int _currentMonth;
+
+        private IDateProgressService _dateProgressService;
+        private IUISettingsRepository _uiSettingsRepository;
+
+        [Inject]
+        internal void Inject(IDateProgressService dateProgressService, IUISettingsRepository uiSettingsRepository)
+        {
+            _dateProgressService = dateProgressService;
+            _uiSettingsRepository = uiSettingsRepository;
+        }
 
         internal void Init()
         {

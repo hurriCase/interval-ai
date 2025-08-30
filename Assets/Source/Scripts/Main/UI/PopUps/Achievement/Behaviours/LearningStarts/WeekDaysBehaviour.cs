@@ -11,7 +11,13 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts
     {
         [SerializeField] private TextMeshProUGUI[] _weekDayTexts = new TextMeshProUGUI[DaysPerWeek];
 
-        [Inject] private IUISettingsRepository _uiSettingsRepository;
+        private IUISettingsRepository _uiSettingsRepository;
+
+        [Inject]
+        internal void Inject(IUISettingsRepository uiSettingsRepository)
+        {
+            _uiSettingsRepository = uiSettingsRepository;
+        }
 
         private const int DaysPerWeek = 7;
 

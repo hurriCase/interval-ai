@@ -19,9 +19,15 @@ namespace Source.Scripts.Main.UI.PopUps.Category
         [SerializeField] private TextMeshProUGUI _translationsText;
         [SerializeField] private ButtonComponent _wordInfoButton;
 
-        [Inject] private IWindowsController _windowsController;
-
         private WordEntry _currentWordEntry;
+
+        private IWindowsController _windowsController;
+
+        [Inject]
+        internal void Inject(IWindowsController windowsController)
+        {
+            _windowsController = windowsController;
+        }
 
         internal void Init(WordEntry wordEntry)
         {

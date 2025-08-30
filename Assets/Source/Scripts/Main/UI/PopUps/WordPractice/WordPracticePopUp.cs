@@ -4,7 +4,6 @@ using PrimeTween;
 using R3;
 using R3.Triggers;
 using Source.Scripts.Core.Localization.LocalizationTypes;
-using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice;
 using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base;
@@ -26,8 +25,13 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice
         [SerializeField] private float _spacingBetweenTabsRatio;
         [SerializeField] private float _switchAnimationDuration;
 
-        [Inject] private IPracticeStateService _practiceStateService;
-        [Inject] private ICurrentWordsService _currentWordsService;
+        private IPracticeStateService _practiceStateService;
+
+        [Inject]
+        internal void Inject(IPracticeStateService practiceStateService)
+        {
+            _practiceStateService = practiceStateService;
+        }
 
         internal override void Init()
         {

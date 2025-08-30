@@ -16,13 +16,19 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
         [SerializeField] private float _spacingRatio;
         [SerializeField] private float _thicknessRatio;
 
-        [Inject] private IPracticeSettingsRepository _practiceSettingsRepository;
-        [Inject] private ICurrentWordsService _currentWordsService;
-
         private const int Circumference = 360;
 
         private readonly List<ProgressSectionItem> _createdSegments = new();
         private int _previousSegmentCount;
+
+        private IPracticeSettingsRepository _practiceSettingsRepository;
+        private ICurrentWordsService _currentWordsService;
+
+        [Inject]
+        internal void Inject(IPracticeSettingsRepository practiceSettingsRepository)
+        {
+            _practiceSettingsRepository = practiceSettingsRepository;
+        }
 
         internal void Init()
         {
