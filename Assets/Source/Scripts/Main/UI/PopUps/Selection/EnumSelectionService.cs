@@ -11,7 +11,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
     internal sealed class EnumSelectionService<TEnum> : ISelectionService<TEnum>
         where TEnum : unmanaged, Enum
     {
-        [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
+        private readonly ILocalizationKeysDatabase _localizationKeysDatabase;
 
         public IReadOnlyList<TEnum> SelectionValues { get; }
         public bool IsSingleSelection => true;
@@ -24,12 +24,14 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
         internal EnumSelectionService(
             ReactiveProperty<TEnum> targetProperty,
             string selectionTitleKey,
+            ILocalizationKeysDatabase localizationKeysDatabase,
             TEnum[] customValues = null,
             EnumMode enumMode = EnumMode.SkipFirst)
         {
             SelectionValues = customValues ?? enumMode.GetEnumValues<TEnum>();
             _targetProperty = targetProperty;
             _selectionTitleKey = selectionTitleKey;
+            _localizationKeysDatabase = localizationKeysDatabase;
         }
 
         public string GetSelectionName(TEnum value) => _localizationKeysDatabase.GetLocalizationByValue(value);

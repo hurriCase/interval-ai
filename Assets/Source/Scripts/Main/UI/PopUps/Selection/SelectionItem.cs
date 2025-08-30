@@ -30,7 +30,8 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
         internal void Init<TEnum>(ReactiveProperty<TEnum> targetProperty, TEnum[] customValues = null)
             where TEnum : unmanaged, Enum
         {
-            var enumSelectionService = new EnumSelectionService<TEnum>(targetProperty, _localizationKey, customValues);
+            var enumSelectionService = new EnumSelectionService<TEnum>(
+                targetProperty, _localizationKey, _localizationKeysDatabase, customValues);
 
             LocalizationController.Language.SubscribeAndRegister(this, enumSelectionService,
                 static (enumSelectionService, self) => self.UpdateLocalization(enumSelectionService));
