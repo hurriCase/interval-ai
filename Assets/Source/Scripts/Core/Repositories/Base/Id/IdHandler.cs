@@ -6,9 +6,11 @@ using Cysharp.Text;
 using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.Repositories.Base.DefaultConfig;
 using UnityEngine;
+using UnityEngine.Scripting;
 
 namespace Source.Scripts.Core.Repositories.Base.Id
 {
+    [Preserve]
     internal sealed class IdHandler<TEntry> : IIdHandler<TEntry>, IDisposable
     {
         private readonly PersistentReactiveProperty<int> _currentMaxId = new();

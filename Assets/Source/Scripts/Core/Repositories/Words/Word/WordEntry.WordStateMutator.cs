@@ -4,11 +4,13 @@ using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
+using UnityEngine.Scripting;
 
 namespace Source.Scripts.Core.Repositories.Words.Word
 {
     internal sealed partial class WordEntry
     {
+        [Preserve]
         internal sealed class WordStateMutator : IWordStateMutator
         {
             private readonly IPracticeSettingsRepository _practiceSettingsRepository;
@@ -16,6 +18,7 @@ namespace Source.Scripts.Core.Repositories.Words.Word
             private readonly IWordsRepository _wordsRepository;
             private readonly IAppConfig _appConfig;
 
+            [Preserve]
             internal WordStateMutator(
                 IProgressRepository progressRepository,
                 IPracticeSettingsRepository practiceSettingsRepository,

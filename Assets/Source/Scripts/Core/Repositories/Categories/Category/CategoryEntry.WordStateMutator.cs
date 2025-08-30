@@ -5,11 +5,13 @@ using Source.Scripts.Core.Repositories.Base.Id;
 using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
+using UnityEngine.Scripting;
 
 namespace Source.Scripts.Core.Repositories.Categories.Category
 {
     internal sealed partial class CategoryEntry
     {
+        [Preserve]
         internal sealed class CategoryStateMutator : ICategoryStateMutator
         {
             public Observable<CategoryEntry> CategoryNameChanged => _categoryNameChanged;
@@ -18,6 +20,7 @@ namespace Source.Scripts.Core.Repositories.Categories.Category
             private readonly IIdHandler<CategoryEntry> _idHandler;
             private readonly IWordStateMutator _wordStateMutator;
 
+            [Preserve]
             internal CategoryStateMutator(IIdHandler<CategoryEntry> idHandler, IWordStateMutator wordStateMutator)
             {
                 _idHandler = idHandler;
