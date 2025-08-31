@@ -28,6 +28,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.9647059
       objectReference: {fileID: 0}
+    - target: {fileID: 2867249672566331593, guid: f8af58c015148c64fb26c2915538f5b0, type: 3}
+      propertyPath: <Text>k__BackingField
+      value: 
+      objectReference: {fileID: 831605617880340562}
     - target: {fileID: 3160662099411186807, guid: f8af58c015148c64fb26c2915538f5b0, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0.7837838
@@ -166,9 +170,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1773835750006497605, guid: f8af58c015148c64fb26c2915538f5b0, type: 3}
       insertIndex: 2
       addedObject: {fileID: 783453621754397534}
-    - targetCorrespondingSourceObject: {fileID: 1773835750006497605, guid: f8af58c015148c64fb26c2915538f5b0, type: 3}
-      insertIndex: 3
-      addedObject: {fileID: 1093544149034484486}
   m_SourcePrefab: {fileID: 100100000, guid: f8af58c015148c64fb26c2915538f5b0, type: 3}
 --- !u!1 &757784457551543097 stripped
 GameObject:
@@ -187,23 +188,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cee240e49ee49a7a7166f3a2520e700, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.PopUps.Settings.SelectionSettingsItem
-  _buttonTextComponent: {fileID: 1093544149034484486}
+  _buttonComponent: {fileID: 3878543376026862261}
   _selectionNameText: {fileID: 1959047380246596757}
-  _selectionNameKey: 
---- !u!114 &1093544149034484486
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 757784457551543097}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 111acc062e79430ea7bc31cfa2731386, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.ButtonTextComponent
-  <Button>k__BackingField: {fileID: 3878543376026862261}
-  <Text>k__BackingField: {fileID: 831605617880340562}
+  _localizationKey: 
 --- !u!114 &3878543376026862261 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2867249672566331593, guid: f8af58c015148c64fb26c2915538f5b0, type: 3}

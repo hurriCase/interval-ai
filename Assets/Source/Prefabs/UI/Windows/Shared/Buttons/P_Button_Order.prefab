@@ -125,6 +125,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 02d7e9ea37d82394c97cbc4f42ffc0e7, type: 3}
     - target: {fileID: 9134864641081789667, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+      propertyPath: <Text>k__BackingField
+      value: 
+      objectReference: {fileID: 4328174025691788723}
+    - target: {fileID: 9134864641081789667, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: m_Colors.m_NormalColor.b
       value: 0.6
       objectReference: {fileID: 0}
@@ -204,9 +208,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4725090385315607919, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       insertIndex: 2
       addedObject: {fileID: 7097765144792882293}
-    - targetCorrespondingSourceObject: {fileID: 4725090385315607919, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
-      insertIndex: 3
-      addedObject: {fileID: 8369089129321710962}
   m_SourcePrefab: {fileID: 100100000, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
 --- !u!224 &2639637644160144888 stripped
 RectTransform:
@@ -230,23 +231,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cee240e49ee49a7a7166f3a2520e700, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.PopUps.Selection.SelectionItem
-  _buttonTextComponent: {fileID: 8369089129321710962}
-  _selectionNameText: {fileID: 0}
-  _selectionNameKey: ui.disctionary.word-order
---- !u!114 &8369089129321710962
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5284368234239781762}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 111acc062e79430ea7bc31cfa2731386, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.ButtonTextComponent
-  <Button>k__BackingField: {fileID: 8503555570821042702}
-  <Text>k__BackingField: {fileID: 4328174025691788723}
+  _buttonComponent: {fileID: 8503555570821042702}
+  _selectionNameText: {fileID: 4328174025691788723}
+  _localizationKey: 
 --- !u!114 &8503555570821042702 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9134864641081789667, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
@@ -268,7 +255,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 561403775900978418, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_Name
-      value: P_Text_
+      value: P_Text_OrderName
       objectReference: {fileID: 0}
     - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_Pivot.x

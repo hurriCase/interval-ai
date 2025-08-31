@@ -17,8 +17,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
     internal abstract class LearningCompleteBehaviourBase : MonoBehaviour
     {
         [SerializeField] protected GameObject buttonsContainer;
-        [SerializeField] protected ButtonTextComponent positiveButton;
-        [SerializeField] protected ButtonTextComponent negativeButton;
+        [SerializeField] protected ButtonComponent positiveButton;
+        [SerializeField] protected ButtonComponent negativeButton;
 
         [SerializeField] private TextMeshProUGUI _completeText;
         [SerializeField] private GameObject _noWordsImage;

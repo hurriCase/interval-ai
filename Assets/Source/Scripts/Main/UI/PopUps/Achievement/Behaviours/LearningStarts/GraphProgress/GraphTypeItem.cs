@@ -6,7 +6,7 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
 {
     internal sealed class GraphTypeItem : MonoBehaviour
     {
-        [field: SerializeField] internal TabComponent TabComponent { get; private set; }
+        [field: SerializeField] internal ToggleComponent TabComponent { get; private set; }
         [field: SerializeField] internal TextMeshProUGUI Text { get; private set; }
     }
 }

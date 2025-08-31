@@ -9,7 +9,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules
 {
     internal sealed class SelectionModuleBehaviour : PracticeModuleBase
     {
-        [SerializeField] private ButtonTextComponent[] _wordSelectionItems = new ButtonTextComponent[SelectionCount];
+        [SerializeField] private ButtonComponent[] _wordSelectionItems = new ButtonComponent[SelectionCount];
 
         private const int SelectionCount = 4;
 

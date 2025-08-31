@@ -13,7 +13,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
 {
     internal sealed class SelectionItem : MonoBehaviour
     {
-        [SerializeField] private ButtonTextComponent _buttonTextComponent;
+        [SerializeField] private ButtonComponent _buttonComponent;
         [SerializeField] private TextMeshProUGUI _selectionNameText;
         [SerializeField] private string _localizationKey;
 
@@ -39,7 +39,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
             enumSelectionService.TargetProperty
                 .SubscribeAndRegister(this, static (selectedName, self) => self.UpdateText(selectedName));
 
-            _buttonTextComponent.Button.OnClickAsObservable().SubscribeAndRegister(this, enumSelectionService,
+            _buttonComponent .OnClickAsObservable().SubscribeAndRegister(this, enumSelectionService,
                 static (enumSelectionService, self) => self.OpenPopup(enumSelectionService));
         }
 
@@ -54,7 +54,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
 
         private void UpdateText<TEnum>(TEnum selectedValue)
             where TEnum : unmanaged, Enum
-            => _buttonTextComponent.Text.text = _localizationKeysDatabase.GetLocalizationByValue(selectedValue);
+            => _buttonComponent.Text.text = _localizationKeysDatabase.GetLocalizationByValue(selectedValue);
 
         private void OpenPopup<T>(ISelectionService<T> selectionService)
         {

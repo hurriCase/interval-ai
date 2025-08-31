@@ -15,8 +15,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice
 {
     internal sealed class WordPracticePopUp : PopUpBase
     {
-        [SerializeField] private TabComponent _newWordsTab;
-        [SerializeField] private TabComponent _reviewTab;
+        [SerializeField] private ToggleComponent _newWordsTab;
+        [SerializeField] private ToggleComponent _reviewTab;
 
         [SerializeField] private PracticeBehaviour _newWordsPracticeBehaviour;
         [SerializeField] private PracticeBehaviour _reviewPracticeBehaviour;

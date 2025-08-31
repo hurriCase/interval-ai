@@ -380,27 +380,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9053049118195184499, guid: 6908ecba8aeb2e64e92435fe5cccf320, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9053049118195184499, guid: 6908ecba8aeb2e64e92435fe5cccf320, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9053049118195184499, guid: 6908ecba8aeb2e64e92435fe5cccf320, type: 3}
-      propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9053049118195184499, guid: 6908ecba8aeb2e64e92435fe5cccf320, type: 3}
-      propertyPath: m_SizeDelta.y
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9053049118195184499, guid: 6908ecba8aeb2e64e92435fe5cccf320, type: 3}
+      propertyPath: m_SizeDelta.x
       value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 9053049118195184499, guid: 6908ecba8aeb2e64e92435fe5cccf320, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9053049118195184499, guid: 6908ecba8aeb2e64e92435fe5cccf320, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 208.315
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9053049118195184499, guid: 6908ecba8aeb2e64e92435fe5cccf320, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -11
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9217618319187572938, guid: 6908ecba8aeb2e64e92435fe5cccf320, type: 3}
       propertyPath: m_Name
@@ -582,7 +582,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ca145d4ee7645108753c3aab51b97f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.Source.Scripts.Main.UI.Screens.Dictionary.DictionaryScreen
-  <WindowType>k__BackingField: 2
   <InitialWindow>k__BackingField: 0
   _addCategoryButton: {fileID: 77597034451183298}
   _categoryContainerItemPrefab: {fileID: 321735426737375370, guid: 81bfd01e54195944ab01a5274a434f95, type: 3}
@@ -697,6 +696,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_Block_ScreenTitle
       objectReference: {fileID: 0}
+    - target: {fileID: 7178735029410789020, guid: 4d504d5cc3551a94b8a32825f7a2c716, type: 3}
+      propertyPath: targetComponent
+      value: 
+      objectReference: {fileID: 1184652843842855587}
     - target: {fileID: 8625332692586421574, guid: 4d504d5cc3551a94b8a32825f7a2c716, type: 3}
       propertyPath: m_text
       value: Category Catalog
@@ -710,6 +713,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d504d5cc3551a94b8a32825f7a2c716, type: 3}
+--- !u!114 &1184652843842855587 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8625332692586421574, guid: 4d504d5cc3551a94b8a32825f7a2c716, type: 3}
+  m_PrefabInstance: {fileID: 7477080522293100517}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &6838596116948133054 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4117556633214294875, guid: 4d504d5cc3551a94b8a32825f7a2c716, type: 3}

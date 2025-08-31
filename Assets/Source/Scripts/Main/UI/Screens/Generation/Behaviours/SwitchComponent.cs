@@ -1,7 +1,7 @@
-﻿using CustomUtils.Runtime.UI.CustomComponents.Selectables;
-using PrimeTween;
+﻿using PrimeTween;
 using R3;
 using R3.Triggers;
+using Source.Scripts.UI.Components;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,8 +9,8 @@ namespace Source.Scripts.Main.UI.Screens.Generation.Behaviours
 {
     internal sealed class SwitchComponent : MonoBehaviour
     {
-        [SerializeField] private ThemeToggle _leftThemeToggle;
-        [SerializeField] private ThemeToggle _rightThemeToggle;
+        [SerializeField] private ToggleComponent _leftThemeToggle;
+        [SerializeField] private ToggleComponent _rightThemeToggle;
 
         [SerializeField] private Image _selectedImage;
         [SerializeField] private float _animationDuration;

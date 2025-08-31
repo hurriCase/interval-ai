@@ -24,6 +24,10 @@ PrefabInstance:
       propertyPath: m_AnchorMin.y
       value: 0.4
       objectReference: {fileID: 0}
+    - target: {fileID: 751925678675359553, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
+      propertyPath: <Text>k__BackingField
+      value: 
+      objectReference: {fileID: 5679641249837756908}
     - target: {fileID: 972366833965280059, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
       propertyPath: m_Color.g
       value: 1
@@ -62,12 +66,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4990340449473409000, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
       propertyPath: m_fontSize
-      value: 12.45
+      value: 14.05
       objectReference: {fileID: 0}
     - target: {fileID: 4990340449473409000, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
       propertyPath: m_HorizontalAlignment
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5867604454762841138, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
+      propertyPath: targetComponent
+      value: 
+      objectReference: {fileID: 5679641249837756908}
+    - target: {fileID: 6092104942815282739, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
+      propertyPath: targetComponent
+      value: 
+      objectReference: {fileID: 499312242710492479}
     - target: {fileID: 6092104942815282739, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
       propertyPath: <ThemeSolidColorName>k__BackingField
       value: Background_Main
@@ -157,41 +169,19 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 4015448904486476479, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3834826344384761549, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2553563532370194296}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
---- !u!114 &142993440159590725 stripped
+--- !u!114 &499312242710492479 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 751925678675359553, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
+  m_CorrespondingSourceObject: {fileID: 972366833965280059, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
   m_PrefabInstance: {fileID: 834119950860557828}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4515819131907412169}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &4515819131907412169 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3834826344384761549, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
-  m_PrefabInstance: {fileID: 834119950860557828}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2553563532370194296
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4515819131907412169}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 111acc062e79430ea7bc31cfa2731386, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.ButtonTextComponent
-  <Button>k__BackingField: {fileID: 142993440159590725}
-  <Text>k__BackingField: {fileID: 5679641249837756908}
 --- !u!114 &5679641249837756908 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4990340449473409000, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}

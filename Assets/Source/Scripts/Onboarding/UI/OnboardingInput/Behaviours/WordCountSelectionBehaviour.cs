@@ -1,8 +1,9 @@
 ﻿using CustomUtils.Runtime.Extensions;
 using R3;
+using R3.Triggers;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Onboarding.Data.Config;
-using Source.Scripts.UI.Components.Button;
+using Source.Scripts.UI.Components;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
@@ -13,8 +14,9 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours
     internal sealed class WordCountSelectionBehaviour : StepBehaviourBase
     {
         [SerializeField] private RectTransform _contentContainer;
+        [SerializeField] private ToggleGroup _toggleGroup;
         [SerializeField] private RectTransform _rowItem;
-        [SerializeField] private ButtonTextComponent _wordCountItem;
+        [SerializeField] private ToggleComponent _wordCountItem;
         [SerializeField] private AspectRatioFitter _spacing;
         [SerializeField] private float _rowSpacingRatio;
         [SerializeField] private float _wordCountSpacingRatio;
@@ -60,11 +62,20 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours
 
         private void CreateWordItem(Transform currentRow, int wordGoal)
         {
-            var createdWordItem = _objectResolver.Instantiate(_wordCountItem, currentRow);
+            var createdWordItem = Instantiate(_wordCountItem, currentRow);
 
             createdWordItem.Text.text = wordGoal.ToString();
-            createdWordItem.Button.OnClickAsObservable()
+            createdWordItem.group = _toggleGroup;
+            createdWordItem.OnPointerClickAsObservable()
                 .SubscribeAndRegister(this, wordGoal, static (wordGoal, self) => self.SelectWordCount(wordGoal));
+
+            if (wordGoal == _practiceSettingsRepository.DailyGoal.Value)
+                createdWordItem.OnEnableAsObservable()
+                    .SubscribeAndRegister(this, (createdWordItem, wordGoal), static (tuple, self) =>
+                    {
+                        if (tuple.wordGoal == self._practiceSettingsRepository.DailyGoal.Value)
+                            tuple.createdWordItem.isOn = true;
+                    });
         }
 
         private void SelectWordCount(int wordsGoal)
