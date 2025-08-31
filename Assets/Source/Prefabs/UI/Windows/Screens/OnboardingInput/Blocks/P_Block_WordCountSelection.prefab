@@ -221,6 +221,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8836683348713640655, guid: 8db5ba0e7a00e54479935099246cd77c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1584524866132928060}
+    - targetCorrespondingSourceObject: {fileID: 8836683348713640655, guid: 8db5ba0e7a00e54479935099246cd77c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 168224571850355282}
   m_SourcePrefab: {fileID: 100100000, guid: 8db5ba0e7a00e54479935099246cd77c, type: 3}
 --- !u!224 &5627064052547093837 stripped
 RectTransform:
@@ -246,6 +249,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ContentSizeFitter
   m_HorizontalFit: 0
   m_VerticalFit: 2
+--- !u!114 &168224571850355282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8002930925528155084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fafe2cfe61f6974895a912c3755e8f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ToggleGroup
+  m_AllowSwitchOff: 0
 --- !u!1001 &3153439204165872810
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -392,8 +408,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.Onboarding::Source.Scripts.Onboarding.Source.Scripts.Onboarding.UI.Behaviours.WordCountSelectionBehaviour
   _contentContainer: {fileID: 5627064052547093837}
+  _toggleGroup: {fileID: 168224571850355282}
   _rowItem: {fileID: 1982598347869655460, guid: 34855857e5d47e44a99cf4aeb53f5a6f, type: 3}
-  _wordCountItem: {fileID: 1212793479767244333, guid: e05506e6cb8093543b8e5d0ac603224b, type: 3}
+  _wordCountItem: {fileID: 7626464692983095963, guid: 4b6bb9a93eb962e49a5c3cce9d956444, type: 3}
   _spacing: {fileID: 8159226568114179573, guid: 06dd1662caf37c64d8de0e6752243062, type: 3}
   _rowSpacingRatio: 28.58333
   _wordCountSpacingRatio: 0.2790698
@@ -640,6 +657,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_Text_HowMany
       objectReference: {fileID: 0}
+    - target: {fileID: 5098176312871980323, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+      propertyPath: targetComponent
+      value: 
+      objectReference: {fileID: 1828402586222716474}
     - target: {fileID: 5975422674569537273, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
       propertyPath: m_text
       value: How many words a day do you want to learn?
@@ -676,6 +697,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 5420607942347545400}
   m_SourcePrefab: {fileID: 100100000, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+--- !u!114 &1828402586222716474 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5975422674569537273, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+  m_PrefabInstance: {fileID: 5454770869081325763}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8418255371607768099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &6514319569782297133 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1284860795548734190, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}

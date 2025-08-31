@@ -29,9 +29,9 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
 
         protected override void OnInit()
         {
-            positiveButton.Button.OnClickAsObservable()
+            positiveButton.OnClickAsObservable()
                 .SubscribeAndRegister(this, self => self.OpenCategorySelection());
-            negativeButton.Button.OnClickAsObservable().SubscribeAndRegister(this, self => self.TryContinueLearning());
+            negativeButton.OnClickAsObservable().SubscribeAndRegister(this, self => self.TryContinueLearning());
 
             _progressRepository.GoalAchievedObservable.SubscribeAndRegister(this,
                 static (wordsCount, self) => self.SetState(CompleteType.Complete, wordsCount.ToString()));
