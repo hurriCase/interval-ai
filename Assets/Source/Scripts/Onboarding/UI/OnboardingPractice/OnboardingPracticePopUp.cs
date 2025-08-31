@@ -2,6 +2,8 @@
 using CustomUtils.Runtime.Extensions;
 using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.Configs;
+using Source.Scripts.Core.Localization.LocalizationTypes;
+using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours;
 using Source.Scripts.Onboarding.Data.Config;
 using Source.Scripts.Onboarding.UI.OnboardingPractice.Steps.Base;
@@ -29,16 +31,19 @@ namespace Source.Scripts.Onboarding.UI.OnboardingPractice
 
         private int _currentStepIndex = -1;
 
+        private IPracticeStateService _practiceStateService;
         private IOnboardingConfig _onboardingConfig;
 
         [Inject]
-        internal void Inject(IOnboardingConfig onboardingConfig)
+        internal void Inject(IPracticeStateService practiceStateService, IOnboardingConfig onboardingConfig)
         {
+            _practiceStateService = practiceStateService;
             _onboardingConfig = onboardingConfig;
         }
 
-        internal void SwitchStep(ModuleType moduleType)
+        internal void SwitchStep(PracticeState practiceState, ModuleType moduleType)
         {
+            _practiceStateService.SetState(practiceState);
             _cardBehaviour.SwitchModuleCommand.Execute(moduleType);
 
             _currentStepIndex++;

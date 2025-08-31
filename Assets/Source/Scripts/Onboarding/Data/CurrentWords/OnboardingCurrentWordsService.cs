@@ -4,7 +4,6 @@ using R3;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
-using Source.Scripts.Onboarding.Data.Config;
 
 namespace Source.Scripts.Onboarding.Data.CurrentWords
 {
@@ -16,23 +15,23 @@ namespace Source.Scripts.Onboarding.Data.CurrentWords
         private readonly ReactiveProperty<EnumArray<PracticeState, WordEntry>> _currentWordsByState
             = new(new EnumArray<PracticeState, WordEntry>(EnumMode.SkipFirst));
 
-        private readonly DefaultOnboardingDatabase _onboardingDatabase;
-        private readonly PracticeState _onboardingPracticeState;
-
         private int _currentWordIndex;
 
-        public OnboardingCurrentWordsService(
+        private readonly DefaultOnboardingDatabase _onboardingDatabase;
+        private readonly IPracticeStateService _practiceStateService;
+
+        internal OnboardingCurrentWordsService(
             DefaultOnboardingDatabase onboardingDatabase,
-            OnboardingConfig onboardingConfig)
+            IPracticeStateService practiceStateService)
         {
             _onboardingDatabase = onboardingDatabase;
-            _onboardingPracticeState = onboardingConfig.OnboardingPracticeState;
+            _practiceStateService = practiceStateService;
         }
 
         public void SetCurrentWord(PracticeState practiceState, WordEntry word)
         {
             var currentWords = _currentWordsByState.Value;
-            currentWords[_onboardingPracticeState] = word;
+            currentWords[_practiceStateService.CurrentState.CurrentValue] = word;
             _currentWordsByState.Value = currentWords;
             _currentWordsByState.OnNext(currentWords);
         }
@@ -44,13 +43,16 @@ namespace Source.Scripts.Onboarding.Data.CurrentWords
 
             var currentWord = _onboardingDatabase.Defaults[_currentWordIndex];
 
-            SetCurrentWord(_onboardingPracticeState, currentWord);
+            SetCurrentWord(_practiceStateService.CurrentState.CurrentValue, currentWord);
 
             _currentWordIndex++;
         }
 
         public bool HasWordByState(PracticeState practiceState)
-            => _currentWordsByState.CurrentValue[_onboardingPracticeState] != null;
+            => _currentWordsByState.CurrentValue[_practiceStateService.CurrentState.CurrentValue] != null;
+
+        public bool IsFirstShow(PracticeState practiceState)
+            => _practiceStateService.CurrentState.CurrentValue == PracticeState.NewWords;
 
         public void Dispose()
         {

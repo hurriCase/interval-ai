@@ -1,5 +1,6 @@
 ﻿using Cysharp.Text;
 using Source.Scripts.Core.Configs;
+using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Onboarding.UI.Base;
 using Source.Scripts.Onboarding.UI.OnboardingPractice;
@@ -11,7 +12,9 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours
 {
     internal sealed class WordCongratulationBehaviour : StepBehaviourBase
     {
+        [SerializeField] private PracticeState _practiceState;
         [SerializeField] private ModuleType _moduleType;
+
         [SerializeField] private TextMeshProUGUI _wordCountText;
 
         private const int DayInMonths = 30;
@@ -36,7 +39,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours
         internal override void OnContinue()
         {
             var onboardingPracticePopUp = _windowsController.OpenPopUp<OnboardingPracticePopUp>();
-            onboardingPracticePopUp.SwitchStep(_moduleType);
+            onboardingPracticePopUp.SwitchStep(_practiceState, _moduleType);
         }
     }
 }

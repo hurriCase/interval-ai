@@ -4,6 +4,7 @@ using PrimeTween;
 using R3;
 using R3.Triggers;
 using Source.Scripts.Core.Localization.LocalizationTypes;
+using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice;
 using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base;
@@ -26,11 +27,13 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice
         [SerializeField] private float _switchAnimationDuration;
 
         private IPracticeStateService _practiceStateService;
+        private ICurrentWordsService _currentWordsService;
 
         [Inject]
-        internal void Inject(IPracticeStateService practiceStateService)
+        internal void Inject(IPracticeStateService practiceStateService, ICurrentWordsService currentWordsService)
         {
             _practiceStateService = practiceStateService;
+            _currentWordsService = currentWordsService;
         }
 
         internal override void Init()
@@ -54,7 +57,18 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice
 
         internal override async UniTask ShowAsync()
         {
-            _practiceStateService.UpdatePracticeState();
+            _currentWordsService.UpdateCurrentWords();
+
+            var hasNewWords = _currentWordsService.HasWordByState(PracticeState.NewWords);
+            var hasReviewWords = _currentWordsService.HasWordByState(PracticeState.Review);
+
+            if (hasNewWords is false && hasReviewWords)
+            {
+                _practiceStateService.SetState(PracticeState.Review);
+                return;
+            }
+
+            _practiceStateService.SetState(PracticeState.NewWords);
 
             await base.ShowAsync();
         }

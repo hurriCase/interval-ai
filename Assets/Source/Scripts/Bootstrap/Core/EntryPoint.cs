@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using CustomUtils.Runtime.Scenes.Base;
+using Cysharp.Text;
 using Cysharp.Threading.Tasks;
 using R3;
 using Source.Scripts.Core.References.Base;
@@ -70,7 +71,9 @@ namespace Source.Scripts.Bootstrap.Core
 
         private void LogStepCompletion(StepData stepData)
         {
-            Debug.Log($"[StartUpService::LogStepCompletion] Step {stepData.Step} completed: {stepData.StepName}");
+            Debug.Log(ZString.Format(
+                "[StartUpService::LogStepCompletion] Step {0} completed: {1}",
+                stepData.Step, stepData.StepName));
         }
     }
 }

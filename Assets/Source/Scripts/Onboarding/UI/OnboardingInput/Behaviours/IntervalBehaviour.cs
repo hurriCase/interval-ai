@@ -1,4 +1,5 @@
 ﻿using Source.Scripts.Core.Configs;
+using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Onboarding.UI.Base;
 using Source.Scripts.Onboarding.UI.OnboardingPractice;
 using UnityEngine;
@@ -8,6 +9,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours
 {
     internal sealed class IntervalBehaviour : StepBehaviourBase
     {
+        [SerializeField] private PracticeState _practiceState;
         [SerializeField] private ModuleType _moduleType;
 
         private IWindowsController _windowsController;
@@ -21,7 +23,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours
         internal override void OnContinue()
         {
             var onboardingPracticePopUp = _windowsController.OpenPopUp<OnboardingPracticePopUp>();
-            onboardingPracticePopUp.SwitchStep(_moduleType);
+            onboardingPracticePopUp.SwitchStep(_practiceState, _moduleType);
         }
     }
 }

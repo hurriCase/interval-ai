@@ -7,7 +7,7 @@ using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
 
-namespace Source.Scripts.Core.Repositories.Words
+namespace Source.Scripts.Main.Data
 {
     internal sealed class MainCurrentWordsService : ICurrentWordsService, IDisposable
     {
@@ -65,6 +65,13 @@ namespace Source.Scripts.Core.Repositories.Words
 
         public bool HasWordByState(PracticeState practiceState)
             => CurrentWordsByState.CurrentValue[practiceState] != null;
+
+        public bool IsFirstShow(PracticeState practiceState)
+        {
+            var learningState = CurrentWordsByState.CurrentValue[practiceState]?.LearningState;
+
+            return learningState == LearningState.Default && practiceState == PracticeState.NewWords;
+        }
 
         public void Dispose()
         {

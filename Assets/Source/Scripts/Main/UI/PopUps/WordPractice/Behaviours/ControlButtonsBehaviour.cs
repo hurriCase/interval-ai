@@ -26,16 +26,19 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
 
         private PracticeState _currentPracticeState;
 
+        private IPracticeStateService _practiceStateService;
         private ICurrentWordsService _currentWordsService;
         private IWordAdvanceService _wordAdvanceService;
         private IWordStateMutator _wordStateMutator;
 
         [Inject]
         internal void Inject(
+            IPracticeStateService practiceStateService,
             ICurrentWordsService currentWordsService,
             IWordAdvanceService wordAdvanceService,
             IWordStateMutator wordStateMutator)
         {
+            _practiceStateService = practiceStateService;
             _wordAdvanceService = wordAdvanceService;
             _wordStateMutator = wordStateMutator;
             _currentWordsService = currentWordsService;
@@ -53,6 +56,9 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
                 .Where(currentWord => currentWord != null)
                 .SubscribeAndRegister(this, static self => self.UpdateView());
 
+            _practiceStateService.CurrentState
+                .SubscribeAndRegister(this, static self => self.UpdateView());
+
             SubscribeAdvanceButton(_alreadyKnowButton, false);
             SubscribeAdvanceButton(_learnButton, true);
             SubscribeAdvanceButton(_memorizedButton, true);
@@ -61,7 +67,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
 
         private void UpdateView()
         {
-            var isFirstShow = CurrentWord.LearningState.IsFirstShown(_currentPracticeState);
+            var isFirstShow = _currentWordsService.IsFirstShow(_currentPracticeState);
 
             _firstShowContainer.SetActive(isFirstShow);
             _otherShowContainer.SetActive(isFirstShow is false);

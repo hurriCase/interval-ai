@@ -11,5 +11,6 @@ namespace Source.Scripts.Core.Repositories.Words.Base
         void UpdateCurrentWords();
         void SetCurrentWord(PracticeState practiceState, WordEntry word);
         bool HasWordByState(PracticeState practiceState);
+        bool IsFirstShow(PracticeState practiceState);
     }
 }

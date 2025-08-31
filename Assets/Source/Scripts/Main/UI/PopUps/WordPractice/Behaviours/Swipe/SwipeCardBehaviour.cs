@@ -9,7 +9,6 @@ using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
-using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice;
 using UnityEngine;
 using VContainer;
 
@@ -212,13 +211,13 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
                 case SwipeDirection.Left:
                     _wordAdvanceService.AdvanceWord(
                         CurrentWord,
-                        CurrentWord.LearningState.IsFirstShown(_currentPracticeState));
+                        _currentWordsService.IsFirstShow(_currentPracticeState));
                     break;
 
                 case SwipeDirection.Right:
                     _wordAdvanceService.AdvanceWord(
                         CurrentWord,
-                        CurrentWord.LearningState.IsFirstShown(_currentPracticeState) is false);
+                        _currentWordsService.IsFirstShow(_currentPracticeState) is false);
                     break;
 
                 default:
