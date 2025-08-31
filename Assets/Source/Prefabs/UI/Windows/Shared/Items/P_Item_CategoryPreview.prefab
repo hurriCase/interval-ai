@@ -276,6 +276,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5344884979574363409, guid: ab4872127d9777248a7bc5d9ae3ece63, type: 3}
+      propertyPath: targetComponent
+      value: 
+      objectReference: {fileID: 3909544179032970497}
+    - target: {fileID: 5344884979574363409, guid: ab4872127d9777248a7bc5d9ae3ece63, type: 3}
       propertyPath: <ColorType>k__BackingField
       value: 2
       objectReference: {fileID: 0}
@@ -307,6 +311,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3143322904589819375, guid: ab4872127d9777248a7bc5d9ae3ece63, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5444271346374269459}
+    - targetCorrespondingSourceObject: {fileID: 3143322904589819375, guid: ab4872127d9777248a7bc5d9ae3ece63, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7486551749836790926}
   m_SourcePrefab: {fileID: 100100000, guid: ab4872127d9777248a7bc5d9ae3ece63, type: 3}
 --- !u!1 &1011055858692845815 stripped
 GameObject:
@@ -326,7 +333,65 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <IconImage>k__BackingField: {fileID: 2968698250022264635}
-  <NameText>k__BackingField: {fileID: 299004029161973973}
+  <Button>k__BackingField: {fileID: 7486551749836790926}
+--- !u!114 &7486551749836790926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011055858692845815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.Button.ButtonComponent
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 3909544179032970497}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+  <Text>k__BackingField: {fileID: 299004029161973973}
+  <SelectableColorMapping>k__BackingField: {fileID: 0}
+  <AdditionalGraphics>k__BackingField: []
+--- !u!114 &3909544179032970497 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1430407190466721817, guid: ab4872127d9777248a7bc5d9ae3ece63, type: 3}
+  m_PrefabInstance: {fileID: 2709106994724875544}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &5584868185930361279 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7501271240885683367, guid: ab4872127d9777248a7bc5d9ae3ece63, type: 3}
@@ -340,6 +405,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5584868185930361279}
     m_Modifications:
+    - target: {fileID: 833355650617051156, guid: 1c73538d1d0d9a844be8baca22e7b9d2, type: 3}
+      propertyPath: targetComponent
+      value: 
+      objectReference: {fileID: 299004029161973973}
     - target: {fileID: 4592909722826283005, guid: 1c73538d1d0d9a844be8baca22e7b9d2, type: 3}
       propertyPath: m_Name
       value: P_Text_Adaptive_
