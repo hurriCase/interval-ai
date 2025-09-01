@@ -202,6 +202,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_Text_Localized_
       objectReference: {fileID: 0}
+    - target: {fileID: 5098176312871980323, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+      propertyPath: targetComponent
+      value: 
+      objectReference: {fileID: 6595644655193605410}
     - target: {fileID: 5975422674569537273, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
       propertyPath: m_text
       value: Select languages
@@ -262,6 +266,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.AspectRatioFitter
   m_AspectMode: 1
   m_AspectRatio: 13.192307
+--- !u!114 &6595644655193605410 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5975422674569537273, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+  m_PrefabInstance: {fileID: 676833644308653019}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3892239285054955323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1878912626907076124
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -521,7 +536,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Source.Scripts.Onboarding::Source.Scripts.Onboarding.Source.Scripts.Onboarding.UI.Behaviours.LanguageSelectionBehaviour
   _nativeLanguagesAccordion: {fileID: 9059796343495462877}
   _learningComponentAccordion: {fileID: 3066104636904168661}
-  _languageSelectionItem: {fileID: 7309495231002759672, guid: 7d8cf22493add914c83009711ba142ca, type: 3}
+  _languageSelectionItem: {fileID: 2198302379777345955, guid: dc25050455e262743b4a0e78223933db, type: 3}
   _spacingItem: {fileID: 1117336603052496553, guid: 9ee8307fbf148b642869ee108c02bec9, type: 3}
 --- !u!114 &4842219624596084317
 MonoBehaviour:

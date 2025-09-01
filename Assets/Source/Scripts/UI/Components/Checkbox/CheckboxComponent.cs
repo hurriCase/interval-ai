@@ -1,5 +1,5 @@
 ﻿using CustomUtils.Runtime.Extensions;
-using CustomUtils.Runtime.UI.CustomComponents.Selectables;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Toggles.Components;
 using R3.Triggers;
 using Source.Scripts.Core.Audio.Base;
 using UnityEngine;

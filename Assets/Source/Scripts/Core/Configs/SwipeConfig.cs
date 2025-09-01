@@ -2,7 +2,6 @@
 
 namespace Source.Scripts.Core.Configs
 {
-    [CreateAssetMenu(fileName = nameof(SwipeConfig), menuName = nameof(SwipeConfig))]
     internal sealed class SwipeConfig : ScriptableObject, ISwipeConfig
     {
         [field: SerializeField] public float ReturnDuration { get; private set; }

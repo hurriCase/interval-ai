@@ -210,6 +210,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3503384342505983762, guid: eb336942d061cb44fb8096abeb2568c2, type: 3}
+      propertyPath: targetComponent
+      value: 
+      objectReference: {fileID: 6283440899791835946}
     - target: {fileID: 6707408994701265039, guid: eb336942d061cb44fb8096abeb2568c2, type: 3}
       propertyPath: m_Name
       value: P_InputField_Name
@@ -241,6 +245,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AspectMode: 1
   m_AspectRatio: 7.7954545
+--- !u!114 &6283440899791835946 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1979685495240599960, guid: eb336942d061cb44fb8096abeb2568c2, type: 3}
+  m_PrefabInstance: {fileID: 5497212123858598578}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!224 &7182894836444850261 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3451095974414881511, guid: eb336942d061cb44fb8096abeb2568c2, type: 3}

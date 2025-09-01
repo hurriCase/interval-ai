@@ -90,7 +90,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6829777437454293057, guid: f4a7512a7bb93574fbd9d2dd3fa7adfb, type: 3}
       propertyPath: m_Name
-      value: P_Block_OnlyQuestion
+      value: P_Block_Module_FirstShow
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2047513399015992711, guid: f4a7512a7bb93574fbd9d2dd3fa7adfb, type: 3}
@@ -131,8 +131,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Modules.Base.PracticeModuleBase
   descriptiveImage: {fileID: 0}
   shownWordText: {fileID: 8914383439874850159}
-  transitionButtons:
-  - <Button>k__BackingField: {fileID: 104275079683994644}
+  transitionData:
+  - <TransitionObject>k__BackingField: {fileID: 104275079683994644}
     <ModuleType>k__BackingField: 3
 --- !u!1001 &1292723995568302980
 PrefabInstance:
@@ -246,6 +246,10 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9109170191897869617, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+      propertyPath: targetComponent
+      value: 
+      objectReference: {fileID: 8914383439874850159}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

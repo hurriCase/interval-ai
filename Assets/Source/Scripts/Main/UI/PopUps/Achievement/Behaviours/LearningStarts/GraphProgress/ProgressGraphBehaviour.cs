@@ -10,6 +10,7 @@ using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.Data.Base;
 using Source.Scripts.Main.UI.Shared;
+using Source.Scripts.Main.UI.Shared.Progress;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

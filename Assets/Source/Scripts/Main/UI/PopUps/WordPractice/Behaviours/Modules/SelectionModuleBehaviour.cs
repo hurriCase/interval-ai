@@ -1,7 +1,7 @@
 ﻿using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base;
-using Source.Scripts.UI.Components.Button;
+using Source.Scripts.UI.Components.Checkbox;
 using UnityEngine;
 using VContainer;
 
@@ -9,7 +9,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules
 {
     internal sealed class SelectionModuleBehaviour : PracticeModuleBase
     {
-        [SerializeField] private ButtonComponent[] _wordSelectionItems = new ButtonComponent[SelectionCount];
+        [SerializeField] private CheckboxComponent[] _wordSelectionItems = new CheckboxComponent[SelectionCount];
 
         private const int SelectionCount = 4;
 

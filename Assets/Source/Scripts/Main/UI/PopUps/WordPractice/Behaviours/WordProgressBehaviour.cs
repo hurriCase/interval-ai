@@ -3,7 +3,8 @@ using CustomUtils.Runtime.Extensions;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
-using Source.Scripts.Main.UI.Shared;
+using Source.Scripts.Main.UI.Shared.Activity;
+using Source.Scripts.Main.UI.Shared.Progress;
 using UnityEngine;
 using VContainer;
 

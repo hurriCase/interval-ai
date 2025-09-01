@@ -3,7 +3,7 @@ using CustomUtils.Runtime.Extensions;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.GraphProgress;
-using Source.Scripts.Main.UI.Shared;
+using Source.Scripts.Main.UI.Shared.Progress;
 using UnityEngine;
 using VContainer;
 using ZLinq;

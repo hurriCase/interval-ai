@@ -256,48 +256,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.Onboarding::Source.Scripts.Onboarding.Source.Scripts.Onboarding.UI.Behaviours.LevelSelectionBehaviour
   _selectionToggleGroup: {fileID: 2557942927658456448}
-  _selectionToggleItem: {fileID: 5018757811210691075, guid: 83f3a4569921cbf4298396fd8a883082, type: 3}
+  _selectionCheckbox: {fileID: 2333312193077310987, guid: 7fc24fe76d2f20245baa1aa5707bc503, type: 3}
   _levelButtonsContainer: {fileID: 1942993663965128997}
   _aspectRatioFitter: {fileID: 8159226568114179573, guid: 06dd1662caf37c64d8de0e6752243062, type: 3}
   _spacingRatio: 42.875
-  _levelLanguageIcons:
-    _values:
-    - m_AssetGUID: 
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_SubObjectGUID: 
-      m_EditorAssetChanged: 0
-    - m_AssetGUID: fdcec326f2cde6e46a845206dbb63290
-      m_SubObjectName: T_LanguageLevel
-      m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      m_SubObjectGUID: 
-      m_EditorAssetChanged: 0
-    - m_AssetGUID: fdcec326f2cde6e46a845206dbb63290
-      m_SubObjectName: T_LanguageLevel
-      m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      m_SubObjectGUID: 
-      m_EditorAssetChanged: 0
-    - m_AssetGUID: fdcec326f2cde6e46a845206dbb63290
-      m_SubObjectName: T_LanguageLevel
-      m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      m_SubObjectGUID: 
-      m_EditorAssetChanged: 0
-    - m_AssetGUID: fdcec326f2cde6e46a845206dbb63290
-      m_SubObjectName: T_LanguageLevel
-      m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      m_SubObjectGUID: 
-      m_EditorAssetChanged: 0
-    - m_AssetGUID: fdcec326f2cde6e46a845206dbb63290
-      m_SubObjectName: T_LanguageLevel
-      m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      m_SubObjectGUID: 
-      m_EditorAssetChanged: 0
-    _enumMode: 2
 --- !u!114 &7872032141494296002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -681,6 +643,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_Text_SelectLevel
       objectReference: {fileID: 0}
+    - target: {fileID: 5098176312871980323, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+      propertyPath: targetComponent
+      value: 
+      objectReference: {fileID: 2933765031192711451}
     - target: {fileID: 5975422674569537273, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
       propertyPath: m_text
       value: Choose your level
@@ -717,6 +683,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 8313288652003249863}
   m_SourcePrefab: {fileID: 100100000, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+--- !u!114 &2933765031192711451 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5975422674569537273, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+  m_PrefabInstance: {fileID: 8816399369453205474}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4988509677495372546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4988509677495372546 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4566821120556776672, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}

@@ -133,6 +133,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6620608290972932447, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
+      propertyPath: targetComponent
+      value: 
+      objectReference: {fileID: 473685383057880304}
+    - target: {fileID: 6620608290972932447, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
       propertyPath: <ThemeSolidColorName>k__BackingField
       value: Base_Main
       objectReference: {fileID: 0}
@@ -151,6 +155,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 483162380438110460}
   m_SourcePrefab: {fileID: 100100000, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
+--- !u!114 &473685383057880304 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 149792486825768023, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
+  m_PrefabInstance: {fileID: 326217548321259687}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4527347005704868102 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4202609680214102433, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
@@ -175,7 +190,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -200,7 +215,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
-  <ButtonStateColorMapping>k__BackingField: {fileID: 0}
+  <Text>k__BackingField: {fileID: 0}
+  <GraphicMappings>k__BackingField: []
 --- !u!114 &5436563114417893329
 MonoBehaviour:
   m_ObjectHideFlags: 0

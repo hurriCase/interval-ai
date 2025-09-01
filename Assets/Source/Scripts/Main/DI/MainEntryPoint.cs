@@ -29,7 +29,7 @@ namespace Source.Scripts.Main.DI
         {
             await _windowsController.InitAsync(cancellationToken);
 
-            _menuBehaviour.Init(cancellationToken);
+            _menuBehaviour.Init();
 
             _sceneTransitionController.EndTransition();
         }

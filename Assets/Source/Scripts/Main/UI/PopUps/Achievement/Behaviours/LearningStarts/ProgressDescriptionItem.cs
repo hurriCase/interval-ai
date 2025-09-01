@@ -4,7 +4,7 @@ using CustomUtils.Runtime.UI.Theme.Components;
 using Cysharp.Text;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
-using Source.Scripts.Main.UI.Shared;
+using Source.Scripts.Main.UI.Shared.Progress;
 using TMPro;
 using UnityEngine;
 using VContainer;

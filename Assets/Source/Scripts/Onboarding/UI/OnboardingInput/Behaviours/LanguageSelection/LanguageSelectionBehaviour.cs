@@ -73,7 +73,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours.LanguageSelect
             foreach (var (languageType, language) in languages.AsTuples())
             {
                 var targetSelectionItem = _createdLanguageSelectionItems[languageType][language];
-                targetSelectionItem.CheckboxComponent.isOn = true;
+                targetSelectionItem.Checkbox.isOn = true;
             }
         }
 
@@ -102,18 +102,17 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours.LanguageSelect
 
             createdLanguageItem.gameObject.name = ZString.Format("{0}, {1}", languageType, language);
 
-            // ReSharper disable once HeapView.BoxingAllocation . It's find, because this is done for safety reason
-            createdLanguageItem.LanguageText.text = string.IsNullOrWhiteSpace(localization)
+            // ReSharper disable once HeapView.BoxingAllocation . It's fine, because this is done for safety reason
+            createdLanguageItem.Checkbox.Text.text = string.IsNullOrWhiteSpace(localization)
                 ? language.ToString()
                 : localization;
 
-            createdLanguageItem.CheckboxComponent.OnPointerClickAsObservable()
+            createdLanguageItem.Checkbox.group = accordionComponent.ToggleGroup;
+            createdLanguageItem.Checkbox.OnPointerClickAsObservable()
                 .SubscribeAndRegister(this, (language, languageType), static (tuple, self)
                     => self._languageSettingsRepository.SetLanguage(tuple.language, tuple.languageType));
 
-            createdLanguageItem.CheckboxComponent.group = accordionComponent.ToggleGroup;
-
-            _addressablesLoader.AssignImageAsync(createdLanguageItem.Icon,
+            _addressablesLoader.AssignImageAsync(createdLanguageItem.Checkbox.Image,
                 _spriteReferences.LanguageSprites[language], destroyCancellationToken);
 
             accordionComponent.AccordionComponent.HiddenContent.Add(createdLanguageItem.AccordionItem);

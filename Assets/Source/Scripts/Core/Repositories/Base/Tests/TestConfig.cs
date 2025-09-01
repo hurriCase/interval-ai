@@ -7,7 +7,6 @@ using UnityEngine;
 
 namespace Source.Scripts.Core.Repositories.Base.Tests
 {
-    [CreateAssetMenu(fileName = nameof(TestConfig), menuName = nameof(TestConfig))]
     internal sealed class TestConfig : ScriptableObject, ITestConfig
     {
         [field: SerializeField] public EnumArray<LearningState, RandomInt> WordsCountByState { get; private set; }

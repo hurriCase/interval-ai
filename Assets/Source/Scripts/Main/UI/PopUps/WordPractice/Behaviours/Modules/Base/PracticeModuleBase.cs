@@ -11,7 +11,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base
     {
         [SerializeField] protected DescriptiveImageBehaviour descriptiveImage;
         [SerializeField] protected TextMeshProUGUI shownWordText;
-        [SerializeField] protected TransitionButtonData[] transitionButtons;
+        [SerializeField] protected TransitionData[] transitionData;
 
         [Inject] protected IPracticeSettingsRepository practiceSettingsRepository;
 
@@ -19,8 +19,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base
 
         internal virtual void Init(CardBehaviour cardBehaviour)
         {
-            foreach (var transitionButton in transitionButtons)
-                transitionButton.Init(cardBehaviour, destroyCancellationToken);
+            foreach (var transition in transitionData)
+                transition.Init(cardBehaviour, destroyCancellationToken);
         }
 
         internal virtual void SetCurrentWord(WordEntry wordEntry)
