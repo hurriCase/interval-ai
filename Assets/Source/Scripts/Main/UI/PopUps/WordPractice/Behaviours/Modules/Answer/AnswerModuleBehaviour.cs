@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Answer
 {
-    internal sealed class AnswerModuleBehaviour : PracticeModuleBase
+    internal sealed class AnswerModuleBehaviour : PracticeModule
     {
         [SerializeField] private TextMeshProUGUI _hiddenWord;
 
@@ -18,10 +18,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Answer
 
         private UIPool<ExampleItem> _examplesPool;
 
-        internal override void Init(CardBehaviour cardBehaviour)
+        public override void Init(CardBehaviour cardBehaviour)
         {
-            base.Init(cardBehaviour);
-
             _examplesPool = new UIPool<ExampleItem>(
                 _exampleItem,
                 _exampleContainer,

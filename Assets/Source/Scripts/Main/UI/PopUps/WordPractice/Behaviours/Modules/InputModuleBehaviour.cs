@@ -2,20 +2,21 @@
 using R3;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base;
+using Source.Scripts.UI.Components.Button;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules
 {
-    internal sealed class InputModuleBehaviour : PracticeModuleBase
+    internal sealed class InputModuleBehaviour : TransitionPracticeModuleBase<ButtonComponent>
     {
         [SerializeField] private TMP_InputField _inputField;
         [SerializeField] private Button _hintButton;
 
         private int _shownSymbolCount;
 
-        internal override void Init(CardBehaviour cardBehaviour)
+        public override void Init(CardBehaviour cardBehaviour)
         {
             base.Init(cardBehaviour);
 

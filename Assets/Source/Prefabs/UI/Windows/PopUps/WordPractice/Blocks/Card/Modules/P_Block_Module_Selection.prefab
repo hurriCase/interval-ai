@@ -275,6 +275,10 @@ PrefabInstance:
       propertyPath: m_PixelsPerUnitMultiplier
       value: 14.000004
       objectReference: {fileID: 0}
+    - target: {fileID: 5759744508390780527, guid: 5c85cbfff26e8fd40970d357f153bc54, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7535462064359327635, guid: 5c85cbfff26e8fd40970d357f153bc54, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -360,17 +364,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c85cbfff26e8fd40970d357f153bc54, type: 3}
---- !u!114 &3973598642586250669 stripped
+--- !u!114 &2783871308603315912 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2318602885294818002, guid: 5c85cbfff26e8fd40970d357f153bc54, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3578699066551417271, guid: 5c85cbfff26e8fd40970d357f153bc54, type: 3}
   m_PrefabInstance: {fileID: 1659677496328744831}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dddc2e2d5a5946de8e990ae6caeee75b, type: 3}
+  m_Script: {fileID: 11500000, guid: 1ec3929d0d304ab1a19df77de71a7c2f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.Checkbox.CheckboxComponent
+  m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Selection.SelectionItem
 --- !u!224 &9194957568696625388 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7535462064359327635, guid: 5c85cbfff26e8fd40970d357f153bc54, type: 3}
@@ -1086,14 +1090,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5992ba7ad0914f1096c36e5fa22fdcb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.CardTypes.WordSelectionBehaviour
-  descriptiveImage: {fileID: 4851529575614134621}
   shownWordText: {fileID: 7059740661151056665}
-  transitionData: []
-  _wordSelectionItems:
-  - {fileID: 5442568077339021159}
-  - {fileID: 8864135717198889934}
-  - {fileID: 5749000670899393106}
-  - {fileID: 3973598642586250669}
+  descriptiveImage: {fileID: 4851529575614134621}
+  transitionData:
+  - <TransitionObject>k__BackingField: {fileID: 6485359426634806274}
+    <ModuleType>k__BackingField: 3
+  - <TransitionObject>k__BackingField: {fileID: 7675539650821109931}
+    <ModuleType>k__BackingField: 3
+  - <TransitionObject>k__BackingField: {fileID: 6795878492607146295}
+    <ModuleType>k__BackingField: 3
+  - <TransitionObject>k__BackingField: {fileID: 2783871308603315912}
+    <ModuleType>k__BackingField: 3
+  _incorrectBorderRatio: 0.05
 --- !u!224 &7887982293098016730 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2499791751862474366, guid: 4269800e723fffd4b92b2afc8d4c9b38, type: 3}
@@ -1126,6 +1134,10 @@ PrefabInstance:
     - target: {fileID: 5389740422561174421, guid: 5c85cbfff26e8fd40970d357f153bc54, type: 3}
       propertyPath: m_PixelsPerUnitMultiplier
       value: 14.000004
+      objectReference: {fileID: 0}
+    - target: {fileID: 5759744508390780527, guid: 5c85cbfff26e8fd40970d357f153bc54, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7535462064359327635, guid: 5c85cbfff26e8fd40970d357f153bc54, type: 3}
       propertyPath: m_Pivot.x
@@ -1217,17 +1229,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7535462064359327635, guid: 5c85cbfff26e8fd40970d357f153bc54, type: 3}
   m_PrefabInstance: {fileID: 6570445583579840796}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8864135717198889934 stripped
+--- !u!114 &7675539650821109931 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2318602885294818002, guid: 5c85cbfff26e8fd40970d357f153bc54, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3578699066551417271, guid: 5c85cbfff26e8fd40970d357f153bc54, type: 3}
   m_PrefabInstance: {fileID: 6570445583579840796}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dddc2e2d5a5946de8e990ae6caeee75b, type: 3}
+  m_Script: {fileID: 11500000, guid: 1ec3929d0d304ab1a19df77de71a7c2f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.Checkbox.CheckboxComponent
+  m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Selection.SelectionItem
 --- !u!1001 &7758215475340627381
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1255,6 +1267,10 @@ PrefabInstance:
     - target: {fileID: 5389740422561174421, guid: 5c85cbfff26e8fd40970d357f153bc54, type: 3}
       propertyPath: m_PixelsPerUnitMultiplier
       value: 14.000004
+      objectReference: {fileID: 0}
+    - target: {fileID: 5759744508390780527, guid: 5c85cbfff26e8fd40970d357f153bc54, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7535462064359327635, guid: 5c85cbfff26e8fd40970d357f153bc54, type: 3}
       propertyPath: m_Pivot.x
@@ -1346,17 +1362,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7535462064359327635, guid: 5c85cbfff26e8fd40970d357f153bc54, type: 3}
   m_PrefabInstance: {fileID: 7758215475340627381}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5442568077339021159 stripped
+--- !u!114 &6485359426634806274 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2318602885294818002, guid: 5c85cbfff26e8fd40970d357f153bc54, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3578699066551417271, guid: 5c85cbfff26e8fd40970d357f153bc54, type: 3}
   m_PrefabInstance: {fileID: 7758215475340627381}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dddc2e2d5a5946de8e990ae6caeee75b, type: 3}
+  m_Script: {fileID: 11500000, guid: 1ec3929d0d304ab1a19df77de71a7c2f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.Checkbox.CheckboxComponent
+  m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Selection.SelectionItem
 --- !u!1001 &8063088944264335488
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1384,6 +1400,10 @@ PrefabInstance:
     - target: {fileID: 5389740422561174421, guid: 5c85cbfff26e8fd40970d357f153bc54, type: 3}
       propertyPath: m_PixelsPerUnitMultiplier
       value: 14.000004
+      objectReference: {fileID: 0}
+    - target: {fileID: 5759744508390780527, guid: 5c85cbfff26e8fd40970d357f153bc54, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7535462064359327635, guid: 5c85cbfff26e8fd40970d357f153bc54, type: 3}
       propertyPath: m_Pivot.x
@@ -1475,17 +1495,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7535462064359327635, guid: 5c85cbfff26e8fd40970d357f153bc54, type: 3}
   m_PrefabInstance: {fileID: 8063088944264335488}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5749000670899393106 stripped
+--- !u!114 &6795878492607146295 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2318602885294818002, guid: 5c85cbfff26e8fd40970d357f153bc54, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3578699066551417271, guid: 5c85cbfff26e8fd40970d357f153bc54, type: 3}
   m_PrefabInstance: {fileID: 8063088944264335488}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dddc2e2d5a5946de8e990ae6caeee75b, type: 3}
+  m_Script: {fileID: 11500000, guid: 1ec3929d0d304ab1a19df77de71a7c2f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.Checkbox.CheckboxComponent
+  m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Selection.SelectionItem
 --- !u!1001 &8251893421672670398
 PrefabInstance:
   m_ObjectHideFlags: 0

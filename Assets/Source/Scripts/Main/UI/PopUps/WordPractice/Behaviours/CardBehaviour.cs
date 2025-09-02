@@ -14,7 +14,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
 {
     internal sealed class CardBehaviour : MonoBehaviour
     {
-        [SerializeField] private EnumArray<ModuleType, PracticeModuleBase> _practiceModules = new(EnumMode.SkipFirst);
+        [SerializeField] private EnumArray<ModuleType, PracticeModule> _practiceModules
+            = new(EnumMode.SkipFirst);
         [SerializeField] private WordProgressBehaviour _wordProgressBehaviour;
 
         internal ReactiveCommand<ModuleType> SwitchModuleCommand { get; } = new();

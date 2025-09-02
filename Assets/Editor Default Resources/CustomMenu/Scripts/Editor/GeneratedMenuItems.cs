@@ -101,20 +101,6 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             Selection.activeObject = asset;
         }
 
-        [MenuItem("References/Mappings/Buttons/Gray Black Mapping", priority = 1)]
-        private static void SelectAssetMapping_IconsSecondary_IconsMain()
-        {
-            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Scriptables/ColorMappings/Buttons/Mapping_IconsSecondary_IconsMain.asset");
-            Selection.activeObject = asset;
-        }
-
-        [MenuItem("References/Mappings/Buttons/Purple Gray Mapping", priority = 2)]
-        private static void SelectAssetMapping_TextSecondary_BaseMain()
-        {
-            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Scriptables/ColorMappings/Buttons/Mapping_TextSecondary_BaseMain.asset");
-            Selection.activeObject = asset;
-        }
-
         [MenuItem("GameObject/UI Custom/Text/Regular Text _&1", priority = 2)]
         private static void CreateP_Text(MenuCommand menuCommand)
         {
@@ -343,7 +329,45 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             Selection.activeObject = instance;
         }
 
-        [MenuItem("GameObject/UI Custom/Image/Image Aspect Ratio _&8", priority = 7)]
+        [MenuItem("GameObject/UI Custom/Image/Image Procedural", priority = 7)]
+        private static void CreateP_Image_Procedural(MenuCommand menuCommand)
+        {
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/CustomComponents/Image/P_Image_Procedural.prefab");
+
+            if (!prefab)
+            {
+                Debug.LogError("[GeneratedMenuItems::CreateP_Image_Procedural] Prefab not found at path: Assets/Source/Prefabs/UI/CustomComponents/Image/P_Image_Procedural.prefab");
+                return;
+            }
+
+            var instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
+
+            if (!instance)
+            {
+                Debug.LogError("[GeneratedMenuItems::CreateP_Image_Procedural] Failed to instantiate prefab");
+                return;
+            }
+
+            var prefabStage = PrefabStageUtility.GetCurrentPrefabStage();
+            if (prefabStage)
+            {
+                var selectedInPrefab = Selection.activeGameObject;
+                if (selectedInPrefab && prefabStage.IsPartOfPrefabContents(selectedInPrefab))
+                    instance.transform.SetParent(selectedInPrefab.transform);
+                else
+                    instance.transform.SetParent(prefabStage.prefabContentsRoot.transform);
+
+                instance.transform.localPosition = Vector3.zero;
+            }
+            else
+                GameObjectUtility.SetParentAndAlign(instance, menuCommand.context as GameObject);
+
+            Undo.RegisterCreatedObjectUndo(instance, "Create " + instance.name);
+
+            Selection.activeObject = instance;
+        }
+
+        [MenuItem("GameObject/UI Custom/Image/Image Aspect Ratio _&8", priority = 8)]
         private static void CreateP_Image_Ratio(MenuCommand menuCommand)
         {
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/CustomComponents/Image/P_Image_Ratio_.prefab");
