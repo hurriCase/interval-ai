@@ -5,13 +5,18 @@ using Source.Scripts.Core.Repositories.Words.Base;
 namespace Source.Scripts.Core.Repositories.Words.Word
 {
     [MemoryPackable]
-    internal partial struct AnnotatedTranslation : ITranslation
+    internal readonly partial struct AnnotatedTranslation : ITranslation
     {
-        public string Note { get; set; }
-        public string Native { get; set; }
-        public string Learning { get; set; }
+        public string Note { get; }
+        public Translation Translation { get; }
+
+        internal AnnotatedTranslation(string note, Translation translation)
+        {
+            Note = note;
+            Translation = translation;
+        }
 
         [MemoryPackIgnore]
-        public readonly bool IsValid => Note.IsValid() && Native.IsValid() && Learning.IsValid();
+        public bool IsValid => Note.IsValid() && Translation.IsValid;
     }
 }

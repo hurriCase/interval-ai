@@ -10,11 +10,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours.AdditionalItems
 
         public void Init(AnnotatedTranslation annotatedTranslation)
         {
-            base.Init(new Translation
-            {
-                Learning = annotatedTranslation.Learning,
-                Native = annotatedTranslation.Native,
-            });
+            base.Init(annotatedTranslation.Translation);
 
             _noteText.text = annotatedTranslation.Note;
         }

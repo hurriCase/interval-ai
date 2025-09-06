@@ -6,12 +6,18 @@ using Source.Scripts.Core.Repositories.Words.Base;
 namespace Source.Scripts.Core.Repositories.Words.Word
 {
     [MemoryPackable]
-    internal partial struct TranslationSet : ITranslation
+    internal readonly partial struct TranslationSet : ITranslation
     {
-        public string Learning { get; set; }
-        public List<string> Natives { get; set; }
+        public string Learning { get; }
+        public List<string> Natives { get; }
+
+        internal TranslationSet(string learning, List<string> natives)
+        {
+            Learning = learning;
+            Natives = natives;
+        }
 
         [MemoryPackIgnore]
-        public readonly bool IsValid => Learning.IsValid() && Natives is { Count: > 0 } && Natives[0].IsValid();
+        public bool IsValid => Learning.IsValid() && Natives is { Count: > 0 } && Natives[0].IsValid();
     }
 }

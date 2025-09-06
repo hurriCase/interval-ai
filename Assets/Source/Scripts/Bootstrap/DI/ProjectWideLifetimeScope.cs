@@ -4,7 +4,6 @@ using CustomUtils.Runtime.Scenes;
 using Source.Scripts.Bootstrap.Core;
 using Source.Scripts.Core.Audio;
 using Source.Scripts.Core.Configs;
-using Source.Scripts.Core.Importer;
 using Source.Scripts.Core.Input;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.References;
@@ -68,17 +67,10 @@ namespace Source.Scripts.Bootstrap.DI
             builder.RegisterComponent(_localizationKeysDatabase).AsImplementedInterfaces();
             builder.RegisterComponent(_localizationDatabase).AsImplementedInterfaces();
 
-            RegisterCSV(builder);
             RegisterInput(builder);
             RegisterRepositories(builder);
 
             builder.RegisterEntryPoint<EntryPoint>();
-        }
-
-        private void RegisterCSV(IContainerBuilder builder)
-        {
-            builder.Register<CSVMapper>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<CSVReader>(Lifetime.Singleton).AsImplementedInterfaces();
         }
 
         private void RegisterInput(IContainerBuilder builder)
@@ -114,6 +106,7 @@ namespace Source.Scripts.Bootstrap.DI
             builder.Register<IdHandler<CategoryEntry>>(Lifetime.Singleton).As<IIdHandler<CategoryEntry>>();
             builder.Register<CategoriesRepository>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<CategoryEntry.CategoryStateMutator>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<CategoryEntry.CategoryConverter>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.RegisterInstance(_defaultCategoriesDatabase)
                 .As<DefaultCategoriesDatabase>()
                 .AsImplementedInterfaces();
@@ -124,6 +117,7 @@ namespace Source.Scripts.Bootstrap.DI
             builder.Register<IdHandler<WordEntry>>(Lifetime.Singleton).As<IIdHandler<WordEntry>>();
             builder.Register<WordsRepository>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<WordEntry.WordStateMutator>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<WordEntry.WordConverter>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.RegisterInstance(_defaultWordsDatabase)
                 .As<DefaultWordsDatabase>()
                 .AsImplementedInterfaces();

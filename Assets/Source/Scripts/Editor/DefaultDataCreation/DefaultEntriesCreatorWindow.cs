@@ -2,8 +2,8 @@
 using System.IO;
 using CustomUtils.Editor.CustomEditorUtilities;
 using CustomUtils.Editor.SheetsDownloader;
+using CustomUtils.Runtime.CSV;
 using CustomUtils.Runtime.Extensions;
-using Source.Scripts.Core.Importer;
 using Source.Scripts.Core.Repositories.Categories.Category;
 using Source.Scripts.Core.Repositories.Words.Word;
 using UnityEditor;
@@ -14,7 +14,7 @@ namespace Source.Scripts.Editor.DefaultDataCreation
     internal sealed class DefaultDataWindow : SheetsDownloaderWindowBase<DefaultDataDatabase, DefaultDataSheet>
     {
         private Vector2 _scrollPosition;
-        private CSVToBinaryConverter _csvToBinaryConverter;
+        private readonly CsvBinarySerializer _csvToBinaryConverter = new();
 
         protected override DefaultDataDatabase Database => DefaultDataDatabase.Instance;
 
@@ -22,13 +22,6 @@ namespace Source.Scripts.Editor.DefaultDataCreation
         internal static void ShowWindow()
         {
             GetWindow<DefaultDataWindow>(nameof(DefaultDataWindow).ToSpacedWords());
-        }
-
-        protected override void InitializeWindow()
-        {
-            base.InitializeWindow();
-
-            _csvToBinaryConverter = new CSVToBinaryConverter(new CSVReader(), new CSVMapper());
         }
 
         protected override void DrawCustomContent()
@@ -102,11 +95,17 @@ namespace Source.Scripts.Editor.DefaultDataCreation
             switch (sheet.DefaultDataType)
             {
                 case DefaultDataType.Words:
-                    _csvToBinaryConverter.ConvertCSVToBinary<WordEntry>(csvPath, binaryPath);
+                    _csvToBinaryConverter.ConvertCSVToBinary(
+                        new WordEntry.WordConverter(new TranslationParser()),
+                        csvPath,
+                        binaryPath);
                     break;
 
                 case DefaultDataType.Categories:
-                    _csvToBinaryConverter.ConvertCSVToBinary<CategoryEntry>(csvPath, binaryPath);
+                    _csvToBinaryConverter.ConvertCSVToBinary(
+                        new CategoryEntry.CategoryConverter(),
+                        csvPath,
+                        binaryPath);
                     break;
 
                 case DefaultDataType.None:
