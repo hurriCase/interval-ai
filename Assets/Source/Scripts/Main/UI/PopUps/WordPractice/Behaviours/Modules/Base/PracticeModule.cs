@@ -1,5 +1,6 @@
 ﻿using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
+using Source.Scripts.Main.UI.Shared;
 using TMPro;
 using UnityEngine;
 using VContainer;
@@ -8,7 +9,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base
 {
     internal class PracticeModule : MonoBehaviour
     {
-        [SerializeField] protected TextMeshProUGUI shownWordText;
+        [SerializeField] private DescriptiveImageBehaviour _descriptiveImage;
+        [SerializeField] private TextMeshProUGUI _shownWordText;
 
         [Inject] protected IPracticeSettingsRepository practiceSettingsRepository;
 
@@ -27,7 +29,10 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base
 
         protected virtual void UpdateView()
         {
-            shownWordText.text = currentWord.Word.GetShownText(practiceSettingsRepository);
+            _shownWordText.text = currentWord.Word.GetShownText(practiceSettingsRepository);
+
+            if (_descriptiveImage)
+                _descriptiveImage.UpdateView(currentWord.DescriptiveImage);
         }
     }
 }

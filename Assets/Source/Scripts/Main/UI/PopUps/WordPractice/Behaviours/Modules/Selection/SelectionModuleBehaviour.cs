@@ -3,12 +3,11 @@ using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base;
-using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Selection;
 using Source.Scripts.UI.Data;
 using UnityEngine;
 using VContainer;
 
-namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules
+namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Selection
 {
     internal sealed class SelectionModuleBehaviour : TransitionPracticeModuleBase<SelectionItem>
     {
@@ -65,7 +64,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules
         {
             var transitionObject = transitionData[index].TransitionObject;
             transitionObject.Checkbox.Text.text = wordEntry.Word.GetHiddenText(practiceSettingsRepository);
-            transitionObject.Image.BorderRatio = isCorrect ? 0 : _incorrectBorderRatio;
+            transitionObject.Image.BorderRatio.Value = isCorrect ? 0 : _incorrectBorderRatio;
         }
     }
 }

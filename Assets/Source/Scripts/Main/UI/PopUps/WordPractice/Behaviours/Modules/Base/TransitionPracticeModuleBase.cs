@@ -2,7 +2,6 @@
 using Cysharp.Threading.Tasks;
 using R3.Triggers;
 using Source.Scripts.Core.Configs;
-using Source.Scripts.Main.UI.Shared;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -11,7 +10,6 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base
     internal abstract class TransitionPracticeModuleBase<TUIBehaviour> : PracticeModule
         where TUIBehaviour : UIBehaviour
     {
-        [SerializeField] protected DescriptiveImageBehaviour descriptiveImage;
         [SerializeField] protected TransitionData<TUIBehaviour>[] transitionData;
 
         private CardBehaviour _cardBehaviour;
@@ -33,13 +31,6 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base
             _cardBehaviour.SwitchModuleCommand.Execute(moduleType);
 
             return UniTask.CompletedTask;
-        }
-
-        protected override void UpdateView()
-        {
-            base.UpdateView();
-
-            descriptiveImage.UpdateView(currentWord.DescriptiveImage);
         }
     }
 }

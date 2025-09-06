@@ -1,7 +1,7 @@
-﻿using Source.Scripts.UI.Components.Checkbox;
+﻿using CustomUtils.Runtime.UI.CustomComponents.ProceduralUIImage.Scripts;
+using Source.Scripts.UI.Components.Checkbox;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI.ProceduralImage;
 
 namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Selection
 {
