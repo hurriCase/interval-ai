@@ -1,22 +1,20 @@
-﻿using System;
-using CustomUtils.Runtime.CustomBehaviours;
+﻿using CustomUtils.Runtime.CustomBehaviours;
 using CustomUtils.Runtime.Extensions;
 using PrimeTween;
 using R3;
 using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Input;
-using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Settings.Base;
-using Source.Scripts.Core.Repositories.Words.Base;
-using Source.Scripts.Core.Repositories.Words.Word;
 using UnityEngine;
 using VContainer;
 
 namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
 {
-    //TODO:<Dmitriy.Sukharev> refactor
     internal sealed class SwipeCardBehaviour : RectTransformBehaviour
     {
+        public Observable<SwipeDirection> SwipeObservable => _swipeObservable.AsObservable();
+        private readonly Subject<SwipeDirection> _swipeObservable = new();
+
         private Vector2 _originalPosition;
         private Camera _uiCamera;
 
@@ -27,38 +25,23 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
         private bool _isDragging;
         private bool _isPointerPressed;
 
-        private WordEntry CurrentWord => _currentWordsService.CurrentWordsByState.CurrentValue[_currentPracticeState];
-
-        private PracticeState _currentPracticeState;
-
         private IUISettingsRepository _uiSettingsRepository;
-        private IPracticeStateService _practiceStateService;
-        private ICurrentWordsService _currentWordsService;
-        private IWordAdvanceService _wordAdvanceService;
         private ISwipeInputService _swipeInputService;
         private ISwipeConfig _swipeConfig;
 
         [Inject]
         public void Inject(
             IUISettingsRepository uiSettingsRepository,
-            IPracticeStateService practiceStateService,
-            ICurrentWordsService currentWordsService,
-            IWordAdvanceService wordAdvanceService,
             ISwipeInputService swipeInputService,
             ISwipeConfig swipeConfig)
         {
             _uiSettingsRepository = uiSettingsRepository;
-            _practiceStateService = practiceStateService;
-            _currentWordsService = currentWordsService;
-            _wordAdvanceService = wordAdvanceService;
             _swipeInputService = swipeInputService;
             _swipeConfig = swipeConfig;
         }
 
-        internal void Init(PracticeState practiceState)
+        internal void Init()
         {
-            _currentPracticeState = practiceState;
-
             _originalPosition = RectTransform.anchoredPosition;
 
             _uiCamera = GetComponentInParent<Canvas>().worldCamera;
@@ -80,8 +63,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
 
         private void OnPointerPressed()
         {
-            if (_uiSettingsRepository.IsSwipeEnabled.Value
-                && _practiceStateService.CurrentState.CurrentValue != _currentPracticeState)
+            if (_uiSettingsRepository.IsSwipeEnabled.Value)
                 return;
 
             var pointerPosition = _swipeInputService.CurrentPointerPosition;
@@ -199,30 +181,9 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
                 .Group(Tween.Rotation(RectTransform, targetRotation, _swipeConfig.SwipeExecuteDuration))
                 .OnComplete(this, static self =>
                 {
-                    self.HandleSwipe();
+                    self._swipeObservable.OnNext(self._currentSwipeDirection);
                     self.ResetCard();
                 });
-        }
-
-        private void HandleSwipe()
-        {
-            switch (_currentSwipeDirection)
-            {
-                case SwipeDirection.Left:
-                    _wordAdvanceService.AdvanceWord(
-                        CurrentWord,
-                        _currentWordsService.IsFirstShow(_currentPracticeState));
-                    break;
-
-                case SwipeDirection.Right:
-                    _wordAdvanceService.AdvanceWord(
-                        CurrentWord,
-                        _currentWordsService.IsFirstShow(_currentPracticeState) is false);
-                    break;
-
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(_currentSwipeDirection), _currentSwipeDirection, null);
-            }
         }
 
         private void ReturnToOriginalPosition()

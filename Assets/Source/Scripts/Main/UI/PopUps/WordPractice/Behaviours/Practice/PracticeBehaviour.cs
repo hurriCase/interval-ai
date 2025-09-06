@@ -1,6 +1,9 @@
-﻿using CustomUtils.Runtime.Extensions;
+﻿using System;
+using CustomUtils.Runtime.Extensions;
 using R3;
 using Source.Scripts.Core.Localization.LocalizationTypes;
+using Source.Scripts.Core.Repositories.Words.Base;
+using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe;
 using UnityEngine;
@@ -18,25 +21,37 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice
         [SerializeField] private ControlButtonsBehaviour _controlButtonsBehaviour;
         [SerializeField] private LearningCompleteBehaviourBase _learningCompleteBehaviour;
 
+        private WordEntry CurrentWord => _currentWordsService.CurrentWordsByState.CurrentValue[_practiceState];
+
         private ICompleteStateService _completeStateService;
+        private ICurrentWordsService _currentWordsService;
+        private IWordAdvanceService _wordAdvanceService;
 
         [Inject]
-        public void Inject(ICompleteStateService completeStateService)
+        public void Inject(
+            ICompleteStateService completeStateService,
+            ICurrentWordsService currentWordsService,
+            IWordAdvanceService wordAdvanceService)
         {
             _completeStateService = completeStateService;
+            _currentWordsService = currentWordsService;
+            _wordAdvanceService = wordAdvanceService;
         }
 
         internal void Init()
         {
             _cardBehaviour.Init(_practiceState);
             _progressIndicatorBehaviour.Init(_practiceState);
-            _swipeCardBehaviour.Init(_practiceState);
+            _swipeCardBehaviour.Init();
             _controlButtonsBehaviour.Init(_practiceState);
             _learningCompleteBehaviour.Init(_practiceState);
 
             _completeStateService.CompleteStates
                 .Select(_practiceState, (completeTypes, state) => completeTypes[state])
                 .SubscribeAndRegister(this, static (completeType, self) => self.SwitchState(completeType));
+
+            _swipeCardBehaviour.SwipeObservable
+                .SubscribeAndRegister(this, static (direction, self) => self.HandleSwipe(direction));
         }
 
         private void SwitchState(CompleteType completeType)
@@ -49,6 +64,27 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice
             _controlButtonsBehaviour.SetActive(isComplete is false);
 
             _learningCompleteBehaviour.SetActive(isComplete);
+        }
+
+        private void HandleSwipe(SwipeDirection swipeDirection)
+        {
+            switch (swipeDirection)
+            {
+                case SwipeDirection.Left:
+                    _wordAdvanceService.AdvanceWord(
+                        CurrentWord,
+                        _currentWordsService.IsFirstShow(_practiceState));
+                    break;
+
+                case SwipeDirection.Right:
+                    _wordAdvanceService.AdvanceWord(
+                        CurrentWord,
+                        _currentWordsService.IsFirstShow(_practiceState) is false);
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(swipeDirection), swipeDirection, null);
+            }
         }
     }
 }
