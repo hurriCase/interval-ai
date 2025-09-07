@@ -27,6 +27,7 @@ namespace Source.Scripts.UI.Windows.Base
         [SerializeField] private Transform _popUpsContainer;
 
         public TScreenEnum InitialScreenType { get; private set; }
+        public TPopUpEnum CurrentPopUpType { get; private set; }
 
         private EnumArray<TScreenEnum, ScreenBase> _createdScreens = new(EnumMode.SkipFirst);
         private EnumArray<TPopUpEnum, PopUpBase> _createdPopUps = new(EnumMode.SkipFirst);
@@ -131,27 +132,27 @@ namespace Source.Scripts.UI.Windows.Base
                 return;
             }
 
-            OpenPopUpAsync(popUpBase).Forget();
+            OpenPopUpAsync(popUpBase, popUpType).Forget();
         }
 
         public TPopUpType OpenPopUp<TPopUpType>() where TPopUpType : PopUpBase
         {
-            foreach (var popUpBase in _createdPopUps)
+            foreach (var (popUpEnum, popUpBase) in _createdPopUps.AsTuples())
             {
                 if (popUpBase.GetType() != typeof(TPopUpType))
                     continue;
 
-                OpenPopUpAsync(popUpBase).Forget();
+                OpenPopUpAsync(popUpBase, popUpEnum).Forget();
                 return popUpBase as TPopUpType;
             }
 
-            var message = ZString.Format("[WindowsController::OpenPopUp] There is no pop up with type: {0}",
-                typeof(TPopUpType));
-            Debug.LogError(message);
+            Debug.LogError(ZString.Format("[WindowsController::OpenPopUp] There is no pop up with type: {0}",
+                typeof(TPopUpType)));
+
             return null;
         }
 
-        private async UniTask OpenPopUpAsync(PopUpBase popUpBase)
+        private async UniTask OpenPopUpAsync(PopUpBase popUpBase, TPopUpEnum popUpEnum)
         {
             if (_currentOpenedPopUp && popUpBase.IsInFrontOf(_currentOpenedPopUp) is false)
                 popUpBase.transform.SetAsLastSibling();
@@ -167,10 +168,13 @@ namespace Source.Scripts.UI.Windows.Base
             }
 
             _currentOpenedPopUp = popUpBase;
+            CurrentPopUpType = popUpEnum;
         }
 
         private void HideAllPopUps()
         {
+            CurrentPopUpType = default;
+
             if (_currentOpenedPopUp)
             {
                 _currentOpenedPopUp.HideImmediately();
@@ -182,6 +186,8 @@ namespace Source.Scripts.UI.Windows.Base
 
         private void HandlePopUpHide()
         {
+            CurrentPopUpType = default;
+
             var needShow = _currentOpenedPopUp && _currentOpenedPopUp.IsSingle;
             _currentOpenedPopUp = null;
 

@@ -5,6 +5,7 @@ using R3;
 using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Input;
 using Source.Scripts.Core.Repositories.Settings.Base;
+using Source.Scripts.Main.UI.Base;
 using UnityEngine;
 using VContainer;
 
@@ -25,16 +26,19 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
         private SwipeState _currentState;
 
         private IUISettingsRepository _uiSettingsRepository;
+        private IWindowsController _windowsController;
         private ISwipeInputService _swipeInputService;
         private ISwipeConfig _swipeConfig;
 
         [Inject]
         public void Inject(
             IUISettingsRepository uiSettingsRepository,
+            IWindowsController windowsController,
             ISwipeInputService swipeInputService,
             ISwipeConfig swipeConfig)
         {
             _uiSettingsRepository = uiSettingsRepository;
+            _windowsController = windowsController;
             _swipeInputService = swipeInputService;
             _swipeConfig = swipeConfig;
         }
@@ -47,6 +51,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
 
             _swipeInputService.PointerPressed
                 .Where(this, static self => self._uiSettingsRepository.IsSwipeEnabled.Value)
+                .Where(this, static self => self._windowsController.CurrentPopUpType == PopUpType.WordPractice)
                 .Where(this, static self => self._currentState is not SwipeState.SwipeExecuted)
                 .SubscribeAndRegister(this, self => self.OnPointerPressed());
 

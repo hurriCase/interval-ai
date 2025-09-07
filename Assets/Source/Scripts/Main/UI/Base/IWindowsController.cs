@@ -11,5 +11,6 @@ namespace Source.Scripts.Main.UI.Base
         void OpenScreenByType(ScreenType screenEnum);
         void OpenPopUpByType(PopUpType popUpEnum);
         TPopUpType OpenPopUp<TPopUpType>() where TPopUpType : PopUpBase;
+        PopUpType CurrentPopUpType { get; }
     }
 }
