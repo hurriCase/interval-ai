@@ -1,10 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CustomUtils.Runtime.Extensions;
 using Cysharp.Threading.Tasks;
 using R3;
+using Source.Scripts.Core.Localization.Base;
+using Source.Scripts.Core.Localization.LocalizationTypes.Modal;
 using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Core.Repositories.Categories.Category;
 using Source.Scripts.Core.Repositories.Words.Word;
+using Source.Scripts.Main.UI.Base;
+using Source.Scripts.Main.UI.PopUps.Modal;
 using Source.Scripts.Main.UI.PopUps.Selection;
 using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Components.Button;
@@ -36,18 +41,24 @@ namespace Source.Scripts.Main.UI.PopUps.Category
         private EnumSelectionService<WordOrderType> _enumSelectionService;
         private int _previousCategoryId;
 
+        private ILocalizationDatabase _localizationDatabase;
         private ICategoriesRepository _categoriesRepository;
         private ICategoryStateMutator _categoryStateMutator;
+        private IWindowsController _windowsController;
         private IObjectResolver _objectResolver;
 
         [Inject]
         public void Inject(
+            ILocalizationDatabase localizationDatabase,
             ICategoriesRepository categoriesRepository,
             ICategoryStateMutator categoryStateMutator,
+            IWindowsController windowsController,
             IObjectResolver objectResolver)
         {
+            _localizationDatabase = localizationDatabase;
             _categoriesRepository = categoriesRepository;
             _categoryStateMutator = categoryStateMutator;
+            _windowsController = windowsController;
             _objectResolver = objectResolver;
         }
 
@@ -64,12 +75,12 @@ namespace Source.Scripts.Main.UI.PopUps.Category
 
         internal override void Init()
         {
-            _deleteButton.OnClickAsObservable()
-                .SubscribeAndRegister(this, static self => self.RemoveCategory());
+            _deleteButton.OnClickAsObservable().SubscribeAndRegister(this, static self =>
+                self.OpenWarning(ModalLocalizationType.DeleteCategory, static self => self.RemoveCategory()));
 
-            _resetProgressButton.OnClickAsObservable()
-                .SubscribeAndRegister(this, static self
-                    => self._categoryStateMutator.ResetWordsProgress(self._currentCategoryEntry));
+            _resetProgressButton.OnClickAsObservable().SubscribeAndRegister(this, static self => self.OpenWarning(
+                ModalLocalizationType.ResetProgress,
+                static self => self._categoryStateMutator.ResetWordsProgress(self._currentCategoryEntry)));
 
             _categoryNameText.CurrentTextSubjectObservable
                 .SubscribeAndRegister(this, static (newName, self)
@@ -80,6 +91,13 @@ namespace Source.Scripts.Main.UI.PopUps.Category
                 .SubscribeAndRegister(this, static (newOrder, self) => self.ReorderWordItems(newOrder));
 
             _wordOrderSelectionItem.Init(_wordReviewSourceType);
+        }
+
+        private void OpenWarning(ModalLocalizationType localizationType, Action<CategoryPopUp> positiveAction)
+        {
+            var modalPopUp = _windowsController.OpenPopUp<ModalPopUp>();
+            var localization = _localizationDatabase.ModalLocalizations[localizationType];
+            modalPopUp.SetParameters(localization, this, positiveAction);
         }
 
         private void RemoveCategory()

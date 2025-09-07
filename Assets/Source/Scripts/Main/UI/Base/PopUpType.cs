@@ -11,6 +11,7 @@
         Settings = 6,
         Selection = 7,
         WordInfo = 8,
-        WordControl = 9
+        WordControl = 9,
+        Modal = 10
     }
 }

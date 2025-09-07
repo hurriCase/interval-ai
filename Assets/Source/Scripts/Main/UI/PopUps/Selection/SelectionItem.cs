@@ -39,7 +39,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
             enumSelectionService.TargetProperty
                 .SubscribeAndRegister(this, static (selectedName, self) => self.UpdateText(selectedName));
 
-            _buttonComponent .OnClickAsObservable().SubscribeAndRegister(this, enumSelectionService,
+            _buttonComponent.OnClickAsObservable().SubscribeAndRegister(this, enumSelectionService,
                 static (enumSelectionService, self) => self.OpenPopup(enumSelectionService));
         }
 

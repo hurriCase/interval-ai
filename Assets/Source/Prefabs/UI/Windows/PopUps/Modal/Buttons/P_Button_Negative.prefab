@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &368868616412461889
+--- !u!1001 &2086396468873716518
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -8,10 +8,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1815174192101609245, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
-      propertyPath: <LocalizationKey>k__BackingField
-      value: ui.category.load-category
-      objectReference: {fileID: 0}
     - target: {fileID: 3199486689505168149, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -38,7 +34,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3199486689505168149, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 343
+      value: 124
       objectReference: {fileID: 0}
     - target: {fileID: 3199486689505168149, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: m_SizeDelta.y
@@ -93,78 +89,81 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3273829687922624921, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
-      propertyPath: m_text
-      value: Load category
+      propertyPath: m_fontSize
+      value: 15.7
       objectReference: {fileID: 0}
     - target: {fileID: 3273829687922624921, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
-      propertyPath: m_fontSize
-      value: 14.05
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: f29eb9b15349fce4b93fbb88022cabda, type: 2}
+    - target: {fileID: 3273829687922624921, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3693600141861244222, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.046647195
+    - target: {fileID: 3273829687922624921, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.27058825
       objectReference: {fileID: 0}
-    - target: {fileID: 3693600141861244222, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0.70204544
+    - target: {fileID: 3273829687922624921, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.34509805
       objectReference: {fileID: 0}
-    - target: {fileID: 3693600141861244222, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0.29795456
+    - target: {fileID: 3273829687922624921, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -4336566052543238572, guid: f29eb9b15349fce4b93fbb88022cabda, type: 2}
+    - target: {fileID: 3273829687922624921, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294919512
+      objectReference: {fileID: 0}
+    - target: {fileID: 3273829687922624921, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3273829687922624921, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3761693092364716984, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: m_AspectRatio
-      value: 7.7954545
+      value: 2.6382978
+      objectReference: {fileID: 0}
+    - target: {fileID: 4125950207454224963, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+      propertyPath: <ThemeSolidColorName>k__BackingField
+      value: Base_Main
+      objectReference: {fileID: 0}
+    - target: {fileID: 4675464422729192320, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+      propertyPath: m_Name
+      value: P_Text_Negative
       objectReference: {fileID: 0}
     - target: {fileID: 4725090385315607919, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: m_Name
-      value: P_Button_LoadCategory
+      value: P_Button_Negative
       objectReference: {fileID: 0}
-    - target: {fileID: 5224809382630289792, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: e84d2e6fb89cbd245a2734a16643a34e, type: 3}
     - target: {fileID: 7950739640804949390, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.90670556
+      value: 0.88709676
       objectReference: {fileID: 0}
     - target: {fileID: 7950739640804949390, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.6931818
+      value: 0.7021277
       objectReference: {fileID: 0}
     - target: {fileID: 7950739640804949390, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.093294464
+      value: 0.11290322
       objectReference: {fileID: 0}
     - target: {fileID: 7950739640804949390, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.3068182
+      value: 0.29787233
       objectReference: {fileID: 0}
     - target: {fileID: 9134864641081789667, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
-      propertyPath: <GraphicMappings>k__BackingField.Array.size
-      value: 1
+      propertyPath: m_TargetGraphic
+      value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 9134864641081789667, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
-      propertyPath: <GraphicMappings>k__BackingField.Array.data[0]._colorMapping
-      value: 
-      objectReference: {fileID: 11400000, guid: 823823d6da137b5499e2a2cc6430e412, type: 2}
-    - target: {fileID: 9134864641081789667, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
-      propertyPath: <GraphicMappings>k__BackingField.Array.data[0]._targetGraphic
-      value: 
-      objectReference: {fileID: 5592411352988879553}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedComponents:
+    - {fileID: 1815174192101609245, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+    m_RemovedGameObjects:
+    - {fileID: 590419135366053710, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
---- !u!114 &5592411352988879553 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5224809382630289792, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
-  m_PrefabInstance: {fileID: 368868616412461889}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

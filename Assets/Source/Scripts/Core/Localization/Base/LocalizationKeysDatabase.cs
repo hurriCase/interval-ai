@@ -82,6 +82,7 @@ namespace Source.Scripts.Core.Localization.Base
         {
             var enumType = typeof(TEnum);
             var enumIndex = UnsafeEnumConverter<TEnum>.ToInt32(enumValue);
+
             if (enumType == typeof(ThemeType))
                 return _themeTypes[enumIndex].GetLocalization();
 
