@@ -8,6 +8,7 @@ namespace Source.Scripts.Core.Repositories.Settings.Base
         List<CooldownByDate> Cooldowns { get; }
         int DailyGoal { get; }
         int MaxShownExamples { get; }
+        bool IsSwipeEnabled { get; }
         LanguageLevel LanguageLevel { get; }
         SystemLanguage NativeLanguage { get; }
         SystemLanguage LearningLanguage { get; }

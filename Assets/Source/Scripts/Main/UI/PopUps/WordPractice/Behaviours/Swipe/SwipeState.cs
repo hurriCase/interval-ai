@@ -1,9 +1,10 @@
 ﻿namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
 {
-    internal enum SwipeDirection
+    internal enum SwipeState
     {
         None = 0,
-        Left = 1,
-        Right = 2
+        PointerPressed = 1,
+        Dragging = 2,
+        SwipeExecuted = 3,
     }
 }

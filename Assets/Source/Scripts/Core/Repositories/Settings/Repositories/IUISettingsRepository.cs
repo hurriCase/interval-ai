@@ -43,7 +43,7 @@ namespace Source.Scripts.Core.Repositories.Settings.Repositories
                 CurrentCulture.InitAsync(PersistentKeys.CurrentCultureKey, token, CultureInfo.CurrentCulture),
                 IsSendNotifications.InitAsync(PersistentKeys.IsSendNotificationsKey, token),
                 IsShowTranscription.InitAsync(PersistentKeys.IsShowTranscriptionKey, token),
-                IsSwipeEnabled.InitAsync(PersistentKeys.IsSwipeEnabledKey, token)
+                IsSwipeEnabled.InitAsync(PersistentKeys.IsSwipeEnabledKey, token, _defaultSettingsConfig.IsSwipeEnabled)
             };
 
             await UniTask.WhenAll(initTasks);

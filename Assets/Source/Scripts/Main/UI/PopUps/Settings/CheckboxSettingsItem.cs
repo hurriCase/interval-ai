@@ -13,19 +13,20 @@ namespace Source.Scripts.Main.UI.PopUps.Settings
         [SerializeField] private CheckboxComponent _checkbox;
         [SerializeField] private ButtonComponent _button;
 
-        private PersistentReactiveProperty<bool> _targetProperty;
-
         internal void Init(PersistentReactiveProperty<bool> targetProperty)
         {
-            _targetProperty = targetProperty;
+            _checkbox.isOn = targetProperty.Value;
 
             _checkbox.OnValueChangedAsObservable()
-                .SubscribeAndRegister(this, static (isOn, self) => self._targetProperty.Value = isOn);
+                .Subscribe(targetProperty, static (isOn, targetProperty) => targetProperty.Value = isOn)
+                .RegisterTo(destroyCancellationToken);
 
-            _button.OnPointerClickAsObservable().SubscribeAndRegister(this,
-                static self => self._targetProperty.Value = self._targetProperty.Value is false);
+            _button.OnPointerClickAsObservable()
+                .Subscribe(targetProperty, static (_, targetProperty) =>
+                    targetProperty.Value = targetProperty.Value is false)
+                .RegisterTo(destroyCancellationToken);
 
-            _targetProperty.SubscribeAndRegister(this, static (isOn, self) => self._checkbox.isOn = isOn);
+            targetProperty.SubscribeAndRegister(this, static (isOn, self) => self._checkbox.isOn = isOn);
         }
     }
 }
