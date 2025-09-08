@@ -239,6 +239,10 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9109170191897869617, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+      propertyPath: targetComponent
+      value: 
+      objectReference: {fileID: 7776386344873506131}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -312,6 +316,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_Block_Message
       objectReference: {fileID: 0}
+    - target: {fileID: 6194506120840899225, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
+      propertyPath: targetComponent
+      value: 
+      objectReference: {fileID: 1129440727633898706}
     - target: {fileID: 6194506120840899225, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
       propertyPath: <ThemeSolidColorName>k__BackingField
       value: Background_Main
@@ -460,14 +468,17 @@ MonoBehaviour:
   _backgroundImage: {fileID: 1129440727633898706}
   _backgroundImageTheme: {fileID: 6222179231096177114}
   _messageSprite:
-    _values:
-    - <BackgroundImage>k__BackingField: {fileID: 0}
-      <DirectionType>k__BackingField: 0
-    - <BackgroundImage>k__BackingField: {fileID: 21300000, guid: b655c172124399d45b1a9655f1e4e71c, type: 3}
-      <DirectionType>k__BackingField: 1
-    - <BackgroundImage>k__BackingField: {fileID: 21300000, guid: 43f16438464dc2c4fb182b6cb27a4085, type: 3}
-      <DirectionType>k__BackingField: 2
-    _enumMode: 2
+    <Entries>k__BackingField:
+    - <Value>k__BackingField:
+        <BackgroundImage>k__BackingField: {fileID: 0}
+        <DirectionType>k__BackingField: 0
+    - <Value>k__BackingField:
+        <BackgroundImage>k__BackingField: {fileID: 21300000, guid: b655c172124399d45b1a9655f1e4e71c, type: 3}
+        <DirectionType>k__BackingField: 2
+    - <Value>k__BackingField:
+        <BackgroundImage>k__BackingField: {fileID: 21300000, guid: 43f16438464dc2c4fb182b6cb27a4085, type: 3}
+        <DirectionType>k__BackingField: 1
+    <EnumMode>k__BackingField: 2
   _messageSourceMapping: {fileID: 11400000, guid: df0a7956cd8f05640b8c0ea3f0e57b3a, type: 2}
   _controlButtonsContainer: {fileID: 6099403958134673306}
   _referenceHeight: 20

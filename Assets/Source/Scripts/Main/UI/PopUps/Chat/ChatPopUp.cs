@@ -1,4 +1,5 @@
-﻿using R3;
+﻿using CustomUtils.Runtime.Extensions;
+using R3;
 using Source.Scripts.Main.UI.PopUps.Chat.Behaviours;
 using Source.Scripts.UI.Components.Button;
 using Source.Scripts.UI.Windows.Base;
@@ -21,16 +22,14 @@ namespace Source.Scripts.Main.UI.PopUps.Chat
 
         internal override void Init()
         {
-            _sendMessageButton.OnClickAsObservable()
-                .Subscribe(this, static (_, behaviour) => behaviour.SendMessage())
-                .RegisterTo(destroyCancellationToken);
+            _sendMessageButton.OnClickAsObservable().SubscribeAndRegister(this, static self => self.SendMessage());
         }
 
         private void SendMessage()
         {
             var typedText = _messageInputField.text;
 
-            if (string.IsNullOrEmpty(typedText))
+            if (typedText.IsValid() is false)
                 return;
 
             CreateMessage(typedText, MessageSourceType.User);
@@ -42,8 +41,7 @@ namespace Source.Scripts.Main.UI.PopUps.Chat
             var createdMessage = Instantiate(_messageItem, _chatContainer);
             createdMessage.Init(_chatContainer, text, sourceType);
 
-            var createdSpacing = Instantiate(_spacing, _chatContainer);
-            createdSpacing.aspectRatio = _spacingRatio;
+            _spacing.CreateWidthSpacing(_spacingRatio, _chatContainer);
         }
     }
 }
