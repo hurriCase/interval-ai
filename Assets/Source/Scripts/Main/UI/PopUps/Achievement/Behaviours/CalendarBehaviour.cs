@@ -50,8 +50,7 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours
             _previousMonthButton.OnClickAsObservable()
                 .SubscribeAndRegister(this, static self => self.GoToPreviousMonth());
 
-            _nextMonthButton.OnClickAsObservable()
-                .SubscribeAndRegister(this, static self => self.GoToNextMonth());
+            _nextMonthButton.OnClickAsObservable().SubscribeAndRegister(this, static self => self.GoToNextMonth());
         }
 
         private void GoToPreviousMonth()
@@ -80,7 +79,12 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours
 
         private void UpdateCalendarDisplay()
         {
-            var (monthData, isInMonth) = _dateProgressService.GetMonthWeeks(_currentYear, _currentMonth);
+            var now = DateTime.Now;
+            _nextMonthButton.interactable = _currentMonth != now.Month || _currentYear != now.Year;
+
+            var (monthData, isInMonth) =
+                _dateProgressService.GetMonthWeeks(_currentYear, _currentMonth);
+
             _currentMonthText.text =
                 _uiSettingsRepository.CurrentCulture.Value.DateTimeFormat.GetMonthName(_currentMonth);
 
