@@ -1,11 +1,14 @@
 ﻿using CustomUtils.Runtime.Extensions;
+using Cysharp.Threading.Tasks;
 using R3;
+using Source.Scripts.Core.AI;
 using Source.Scripts.Main.UI.PopUps.Chat.Behaviours;
 using Source.Scripts.UI.Components.Button;
 using Source.Scripts.UI.Windows.Base;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using VContainer;
 
 namespace Source.Scripts.Main.UI.PopUps.Chat
 {
@@ -20,6 +23,14 @@ namespace Source.Scripts.Main.UI.PopUps.Chat
         [SerializeField] private TMP_InputField _messageInputField;
         [SerializeField] private ButtonComponent _sendMessageButton;
 
+        private IAITextController _aiTextController;
+
+        [Inject]
+        internal void Inject(IAITextController aiTextController)
+        {
+            _aiTextController = aiTextController;
+        }
+
         internal override void Init()
         {
             _sendMessageButton.OnClickAsObservable().SubscribeAndRegister(this, static self => self.SendMessage());
@@ -32,8 +43,15 @@ namespace Source.Scripts.Main.UI.PopUps.Chat
             if (typedText.IsValid() is false)
                 return;
 
+            _messageInputField.text = string.Empty;
             CreateMessage(typedText, MessageSourceType.User);
-            CreateMessage("temp message", MessageSourceType.AI);
+            HandleUserMessage(typedText).Forget();
+        }
+
+        private async UniTask HandleUserMessage(string text)
+        {
+            var response = await _aiTextController.SendPromptWithChatHistoryAsync(text);
+            CreateMessage(response, MessageSourceType.AI);
         }
 
         private void CreateMessage(string text, MessageSourceType sourceType)

@@ -1,62 +1,61 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using CustomUtils.Runtime.CustomTypes.Singletons;
+using System.Threading;
 using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Storage;
 using Cysharp.Text;
+using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
+using Source.Scripts.Core.Repositories.Base;
 using UnityEngine;
 using UnityEngine.Networking;
-using ZLinq;
 
 namespace Source.Scripts.Core.AI
 {
-    internal sealed class GeminiAPI : Singleton<GeminiAPI>, IAIController
+    internal sealed class GeminiAPI : IAITextController
     {
-        private PersistentReactiveProperty<Content[]> _chatHistory;
+        private readonly PersistentReactiveProperty<List<Content>> _chatHistory = new();
         private readonly GenerativeModel _textModel = GenerativeModel.Default;
 
-        public async Task<string> SendPromptAsync(string prompt)
+        public async UniTask InitAsync(CancellationToken token)
         {
-            var requestData = new ChatRequest(new[] { new Content(Role.User, prompt) });
+            await _chatHistory.InitAsync(PersistentKeys.ChatHistoryKey, token, new List<Content>());
+        }
+
+        public async UniTask<string> SendSinglePromptAsync(string prompt)
+        {
+            var requestData = new ChatRequest(new List<Content> { new(prompt, Role.User) });
             var response = await SendRequestAsync(requestData);
 
             return ParseResponse(response);
         }
 
-        public async Task<string> SendChatMessageAsync(string message)
+        public async UniTask<string> SendPromptWithChatHistoryAsync(string message)
         {
-            var userContent = new Content(Role.User, message);
+            var userContent = new Content(message, Role.User);
 
-            var contentsList = new List<Content>(_chatHistory.Value)
-            {
-                userContent
-            };
-            _chatHistory.Value = contentsList.ToArray();
+            _chatHistory.Value.Add(userContent);
 
             var chatRequest = new ChatRequest(_chatHistory.Value);
             var response = await SendRequestAsync(chatRequest);
 
             var parsedResponse = ParseResponse(response);
 
-            if (string.IsNullOrEmpty(parsedResponse))
+            if (parsedResponse.IsValid() is false)
                 return parsedResponse;
 
-            var botContent = new Content(Role.Model, parsedResponse);
+            var botContent = new Content(parsedResponse, Role.Model);
 
-            contentsList.Add(botContent);
-            _chatHistory.Value = contentsList.ToArray();
+            _chatHistory.Value.Add(botContent);
 
             return parsedResponse;
         }
 
-        public void ClearChatHistoryAsync(Content[] initialHistory = null)
-            => _chatHistory.Value = initialHistory ?? Array.Empty<Content>();
+        public void ClearChatHistoryAsync(List<Content> initialHistory = null)
+            => _chatHistory.Value = initialHistory ?? new List<Content>();
 
-        private async Task<string> SendRequestAsync(ChatRequest data)
+        private async UniTask<string> SendRequestAsync(ChatRequest data)
         {
             var fullUrl = string.Format(_textModel.EndpointFormat, _textModel.ModelName, _textModel.ApiKey);
             using var request = new UnityWebRequest(fullUrl, "POST");
@@ -69,11 +68,7 @@ namespace Source.Scripts.Core.AI
 
             try
             {
-                var operation = request.SendWebRequest();
-                while (operation.isDone is false)
-                {
-                    await Task.Yield();
-                }
+                await request.SendWebRequest();
 
                 if (request.result == UnityWebRequest.Result.Success)
                     return request.downloadHandler.text;
@@ -106,11 +101,10 @@ namespace Source.Scripts.Core.AI
             try
             {
                 var response = JsonConvert.DeserializeObject<Response>(responseJson);
+
                 if (response.Candidates is { Length: > 0 } &&
-                    response.Candidates[0].Content.Parts.Length > 0)
-                    return response.Candidates.AsValueEnumerable()
-                        .FirstOrDefault().Content.Parts
-                        .FirstOrDefault().Text;
+                    response.Candidates[0].Content.Parts is { Length: > 0 })
+                    return response.Candidates[0].Content.Parts[0].Text;
 
                 Debug.LogWarning(
                     $"[GeminiAPI::ParseResponse] Failed to parse response with {responseJson} string json");
@@ -125,11 +119,11 @@ namespace Source.Scripts.Core.AI
     }
 
     [Serializable]
-    internal readonly struct ChatRequest
+    internal struct ChatRequest
     {
-        [JsonProperty("contents")] public Content[] Contents { get; }
+        [JsonProperty("contents")] public List<Content> Contents { get; private set; }
 
-        internal ChatRequest(Content[] contents)
+        internal ChatRequest(List<Content> contents)
         {
             Contents = contents;
         }
@@ -138,32 +132,32 @@ namespace Source.Scripts.Core.AI
     [Serializable]
     internal struct Response
     {
-        [JsonProperty("candidates")] public Candidate[] Candidates { get; set; }
+        [JsonProperty("candidates")] public Candidate[] Candidates { get; private set; }
     }
 
     [Serializable]
     internal struct Candidate
     {
-        [JsonProperty("content")] public Content Content { get; set; }
+        [JsonProperty("content")] public Content Content { get; private set; }
     }
 
     [Serializable]
-    internal readonly struct Content
+    internal struct Content
     {
-        [JsonProperty("role")] public string Role { get; }
-        [JsonProperty("parts")] public Part[] Parts { get; }
+        [JsonProperty("parts")] public Part[] Parts { get; private set; }
+        [JsonProperty("role")] public string Role { get; private set; }
 
-        internal Content(Role role, string text)
+        internal Content(string text, Role role)
         {
-            Role = typeof(Role).GetJsonPropertyName();
             Parts = new[] { new Part(text) };
+            Role = role.GetJsonPropertyName();
         }
     }
 
     [Serializable]
     internal struct Part
     {
-        [JsonProperty("text")] public string Text { get; }
+        [JsonProperty("text")] public string Text { get; private set; }
 
         internal Part(string text)
         {

@@ -43,6 +43,8 @@
 
         internal const string CurrentMaxIdKey = Prefix + "CurrentMaxIdKey";
 
+        internal const string ChatHistoryKey = Prefix + "ChatHistoryKey";
+
         private const string Prefix = "LanguageLearningApp.";
     }
 }
