@@ -1789,7 +1789,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.Screens.Settings.SettingsScreen
   <InitialWindow>k__BackingField: 0
   _userBehaviour: {fileID: 8430680461504984327}
-  _settingsButton: {fileID: 55640853889178344}
+  _settingsButtons:
+  - {fileID: 55640853889178344}
+  - {fileID: 7601967751429673947}
 --- !u!224 &5546255686425467367 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4142520638507043552, guid: 52e1b0cb3fc47fe49b63ae77fb43a2b7, type: 3}
@@ -2080,6 +2082,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3044450732804959624, guid: 9ff2ddf435179b845b4b2859befbd45e, type: 3}
   m_PrefabInstance: {fileID: 8657871281811304598}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7601967751429673947 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1250150680830403405, guid: 9ff2ddf435179b845b4b2859befbd45e, type: 3}
+  m_PrefabInstance: {fileID: 8657871281811304598}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &9085988008685409282
 PrefabInstance:
   m_ObjectHideFlags: 0

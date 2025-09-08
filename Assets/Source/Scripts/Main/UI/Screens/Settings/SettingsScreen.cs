@@ -12,7 +12,7 @@ namespace Source.Scripts.Main.UI.Screens.Settings
     internal sealed class SettingsScreen : ScreenBase
     {
         [SerializeField] private UserBehaviour _userBehaviour;
-        [SerializeField] private ButtonComponent _settingsButton;
+        [SerializeField] private ButtonComponent[] _settingsButtons;
 
         private IWindowsController _windowsController;
 
@@ -26,9 +26,12 @@ namespace Source.Scripts.Main.UI.Screens.Settings
         {
             _userBehaviour.Init();
 
-            _settingsButton.OnClickAsObservable()
-                .SubscribeAndRegister(this,
-                    static self => self._windowsController.OpenPopUpByType(PopUpType.Settings));
+            foreach (var button in _settingsButtons)
+            {
+                button.OnClickAsObservable()
+                    .SubscribeAndRegister(this,
+                        static self => self._windowsController.OpenPopUpByType(PopUpType.Settings));
+            }
         }
     }
 }
