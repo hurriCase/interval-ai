@@ -17,5 +17,8 @@ namespace Source.Scripts.Core.Repositories.Settings
         [field: SerializeField] public LanguageType CardLearnPractice { get; private set; }
         [field: SerializeField] public LanguageType CardReviewPractice { get; private set; }
         [field: SerializeField] public WordReviewSourceType WordReviewSourceType { get; private set; }
+        [field: SerializeField] public float NewWordsPercentage { get; private set; }
+        [field: SerializeField] public LanguageType TranslateFromLanguageType { get; private set; }
+        [field: SerializeField] public bool IsHighlightNewWords { get; private set; }
     }
 }

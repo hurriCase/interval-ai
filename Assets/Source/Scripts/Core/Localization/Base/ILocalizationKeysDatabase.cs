@@ -5,6 +5,7 @@ using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Localization.LocalizationTypes.Date;
 using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
+using UnityEngine;
 
 namespace Source.Scripts.Core.Localization.Base
 {
@@ -29,6 +30,9 @@ namespace Source.Scripts.Core.Localization.Base
 
         [MustUseReturnValue]
         string GetLearnedCountLocalization(int count);
+
+        [MustUseReturnValue]
+        string GetLanguageLocalization(SystemLanguage systemLanguage);
 
         [MustUseReturnValue]
         string GetLocalizationByValue<TEnum>(TEnum enumValue)

@@ -25,6 +25,7 @@ namespace Source.Scripts.Core.Localization.Base
         [SerializeField] private EnumArray<PluralForm, string> _learnedCounts = new(EnumMode.SkipFirst);
         [SerializeField] private EnumArray<CategoryType, string> _categoryTypes = new(EnumMode.SkipFirst);
         [SerializeField] private EnumArray<WordOrderType, string> _wordOrder = new(EnumMode.SkipFirst);
+        [SerializeField] private EnumArray<SystemLanguage, string> _languages = new(EnumMode.SkipFirst);
 
         [SerializeField] private EnumArray<DateType, EnumArray<PluralForm, string>> _date
             = new(() => new EnumArray<PluralForm, string>(EnumMode.SkipFirst), EnumMode.SkipFirst);
@@ -59,6 +60,9 @@ namespace Source.Scripts.Core.Localization.Base
 
         public string GetLearningStateLocalization(CategoryType categoryType) =>
             LocalizationController.Localize(_categoryTypes[categoryType]);
+
+        public string GetLanguageLocalization(SystemLanguage systemLanguage) =>
+            LocalizationController.Localize(_languages[systemLanguage]);
 
         public string GetDateLocalization(DateType dateType, int count)
         {

@@ -89,6 +89,7 @@ namespace Source.Scripts.Bootstrap.DI
             builder.Register<UISettingsRepository>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<PracticeSettingsRepository>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<LanguageSettingsRepository>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<GenerationSettingsRepository>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.RegisterInstance(_defaultSettingsConfig).AsImplementedInterfaces();
 
             builder.Register<ProgressRepository>(Lifetime.Singleton).AsImplementedInterfaces();

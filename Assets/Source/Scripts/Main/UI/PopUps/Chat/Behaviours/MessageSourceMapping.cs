@@ -2,7 +2,7 @@
 using Source.Scripts.Core.Others;
 using UnityEngine;
 
-namespace Source.Scripts.Main.UI.Screens.Generation.Behaviours
+namespace Source.Scripts.Main.UI.PopUps.Chat.Behaviours
 {
     [CreateAssetMenu(
         fileName = nameof(MessageSourceMapping),

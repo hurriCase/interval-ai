@@ -7,7 +7,7 @@ using VContainer;
 
 namespace Source.Scripts.UI.Components
 {
-    internal sealed class ToggleComponent : ThemeToggle
+    internal class ToggleComponent : ThemeToggle
     {
         private IAudioHandlerProvider _audioHandlerProvider;
 

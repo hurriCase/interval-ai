@@ -1,11 +1,12 @@
 ﻿using R3;
+using Source.Scripts.Main.UI.PopUps.Chat.Behaviours;
 using Source.Scripts.UI.Components.Button;
 using Source.Scripts.UI.Windows.Base;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Source.Scripts.Main.UI.Screens.Generation.Behaviours
+namespace Source.Scripts.Main.UI.PopUps.Chat
 {
     internal sealed class ChatPopUp : PopUpBase
     {

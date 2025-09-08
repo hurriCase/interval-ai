@@ -10,22 +10,28 @@
         internal const string NewWordsDailyTargetKey = Prefix + "NewWordsDailyTargetKey";
         internal const string ProgressHistoryKey = Prefix + "ProgressHistoryKey";
 
-        internal const string LanguageLevelKey = Prefix + "LanguageLevelKey";
-        internal const string DailyGoalKey = Prefix + "DailyGoalKey";
-        internal const string CurrentCultureKey = Prefix + "CurrentCultureKey";
-        internal const string MaxShownExamplesKey = Prefix + "MaxShownExamplesKey";
-        internal const string RepetitionByCooldownKey = Prefix + "RepetitionByCooldownKey";
         internal const string LanguageByTypeKey = Prefix + "LanguageByTypeKey";
+        internal const string LanguageLevelKey = Prefix + "LanguageLevelKey";
         internal const string SystemLanguageKey = Prefix + "SystemLanguageKey";
         internal const string FirstShowLanguageKey = Prefix + "FirstShowLanguageKey";
         internal const string CardLearnLanguageKey = Prefix + "CardLearnLanguageKey";
         internal const string CardReviewLanguageKey = Prefix + "CardReviewLanguageKey";
+
+        internal const string DailyGoalKey = Prefix + "DailyGoalKey";
+        internal const string RepetitionByCooldownKey = Prefix + "RepetitionByCooldownKey";
         internal const string LearningDirectionKey = Prefix + "LearningDirectionKey";
-        internal const string CurrentThemeKey = Prefix + "CurrentThemeKey";
         internal const string WordReviewSourceTypeKey = Prefix + "WordReviewSourceTypeKey";
+
+        internal const string CurrentThemeKey = Prefix + "CurrentThemeKey";
+        internal const string MaxShownExamplesKey = Prefix + "MaxShownExamplesKey";
+        internal const string CurrentCultureKey = Prefix + "CurrentCultureKey";
         internal const string IsSendNotificationsKey = Prefix + "IsSendNotificationsKey";
         internal const string IsShowTranscriptionKey = Prefix + "IsShowTranscriptionKey";
         internal const string IsSwipeEnabledKey = Prefix + "IsSwipeEnabledKey";
+
+        internal const string NewWordsPercentageKey = Prefix + "NewWordsPercentageKey";
+        internal const string TranslateFromLanguageTypeKey = Prefix + "TranslateFromLanguageTypeKey";
+        internal const string IsHighlightNewWordsKey = Prefix + "IsHighlightNewWordsKey";
 
         internal const string IsCompleteOnboardingKey = Prefix + "IsCompleteOnboardingKey";
         internal const string LoginHistoryKey = Prefix + "LoginHistoryKey";

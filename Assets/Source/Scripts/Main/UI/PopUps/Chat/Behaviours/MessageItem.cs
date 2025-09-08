@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Source.Scripts.Main.UI.Screens.Generation.Behaviours
+namespace Source.Scripts.Main.UI.PopUps.Chat.Behaviours
 {
     internal sealed class MessageItem : RectTransformBehaviour
     {

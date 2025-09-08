@@ -16,5 +16,8 @@ namespace Source.Scripts.Core.Repositories.Settings.Base
         LanguageType CardLearnPractice { get; }
         LanguageType CardReviewPractice { get; }
         WordReviewSourceType WordReviewSourceType { get; }
+        float NewWordsPercentage { get; }
+        LanguageType TranslateFromLanguageType { get; }
+        bool IsHighlightNewWords { get; }
     }
 }

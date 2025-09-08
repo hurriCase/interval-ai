@@ -8,6 +8,11 @@ namespace Source.Scripts.Core.Localization.LocalizationTypes
         LearnGoal = 3,
         RepetitionGoal = 4,
         UserWelcome = 5,
-        CategorySelectionName = 6
+        CategorySelectionName = 6,
+        NewWordPercent = 7,
+        ShowOnLanguage = 8,
+        IsHighlightNewWords = 9,
+        Highlight = 10,
+        NotHighlight = 11
     }
 }

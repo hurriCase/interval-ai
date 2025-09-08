@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Source.Scripts.Main.UI.Screens.Generation.Behaviours
+namespace Source.Scripts.Main.UI.PopUps.Chat.Behaviours
 {
     [Serializable]
     internal struct MessageData

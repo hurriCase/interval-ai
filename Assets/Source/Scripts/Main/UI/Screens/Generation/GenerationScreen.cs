@@ -1,14 +1,11 @@
-﻿using Cysharp.Text;
+﻿using CustomUtils.Runtime.Extensions;
 using R3;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.Screens.Generation.Behaviours;
 using Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.CategoryPreview;
 using Source.Scripts.UI.Components.Button;
-using Source.Scripts.UI.Components.Checkbox;
 using Source.Scripts.UI.Windows.Base;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using VContainer;
 
 namespace Source.Scripts.Main.UI.Screens.Generation
@@ -16,15 +13,11 @@ namespace Source.Scripts.Main.UI.Screens.Generation
     internal sealed class GenerationScreen : ScreenBase
     {
         [SerializeField] private CategoryPreviewBehaviour _categoryPreviewBehaviour;
+        [SerializeField] private CurrentSettingsBehaviour _currentSettingsBehaviour;
 
         [SerializeField] private ButtonComponent _savedGenerationsButton;
         [SerializeField] private ButtonComponent _generateButton;
         [SerializeField] private ButtonComponent _chatButton;
-        [SerializeField] private SwitchComponent _translateFromSwitch;
-        [SerializeField] private CheckboxComponent _unfamiliarWordsCheckbox;
-
-        [SerializeField] private Slider _percentageSlider;
-        [SerializeField] private TextMeshProUGUI _percentageText;
 
         private IWindowsController _windowsController;
 
@@ -37,18 +30,14 @@ namespace Source.Scripts.Main.UI.Screens.Generation
         internal override void Init()
         {
             _categoryPreviewBehaviour.Init();
+            _currentSettingsBehaviour.Init();
 
-            _translateFromSwitch.Init();
+            _chatButton.OnClickAsObservable().SubscribeAndRegister(this, self => self.OpenChatPopUp());
+        }
 
-            _chatButton.OnClickAsObservable()
-                .Subscribe(_windowsController,
-                    static (_, controller) => controller.OpenPopUpByType(PopUpType.Chat))
-                .RegisterTo(destroyCancellationToken);
-
-            _percentageSlider.OnValueChangedAsObservable()
-                .Subscribe(this, (percentage, screen)
-                    => screen._percentageText.SetTextFormat("{0:0}%", percentage * 100))
-                .RegisterTo(destroyCancellationToken);
+        private void OpenChatPopUp()
+        {
+            _windowsController.OpenPopUpByType(PopUpType.Chat);
         }
     }
 }
