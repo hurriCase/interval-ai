@@ -2,7 +2,9 @@
 using CustomUtils.Runtime.AddressableSystem;
 using CustomUtils.Runtime.Scenes;
 using Source.Scripts.Bootstrap.Core;
-using Source.Scripts.Core.Audio;
+using Source.Scripts.Core.ApiHelper;
+using Source.Scripts.Core.Audio.Sounds;
+using Source.Scripts.Core.Audio.TextToSpeech;
 using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Input;
 using Source.Scripts.Core.Localization.Base;
@@ -34,6 +36,8 @@ namespace Source.Scripts.Bootstrap.DI
         [SerializeField] private SwipeConfig _swipeConfig;
 
         [SerializeField] private SpriteReferences _spriteReferences;
+
+        [SerializeField] private GoogleTTSConfig _googleTTSConfig;
         [SerializeField] private AnimationsConfig _animationsConfig;
         [SerializeField] private TestConfig _testConfig;
         [SerializeField] private AppConfig _appConfig;
@@ -57,9 +61,13 @@ namespace Source.Scripts.Bootstrap.DI
             builder.Register<AddressablesLoader>(Lifetime.Singleton).AsImplementedInterfaces();
 
             builder.Register<AudioHandlerProvider>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<TextToSpeech>(Lifetime.Singleton).AsImplementedInterfaces();
+
+            builder.Register<ApiHelper>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.RegisterInstance(_googleTTSConfig).AsImplementedInterfaces();
+            builder.Register<GoogleTextToSpeech>(Lifetime.Singleton).AsImplementedInterfaces();
 
             builder.RegisterInstance(_spriteReferences).AsImplementedInterfaces();
+
             builder.RegisterInstance(_animationsConfig).AsImplementedInterfaces();
             builder.RegisterInstance(_testConfig).AsImplementedInterfaces();
             builder.RegisterInstance(_appConfig).AsImplementedInterfaces();

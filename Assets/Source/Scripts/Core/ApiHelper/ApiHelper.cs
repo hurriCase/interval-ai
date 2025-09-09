@@ -1,0 +1,83 @@
+﻿using System;
+using System.Text;
+using Cysharp.Text;
+using Cysharp.Threading.Tasks;
+using Newtonsoft.Json;
+using UnityEngine;
+using UnityEngine.Networking;
+
+namespace Source.Scripts.Core.ApiHelper
+{
+    internal sealed class ApiHelper : IApiHelper
+    {
+        public async UniTask<TResponse> PostAsync<TRequest, TResponse>(TRequest request, string url)
+            where TRequest : class
+            where TResponse : class
+        {
+            var response = await SendRequestAsync(request, url);
+            var parsedResponse = ParseResponse<TResponse>(response);
+            return parsedResponse;
+        }
+
+        private async UniTask<string> SendRequestAsync<TData>(TData data, string url)
+            where TData : class
+        {
+            using var request = new UnityWebRequest(url, "POST");
+            var jsonData = JsonConvert.SerializeObject(data);
+            var bodyRaw = Encoding.UTF8.GetBytes(jsonData);
+
+            request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
+
+            try
+            {
+                await request.SendWebRequest();
+
+                if (request.result == UnityWebRequest.Result.Success)
+                    return request.downloadHandler.text;
+
+                var message = ZString.Format("[AppHelper::SendRequestAsync] " +
+                                             "Request failed: {0} " +
+                                             "Response Code: {1}" +
+                                             "Response Headers: {2} " +
+                                             "Response Body: {3} With Json Data: {4}",
+                    request.responseCode, request.GetResponseHeaders(), request.downloadHandler?.text, jsonData);
+
+                Debug.LogError(message);
+                return null;
+            }
+            catch (Exception e)
+            {
+                var message = ZString.Format("[AppHelper::SendRequestAsync] Request failed with exception: {0}" +
+                                             "Stack trace: {1}" +
+                                             "Request failed: {2}" +
+                                             "With Json Data: {3}",
+                    e, e.StackTrace, e.Message, jsonData);
+
+                Debug.LogError(message);
+                return null;
+            }
+        }
+
+        private TResponse ParseResponse<TResponse>(string responseJson)
+            where TResponse : class
+        {
+            try
+            {
+                var response = JsonConvert.DeserializeObject<TResponse>(responseJson);
+
+                if (response != null)
+                    return response;
+
+                Debug.LogWarning($"[AppHelper::ParseResponse] Failed to parse response with {responseJson} json");
+                return null;
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"[AppHelper::ParseResponse] Failed to parse response: {e.Message}");
+                return null;
+            }
+        }
+    }
+}

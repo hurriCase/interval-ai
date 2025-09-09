@@ -1,4 +1,4 @@
-﻿namespace Source.Scripts.Core.Audio.Base
+﻿namespace Source.Scripts.Core.Audio.Sounds.Base
 {
     internal enum SoundType
     {

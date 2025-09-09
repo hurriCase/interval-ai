@@ -132,8 +132,40 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 4675464422729192320, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4725090385315607919, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+      insertIndex: 2
+      addedObject: {fileID: 2573347279368305855}
   m_SourcePrefab: {fileID: 100100000, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+--- !u!114 &6912983518665242506 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9134864641081789667, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+  m_PrefabInstance: {fileID: 2389818330763443049}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6969518024441630214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &6969518024441630214 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4725090385315607919, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+  m_PrefabInstance: {fileID: 2389818330763443049}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2573347279368305855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6969518024441630214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6aac91e2bf545b7953a7838a12150a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.Button.TextToSpeechButton
+  _buttonComponent: {fileID: 6912983518665242506}
 --- !u!114 &7613360938465446633 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5224809382630289792, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}

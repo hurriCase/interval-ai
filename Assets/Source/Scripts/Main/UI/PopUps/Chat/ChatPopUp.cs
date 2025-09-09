@@ -9,6 +9,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
+using VContainer.Unity;
 
 namespace Source.Scripts.Main.UI.PopUps.Chat
 {
@@ -24,11 +25,13 @@ namespace Source.Scripts.Main.UI.PopUps.Chat
         [SerializeField] private ButtonComponent _sendMessageButton;
 
         private IAITextController _aiTextController;
+        private IObjectResolver _objectResolver;
 
         [Inject]
-        internal void Inject(IAITextController aiTextController)
+        internal void Inject(IAITextController aiTextController, IObjectResolver objectResolver)
         {
             _aiTextController = aiTextController;
+            _objectResolver = objectResolver;
         }
 
         internal override void Init()
@@ -56,7 +59,7 @@ namespace Source.Scripts.Main.UI.PopUps.Chat
 
         private void CreateMessage(string text, MessageSourceType sourceType)
         {
-            var createdMessage = Instantiate(_messageItem, _chatContainer);
+            var createdMessage = _objectResolver.Instantiate(_messageItem, _chatContainer);
             createdMessage.Init(_chatContainer, text, sourceType);
 
             _spacing.CreateWidthSpacing(_spacingRatio, _chatContainer);

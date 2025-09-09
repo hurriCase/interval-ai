@@ -1,7 +1,7 @@
 ﻿using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using R3;
-using Source.Scripts.Core.Audio.Base;
+using Source.Scripts.Core.Audio.Sounds.Base;
 using UnityEngine.Device;
 using VContainer;
 
@@ -12,7 +12,7 @@ namespace Source.Scripts.UI.Components.Button
         private IAudioHandlerProvider _audioHandlerProvider;
 
         [Inject]
-        public void Inject(IAudioHandlerProvider audioHandlerProvider)
+        internal void Inject(IAudioHandlerProvider audioHandlerProvider)
         {
             _audioHandlerProvider = audioHandlerProvider;
         }

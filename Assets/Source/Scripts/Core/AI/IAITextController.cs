@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Source.Scripts.Core.AI.Data;
 
 namespace Source.Scripts.Core.AI
 {
