@@ -2,7 +2,7 @@
 using Cysharp.Text;
 using R3;
 using Source.Scripts.Core.Repositories.Settings.Base;
-using Source.Scripts.UI.Components.Checkbox;
+using Source.Scripts.UI.Components;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,7 +14,7 @@ namespace Source.Scripts.Main.UI.PopUps.GenerationSettings.Behaviours
     {
         [SerializeField] private Slider _percentageSlider;
         [SerializeField] private TextMeshProUGUI _percentText;
-        [SerializeField] private CheckboxComponent _isHighlightedCheckbox;
+        [SerializeField] private ToggleComponent _isHighlightedCheckbox;
 
         private IGenerationSettingsRepository _generationSettingsRepository;
 

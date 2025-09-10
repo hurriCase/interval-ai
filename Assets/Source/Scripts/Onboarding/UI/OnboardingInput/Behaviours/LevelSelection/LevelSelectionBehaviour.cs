@@ -4,7 +4,7 @@ using R3.Triggers;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.References.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
-using Source.Scripts.UI.Components.Checkbox;
+using Source.Scripts.UI.Components;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
@@ -14,7 +14,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours.LevelSelection
     internal sealed class LevelSelectionBehaviour : StepBehaviourBase
     {
         [SerializeField] private ToggleGroup _selectionToggleGroup;
-        [SerializeField] private CheckboxComponent _selectionCheckbox;
+        [SerializeField] private ToggleComponent _selectionCheckbox;
         [SerializeField] private RectTransform _levelButtonsContainer;
         [SerializeField] private AspectRatioFitter _aspectRatioFitter;
         [SerializeField] private float _spacingRatio;

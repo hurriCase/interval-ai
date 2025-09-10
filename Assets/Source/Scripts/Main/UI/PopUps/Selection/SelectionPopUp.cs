@@ -2,7 +2,7 @@
 using PrimeTween;
 using R3;
 using Source.Scripts.Core.Others;
-using Source.Scripts.UI.Components.Checkbox;
+using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Data;
 using Source.Scripts.UI.Windows.Base;
 using TMPro;
@@ -17,12 +17,12 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
         [SerializeField] private TextMeshProUGUI _selectionNameText;
 
         [SerializeField] private RectTransform _selectionsContainer;
-        [SerializeField] private CheckboxTextComponent _selectionItem;
+        [SerializeField] private ToggleComponent _selectionItem;
         [SerializeField] private ToggleGroup _selectionToggleGroup;
 
         private IAnimationsConfig _animationsConfig;
 
-        private UIPool<CheckboxTextComponent> _selectionPool;
+        private UIPool<ToggleComponent> _selectionPool;
 
         private DisposableBag _disposableBag;
 
@@ -34,7 +34,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
 
         internal override void Init()
         {
-            _selectionPool = new UIPool<CheckboxTextComponent>(_selectionItem, _selectionsContainer);
+            _selectionPool = new UIPool<ToggleComponent>(_selectionItem, _selectionsContainer);
         }
 
         public void SetParameters<TValue>(ISelectionService<TValue> service)
@@ -73,16 +73,16 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
             selectionItem.Text.text = service.GetSelectionName(selectionValue);
 
             if (service.IsSingleSelection)
-                selectionItem.Checkbox.group = _selectionToggleGroup;
+                selectionItem.group = _selectionToggleGroup;
 
-            selectionItem.Checkbox.isOn = service.GetSelectionState(selectionValue);
+            selectionItem.isOn = service.GetSelectionState(selectionValue);
         }
 
         private void SubscribeToChanges<TValue>(int index, TValue selectionValue, ISelectionService<TValue> service)
         {
             var selectionItem = _selectionPool.PooledItems[index];
 
-            selectionItem.Checkbox.OnValueChangedAsObservable()
+            selectionItem.OnValueChangedAsObservable()
                 .Subscribe((selectionValue, service),
                     static (isOn, tuple) => tuple.service.SetValue(tuple.selectionValue, isOn))
                 .AddTo(ref _disposableBag);

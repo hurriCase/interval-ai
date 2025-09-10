@@ -1,5 +1,5 @@
 ﻿using CustomUtils.Runtime.Extensions;
-using CustomUtils.Runtime.UI.CustomComponents.Selectables.Toggles.Components;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Toggles;
 using R3.Triggers;
 using Source.Scripts.Core.Audio.Sounds.Base;
 using UnityEngine;
@@ -7,7 +7,7 @@ using VContainer;
 
 namespace Source.Scripts.UI.Components
 {
-    internal class ToggleComponent : ThemeToggle
+    internal class ToggleComponent : StateToggle
     {
         private IAudioHandlerProvider _audioHandlerProvider;
 

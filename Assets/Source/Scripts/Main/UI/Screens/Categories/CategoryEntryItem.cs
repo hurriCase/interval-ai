@@ -6,7 +6,7 @@ using R3.Triggers;
 using Source.Scripts.Core.Repositories.Categories.Category;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.PopUps.Category;
-using Source.Scripts.UI.Components.Checkbox;
+using Source.Scripts.UI.Components;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,7 +21,7 @@ namespace Source.Scripts.Main.UI.Screens.Categories
         [SerializeField] private Image _icon;
 
         [SerializeField] private Image _categoryOpenArea;
-        [SerializeField] private CheckboxComponent _selectedCheckbox;
+        [SerializeField] private ToggleComponent _selectedCheckbox;
 
         private IAddressablesLoader _addressablesLoader;
         private IWindowsController _windowsController;

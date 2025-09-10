@@ -9,10 +9,8 @@ using VContainer;
 
 namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Selection
 {
-    internal sealed class SelectionModuleBehaviour : TransitionPracticeModuleBase<SelectionItem>
+    internal sealed class SelectionModuleBehaviour : TransitionPracticeModuleBase<WordSelectionItem>
     {
-        [SerializeField] private float _incorrectBorderRatio;
-
         private const int SelectionCount = 4;
 
         private int _currentIndex;
@@ -29,7 +27,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Selectio
 
         protected override async UniTask SwitchModule(ModuleType moduleType)
         {
-            transitionData[_currentIndex].TransitionObject.Checkbox.isOn = true;
+            transitionData[_currentIndex].TransitionObject.SeActive();
 
             await UniTask.WaitForSeconds(_animationsConfig.SelectionTransitionDuration,
                 true, cancellationToken: destroyCancellationToken);
@@ -63,8 +61,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Selectio
         private void InitTransitionObject(int index, WordEntry wordEntry, bool isCorrect)
         {
             var transitionObject = transitionData[index].TransitionObject;
-            transitionObject.Checkbox.Text.text = wordEntry.Word.GetHiddenText(practiceSettingsRepository);
-            transitionObject.Image.BorderRatio.Value = isCorrect ? 0 : _incorrectBorderRatio;
+            transitionObject.Init(wordEntry, isCorrect);
         }
     }
 }
