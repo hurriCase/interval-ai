@@ -7,6 +7,7 @@ using Source.Scripts.Core.Repositories.User.Base;
 using Source.Scripts.Main.UI.Screens.LearningWords.Behaviours;
 using Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.CategoryPreview;
 using Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.Progress;
+using Source.Scripts.Main.UI.Shared;
 using Source.Scripts.UI.Windows.Base;
 using TMPro;
 using UnityEngine;
@@ -20,6 +21,7 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords
         [SerializeField] private CategoryPreviewBehaviour _categoryPreviewBehaviour;
         [SerializeField] private WordLearningBehaviour _wordLearningBehaviour;
         [SerializeField] private AchievementsBehaviour _achievementsBehaviour;
+        [SerializeField] private UserIconBehaviour _userIconBehaviour;
 
         [SerializeField] private TextMeshProUGUI _welcomeText;
 
@@ -39,6 +41,7 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords
             _categoryPreviewBehaviour.Init();
             _wordLearningBehaviour.Init();
             _achievementsBehaviour.Init();
+            _userIconBehaviour.Init();
 
             _userRepository.Nickname.SubscribeAndRegister(this, static self => self.UpdateUserWelcome());
             LocalizationController.Language.SubscribeAndRegister(this, static self => self.UpdateUserWelcome());

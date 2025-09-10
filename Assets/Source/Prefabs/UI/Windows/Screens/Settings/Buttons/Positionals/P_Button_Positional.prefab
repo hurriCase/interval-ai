@@ -6,7 +6,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 6564950572128155661}
+    m_TransformParent: {fileID: 9165072963208685706}
     m_Modifications:
     - target: {fileID: 4403627300240073388, guid: f0f59acd6e2f24446a374fd26863d168, type: 3}
       propertyPath: m_AspectRatio
@@ -145,6 +145,10 @@ PrefabInstance:
       propertyPath: m_AnchorMin.y
       value: 0.2857143
       objectReference: {fileID: 0}
+    - target: {fileID: 751925678675359553, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 972366833965280059, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
       propertyPath: m_Type
       value: 1
@@ -181,6 +185,10 @@ PrefabInstance:
       propertyPath: <PixelPerUnitData>k__BackingField.<DimensionType>k__BackingField
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3156141274721558179, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
+      propertyPath: <ThemeSolidColorName>k__BackingField
+      value: Background_Card
+      objectReference: {fileID: 0}
     - target: {fileID: 3834826344384761549, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
       propertyPath: m_Name
       value: P_Button_Positional
@@ -209,10 +217,6 @@ PrefabInstance:
       propertyPath: targetComponent
       value: 
       objectReference: {fileID: 7558346650603454560}
-    - target: {fileID: 6092104942815282739, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
-      propertyPath: targetComponent
-      value: 
-      objectReference: {fileID: 2367607467845911731}
     - target: {fileID: 6092104942815282739, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
       propertyPath: <ThemeSolidColorName>k__BackingField
       value: Background_Card
@@ -297,59 +301,59 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7180323941788077609, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7180323941788077609, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
+      propertyPath: m_Color.g
+      value: 0.96862745
+      objectReference: {fileID: 0}
+    - target: {fileID: 7180323941788077609, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
+      propertyPath: m_Color.r
+      value: 0.9647059
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 665363177914109167, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
     m_RemovedGameObjects:
     - {fileID: 4015448904486476479, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
+    - {fileID: 5606239481809561077, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 8556425644692051845, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 5950668273628251906, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6353908262917171797}
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5606239481809561077, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1728231503054972791}
+    - targetCorrespondingSourceObject: {fileID: 7631032451483202930, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
+      insertIndex: 3
+      addedObject: {fileID: 4211785786613717589}
   m_SourcePrefab: {fileID: 100100000, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
---- !u!114 &2367607467845911731 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 972366833965280059, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
-  m_PrefabInstance: {fileID: 3289285832205905800}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6947005914299550333}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!224 &6564950572128155661 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8556425644692051845, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
-  m_PrefabInstance: {fileID: 3289285832205905800}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &6947005914299550333 stripped
+--- !u!1 &4918840759579958010 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 5606239481809561077, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7631032451483202930, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
   m_PrefabInstance: {fileID: 3289285832205905800}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1728231503054972791
+--- !u!114 &4211785786613717589
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6947005914299550333}
+  m_GameObject: {fileID: 4918840759579958010}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a180a5bee848bdb287ad09442aa1e2, type: 3}
+  m_Script: {fileID: 11500000, guid: 70e4db3c144f44ac819336537f18ff24, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.PositionalBackgroundComponent
-  _position: 2
-  _positionSprites:
-    <Entries>k__BackingField:
-    - <Value>k__BackingField: {fileID: 0}
-    - <Value>k__BackingField: {fileID: 21300000, guid: 1c65ad52f6bcedf4eae2914a36a78431, type: 3}
-    - <Value>k__BackingField: {fileID: 21300000, guid: cad0dc489b8e42a44b162ea5627be814, type: 3}
-    - <Value>k__BackingField: {fileID: 21300000, guid: 496e438e07304874aac4f04c601f48b7, type: 3}
-    <EnumMode>k__BackingField: 2
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.ProceduralUIImage.Modifiers.CustomCorners.CustomCornerModifier
+  <DesiredCornerRadii>k__BackingField:
+    <LeftTop>k__BackingField: 0
+    <RightTop>k__BackingField: 0
+    <RightBottom>k__BackingField: 0
+    <LeftBottom>k__BackingField: 0
+  <CornerRadiusRatios>k__BackingField:
+    <LeftTop>k__BackingField: 0
+    <RightTop>k__BackingField: 0
+    <RightBottom>k__BackingField: 0
+    <LeftBottom>k__BackingField: 0
 --- !u!114 &7558346650603454560 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4990340449473409000, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
@@ -361,3 +365,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &9165072963208685706 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5950668273628251906, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
+  m_PrefabInstance: {fileID: 3289285832205905800}
+  m_PrefabAsset: {fileID: 0}

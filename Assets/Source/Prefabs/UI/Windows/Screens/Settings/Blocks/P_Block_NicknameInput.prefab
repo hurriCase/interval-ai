@@ -23,7 +23,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2250703998477890538}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -31,7 +31,7 @@ RectTransform:
   - {fileID: 9202593031520089832}
   - {fileID: 8766675344371312965}
   - {fileID: 1449385435231257059}
-  m_Father: {fileID: 1581086309239396767}
+  m_Father: {fileID: 3592367345954687256}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.046647232, y: 0.1891892}
   m_AnchorMax: {x: 0.46064138, y: 0.8108108}
@@ -168,6 +168,10 @@ PrefabInstance:
       value: P_Text_Awards
       objectReference: {fileID: 0}
     - target: {fileID: 5098176312871980323, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+      propertyPath: targetComponent
+      value: 
+      objectReference: {fileID: 6279435196905272820}
+    - target: {fileID: 5098176312871980323, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
       propertyPath: <ThemeSolidColorName>k__BackingField
       value: Base_Main
       objectReference: {fileID: 0}
@@ -209,6 +213,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1284860795548734190, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
   m_PrefabInstance: {fileID: 417144033234096909}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6279435196905272820 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5975422674569537273, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+  m_PrefabInstance: {fileID: 417144033234096909}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6409209874021838583
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -314,17 +329,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec6773fd5774ca5408f7058d7f72989f, type: 3}
---- !u!114 &3027708977018121572 stripped
+--- !u!114 &7060425517414826288 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8283952779623547795, guid: ec6773fd5774ca5408f7058d7f72989f, type: 3}
+  m_CorrespondingSourceObject: {fileID: 4110024999067332551, guid: ec6773fd5774ca5408f7058d7f72989f, type: 3}
   m_PrefabInstance: {fileID: 6409209874021838583}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: ff38820289da4d82ad6b1ed9e4fcf8bf, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.Shared.UserIconBehaviour
 --- !u!224 &9202593031520089832 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2829452396189587487, guid: ec6773fd5774ca5408f7058d7f72989f, type: 3}
@@ -338,6 +353,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 596470888089411653, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
+      propertyPath: <DesiredRadius>k__BackingField
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 596470888089411653, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
+      propertyPath: <CornerRadiusRatio>k__BackingField
+      value: 0.3243243
+      objectReference: {fileID: 0}
     - target: {fileID: 865330150341035921, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -462,10 +485,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7537355349041224152, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5526359086672316767, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 8629539679633799983, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 6046586146409999272, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4479238699854021922}
     m_AddedComponents:
@@ -473,9 +501,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 5030698243746153904}
   m_SourcePrefab: {fileID: 100100000, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
---- !u!224 &1581086309239396767 stripped
+--- !u!224 &3592367345954687256 stripped
 RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8629539679633799983, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
+  m_CorrespondingSourceObject: {fileID: 6046586146409999272, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
   m_PrefabInstance: {fileID: 7076119290705306288}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &6230633787672625367 stripped
@@ -496,7 +524,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.Screens.Settings.Behaviours.UserBehaviour
   _nicknameField: {fileID: 1269218615053540507}
-  _userIcon: {fileID: 3027708977018121572}
+  _userIconBehaviour: {fileID: 7060425517414826288}
 --- !u!1001 &7586421186178585703
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -589,6 +617,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3503384342505983762, guid: eb336942d061cb44fb8096abeb2568c2, type: 3}
+      propertyPath: targetComponent
+      value: 
+      objectReference: {fileID: 8228393899444616703}
     - target: {fileID: 6707408994701265039, guid: eb336942d061cb44fb8096abeb2568c2, type: 3}
       propertyPath: m_Name
       value: InputField_Nickname
@@ -618,6 +650,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3451095974414881511, guid: eb336942d061cb44fb8096abeb2568c2, type: 3}
   m_PrefabInstance: {fileID: 7586421186178585703}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8228393899444616703 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1979685495240599960, guid: eb336942d061cb44fb8096abeb2568c2, type: 3}
+  m_PrefabInstance: {fileID: 7586421186178585703}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1001 &8631824908409779994
 PrefabInstance:
   m_ObjectHideFlags: 0

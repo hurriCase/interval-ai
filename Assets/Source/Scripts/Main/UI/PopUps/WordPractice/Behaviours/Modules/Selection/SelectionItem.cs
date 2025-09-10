@@ -1,4 +1,4 @@
-﻿using CustomUtils.Runtime.UI.CustomComponents.ProceduralUIImage.Scripts;
+﻿using CustomUtils.Runtime.UI.CustomComponents.ProceduralUIImage;
 using Source.Scripts.UI.Components.Checkbox;
 using UnityEngine;
 using UnityEngine.EventSystems;

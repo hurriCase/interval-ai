@@ -180,7 +180,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 759253170128188127, guid: a5e89d37319e0a94588cb07199f00d6b, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 759253170128188127, guid: a5e89d37319e0a94588cb07199f00d6b, type: 3}
       propertyPath: m_AnchorMin.x
@@ -188,7 +188,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 759253170128188127, guid: a5e89d37319e0a94588cb07199f00d6b, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 759253170128188127, guid: a5e89d37319e0a94588cb07199f00d6b, type: 3}
       propertyPath: m_SizeDelta.x
@@ -196,7 +196,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 759253170128188127, guid: a5e89d37319e0a94588cb07199f00d6b, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 20
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 759253170128188127, guid: a5e89d37319e0a94588cb07199f00d6b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -228,11 +228,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 759253170128188127, guid: a5e89d37319e0a94588cb07199f00d6b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 96.055
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 759253170128188127, guid: a5e89d37319e0a94588cb07199f00d6b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 759253170128188127, guid: a5e89d37319e0a94588cb07199f00d6b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -279,6 +279,10 @@ PrefabInstance:
       value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 3866520626627877361, guid: a5e89d37319e0a94588cb07199f00d6b, type: 3}
+      propertyPath: <ExpandToFitText>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3866520626627877361, guid: a5e89d37319e0a94588cb07199f00d6b, type: 3}
       propertyPath: <StaticDimensionType>k__BackingField
       value: 2
       objectReference: {fileID: 0}
@@ -305,30 +309,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5175434959763795733, guid: a5e89d37319e0a94588cb07199f00d6b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7738479876813497079}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5e89d37319e0a94588cb07199f00d6b, type: 3}
---- !u!1 &775441966082083485 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5175434959763795733, guid: a5e89d37319e0a94588cb07199f00d6b, type: 3}
-  m_PrefabInstance: {fileID: 5553003146413548936}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &7738479876813497079
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 775441966082083485}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ContentSizeFitter
-  m_HorizontalFit: 2
-  m_VerticalFit: 0
 --- !u!224 &5159245336758146903 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 759253170128188127, guid: a5e89d37319e0a94588cb07199f00d6b, type: 3}
@@ -339,7 +321,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3866520626627877361, guid: a5e89d37319e0a94588cb07199f00d6b, type: 3}
   m_PrefabInstance: {fileID: 5553003146413548936}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 775441966082083485}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2025faa740564534a596c7b191dec6b3, type: 3}
@@ -902,6 +884,10 @@ PrefabInstance:
       propertyPath: <Text>k__BackingField
       value: 
       objectReference: {fileID: 8698877463834082425}
+    - target: {fileID: 9134864641081789667, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+      propertyPath: <Image>k__BackingField
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 9134864641081789667, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: <GraphicMappings>k__BackingField.Array.size
       value: 3

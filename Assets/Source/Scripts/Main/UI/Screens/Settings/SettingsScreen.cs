@@ -11,7 +11,7 @@ namespace Source.Scripts.Main.UI.Screens.Settings
 {
     internal sealed class SettingsScreen : ScreenBase
     {
-        [SerializeField] private UserBehaviour _userBehaviour;
+        [SerializeField] private NicknameInputBehaviour _nicknameInputBehaviour;
         [SerializeField] private ButtonComponent[] _settingsButtons;
 
         private IWindowsController _windowsController;
@@ -24,7 +24,7 @@ namespace Source.Scripts.Main.UI.Screens.Settings
 
         internal override void Init()
         {
-            _userBehaviour.Init();
+            _nicknameInputBehaviour.Init();
 
             foreach (var button in _settingsButtons)
             {

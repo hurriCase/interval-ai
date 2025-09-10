@@ -366,6 +366,22 @@ PrefabInstance:
       propertyPath: m_PixelsPerUnitMultiplier
       value: Infinity
       objectReference: {fileID: 0}
+    - target: {fileID: 4211785786613717589, guid: f8af58c015148c64fb26c2915538f5b0, type: 3}
+      propertyPath: <CornerRadiusRatios>k__BackingField.<LeftTop>k__BackingField
+      value: 0.42857143
+      objectReference: {fileID: 0}
+    - target: {fileID: 4211785786613717589, guid: f8af58c015148c64fb26c2915538f5b0, type: 3}
+      propertyPath: <DesiredCornerRadii>k__BackingField.<LeftTop>k__BackingField
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 4211785786613717589, guid: f8af58c015148c64fb26c2915538f5b0, type: 3}
+      propertyPath: <CornerRadiusRatios>k__BackingField.<RightTop>k__BackingField
+      value: 0.42857143
+      objectReference: {fileID: 0}
+    - target: {fileID: 4211785786613717589, guid: f8af58c015148c64fb26c2915538f5b0, type: 3}
+      propertyPath: <DesiredCornerRadii>k__BackingField.<RightTop>k__BackingField
+      value: 24
+      objectReference: {fileID: 0}
     - target: {fileID: 6681817604196550372, guid: f8af58c015148c64fb26c2915538f5b0, type: 3}
       propertyPath: <LocalizationKey>k__BackingField
       value: ui.settings.other-languages
@@ -597,6 +613,22 @@ PrefabInstance:
     - target: {fileID: 2367607467845911731, guid: f8af58c015148c64fb26c2915538f5b0, type: 3}
       propertyPath: m_PixelsPerUnitMultiplier
       value: Infinity
+      objectReference: {fileID: 0}
+    - target: {fileID: 4211785786613717589, guid: f8af58c015148c64fb26c2915538f5b0, type: 3}
+      propertyPath: <CornerRadiusRatios>k__BackingField.<LeftBottom>k__BackingField
+      value: 0.42857143
+      objectReference: {fileID: 0}
+    - target: {fileID: 4211785786613717589, guid: f8af58c015148c64fb26c2915538f5b0, type: 3}
+      propertyPath: <DesiredCornerRadii>k__BackingField.<LeftBottom>k__BackingField
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 4211785786613717589, guid: f8af58c015148c64fb26c2915538f5b0, type: 3}
+      propertyPath: <CornerRadiusRatios>k__BackingField.<RightBottom>k__BackingField
+      value: 0.42857143
+      objectReference: {fileID: 0}
+    - target: {fileID: 4211785786613717589, guid: f8af58c015148c64fb26c2915538f5b0, type: 3}
+      propertyPath: <DesiredCornerRadii>k__BackingField.<RightBottom>k__BackingField
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 6681817604196550372, guid: f8af58c015148c64fb26c2915538f5b0, type: 3}
       propertyPath: <LocalizationKey>k__BackingField
@@ -883,10 +915,6 @@ PrefabInstance:
       propertyPath: m_PixelsPerUnitMultiplier
       value: 0.01
       objectReference: {fileID: 0}
-    - target: {fileID: 4018375792625125417, guid: 3b0150b2c0bff9a40a1d6a94ca5ac2cf, type: 3}
-      propertyPath: targetComponent
-      value: 
-      objectReference: {fileID: 6853988794828019094}
     - target: {fileID: 4288430638640692909, guid: 3b0150b2c0bff9a40a1d6a94ca5ac2cf, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -973,7 +1001,7 @@ PrefabInstance:
       objectReference: {fileID: 7352798584026219843}
     - target: {fileID: 6230633787672625367, guid: 3b0150b2c0bff9a40a1d6a94ca5ac2cf, type: 3}
       propertyPath: m_Name
-      value: P_Block_User
+      value: P_Block_NicknameInput
       objectReference: {fileID: 0}
     - target: {fileID: 6279435196905272820, guid: 3b0150b2c0bff9a40a1d6a94ca5ac2cf, type: 3}
       propertyPath: m_fontSize
@@ -1016,17 +1044,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
---- !u!114 &6853988794828019094 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7940171799927727393, guid: 3b0150b2c0bff9a40a1d6a94ca5ac2cf, type: 3}
-  m_PrefabInstance: {fileID: 3544168325011435703}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7352798584026219843 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6279435196905272820, guid: 3b0150b2c0bff9a40a1d6a94ca5ac2cf, type: 3}
@@ -1187,10 +1204,6 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3724002762858727221, guid: 5e2f6ec1dd4fff243ac9d2b982e93e23, type: 3}
-      propertyPath: targetComponent
-      value: 
-      objectReference: {fileID: 2502166399502900182}
     - target: {fileID: 3791353818873171543, guid: 5e2f6ec1dd4fff243ac9d2b982e93e23, type: 3}
       propertyPath: m_fontSize
       value: 15.7
@@ -1292,17 +1305,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e2f6ec1dd4fff243ac9d2b982e93e23, type: 3}
---- !u!114 &2502166399502900182 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7663819903152138813, guid: 5e2f6ec1dd4fff243ac9d2b982e93e23, type: 3}
-  m_PrefabInstance: {fileID: 5251795908495569387}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3765135669899623279 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8980831302701714052, guid: 5e2f6ec1dd4fff243ac9d2b982e93e23, type: 3}
@@ -1482,6 +1484,22 @@ PrefabInstance:
     - target: {fileID: 2367607467845911731, guid: f8af58c015148c64fb26c2915538f5b0, type: 3}
       propertyPath: m_PixelsPerUnitMultiplier
       value: Infinity
+      objectReference: {fileID: 0}
+    - target: {fileID: 4211785786613717589, guid: f8af58c015148c64fb26c2915538f5b0, type: 3}
+      propertyPath: <CornerRadiusRatios>k__BackingField.<LeftBottom>k__BackingField
+      value: 0.42857143
+      objectReference: {fileID: 0}
+    - target: {fileID: 4211785786613717589, guid: f8af58c015148c64fb26c2915538f5b0, type: 3}
+      propertyPath: <DesiredCornerRadii>k__BackingField.<LeftBottom>k__BackingField
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 4211785786613717589, guid: f8af58c015148c64fb26c2915538f5b0, type: 3}
+      propertyPath: <CornerRadiusRatios>k__BackingField.<RightBottom>k__BackingField
+      value: 0.42857143
+      objectReference: {fileID: 0}
+    - target: {fileID: 4211785786613717589, guid: f8af58c015148c64fb26c2915538f5b0, type: 3}
+      propertyPath: <DesiredCornerRadii>k__BackingField.<RightBottom>k__BackingField
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 6681817604196550372, guid: f8af58c015148c64fb26c2915538f5b0, type: 3}
       propertyPath: <LocalizationKey>k__BackingField
@@ -1788,7 +1806,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.Screens.Settings.SettingsScreen
   <InitialWindow>k__BackingField: 0
-  _userBehaviour: {fileID: 8430680461504984327}
+  _nicknameInputBehaviour: {fileID: 8430680461504984327}
   _settingsButtons:
   - {fileID: 55640853889178344}
   - {fileID: 7601967751429673947}
@@ -1931,10 +1949,6 @@ PrefabInstance:
       propertyPath: targetComponent
       value: 
       objectReference: {fileID: 5758851951357854273}
-    - target: {fileID: 2740365882690837260, guid: 9ff2ddf435179b845b4b2859befbd45e, type: 3}
-      propertyPath: targetComponent
-      value: 
-      objectReference: {fileID: 564154054955959954}
     - target: {fileID: 3044450732804959624, guid: 9ff2ddf435179b845b4b2859befbd45e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2055,17 +2069,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &564154054955959954 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9219632668865738244, guid: 9ff2ddf435179b845b4b2859befbd45e, type: 3}
-  m_PrefabInstance: {fileID: 8657871281811304598}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5758851951357854273 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4021007866699395799, guid: 9ff2ddf435179b845b4b2859befbd45e, type: 3}
@@ -2116,6 +2119,22 @@ PrefabInstance:
     - target: {fileID: 2367607467845911731, guid: f8af58c015148c64fb26c2915538f5b0, type: 3}
       propertyPath: m_PixelsPerUnitMultiplier
       value: Infinity
+      objectReference: {fileID: 0}
+    - target: {fileID: 4211785786613717589, guid: f8af58c015148c64fb26c2915538f5b0, type: 3}
+      propertyPath: <CornerRadiusRatios>k__BackingField.<LeftTop>k__BackingField
+      value: 0.42857143
+      objectReference: {fileID: 0}
+    - target: {fileID: 4211785786613717589, guid: f8af58c015148c64fb26c2915538f5b0, type: 3}
+      propertyPath: <DesiredCornerRadii>k__BackingField.<LeftTop>k__BackingField
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 4211785786613717589, guid: f8af58c015148c64fb26c2915538f5b0, type: 3}
+      propertyPath: <CornerRadiusRatios>k__BackingField.<RightTop>k__BackingField
+      value: 0.42857143
+      objectReference: {fileID: 0}
+    - target: {fileID: 4211785786613717589, guid: f8af58c015148c64fb26c2915538f5b0, type: 3}
+      propertyPath: <DesiredCornerRadii>k__BackingField.<RightTop>k__BackingField
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 6681817604196550372, guid: f8af58c015148c64fb26c2915538f5b0, type: 3}
       propertyPath: <LocalizationKey>k__BackingField

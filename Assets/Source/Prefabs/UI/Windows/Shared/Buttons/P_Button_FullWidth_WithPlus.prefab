@@ -6,7 +6,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 4354139653628649858}
+    m_TransformParent: {fileID: 1749226777355448581}
     m_Modifications:
     - target: {fileID: 3277708244487492017, guid: 1e5318a0ecc3e564593ff5ea8968dc92, type: 3}
       propertyPath: <ChildControlWidth>k__BackingField
@@ -428,6 +428,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -27
       objectReference: {fileID: 0}
+    - target: {fileID: 665363177914109167, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
+      propertyPath: <DesiredRadius>k__BackingField
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 665363177914109167, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
+      propertyPath: <CornerRadiusRatio>k__BackingField
+      value: 0.37037036
+      objectReference: {fileID: 0}
     - target: {fileID: 751925678675359553, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
       propertyPath: <Text>k__BackingField
       value: 
@@ -435,7 +443,7 @@ PrefabInstance:
     - target: {fileID: 751925678675359553, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
       propertyPath: <Image>k__BackingField
       value: 
-      objectReference: {fileID: 5164801132258450748}
+      objectReference: {fileID: 2987619027403225134}
     - target: {fileID: 751925678675359553, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
       propertyPath: <GraphicMappings>k__BackingField.Array.size
       value: 1
@@ -447,7 +455,7 @@ PrefabInstance:
     - target: {fileID: 751925678675359553, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
       propertyPath: <GraphicMappings>k__BackingField.Array.data[0]._targetGraphic
       value: 
-      objectReference: {fileID: 5164801132258450748}
+      objectReference: {fileID: 2987619027403225134}
     - target: {fileID: 921662674566850767, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -499,6 +507,10 @@ PrefabInstance:
     - target: {fileID: 2905564387205196830, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
       propertyPath: _aspectRatio
       value: 6.72549
+      objectReference: {fileID: 0}
+    - target: {fileID: 3156141274721558179, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
+      propertyPath: <ThemeSolidColorName>k__BackingField
+      value: Base_Main
       objectReference: {fileID: 0}
     - target: {fileID: 3386532857379469689, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
       propertyPath: <ColorType>k__BackingField
@@ -554,6 +566,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4990340449473409000, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
       propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5606239481809561077, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5867604454762841138, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
@@ -648,6 +664,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7180323941788077609, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
+      propertyPath: m_Color.g
+      value: 0.27058825
+      objectReference: {fileID: 0}
+    - target: {fileID: 7180323941788077609, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
+      propertyPath: m_Color.r
+      value: 0.34509805
+      objectReference: {fileID: 0}
     - target: {fileID: 8577785951315399793, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -670,16 +694,27 @@ PrefabInstance:
     - {fileID: 4015448904486476479, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
     - {fileID: 2940055530177148401, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 8556425644692051845, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 5950668273628251906, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8502650076463399956}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
---- !u!224 &4354139653628649858 stripped
+--- !u!224 &1749226777355448581 stripped
 RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8556425644692051845, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5950668273628251906, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
   m_PrefabInstance: {fileID: 5391799655096120839}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2987619027403225134 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7180323941788077609, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
+  m_PrefabInstance: {fileID: 5391799655096120839}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41f1c5417c9d7ab4b84e531f83f60a4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnityEngine.UI.ProceduralImage.ProceduralImage
 --- !u!114 &5164801132258450748 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 972366833965280059, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}

@@ -241,6 +241,30 @@ PrefabInstance:
       propertyPath: <ThemeSolidColorName>k__BackingField
       value: Base_Main
       objectReference: {fileID: 0}
+    - target: {fileID: 2026060872019565148, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2026060872019565148, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.8979592
+      objectReference: {fileID: 0}
+    - target: {fileID: 2026060872019565148, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2026060872019565148, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.3265306
+      objectReference: {fileID: 0}
+    - target: {fileID: 3255720388982018935, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
+      propertyPath: m_Color.g
+      value: 0.27058825
+      objectReference: {fileID: 0}
+    - target: {fileID: 3255720388982018935, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
+      propertyPath: m_Color.r
+      value: 0.34509805
+      objectReference: {fileID: 0}
     - target: {fileID: 4050285476625402587, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0.7
@@ -277,13 +301,17 @@ PrefabInstance:
       propertyPath: m_fontSize
       value: 13.5
       objectReference: {fileID: 0}
+    - target: {fileID: 7298042655143740413, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
+      propertyPath: <ThemeSolidColorName>k__BackingField
+      value: Base_Main
+      objectReference: {fileID: 0}
     - target: {fileID: 7310809448530336722, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
       propertyPath: m_AspectRatio
       value: 1.428571
       objectReference: {fileID: 0}
     - target: {fileID: 8913482220817798035, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
       propertyPath: m_Name
-      value: P_Toggle_Theme_Base Variant
+      value: P_Toggle_Menu
       objectReference: {fileID: 0}
     - target: {fileID: 9206711422655737635, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
       propertyPath: <Text>k__BackingField
@@ -296,7 +324,7 @@ PrefabInstance:
     - target: {fileID: 9206711422655737635, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
       propertyPath: <AdditionalGraphics>k__BackingField.Array.data[0]._targetImage
       value: 
-      objectReference: {fileID: 7206693374927953589}
+      objectReference: {fileID: 781508262559234983}
     - target: {fileID: 9206711422655737635, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
       propertyPath: <AdditionalGraphics>k__BackingField.Array.data[0]._transitionType
       value: 2
@@ -311,19 +339,19 @@ PrefabInstance:
       addedObject: {fileID: 58662162351672145}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
---- !u!224 &3580900112872604985 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 1605309243010362857, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
-  m_PrefabInstance: {fileID: 2879733027962169552}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &7206693374927953589 stripped
+--- !u!114 &781508262559234983 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4896974786142991973, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3255720388982018935, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
   m_PrefabInstance: {fileID: 2879733027962169552}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: 41f1c5417c9d7ab4b84e531f83f60a4b, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnityEngine.UI.ProceduralImage.ProceduralImage
+--- !u!224 &3580900112872604985 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1605309243010362857, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
+  m_PrefabInstance: {fileID: 2879733027962169552}
+  m_PrefabAsset: {fileID: 0}

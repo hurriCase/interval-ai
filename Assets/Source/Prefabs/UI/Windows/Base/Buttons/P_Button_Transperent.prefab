@@ -387,7 +387,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 4575103487669410482}
+    m_TransformParent: {fileID: 1969633174267529781}
     m_Modifications:
     - target: {fileID: 3277708244487492017, guid: 1e5318a0ecc3e564593ff5ea8968dc92, type: 3}
       propertyPath: m_ChildAlignment
@@ -509,13 +509,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 108988303308155018, guid: 98ff577d8c750994b9d022716b297e3d, type: 3}
-      propertyPath: m_TargetGraphic
-      value: 
-      objectReference: {fileID: 4953403032040187404}
-    - target: {fileID: 108988303308155018, guid: 98ff577d8c750994b9d022716b297e3d, type: 3}
       propertyPath: <Text>k__BackingField
       value: 
       objectReference: {fileID: 6309868420782937078}
+    - target: {fileID: 204786701600068388, guid: 98ff577d8c750994b9d022716b297e3d, type: 3}
+      propertyPath: <DesiredRadius>k__BackingField
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 204786701600068388, guid: 98ff577d8c750994b9d022716b297e3d, type: 3}
+      propertyPath: <CornerRadiusRatio>k__BackingField
+      value: 0.47058824
+      objectReference: {fileID: 0}
     - target: {fileID: 473685383057880304, guid: 98ff577d8c750994b9d022716b297e3d, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -523,6 +527,10 @@ PrefabInstance:
     - target: {fileID: 473685383057880304, guid: 98ff577d8c750994b9d022716b297e3d, type: 3}
       propertyPath: m_PixelsPerUnitMultiplier
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315001833783853416, guid: 98ff577d8c750994b9d022716b297e3d, type: 3}
+      propertyPath: <ThemeSolidColorName>k__BackingField
+      value: Base_Main
       objectReference: {fileID: 0}
     - target: {fileID: 3044254533247028290, guid: 98ff577d8c750994b9d022716b297e3d, type: 3}
       propertyPath: <PixelPerUnitData>k__BackingField.<Name>k__BackingField
@@ -547,6 +555,10 @@ PrefabInstance:
     - target: {fileID: 4527347005704868102, guid: 98ff577d8c750994b9d022716b297e3d, type: 3}
       propertyPath: m_Name
       value: P_Button_Transperent
+      objectReference: {fileID: 0}
+    - target: {fileID: 5053330395000339006, guid: 98ff577d8c750994b9d022716b297e3d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5436563114417893329, guid: 98ff577d8c750994b9d022716b297e3d, type: 3}
       propertyPath: m_AspectMode
@@ -582,7 +594,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5989900236995555196, guid: 98ff577d8c750994b9d022716b297e3d, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 87.52
       objectReference: {fileID: 0}
     - target: {fileID: 5989900236995555196, guid: 98ff577d8c750994b9d022716b297e3d, type: 3}
       propertyPath: m_SizeDelta.y
@@ -636,10 +648,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6874697588608768504, guid: 98ff577d8c750994b9d022716b297e3d, type: 3}
-      propertyPath: targetComponent
+    - target: {fileID: 6447273844924618953, guid: 98ff577d8c750994b9d022716b297e3d, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7514808716720886242, guid: 98ff577d8c750994b9d022716b297e3d, type: 3}
+      propertyPath: m_Color.g
+      value: 0.27058825
+      objectReference: {fileID: 0}
+    - target: {fileID: 7514808716720886242, guid: 98ff577d8c750994b9d022716b297e3d, type: 3}
+      propertyPath: m_Color.r
+      value: 0.34509805
+      objectReference: {fileID: 0}
+    - target: {fileID: 7514808716720886242, guid: 98ff577d8c750994b9d022716b297e3d, type: 3}
+      propertyPath: m_Material
       value: 
-      objectReference: {fileID: 4953403032040187404}
+      objectReference: {fileID: 0}
+    - target: {fileID: 7514808716720886242, guid: 98ff577d8c750994b9d022716b297e3d, type: 3}
+      propertyPath: <BorderRatio>k__BackingField.value
+      value: 0.029411765
+      objectReference: {fileID: 0}
     - target: {fileID: 9030513201774790734, guid: 98ff577d8c750994b9d022716b297e3d, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -650,9 +678,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5436563114417893329, guid: 98ff577d8c750994b9d022716b297e3d, type: 3}
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5053330395000339006, guid: 98ff577d8c750994b9d022716b297e3d, type: 3}
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 9030513201774790734, guid: 98ff577d8c750994b9d022716b297e3d, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 6447273844924618953, guid: 98ff577d8c750994b9d022716b297e3d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4691336092707293118}
     m_AddedComponents:
@@ -660,22 +689,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 4790480761193381489}
   m_SourcePrefab: {fileID: 100100000, guid: 98ff577d8c750994b9d022716b297e3d, type: 3}
---- !u!224 &4575103487669410482 stripped
+--- !u!224 &1969633174267529781 stripped
 RectTransform:
-  m_CorrespondingSourceObject: {fileID: 9030513201774790734, guid: 98ff577d8c750994b9d022716b297e3d, type: 3}
+  m_CorrespondingSourceObject: {fileID: 6447273844924618953, guid: 98ff577d8c750994b9d022716b297e3d, type: 3}
   m_PrefabInstance: {fileID: 4768427485231354620}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4953403032040187404 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 473685383057880304, guid: 98ff577d8c750994b9d022716b297e3d, type: 3}
-  m_PrefabInstance: {fileID: 4768427485231354620}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &9005094334145168378 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4527347005704868102, guid: 98ff577d8c750994b9d022716b297e3d, type: 3}
