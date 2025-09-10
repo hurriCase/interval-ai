@@ -9,7 +9,7 @@ namespace Source.Scripts.Core.AI.Data
     {
         [JsonProperty("contents")] public List<Content> Contents { get; private set; }
 
-		[JsonConstructor]
+        [JsonConstructor]
         internal ChatRequest(List<Content> contents)
         {
             Contents = contents;

@@ -1,10 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using System.Runtime.Serialization;
 
 namespace Source.Scripts.Core.AI.Data
 {
+    [Serializable]
     internal enum Role
     {
-        [JsonProperty("user")] User,
-        [JsonProperty("model")] Model
+        [EnumMember(Value = "user")] User,
+        [EnumMember(Value = "model")] Model
     }
 }
