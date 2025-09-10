@@ -20,10 +20,6 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6222179231096177114, guid: 3663f51d2e0b69846b41b0b1a40072bf, type: 3}
-      propertyPath: targetComponent
-      value: 
-      objectReference: {fileID: 2740666617668987618}
     - target: {fileID: 6493676661100935006, guid: 3663f51d2e0b69846b41b0b1a40072bf, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -109,17 +105,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3663f51d2e0b69846b41b0b1a40072bf, type: 3}
---- !u!114 &2740666617668987618 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1129440727633898706, guid: 3663f51d2e0b69846b41b0b1a40072bf, type: 3}
-  m_PrefabInstance: {fileID: 3000621792052397616}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5105473003736015422 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8033877728943694862, guid: 3663f51d2e0b69846b41b0b1a40072bf, type: 3}
@@ -423,7 +408,8 @@ MonoBehaviour:
   <InitialWindow>k__BackingField: 0
   <IsSingle>k__BackingField: 1
   _closeButton: {fileID: 5105473003736015422}
-  _messageItem: {fileID: 6411884631623284385, guid: eb64d9cac3da7d049a195141e5b2a918, type: 3}
+  _userMessageItem: {fileID: 4941466144581468987, guid: 21c83c6460067dc438af11c48b77d8ff, type: 3}
+  _aiMessageItem: {fileID: 4941466144581468987, guid: 85febcc01b958a843b63e354b30b2136, type: 3}
   _spacing: {fileID: 8159226568114179573, guid: 06dd1662caf37c64d8de0e6752243062, type: 3}
   _spacingRatio: 42.875
   _chatContainer: {fileID: 7328844399980536931}
@@ -463,10 +449,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_Block_Input
       objectReference: {fileID: 0}
-    - target: {fileID: 6222179231096177114, guid: bd30fa419d691d945b5b8a6979c39d7b, type: 3}
-      propertyPath: targetComponent
-      value: 
-      objectReference: {fileID: 6686096863508160731}
     - target: {fileID: 6489374331614095306, guid: bd30fa419d691d945b5b8a6979c39d7b, type: 3}
       propertyPath: m_fontSize
       value: 14.05
@@ -581,16 +563,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &6686096863508160731 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1129440727633898706, guid: bd30fa419d691d945b5b8a6979c39d7b, type: 3}
-  m_PrefabInstance: {fileID: 6009312596828343305}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

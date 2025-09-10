@@ -15,7 +15,8 @@ namespace Source.Scripts.Main.UI.PopUps.Chat
 {
     internal sealed class ChatPopUp : PopUpBase
     {
-        [SerializeField] private MessageItem _messageItem;
+        [SerializeField] private MessageItem _aiMessageItem;
+        [SerializeField] private MessageItem _userMessageItem;
         [SerializeField] private AspectRatioFitter _spacing;
         [SerializeField] private float _spacingRatio;
 
@@ -59,8 +60,9 @@ namespace Source.Scripts.Main.UI.PopUps.Chat
 
         private void CreateMessage(string text, MessageSourceType sourceType)
         {
-            var createdMessage = _objectResolver.Instantiate(_messageItem, _chatContainer);
-            createdMessage.Init(_chatContainer, text, sourceType);
+            var messageItem = sourceType == MessageSourceType.AI ? _aiMessageItem : _userMessageItem;
+            var createdMessage = _objectResolver.Instantiate(messageItem, _chatContainer);
+            createdMessage.Init(text);
 
             _spacing.CreateWidthSpacing(_spacingRatio, _chatContainer);
         }
