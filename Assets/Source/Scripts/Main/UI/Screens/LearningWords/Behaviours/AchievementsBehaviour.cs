@@ -1,4 +1,5 @@
-﻿using R3;
+﻿using CustomUtils.Runtime.Extensions;
+using R3;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.Shared.Progress;
 using Source.Scripts.UI.Components.Button;
@@ -23,11 +24,14 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours
         internal void Init()
         {
             _achievementPopUpButton.OnClickAsObservable()
-                .Subscribe(_windowsController, (_, controller)
-                    => controller.OpenPopUpByType(PopUpType.Achievements))
-                .AddTo(this);
+                .SubscribeAndRegister(this, static self => self.OpenAchievementPopUp());
 
             _weekProgressContainer.UpdateCurrentWeeklyProgress();
+        }
+
+        private void OpenAchievementPopUp()
+        {
+            _windowsController.OpenPopUpByType(PopUpType.Achievements);
         }
     }
 }
