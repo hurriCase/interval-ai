@@ -195,6 +195,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 596470888089411653, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
+      propertyPath: <Radius>k__BackingField
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 596470888089411653, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
       propertyPath: <DesiredRadius>k__BackingField
       value: 24
       objectReference: {fileID: 0}
@@ -438,7 +442,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3633884625204308092, guid: a8e7103ee47a5894bb07f15a48ff8015, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3633884625204308092, guid: a8e7103ee47a5894bb07f15a48ff8015, type: 3}
       propertyPath: m_AnchorMin.x
@@ -446,15 +450,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3633884625204308092, guid: a8e7103ee47a5894bb07f15a48ff8015, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3633884625204308092, guid: a8e7103ee47a5894bb07f15a48ff8015, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 23
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3633884625204308092, guid: a8e7103ee47a5894bb07f15a48ff8015, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 3633884625204308092, guid: a8e7103ee47a5894bb07f15a48ff8015, type: 3}
       propertyPath: m_LocalPosition.x
@@ -486,11 +490,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3633884625204308092, guid: a8e7103ee47a5894bb07f15a48ff8015, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 174.70143
       objectReference: {fileID: 0}
     - target: {fileID: 3633884625204308092, guid: a8e7103ee47a5894bb07f15a48ff8015, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -11.5
       objectReference: {fileID: 0}
     - target: {fileID: 3633884625204308092, guid: a8e7103ee47a5894bb07f15a48ff8015, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -921,10 +925,6 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4255062980304838143, guid: bc7bb2ae63a3deb4ba354e20e8cada22, type: 3}
-      propertyPath: targetComponent
-      value: 
-      objectReference: {fileID: 3014883954601683905}
     - target: {fileID: 6492531836947595005, guid: bc7bb2ae63a3deb4ba354e20e8cada22, type: 3}
       propertyPath: m_PixelsPerUnitMultiplier
       value: Infinity
@@ -961,17 +961,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33ed2775d8fe4f5bbe7dd217ab90f3eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.Shared.PlusMinusBehaviour
---- !u!114 &3014883954601683905 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7131465869758771447, guid: bc7bb2ae63a3deb4ba354e20e8cada22, type: 3}
-  m_PrefabInstance: {fileID: 5417560520805178166}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4379797298472248295 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8639910586716698833, guid: bc7bb2ae63a3deb4ba354e20e8cada22, type: 3}
@@ -1363,10 +1352,6 @@ PrefabInstance:
       propertyPath: targetComponent
       value: 
       objectReference: {fileID: 3349319944631397498}
-    - target: {fileID: 5725937249514198710, guid: a836e851557b4b54e9013c4c9713a24f, type: 3}
-      propertyPath: targetComponent
-      value: 
-      objectReference: {fileID: 7369268841838127273}
     - target: {fileID: 6826432903341195117, guid: a836e851557b4b54e9013c4c9713a24f, type: 3}
       propertyPath: m_text
       value: Start practicing
@@ -1405,16 +1390,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7369268841838127273 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1622306074513095614, guid: a836e851557b4b54e9013c4c9713a24f, type: 3}
-  m_PrefabInstance: {fileID: 8126587405086102295}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
