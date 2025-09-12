@@ -17,22 +17,22 @@ namespace Source.Scripts.Core.Audio.TextToSpeech
     internal sealed class GoogleTextToSpeech : ITextToSpeech
     {
         private string ApiUrl =>
-            ZString.Format("https://texttospeech.googleapis.com/v1/text:synthesize?key={0}", _googleTTSConfig.ApiKey);
+            ZString.Format("https://texttospeech.googleapis.com/v1/text:synthesize?key={0}", _googleTextToSpeechConfig.ApiKey);
 
         private string CacheDirectory => Path.Combine(Application.persistentDataPath, "tts_cache");
 
         private readonly IAudioHandlerProvider _audioHandlerProvider;
-        private readonly GoogleTTSConfig _googleTTSConfig;
+        private readonly GoogleTextToSpeechConfig _googleTextToSpeechConfig;
         private readonly IApiHelper _apiHelper;
         private readonly Dictionary<string, AudioClip> _memoryCache = new();
 
         internal GoogleTextToSpeech(
             IAudioHandlerProvider audioHandlerProvider,
-            GoogleTTSConfig googleTTSConfig,
+            GoogleTextToSpeechConfig googleTextToSpeechConfig,
             IApiHelper apiHelper)
         {
             _audioHandlerProvider = audioHandlerProvider;
-            _googleTTSConfig = googleTTSConfig;
+            _googleTextToSpeechConfig = googleTextToSpeechConfig;
             _apiHelper = apiHelper;
 
             if (Directory.Exists(CacheDirectory) is false)
