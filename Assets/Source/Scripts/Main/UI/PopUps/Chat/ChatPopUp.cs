@@ -2,7 +2,6 @@
 using Cysharp.Threading.Tasks;
 using R3;
 using Source.Scripts.Core.AI;
-using Source.Scripts.Main.UI.PopUps.Chat.Behaviours;
 using Source.Scripts.UI.Components.Button;
 using Source.Scripts.UI.Windows.Base;
 using TMPro;
@@ -20,7 +19,7 @@ namespace Source.Scripts.Main.UI.PopUps.Chat
         [SerializeField] private AspectRatioFitter _spacing;
         [SerializeField] private float _spacingRatio;
 
-        [SerializeField] private RectTransform _chatContainer;
+        [SerializeField] private RectTransform _contentContainer;
 
         [SerializeField] private TMP_InputField _messageInputField;
         [SerializeField] private ButtonComponent _sendMessageButton;
@@ -48,23 +47,18 @@ namespace Source.Scripts.Main.UI.PopUps.Chat
                 return;
 
             _messageInputField.text = string.Empty;
-            CreateMessage(typedText, MessageSourceType.User);
+
+            var createdMessage = _objectResolver.Instantiate(_userMessageItem, _contentContainer);
+            createdMessage.Init(typedText);
+
             HandleUserMessage(typedText).Forget();
         }
 
         private async UniTask HandleUserMessage(string text)
         {
             var response = await _aiTextController.SendPromptWithChatHistoryAsync(text);
-            CreateMessage(response, MessageSourceType.AI);
-        }
-
-        private void CreateMessage(string text, MessageSourceType sourceType)
-        {
-            var messageItem = sourceType == MessageSourceType.AI ? _aiMessageItem : _userMessageItem;
-            var createdMessage = _objectResolver.Instantiate(messageItem, _chatContainer);
-            createdMessage.Init(text);
-
-            _spacing.CreateWidthSpacing(_spacingRatio, _chatContainer);
+            var createdMessage = _objectResolver.Instantiate(_aiMessageItem, _contentContainer);
+            createdMessage.Init(response);
         }
     }
 }
