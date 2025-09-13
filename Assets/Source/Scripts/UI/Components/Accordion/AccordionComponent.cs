@@ -23,13 +23,13 @@ namespace Source.Scripts.UI.Components.Accordion
 
         [SerializeField] private bool _useExpandButtonAnimation;
 
-        [HideIf(nameof(_useExpandButtonAnimation))]
+        [ShowIf(nameof(_useExpandButtonAnimation))]
         [SerializeField] private float _expandButtonAnimationDuration;
 
-        [HideIf(nameof(_useExpandButtonAnimation))]
+        [ShowIf(nameof(_useExpandButtonAnimation))]
         [SerializeField] private float _expandedRotationZ;
 
-        [HideIf(nameof(_useExpandButtonAnimation))]
+        [ShowIf(nameof(_useExpandButtonAnimation))]
         [SerializeField] private float _collapsedRotationZ;
 
         private bool _isExpanded;
