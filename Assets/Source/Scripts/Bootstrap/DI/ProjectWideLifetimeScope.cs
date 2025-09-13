@@ -37,7 +37,7 @@ namespace Source.Scripts.Bootstrap.DI
 
         [SerializeField] private SpriteReferences _spriteReferences;
 
-        [SerializeField] private GoogleTTSConfig _googleTTSConfig;
+        [SerializeField] private GoogleTextToSpeechConfig _googleTextToSpeechConfig;
         [SerializeField] private AnimationsConfig _animationsConfig;
         [SerializeField] private TestConfig _testConfig;
         [SerializeField] private AppConfig _appConfig;
@@ -63,7 +63,7 @@ namespace Source.Scripts.Bootstrap.DI
             builder.Register<AudioHandlerProvider>(Lifetime.Singleton).AsImplementedInterfaces();
 
             builder.Register<ApiHelper>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.RegisterInstance(_googleTTSConfig).AsImplementedInterfaces();
+            builder.RegisterInstance(_googleTextToSpeechConfig).AsImplementedInterfaces();
             builder.Register<GoogleTextToSpeech>(Lifetime.Singleton).AsImplementedInterfaces();
 
             builder.RegisterInstance(_spriteReferences).AsImplementedInterfaces();
