@@ -14,12 +14,29 @@ namespace Source.Scripts.Core.ApiHelper
             where TRequest : class
             where TResponse : class
         {
-            var response = await SendRequestAsync(request, url);
+            var response = await SendRequestAsync<object, TRequest>(null, request, url);
             var parsedResponse = ParseResponse<TResponse>(response);
             return parsedResponse;
         }
 
-        private async UniTask<string> SendRequestAsync<TData>(TData data, string url)
+        public async UniTask<TResponse> PostAsync<TSource, TRequest, TResponse>(
+            TSource source,
+            TRequest request,
+            string url,
+            Action<TSource, UnityWebRequest> additionalHeaders)
+            where TRequest : class
+            where TResponse : class
+        {
+            var response = await SendRequestAsync(source, request, url, additionalHeaders);
+            var parsedResponse = ParseResponse<TResponse>(response);
+            return parsedResponse;
+        }
+
+        private async UniTask<string> SendRequestAsync<TSource, TData>(
+            TSource source,
+            TData data,
+            string url,
+            Action<TSource, UnityWebRequest> additionalHeaders = null)
             where TData : class
         {
             using var request = new UnityWebRequest(url, "POST");
@@ -29,6 +46,7 @@ namespace Source.Scripts.Core.ApiHelper
             request.uploadHandler = new UploadHandlerRaw(bodyRaw);
             request.downloadHandler = new DownloadHandlerBuffer();
             request.SetRequestHeader("Content-Type", "application/json");
+            additionalHeaders?.Invoke(source, request);
 
             try
             {

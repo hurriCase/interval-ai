@@ -8,6 +8,7 @@ using Source.Scripts.Core.Audio.TextToSpeech;
 using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Input;
 using Source.Scripts.Core.Localization.Base;
+using Source.Scripts.Core.Localization.Translation;
 using Source.Scripts.Core.References;
 using Source.Scripts.Core.Repositories.Base.Id;
 using Source.Scripts.Core.Repositories.Base.Tests;
@@ -37,10 +38,12 @@ namespace Source.Scripts.Bootstrap.DI
 
         [SerializeField] private SpriteReferences _spriteReferences;
 
-        [SerializeField] private GoogleTextToSpeechConfig _googleTextToSpeechConfig;
         [SerializeField] private AnimationsConfig _animationsConfig;
         [SerializeField] private TestConfig _testConfig;
         [SerializeField] private AppConfig _appConfig;
+
+        [SerializeField] private GoogleTextToSpeechConfig _googleTextToSpeechConfig;
+        [SerializeField] private AzureTranslationConfig _azureTranslationConfig;
 
         [SerializeField] private LocalizationKeysDatabase _localizationKeysDatabase;
         [SerializeField] private LocalizationDatabase _localizationDatabase;
@@ -62,10 +65,6 @@ namespace Source.Scripts.Bootstrap.DI
 
             builder.Register<AudioHandlerProvider>(Lifetime.Singleton).AsImplementedInterfaces();
 
-            builder.Register<ApiHelper>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.RegisterInstance(_googleTextToSpeechConfig).AsImplementedInterfaces();
-            builder.Register<GoogleTextToSpeech>(Lifetime.Singleton).AsImplementedInterfaces();
-
             builder.RegisterInstance(_spriteReferences).AsImplementedInterfaces();
 
             builder.RegisterInstance(_animationsConfig).AsImplementedInterfaces();
@@ -75,6 +74,7 @@ namespace Source.Scripts.Bootstrap.DI
             builder.RegisterComponent(_localizationKeysDatabase).AsImplementedInterfaces();
             builder.RegisterComponent(_localizationDatabase).AsImplementedInterfaces();
 
+            RegisterApiServices(builder);
             RegisterInput(builder);
             RegisterRepositories(builder);
 
@@ -86,6 +86,17 @@ namespace Source.Scripts.Bootstrap.DI
             builder.Register<InputSystemUI>(Lifetime.Singleton);
             builder.Register<SwipeInputService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.RegisterInstance(_swipeConfig).AsImplementedInterfaces();
+        }
+
+        private void RegisterApiServices(IContainerBuilder builder)
+        {
+            builder.Register<ApiHelper>(Lifetime.Singleton).AsImplementedInterfaces();
+
+            builder.RegisterInstance(_googleTextToSpeechConfig).AsImplementedInterfaces();
+            builder.Register<GoogleTextToSpeech>(Lifetime.Singleton).AsImplementedInterfaces();
+
+            builder.Register<AzureTranslationService>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.RegisterInstance(_azureTranslationConfig).AsImplementedInterfaces();
         }
 
         private void RegisterRepositories(IContainerBuilder builder)

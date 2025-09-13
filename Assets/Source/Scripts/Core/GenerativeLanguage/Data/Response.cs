@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace Source.Scripts.Core.AI.Data
+namespace Source.Scripts.Core.GenerativeLanguage.Data
 {
     [Serializable]
     internal sealed class Response

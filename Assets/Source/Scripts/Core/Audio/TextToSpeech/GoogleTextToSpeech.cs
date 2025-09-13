@@ -9,6 +9,7 @@ using Cysharp.Threading.Tasks;
 using CustomUtils.Runtime.Extensions;
 using Source.Scripts.Core.ApiHelper;
 using Source.Scripts.Core.Audio.Sounds.Base;
+using Source.Scripts.Core.Audio.TextToSpeech.Data;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -16,9 +17,6 @@ namespace Source.Scripts.Core.Audio.TextToSpeech
 {
     internal sealed class GoogleTextToSpeech : ITextToSpeech
     {
-        private string ApiUrl =>
-            ZString.Format("https://texttospeech.googleapis.com/v1/text:synthesize?key={0}", _googleTextToSpeechConfig.ApiKey);
-
         private string CacheDirectory => Path.Combine(Application.persistentDataPath, "tts_cache");
 
         private readonly IAudioHandlerProvider _audioHandlerProvider;
@@ -63,7 +61,8 @@ namespace Source.Scripts.Core.Audio.TextToSpeech
         private async UniTask<AudioClip> CreateAudioClip(string normalizedText, CancellationToken token)
         {
             var request = new TextToSpeechRequest(normalizedText);
-            var response = await _apiHelper.PostAsync<TextToSpeechRequest, TextToSpeechResponse>(request, ApiUrl);
+            var url = _googleTextToSpeechConfig.GetApiUrl();
+            var response = await _apiHelper.PostAsync<TextToSpeechRequest, TextToSpeechResponse>(request, url);
 
             if (response is null || response.AudioContent.IsValid() is false)
                 return null;

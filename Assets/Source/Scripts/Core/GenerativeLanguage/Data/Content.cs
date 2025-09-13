@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System;
 
-namespace Source.Scripts.Core.AI.Data
+namespace Source.Scripts.Core.GenerativeLanguage.Data
 {
     [Serializable]
     internal sealed class Content

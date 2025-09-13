@@ -1,7 +1,7 @@
 ﻿using CustomUtils.Runtime.Extensions;
 using Cysharp.Threading.Tasks;
 using R3;
-using Source.Scripts.Core.AI;
+using Source.Scripts.Core.GenerativeLanguage;
 using Source.Scripts.UI.Components.Button;
 using Source.Scripts.UI.Windows.Base;
 using TMPro;
@@ -24,13 +24,13 @@ namespace Source.Scripts.Main.UI.PopUps.Chat
         [SerializeField] private TMP_InputField _messageInputField;
         [SerializeField] private ButtonComponent _sendMessageButton;
 
-        private IAITextController _aiTextController;
+        private IGenerativeLanguage _generativeLanguage;
         private IObjectResolver _objectResolver;
 
         [Inject]
-        internal void Inject(IAITextController aiTextController, IObjectResolver objectResolver)
+        internal void Inject(IGenerativeLanguage generativeLanguage, IObjectResolver objectResolver)
         {
-            _aiTextController = aiTextController;
+            _generativeLanguage = generativeLanguage;
             _objectResolver = objectResolver;
         }
 
@@ -56,7 +56,7 @@ namespace Source.Scripts.Main.UI.PopUps.Chat
 
         private async UniTask HandleUserMessage(string text)
         {
-            var response = await _aiTextController.SendPromptWithChatHistoryAsync(text);
+            var response = await _generativeLanguage.SendPromptWithChatHistoryAsync(text);
             var createdMessage = _objectResolver.Instantiate(_aiMessageItem, _contentContainer);
             createdMessage.Init(response);
         }

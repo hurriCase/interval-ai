@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Source.Scripts.Core.AI.Data
+namespace Source.Scripts.Core.GenerativeLanguage.Data
 {
     [Serializable]
     internal enum Role
