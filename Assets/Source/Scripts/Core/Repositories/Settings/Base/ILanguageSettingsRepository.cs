@@ -15,5 +15,6 @@ namespace Source.Scripts.Core.Repositories.Settings.Base
         PersistentReactiveProperty<LanguageType> CardReviewLanguageType { get; }
         EnumArray<LanguageType, ReactiveProperty<SystemLanguage>> LanguageProperties { get; }
         void SetLanguage(SystemLanguage newLanguage, LanguageType requestedLanguageType);
+        SystemLanguage GetOppositeLanguage(SystemLanguage language);
     }
 }

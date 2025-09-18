@@ -89,7 +89,9 @@ namespace Source.Scripts.Core.Repositories.Settings.Repositories
         public void SetLanguage(SystemLanguage newLanguage, LanguageType requestedLanguageType)
         {
             var currentLanguages = _languageByType.Value;
-            var oppositeLanguageType = GetOppositeLanguageType(requestedLanguageType);
+            var oppositeLanguageType = requestedLanguageType == LanguageType.Native
+                ? LanguageType.Learning
+                : LanguageType.Native;
 
             if (currentLanguages[oppositeLanguageType] == newLanguage)
             {
@@ -101,8 +103,10 @@ namespace Source.Scripts.Core.Repositories.Settings.Repositories
             _languageByType.Property.OnNext(currentLanguages);
         }
 
-        private LanguageType GetOppositeLanguageType(LanguageType languageType) =>
-            languageType == LanguageType.Native ? LanguageType.Learning : LanguageType.Native;
+        public SystemLanguage GetOppositeLanguage(SystemLanguage language)
+            => _languageByType.Value[LanguageType.Native] == language
+                ? _languageByType.Value[LanguageType.Learning]
+                : _languageByType.Value[LanguageType.Native];
 
         private EnumArray<LanguageType, SystemLanguage> CreateDefaultLanguageByType()
         {
