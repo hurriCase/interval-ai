@@ -14,6 +14,8 @@ namespace Source.Scripts.Main.UI.Shared.Progress
         [SerializeField] private ActivityMapping _activityMapping;
         [SerializeField] private List<ProgressItem> _progressItems;
 
+        private const int DaysPerWeek = 7;
+
         private IUISettingsRepository _uiSettingsRepository;
         private IDateProgressService _dateProgressService;
 
@@ -26,9 +28,9 @@ namespace Source.Scripts.Main.UI.Shared.Progress
 
         internal void UpdateMonthWeeklyProgress(DailyProgress[] monthData, int weekIndex, bool[] isInMonth)
         {
-            var weekStart = weekIndex * 7;
+            var weekStart = weekIndex * DaysPerWeek;
 
-            for (var day = 0; day < 7; day++)
+            for (var day = 0; day < DaysPerWeek; day++)
             {
                 var dayIndex = weekStart + day;
                 var dailyProgress = monthData[dayIndex];
@@ -46,10 +48,12 @@ namespace Source.Scripts.Main.UI.Shared.Progress
 
         internal void UpdateCurrentWeeklyProgress()
         {
-            var weekAbbreviatedNames = _uiSettingsRepository.CurrentCulture.Value.DateTimeFormat.AbbreviatedDayNames;
+            var weekAbbreviatedNames =
+                _uiSettingsRepository.CurrentCulture.Value.DateTimeFormat.AbbreviatedDayNames;
+
             var currentWeek = _dateProgressService.GetCurrentWeek();
 
-            for (var day = 0; day < 7; day++)
+            for (var day = 0; day < DaysPerWeek; day++)
             {
                 var dailyProgress = currentWeek[day];
                 var dayText = weekAbbreviatedNames[day];
