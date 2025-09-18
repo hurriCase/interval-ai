@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Threading;
 using Cysharp.Text;
 using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
@@ -10,11 +11,14 @@ namespace Source.Scripts.Core.ApiHelper
 {
     internal sealed class ApiHelper : IApiHelper
     {
-        public async UniTask<TResponse> PostAsync<TRequest, TResponse>(TRequest request, string url)
+        public async UniTask<TResponse> PostAsync<TRequest, TResponse>(
+            TRequest request,
+            string url,
+            CancellationToken token)
             where TRequest : class
             where TResponse : class
         {
-            var response = await SendRequestAsync<object, TRequest>(null, request, url);
+            var response = await SendRequestAsync<object, TRequest>(null, request, url, token);
             var parsedResponse = ParseResponse<TResponse>(response);
             return parsedResponse;
         }
@@ -23,11 +27,12 @@ namespace Source.Scripts.Core.ApiHelper
             TSource source,
             TRequest request,
             string url,
+            CancellationToken token,
             Action<TSource, UnityWebRequest> additionalHeaders)
             where TRequest : class
             where TResponse : class
         {
-            var response = await SendRequestAsync(source, request, url, additionalHeaders);
+            var response = await SendRequestAsync(source, request, url, token, additionalHeaders);
             var parsedResponse = ParseResponse<TResponse>(response);
             return parsedResponse;
         }
@@ -36,6 +41,7 @@ namespace Source.Scripts.Core.ApiHelper
             TSource source,
             TData data,
             string url,
+            CancellationToken token,
             Action<TSource, UnityWebRequest> additionalHeaders = null)
             where TData : class
         {
@@ -50,7 +56,7 @@ namespace Source.Scripts.Core.ApiHelper
 
             try
             {
-                await request.SendWebRequest();
+                await request.SendWebRequest().WithCancellation(token);
 
                 if (request.result == UnityWebRequest.Result.Success)
                     return request.downloadHandler.text;

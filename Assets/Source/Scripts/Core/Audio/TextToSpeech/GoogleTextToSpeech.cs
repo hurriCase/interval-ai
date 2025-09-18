@@ -62,7 +62,7 @@ namespace Source.Scripts.Core.Audio.TextToSpeech
         {
             var request = new TextToSpeechRequest(normalizedText);
             var url = _googleTextToSpeechConfig.GetApiUrl();
-            var response = await _apiHelper.PostAsync<TextToSpeechRequest, TextToSpeechResponse>(request, url);
+            var response = await _apiHelper.PostAsync<TextToSpeechRequest, TextToSpeechResponse>(request, url, token);
 
             if (response is null || response.AudioContent.IsValid() is false)
                 return null;

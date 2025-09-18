@@ -6,6 +6,6 @@ namespace Source.Scripts.Core.GenerativeLanguage
     internal interface IGenerativeLanguage
     {
         UniTask InitAsync(CancellationToken token);
-        UniTask<string> SendPromptWithChatHistoryAsync(string message);
+        UniTask<string> SendPromptWithChatHistoryAsync(string message, CancellationToken token);
     }
 }

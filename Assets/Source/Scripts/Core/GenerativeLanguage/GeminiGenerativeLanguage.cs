@@ -29,7 +29,7 @@ namespace Source.Scripts.Core.GenerativeLanguage
             await _chatHistory.InitAsync(PersistentKeys.ChatHistoryKey, token, new List<Content>());
         }
 
-        public async UniTask<string> SendPromptWithChatHistoryAsync(string message)
+        public async UniTask<string> SendPromptWithChatHistoryAsync(string message, CancellationToken token)
         {
             var userContent = new Content(message, Role.User);
 
@@ -37,7 +37,7 @@ namespace Source.Scripts.Core.GenerativeLanguage
 
             var chatRequest = new ChatRequest(_chatHistory.Value);
 
-            var parsedResponse = await GetResponseTextFromRequest(chatRequest);
+            var parsedResponse = await GetResponseTextFromRequest(chatRequest, token);
 
             if (parsedResponse.IsValid() is false)
                 return parsedResponse;
@@ -49,10 +49,10 @@ namespace Source.Scripts.Core.GenerativeLanguage
             return parsedResponse;
         }
 
-        private async UniTask<string> GetResponseTextFromRequest(ChatRequest chatRequest)
+        private async UniTask<string> GetResponseTextFromRequest(ChatRequest chatRequest, CancellationToken token)
         {
             var url = _geminiGenerativeLanguageConfig.GetApiUrl();
-            var response = await _apiHelper.PostAsync<ChatRequest, Response>(chatRequest, url);
+            var response = await _apiHelper.PostAsync<ChatRequest, Response>(chatRequest, url, token);
 
             if (response?.Candidates is { Length: > 0 } &&
                 response.Candidates[0].Content.Parts is { Length: > 0 })

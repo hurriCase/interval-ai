@@ -56,7 +56,9 @@ namespace Source.Scripts.Main.UI.PopUps.Chat
 
         private async UniTask HandleUserMessage(string text)
         {
-            var response = await _generativeLanguage.SendPromptWithChatHistoryAsync(text);
+            var response =
+                await _generativeLanguage.SendPromptWithChatHistoryAsync(text, destroyCancellationToken);
+
             var createdMessage = _objectResolver.Instantiate(_aiMessageItem, _contentContainer);
             createdMessage.Init(response);
         }

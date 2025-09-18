@@ -9,5 +9,8 @@ namespace Source.Scripts.Core.Localization.Translator
     {
         [MustUseReturnValue]
         UniTask<string> TranslateTextAsync(string text, SystemLanguage targetLanguage, CancellationToken token);
+
+        [MustUseReturnValue]
+        UniTask<string> TranslateTextAsync(string text, CancellationToken token);
     }
 }

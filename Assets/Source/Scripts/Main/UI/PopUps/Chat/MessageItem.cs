@@ -1,9 +1,7 @@
 ﻿using CustomUtils.Runtime.Extensions;
 using Cysharp.Threading.Tasks;
 using R3;
-using Source.Scripts.Core.Localization.LanguageDetector;
 using Source.Scripts.Core.Localization.Translator;
-using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.UI.Components.Accordion;
 using Source.Scripts.UI.Components.Animation.Base;
 using Source.Scripts.UI.Components.Button;
@@ -30,18 +28,11 @@ namespace Source.Scripts.Main.UI.PopUps.Chat
 
         private bool _wasTranslated;
 
-        private ILanguageSettingsRepository _languageSettingsRepository;
-        private ILanguageDetector _languageDetector;
         private ITranslator _translator;
 
         [Inject]
-        internal void Inject(
-            ILanguageSettingsRepository languageSettingsRepository,
-            ILanguageDetector languageDetector,
-            ITranslator translator)
+        internal void Inject(ITranslator translator)
         {
-            _languageSettingsRepository = languageSettingsRepository;
-            _languageDetector = languageDetector;
             _translator = translator;
         }
 
@@ -58,10 +49,8 @@ namespace Source.Scripts.Main.UI.PopUps.Chat
 
         private async UniTask TranslateText()
         {
-            var language = _languageDetector.DetectLanguage(_messageText.text);
-            var oppositeLanguage = _languageSettingsRepository.GetOppositeLanguage(language);
             var translateTextAsync =
-                await _translator.TranslateTextAsync(_messageText.text, oppositeLanguage, destroyCancellationToken);
+                await _translator.TranslateTextAsync(_messageText.text, destroyCancellationToken);
 
             _translatedText.text = translateTextAsync;
             _wasTranslated = true;

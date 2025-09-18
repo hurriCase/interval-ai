@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.ApiHelper;
 using Source.Scripts.Core.Localization.LanguageDetector;
 using Source.Scripts.Core.Localization.Translator.Data;
+using Source.Scripts.Core.Repositories.Settings.Base;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -11,15 +12,18 @@ namespace Source.Scripts.Core.Localization.Translator
 {
     internal sealed class AzureTranslator : ITranslator
     {
+        private readonly ILanguageSettingsRepository _languageSettingsRepository;
         private readonly AzureTranslationConfig _azureTranslationConfig;
         private readonly ILanguageDetector _languageDetector;
         private readonly IApiHelper _apiHelper;
 
         internal AzureTranslator(
+            ILanguageSettingsRepository languageSettingsRepository,
             AzureTranslationConfig azureTranslationConfig,
             ILanguageDetector languageDetector,
             IApiHelper apiHelper)
         {
+            _languageSettingsRepository = languageSettingsRepository;
             _azureTranslationConfig = azureTranslationConfig;
             _languageDetector = languageDetector;
             _apiHelper = apiHelper;
@@ -44,6 +48,7 @@ namespace Source.Scripts.Core.Localization.Translator
                     this,
                     requestBody,
                     url,
+                    token,
                     static (self, request) => self.SetAzureHeaders(request));
 
             if (response is null || response.Length == 0)
@@ -54,6 +59,13 @@ namespace Source.Scripts.Core.Localization.Translator
                 return normalizedText;
 
             return firstResult.Translations[0].Text;
+        }
+
+        public UniTask<string> TranslateTextAsync(string text, CancellationToken token)
+        {
+            var language = _languageDetector.DetectLanguage(text);
+            var oppositeLanguage = _languageSettingsRepository.GetOppositeLanguage(language);
+            return TranslateTextAsync(text, oppositeLanguage, token);
         }
 
         private void SetAzureHeaders(UnityWebRequest request)
