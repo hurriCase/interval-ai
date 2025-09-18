@@ -1,6 +1,5 @@
 ﻿using CustomUtils.Runtime.AddressableSystem;
 using CustomUtils.Runtime.Extensions;
-using Cysharp.Threading.Tasks;
 using R3;
 using R3.Triggers;
 using Source.Scripts.Core.Repositories.Categories.Category;
@@ -37,7 +36,7 @@ namespace Source.Scripts.Main.UI.Screens.Categories
 
         internal void Init(CategoryEntry categoryEntry)
         {
-            //SetCategoryIcon(categoryEntry.Icon.AssetGUID).Forget();
+            _addressablesLoader.AssignImageAsync(_icon, categoryEntry.Icon, destroyCancellationToken);
 
             _currentCategoryEntry = categoryEntry;
 
@@ -64,11 +63,6 @@ namespace Source.Scripts.Main.UI.Screens.Categories
         internal void UpdateName()
         {
             _categoryName.text = _currentCategoryEntry.LocalizationKey.GetLocalization();
-        }
-
-        private async UniTask SetCategoryIcon(string assetGUID)
-        {
-            _icon.sprite = await _addressablesLoader.LoadAsync<Sprite>(assetGUID, destroyCancellationToken);
         }
     }
 }
