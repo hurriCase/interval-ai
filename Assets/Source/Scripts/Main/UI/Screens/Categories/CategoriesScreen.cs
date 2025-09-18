@@ -8,7 +8,6 @@ using Source.Scripts.Main.UI.Base;
 using Source.Scripts.UI.Components.Button;
 using Source.Scripts.UI.Windows.Base;
 using UnityEngine;
-using UnityEngine.UI;
 using VContainer;
 using VContainer.Unity;
 
@@ -21,9 +20,6 @@ namespace Source.Scripts.Main.UI.Screens.Categories
         [SerializeField] private CategoryContainerItem _categoryContainerItemPrefab;
         [SerializeField] private CategoryEntryItem _categoryEntryItem;
         [SerializeField] private RectTransform _categoryItemContainer;
-        [SerializeField] private AspectRatioFitter _spacing;
-        [SerializeField] private float _categoryContainerSpacingRatio;
-        [SerializeField] private float _menuSpacingRatio;
 
         private EnumArray<CategoryType, CategoryContainerItem> _createdCategoriesByType = new(EnumMode.SkipFirst);
         private readonly Dictionary<CategoryEntry, CategoryEntryItem> _createdCategoryItems = new();
@@ -52,8 +48,6 @@ namespace Source.Scripts.Main.UI.Screens.Categories
         {
             foreach (var categoryEntry in _categoriesRepository.CategoryEntries.CurrentValue.Values)
                 CreateCategory(categoryEntry);
-
-            _spacing.CreateHeightSpacing(_menuSpacingRatio, _categoryItemContainer);
 
             _addCategoryButton.OnClickAsObservable().SubscribeAndRegister(this,
                 static self => self._windowsController.OpenPopUpByType(PopUpType.CategoryCreation));
@@ -103,7 +97,6 @@ namespace Source.Scripts.Main.UI.Screens.Categories
             var categoryContainer = _objectResolver.Instantiate(_categoryContainerItemPrefab, _categoryItemContainer);
             categoryContainer.Init(categoryType);
 
-            _spacing.CreateHeightSpacing(_categoryContainerSpacingRatio, _categoryItemContainer);
             _createdCategoriesByType[categoryType] = categoryContainer;
             return categoryContainer;
         }

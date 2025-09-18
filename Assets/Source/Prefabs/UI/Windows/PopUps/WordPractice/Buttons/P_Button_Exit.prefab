@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1815174192101609245, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+      propertyPath: <LocalizationKey>k__BackingField
+      value: ui.word-practice.exit
+      objectReference: {fileID: 0}
     - target: {fileID: 3199486689505168149, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -38,7 +42,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3199486689505168149, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 47
       objectReference: {fileID: 0}
     - target: {fileID: 3199486689505168149, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: m_LocalPosition.x
@@ -89,6 +93,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3273829687922624921, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+      propertyPath: m_text
+      value: Exit
+      objectReference: {fileID: 0}
+    - target: {fileID: 3273829687922624921, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: m_fontSize
       value: 15.7
       objectReference: {fileID: 0}
@@ -137,25 +145,29 @@ PrefabInstance:
       value: P_Button_Exit
       objectReference: {fileID: 0}
     - target: {fileID: 7950739640804949390, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.88709676
+      propertyPath: m_SizeDelta.x
+      value: -32
       objectReference: {fileID: 0}
     - target: {fileID: 7950739640804949390, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0.7021277
+      propertyPath: m_SizeDelta.y
+      value: -28
       objectReference: {fileID: 0}
     - target: {fileID: 7950739640804949390, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0.11290322
+      propertyPath: m_AnchoredPosition.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7950739640804949390, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0.29787233
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9134864641081789667, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: m_TargetGraphic
       value: 
       objectReference: {fileID: 1349039742745803628}
+    - target: {fileID: 9134864641081789667, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+      propertyPath: <Image>k__BackingField
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 9134864641081789667, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: <GraphicMappings>k__BackingField.Array.size
       value: 1

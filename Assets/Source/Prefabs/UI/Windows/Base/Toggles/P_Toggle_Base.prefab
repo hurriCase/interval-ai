@@ -6,7 +6,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 2026060872019565148}
+    m_TransformParent: {fileID: 1605309243010362857}
     m_Modifications:
     - target: {fileID: 561403775900978418, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_Name
@@ -94,7 +94,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7658068928977278699, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_fontSize
-      value: 14.5
+      value: 48.35
       objectReference: {fileID: 0}
     - target: {fileID: 9109170191897869617, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: targetComponent
@@ -139,7 +139,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4202609680214102433, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
       propertyPath: m_Name
-      value: P_Toggle_Theme_Base
+      value: P_Toggle_Base
       objectReference: {fileID: 0}
     - target: {fileID: 4803084715300879001, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
       propertyPath: m_IsActive
@@ -168,14 +168,6 @@ PrefabInstance:
     - target: {fileID: 6315897869229748187, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
       propertyPath: m_AnchorMin.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6315897869229748187, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6315897869229748187, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6315897869229748187, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -225,24 +217,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6620608290972932447, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
-      propertyPath: targetComponent
-      value: 
-      objectReference: {fileID: 4896974786142991973}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 6773312987816401006, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 6315897869229748187, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2162541000147950311}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4202609680214102433, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
-      insertIndex: 1
+      insertIndex: -1
       addedObject: {fileID: 9206711422655737635}
   m_SourcePrefab: {fileID: 100100000, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
---- !u!224 &2026060872019565148 stripped
+--- !u!224 &1605309243010362857 stripped
 RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6773312987816401006, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
+  m_CorrespondingSourceObject: {fileID: 6315897869229748187, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
   m_PrefabInstance: {fileID: 4747260090478576178}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &3255720388982018935 stripped
@@ -256,17 +244,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f1c5417c9d7ab4b84e531f83f60a4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UnityEngine.UI.ProceduralImage.ProceduralImage
---- !u!114 &4896974786142991973 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 149792486825768023, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
-  m_PrefabInstance: {fileID: 4747260090478576178}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8913482220817798035 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4202609680214102433, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
@@ -312,7 +289,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 4896974786142991973}
+  m_TargetGraphic: {fileID: 0}
   toggleTransition: 1
   graphic: {fileID: 0}
   m_Group: {fileID: 0}
@@ -322,4 +299,6 @@ MonoBehaviour:
   m_IsOn: 0
   <Text>k__BackingField: {fileID: 6717869542665842416}
   <Image>k__BackingField: {fileID: 3255720388982018935}
+  <CheckedObjects>k__BackingField: []
+  <UncheckedObjects>k__BackingField: []
   <AdditionalGraphics>k__BackingField: []

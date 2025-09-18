@@ -3,7 +3,6 @@ using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Answer
 {
@@ -13,19 +12,12 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Answer
 
         [SerializeField] private ExampleItem _exampleItem;
         [SerializeField] private RectTransform _exampleContainer;
-        [SerializeField] private AspectRatioFitter _spacing;
-        [SerializeField] private float _exampleSpacingRatio;
 
         private UIPool<ExampleItem> _examplesPool;
 
         public override void Init(CardBehaviour cardBehaviour)
         {
-            _examplesPool = new UIPool<ExampleItem>(
-                _exampleItem,
-                _exampleContainer,
-                _spacing,
-                _exampleSpacingRatio,
-                AspectRatioFitter.AspectMode.WidthControlsHeight);
+            _examplesPool = new UIPool<ExampleItem>(_exampleItem, _exampleContainer);
         }
 
         protected override void UpdateView()
@@ -51,7 +43,6 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Answer
                 var example = examples[i];
                 var item = _examplesPool.PooledItems[i];
 
-                item.AccordionComponent.Init();
                 item.ShownExampleText.text = example.GetShownText(practiceSettingsRepository);
                 item.HiddenExampleText.text = example.GetHiddenText(practiceSettingsRepository);
             }

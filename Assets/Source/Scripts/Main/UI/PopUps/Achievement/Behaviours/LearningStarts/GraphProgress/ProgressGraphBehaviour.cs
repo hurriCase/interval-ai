@@ -11,6 +11,7 @@ using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.Data.Base;
 using Source.Scripts.Main.UI.Shared;
 using Source.Scripts.Main.UI.Shared.Progress;
+using Source.Scripts.UI.Components;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,18 +25,17 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
 
         [SerializeField] private RectTransform _graphButtonsContainer;
         [SerializeField] private ToggleGroup _graphButtonsGroup;
-        [SerializeField] private GraphTypeItem _graphTypeItemPrefab;
-
-        [SerializeField] private AspectRatioFitter _spacingPrefab;
-        [SerializeField] private float _spacingRatio;
+        [SerializeField] private ToggleComponent _graphTypeToggle;
 
         [SerializeField] private ProgressColorMapping _progressColorMapping;
-        [SerializeField] private UILineRenderer _uiLineRenderer;
 
         [SerializeField] private EnumArray<LearningState, UILineRenderer> _graphLines = new(EnumMode.SkipFirst);
 
         private readonly Dictionary<LearningState, List<GraphProgressData>> _cashedAllProgressData = new();
         private readonly List<Vector2> _cashedNormalizedPoints = new();
+
+        private const int DaysInLeapYear = 366;
+        private const int DaysInNonLeapYear = 365;
 
         private ILocalizationKeysDatabase _localizationKeysDatabase;
         private IProgressGraphSettings _progressGraphSettings;
@@ -56,18 +56,13 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
         {
             foreach (var dateRange in _progressGraphSettings.GraphProgressRanges)
             {
-                var createdGraphType = Instantiate(_graphTypeItemPrefab, _graphButtonsContainer);
-                createdGraphType.TabComponent.group = _graphButtonsGroup;
-                createdGraphType.TabComponent.OnValueChangedAsObservable()
+                var createdGraphType = Instantiate(_graphTypeToggle, _graphButtonsContainer);
+                createdGraphType.group = _graphButtonsGroup;
+                createdGraphType.OnValueChangedAsObservable()
                     .SubscribeAndRegister(this, dateRange, static (dateRange, self) => self.UpdateGraph(dateRange));
 
-                var createdSpacing = Instantiate(_spacingPrefab, _graphButtonsContainer);
-                createdSpacing.aspectMode = AspectRatioFitter.AspectMode.HeightControlsWidth;
-                createdSpacing.aspectRatio = _spacingRatio;
-
-                LocalizationController.Language
-                    .SubscribeAndRegister(this, (dateRange, createdGraphType.Text),
-                        static (tuple, self) => self.UpdateLocalization(tuple.dateRange, tuple.Text));
+                LocalizationController.Language.SubscribeAndRegister(this, (dateRange, createdGraphType.Text),
+                    static (tuple, self) => self.UpdateLocalization(tuple.dateRange, tuple.Text));
             }
         }
 
@@ -106,7 +101,8 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
 
             foreach (var (learningState, _) in _graphLines.AsTuples())
             {
-                if (_cashedAllProgressData.TryGetValue(learningState, out var progressPoints) is false)
+                if (_cashedAllProgressData
+                        .TryGetValue(learningState, out var progressPoints) is false)
                 {
                     progressPoints = new List<GraphProgressData>(pointsCount);
                     _cashedAllProgressData[learningState] = progressPoints;
@@ -176,7 +172,7 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
         private int GetDaysInYear(int yearsBack)
         {
             var targetYear = DateTime.Now.Year - yearsBack;
-            return DateTime.IsLeapYear(targetYear) ? 366 : 365;
+            return DateTime.IsLeapYear(targetYear) ? DaysInLeapYear : DaysInNonLeapYear;
         }
     }
 }

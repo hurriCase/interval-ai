@@ -138,7 +138,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 816075651032933297, guid: 76b86b34186d9c14090583d83216be7d, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 7208016899348824345, guid: 76b86b34186d9c14090583d83216be7d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2482946233141722811}
     m_AddedComponents:
@@ -146,11 +146,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 8747634955317219486}
   m_SourcePrefab: {fileID: 100100000, guid: 76b86b34186d9c14090583d83216be7d, type: 3}
---- !u!224 &1802432596110491836 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 816075651032933297, guid: 76b86b34186d9c14090583d83216be7d, type: 3}
-  m_PrefabInstance: {fileID: 1319781870554686221}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1994236099820051566 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 719517887523553123, guid: 76b86b34186d9c14090583d83216be7d, type: 3}
@@ -199,13 +194,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.ButtonComponent
+--- !u!224 &8527789852339118612 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7208016899348824345, guid: 76b86b34186d9c14090583d83216be7d, type: 3}
+  m_PrefabInstance: {fileID: 1319781870554686221}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2121184768224962703
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1802432596110491836}
+    m_TransformParent: {fileID: 8527789852339118612}
     m_Modifications:
     - target: {fileID: 317819257434154052, guid: 6a0a59920e35f7042ba319b1d8e0d2e0, type: 3}
       propertyPath: m_Name
@@ -229,27 +229,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4547162550722811444, guid: 6a0a59920e35f7042ba319b1d8e0d2e0, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.9573333
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4547162550722811444, guid: 6a0a59920e35f7042ba319b1d8e0d2e0, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4547162550722811444, guid: 6a0a59920e35f7042ba319b1d8e0d2e0, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.042666666
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4547162550722811444, guid: 6a0a59920e35f7042ba319b1d8e0d2e0, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4547162550722811444, guid: 6a0a59920e35f7042ba319b1d8e0d2e0, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 343
       objectReference: {fileID: 0}
     - target: {fileID: 4547162550722811444, guid: 6a0a59920e35f7042ba319b1d8e0d2e0, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 191
       objectReference: {fileID: 0}
     - target: {fileID: 4547162550722811444, guid: 6a0a59920e35f7042ba319b1d8e0d2e0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -313,7 +313,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4961499553657023114, guid: 6a0a59920e35f7042ba319b1d8e0d2e0, type: 3}
       propertyPath: m_PixelsPerUnitMultiplier
-      value: Infinity
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 7527567251701371448, guid: 6a0a59920e35f7042ba319b1d8e0d2e0, type: 3}
       propertyPath: <PixelPerUnitData>k__BackingField.<Name>k__BackingField
@@ -337,30 +337,8 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4547162550722811444, guid: 6a0a59920e35f7042ba319b1d8e0d2e0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8442070585819920478}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 317819257434154052, guid: 6a0a59920e35f7042ba319b1d8e0d2e0, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2059614668727112751}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a0a59920e35f7042ba319b1d8e0d2e0, type: 3}
---- !u!1 &1803384477437693131 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 317819257434154052, guid: 6a0a59920e35f7042ba319b1d8e0d2e0, type: 3}
-  m_PrefabInstance: {fileID: 2121184768224962703}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2059614668727112751
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1803384477437693131}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.AspectRatioFitter
-  m_AspectMode: 1
-  m_AspectRatio: 1.7958115
 --- !u!224 &2482946233141722811 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4547162550722811444, guid: 6a0a59920e35f7042ba319b1d8e0d2e0, type: 3}
@@ -371,7 +349,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4961499553657023114, guid: 6a0a59920e35f7042ba319b1d8e0d2e0, type: 3}
   m_PrefabInstance: {fileID: 2121184768224962703}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1803384477437693131}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}

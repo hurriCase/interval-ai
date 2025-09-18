@@ -2,7 +2,6 @@
 using CustomUtils.Runtime.Extensions;
 using Cysharp.Text;
 using R3;
-using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
@@ -20,18 +19,16 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours
 {
     internal sealed class WordInfoCardBehaviour : MonoBehaviour
     {
-        [SerializeField] private ComponentWithSpacing<DescriptiveImageBehaviour> _descriptiveImage;
+        [SerializeField] private DescriptiveImageBehaviour _descriptiveImage;
         [SerializeField] private WordProgressBehaviour _wordProgressBehaviour;
 
-        [SerializeField] private ComponentWithSpacing<TextMeshProUGUI> _transcriptionText;
-        [SerializeField] private ComponentWithSpacing<TextMeshProUGUI> _learningWordText;
-        [SerializeField] private ComponentWithSpacing<TextMeshProUGUI> _nativeWordText;
-        [SerializeField] private ComponentWithSpacing<TextMeshProUGUI> _categoryNameText;
-        [SerializeField] private ComponentWithSpacing<RectTransform> _singleExampleContainer;
+        [SerializeField] private TextMeshProUGUI _transcriptionText;
+        [SerializeField] private TextMeshProUGUI _learningWordText;
+        [SerializeField] private TextMeshProUGUI _nativeWordText;
+        [SerializeField] private TextMeshProUGUI _categoryNameText;
         [SerializeField] private TextMeshProUGUI _singleExampleText;
 
         [SerializeField] private ButtonComponent _addToCategoryButton;
-        [SerializeField] private string _categoryLocalizationKey;
 
         private WordCategorySelectionService _wordCategorySelectionService;
         private ICategoriesRepository _categoriesRepository;
@@ -74,8 +71,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours
         {
             _currentWordEntry = wordEntry;
 
-            _descriptiveImage.Component.UpdateView(wordEntry.DescriptiveImage);
-            _descriptiveImage.Toggle(wordEntry.DescriptiveImage.IsValid);
+            _descriptiveImage.UpdateView(wordEntry.DescriptiveImage);
+            _descriptiveImage.SetActive(wordEntry.DescriptiveImage.IsValid);
 
             _wordProgressBehaviour.UpdateProgress(wordEntry);
 
@@ -86,8 +83,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours
             UpdateCategoryName(wordEntry);
 
             var firstExample = wordEntry.Examples?.FirstOrDefault().Learning;
-            _singleExampleText.text = firstExample;
-            _singleExampleContainer.Toggle(firstExample.IsValid());
+            UpdateText(_singleExampleText, firstExample);
         }
 
         private void UpdateCategoryName(WordEntry wordEntry)
@@ -105,13 +101,10 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours
             UpdateText(_categoryNameText, builder.ToString());
         }
 
-        private void UpdateText(
-            ComponentWithSpacing<TextMeshProUGUI> textComponentWithSpacing,
-            string textToShow,
-            bool additionalRule = true)
+        private void UpdateText(TMP_Text textComponentWithSpacing, string textToShow, bool additionalRule = true)
         {
-            textComponentWithSpacing.Toggle(textToShow.IsValid() && additionalRule);
-            textComponentWithSpacing.Component.text = textToShow;
+            textComponentWithSpacing.SetActive(textToShow.IsValid() && additionalRule);
+            textComponentWithSpacing.text = textToShow;
         }
     }
 }
