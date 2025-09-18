@@ -16,6 +16,7 @@ namespace Source.Scripts.UI.Components.Accordion
         [field: SerializeField] internal RectTransform HiddenContentContainer { get; private set; }
 
         [SerializeField] private VisibilityState _initiallyState;
+        [SerializeField] private bool _isInitiallyReady = true;
 
         [SerializeReferenceDropdown, SerializeReference]
         private List<IAnimationComponent<VisibilityState>> _animations;
@@ -28,9 +29,17 @@ namespace Source.Scripts.UI.Components.Accordion
         {
             _currentState = _initiallyState;
 
-            ExpandButton.OnClickAsObservable().SubscribeAndRegister(this, static self => self.SwitchVisibility());
+            ExpandButton.OnClickAsObservable()
+                .Where(this, self => self._isInitiallyReady)
+                .SubscribeAndRegister(this, static self => self.SwitchVisibility());
 
             PlayAnimation(_initiallyState, true);
+        }
+
+        internal void SetReady(VisibilityState visibilityState, bool isInstant = false)
+        {
+            _isInitiallyReady = true;
+            PlayAnimation(visibilityState, isInstant);
         }
 
         private void SwitchVisibility()
@@ -46,7 +55,8 @@ namespace Source.Scripts.UI.Components.Accordion
             {
                 var tween = animationComponent.PlayAnimation(visibilityState, isInstant);
                 if (isInstant is false)
-                    tween.OnUpdate(this, (self, _) => LayoutRebuilder.MarkLayoutForRebuild(self.RectTransform));
+                    tween.OnUpdate(this,
+                        static (self, _) => LayoutRebuilder.MarkLayoutForRebuild(self.RectTransform));
             }
 
             foreach (var animationComponent in _animations)

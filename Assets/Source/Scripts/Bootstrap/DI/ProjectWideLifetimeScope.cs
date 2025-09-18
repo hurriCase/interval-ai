@@ -8,7 +8,8 @@ using Source.Scripts.Core.Audio.TextToSpeech;
 using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Input;
 using Source.Scripts.Core.Localization.Base;
-using Source.Scripts.Core.Localization.Translation;
+using Source.Scripts.Core.Localization.LanguageDetector;
+using Source.Scripts.Core.Localization.Translator;
 using Source.Scripts.Core.References;
 using Source.Scripts.Core.Repositories.Base.Id;
 using Source.Scripts.Core.Repositories.Base.Tests;
@@ -65,6 +66,8 @@ namespace Source.Scripts.Bootstrap.DI
 
             builder.Register<AudioHandlerProvider>(Lifetime.Singleton).AsImplementedInterfaces();
 
+            builder.Register<LanguageLanguageDetector>(Lifetime.Singleton).AsImplementedInterfaces();
+
             builder.RegisterInstance(_spriteReferences).AsImplementedInterfaces();
 
             builder.RegisterInstance(_animationsConfig).AsImplementedInterfaces();
@@ -95,7 +98,7 @@ namespace Source.Scripts.Bootstrap.DI
             builder.RegisterInstance(_googleTextToSpeechConfig).AsImplementedInterfaces();
             builder.Register<GoogleTextToSpeech>(Lifetime.Singleton).AsImplementedInterfaces();
 
-            builder.Register<AzureTranslationService>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<AzureTranslator>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.RegisterInstance(_azureTranslationConfig).AsImplementedInterfaces();
         }
 
