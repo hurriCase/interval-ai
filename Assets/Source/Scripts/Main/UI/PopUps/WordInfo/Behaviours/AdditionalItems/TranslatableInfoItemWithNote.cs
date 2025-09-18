@@ -8,9 +8,9 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours.AdditionalItems
     {
         [SerializeField] private TextMeshProUGUI _noteText;
 
-        public void Init(AnnotatedTranslation annotatedTranslation)
+        public void UpdateView(AnnotatedTranslation annotatedTranslation)
         {
-            base.Init(annotatedTranslation.Translation);
+            base.UpdateView(annotatedTranslation.Translation);
 
             _noteText.text = annotatedTranslation.Note;
         }

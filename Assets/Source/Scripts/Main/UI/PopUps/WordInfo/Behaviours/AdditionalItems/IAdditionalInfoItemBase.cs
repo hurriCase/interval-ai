@@ -4,6 +4,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours.AdditionalItems
 {
     internal interface IAdditionalInfoItemBase<in TTranslation> where TTranslation : ITranslation
     {
-        void Init(TTranslation translation);
+        void Init();
+        void UpdateView(TTranslation translation);
     }
 }

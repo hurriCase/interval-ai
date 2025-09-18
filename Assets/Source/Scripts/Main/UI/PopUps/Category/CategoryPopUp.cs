@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using CustomUtils.Runtime.Extensions;
 using Cysharp.Threading.Tasks;
 using R3;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Localization.LocalizationTypes.Modal;
+using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Core.Repositories.Categories.Category;
 using Source.Scripts.Core.Repositories.Words.Word;
@@ -15,9 +15,7 @@ using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Components.Button;
 using Source.Scripts.UI.Windows.Base;
 using UnityEngine;
-using UnityEngine.UI;
 using VContainer;
-using VContainer.Unity;
 
 namespace Source.Scripts.Main.UI.PopUps.Category
 {
@@ -26,7 +24,6 @@ namespace Source.Scripts.Main.UI.PopUps.Category
         [SerializeField] private InputFieldComponent _categoryNameText;
 
         [SerializeField] private ButtonComponent _deleteButton;
-        [SerializeField] private ButtonComponent _editButton;
 
         [SerializeField] private ButtonComponent _resetProgressButton;
 
@@ -36,10 +33,9 @@ namespace Source.Scripts.Main.UI.PopUps.Category
         [SerializeField] private SelectionItem _wordOrderSelectionItem;
 
         private readonly ReactiveProperty<WordOrderType> _wordReviewSourceType = new(WordOrderType.Default);
-        private readonly Dictionary<WordEntry, WordItem> _createdWordItems = new();
         private CategoryEntry _currentCategoryEntry;
-        private EnumSelectionService<WordOrderType> _enumSelectionService;
-        private int _previousCategoryId;
+
+        private UIPool<WordEntry, WordItem> _wordsPool;
 
         private ILocalizationDatabase _localizationDatabase;
         private ICategoriesRepository _categoriesRepository;
@@ -69,18 +65,22 @@ namespace Source.Scripts.Main.UI.PopUps.Category
             _wordReviewSourceType.Value = _currentCategoryEntry.WordOrderType;
 
             UpdateView();
-
-            _previousCategoryId = _currentCategoryEntry.Id;
         }
 
         internal override void Init()
         {
+            var poolConfig = new UIPoolEvents<WordEntry, WordItem>(
+                (_, wordItem) => wordItem.Init(),
+                (wordEntry, wordItem) => wordItem.UpdateView(wordEntry));
+
+            _wordsPool = new UIPool<WordEntry, WordItem>(_wordItem, _wordsContainer, _objectResolver, poolConfig);
+
             _deleteButton.OnClickAsObservable().SubscribeAndRegister(this, static self =>
                 self.OpenWarning(ModalLocalizationType.DeleteCategory, static self => self.RemoveCategory()));
 
-            _resetProgressButton.OnClickAsObservable().SubscribeAndRegister(this, static self => self.OpenWarning(
-                ModalLocalizationType.ResetProgress,
-                static self => self._categoryStateMutator.ResetWordsProgress(self._currentCategoryEntry)));
+            _resetProgressButton.OnClickAsObservable().SubscribeAndRegister(this, static self =>
+                self.OpenWarning(ModalLocalizationType.ResetProgress,
+                    static self => self._categoryStateMutator.ResetWordsProgress(self._currentCategoryEntry)));
 
             _categoryNameText.CurrentTextSubjectObservable
                 .SubscribeAndRegister(this, static (newName, self)
@@ -111,46 +111,14 @@ namespace Source.Scripts.Main.UI.PopUps.Category
         {
             _categoryNameText.text = _currentCategoryEntry.LocalizationKey.GetLocalization();
 
-            CreateWords();
+            _wordsPool.EnsureCount(_currentCategoryEntry.WordEntries);
         }
 
         private void ReorderWordItems(WordOrderType newOrder)
         {
             _categoryStateMutator.ChangeWordOrder(_currentCategoryEntry, newOrder);
 
-            for (var i = 0; i < _currentCategoryEntry.WordEntries.Count; i++)
-            {
-                var wordEntry = _currentCategoryEntry.WordEntries[i];
-                if (_createdWordItems.TryGetValue(wordEntry, out var wordItem))
-                    wordItem.transform.SetSiblingIndex(i + 1); // First element is header
-            }
-
-            LayoutRebuilder.ForceRebuildLayoutImmediate(_wordsContainer);
-        }
-
-        private void CreateWords()
-        {
-            if (_previousCategoryId != _currentCategoryEntry.Id)
-                foreach (var createdWordItem in _createdWordItems)
-                    createdWordItem.Value.SetActive(false);
-
-            foreach (var wordEntry in _currentCategoryEntry.WordEntries)
-                CreateWord(wordEntry);
-
-            LayoutRebuilder.ForceRebuildLayoutImmediate(_wordsContainer);
-        }
-
-        private void CreateWord(WordEntry wordEntry)
-        {
-            if (_createdWordItems.TryGetValue(wordEntry, out var createdWord))
-            {
-                createdWord.SetActive(true);
-                return;
-            }
-
-            createdWord = _objectResolver.Instantiate(_wordItem, _wordsContainer);
-            createdWord.Init(wordEntry);
-            _createdWordItems[wordEntry] = createdWord;
+            _wordsPool.EnsureCount(_currentCategoryEntry.WordEntries);
         }
     }
 }

@@ -60,10 +60,10 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
             _selectionPool.EnsureCount(selectionValues.Count);
 
             for (var i = 0; i < selectionValues.Count; i++)
+            {
                 SetSelectionItem(i, selectionValues[i], service);
-
-            for (var i = 0; i < selectionValues.Count; i++)
                 SubscribeToChanges(i, selectionValues[i], service);
+            }
         }
 
         private void SetSelectionItem<TValue>(int index, TValue selectionValue, ISelectionService<TValue> service)

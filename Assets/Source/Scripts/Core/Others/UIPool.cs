@@ -1,51 +1,103 @@
-﻿using System.Collections.Generic;
-using CustomUtils.Runtime.Extensions;
+﻿using System;
+using System.Collections.Generic;
 using JetBrains.Annotations;
-using R3;
 using UnityEngine;
-using UnityEngine.UI;
 using VContainer;
 using VContainer.Unity;
+using Object = UnityEngine.Object;
 
 namespace Source.Scripts.Core.Others
 {
-    internal readonly struct UIPool<TPrefab> where TPrefab : MonoBehaviour
+    internal readonly struct UIPoolEvents<TData, TPrefab> where TPrefab : MonoBehaviour
+    {
+        internal Action<TData, TPrefab> OnCreated { get; }
+        internal Action<TData, TPrefab> OnActivated { get; }
+        internal Action<TPrefab> OnDeactivated { get; }
+
+        internal UIPoolEvents(
+            Action<TData, TPrefab> onCreated = null,
+            Action<TData, TPrefab> onActivated = null,
+            Action<TPrefab> onDeactivated = null)
+        {
+            OnCreated = onCreated;
+            OnActivated = onActivated;
+            OnDeactivated = onDeactivated;
+        }
+    }
+
+    internal readonly struct UIPool<TData, TPrefab> where TPrefab : MonoBehaviour
     {
         internal IReadOnlyList<TPrefab> PooledItems => _pooledItems;
-        internal Observable<TPrefab> CreateObservable => _createSubject;
-        private readonly Subject<TPrefab> _createSubject;
-
-        internal Observable<PrefabData<TPrefab>> CreateWithSpaceObservable => _createWithSpaceSubject;
-        private readonly Subject<PrefabData<TPrefab>> _createWithSpaceSubject;
 
         private readonly TPrefab _prefab;
         private readonly RectTransform _container;
 
         private readonly List<TPrefab> _pooledItems;
 
-        private readonly AspectRatioFitter _spacing;
-        private readonly float _spacingRatio;
-        private readonly AspectRatioFitter.AspectMode _aspectMode;
+        private readonly IObjectResolver _objectResolver;
+        private readonly UIPoolEvents<TData, TPrefab> _uiPoolEvents;
+
+        internal UIPool(
+            [NotNull] TPrefab prefab,
+            [NotNull] RectTransform container,
+            IObjectResolver objectResolver = null,
+            UIPoolEvents<TData, TPrefab> uiPoolEvents = default)
+        {
+            _prefab = prefab;
+            _container = container;
+            _objectResolver = objectResolver;
+            _uiPoolEvents = uiPoolEvents;
+            _pooledItems = new List<TPrefab>();
+        }
+
+        internal IReadOnlyList<TPrefab> EnsureCount(IReadOnlyList<TData> data)
+        {
+            for (var i = data.Count; i < _pooledItems.Count; i++)
+            {
+                _pooledItems[i].gameObject.SetActive(false);
+                _uiPoolEvents.OnDeactivated?.Invoke(_pooledItems[i]);
+            }
+
+            for (var i = _pooledItems.Count; i < data.Count; i++)
+            {
+                var createdItem = _objectResolver == null
+                    ? Object.Instantiate(_prefab, _container)
+                    : _objectResolver.Instantiate(_prefab, _container);
+
+                _uiPoolEvents.OnCreated?.Invoke(data[i], createdItem);
+                _pooledItems.Add(createdItem);
+            }
+
+            for (var i = 0; i < data.Count && i < _pooledItems.Count; i++)
+            {
+                _pooledItems[i].gameObject.SetActive(true);
+                _uiPoolEvents.OnActivated?.Invoke(data[i], _pooledItems[i]);
+            }
+
+            return _pooledItems;
+        }
+    }
+
+    internal readonly struct UIPool<TPrefab> where TPrefab : MonoBehaviour
+    {
+        internal IReadOnlyList<TPrefab> PooledItems => _pooledItems;
+
+        private readonly TPrefab _prefab;
+        private readonly RectTransform _container;
+
+        private readonly List<TPrefab> _pooledItems;
 
         private readonly IObjectResolver _objectResolver;
 
         internal UIPool(
             [NotNull] TPrefab prefab,
             [NotNull] RectTransform container,
-            AspectRatioFitter spacing = null,
-            float spacingRatio = 0,
-            AspectRatioFitter.AspectMode aspectMode = AspectRatioFitter.AspectMode.HeightControlsWidth,
             IObjectResolver objectResolver = null)
         {
             _prefab = prefab;
             _container = container;
             _objectResolver = objectResolver;
             _pooledItems = new List<TPrefab>();
-            _createSubject = new Subject<TPrefab>();
-            _createWithSpaceSubject = spacing && spacingRatio > 0 ? new Subject<PrefabData<TPrefab>>() : null;
-            _spacing = spacing;
-            _spacingRatio = spacingRatio;
-            _aspectMode = aspectMode;
         }
 
         internal IReadOnlyList<TPrefab> EnsureCount(int desiredCount)
@@ -60,13 +112,6 @@ namespace Source.Scripts.Core.Others
                     : _objectResolver.Instantiate(_prefab, _container);
 
                 _pooledItems.Add(createdItem);
-                _createSubject.OnNext(createdItem);
-
-                if (!_spacing || _spacingRatio <= 0)
-                    continue;
-
-                var createdSpacing = _spacing.CreateSpacing(_spacingRatio, _container, _aspectMode);
-                _createWithSpaceSubject.OnNext(new PrefabData<TPrefab>(createdItem, createdSpacing));
             }
 
             for (var i = 0; i < desiredCount && i < _pooledItems.Count; i++)

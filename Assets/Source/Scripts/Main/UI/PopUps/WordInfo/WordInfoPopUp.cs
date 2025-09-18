@@ -2,7 +2,6 @@
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions;
 using R3;
-using R3.Triggers;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Words.Base;
@@ -15,7 +14,6 @@ using Source.Scripts.UI.Components.Accordion;
 using Source.Scripts.UI.Components.Button;
 using Source.Scripts.UI.Windows.Base;
 using UnityEngine;
-using UnityEngine.UI;
 using VContainer;
 using ZLinq;
 
@@ -23,27 +21,20 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo
 {
     internal sealed class WordInfoPopUp : PopUpBase
     {
-        [SerializeField] private ButtonComponent _editButton;
         [SerializeField] private ButtonComponent _startLearningButton;
-
-        [SerializeField] private RectTransform _cardContainer;
-        [SerializeField] private RectTransform _cardContent;
 
         [SerializeField] private WordInfoCardBehaviour _wordInfoCardBehaviour;
 
-        [SerializeField] private TranslatableInfoItem _translatableInfoItem;
         [SerializeField] private AnotherWordItem _anotherWordItem;
+        [SerializeField] private TranslatableInfoItem _translatableInfoItem;
         [SerializeField] private TranslatableInfoItemWithNote _translatableInfoItemWithNote;
-        [SerializeField] private AspectRatioFitter _spacing;
-        [SerializeField] private float _additionalItemSpacingRatio;
 
-        [SerializeField] private EnumArray<AdditionalInfoType, AdditionalSectionItem> _sections
-            = new(EnumMode.SkipFirst);
+        [SerializeField] private EnumArray<AdditionalInfoType, AccordionComponent> _sections = new(EnumMode.SkipFirst);
 
-        private UIPool<TranslatableInfoItem> _exampleInfoPool;
-        private UIPool<TranslatableInfoItem> _translationVariantsPool;
-        private UIPool<AnotherWordItem> _synonymPool;
-        private UIPool<TranslatableInfoItemWithNote> _grammarPool;
+        private UIPool<Translation, TranslatableInfoItem> _exampleInfoPool;
+        private UIPool<Translation, TranslatableInfoItem> _translationVariantsPool;
+        private UIPool<TranslationSet, AnotherWordItem> _synonymPool;
+        private UIPool<AnnotatedTranslation, TranslatableInfoItemWithNote> _grammarPool;
 
         private WordEntry _currentWordEntry;
 
@@ -66,9 +57,6 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo
         {
             _wordInfoCardBehaviour.Init();
 
-            _cardContent.OnRectTransformDimensionsChangeAsObservable()
-                .SubscribeAndRegister(this, static self => self.UpdateContainerHeight());
-
             _startLearningButton.OnClickAsObservable()
                 .SubscribeAndRegister(this, static self => self.StartPracticeForCurrentWord());
 
@@ -88,19 +76,19 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo
 
         private void CreatePools()
         {
-            _exampleInfoPool = CreatePool<TranslatableInfoItem, Translation>(
+            _exampleInfoPool = CreatePool<Translation, TranslatableInfoItem>(
                 _translatableInfoItem,
                 AdditionalInfoType.Example);
 
-            _translationVariantsPool = CreatePool<TranslatableInfoItem, Translation>(
+            _translationVariantsPool = CreatePool<Translation, TranslatableInfoItem>(
                 _translatableInfoItem,
                 AdditionalInfoType.TranslationVariant);
 
-            _synonymPool = CreatePool<AnotherWordItem, TranslationSet>(
+            _synonymPool = CreatePool<TranslationSet, AnotherWordItem>(
                 _anotherWordItem,
                 AdditionalInfoType.Synonym);
 
-            _grammarPool = CreatePool<TranslatableInfoItemWithNote, AnnotatedTranslation>(
+            _grammarPool = CreatePool<AnnotatedTranslation, TranslatableInfoItemWithNote>(
                 _translatableInfoItemWithNote,
                 AdditionalInfoType.Grammar);
         }
@@ -114,44 +102,27 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo
             CreateInfoSection(_grammarPool, _currentWordEntry.Grammar, AdditionalInfoType.Grammar);
         }
 
-        private UIPool<TItem> CreatePool<TItem, TTranslation>(TItem additionalInfoItem, AdditionalInfoType type)
-            where TItem : AccordionItem, IAdditionalInfoItemBase<TTranslation>
+        private UIPool<TTranslation, TItem> CreatePool<TTranslation, TItem>(
+            TItem additionalInfoItem,
+            AdditionalInfoType type)
+            where TItem : MonoBehaviour, IAdditionalInfoItemBase<TTranslation>
             where TTranslation : ITranslation
         {
             var section = _sections[type];
+            var poolEvents = new UIPoolEvents<TTranslation, TItem>(
+                (_, item) => item.Init(),
+                (translation, item) => item.UpdateView(translation));
 
-            section.Accordion.Init();
-
-            var pool = new UIPool<TItem>(
+            var pool = new UIPool<TTranslation, TItem>(
                 additionalInfoItem,
-                section.Accordion.HiddenContentContainer.RectTransform,
-                _spacing,
-                _additionalItemSpacingRatio,
-                AspectRatioFitter.AspectMode.WidthControlsHeight,
-                _objectResolver);
-
-            pool.CreateWithSpaceObservable
-                .SubscribeAndRegister(this, section, static (createdItem, self, sectionData) =>
-                    self.OnCreateSection<TItem, TTranslation>(createdItem, sectionData));
-
+                section.HiddenContentContainer,
+                _objectResolver,
+                poolEvents);
             return pool;
         }
 
-        private void OnCreateSection<TItem, TTranslation>(
-            PrefabData<TItem> createdItem,
-            AdditionalSectionItem sectionItem)
-            where TItem : AccordionItem, IAdditionalInfoItemBase<TTranslation>
-            where TTranslation : ITranslation
-        {
-            sectionItem.Accordion.HiddenContent.Add(createdItem.Prefab);
-            sectionItem.SizeCopier.AddObservedTarget(createdItem.Prefab.RectTransform);
-            sectionItem.SizeCopier.AddSourceToSum(createdItem.Prefab.RectTransform);
-            if (createdItem.Spacing.TryGetComponent<RectTransform>(out var spacingRect))
-                sectionItem.SizeCopier.AddSourceToSum(spacingRect);
-        }
-
         private void CreateInfoSection<TItem, TTranslation>(
-            UIPool<TItem> itemsPool,
+            UIPool<TTranslation, TItem> itemsPool,
             List<TTranslation> translations,
             AdditionalInfoType type)
             where TItem : MonoBehaviour, IAdditionalInfoItemBase<TTranslation>
@@ -167,15 +138,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo
             var validTranslations = translations.AsValueEnumerable()
                 .Where(translation => translation.IsValid);
 
-            var examplesCount = validTranslations.Count();
-            itemsPool.EnsureCount(examplesCount);
-
-            var index = 0;
-            foreach (var validTranslation in validTranslations)
-            {
-                itemsPool.PooledItems[index].Init(validTranslation);
-                index++;
-            }
+            itemsPool.EnsureCount(validTranslations.ToList());
 
             section.SetActive(true);
         }
@@ -184,13 +147,6 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo
         {
             _currentWordsService.SetCurrentWord(PracticeState.NewWords, _currentWordEntry);
             _windowsController.OpenPopUp<WordPracticePopUp>();
-        }
-
-        private void UpdateContainerHeight()
-        {
-            _cardContainer.sizeDelta = new Vector2(_cardContainer.sizeDelta.x, _cardContent.rect.height);
-
-            LayoutRebuilder.ForceRebuildLayoutImmediate(_cardContainer.parent as RectTransform);
         }
     }
 }

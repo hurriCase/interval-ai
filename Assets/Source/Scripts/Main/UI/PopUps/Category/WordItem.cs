@@ -29,18 +29,21 @@ namespace Source.Scripts.Main.UI.PopUps.Category
             _windowsController = windowsController;
         }
 
-        internal void Init(WordEntry wordEntry)
+        internal void Init()
+        {
+            _wordProgressBehaviour.Init();
+
+            _wordInfoButton.OnClickAsObservable().SubscribeAndRegister(this, static self => self.OpenWordInfo());
+        }
+
+        internal void UpdateView(WordEntry wordEntry)
         {
             _currentWordEntry = wordEntry;
 
             _learningWordText.text = wordEntry.Word.Learning;
             _translationsText.text = ZString.Join(", ", wordEntry.Word.Natives);
 
-            _wordProgressBehaviour.Init();
             _wordProgressBehaviour.UpdateProgress(wordEntry);
-
-            _wordInfoButton.OnClickAsObservable()
-                .SubscribeAndRegister(this, static self => self.OpenWordInfo());
         }
 
         private void OpenWordInfo()
