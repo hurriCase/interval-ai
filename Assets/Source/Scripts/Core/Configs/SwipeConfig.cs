@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using CustomUtils.Runtime.Extensions;
+using UnityEngine;
 
 namespace Source.Scripts.Core.Configs
 {
@@ -17,6 +18,6 @@ namespace Source.Scripts.Core.Configs
 
         public float EvaluateLiftHeightRatio(float dragIntensity) => _liftHeightRatio.Evaluate(dragIntensity);
         public float EvaluateRotationDegrees(float dragIntensity) => _rotationDegrees.Evaluate(dragIntensity);
-        public float GetMaxRotationDegrees() => _rotationDegrees.Evaluate(_rotationDegrees.keys[^1].time);
+        public float GetMaxRotationDegrees() => _rotationDegrees.GetLastValue();
     }
 }
