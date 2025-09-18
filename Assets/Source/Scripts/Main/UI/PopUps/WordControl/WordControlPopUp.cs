@@ -1,11 +1,12 @@
 ﻿using Cysharp.Threading.Tasks;
-using PrimeTween;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.PopUps.Selection;
 using Source.Scripts.Main.UI.PopUps.Selection.Category;
 using Source.Scripts.Main.UI.PopUps.WordInfo;
+using Source.Scripts.UI.Components.Animation;
+using Source.Scripts.UI.Components.Animation.Base;
 using Source.Scripts.UI.Components.Button;
 using Source.Scripts.UI.Windows.Base;
 using UnityEngine;
@@ -20,8 +21,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordControl
         [SerializeField] private ButtonComponent _saveToCategoryButton;
         [SerializeField] private ButtonComponent _hideWordButton;
 
-        [SerializeField] private RectTransform _selectionsContainer;
-        [SerializeField] private float _selectionAnimationDuration;
+        [SerializeField] private PivotAnimation<VisibilityState> _pivotAnimation;
 
         private WordEntry _currentWordEntry;
 
@@ -49,7 +49,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordControl
         {
             await base.ShowAsync();
 
-            await AnimatePivotAsync(0f);
+            await _pivotAnimation.PlayAnimation(VisibilityState.Visible);
         }
 
         internal override void Init()
@@ -62,13 +62,10 @@ namespace Source.Scripts.Main.UI.PopUps.WordControl
 
         internal override async UniTask HideAsync()
         {
-            await AnimatePivotAsync(1f);
+            await _pivotAnimation.PlayAnimation(VisibilityState.Hidden);
 
             base.HideAsync().Forget();
         }
-
-        private Tween AnimatePivotAsync(float endValue)
-            => Tween.UIPivotY(_selectionsContainer, endValue, animationsConfig.SelectionSwitchDuration);
 
         private void ShowWordInfo()
         {

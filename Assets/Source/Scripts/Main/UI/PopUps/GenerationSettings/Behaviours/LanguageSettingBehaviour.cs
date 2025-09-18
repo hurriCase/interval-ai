@@ -1,51 +1,27 @@
-﻿using CustomUtils.Runtime.Extensions;
-using PrimeTween;
+﻿using CustomUtils.Runtime.CustomTypes.Collections;
+using CustomUtils.Runtime.Extensions;
 using R3.Triggers;
-using Source.Scripts.UI.Data;
+using Source.Scripts.Core.Repositories.Settings.Base;
+using Source.Scripts.UI.Components.Animation;
 using UnityEngine;
-using UnityEngine.UI;
-using VContainer;
 
 namespace Source.Scripts.Main.UI.PopUps.GenerationSettings.Behaviours
 {
     internal sealed class LanguageSettingBehaviour : MonoBehaviour
     {
-        [field: SerializeField] internal LanguageToggle LeftThemeToggle { get; private set; }
-        [field: SerializeField] internal LanguageToggle RightThemeToggle { get; private set; }
-
-        [SerializeField] private Image _selectedImage;
-
-        private IAnimationsConfig _animationsConfig;
-
-        [Inject]
-        public void Inject(IAnimationsConfig animationsConfig)
-        {
-            _animationsConfig = animationsConfig;
-        }
+        [field: SerializeField] internal EnumArray<LanguageType, LanguageToggle> Toggles { get; private set; } =
+            new(EnumMode.SkipFirst);
+        [field: SerializeField] internal AnchoredPositionAnimation<LanguageType> PositionAnimation { get; private set; }
 
         internal void Init()
         {
-            LeftThemeToggle.OnPointerClickAsObservable()
-                .SubscribeAndRegister(this, static self => self.MoveSelectedImage(0f));
-
-            RightThemeToggle.OnPointerClickAsObservable()
-                .SubscribeAndRegister(this, static self => self.MoveSelectedImage(1f));
-        }
-
-        private void MoveSelectedImage(float endValue)
-        {
-            var duration = _animationsConfig.SwitchComponentDuration;
-            Tween.UIAnchorMin(
-                _selectedImage.rectTransform,
-                new Vector2(endValue, _selectedImage.rectTransform.anchorMin.y),
-                duration);
-
-            Tween.UIAnchorMax(
-                _selectedImage.rectTransform,
-                new Vector2(endValue, _selectedImage.rectTransform.anchorMax.y),
-                duration);
-
-            Tween.UIPivotX(_selectedImage.rectTransform, endValue, duration);
+            foreach (var (languageType, languageToggle) in Toggles.AsTuples())
+            {
+                languageToggle.Init(languageType);
+                languageToggle.OnPointerClickAsObservable()
+                    .SubscribeAndRegister(this, languageType, static (languageType, self)
+                        => self.PositionAnimation.PlayAnimation(languageType));
+            }
         }
     }
 }

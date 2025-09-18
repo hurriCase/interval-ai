@@ -6,6 +6,5 @@
         float PopUpHideDuration { get; }
         float SelectionSwitchDuration { get; }
         float SelectionTransitionDuration { get; }
-        float SwitchComponentDuration { get; }
     }
 }

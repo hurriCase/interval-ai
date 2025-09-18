@@ -3,7 +3,6 @@ using R3;
 using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.PopUps.Category;
-using Source.Scripts.UI.Components.Accordion;
 using Source.Scripts.UI.Components.Button;
 using Source.Scripts.UI.Windows.Base;
 using TMPro;
@@ -16,7 +15,6 @@ namespace Source.Scripts.Main.UI.PopUps.CategoryCreation
     {
         [SerializeField] private TMP_InputField _categoryNameInputField;
         [SerializeField] private ButtonComponent _saveButton;
-        [SerializeField] private AccordionComponent _accordionComponent;
 
         private IWindowsController _windowsController;
         private ICategoriesRepository _categoriesRepository;
@@ -31,8 +29,6 @@ namespace Source.Scripts.Main.UI.PopUps.CategoryCreation
         internal override void Init()
         {
             _saveButton.OnClickAsObservable().SubscribeAndRegister(this, static self => self.CreateCategory());
-
-            _accordionComponent.Init();
         }
 
         private void CreateCategory()

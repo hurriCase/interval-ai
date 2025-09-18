@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using CustomUtils.Runtime.Attributes;
 using CustomUtils.Runtime.CustomBehaviours;
 using CustomUtils.Runtime.Extensions;
-using PrimeTween;
 using R3;
+using Source.Scripts.UI.Components.Animation;
+using Source.Scripts.UI.Components.Animation.Base;
 using Source.Scripts.UI.Components.Button;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,134 +13,44 @@ namespace Source.Scripts.UI.Components.Accordion
     internal sealed class AccordionComponent : RectTransformBehaviour
     {
         [field: SerializeField] internal ButtonComponent ExpandButton { get; private set; }
-        [field: SerializeField] internal AccordionItem HiddenContentContainer { get; private set; }
-        [field: SerializeField] internal RectTransform ShownContent { get; private set; }
-        [field: SerializeField] internal List<AccordionItem> HiddenContent { get; private set; }
+        [field: SerializeField] internal RectTransform HiddenContentContainer { get; private set; }
 
-        [SerializeField] private bool _isInitiallyExpanded;
+        [SerializeField] private VisibilityState _initiallyState;
 
-        [SerializeField] private float _hiddenElementsAnimationDuration;
+        [SerializeReferenceDropdown, SerializeReference]
+        private List<IAnimationComponent<VisibilityState>> _animations;
 
-        [SerializeField] private bool _useExpandButtonAnimation;
+        [SerializeField] private List<ScaleAnimation<VisibilityState>> _scaleAnimations;
 
-        [ShowIf(nameof(_useExpandButtonAnimation))]
-        [SerializeField] private float _expandButtonAnimationDuration;
+        private VisibilityState _currentState;
 
-        [ShowIf(nameof(_useExpandButtonAnimation))]
-        [SerializeField] private float _expandedRotationZ;
-
-        [ShowIf(nameof(_useExpandButtonAnimation))]
-        [SerializeField] private float _collapsedRotationZ;
-
-        private bool _isExpanded;
-        private float _endValue;
-        private Sequence _currentAnimation;
-        private float _currentRotationZ;
-
-        internal void Init()
+        private void Awake()
         {
-            ExpandButton.OnClickAsObservable()
-                .SubscribeAndRegister(this, static self => self.SwitchContent(self._isExpanded is false));
+            _currentState = _initiallyState;
 
-            SwitchContent(_isInitiallyExpanded, true);
+            ExpandButton.OnClickAsObservable().SubscribeAndRegister(this, static self => self.SwitchVisibility());
 
-            ShownContent.OnReactTransformHeightChangeAsObservable()
-                .SubscribeAndRegister(this, static self => self.UpdateContainerHeight());
+            PlayAnimation(_initiallyState, true);
         }
 
-        private void SwitchContent(bool isExpanded, bool isInstant = false)
+        private void SwitchVisibility()
         {
-            _isExpanded = isExpanded;
-            _endValue = isExpanded ? 1f : 0f;
+            var newState = _currentState == VisibilityState.Hidden ? VisibilityState.Visible : VisibilityState.Hidden;
+            PlayAnimation(newState);
+            _currentState = newState;
+        }
 
-            if (isInstant)
+        private void PlayAnimation(VisibilityState visibilityState, bool isInstant = false)
+        {
+            foreach (var animationComponent in _scaleAnimations)
             {
-                if (_useExpandButtonAnimation)
-                    SetButtonRotation(CalculateFinalZ());
-
-                SetHiddenContent();
-                return;
+                var tween = animationComponent.PlayAnimation(visibilityState, isInstant);
+                if (isInstant is false)
+                    tween.OnUpdate(this, (self, _) => LayoutRebuilder.MarkLayoutForRebuild(self.RectTransform));
             }
 
-            CreateAnimation();
-        }
-
-        private void CreateAnimation()
-        {
-            if (_currentAnimation.isAlive)
-                _currentAnimation.Stop();
-
-            var sequence = Sequence.Create();
-
-            TryAddButtonAnimation(ref sequence);
-
-            var duration = _hiddenElementsAnimationDuration;
-            _currentAnimation = sequence.Group(Sequence.Create()
-                .Group(Tween.ScaleY(HiddenContentContainer.RectTransform, _endValue, duration))
-                .Group(Tween.Alpha(HiddenContentContainer.CanvasGroup, _endValue, duration))
-                .Group(Tween.Custom(this, 0f, 1f, duration,
-                    (component, _) => component.UpdateContainerHeight()))
-                .OnComplete(this, self => self.SetHiddenContentVisibility()));
-        }
-
-        private void TryAddButtonAnimation(ref Sequence sequence)
-        {
-            if (_useExpandButtonAnimation is false)
-                return;
-
-            var buttonAnimation = Tween.Custom(this,
-                _currentRotationZ,
-                CalculateFinalZ(),
-                _expandButtonAnimationDuration,
-                (component, rotationZ) => component.SetButtonRotation(rotationZ));
-
-            sequence.Chain(buttonAnimation);
-        }
-
-        private void UpdateContainerHeight()
-        {
-            var hiddenRectTransform = HiddenContentContainer.RectTransform;
-            var hiddenContentSize = hiddenRectTransform.rect.height * hiddenRectTransform.localScale.y;
-            var totalHeight = ShownContent.rect.height + hiddenContentSize;
-            RectTransform.sizeDelta = new Vector2(RectTransform.sizeDelta.x, totalHeight);
-
-            LayoutRebuilder.ForceRebuildLayoutImmediate(RectTransform.parent as RectTransform);
-        }
-
-        private void SetHiddenContent()
-        {
-            SetHiddenContentVisibility();
-
-            var scale = HiddenContentContainer.RectTransform.localScale;
-            scale.y = _endValue;
-            HiddenContentContainer.RectTransform.localScale = scale;
-
-            HiddenContentContainer.CanvasGroup.alpha = _endValue;
-
-            UpdateContainerHeight();
-        }
-
-        private void SetHiddenContentVisibility()
-        {
-            HiddenContentContainer.CanvasGroup.SetVisible(_isExpanded);
-        }
-
-        private void SetButtonRotation(float rotationZ)
-        {
-            var buttonTransform = ExpandButton.transform;
-            var euler = buttonTransform.eulerAngles;
-            euler.z = rotationZ;
-            buttonTransform.eulerAngles = euler;
-
-            _currentRotationZ = rotationZ;
-        }
-
-        private float CalculateFinalZ()
-        {
-            var targetZ = _isExpanded ? _expandedRotationZ : _collapsedRotationZ;
-
-            var deltaZ = Mathf.DeltaAngle(_currentRotationZ, targetZ);
-            return _currentRotationZ + deltaZ;
+            foreach (var animationComponent in _animations)
+                animationComponent.PlayAnimation(visibilityState, isInstant);
         }
     }
 }
