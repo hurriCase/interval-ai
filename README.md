@@ -15,20 +15,17 @@
 2D Language Learning Application with AI features designed to help people learn new languages easily. Core mechanics include:
 - **Flash Cards System:** Study new words/grammar with spaced repetition
 - **AI-Generated Exercises:** Sentence-based exercises with learning words for contextual memorization
-- **Multi-Language Support:** Flexible language configuration for native, learning, and UI languages
 
 ### Technical Specifications
 - **Unity Version:** 6000.2.0f1
 - **Target Platforms:** Mobile (Android primary), Web (future)
-- **Architecture:** Dependency Injection (VContainer) + Reactive Programming (R3)
-- **Localization:** Custom solution with Google Sheets integration
-- **Data Persistence:** Custom PersistentReactiveProperty wrapper
+- **Core Architecture:** Dependency Injection (VContainer) + Reactive Programming (R3)
 
 ### Team & Roles
 | Name    | Role      | Responsibilities               |
 |---------|-----------|--------------------------------|
-| Dmitrii | Developer | Development process coordination |
-| Lidia   | Designer  | Design process coordination     |
+| Dmitrii | Developer | Technical implementation and development oversight |
+| Lidia   | Designer  | Design direction and visual implementation |
 
 ## Getting Started
 
@@ -163,8 +160,8 @@ and complex data structures.
 - Method names should be verbs describing the action performed: `CalculateScore()`, `ValidateInput()`, `UpdatePosition()`
 - Property names should be nouns or adjectives describing state: `PlayerHealth`, `IsVisible`, `MaxCapacity`
 - Field names should be nouns representing stored data: `_currentScore`, `_targetPosition`, `_audioSource`
-- Observables should use `Observable` suffix: `PlayerDeathObservable`, `ScoreChangedObservable`
-- Subjects should use `Subject` suffix: `InputSubject`, `StateChangeSubject`
+- Observables should use `On` prefix for events: `OnDataChanged`, `OnValidationCompleted`
+- Subjects should use clear action-based names: `_dataChanged`, `_validationCompleted`
 - All async methods must have `Async` suffix
 - Use ZString for string manipulations
 - Use None/Default for first enum value; specify explicit integer values for all enum members
@@ -250,6 +247,8 @@ internal sealed class WordRepository : IWordsRepository
 - **T_** - Textures (`T_ButtonBackground`)
 - **P_** - Prefabs (`P_WordCard`)
 - **SC_** - Sound Clips (`SC_ButtonClick`)
+- **M_** - Materials (`M_ProceduralImage`)
+- **SD_** - Shaders (`SD_Gradient`)
 
 ### Organization Principles
 - Group assets by feature/system within assembly boundaries
