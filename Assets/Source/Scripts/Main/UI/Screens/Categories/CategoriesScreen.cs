@@ -49,10 +49,10 @@ namespace Source.Scripts.Main.UI.Screens.Categories
             _addCategoryButton.OnClickAsObservable().SubscribeAndRegister(this,
                 static self => self._windowsController.OpenPopUpByType(PopUpType.CategoryCreation));
 
-            _categoriesRepository.CategoryAdded.SubscribeAndRegister(this,
+            _categoriesRepository.OnCategoryAdded.SubscribeAndRegister(this,
                 static (entry, self) => self.CreateCategory(entry));
 
-            _categoriesRepository.CategoryRemoved.SubscribeAndRegister(this,
+            _categoriesRepository.OnCategoryRemoved.SubscribeAndRegister(this,
                 static (entry, self) => self.RemoveCategory(entry));
         }
 

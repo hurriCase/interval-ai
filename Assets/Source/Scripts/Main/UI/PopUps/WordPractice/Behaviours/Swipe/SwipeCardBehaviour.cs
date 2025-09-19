@@ -13,8 +13,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
 {
     internal sealed class SwipeCardBehaviour : RectTransformBehaviour
     {
-        public Observable<SwipeDirection> SwipeObservable => _swipeObservable.AsObservable();
-        private readonly Subject<SwipeDirection> _swipeObservable = new();
+        public Observable<SwipeDirection> OnSwiped => _swiped;
+        private readonly Subject<SwipeDirection> _swiped = new();
 
         private Vector2 _originalPosition;
         private Rect _screenRect;
@@ -49,17 +49,17 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
             var canvas = GetComponentInParent<Canvas>();
             _screenRect = RectTransformUtility.PixelAdjustRect(RectTransform, canvas);
 
-            _swipeInputService.PointerPressed
+            _swipeInputService.OnPointerPressed
                 .Where(this, static self => self._uiSettingsRepository.IsSwipeEnabled.Value)
                 .Where(this, static self => self._windowsController.CurrentPopUpType == PopUpType.WordPractice)
                 .Where(this, static self => self._currentState is not SwipeState.SwipeExecuted)
                 .SubscribeAndRegister(this, self => self.OnPointerPressed());
 
-            _swipeInputService.PointerReleased
+            _swipeInputService.OnPointerReleased
                 .Where(this, static self => self._currentState is SwipeState.PointerPressed or SwipeState.Dragging)
                 .SubscribeAndRegister(this, self => self.OnPointerReleased());
 
-            _swipeInputService.PointerPositionChangedSubject
+            _swipeInputService.OnPointerPositionChanged
                 .Where(this, static self => self.IsValidForSwipe)
                 .SubscribeAndRegister(this, (position, self) => self.OnPointerPositionChanged(position));
         }
@@ -196,7 +196,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
                 .TweenPositionAndRotation(targetPosition, targetRotation, _swipeConfig.SwipeExecuteDuration)
                 .OnComplete(this, static self =>
                 {
-                    self._swipeObservable.OnNext(self._currentSwipeDirection);
+                    self._swiped.OnNext(self._currentSwipeDirection);
                     self.ResetCard();
                 });
         }

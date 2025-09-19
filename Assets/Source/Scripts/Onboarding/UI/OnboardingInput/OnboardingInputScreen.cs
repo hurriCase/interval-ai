@@ -42,7 +42,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput
             {
                 inputOnboardingStep.SetActive(false);
                 inputOnboardingStep.Init();
-                inputOnboardingStep.OnContinueSubject.SubscribeAndRegister(this, static self => self.SwitchModule());
+                inputOnboardingStep.OnContinue.SubscribeAndRegister(this, static self => self.SwitchModule());
             }
 
             SwitchSettingsStep(_currentStepIndex, true);
@@ -75,7 +75,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput
             if (isActive)
                 inputStep.UpdateView();
             else
-                inputStep.OnContinue();
+                inputStep.HandleContinue();
 
             inputStep.SetActive(isActive);
         }

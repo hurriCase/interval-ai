@@ -39,8 +39,8 @@ namespace Source.Scripts.Core.Repositories.Progress
         public ReadOnlyReactiveProperty<bool> HasDailyTarget => _hasDailyTarget;
         private readonly ReactiveProperty<bool> _hasDailyTarget = new(false);
 
-        public Observable<int> GoalAchievedObservable => _goalAchievedSubject.AsObservable();
-        private readonly Subject<int> _goalAchievedSubject = new();
+        public Observable<int> OnGoalAchieved => _goalAchieved;
+        private readonly Subject<int> _goalAchieved = new();
 
         private readonly IPracticeSettingsRepository _practiceSettingsRepository;
         private readonly IStatisticsRepository _statisticsRepository;
@@ -150,7 +150,7 @@ namespace Source.Scripts.Core.Repositories.Progress
             _bestStreak.Value = Math.Max(_bestStreak.Value, _currentStreak.Value);
 
             dailyProgress.GoalAchieved = true;
-            _goalAchievedSubject.OnNext(currentCount);
+            _goalAchieved.OnNext(currentCount);
         }
 
         private DailyProgress GetOrCreateDailyProgress(DateTime date)
@@ -188,7 +188,7 @@ namespace Source.Scripts.Core.Repositories.Progress
             _newWordsDailyTarget.Dispose();
             _totalCountByState.Dispose();
             _progressHistory.Dispose();
-            _goalAchievedSubject.Dispose();
+            _goalAchieved.Dispose();
             _disposable.Dispose();
         }
     }

@@ -15,7 +15,7 @@ namespace Source.Scripts.Core.Repositories.Progress.Base
         ReadOnlyReactiveProperty<int> BestStreak { get; }
         ReadOnlyReactiveProperty<Dictionary<DateTime, DailyProgress>> ProgressHistory { get; }
         EnumArray<PracticeState, ReadOnlyReactiveProperty<int>> LearnedWordCounts { get; }
-        Observable<int> GoalAchievedObservable { get; }
+        Observable<int> OnGoalAchieved { get; }
         ReadOnlyReactiveProperty<bool> HasDailyTarget { get; }
         void IncrementDailyProgress(LearningState learningState, DateTime date);
         void ChangeDailyTarget(int valueToAdd);

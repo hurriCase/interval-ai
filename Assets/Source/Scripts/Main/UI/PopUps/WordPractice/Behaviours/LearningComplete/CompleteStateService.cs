@@ -36,7 +36,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
                     => self.CheckCompleteness(PracticeState.NewWords, hasTarget is false))
                 .AddTo(ref builder);
 
-            wordsTimerService.OnAvailabilityTimeUpdate
+            wordsTimerService.OnAvailabilityTimeUpdated
                 .Subscribe(this, static (cooldown, self)
                     => self.CheckCompleteness(PracticeState.Review, cooldown > DateTime.Now))
                 .AddTo(ref builder);

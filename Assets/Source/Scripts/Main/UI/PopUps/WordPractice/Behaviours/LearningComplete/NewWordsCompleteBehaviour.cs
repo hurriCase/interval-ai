@@ -33,7 +33,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
                 .SubscribeAndRegister(this, self => self.OpenCategorySelection());
             negativeButton.OnClickAsObservable().SubscribeAndRegister(this, self => self.TryContinueLearning());
 
-            _progressRepository.GoalAchievedObservable.SubscribeAndRegister(this,
+            _progressRepository.OnGoalAchieved.SubscribeAndRegister(this,
                 static (wordsCount, self) => self.SetState(CompleteType.Complete, wordsCount.ToString()));
         }
 
@@ -52,7 +52,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
 
             var selectionPopUp = windowsController.OpenPopUp<SelectionPopUp>();
             selectionPopUp.SetParameters(_categorySelectionService);
-            selectionPopUp.OnHidePopUp.SubscribeAndRegister(this, self => self.UpdateCurrentWord());
+            selectionPopUp.OnPopUpHidden.SubscribeAndRegister(this, self => self.UpdateCurrentWord());
         }
 
         private void TryContinueLearning()

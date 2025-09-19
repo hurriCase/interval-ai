@@ -50,7 +50,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice
                 .Select(_practiceState, (completeTypes, state) => completeTypes[state])
                 .SubscribeAndRegister(this, static (completeType, self) => self.SwitchState(completeType));
 
-            _swipeCardBehaviour.SwipeObservable
+            _swipeCardBehaviour.OnSwiped
                 .SubscribeAndRegister(this, static (direction, self) => self.HandleSwipe(direction));
         }
 

@@ -15,8 +15,8 @@ namespace Source.Scripts.Onboarding.UI.OnboardingPractice.Steps.Base
         [SerializeField] private string _localizationKey;
         [SerializeField] private float _messagePoxY;
 
-        internal Observable<Unit> SwitchObservable => switchSubject.AsObservable();
-        protected Subject<Unit> switchSubject = new();
+        internal Observable<Unit> OnSwitched => switched;
+        protected Subject<Unit> switched = new();
 
         protected IDisposable disposable;
         protected HintTextMapping hintTextMapping;
@@ -53,7 +53,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingPractice.Steps.Base
 
         public void Dispose()
         {
-            switchSubject.Dispose();
+            switched.Dispose();
             disposable.Dispose();
         }
     }

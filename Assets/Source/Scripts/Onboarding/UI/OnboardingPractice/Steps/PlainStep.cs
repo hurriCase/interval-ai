@@ -22,7 +22,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingPractice.Steps
             foreach (var buttonComponent in _switchButtons)
             {
                 buttonComponent.OnPointerClickAsObservable()
-                    .Subscribe(switchSubject, static (_, switchSubject) => switchSubject.OnNext(Unit.Default))
+                    .Subscribe(switched, static (_, switchSubject) => switchSubject.OnNext(Unit.Default))
                     .AddTo(ref builder);
             }
 

@@ -30,7 +30,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
 
             _learnButton.OnClickAsObservable().SubscribeAndRegister(this, static self => self.AddNewWords());
 
-            _wordsTimerService.OnAvailabilityTimeUpdate
+            _wordsTimerService.OnAvailabilityTimeUpdated
                 .SubscribeAndRegister(this, static (time, self) =>
                     self.SetState(CompleteType.Complete, time.ToShortTimeString()));
 

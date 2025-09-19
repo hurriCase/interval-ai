@@ -7,14 +7,14 @@ namespace Source.Scripts.Core.Input
 {
     internal sealed class SwipeInputService : ISwipeInputService, IDisposable
     {
-        public Observable<Unit> PointerPressed => _pointerPressedSubject.AsObservable();
-        public Observable<Unit> PointerReleased => _pointerReleasedSubject.AsObservable();
-        public Observable<Vector2> PointerPositionChangedSubject => _pointerPositionChangedSubject.AsObservable();
+        public Observable<Unit> OnPointerPressed => _pointerPressed.AsObservable();
+        public Observable<Unit> OnPointerReleased => _pointerReleased.AsObservable();
+        public Observable<Vector2> OnPointerPositionChanged => _pointerPositionChanged.AsObservable();
         public Vector2 CurrentPointerPosition => _inputActions.UI.PointerPosition.ReadValue<Vector2>();
 
-        private readonly Subject<Unit> _pointerPressedSubject = new();
-        private readonly Subject<Unit> _pointerReleasedSubject = new();
-        private readonly Subject<Vector2> _pointerPositionChangedSubject = new();
+        private readonly Subject<Unit> _pointerPressed = new();
+        private readonly Subject<Unit> _pointerReleased = new();
+        private readonly Subject<Vector2> _pointerPositionChanged = new();
 
         private readonly InputSystemUI _inputActions;
 
@@ -25,40 +25,40 @@ namespace Source.Scripts.Core.Input
         {
             _inputActions = inputActions;
 
-            _inputActions.UI.PointerPress.performed += OnPointerPressed;
-            _inputActions.UI.PointerPress.canceled += OnPointerReleased;
+            _inputActions.UI.PointerPress.performed += HandlePointerPressed;
+            _inputActions.UI.PointerPress.canceled += HandlePointerReleased;
 
             _disposable = Observable.EveryUpdate()
                 .Where(this, static (_, service) => service._isPointerPressed)
-                .Subscribe(this, static (_, service) => service.OnPointerPositionChanged());
+                .Subscribe(this, static (_, service) => service.HandlePointerPositionChanged());
 
             _inputActions.Enable();
         }
 
-        private void OnPointerPressed(InputAction.CallbackContext context)
+        private void HandlePointerPressed(InputAction.CallbackContext context)
         {
             _isPointerPressed = true;
-            _pointerPressedSubject.OnNext(Unit.Default);
+            _pointerPressed.OnNext(Unit.Default);
         }
 
-        private void OnPointerReleased(InputAction.CallbackContext context)
+        private void HandlePointerReleased(InputAction.CallbackContext context)
         {
             _isPointerPressed = false;
-            _pointerReleasedSubject.OnNext(Unit.Default);
+            _pointerReleased.OnNext(Unit.Default);
         }
 
-        private void OnPointerPositionChanged()
+        private void HandlePointerPositionChanged()
         {
             var newPosition = _inputActions.UI.PointerPosition.ReadValue<Vector2>();
-            _pointerPositionChangedSubject.OnNext(newPosition);
+            _pointerPositionChanged.OnNext(newPosition);
         }
 
         public void Dispose()
         {
             _disposable?.Dispose();
             _inputActions?.Dispose();
-            _pointerPressedSubject?.Dispose();
-            _pointerReleasedSubject?.Dispose();
+            _pointerPressed?.Dispose();
+            _pointerReleased?.Dispose();
         }
     }
 }

@@ -8,9 +8,9 @@ namespace Source.Scripts.Core.Repositories.Words
 {
     internal sealed class WordsTimerService : IWordsTimerService, IDisposable
     {
-        public Observable<DateTime> OnAvailabilityTimeUpdate => _availabilityTimeSubject.AsObservable();
+        public Observable<DateTime> OnAvailabilityTimeUpdated => _availabilityTimeUpdated;
+        private readonly Subject<DateTime> _availabilityTimeUpdated = new();
 
-        private readonly Subject<DateTime> _availabilityTimeSubject = new();
         private AdaptiveTimer? _stateTimers;
 
         private readonly ICurrentWordsService _currentWordsService;
@@ -43,8 +43,8 @@ namespace Source.Scripts.Core.Repositories.Words
 
             _stateTimers = new AdaptiveTimer(currentWord.Cooldown);
 
-            _stateTimers.Value.TimeUpdates.Subscribe(this,
-                static (currentTime, self) => self._availabilityTimeSubject.OnNext(currentTime),
+            _stateTimers.Value.OnTimeUpdated.Subscribe(this,
+                static (currentTime, self) => self._availabilityTimeUpdated.OnNext(currentTime),
                 static (_, self) => self._currentWordsService.UpdateCurrentWords());
         }
 
@@ -57,7 +57,7 @@ namespace Source.Scripts.Core.Repositories.Words
         public void Dispose()
         {
             _stateTimers?.Dispose();
-            _availabilityTimeSubject.Dispose();
+            _availabilityTimeUpdated.Dispose();
             _disposable.Dispose();
         }
     }

@@ -20,7 +20,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours
             _windowsController = windowsController;
         }
 
-        internal override void OnContinue()
+        internal override void HandleContinue()
         {
             var onboardingPracticePopUp = _windowsController.OpenPopUp<OnboardingPracticePopUp>();
             onboardingPracticePopUp.SwitchStep(_practiceState, _moduleType);

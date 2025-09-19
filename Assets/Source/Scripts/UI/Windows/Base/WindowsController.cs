@@ -96,7 +96,7 @@ namespace Source.Scripts.UI.Windows.Base
                 popUpBase.BaseInit();
                 popUpBase.Init();
                 popUpBase.HideImmediately();
-                popUpBase.OnHidePopUp.SubscribeAndRegister(this, static self => self.HandlePopUpHide());
+                popUpBase.OnPopUpHidden.SubscribeAndRegister(this, static self => self.HandlePopUpHide());
             }
         }
 

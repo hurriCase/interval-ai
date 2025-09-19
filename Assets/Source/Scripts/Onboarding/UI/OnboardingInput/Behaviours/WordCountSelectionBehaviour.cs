@@ -47,7 +47,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours
         private void SelectWordCount(int wordsGoal)
         {
             _practiceSettingsRepository.DailyGoal.Value = wordsGoal;
-            continueSubject.OnNext(Unit.Default);
+            @continue.OnNext(Unit.Default);
         }
     }
 }

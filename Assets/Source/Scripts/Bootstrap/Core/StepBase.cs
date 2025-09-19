@@ -8,8 +8,8 @@ namespace Source.Scripts.Bootstrap.Core
 {
     internal abstract class StepBase : ScriptableObject
     {
+        internal Observable<StepData> OnStepCompletedObservable => _stepCompletedSubject.AsObservable();
         private readonly Subject<StepData> _stepCompletedSubject = new();
-        internal Observable<StepData> OnStepCompleted => _stepCompletedSubject.AsObservable();
 
         protected const string InitializationStepsPath = "Initialization Steps/";
 

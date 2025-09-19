@@ -5,11 +5,11 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours
 {
     internal abstract class StepBehaviourBase : MonoBehaviour
     {
-        protected readonly Subject<Unit> continueSubject = new();
-        internal Observable<Unit> OnContinueSubject => continueSubject.AsObservable();
+        internal Observable<Unit> OnContinue => @continue;
+        protected readonly Subject<Unit> @continue = new();
 
         internal virtual void Init() { }
         internal virtual void UpdateView() { }
-        internal virtual void OnContinue() { }
+        internal virtual void HandleContinue() { }
     }
 }

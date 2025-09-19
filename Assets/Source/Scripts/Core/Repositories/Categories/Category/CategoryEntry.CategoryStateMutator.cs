@@ -14,7 +14,7 @@ namespace Source.Scripts.Core.Repositories.Categories.Category
         [Preserve]
         internal sealed class CategoryStateMutator : ICategoryStateMutator
         {
-            public Observable<CategoryEntry> CategoryNameChanged => _categoryNameChanged;
+            public Observable<CategoryEntry> OnCategoryNameChanged => _categoryNameChanged;
             private readonly Subject<CategoryEntry> _categoryNameChanged = new();
 
             private readonly IIdHandler<CategoryEntry> _idHandler;
@@ -53,12 +53,6 @@ namespace Source.Scripts.Core.Repositories.Categories.Category
             {
                 foreach (var wordEntry in categoryEntry.WordEntries)
                     _wordStateMutator.ResetWord(wordEntry);
-            }
-
-            public void SetSelected(CategoryEntry categoryEntry, bool isSelected)
-            {
-                categoryEntry.IsSelected = isSelected;
-                _categoryNameChanged.OnNext(categoryEntry);
             }
 
             private void SortWords(CategoryEntry categoryEntry)

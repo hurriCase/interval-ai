@@ -5,16 +5,16 @@ namespace Source.Scripts.Core.Repositories.Words.CooldownSystem
 {
     internal struct AdaptiveTimer : IDisposable
     {
-        private DateTime _targetTime;
-        private readonly Subject<DateTime> _timeSubject;
-        private IDisposable _currentTimer;
+        public readonly Observable<DateTime> OnTimeUpdated => _timeUpdated;
+        private readonly Subject<DateTime> _timeUpdated;
 
-        public readonly Observable<DateTime> TimeUpdates => _timeSubject.AsObservable();
+        private DateTime _targetTime;
+        private IDisposable _currentTimer;
 
         internal AdaptiveTimer(DateTime targetTime)
         {
             _targetTime = targetTime;
-            _timeSubject = new Subject<DateTime>();
+            _timeUpdated = new Subject<DateTime>();
             _currentTimer = null;
 
             ScheduleNextUpdate();
@@ -36,11 +36,11 @@ namespace Source.Scripts.Core.Repositories.Words.CooldownSystem
             var now = DateTime.Now;
             var timeRemaining = _targetTime - now;
 
-            _timeSubject.OnNext(now);
+            _timeUpdated.OnNext(now);
 
             if (timeRemaining.TotalSeconds <= 0)
             {
-                _timeSubject.OnCompleted();
+                _timeUpdated.OnCompleted();
                 return;
             }
 
@@ -64,7 +64,7 @@ namespace Source.Scripts.Core.Repositories.Words.CooldownSystem
         public readonly void Dispose()
         {
             _currentTimer?.Dispose();
-            _timeSubject?.Dispose();
+            _timeUpdated?.Dispose();
         }
     }
 }

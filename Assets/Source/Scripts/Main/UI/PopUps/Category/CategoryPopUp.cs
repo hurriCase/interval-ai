@@ -82,7 +82,7 @@ namespace Source.Scripts.Main.UI.PopUps.Category
                 self.OpenWarning(ModalLocalizationType.ResetProgress,
                     static self => self._categoryStateMutator.ResetWordsProgress(self._currentCategoryEntry)));
 
-            _categoryNameText.CurrentTextSubjectObservable
+            _categoryNameText.OnTextChanged
                 .SubscribeAndRegister(this, static (newName, self)
                     => self._categoryStateMutator.ChangeCategoryName(self._currentCategoryEntry, newName));
 

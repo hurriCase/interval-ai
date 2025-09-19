@@ -5,9 +5,9 @@ namespace Source.Scripts.Core.Input
 {
     internal interface ISwipeInputService
     {
-        Observable<Unit> PointerPressed { get; }
-        Observable<Unit> PointerReleased { get; }
-        Observable<Vector2> PointerPositionChangedSubject { get; }
+        Observable<Unit> OnPointerPressed { get; }
+        Observable<Unit> OnPointerReleased { get; }
+        Observable<Vector2> OnPointerPositionChanged { get; }
         Vector2 CurrentPointerPosition { get; }
     }
 }

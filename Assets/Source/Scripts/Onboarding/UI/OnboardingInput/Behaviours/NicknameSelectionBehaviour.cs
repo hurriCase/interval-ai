@@ -23,7 +23,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours
             _placeholderText.text = _userRepository.Nickname.CurrentValue;
         }
 
-        internal override void OnContinue()
+        internal override void HandleContinue()
         {
             _userRepository.SetNickname(_nicknameInputField.text);
         }

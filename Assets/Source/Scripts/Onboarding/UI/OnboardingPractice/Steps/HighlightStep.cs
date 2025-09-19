@@ -22,7 +22,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingPractice.Steps
         internal override void OnInit(CancellationToken cancellationToken)
         {
             disposable = _switchButton.OnPointerClickAsObservable()
-                .Subscribe(switchSubject, static (_, switchSubject) => switchSubject.OnNext(Unit.Default));
+                .Subscribe(switched, static (_, switchSubject) => switchSubject.OnNext(Unit.Default));
 
             disposable.RegisterTo(cancellationToken);
         }

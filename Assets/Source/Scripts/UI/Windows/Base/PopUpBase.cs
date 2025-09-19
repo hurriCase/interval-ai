@@ -17,9 +17,8 @@ namespace Source.Scripts.UI.Windows.Base
 
         [Inject] protected IAnimationsConfig animationsConfig;
 
-        internal Observable<Unit> OnHidePopUp => _onHidePopUpSubject.AsObservable();
-
-        private readonly Subject<Unit> _onHidePopUpSubject = new();
+        internal Observable<Unit> OnPopUpHidden => _popUpHidden;
+        private readonly Subject<Unit> _popUpHidden = new();
 
         internal override void BaseInit()
         {
@@ -43,12 +42,12 @@ namespace Source.Scripts.UI.Windows.Base
         {
             base.HideImmediately();
 
-            _onHidePopUpSubject.OnNext(Unit.Default);
+            _popUpHidden.OnNext(Unit.Default);
         }
 
         private void OnDestroy()
         {
-            _onHidePopUpSubject?.Dispose();
+            _popUpHidden?.Dispose();
         }
     }
 }

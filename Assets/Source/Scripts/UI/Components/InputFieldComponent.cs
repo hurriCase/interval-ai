@@ -10,8 +10,8 @@ namespace Source.Scripts.UI.Components
     {
         [field: SerializeField] internal ButtonComponent EditButton { get; private set; }
 
-        public Observable<string> CurrentTextSubjectObservable => _currentTextSubjectObservable;
-        private readonly Subject<string> _currentTextSubjectObservable = new();
+        public Observable<string> OnTextChanged => _textChanged;
+        private readonly Subject<string> _textChanged = new();
 
         private bool _editWasPressed;
 
@@ -42,7 +42,7 @@ namespace Source.Scripts.UI.Components
         {
             readOnly = true;
 
-            _currentTextSubjectObservable.OnNext(newText);
+            _textChanged.OnNext(newText);
         }
 
         protected override void OnDestroy()

@@ -29,7 +29,7 @@ namespace Source.Scripts.Main.UI.Screens.Settings.Behaviours
             _userRepository.Nickname
                 .SubscribeAndRegister(this, static (newName, self) => self._nicknameField.text = newName);
 
-            _nicknameField.CurrentTextSubjectObservable
+            _nicknameField.OnTextChanged
                 .SubscribeAndRegister(this, static (newName, self) => self._userRepository.SetNickname(newName));
         }
     }

@@ -5,7 +5,7 @@ namespace Source.Scripts.Core.Repositories.Words.Base
 {
     internal interface IWordsTimerService
     {
-        Observable<DateTime> OnAvailabilityTimeUpdate { get; }
+        Observable<DateTime> OnAvailabilityTimeUpdated { get; }
         void UpdateTimer();
     }
 }

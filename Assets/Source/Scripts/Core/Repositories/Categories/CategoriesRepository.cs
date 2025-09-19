@@ -21,8 +21,8 @@ namespace Source.Scripts.Core.Repositories.Categories
         public ReadOnlyReactiveProperty<Dictionary<int, CategoryEntry>> CategoryEntries => _categoryEntries.Property;
         private readonly PersistentReactiveProperty<Dictionary<int, CategoryEntry>> _categoryEntries = new();
 
-        public Observable<CategoryEntry> CategoryAdded => _categoryAdded;
-        public Observable<CategoryEntry> CategoryRemoved => _categoryRemoved;
+        public Observable<CategoryEntry> OnCategoryAdded => _categoryAdded;
+        public Observable<CategoryEntry> OnCategoryRemoved => _categoryRemoved;
 
         private readonly Subject<CategoryEntry> _categoryAdded = new();
         private readonly Subject<CategoryEntry> _categoryRemoved = new();

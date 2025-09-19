@@ -55,7 +55,7 @@ namespace Source.Scripts.Bootstrap.Core
             {
                 for (var i = 0; i < _stepsList.Count; i++)
                 {
-                    _stepsList[i].OnStepCompleted
+                    _stepsList[i].OnStepCompletedObservable
                         .Subscribe(this, static (stepData, self) => self.LogStepCompletion(stepData))
                         .RegisterTo(cancellationToken);
 

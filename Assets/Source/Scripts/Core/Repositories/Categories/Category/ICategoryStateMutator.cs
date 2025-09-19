@@ -5,7 +5,7 @@ namespace Source.Scripts.Core.Repositories.Categories.Category
 {
     internal interface ICategoryStateMutator
     {
-        Observable<CategoryEntry> CategoryNameChanged { get; }
+        Observable<CategoryEntry> OnCategoryNameChanged { get; }
         CategoryEntry CreateCategoryEntry(string name);
         void ChangeCategoryName(CategoryEntry categoryEntry, string name);
         void ChangeWordOrder(CategoryEntry categoryEntry, WordOrderType newOrderType);

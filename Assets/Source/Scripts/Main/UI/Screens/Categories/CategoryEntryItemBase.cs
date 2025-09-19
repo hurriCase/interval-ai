@@ -35,7 +35,7 @@ namespace Source.Scripts.Main.UI.Screens.Categories
             selectedCheckbox.OnValueChangedAsObservable()
                 .SubscribeAndRegister(this, static (isOn, self) => self.currentCategoryEntry.IsSelected = isOn);
 
-            categoryStateMutator.CategoryNameChanged
+            categoryStateMutator.OnCategoryNameChanged
                 .Select(categoryEntry, (currentCategory, changedCategory) => currentCategory == changedCategory)
                 .SubscribeAndRegister(this, static self => self.UpdateName());
 

@@ -61,7 +61,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingPractice
             foreach (var wordPracticeStepData in _practiceSteps)
             {
                 wordPracticeStepData.Init(_hintTextMapping, destroyCancellationToken);
-                wordPracticeStepData.SwitchObservable.SubscribeAndRegister(this, static self => self.SwitchStep());
+                wordPracticeStepData.OnSwitched.SubscribeAndRegister(this, static self => self.SwitchStep());
             }
         }
 
