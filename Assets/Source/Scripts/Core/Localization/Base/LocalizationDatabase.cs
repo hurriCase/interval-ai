@@ -1,4 +1,5 @@
 ﻿using CustomUtils.Runtime.CustomTypes.Collections;
+using CustomUtils.Runtime.Extensions;
 using Source.Scripts.Core.Localization.LocalizationTypes.Modal;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using UnityEngine;
@@ -15,5 +16,15 @@ namespace Source.Scripts.Core.Localization.Base
         [field: SerializeField]
         public EnumArray<ModalLocalizationType, ModalLocalizationData> ModalLocalizations { get; private set; } =
             new(EnumMode.SkipFirst);
+
+        public string GetLanguageName(SystemLanguage language)
+        {
+            // ReSharper disable once HeapView.BoxingAllocation . It's fine, because this is done for safety reason
+            var localization = Languages[language].IsValid() is false
+                ? language.ToString()
+                : Languages[language];
+
+            return localization;
+        }
     }
 }

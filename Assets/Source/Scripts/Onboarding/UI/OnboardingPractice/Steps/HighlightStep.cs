@@ -3,7 +3,6 @@ using System.Threading;
 using R3;
 using R3.Triggers;
 using Source.Scripts.Onboarding.UI.OnboardingPractice.Steps.Base;
-using Source.Scripts.UI.Components.Button;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,7 +13,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingPractice.Steps
     [Serializable]
     internal sealed class HighlightStep : PracticeStepBase
     {
-        [SerializeField] private ButtonComponent _switchButton;
+        [SerializeField] private Selectable _switchButton;
         [SerializeField] private Canvas _mainCanvas;
 
         private Canvas _highlightCanvas;
@@ -31,6 +30,9 @@ namespace Source.Scripts.Onboarding.UI.OnboardingPractice.Steps
         internal override void ActiveStep()
         {
             _highlightCanvas = _switchButton.gameObject.AddComponent<Canvas>();
+            _highlightCanvas.additionalShaderChannels |= AdditionalCanvasShaderChannels.TexCoord1 |
+                                                         AdditionalCanvasShaderChannels.TexCoord2 |
+                                                         AdditionalCanvasShaderChannels.TexCoord3;
             _highlightRaycaster = _switchButton.gameObject.AddComponent<GraphicRaycaster>();
             _highlightCanvas.overrideSorting = true;
             _highlightCanvas.renderMode = RenderMode.ScreenSpaceOverlay;

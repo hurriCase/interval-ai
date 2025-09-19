@@ -46,7 +46,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5706048296809235130, guid: a78d01d4fd337ca4294ed8335c2eab53, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 56
       objectReference: {fileID: 0}
     - target: {fileID: 5706048296809235130, guid: a78d01d4fd337ca4294ed8335c2eab53, type: 3}
       propertyPath: m_LocalPosition.x
@@ -96,86 +96,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5930851490303528513, guid: a78d01d4fd337ca4294ed8335c2eab53, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7628542446670175162, guid: a78d01d4fd337ca4294ed8335c2eab53, type: 3}
-      propertyPath: m_Name
-      value: P_Text_Langauge
-      objectReference: {fileID: 0}
+    - target: {fileID: 8037998400530399755, guid: a78d01d4fd337ca4294ed8335c2eab53, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 85749dafbcfea334caedeeb36ddd3796, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2511825703609826496, guid: a78d01d4fd337ca4294ed8335c2eab53, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1223175035288317596}
-    - targetCorrespondingSourceObject: {fileID: 2511825703609826496, guid: a78d01d4fd337ca4294ed8335c2eab53, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 9169152463923885154}
-    - targetCorrespondingSourceObject: {fileID: 2511825703609826496, guid: a78d01d4fd337ca4294ed8335c2eab53, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6535414805957658343}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a78d01d4fd337ca4294ed8335c2eab53, type: 3}
---- !u!114 &1810418670445930971 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2786619533092978800, guid: a78d01d4fd337ca4294ed8335c2eab53, type: 3}
-  m_PrefabInstance: {fileID: 4590269197569108395}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2118985030341350763}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af1e312ef8ab4916bd1e7b7352bdb5c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.ToggleComponent
---- !u!1 &2118985030341350763 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2511825703609826496, guid: a78d01d4fd337ca4294ed8335c2eab53, type: 3}
-  m_PrefabInstance: {fileID: 4590269197569108395}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1223175035288317596
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2118985030341350763}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44624438b1b946888fb9f9439b5d1c6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Source.Scripts.Onboarding::Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours.LanguageSelection.LanguageSelectionItem
-  <AccordionItem>k__BackingField: {fileID: 6535414805957658343}
-  <Checkbox>k__BackingField: {fileID: 1810418670445930971}
---- !u!225 &9169152463923885154
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2118985030341350763}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
---- !u!114 &6535414805957658343
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2118985030341350763}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17f8cbc65be449a1b21876dc6694102f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.Accordion.AccordionItem
-  <CanvasGroup>k__BackingField: {fileID: 9169152463923885154}
-  <RectTransform>k__BackingField: {fileID: 8114392731248208657}
---- !u!224 &8114392731248208657 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 5706048296809235130, guid: a78d01d4fd337ca4294ed8335c2eab53, type: 3}
-  m_PrefabInstance: {fileID: 4590269197569108395}
-  m_PrefabAsset: {fileID: 0}

@@ -13,8 +13,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingPractice.Steps.Base
         [field: SerializeField] internal bool IsTransition { get; private set; }
 
         [SerializeField] private string _localizationKey;
-        [SerializeField] private Vector2 _textAnchorMin;
-        [SerializeField] private Vector2 _textAnchorMax;
+        [SerializeField] private float _messagePoxY;
 
         internal Observable<Unit> SwitchObservable => switchSubject.AsObservable();
         protected Subject<Unit> switchSubject = new();
@@ -41,8 +40,10 @@ namespace Source.Scripts.Onboarding.UI.OnboardingPractice.Steps.Base
 
         internal void UpdateText(TextMeshProUGUI messageText)
         {
-            messageText.rectTransform.anchorMin = _textAnchorMin;
-            messageText.rectTransform.anchorMax = _textAnchorMax;
+            var vector2 = messageText.rectTransform.anchoredPosition;
+            vector2.y = _messagePoxY;
+            messageText.rectTransform.anchoredPosition = vector2;
+
             messageText.text = _localizationKey.GetLocalization();
 
             OnUpdateText(messageText);

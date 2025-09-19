@@ -10,5 +10,6 @@ namespace Source.Scripts.Core.Localization.Base
         EnumArray<SystemLanguage, string> Languages { get; }
         EnumArray<LanguageLevel, string> LanguageLevelKeys { get; }
         EnumArray<ModalLocalizationType, ModalLocalizationData> ModalLocalizations { get; }
+        string GetLanguageName(SystemLanguage language);
     }
 }

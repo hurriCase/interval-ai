@@ -11,11 +11,10 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Selectio
 {
     internal sealed class WordSelectionItem : UIBehaviour
     {
+        [SerializeField] private StateToggle _toggle;
+        [SerializeField] private float _incorrectBorderRatio;
         [SerializeField] private List<ToggleGraphicMapping> _correctMapping;
         [SerializeField] private List<ToggleGraphicMapping> _incorrectMapping;
-        [SerializeField] private float _incorrectBorderRatio;
-
-        [SerializeField] private StateToggle _toggle;
 
         private IPracticeSettingsRepository _practiceSettingsRepository;
 

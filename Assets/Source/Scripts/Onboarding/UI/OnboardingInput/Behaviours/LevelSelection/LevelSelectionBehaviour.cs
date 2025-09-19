@@ -16,8 +16,6 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours.LevelSelection
         [SerializeField] private ToggleGroup _selectionToggleGroup;
         [SerializeField] private ToggleComponent _selectionCheckbox;
         [SerializeField] private RectTransform _levelButtonsContainer;
-        [SerializeField] private AspectRatioFitter _aspectRatioFitter;
-        [SerializeField] private float _spacingRatio;
 
         private ILanguageSettingsRepository _languageSettingsRepository;
         private ILocalizationDatabase _localizationDatabase;
@@ -51,8 +49,6 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours.LevelSelection
                     selectionCheckbox.Image,
                     _spriteReferences.LevelLanguageIcons[levelType],
                     destroyCancellationToken);
-
-                _aspectRatioFitter.CreateHeightSpacing(_spacingRatio, _levelButtonsContainer);
             }
         }
     }

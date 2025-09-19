@@ -55,6 +55,12 @@ namespace Source.Scripts.Core.Repositories.Categories.Category
                     _wordStateMutator.ResetWord(wordEntry);
             }
 
+            public void SetSelected(CategoryEntry categoryEntry, bool isSelected)
+            {
+                categoryEntry.IsSelected = isSelected;
+                _categoryNameChanged.OnNext(categoryEntry);
+            }
+
             private void SortWords(CategoryEntry categoryEntry)
             {
                 var orderType = categoryEntry.WordOrderType;

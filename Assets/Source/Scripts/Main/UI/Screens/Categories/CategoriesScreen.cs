@@ -27,19 +27,16 @@ namespace Source.Scripts.Main.UI.Screens.Categories
         private readonly Queue<CategoryEntryItem> _cachedCategoryItems = new();
 
         private ICategoriesRepository _categoriesRepository;
-        private ICategoryStateMutator _categoryStateMutator;
         private IWindowsController _windowsController;
         private IObjectResolver _objectResolver;
 
         [Inject]
         internal void Inject(
             ICategoriesRepository categoriesRepository,
-            ICategoryStateMutator categoryStateMutator,
             IWindowsController windowsController,
             IObjectResolver objectResolver)
         {
             _categoriesRepository = categoriesRepository;
-            _categoryStateMutator = categoryStateMutator;
             _windowsController = windowsController;
             _objectResolver = objectResolver;
         }
@@ -57,9 +54,6 @@ namespace Source.Scripts.Main.UI.Screens.Categories
 
             _categoriesRepository.CategoryRemoved.SubscribeAndRegister(this,
                 static (entry, self) => self.RemoveCategory(entry));
-
-            _categoryStateMutator.CategoryNameChanged.SubscribeAndRegister(this,
-                static (entry, self) => self._createdCategoryItems[entry].UpdateName());
         }
 
         private void CreateCategory(CategoryEntry categoryEntry)
