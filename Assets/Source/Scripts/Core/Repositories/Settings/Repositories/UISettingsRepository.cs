@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Threading;
 using CustomUtils.Runtime.Storage;
-using CustomUtils.Runtime.UI.Theme.Base;
+using CustomUtils.Runtime.UI.Theme;
 using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.Repositories.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
@@ -48,8 +48,7 @@ namespace Source.Scripts.Core.Repositories.Settings.Repositories
 
             await UniTask.WhenAll(initTasks);
 
-            _disposable = ThemeType
-                .Subscribe(newTheme => ThemeHandler.Instance.CurrentThemeType.Value = newTheme);
+            _disposable = ThemeType.Subscribe(newTheme => ThemeHandler.CurrentThemeType.Value = newTheme);
         }
 
         public void Dispose()

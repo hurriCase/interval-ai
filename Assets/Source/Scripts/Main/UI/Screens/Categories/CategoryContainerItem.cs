@@ -1,4 +1,4 @@
-﻿using CustomUtils.Runtime.Extensions;
+﻿using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.Localization;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Repositories.Categories.Base;
@@ -28,7 +28,7 @@ namespace Source.Scripts.Main.UI.Screens.Categories
         {
             _currentCategoryType = categoryType;
 
-            LocalizationController.Language.SubscribeAndRegister(this, static self => self.UpdateTitleText());
+            LocalizationController.Language.SubscribeUntilDestroy(this, static self => self.UpdateTitleText());
         }
 
         private void UpdateTitleText()

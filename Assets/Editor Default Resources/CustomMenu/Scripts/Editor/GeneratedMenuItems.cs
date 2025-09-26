@@ -1,5 +1,5 @@
-using CustomUtils.Editor.CustomMenu.MenuItems.Helpers;
-using CustomUtils.Editor.CustomMenu.MenuItems.MenuItems.MethodExecution;
+using CustomUtils.Editor.Scripts.CustomMenu.MenuItems.Helpers;
+using CustomUtils.Editor.Scripts.CustomMenu.MenuItems.MenuItems.MethodExecution;
 using Cysharp.Threading.Tasks;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -95,20 +95,20 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
         }
 
         [MenuItem("References/Mappings/Progress Color Mapping", priority = 2)]
-        private static void SelectAssetMapping_ProgressColor()
+        private static void SelectAssetLearningState()
         {
-            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Scriptables/ColorMappings/Mapping_ProgressColor.asset");
+            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Scriptables/ColorMappings/Selectables/SolidColor/LearningState.asset");
             Selection.activeObject = asset;
         }
 
-        [MenuItem("GameObject/UI Custom/Text/Regular Text _&1", priority = 1)]
-        private static void CreateP_Text(MenuCommand menuCommand)
+        [MenuItem("GameObject/UI Custom/Image/Usual _&1", priority = 1)]
+        private static void CreateP_Image(MenuCommand menuCommand)
         {
-            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/CustomComponents/Text/P_Text_.prefab");
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/CustomComponents/Image/P_Image_.prefab");
 
             if (!prefab)
             {
-                Debug.LogError("[GeneratedMenuItems::CreateP_Text] Prefab not found at path: Assets/Source/Prefabs/UI/CustomComponents/Text/P_Text_.prefab");
+                Debug.LogError("[GeneratedMenuItems::CreateP_Image] Prefab not found at path: Assets/Source/Prefabs/UI/CustomComponents/Image/P_Image_.prefab");
                 return;
             }
 
@@ -116,7 +116,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
 
             if (!instance)
             {
-                Debug.LogError("[GeneratedMenuItems::CreateP_Text] Failed to instantiate prefab");
+                Debug.LogError("[GeneratedMenuItems::CreateP_Image] Failed to instantiate prefab");
                 return;
             }
 
@@ -139,45 +139,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             Selection.activeObject = instance;
         }
 
-        [MenuItem("GameObject/UI Custom/Text/Localized Text _&2", priority = 2)]
-        private static void CreateP_Text_Localized(MenuCommand menuCommand)
-        {
-            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/CustomComponents/Text/P_Text_Localized_.prefab");
-
-            if (!prefab)
-            {
-                Debug.LogError("[GeneratedMenuItems::CreateP_Text_Localized] Prefab not found at path: Assets/Source/Prefabs/UI/CustomComponents/Text/P_Text_Localized_.prefab");
-                return;
-            }
-
-            var instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
-
-            if (!instance)
-            {
-                Debug.LogError("[GeneratedMenuItems::CreateP_Text_Localized] Failed to instantiate prefab");
-                return;
-            }
-
-            var prefabStage = PrefabStageUtility.GetCurrentPrefabStage();
-            if (prefabStage)
-            {
-                var selectedInPrefab = Selection.activeGameObject;
-                if (selectedInPrefab && prefabStage.IsPartOfPrefabContents(selectedInPrefab))
-                    instance.transform.SetParent(selectedInPrefab.transform);
-                else
-                    instance.transform.SetParent(prefabStage.prefabContentsRoot.transform);
-
-                instance.transform.localPosition = Vector3.zero;
-            }
-            else
-                GameObjectUtility.SetParentAndAlign(instance, menuCommand.context as GameObject);
-
-            Undo.RegisterCreatedObjectUndo(instance, "Create " + instance.name);
-
-            Selection.activeObject = instance;
-        }
-
-        [MenuItem("GameObject/UI Custom/Image/Image Theme _&0", priority = 3)]
+        [MenuItem("GameObject/UI Custom/Image/Theme _&2", priority = 2)]
         private static void CreateP_Image_Theme(MenuCommand menuCommand)
         {
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/CustomComponents/Image/P_Image_Theme_.prefab");
@@ -215,14 +177,14 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             Selection.activeObject = instance;
         }
 
-        [MenuItem("GameObject/UI Custom/Image/Image Pixel Per Unit & Theme  _&9", priority = 4)]
-        private static void CreateP_Image_Pixel(MenuCommand menuCommand)
+        [MenuItem("GameObject/UI Custom/Image/Procedural Usual _&3", priority = 3)]
+        private static void CreateP_Image_1(MenuCommand menuCommand)
         {
-            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/CustomComponents/Image/P_Image_Pixel_.prefab");
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/CustomComponents/Image/Procedural/P_Image_.prefab");
 
             if (!prefab)
             {
-                Debug.LogError("[GeneratedMenuItems::CreateP_Image_Pixel] Prefab not found at path: Assets/Source/Prefabs/UI/CustomComponents/Image/P_Image_Pixel_.prefab");
+                Debug.LogError("[GeneratedMenuItems::CreateP_Image_1] Prefab not found at path: Assets/Source/Prefabs/UI/CustomComponents/Image/Procedural/P_Image_.prefab");
                 return;
             }
 
@@ -230,7 +192,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
 
             if (!instance)
             {
-                Debug.LogError("[GeneratedMenuItems::CreateP_Image_Pixel] Failed to instantiate prefab");
+                Debug.LogError("[GeneratedMenuItems::CreateP_Image_1] Failed to instantiate prefab");
                 return;
             }
 
@@ -253,14 +215,14 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             Selection.activeObject = instance;
         }
 
-        [MenuItem("GameObject/UI Custom/Image/Image Procedural", priority = 5)]
-        private static void CreateP_Image_Procedural_Base(MenuCommand menuCommand)
+        [MenuItem("GameObject/UI Custom/Image/Procedural Theme _&4", priority = 4)]
+        private static void CreateP_Image_Theme_1(MenuCommand menuCommand)
         {
-            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/CustomComponents/Image/P_Image_Procedural_Base.prefab");
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/CustomComponents/Image/Procedural/P_Image_Theme.prefab");
 
             if (!prefab)
             {
-                Debug.LogError("[GeneratedMenuItems::CreateP_Image_Procedural_Base] Prefab not found at path: Assets/Source/Prefabs/UI/CustomComponents/Image/P_Image_Procedural_Base.prefab");
+                Debug.LogError("[GeneratedMenuItems::CreateP_Image_Theme_1] Prefab not found at path: Assets/Source/Prefabs/UI/CustomComponents/Image/Procedural/P_Image_Theme.prefab");
                 return;
             }
 
@@ -268,7 +230,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
 
             if (!instance)
             {
-                Debug.LogError("[GeneratedMenuItems::CreateP_Image_Procedural_Base] Failed to instantiate prefab");
+                Debug.LogError("[GeneratedMenuItems::CreateP_Image_Theme_1] Failed to instantiate prefab");
                 return;
             }
 
@@ -291,14 +253,14 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             Selection.activeObject = instance;
         }
 
-        [MenuItem("GameObject/UI Custom/Scroll View Theme", priority = 6)]
-        private static void CreateP_ScrollView(MenuCommand menuCommand)
+        [MenuItem("GameObject/UI Custom/Image/Separator _&5", priority = 4)]
+        private static void CreateP_Image_Separator(MenuCommand menuCommand)
         {
-            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/CustomComponents/P_ScrollView.prefab");
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/CustomComponents/Image/P_Image_Separator.prefab");
 
             if (!prefab)
             {
-                Debug.LogError("[GeneratedMenuItems::CreateP_ScrollView] Prefab not found at path: Assets/Source/Prefabs/UI/CustomComponents/P_ScrollView.prefab");
+                Debug.LogError("[GeneratedMenuItems::CreateP_Image_Separator] Prefab not found at path: Assets/Source/Prefabs/UI/CustomComponents/Image/P_Image_Separator.prefab");
                 return;
             }
 
@@ -306,7 +268,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
 
             if (!instance)
             {
-                Debug.LogError("[GeneratedMenuItems::CreateP_ScrollView] Failed to instantiate prefab");
+                Debug.LogError("[GeneratedMenuItems::CreateP_Image_Separator] Failed to instantiate prefab");
                 return;
             }
 
@@ -329,14 +291,14 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             Selection.activeObject = instance;
         }
 
-        [MenuItem("GameObject/UI Custom/Separator Theme _#s", priority = 7)]
-        private static void CreateP_Separator(MenuCommand menuCommand)
+        [MenuItem("GameObject/UI Custom/Text/Theme Usual _#1", priority = 100)]
+        private static void CreateP_Text(MenuCommand menuCommand)
         {
-            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/CustomComponents/P_Separator.prefab");
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/CustomComponents/Text/Theme/P_Text_.prefab");
 
             if (!prefab)
             {
-                Debug.LogError("[GeneratedMenuItems::CreateP_Separator] Prefab not found at path: Assets/Source/Prefabs/UI/CustomComponents/P_Separator.prefab");
+                Debug.LogError("[GeneratedMenuItems::CreateP_Text] Prefab not found at path: Assets/Source/Prefabs/UI/CustomComponents/Text/Theme/P_Text_.prefab");
                 return;
             }
 
@@ -344,7 +306,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
 
             if (!instance)
             {
-                Debug.LogError("[GeneratedMenuItems::CreateP_Separator] Failed to instantiate prefab");
+                Debug.LogError("[GeneratedMenuItems::CreateP_Text] Failed to instantiate prefab");
                 return;
             }
 
@@ -367,14 +329,14 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             Selection.activeObject = instance;
         }
 
-        [MenuItem("GameObject/UI Custom/Layout/Vertical Layout Group _&h", priority = 8)]
-        private static void CreateP_VerticalLayout(MenuCommand menuCommand)
+        [MenuItem("GameObject/UI Custom/Text/Theme Localized _#2", priority = 101)]
+        private static void CreateP_Text_Localized(MenuCommand menuCommand)
         {
-            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/CustomComponents/LayoutGroup/P_VerticalLayout_.prefab");
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/CustomComponents/Text/Theme/P_Text_Localized_.prefab");
 
             if (!prefab)
             {
-                Debug.LogError("[GeneratedMenuItems::CreateP_VerticalLayout] Prefab not found at path: Assets/Source/Prefabs/UI/CustomComponents/LayoutGroup/P_VerticalLayout_.prefab");
+                Debug.LogError("[GeneratedMenuItems::CreateP_Text_Localized] Prefab not found at path: Assets/Source/Prefabs/UI/CustomComponents/Text/Theme/P_Text_Localized_.prefab");
                 return;
             }
 
@@ -382,7 +344,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
 
             if (!instance)
             {
-                Debug.LogError("[GeneratedMenuItems::CreateP_VerticalLayout] Failed to instantiate prefab");
+                Debug.LogError("[GeneratedMenuItems::CreateP_Text_Localized] Failed to instantiate prefab");
                 return;
             }
 
@@ -405,7 +367,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             Selection.activeObject = instance;
         }
 
-        [MenuItem("GameObject/UI Custom/Layout/Horizontal Layout Group _&v", priority = 9)]
+        [MenuItem("GameObject/UI Custom/Layout Group/Horizontal Layout", priority = 200)]
         private static void CreateP_HorizontalLayout(MenuCommand menuCommand)
         {
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/CustomComponents/LayoutGroup/P_HorizontalLayout_.prefab");
@@ -443,14 +405,90 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             Selection.activeObject = instance;
         }
 
-        [MenuItem("GameObject/UI Custom/Input Field", priority = 10)]
-        private static void CreateP_InputField(MenuCommand menuCommand)
+        [MenuItem("GameObject/UI Custom/Layout Group/Vertical Layout", priority = 201)]
+        private static void CreateP_VerticalLayout(MenuCommand menuCommand)
         {
-            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/CustomComponents/P_InputField_.prefab");
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/CustomComponents/LayoutGroup/P_VerticalLayout_.prefab");
 
             if (!prefab)
             {
-                Debug.LogError("[GeneratedMenuItems::CreateP_InputField] Prefab not found at path: Assets/Source/Prefabs/UI/CustomComponents/P_InputField_.prefab");
+                Debug.LogError("[GeneratedMenuItems::CreateP_VerticalLayout] Prefab not found at path: Assets/Source/Prefabs/UI/CustomComponents/LayoutGroup/P_VerticalLayout_.prefab");
+                return;
+            }
+
+            var instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
+
+            if (!instance)
+            {
+                Debug.LogError("[GeneratedMenuItems::CreateP_VerticalLayout] Failed to instantiate prefab");
+                return;
+            }
+
+            var prefabStage = PrefabStageUtility.GetCurrentPrefabStage();
+            if (prefabStage)
+            {
+                var selectedInPrefab = Selection.activeGameObject;
+                if (selectedInPrefab && prefabStage.IsPartOfPrefabContents(selectedInPrefab))
+                    instance.transform.SetParent(selectedInPrefab.transform);
+                else
+                    instance.transform.SetParent(prefabStage.prefabContentsRoot.transform);
+
+                instance.transform.localPosition = Vector3.zero;
+            }
+            else
+                GameObjectUtility.SetParentAndAlign(instance, menuCommand.context as GameObject);
+
+            Undo.RegisterCreatedObjectUndo(instance, "Create " + instance.name);
+
+            Selection.activeObject = instance;
+        }
+
+        [MenuItem("GameObject/UI Custom/Layout Group/Grid lLayout", priority = 202)]
+        private static void CreateP_GridLayout(MenuCommand menuCommand)
+        {
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/CustomComponents/LayoutGroup/P_GridLayout_.prefab");
+
+            if (!prefab)
+            {
+                Debug.LogError("[GeneratedMenuItems::CreateP_GridLayout] Prefab not found at path: Assets/Source/Prefabs/UI/CustomComponents/LayoutGroup/P_GridLayout_.prefab");
+                return;
+            }
+
+            var instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
+
+            if (!instance)
+            {
+                Debug.LogError("[GeneratedMenuItems::CreateP_GridLayout] Failed to instantiate prefab");
+                return;
+            }
+
+            var prefabStage = PrefabStageUtility.GetCurrentPrefabStage();
+            if (prefabStage)
+            {
+                var selectedInPrefab = Selection.activeGameObject;
+                if (selectedInPrefab && prefabStage.IsPartOfPrefabContents(selectedInPrefab))
+                    instance.transform.SetParent(selectedInPrefab.transform);
+                else
+                    instance.transform.SetParent(prefabStage.prefabContentsRoot.transform);
+
+                instance.transform.localPosition = Vector3.zero;
+            }
+            else
+                GameObjectUtility.SetParentAndAlign(instance, menuCommand.context as GameObject);
+
+            Undo.RegisterCreatedObjectUndo(instance, "Create " + instance.name);
+
+            Selection.activeObject = instance;
+        }
+
+        [MenuItem("GameObject/UI Custom/Input Field", priority = 300)]
+        private static void CreateP_InputField(MenuCommand menuCommand)
+        {
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/CustomComponents/P_InputField.prefab");
+
+            if (!prefab)
+            {
+                Debug.LogError("[GeneratedMenuItems::CreateP_InputField] Prefab not found at path: Assets/Source/Prefabs/UI/CustomComponents/P_InputField.prefab");
                 return;
             }
 
@@ -481,14 +519,14 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             Selection.activeObject = instance;
         }
 
-        [MenuItem("GameObject/UI Custom/Layout/Grid Layout Group", priority = 11)]
-        private static void CreateP_GridLayout(MenuCommand menuCommand)
+        [MenuItem("GameObject/UI Custom/Slider", priority = 301)]
+        private static void CreateP_Slider(MenuCommand menuCommand)
         {
-            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/CustomComponents/LayoutGroup/P_GridLayout_.prefab");
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Source/Prefabs/UI/CustomComponents/P_Slider.prefab");
 
             if (!prefab)
             {
-                Debug.LogError("[GeneratedMenuItems::CreateP_GridLayout] Prefab not found at path: Assets/Source/Prefabs/UI/CustomComponents/LayoutGroup/P_GridLayout_.prefab");
+                Debug.LogError("[GeneratedMenuItems::CreateP_Slider] Prefab not found at path: Assets/Source/Prefabs/UI/CustomComponents/P_Slider.prefab");
                 return;
             }
 
@@ -496,7 +534,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
 
             if (!instance)
             {
-                Debug.LogError("[GeneratedMenuItems::CreateP_GridLayout] Failed to instantiate prefab");
+                Debug.LogError("[GeneratedMenuItems::CreateP_Slider] Failed to instantiate prefab");
                 return;
             }
 

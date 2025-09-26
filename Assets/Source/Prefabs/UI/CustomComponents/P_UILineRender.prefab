@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 2585155037819736250}
   - component: {fileID: 2487232743113254180}
   - component: {fileID: 7617115351824636551}
+  - component: {fileID: 1647561542801483698}
+  - component: {fileID: 6949434958712286722}
   m_Layer: 5
   m_Name: P_UILineRender
   m_TagString: Untagged
@@ -66,3 +68,33 @@ MonoBehaviour:
   _drawPoints: 1
   _circleSegments: 50
   _points: []
+--- !u!114 &1647561542801483698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7009241839326940563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e5265c779e340c8b6f7d9850950b29b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.ThemeComponent
+  _colorData:
+    <ColorType>k__BackingField: 1
+    <ColorName>k__BackingField: None
+  _currentColorModifier: {fileID: 6949434958712286722}
+--- !u!114 &6949434958712286722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7009241839326940563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8840dbee5a42476db6edcdcd70e84c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.ColorModifiers.SolidColorModifier
+  currentColorName: None
+  _graphic: {fileID: 7617115351824636551}

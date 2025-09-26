@@ -1,5 +1,5 @@
 ﻿using System;
-using CustomUtils.Runtime.CustomBehaviours;
+using CustomUtils.Runtime.Attributes;
 using CustomUtils.Runtime.Extensions;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -8,9 +8,11 @@ namespace Source.Scripts.UI.Windows.Base
 {
     [Serializable]
     [RequireComponent(typeof(CanvasGroup))]
-    internal abstract class WindowBase : CanvasGroupBehaviour
+    internal abstract class WindowBase : MonoBehaviour
     {
         [field: SerializeField] internal bool InitialWindow { get; private set; }
+
+        [SerializeField, Self] protected CanvasGroup canvasGroup;
 
         internal virtual void BaseInit() { }
 
@@ -19,6 +21,6 @@ namespace Source.Scripts.UI.Windows.Base
         internal abstract UniTask ShowAsync();
         internal abstract UniTask HideAsync();
 
-        internal virtual void HideImmediately() => CanvasGroup.Hide();
+        internal virtual void HideImmediately() => canvasGroup.Hide();
     }
 }

@@ -1,5 +1,5 @@
 ﻿using CustomUtils.Runtime.AddressableSystem;
-using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Extensions.Observables;
 using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.Repositories.User.Base;
 using UnityEngine;
@@ -25,9 +25,12 @@ namespace Source.Scripts.Main.UI.Shared
         internal void Init()
         {
             _userRepository.UserIcon
-                .SubscribeAndRegister(this, static (cachedSprite, self)
-                    => self._addressablesLoader.AssignImageAsync(
-                        self._userIcon, cachedSprite, self.destroyCancellationToken).Forget());
+                .SubscribeUntilDestroy(this, static (cachedSprite, self) => self.UpdateIcon(cachedSprite));
+        }
+
+        private void UpdateIcon(CachedSprite cachedSprite)
+        {
+            _addressablesLoader.AssignImageAsync(_userIcon, cachedSprite, destroyCancellationToken).Forget();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using CustomUtils.Runtime.Extensions;
+﻿using CustomUtils.Runtime.Extensions.Observables;
 using R3;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Categories.Base;
@@ -30,10 +30,10 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
         protected override void OnInit()
         {
             positiveButton.OnClickAsObservable()
-                .SubscribeAndRegister(this, self => self.OpenCategorySelection());
-            negativeButton.OnClickAsObservable().SubscribeAndRegister(this, self => self.TryContinueLearning());
+                .SubscribeUntilDestroy(this, self => self.OpenCategorySelection());
+            negativeButton.OnClickAsObservable().SubscribeUntilDestroy(this, self => self.TryContinueLearning());
 
-            _progressRepository.OnGoalAchieved.SubscribeAndRegister(this,
+            _progressRepository.OnGoalAchieved.SubscribeUntilDestroy(this,
                 static (wordsCount, self) => self.SetState(CompleteType.Complete, wordsCount.ToString()));
         }
 
@@ -52,7 +52,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
 
             var selectionPopUp = windowsController.OpenPopUp<SelectionPopUp>();
             selectionPopUp.SetParameters(_categorySelectionService);
-            selectionPopUp.OnPopUpHidden.SubscribeAndRegister(this, self => self.UpdateCurrentWord());
+            selectionPopUp.OnPopUpHidden.SubscribeUntilDestroy(this, self => self.UpdateCurrentWord());
         }
 
         private void TryContinueLearning()

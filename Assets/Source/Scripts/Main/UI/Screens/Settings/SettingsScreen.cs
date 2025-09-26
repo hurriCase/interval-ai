@@ -1,4 +1,4 @@
-﻿using CustomUtils.Runtime.Extensions;
+﻿using CustomUtils.Runtime.Extensions.Observables;
 using R3;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.Screens.Settings.Behaviours;
@@ -29,7 +29,7 @@ namespace Source.Scripts.Main.UI.Screens.Settings
             foreach (var button in _settingsButtons)
             {
                 button.OnClickAsObservable()
-                    .SubscribeAndRegister(this,
+                    .SubscribeUntilDestroy(this,
                         static self => self._windowsController.OpenPopUpByType(PopUpType.Settings));
             }
         }

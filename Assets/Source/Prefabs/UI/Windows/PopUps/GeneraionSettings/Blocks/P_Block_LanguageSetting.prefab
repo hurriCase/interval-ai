@@ -177,6 +177,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1957747629056582313, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+      propertyPath: currentColorName
+      value: TextPrimary
+      objectReference: {fileID: 0}
     - target: {fileID: 4566821120556776672, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
       propertyPath: m_Name
       value: P_Text_Translate
@@ -217,11 +221,26 @@ PrefabInstance:
       propertyPath: <LocalizationKey>k__BackingField
       value: ui.generation.translate-from
       objectReference: {fileID: 0}
+    - target: {fileID: 9186071019390123412, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+      propertyPath: _currentColorModifier
+      value: 
+      objectReference: {fileID: 3544191348934189933}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+--- !u!114 &3544191348934189933 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1957747629056582313, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+  m_PrefabInstance: {fileID: 3027595811786310084}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8840dbee5a42476db6edcdcd70e84c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.ColorModifiers.SolidColorModifier
 --- !u!224 &4310103514995610410 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1284860795548734190, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
@@ -492,9 +511,17 @@ PrefabInstance:
       propertyPath: <BorderRatio>k__BackingField.value
       value: 0.02631579
       objectReference: {fileID: 0}
+    - target: {fileID: 357119559660804034, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
+      propertyPath: <BorderWidth>k__BackingField.value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1060531022162930841, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
       propertyPath: m_Name
       value: P_Image_Procedural
+      objectReference: {fileID: 0}
+    - target: {fileID: 1240284901445995996, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
+      propertyPath: currentColorName
+      value: Primary
       objectReference: {fileID: 0}
     - target: {fileID: 3874249658811506409, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
       propertyPath: m_Pivot.x
@@ -576,6 +603,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5450591052864157539, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
+      propertyPath: _currentColorModifier
+      value: 
+      objectReference: {fileID: 8963621890480878657}
+    - target: {fileID: 5450591052864157539, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
+      propertyPath: _colorData.<ColorName>k__BackingField
+      value: Primary
+      objectReference: {fileID: 0}
     - target: {fileID: 5520780965205886792, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
       propertyPath: <ThemeSolidColorName>k__BackingField
       value: Base_Main
@@ -602,17 +637,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3874249658811506409, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
   m_PrefabInstance: {fileID: 7877726028825573789}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7613317909637639775 stripped
+--- !u!114 &8963621890480878657 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 357119559660804034, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
+  m_CorrespondingSourceObject: {fileID: 1240284901445995996, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
   m_PrefabInstance: {fileID: 7877726028825573789}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41f1c5417c9d7ab4b84e531f83f60a4b, type: 3}
+  m_Script: {fileID: 11500000, guid: 8840dbee5a42476db6edcdcd70e84c6c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UnityEngine.UI.ProceduralImage.ProceduralImage
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.ColorModifiers.SolidColorModifier
 --- !u!1001 &8474725839611767056
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -859,4 +894,3 @@ MonoBehaviour:
             _updateType: 0
       <EnumMode>k__BackingField: 0
     _target: {fileID: 6383667326182254452}
-  _selectedImage: {fileID: 7613317909637639775}

@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 using CustomUtils.Runtime.Storage;
-using CustomUtils.Runtime.UI.Theme.Base;
+using CustomUtils.Runtime.UI.Theme;
 
 namespace Source.Scripts.Core.Repositories.Settings.Base
 {

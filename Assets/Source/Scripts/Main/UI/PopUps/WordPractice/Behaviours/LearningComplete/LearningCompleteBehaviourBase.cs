@@ -1,4 +1,5 @@
 ﻿using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.Localization;
 using Cysharp.Text;
 using R3;
@@ -41,11 +42,11 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
 
             _plusMinusBehaviour.Init();
 
-            LocalizationController.Language.SubscribeAndRegister(this, static self => self.UpdateButtonTexts());
+            LocalizationController.Language.SubscribeUntilDestroy(this, static self => self.UpdateButtonTexts());
 
             _completeStateService.CompleteStates
                 .Select(_currentPracticeState, (completeTypes, state) => completeTypes[state])
-                .SubscribeAndRegister(this, static (completeType, self) => self.CheckCompleteness(completeType));
+                .SubscribeUntilDestroy(this, static (completeType, self) => self.CheckCompleteness(completeType));
 
             OnInit();
         }

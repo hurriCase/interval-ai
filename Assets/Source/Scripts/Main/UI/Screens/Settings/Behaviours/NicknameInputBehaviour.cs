@@ -1,4 +1,4 @@
-﻿using CustomUtils.Runtime.Extensions;
+﻿using CustomUtils.Runtime.Extensions.Observables;
 using Source.Scripts.Core.Repositories.User.Base;
 using Source.Scripts.Main.UI.Shared;
 using Source.Scripts.UI.Components;
@@ -27,10 +27,10 @@ namespace Source.Scripts.Main.UI.Screens.Settings.Behaviours
             _userIconBehaviour.Init();
 
             _userRepository.Nickname
-                .SubscribeAndRegister(this, static (newName, self) => self._nicknameField.text = newName);
+                .SubscribeUntilDestroy(this, static (newName, self) => self._nicknameField.text = newName);
 
             _nicknameField.OnTextChanged
-                .SubscribeAndRegister(this, static (newName, self) => self._userRepository.SetNickname(newName));
+                .SubscribeUntilDestroy(this, static (newName, self) => self._userRepository.SetNickname(newName));
         }
     }
 }

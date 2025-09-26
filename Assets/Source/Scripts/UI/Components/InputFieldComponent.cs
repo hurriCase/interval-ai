@@ -1,4 +1,4 @@
-﻿using CustomUtils.Runtime.Extensions;
+﻿using CustomUtils.Runtime.Extensions.Observables;
 using R3;
 using Source.Scripts.UI.Components.Button;
 using TMPro;
@@ -20,7 +20,7 @@ namespace Source.Scripts.UI.Components
             base.Start();
 
             if (EditButton)
-                EditButton.OnClickAsObservable().SubscribeAndRegister(this, static self => self.SwitchEditingState());
+                EditButton.OnClickAsObservable().SubscribeUntilDestroy(this, static self => self.SwitchEditingState());
 
             onEndEdit.AddListener(FinishEditing);
         }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CustomUtils.Runtime.CustomTypes.Collections;
-using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.Localization;
 using R3;
 using Source.Scripts.Core.Localization.Base;
@@ -29,7 +29,7 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
 
         [SerializeField] private ProgressColorMapping _progressColorMapping;
 
-        [SerializeField] private EnumArray<LearningState, UILineRenderer> _graphLines = new(EnumMode.SkipFirst);
+        [SerializeField] private EnumArray<LearningState, ThemeLineRenderer> _graphLines = new(EnumMode.SkipFirst);
 
         private readonly Dictionary<LearningState, List<GraphProgressData>> _cashedAllProgressData = new();
         private readonly List<Vector2> _cashedNormalizedPoints = new();
@@ -59,9 +59,9 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
                 var createdGraphType = Instantiate(_graphTypeToggle, _graphButtonsContainer);
                 createdGraphType.group = _graphButtonsGroup;
                 createdGraphType.OnValueChangedAsObservable()
-                    .SubscribeAndRegister(this, dateRange, static (dateRange, self) => self.UpdateGraph(dateRange));
+                    .SubscribeUntilDestroy(this, dateRange, static (dateRange, self) => self.UpdateGraph(dateRange));
 
-                LocalizationController.Language.SubscribeAndRegister(this, (dateRange, createdGraphType.Text),
+                LocalizationController.Language.SubscribeUntilDestroy(this, (dateRange, createdGraphType.Text),
                     static (tuple, self) => self.UpdateLocalization(tuple.dateRange, tuple.Text));
             }
         }
@@ -79,16 +79,16 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
             var maxProgress = GenerateAllGraphPoints(progressRange);
             _maxProgressText.text = maxProgress.ToString();
 
-            foreach (var (learningState, uiLineRenderer) in _graphLines.AsTuples())
+            foreach (var (learningState, themeLineRenderer) in _graphLines.AsTuples())
             {
-                uiLineRenderer.color = _progressColorMapping.GetColorForState(learningState);
+                _progressColorMapping.SetComponentForState(learningState, themeLineRenderer.ThemeComponent);
 
                 var normalizedPoints = NormalizePoints(
                     _cashedAllProgressData[learningState],
                     maxProgress,
                     _progressGraphSettings.GraphPointsCount);
 
-                uiLineRenderer.SetPoints(normalizedPoints);
+                themeLineRenderer.LineRenderer.SetPoints(normalizedPoints);
             }
         }
 

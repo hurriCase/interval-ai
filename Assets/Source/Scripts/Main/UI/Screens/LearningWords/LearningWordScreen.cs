@@ -1,4 +1,4 @@
-﻿using CustomUtils.Runtime.Extensions;
+﻿using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.Localization;
 using Cysharp.Text;
 using Source.Scripts.Core.Localization.Base;
@@ -43,8 +43,8 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords
             _achievementsBehaviour.Init();
             _userIconBehaviour.Init();
 
-            _userRepository.Nickname.SubscribeAndRegister(this, static self => self.UpdateUserWelcome());
-            LocalizationController.Language.SubscribeAndRegister(this, static self => self.UpdateUserWelcome());
+            _userRepository.Nickname.SubscribeUntilDestroy(this, static self => self.UpdateUserWelcome());
+            LocalizationController.Language.SubscribeUntilDestroy(this, static self => self.UpdateUserWelcome());
         }
 
         private void UpdateUserWelcome()

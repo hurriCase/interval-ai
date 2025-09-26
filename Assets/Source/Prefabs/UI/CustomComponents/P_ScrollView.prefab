@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6805944274762083972}
-  - component: {fileID: 8149122368488106585}
+  - component: {fileID: 8536117540519068165}
   - component: {fileID: 3778495692188999877}
   m_Layer: 5
   m_Name: Content
@@ -37,7 +37,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
---- !u!114 &8149122368488106585
+--- !u!114 &8536117540519068165
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -46,24 +46,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 667359449071300230}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 890bede2165f49698a9993bb017ba1c0, type: 3}
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.HorizontalVerticalLayout.HorizontalVerticalLayoutGroup
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.VerticalLayoutGroup
   m_Padding:
     m_Left: 0
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 4
-  <Spacing>k__BackingField: 0
-  <Direction>k__BackingField: 1
-  <ReverseArrangement>k__BackingField: 0
-  <ChildForceExpandWidth>k__BackingField: 1
-  <ChildForceExpandHeight>k__BackingField: 0
-  <ChildControlWidth>k__BackingField: 1
-  <ChildControlHeight>k__BackingField: 0
-  <ChildScaleWidth>k__BackingField: 0
-  <ChildScaleHeight>k__BackingField: 0
+  m_ChildAlignment: 1
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!114 &3778495692188999877
 MonoBehaviour:
   m_ObjectHideFlags: 0

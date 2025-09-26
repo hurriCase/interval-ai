@@ -1,4 +1,4 @@
-﻿using CustomUtils.Runtime.Extensions;
+﻿using CustomUtils.Runtime.Extensions.Observables;
 using R3;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base;
@@ -20,7 +20,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules
         {
             base.Init(cardBehaviour);
 
-            _hintButton.OnClickAsObservable().SubscribeAndRegister(this, self => self.AddHintCharacter());
+            _hintButton.OnClickAsObservable().SubscribeUntilDestroy(this, self => self.AddHintCharacter());
         }
 
         private void AddHintCharacter()

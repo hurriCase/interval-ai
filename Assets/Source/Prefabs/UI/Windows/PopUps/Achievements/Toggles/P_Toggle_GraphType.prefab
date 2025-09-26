@@ -128,6 +128,10 @@ PrefabInstance:
       propertyPath: <BorderRatio>k__BackingField.value
       value: 0.02941176
       objectReference: {fileID: 0}
+    - target: {fileID: 3255720388982018935, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
+      propertyPath: <BorderWidth>k__BackingField.value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3510210791817278697, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
       propertyPath: m_Name
       value: P_Text_Type
@@ -168,9 +172,17 @@ PrefabInstance:
       propertyPath: m_HorizontalAlignment
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7097243681216525270, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
+      propertyPath: _colorData.<ColorName>k__BackingField
+      value: Primary
+      objectReference: {fileID: 0}
     - target: {fileID: 7298042655143740413, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
       propertyPath: <ThemeSolidColorName>k__BackingField
       value: Base_Main
+      objectReference: {fileID: 0}
+    - target: {fileID: 8119189060624938397, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
+      propertyPath: _colorData.<ColorName>k__BackingField
+      value: TextSecondary
       objectReference: {fileID: 0}
     - target: {fileID: 8913482220817798035, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
       propertyPath: m_Name
@@ -197,9 +209,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1887123071903402594}
     - target: {fileID: 9206711422655737635, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
+      propertyPath: <AdditionalGraphics>k__BackingField.Array.data[0]._themeComponent
+      value: 
+      objectReference: {fileID: 2698987859615389508}
+    - target: {fileID: 9206711422655737635, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
       propertyPath: <AdditionalGraphics>k__BackingField.Array.data[0]._transitionType
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9206711422655737635, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
+      propertyPath: <AdditionalGraphics>k__BackingField.Array.data[1]._themeComponent
+      value: 
+      objectReference: {fileID: 4010426606143475983}
     - target: {fileID: 9206711422655737635, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
       propertyPath: <AdditionalGraphics>k__BackingField.Array.data[1]._transitionType
       value: 1
@@ -232,6 +252,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2698987859615389508 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7097243681216525270, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
+  m_PrefabInstance: {fileID: 5119117982902805650}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6946551595670293694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e5265c779e340c8b6f7d9850950b29b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.Base.ThemeComponent
+--- !u!114 &4010426606143475983 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8119189060624938397, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
+  m_PrefabInstance: {fileID: 5119117982902805650}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8627776143908311163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e5265c779e340c8b6f7d9850950b29b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.Base.ThemeComponent
 --- !u!1 &4375755511881447169 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8913482220817798035, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}

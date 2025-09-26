@@ -1,4 +1,5 @@
 ﻿using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Extensions.Observables;
 using Cysharp.Text;
 using R3;
 using Source.Scripts.Core.Localization.Base;
@@ -48,7 +49,7 @@ namespace Source.Scripts.Main.UI.Screens.Generation.Behaviours
             _generationSettingsRepository.IsHighlightNewWords
                 .SubscribeAndRegister(this, static (percent, self) => self.SetIsHighlightText(percent));
 
-            _changeSettingsButton.OnClickAsObservable().SubscribeAndRegister(this,
+            _changeSettingsButton.OnClickAsObservable().SubscribeUntilDestroy(this,
                 static self => self._windowsController.OpenPopUpByType(PopUpType.GenerationSettings));
         }
 

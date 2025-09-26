@@ -1,5 +1,6 @@
 ﻿using CustomUtils.Runtime.AddressableSystem;
 using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Extensions.Observables;
 using R3.Triggers;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.References.Base;
@@ -42,7 +43,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours.LevelSelection
                 var selectionCheckbox = Instantiate(_selectionCheckbox, _levelButtonsContainer);
                 selectionCheckbox.Text.text = levelLocalizationKey.GetLocalization();
                 selectionCheckbox.group = _selectionToggleGroup;
-                selectionCheckbox.OnPointerClickAsObservable().SubscribeAndRegister(this, levelType,
+                selectionCheckbox.OnPointerClickAsObservable().SubscribeUntilDestroy(this, levelType,
                     static (levelType, self) => self._languageSettingsRepository.LanguageLevel.Value = levelType);
 
                 _addressablesLoader.AssignImageAsync(

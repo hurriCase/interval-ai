@@ -1,4 +1,4 @@
-﻿using CustomUtils.Runtime.Extensions;
+﻿using CustomUtils.Runtime.Extensions.Observables;
 using R3.Triggers;
 using Source.Scripts.Main.UI.Screens.Categories;
 
@@ -8,7 +8,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours.CategorySelect
     {
         protected override void OnInit()
         {
-            categoryOpenArea.OnPointerClickAsObservable().SubscribeAndRegister(this,
+            categoryOpenArea.OnPointerClickAsObservable().SubscribeUntilDestroy(this,
                 static self => self.selectedCheckbox.isOn = self.selectedCheckbox.isOn is false);
         }
     }

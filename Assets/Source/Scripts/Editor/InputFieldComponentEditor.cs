@@ -1,4 +1,4 @@
-﻿using CustomUtils.Editor.CustomEditorUtilities;
+﻿using CustomUtils.Editor.Scripts.CustomEditorUtilities;
 using Source.Scripts.UI.Components;
 using TMPro.EditorUtilities;
 using UnityEditor;

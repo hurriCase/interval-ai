@@ -138,7 +138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.PopUps.Achievement.LearningStarts.ProgressDescriptionItem
   <DescriptionText>k__BackingField: {fileID: 4387270512555807967}
-  <StateIndicatorImage>k__BackingField: {fileID: 1377987916369019370}
+  <StateIndicatorImage>k__BackingField: {fileID: 1451911784154984897}
 --- !u!1001 &6243214303274123828
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -150,6 +150,10 @@ PrefabInstance:
     - target: {fileID: 561403775900978418, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_Name
       value: P_Text_CurrentProgress
+      objectReference: {fileID: 0}
+    - target: {fileID: 2558408827752567483, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+      propertyPath: currentColorName
+      value: TextPrimary
       objectReference: {fileID: 0}
     - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_Pivot.x
@@ -231,6 +235,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5175023766961360262, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+      propertyPath: _currentColorModifier
+      value: 
+      objectReference: {fileID: 8441171848453984399}
     - target: {fileID: 7658068928977278699, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_text
       value: 'Learned: 234'
@@ -275,6 +283,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8441171848453984399 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2558408827752567483, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+  m_PrefabInstance: {fileID: 6243214303274123828}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8840dbee5a42476db6edcdcd70e84c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.ColorModifiers.SolidColorModifier
 --- !u!224 &9212955384864923848 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
@@ -290,7 +309,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1060531022162930841, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
       propertyPath: m_Name
-      value: P_Image_Procedural
+      value: P_Image_StateIndicator
+      objectReference: {fileID: 0}
+    - target: {fileID: 1240284901445995996, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
+      propertyPath: currentColorName
+      value: None
       objectReference: {fileID: 0}
     - target: {fileID: 3874249658811506409, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
       propertyPath: m_Pivot.x
@@ -372,6 +395,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5450591052864157539, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
+      propertyPath: _currentColorModifier
+      value: 
+      objectReference: {fileID: 5671220743193037694}
     m_RemovedComponents:
     - {fileID: 7956387767605122308, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
     m_RemovedGameObjects: []
@@ -381,17 +408,28 @@ PrefabInstance:
       insertIndex: 3
       addedObject: {fileID: 2547297769133151473}
   m_SourcePrefab: {fileID: 100100000, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
---- !u!114 &1377987916369019370 stripped
+--- !u!114 &1451911784154984897 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5520780965205886792, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5450591052864157539, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
   m_PrefabInstance: {fileID: 6882161845002634914}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5851753597488638523}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0ba274b51e6439db0f68474a1ce65bc, type: 3}
+  m_Script: {fileID: 11500000, guid: 2e5265c779e340c8b6f7d9850950b29b, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.Components.ImageThemeComponent
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.Base.ThemeComponent
+--- !u!114 &5671220743193037694 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1240284901445995996, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
+  m_PrefabInstance: {fileID: 6882161845002634914}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5851753597488638523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8840dbee5a42476db6edcdcd70e84c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.ColorModifiers.SolidColorModifier
 --- !u!1 &5851753597488638523 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1060531022162930841, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}

@@ -1,5 +1,6 @@
 ﻿using System;
 using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.Localization;
 using CustomUtils.Runtime.UI.CustomComponents;
 using Cysharp.Text;
@@ -41,9 +42,9 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.Progress
         {
             _progressRepository.ProgressHistory
                 .DistinctUntilChangedBy(progress => progress)
-                .SubscribeAndRegister(this, static self => self.UpdateProgress());
+                .SubscribeUntilDestroy(this, static self => self.UpdateProgress());
 
-            LocalizationController.Language.SubscribeAndRegister(this, static self => self.UpdateProgress());
+            LocalizationController.Language.SubscribeUntilDestroy(this, static self => self.UpdateProgress());
         }
 
         private void UpdateProgress()

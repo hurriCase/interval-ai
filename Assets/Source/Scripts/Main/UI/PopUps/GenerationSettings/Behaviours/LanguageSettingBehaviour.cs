@@ -1,5 +1,5 @@
 ﻿using CustomUtils.Runtime.CustomTypes.Collections;
-using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Extensions.Observables;
 using R3.Triggers;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.UI.Components.Animation;
@@ -19,7 +19,7 @@ namespace Source.Scripts.Main.UI.PopUps.GenerationSettings.Behaviours
             {
                 languageToggle.Init(languageType);
                 languageToggle.OnPointerClickAsObservable()
-                    .SubscribeAndRegister(this, languageType, static (languageType, self)
+                    .SubscribeUntilDestroy(this, languageType, static (languageType, self)
                         => self.PositionAnimation.PlayAnimation(languageType));
             }
         }

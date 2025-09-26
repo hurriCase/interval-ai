@@ -1,4 +1,4 @@
-﻿using CustomUtils.Runtime.Extensions;
+﻿using CustomUtils.Runtime.Extensions.Observables;
 using R3;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.UI.Components.Button;
@@ -25,17 +25,17 @@ namespace Source.Scripts.Main.UI.Shared
 
         internal void Init()
         {
-            _progressRepository.NewWordsDailyTarget.SubscribeAndRegister(this,
+            _progressRepository.NewWordsDailyTarget.SubscribeUntilDestroy(this,
                 static (wordsTarget, behaviour) => behaviour._dailyWordGoalText.text = wordsTarget.ToString());
 
             _progressRepository.HasDailyTarget
-                .SubscribeAndRegister(this, static (canReduce, self) => self._minusButton.interactable = canReduce);
+                .SubscribeUntilDestroy(this, static (canReduce, self) => self._minusButton.interactable = canReduce);
 
             _minusButton.OnClickAsObservable()
-                .SubscribeAndRegister(this, static self => self._progressRepository.ChangeDailyTarget(-1));
+                .SubscribeUntilDestroy(this, static self => self._progressRepository.ChangeDailyTarget(-1));
 
             _plusButton.OnClickAsObservable()
-                .SubscribeAndRegister(this, static self => self._progressRepository.ChangeDailyTarget(+1));
+                .SubscribeUntilDestroy(this, static self => self._progressRepository.ChangeDailyTarget(+1));
         }
     }
 }

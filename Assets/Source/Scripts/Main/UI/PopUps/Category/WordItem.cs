@@ -1,4 +1,4 @@
-﻿using CustomUtils.Runtime.Extensions;
+﻿using CustomUtils.Runtime.Extensions.Observables;
 using Cysharp.Text;
 using R3;
 using Source.Scripts.Core.Repositories.Words.Word;
@@ -33,7 +33,7 @@ namespace Source.Scripts.Main.UI.PopUps.Category
         {
             _wordProgressBehaviour.Init();
 
-            _wordInfoButton.OnClickAsObservable().SubscribeAndRegister(this, static self => self.OpenWordInfo());
+            _wordInfoButton.OnClickAsObservable().SubscribeUntilDestroy(this, static self => self.OpenWordInfo());
         }
 
         internal void UpdateView(WordEntry wordEntry)

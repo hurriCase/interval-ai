@@ -7,13 +7,13 @@ namespace Source.Scripts.UI.Windows.Base
     {
         internal override UniTask ShowAsync()
         {
-            CanvasGroup.Show();
+            canvasGroup.Show();
             return UniTask.CompletedTask;
         }
 
         internal override UniTask HideAsync()
         {
-            CanvasGroup.Hide();
+            canvasGroup.Hide();
             return UniTask.CompletedTask;
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.Scenes.Base;
 using R3;
 using Source.Scripts.Core.References.Base;
@@ -42,12 +43,12 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput
             {
                 inputOnboardingStep.SetActive(false);
                 inputOnboardingStep.Init();
-                inputOnboardingStep.OnContinue.SubscribeAndRegister(this, static self => self.SwitchModule());
+                inputOnboardingStep.OnContinue.SubscribeUntilDestroy(this, static self => self.SwitchModule());
             }
 
             SwitchSettingsStep(_currentStepIndex, true);
 
-            _continueButton.OnClickAsObservable().SubscribeAndRegister(this, static self => self.SwitchModule());
+            _continueButton.OnClickAsObservable().SubscribeUntilDestroy(this, static self => self.SwitchModule());
         }
 
         private void SwitchModule()

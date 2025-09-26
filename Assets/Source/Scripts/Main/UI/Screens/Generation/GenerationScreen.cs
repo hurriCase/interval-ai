@@ -1,4 +1,4 @@
-﻿using CustomUtils.Runtime.Extensions;
+﻿using CustomUtils.Runtime.Extensions.Observables;
 using R3;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.Screens.Generation.Behaviours;
@@ -32,7 +32,7 @@ namespace Source.Scripts.Main.UI.Screens.Generation
             _categoryPreviewBehaviour.Init();
             _currentSettingsBehaviour.Init();
 
-            _chatButton.OnClickAsObservable().SubscribeAndRegister(this, self => self.OpenChatPopUp());
+            _chatButton.OnClickAsObservable().SubscribeUntilDestroy(this, self => self.OpenChatPopUp());
         }
 
         private void OpenChatPopUp()

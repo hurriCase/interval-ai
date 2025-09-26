@@ -1,5 +1,6 @@
 ﻿using System;
 using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Extensions.Observables;
 using Cysharp.Threading.Tasks;
 using R3;
 using Source.Scripts.Core.Localization.LocalizationTypes.Modal;
@@ -46,10 +47,10 @@ namespace Source.Scripts.Main.UI.PopUps.Modal
         internal override void Init()
         {
             _negativeButton.OnClickAsObservable()
-                .SubscribeAndRegister(this, static self => self.HideAsync().Forget());
+                .SubscribeUntilDestroy(this, static self => self.HideAsync().Forget());
 
             _positiveButton.OnClickAsObservable()
-                .SubscribeAndRegister(this, static self => self.HideAsync().Forget());
+                .SubscribeUntilDestroy(this, static self => self.HideAsync().Forget());
         }
     }
 }

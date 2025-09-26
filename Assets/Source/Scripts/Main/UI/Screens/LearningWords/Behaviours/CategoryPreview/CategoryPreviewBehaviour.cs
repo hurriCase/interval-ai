@@ -1,5 +1,6 @@
 ﻿using CustomUtils.Runtime.AddressableSystem;
 using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Extensions.Observables;
 using R3;
 using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Core.Repositories.Categories.Category;
@@ -35,7 +36,7 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.CategoryPrevie
 
         internal void Init()
         {
-            _allCategoriesButton.OnClickAsObservable().SubscribeAndRegister(this,
+            _allCategoriesButton.OnClickAsObservable().SubscribeUntilDestroy(this,
                 static self => self._windowsController.OpenScreenByType(ScreenType.Categories));
 
             CreateCategoryItems();
@@ -48,7 +49,7 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.CategoryPrevie
                 var categoryButton = Instantiate(_categoryButton, _contentContainer);
 
                 categoryButton.Text.text = category.LocalizationKey.GetLocalization();
-                categoryButton.OnClickAsObservable().SubscribeAndRegister(this, category,
+                categoryButton.OnClickAsObservable().SubscribeUntilDestroy(this, category,
                     static (categoryEntry, self) => self.OpenCategoryPopUp(categoryEntry));
 
                 _addressablesLoader.AssignImageAsync(categoryButton.Image, category.Icon, destroyCancellationToken);

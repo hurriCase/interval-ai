@@ -1,4 +1,5 @@
 ﻿using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Extensions.Observables;
 using Cysharp.Threading.Tasks;
 using R3;
 using Source.Scripts.Core.GenerativeLanguage;
@@ -16,8 +17,6 @@ namespace Source.Scripts.Main.UI.PopUps.Chat
     {
         [SerializeField] private MessageItem _aiMessageItem;
         [SerializeField] private MessageItem _userMessageItem;
-        [SerializeField] private AspectRatioFitter _spacing;
-        [SerializeField] private float _spacingRatio;
 
         [SerializeField] private RectTransform _contentContainer;
 
@@ -36,7 +35,7 @@ namespace Source.Scripts.Main.UI.PopUps.Chat
 
         internal override void Init()
         {
-            _sendMessageButton.OnClickAsObservable().SubscribeAndRegister(this, static self => self.SendMessage());
+            _sendMessageButton.OnClickAsObservable().SubscribeUntilDestroy(this, static self => self.SendMessage());
         }
 
         private void SendMessage()

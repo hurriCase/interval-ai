@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4091471068881292471, guid: f8313bb2446f8494e8ca82ef2070c6e8, type: 3}
       propertyPath: m_Color.b
-      value: 0.09019608
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4091471068881292471, guid: f8313bb2446f8494e8ca82ef2070c6e8, type: 3}
       propertyPath: m_Color.g
-      value: 0.09019608
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4091471068881292471, guid: f8313bb2446f8494e8ca82ef2070c6e8, type: 3}
       propertyPath: m_Color.r
-      value: 0.09019608
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4830074263291801609, guid: f8313bb2446f8494e8ca82ef2070c6e8, type: 3}
       propertyPath: m_Pivot.x
@@ -102,7 +102,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8679566928671228537, guid: f8313bb2446f8494e8ca82ef2070c6e8, type: 3}
       propertyPath: m_Name
-      value: Image_Theme
+      value: P_Image_Theme_
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -110,7 +110,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8679566928671228537, guid: f8313bb2446f8494e8ca82ef2070c6e8, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5429903504238199194}
+      addedObject: {fileID: 4676303384236494979}
+    - targetCorrespondingSourceObject: {fileID: 8679566928671228537, guid: f8313bb2446f8494e8ca82ef2070c6e8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5547171347230714936}
   m_SourcePrefab: {fileID: 100100000, guid: f8313bb2446f8494e8ca82ef2070c6e8, type: 3}
 --- !u!114 &1346557764489669778 stripped
 MonoBehaviour:
@@ -128,7 +131,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8679566928671228537, guid: f8313bb2446f8494e8ca82ef2070c6e8, type: 3}
   m_PrefabInstance: {fileID: 3055758753548099621}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5429903504238199194
+--- !u!114 &4676303384236494979
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -137,12 +140,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 5916665891594642012}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0ba274b51e6439db0f68474a1ce65bc, type: 3}
+  m_Script: {fileID: 11500000, guid: 2e5265c779e340c8b6f7d9850950b29b, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  <ColorType>k__BackingField: 1
-  <GradientDirection>k__BackingField: 0
-  <ThemeSharedColorName>k__BackingField: 
-  <ThemeSolidColorName>k__BackingField: Text_Main
-  <ThemeGradientColorName>k__BackingField: 
-  _targetComponent: {fileID: 1346557764489669778}
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.Base.ThemeComponent
+  _colorData:
+    <ColorType>k__BackingField: 1
+    <ColorName>k__BackingField: None
+--- !u!114 &5547171347230714936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5916665891594642012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8840dbee5a42476db6edcdcd70e84c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.ColorModifiers.SolidGenericColorModifier
+  _graphic: {fileID: 1346557764489669778}

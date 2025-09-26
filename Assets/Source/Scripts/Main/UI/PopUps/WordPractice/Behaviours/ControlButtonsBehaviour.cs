@@ -1,4 +1,4 @@
-﻿using CustomUtils.Runtime.Extensions;
+﻿using CustomUtils.Runtime.Extensions.Observables;
 using R3;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Words.Base;
@@ -48,16 +48,16 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
         {
             _currentPracticeState = practiceState;
 
-            _hideButton.OnClickAsObservable().SubscribeAndRegister(this,
+            _hideButton.OnClickAsObservable().SubscribeUntilDestroy(this,
                 static self => self._wordStateMutator.HideWord(self.CurrentWord));
 
             _currentWordsService.CurrentWordsByState
                 .Select(this, (currentWordsByState, self) => currentWordsByState[self._currentPracticeState])
                 .Where(currentWord => currentWord != null)
-                .SubscribeAndRegister(this, static self => self.UpdateView());
+                .SubscribeUntilDestroy(this, static self => self.UpdateView());
 
             _practiceStateService.CurrentState
-                .SubscribeAndRegister(this, static self => self.UpdateView());
+                .SubscribeUntilDestroy(this, static self => self.UpdateView());
 
             SubscribeAdvanceButton(_alreadyKnowButton, false);
             SubscribeAdvanceButton(_learnButton, true);
@@ -75,7 +75,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
 
         private void SubscribeAdvanceButton(Button button, bool success)
         {
-            button.OnClickAsObservable().SubscribeAndRegister(this, success,
+            button.OnClickAsObservable().SubscribeUntilDestroy(this, success,
                 static (success, self) => self._wordAdvanceService.AdvanceWord(self.CurrentWord, success));
         }
     }

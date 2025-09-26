@@ -1,4 +1,4 @@
-﻿using CustomUtils.Runtime.Extensions;
+﻿using CustomUtils.Runtime.Extensions.Observables;
 using Cysharp.Threading.Tasks;
 using R3.Triggers;
 using Source.Scripts.Core.Configs;
@@ -21,7 +21,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base
             foreach (var transition in transitionData)
             {
                 transition.TransitionObject.OnPointerClickAsObservable()
-                    .SubscribeAndRegister(this, transition.ModuleType,
+                    .SubscribeUntilDestroy(this, transition.ModuleType,
                         static (moduleType, self) => self.SwitchModule(moduleType));
             }
         }

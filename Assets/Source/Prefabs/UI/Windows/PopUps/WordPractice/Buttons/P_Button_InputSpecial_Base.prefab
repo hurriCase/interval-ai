@@ -36,6 +36,10 @@ PrefabInstance:
       propertyPath: <GraphicMappings>k__BackingField.Array.data[0]._targetGraphic
       value: 
       objectReference: {fileID: 6451662263098619998}
+    - target: {fileID: 751925678675359553, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
+      propertyPath: <GraphicMappings>k__BackingField.Array.data[0]._themeComponent
+      value: 
+      objectReference: {fileID: 1646124292603631871}
     - target: {fileID: 921662674566850767, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0.5
@@ -92,9 +96,21 @@ PrefabInstance:
       propertyPath: <PixelPerUnitData>k__BackingField.<DimensionType>k__BackingField
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2684168338570045536, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
+      propertyPath: _currentColorModifier
+      value: 
+      objectReference: {fileID: 1401548589912318636}
+    - target: {fileID: 2980827923644650715, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
+      propertyPath: currentColorName
+      value: None
+      objectReference: {fileID: 0}
     - target: {fileID: 3156141274721558179, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
       propertyPath: <ThemeSolidColorName>k__BackingField
       value: Base_Secondary
+      objectReference: {fileID: 0}
+    - target: {fileID: 3239635569278201480, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
+      propertyPath: _colorData.<ColorName>k__BackingField
+      value: 'Secondary '
       objectReference: {fileID: 0}
     - target: {fileID: 3386532857379469689, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
       propertyPath: <ColorType>k__BackingField
@@ -212,6 +228,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8531924659293639735, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
+      propertyPath: currentColorName
+      value: 'Secondary '
+      objectReference: {fileID: 0}
     - target: {fileID: 8577785951315399793, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -234,6 +254,28 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
+--- !u!114 &1401548589912318636 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2980827923644650715, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
+  m_PrefabInstance: {fileID: 4192088399652058743}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8840dbee5a42476db6edcdcd70e84c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.ColorModifiers.SolidGenericColorModifier
+--- !u!114 &1646124292603631871 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3239635569278201480, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}
+  m_PrefabInstance: {fileID: 4192088399652058743}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e5265c779e340c8b6f7d9850950b29b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.Base.ThemeComponent
 --- !u!114 &6451662263098619998 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7180323941788077609, guid: 547c8ca3e138d56458984110a00eca3d, type: 3}

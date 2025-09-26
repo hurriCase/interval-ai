@@ -1,5 +1,6 @@
 ﻿using System;
 using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Extensions.Observables;
 using Cysharp.Threading.Tasks;
 using R3;
 using Source.Scripts.Core.Localization.Base;
@@ -75,20 +76,20 @@ namespace Source.Scripts.Main.UI.PopUps.Category
 
             _wordsPool = new UIPool<WordEntry, WordItem>(_wordItem, _wordsContainer, _objectResolver, poolConfig);
 
-            _deleteButton.OnClickAsObservable().SubscribeAndRegister(this, static self =>
+            _deleteButton.OnClickAsObservable().SubscribeUntilDestroy(this, static self =>
                 self.OpenWarning(ModalLocalizationType.DeleteCategory, static self => self.RemoveCategory()));
 
-            _resetProgressButton.OnClickAsObservable().SubscribeAndRegister(this, static self =>
+            _resetProgressButton.OnClickAsObservable().SubscribeUntilDestroy(this, static self =>
                 self.OpenWarning(ModalLocalizationType.ResetProgress,
                     static self => self._categoryStateMutator.ResetWordsProgress(self._currentCategoryEntry)));
 
             _categoryNameText.OnTextChanged
-                .SubscribeAndRegister(this, static (newName, self)
+                .SubscribeUntilDestroy(this, static (newName, self)
                     => self._categoryStateMutator.ChangeCategoryName(self._currentCategoryEntry, newName));
 
             _wordReviewSourceType
                 .Where(this, static (_, self) => self._currentCategoryEntry != null)
-                .SubscribeAndRegister(this, static (newOrder, self) => self.ReorderWordItems(newOrder));
+                .SubscribeUntilDestroy(this, static (newOrder, self) => self.ReorderWordItems(newOrder));
 
             _wordOrderSelectionItem.Init(_wordReviewSourceType);
         }

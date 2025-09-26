@@ -1,4 +1,4 @@
-﻿using CustomUtils.Runtime.Extensions;
+﻿using CustomUtils.Runtime.Extensions.Observables;
 using R3;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
@@ -34,11 +34,11 @@ namespace Source.Scripts.Main.UI.PopUps.GenerationSettings.Behaviours
             isOn = _currentLanguageType == _generationSettingsRepository.TranslateFromLanguageType.Value;
             this.OnValueChangedAsObservable()
                 .Where(isOn => isOn)
-                .SubscribeAndRegister(this, static self => self.ChangeLanguageType());
+                .SubscribeUntilDestroy(this, static self => self.ChangeLanguageType());
 
             _languageSettingsRepository.LanguageByType
                 .Select(this, (currentLanguages, self) => currentLanguages[self._currentLanguageType])
-                .SubscribeAndRegister(this, static (language, self) => self.UpdateLanguageTypeTexts(language));
+                .SubscribeUntilDestroy(this, static (language, self) => self.UpdateLanguageTypeTexts(language));
         }
 
         private void ChangeLanguageType()

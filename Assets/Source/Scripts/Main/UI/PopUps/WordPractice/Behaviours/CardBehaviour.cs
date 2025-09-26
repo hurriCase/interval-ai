@@ -1,6 +1,6 @@
 ﻿using System;
 using CustomUtils.Runtime.CustomTypes.Collections;
-using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Extensions.Observables;
 using R3;
 using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Localization.LocalizationTypes;
@@ -52,9 +52,9 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
 
             _currentWordsService.CurrentWordsByState
                 .Select(_practiceState, (currentWordsByState, state) => currentWordsByState[state])
-                .SubscribeAndRegister(this, self => self.HandleNewWord());
+                .SubscribeUntilDestroy(this, self => self.HandleNewWord());
 
-            SwitchModuleCommand.SubscribeAndRegister(this, (moduleType, self) => self.SwitchModule(moduleType));
+            SwitchModuleCommand.SubscribeUntilDestroy(this, (moduleType, self) => self.SwitchModule(moduleType));
         }
 
         private void HandleNewWord()

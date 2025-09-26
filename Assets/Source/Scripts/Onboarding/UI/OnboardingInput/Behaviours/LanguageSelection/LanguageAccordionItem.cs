@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using CustomUtils.Runtime.AddressableSystem;
-using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Extensions.Observables;
 using R3;
 using R3.Triggers;
 using Source.Scripts.Core.Localization.Base;
@@ -50,7 +50,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours.LanguageSelect
 
             _languageSettingsRepository.LanguageByType
                 .Select(this, (languageByType, self) => languageByType[self._currentLanguageType])
-                .SubscribeAndRegister(this,
+                .SubscribeUntilDestroy(this,
                     static (language, self) => self._createdLanguageItems[language].isOn = true);
         }
 
@@ -64,7 +64,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours.LanguageSelect
                 createdLanguageItem.Text.text = _localizationDatabase.GetLanguageName(language);
                 createdLanguageItem.group = _toggleGroup;
                 createdLanguageItem.OnPointerClickAsObservable()
-                    .SubscribeAndRegister(this, language, static (language, self) => self.SetLanguage(language));
+                    .SubscribeUntilDestroy(this, language, static (language, self) => self.SetLanguage(language));
 
                 var sprite = _spriteReferences.LanguageSprites[language];
                 _addressablesLoader.AssignImageAsync(createdLanguageItem.Image, sprite, destroyCancellationToken);

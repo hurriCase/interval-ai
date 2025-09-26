@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1929861101225414033, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+      propertyPath: _colorData.<ColorName>k__BackingField
+      value: Primary
+      objectReference: {fileID: 0}
+    - target: {fileID: 1929861101225414033, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+      propertyPath: _colorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3199486689505168149, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -102,15 +110,15 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 46fd6b61113625a4e88b32a9d76b18e9, type: 3}
     - target: {fileID: 5224809382630289792, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: m_Color.b
-      value: 0.09019608
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5224809382630289792, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: m_Color.g
-      value: 0.09019608
+      value: 0.27058825
       objectReference: {fileID: 0}
     - target: {fileID: 5224809382630289792, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: m_Color.r
-      value: 0.09019608
+      value: 0.34509805
       objectReference: {fileID: 0}
     - target: {fileID: 9134864641081789667, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: <Text>k__BackingField
@@ -192,19 +200,55 @@ PrefabInstance:
       propertyPath: <GraphicMappings>k__BackingField.Array.data[0]._targetGraphic
       value: 
       objectReference: {fileID: 6952169981596618611}
+    - target: {fileID: 9134864641081789667, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+      propertyPath: <GraphicMappings>k__BackingField.Array.data[0]._themeComponent
+      value: 
+      objectReference: {fileID: 3616794855870542690}
     m_RemovedComponents:
-    - {fileID: 1258557236145904776, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+    - {fileID: 0}
     m_RemovedGameObjects:
     - {fileID: 4675464422729192320, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 590419135366053710, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8898159993708837033}
   m_SourcePrefab: {fileID: 100100000, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+--- !u!1 &2362356409245041085 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 590419135366053710, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+  m_PrefabInstance: {fileID: 2952480847577300723}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8898159993708837033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2362356409245041085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8840dbee5a42476db6edcdcd70e84c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.ColorModifiers.SolidColorModifier
+  _graphic: {fileID: 6952169981596618611}
+--- !u!114 &3616794855870542690 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1929861101225414033, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+  m_PrefabInstance: {fileID: 2952480847577300723}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2362356409245041085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e5265c779e340c8b6f7d9850950b29b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.Base.ThemeComponent
 --- !u!114 &6952169981596618611 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5224809382630289792, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
   m_PrefabInstance: {fileID: 2952480847577300723}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 2362356409245041085}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}

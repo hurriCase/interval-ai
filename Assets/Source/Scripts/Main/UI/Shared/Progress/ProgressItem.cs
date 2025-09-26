@@ -1,7 +1,6 @@
 ﻿using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions;
-using CustomUtils.Runtime.UI.Theme.Components;
-using CustomUtils.Runtime.UI.Theme.ThemeMapping;
+using CustomUtils.Runtime.UI.Theme;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.UI.Shared.Activity;
 using TMPro;
@@ -14,7 +13,7 @@ namespace Source.Scripts.Main.UI.Shared.Progress
     {
         [field: SerializeField] internal GameObject FireIcon { get; private set; }
         [field: SerializeField] internal TextMeshProUGUI DateIdentifierText { get; private set; }
-        [field: SerializeField] internal TextThemeComponent DateIdentifierTheme { get; private set; }
+        [field: SerializeField] internal ThemeComponent DateIdentifierTheme { get; private set; }
         [field: SerializeField] internal float SpacingBetweenSections { get; private set; }
         [field: SerializeField] internal float ActiveThicknessRatio { get; private set; }
         [field: SerializeField] internal float InActiveThicknessRatio { get; private set; }
@@ -22,6 +21,7 @@ namespace Source.Scripts.Main.UI.Shared.Progress
         [field: SerializeField]
         internal EnumArray<LearningState, int> DefaultProgressPercentages { get; private set; } =
             new(EnumMode.SkipFirst);
+
         [field: SerializeField]
         internal EnumArray<LearningState, ProgressSectionItem> ProgressSections { get; private set; }
             = new(EnumMode.SkipFirst);

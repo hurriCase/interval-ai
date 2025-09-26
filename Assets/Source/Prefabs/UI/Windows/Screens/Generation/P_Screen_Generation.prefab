@@ -119,8 +119,12 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 7311587745426773085}
+    m_TransformParent: {fileID: 733162075137373941}
     m_Modifications:
+    - target: {fileID: 2138716488748599521, guid: 84e4b1b28a16d4d4680b75c841aea0ff, type: 3}
+      propertyPath: currentColorName
+      value: Primary
+      objectReference: {fileID: 0}
     - target: {fileID: 4052377130097713393, guid: 84e4b1b28a16d4d4680b75c841aea0ff, type: 3}
       propertyPath: m_Name
       value: P_Block_ControlButtons
@@ -128,6 +132,22 @@ PrefabInstance:
     - target: {fileID: 6082561045647215793, guid: 84e4b1b28a16d4d4680b75c841aea0ff, type: 3}
       propertyPath: m_fontSize
       value: 15.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082561045647215793, guid: 84e4b1b28a16d4d4680b75c841aea0ff, type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082561045647215793, guid: 84e4b1b28a16d4d4680b75c841aea0ff, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.27058825
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082561045647215793, guid: 84e4b1b28a16d4d4680b75c841aea0ff, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.34509805
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082561045647215793, guid: 84e4b1b28a16d4d4680b75c841aea0ff, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294919512
       objectReference: {fileID: 0}
     - target: {fileID: 6181427010212355723, guid: 84e4b1b28a16d4d4680b75c841aea0ff, type: 3}
       propertyPath: m_Pivot.x
@@ -179,15 +199,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6181427010212355723, guid: 84e4b1b28a16d4d4680b75c841aea0ff, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6181427010212355723, guid: 84e4b1b28a16d4d4680b75c841aea0ff, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6181427010212355723, guid: 84e4b1b28a16d4d4680b75c841aea0ff, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6181427010212355723, guid: 84e4b1b28a16d4d4680b75c841aea0ff, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -249,6 +269,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 328499150237960569, guid: 52e1b0cb3fc47fe49b63ae77fb43a2b7, type: 3}
+      propertyPath: currentColorName
+      value: BackgroundPrimary
+      objectReference: {fileID: 0}
+    - target: {fileID: 1258971041602807393, guid: 52e1b0cb3fc47fe49b63ae77fb43a2b7, type: 3}
+      propertyPath: m_Spacing
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 1258971041602807393, guid: 52e1b0cb3fc47fe49b63ae77fb43a2b7, type: 3}
+      propertyPath: m_Padding.m_Top
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 1592547274394668605, guid: 52e1b0cb3fc47fe49b63ae77fb43a2b7, type: 3}
       propertyPath: <Spacing>k__BackingField
       value: 24
@@ -369,14 +401,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_Screen_Generation
       objectReference: {fileID: 0}
+    - target: {fileID: 6546964921532910035, guid: 52e1b0cb3fc47fe49b63ae77fb43a2b7, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6546964921532910035, guid: 52e1b0cb3fc47fe49b63ae77fb43a2b7, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 8121278070906729600, guid: 52e1b0cb3fc47fe49b63ae77fb43a2b7, type: 3}
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 6240692574011824399, guid: 52e1b0cb3fc47fe49b63ae77fb43a2b7, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 4161371693601684391, guid: 52e1b0cb3fc47fe49b63ae77fb43a2b7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8674015167272807284}
-    - targetCorrespondingSourceObject: {fileID: 6240692574011824399, guid: 52e1b0cb3fc47fe49b63ae77fb43a2b7, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 4161371693601684391, guid: 52e1b0cb3fc47fe49b63ae77fb43a2b7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4687901145322245226}
     - targetCorrespondingSourceObject: {fileID: 4142520638507043552, guid: 52e1b0cb3fc47fe49b63ae77fb43a2b7, type: 3}
@@ -393,14 +433,19 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 9016335227407529119}
   m_SourcePrefab: {fileID: 100100000, guid: 52e1b0cb3fc47fe49b63ae77fb43a2b7, type: 3}
+--- !u!224 &733162075137373941 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4161371693601684391, guid: 52e1b0cb3fc47fe49b63ae77fb43a2b7, type: 3}
+  m_PrefabInstance: {fileID: 3741539681220136274}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &761581224212318130 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4142520638507043552, guid: 52e1b0cb3fc47fe49b63ae77fb43a2b7, type: 3}
   m_PrefabInstance: {fileID: 3741539681220136274}
   m_PrefabAsset: {fileID: 0}
---- !u!224 &7311587745426773085 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6240692574011824399, guid: 52e1b0cb3fc47fe49b63ae77fb43a2b7, type: 3}
+--- !u!225 &2929769275430328940 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 1964764770347734846, guid: 52e1b0cb3fc47fe49b63ae77fb43a2b7, type: 3}
   m_PrefabInstance: {fileID: 3741539681220136274}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &7482888694484666511 stripped
@@ -421,6 +466,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.Source.Scripts.Main.UI.Screens.Generation.GenerationScreen
   <InitialWindow>k__BackingField: 0
+  canvasGroup: {fileID: 2929769275430328940}
   _categoryPreviewBehaviour: {fileID: 7816225755945462201}
   _currentSettingsBehaviour: {fileID: 8787077221926283484}
   _savedGenerationsButton: {fileID: 7258522268297500094}
@@ -651,6 +697,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1857221991844215225, guid: e8cb1a6cf83d50a4a8568886135808d5, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3951241349681831031, guid: e8cb1a6cf83d50a4a8568886135808d5, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -722,7 +772,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 7311587745426773085}
+    m_TransformParent: {fileID: 733162075137373941}
     m_Modifications:
     - target: {fileID: 1716846779636823134, guid: e4d87f391e5e62846b0eaf592244aea1, type: 3}
       propertyPath: m_Pivot.x
@@ -774,15 +824,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1716846779636823134, guid: e4d87f391e5e62846b0eaf592244aea1, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1716846779636823134, guid: e4d87f391e5e62846b0eaf592244aea1, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1716846779636823134, guid: e4d87f391e5e62846b0eaf592244aea1, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1716846779636823134, guid: e4d87f391e5e62846b0eaf592244aea1, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -800,10 +850,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3223142733238176448, guid: e4d87f391e5e62846b0eaf592244aea1, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3223142733238176448, guid: e4d87f391e5e62846b0eaf592244aea1, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3946852351890486401, guid: e4d87f391e5e62846b0eaf592244aea1, type: 3}
+      propertyPath: currentColorName
+      value: TextPrimary
+      objectReference: {fileID: 0}
+    - target: {fileID: 4141123552505893086, guid: e4d87f391e5e62846b0eaf592244aea1, type: 3}
+      propertyPath: currentColorName
+      value: BackgroundPrimary
+      objectReference: {fileID: 0}
     - target: {fileID: 5431234053594084949, guid: e4d87f391e5e62846b0eaf592244aea1, type: 3}
       propertyPath: <LocalizationKey>k__BackingField
       value: ui.generation.title
       objectReference: {fileID: 0}
+    - target: {fileID: 5950982139655564220, guid: e4d87f391e5e62846b0eaf592244aea1, type: 3}
+      propertyPath: _currentColorModifier
+      value: 
+      objectReference: {fileID: 6446116268167343019}
     - target: {fileID: 8802091503352859172, guid: e4d87f391e5e62846b0eaf592244aea1, type: 3}
       propertyPath: m_Name
       value: P_Block_Title
@@ -817,6 +887,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e4d87f391e5e62846b0eaf592244aea1, type: 3}
+--- !u!114 &6446116268167343019 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3946852351890486401, guid: e4d87f391e5e62846b0eaf592244aea1, type: 3}
+  m_PrefabInstance: {fileID: 8048844968634343210}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8840dbee5a42476db6edcdcd70e84c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.ColorModifiers.SolidColorModifier
 --- !u!224 &8674015167272807284 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1716846779636823134, guid: e4d87f391e5e62846b0eaf592244aea1, type: 3}

@@ -1,4 +1,4 @@
-﻿using CustomUtils.Runtime.Extensions;
+﻿using CustomUtils.Runtime.Extensions.Observables;
 using R3.Triggers;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.PopUps.Category;
@@ -12,7 +12,7 @@ namespace Source.Scripts.Main.UI.Screens.Categories
 
         protected override void OnInit()
         {
-            categoryOpenArea.OnPointerClickAsObservable().SubscribeAndRegister(this, self => self.OpenCategoryPopUp());
+            categoryOpenArea.OnPointerClickAsObservable().SubscribeUntilDestroy(this, self => self.OpenCategoryPopUp());
         }
 
         private void OpenCategoryPopUp()

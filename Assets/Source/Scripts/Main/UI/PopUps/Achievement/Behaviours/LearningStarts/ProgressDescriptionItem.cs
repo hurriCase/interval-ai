@@ -1,6 +1,6 @@
-﻿using CustomUtils.Runtime.Extensions;
+﻿using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.Localization;
-using CustomUtils.Runtime.UI.Theme.Components;
+using CustomUtils.Runtime.UI.Theme;
 using Cysharp.Text;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
@@ -14,7 +14,7 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts
     internal sealed class ProgressDescriptionItem : MonoBehaviour
     {
         [field: SerializeField] internal TextMeshProUGUI DescriptionText { get; private set; }
-        [field: SerializeField] internal ImageThemeComponent StateIndicatorImage { get; private set; }
+        [field: SerializeField] internal ThemeComponent StateIndicatorImage { get; private set; }
 
         private LearningState _currentLearningState;
         private int _currentProgress;
@@ -32,7 +32,7 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts
             _currentLearningState = state;
             _currentProgress = progress;
 
-            LocalizationController.Language.SubscribeAndRegister(this, static self => self.UpdateDescriptionText());
+            LocalizationController.Language.SubscribeUntilDestroy(this, static self => self.UpdateDescriptionText());
 
             progressColorMapping.SetComponentForState(state, StateIndicatorImage);
         }

@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2420330402258586127, guid: f50527c0127d7394bb3c81258db89350, type: 3}
+      propertyPath: m_VerticalFit
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2104429359735514666, guid: f50527c0127d7394bb3c81258db89350, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -107,5 +111,39 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4337855868345819307, guid: f50527c0127d7394bb3c81258db89350, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 2336240546797544330}
   m_SourcePrefab: {fileID: 100100000, guid: f50527c0127d7394bb3c81258db89350, type: 3}
+--- !u!1 &8836683348713640655 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4337855868345819307, guid: f50527c0127d7394bb3c81258db89350, type: 3}
+  m_PrefabInstance: {fileID: 5084876525132001892}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2336240546797544330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8836683348713640655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.VerticalLayoutGroup
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0

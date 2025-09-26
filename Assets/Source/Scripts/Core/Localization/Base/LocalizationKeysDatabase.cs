@@ -2,7 +2,7 @@
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Localization;
-using CustomUtils.Runtime.UI.Theme.Base;
+using CustomUtils.Runtime.UI.Theme;
 using CustomUtils.Unsafe.CustomUtils.Unsafe;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Localization.LocalizationTypes.Date;

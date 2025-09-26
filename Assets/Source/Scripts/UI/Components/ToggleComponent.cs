@@ -1,4 +1,4 @@
-﻿using CustomUtils.Runtime.Extensions;
+﻿using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.UI.CustomComponents.Selectables.Toggles;
 using R3.Triggers;
 using Source.Scripts.Core.Audio.Sounds.Base;
@@ -24,7 +24,7 @@ namespace Source.Scripts.UI.Components
             if (Application.isEditor)
                 return;
 
-            this.OnPointerClickAsObservable().SubscribeAndRegister(this,
+            this.OnPointerClickAsObservable().SubscribeUntilDestroy(this,
                 static self => self._audioHandlerProvider.AudioHandler.PlayOneShotSound(SoundType.Button));
         }
     }

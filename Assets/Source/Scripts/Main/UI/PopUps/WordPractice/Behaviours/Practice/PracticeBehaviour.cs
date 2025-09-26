@@ -1,5 +1,6 @@
 ﻿using System;
 using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Extensions.Observables;
 using R3;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Words.Base;
@@ -48,10 +49,10 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice
 
             _completeStateService.CompleteStates
                 .Select(_practiceState, (completeTypes, state) => completeTypes[state])
-                .SubscribeAndRegister(this, static (completeType, self) => self.SwitchState(completeType));
+                .SubscribeUntilDestroy(this, static (completeType, self) => self.SwitchState(completeType));
 
             _swipeCardBehaviour.OnSwiped
-                .SubscribeAndRegister(this, static (direction, self) => self.HandleSwipe(direction));
+                .SubscribeUntilDestroy(this, static (direction, self) => self.HandleSwipe(direction));
         }
 
         private void SwitchState(CompleteType completeType)

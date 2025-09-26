@@ -1,5 +1,5 @@
 ﻿using System;
-using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Extensions.Observables;
 using Cysharp.Threading.Tasks;
 using R3;
 using Source.Scripts.UI.Windows.Base;
@@ -15,7 +15,7 @@ namespace Source.Scripts.UI.Components.Button
             where TPopUp : PopUpBase
         {
             button.OnClickAsObservable()
-                .SubscribeAndRegister(popUp, action, static (action, self) =>
+                .SubscribeUntilDestroy(popUp, action, static (action, self) =>
                 {
                     action.Invoke(self);
                     self.HideAsync().Forget();

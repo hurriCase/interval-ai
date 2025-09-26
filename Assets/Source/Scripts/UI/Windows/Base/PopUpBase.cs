@@ -1,4 +1,5 @@
 ﻿using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Extensions.Observables;
 using Cysharp.Threading.Tasks;
 using PrimeTween;
 using R3;
@@ -23,18 +24,19 @@ namespace Source.Scripts.UI.Windows.Base
         internal override void BaseInit()
         {
             if (_closeButton)
-                _closeButton.OnClickAsObservable().SubscribeAndRegister(this, static self => self.HideAsync().Forget());
+                _closeButton.OnClickAsObservable()
+                    .SubscribeUntilDestroy(this, static self => self.HideAsync().Forget());
         }
 
         internal override async UniTask ShowAsync()
         {
-            await Tween.Alpha(CanvasGroup, 1f, animationsConfig.PopUpShowDuration)
-                .OnComplete(this, windowBase => windowBase.CanvasGroup.Show());
+            await Tween.Alpha(canvasGroup, 1f, animationsConfig.PopUpShowDuration)
+                .OnComplete(this, windowBase => windowBase.canvasGroup.Show());
         }
 
         internal override async UniTask HideAsync()
         {
-            await Tween.Alpha(CanvasGroup, 0f, animationsConfig.PopUpHideDuration)
+            await Tween.Alpha(canvasGroup, 0f, animationsConfig.PopUpHideDuration)
                 .OnComplete(this, windowBase => windowBase.HideImmediately());
         }
 

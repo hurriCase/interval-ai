@@ -34,7 +34,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingPractice.Steps
 
         protected override void OnUpdateText(TextMeshProUGUI messageText)
         {
-            messageText.color = hintTextMapping.GetColorForState(HintTextThemeState.Plain);
+            //messageText.color = hintTextMapping.GetColorForState(HintTextThemeState.Plain);
         }
     }
 }

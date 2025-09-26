@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2104429359735514666}
-  - component: {fileID: 5580428510314600888}
+  - component: {fileID: -2420330402258586127}
   m_Layer: 5
   m_Name: P_HorizontalVerticalLayout_Base
   m_TagString: Untagged
@@ -36,7 +36,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &5580428510314600888
+--- !u!114 &-2420330402258586127
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -45,21 +45,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 4337855868345819307}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 890bede2165f49698a9993bb017ba1c0, type: 3}
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 4
-  <Spacing>k__BackingField: 0
-  <Direction>k__BackingField: 0
-  <ReverseArrangement>k__BackingField: 0
-  <ChildForceExpandWidth>k__BackingField: 1
-  <ChildForceExpandHeight>k__BackingField: 1
-  <ChildControlWidth>k__BackingField: 0
-  <ChildControlHeight>k__BackingField: 1
-  <ChildScaleWidth>k__BackingField: 0
-  <ChildScaleHeight>k__BackingField: 0
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ContentSizeFitter
+  m_HorizontalFit: 0
+  m_VerticalFit: 0

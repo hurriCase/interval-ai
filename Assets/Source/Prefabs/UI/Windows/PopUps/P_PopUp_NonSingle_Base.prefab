@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1951874307724304377, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
+      propertyPath: _currentColorModifier
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1951874307724304377, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
+      propertyPath: _colorData.<ColorType>k__BackingField
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3046501804136550812, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -96,6 +104,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_PopUp_NonSingle_Base
       objectReference: {fileID: 0}
+    - target: {fileID: 5286114728810292200, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
+      propertyPath: m_Color.a
+      value: 0.5019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 5286114728810292200, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
+      propertyPath: m_Color.b
+      value: 0.29411766
+      objectReference: {fileID: 0}
+    - target: {fileID: 5286114728810292200, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
+      propertyPath: m_Color.g
+      value: 0.29411766
+      objectReference: {fileID: 0}
+    - target: {fileID: 5286114728810292200, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
+      propertyPath: m_Color.r
+      value: 0.29411766
+      objectReference: {fileID: 0}
     - target: {fileID: 9198394243269102941, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
       propertyPath: m_Color.a
       value: 0.5019608
@@ -114,26 +138,40 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8709391208971021196, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
+    - {fileID: 1659682576340132674, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
+    - {fileID: 1951874307724304377, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
     m_RemovedGameObjects:
     - {fileID: 5841297947326000989, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
+    - {fileID: 1469669277208330491, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1469669277208330491, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 716030793023679782, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4306923310937999047}
+      addedObject: {fileID: 1392720327501417822}
   m_SourcePrefab: {fileID: 100100000, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
---- !u!1 &6497019130877087870 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1469669277208330491, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
+--- !u!114 &509840550005109613 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5286114728810292200, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
   m_PrefabInstance: {fileID: 5642830089819672709}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4306923310937999047
+  m_GameObject: {fileID: 5161272678215892387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &5161272678215892387 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 716030793023679782, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
+  m_PrefabInstance: {fileID: 5642830089819672709}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1392720327501417822
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6497019130877087870}
+  m_GameObject: {fileID: 5161272678215892387}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
@@ -172,5 +210,5 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   <Text>k__BackingField: {fileID: 0}
-  <Image>k__BackingField: {fileID: 0}
+  <Image>k__BackingField: {fileID: 509840550005109613}
   <GraphicMappings>k__BackingField: []

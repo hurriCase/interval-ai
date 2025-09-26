@@ -1,5 +1,5 @@
 ﻿using CustomUtils.Runtime.CustomTypes.Collections;
-using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Extensions.Observables;
 using R3.Triggers;
 using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Menu;
@@ -24,7 +24,7 @@ namespace Source.Scripts.Main.UI.Base
         {
             foreach (var (screenType, themeToggle) in _menuToggles.AsTuples())
             {
-                themeToggle.OnPointerClickAsObservable().SubscribeAndRegister(this, screenType,
+                themeToggle.OnPointerClickAsObservable().SubscribeUntilDestroy(this, screenType,
                     static (screenType, self) => self._windowsController.OpenScreenByType(screenType));
 
                 if (screenType == _windowsController.InitialScreenType)

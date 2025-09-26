@@ -1,5 +1,5 @@
 ﻿using System;
-using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Extensions.Observables;
 using R3;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
@@ -48,9 +48,9 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours
             UpdateCalendarDisplay();
 
             _previousMonthButton.OnClickAsObservable()
-                .SubscribeAndRegister(this, static self => self.GoToPreviousMonth());
+                .SubscribeUntilDestroy(this, static self => self.GoToPreviousMonth());
 
-            _nextMonthButton.OnClickAsObservable().SubscribeAndRegister(this, static self => self.GoToNextMonth());
+            _nextMonthButton.OnClickAsObservable().SubscribeUntilDestroy(this, static self => self.GoToNextMonth());
         }
 
         private void GoToPreviousMonth()

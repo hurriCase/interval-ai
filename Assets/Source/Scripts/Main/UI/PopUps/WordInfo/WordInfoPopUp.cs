@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Extensions.Observables;
 using R3;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Others;
@@ -58,7 +59,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo
             _wordInfoCardBehaviour.Init();
 
             _startLearningButton.OnClickAsObservable()
-                .SubscribeAndRegister(this, static self => self.StartPracticeForCurrentWord());
+                .SubscribeUntilDestroy(this, static self => self.StartPracticeForCurrentWord());
 
             CreatePools();
         }

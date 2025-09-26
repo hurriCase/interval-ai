@@ -431,9 +431,21 @@ PrefabInstance:
       propertyPath: targetComponent
       value: 
       objectReference: {fileID: 1741170572112637448}
+    - target: {fileID: 2451445448732951170, guid: fc6884491410b73459021fb3fe22d414, type: 3}
+      propertyPath: _currentColorModifier
+      value: 
+      objectReference: {fileID: 5903734445855009368}
     - target: {fileID: 4309087794738634603, guid: fc6884491410b73459021fb3fe22d414, type: 3}
       propertyPath: <LocalizationKey>k__BackingField
       value: ui.onboarding.continue
+      objectReference: {fileID: 0}
+    - target: {fileID: 4374395458207097392, guid: fc6884491410b73459021fb3fe22d414, type: 3}
+      propertyPath: currentColorName
+      value: Primary
+      objectReference: {fileID: 0}
+    - target: {fileID: 5068066156166520255, guid: fc6884491410b73459021fb3fe22d414, type: 3}
+      propertyPath: currentColorName
+      value: White
       objectReference: {fileID: 0}
     - target: {fileID: 5164801132258450748, guid: fc6884491410b73459021fb3fe22d414, type: 3}
       propertyPath: m_PixelsPerUnitMultiplier
@@ -464,6 +476,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5903734445855009368 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5068066156166520255, guid: fc6884491410b73459021fb3fe22d414, type: 3}
+  m_PrefabInstance: {fileID: 1710000494443821031}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8840dbee5a42476db6edcdcd70e84c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.ColorModifiers.SolidColorModifier
 --- !u!114 &6271193419615532705 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4664855461259084102, guid: fc6884491410b73459021fb3fe22d414, type: 3}
@@ -596,6 +619,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5612597268548002756}
     m_Modifications:
+    - target: {fileID: 20531896461204458, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 20531896461204458, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 20531896461204458, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 20531896461204458, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 20531896461204458, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 602583470504908837, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -726,7 +769,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4479926708083702005, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 343
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4479926708083702005, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
       propertyPath: m_SizeDelta.y
@@ -739,6 +782,26 @@ PrefabInstance:
     - target: {fileID: 4479926708083702005, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -56
+      objectReference: {fileID: 0}
+    - target: {fileID: 5006741372894637060, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5006741372894637060, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5006741372894637060, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5006741372894637060, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5006741372894637060, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5579884207644602315, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
       propertyPath: m_AnchorMax.y
@@ -794,7 +857,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8869998878810525467, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 343
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8869998878810525467, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
       propertyPath: m_SizeDelta.y
@@ -927,7 +990,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3195037184290626964, guid: 5bd992e685655cd4d900ab626111631e, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 343
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3195037184290626964, guid: 5bd992e685655cd4d900ab626111631e, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -970,6 +1033,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 328499150237960569, guid: 52e1b0cb3fc47fe49b63ae77fb43a2b7, type: 3}
+      propertyPath: currentColorName
+      value: BackgroundPrimary
+      objectReference: {fileID: 0}
     - target: {fileID: 1592547274394668605, guid: 52e1b0cb3fc47fe49b63ae77fb43a2b7, type: 3}
       propertyPath: m_Padding.m_Bottom
       value: 16
@@ -1180,6 +1247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.Onboarding::Source.Scripts.Onboarding.Source.Scripts.Onboarding.UI.OnboardingScreen
   <InitialWindow>k__BackingField: 1
+  canvasGroup: {fileID: 8060032445296754202}
   _continueButton: {fileID: 6271193419615532705}
   _inputOnboardingSteps:
   - {fileID: 1390720765791899444}
@@ -1197,6 +1265,11 @@ RectTransform:
 --- !u!224 &5612597268548002756 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4142520638507043552, guid: 52e1b0cb3fc47fe49b63ae77fb43a2b7, type: 3}
+  m_PrefabInstance: {fileID: 8403369356050721060}
+  m_PrefabAsset: {fileID: 0}
+--- !u!225 &8060032445296754202 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 1964764770347734846, guid: 52e1b0cb3fc47fe49b63ae77fb43a2b7, type: 3}
   m_PrefabInstance: {fileID: 8403369356050721060}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8541129176694807597

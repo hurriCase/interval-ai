@@ -92,6 +92,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3054897670465569566, guid: 09d55ce40b46fa9429f04a4763bc65cf, type: 3}
+      propertyPath: m_Color.g
+      value: 0.27058825
+      objectReference: {fileID: 0}
+    - target: {fileID: 3054897670465569566, guid: 09d55ce40b46fa9429f04a4763bc65cf, type: 3}
+      propertyPath: m_Color.r
+      value: 0.34509805
+      objectReference: {fileID: 0}
+    - target: {fileID: 3054897670465569566, guid: 09d55ce40b46fa9429f04a4763bc65cf, type: 3}
+      propertyPath: <BorderWidth>k__BackingField.value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4586902948697725184, guid: 09d55ce40b46fa9429f04a4763bc65cf, type: 3}
+      propertyPath: currentColorName
+      value: Primary
+      objectReference: {fileID: 0}
     - target: {fileID: 4682432870352159192, guid: 09d55ce40b46fa9429f04a4763bc65cf, type: 3}
       propertyPath: <DesiredRadius>k__BackingField
       value: 24
@@ -159,6 +175,10 @@ PrefabInstance:
     - target: {fileID: 6222709017948216116, guid: 09d55ce40b46fa9429f04a4763bc65cf, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -16.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7292999918334649279, guid: 09d55ce40b46fa9429f04a4763bc65cf, type: 3}
+      propertyPath: _colorData.<ColorName>k__BackingField
+      value: Primary
       objectReference: {fileID: 0}
     - target: {fileID: 7499486062316838590, guid: 09d55ce40b46fa9429f04a4763bc65cf, type: 3}
       propertyPath: <PixelPerUnitData>k__BackingField.<Name>k__BackingField
@@ -284,19 +304,39 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 938797904941108758, guid: 25ba5cf1e5b407a41aa54b9910aebe12, type: 3}
       propertyPath: m_Color.g
-      value: 0.27058825
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 938797904941108758, guid: 25ba5cf1e5b407a41aa54b9910aebe12, type: 3}
       propertyPath: m_Color.r
-      value: 0.34509805
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1785001514091172872, guid: 25ba5cf1e5b407a41aa54b9910aebe12, type: 3}
+      propertyPath: currentColorName
+      value: None
       objectReference: {fileID: 0}
     - target: {fileID: 3525765897475865024, guid: 25ba5cf1e5b407a41aa54b9910aebe12, type: 3}
       propertyPath: <ColorType>k__BackingField
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4023873641523055083, guid: 25ba5cf1e5b407a41aa54b9910aebe12, type: 3}
+      propertyPath: _currentColorModifier
+      value: 
+      objectReference: {fileID: 2848841666740023224}
+    - target: {fileID: 4023873641523055083, guid: 25ba5cf1e5b407a41aa54b9910aebe12, type: 3}
+      propertyPath: _colorData.<ColorName>k__BackingField
+      value: Primary
+      objectReference: {fileID: 0}
     - target: {fileID: 4355896683514128716, guid: 25ba5cf1e5b407a41aa54b9910aebe12, type: 3}
       propertyPath: m_Name
       value: P_Block_Plus
+      objectReference: {fileID: 0}
+    - target: {fileID: 4780459196689395383, guid: 25ba5cf1e5b407a41aa54b9910aebe12, type: 3}
+      propertyPath: _currentColorModifier
+      value: 
+      objectReference: {fileID: 5911308662176958692}
+    - target: {fileID: 4780459196689395383, guid: 25ba5cf1e5b407a41aa54b9910aebe12, type: 3}
+      propertyPath: _colorData.<ColorName>k__BackingField
+      value: Primary
       objectReference: {fileID: 0}
     - target: {fileID: 5002998809465036444, guid: 25ba5cf1e5b407a41aa54b9910aebe12, type: 3}
       propertyPath: <ColorType>k__BackingField
@@ -382,13 +422,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7873885226019189588, guid: 25ba5cf1e5b407a41aa54b9910aebe12, type: 3}
+      propertyPath: currentColorName
+      value: None
+      objectReference: {fileID: 0}
     - target: {fileID: 8685040381748111690, guid: 25ba5cf1e5b407a41aa54b9910aebe12, type: 3}
       propertyPath: m_Color.g
-      value: 0.27058825
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8685040381748111690, guid: 25ba5cf1e5b407a41aa54b9910aebe12, type: 3}
       propertyPath: m_Color.r
-      value: 0.34509805
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -400,3 +444,25 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5874796654799558454, guid: 25ba5cf1e5b407a41aa54b9910aebe12, type: 3}
   m_PrefabInstance: {fileID: 5389883531374566636}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2848841666740023224 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7873885226019189588, guid: 25ba5cf1e5b407a41aa54b9910aebe12, type: 3}
+  m_PrefabInstance: {fileID: 5389883531374566636}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8840dbee5a42476db6edcdcd70e84c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.ColorModifiers.SolidColorModifier
+--- !u!114 &5911308662176958692 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1785001514091172872, guid: 25ba5cf1e5b407a41aa54b9910aebe12, type: 3}
+  m_PrefabInstance: {fileID: 5389883531374566636}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8840dbee5a42476db6edcdcd70e84c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.ColorModifiers.SolidColorModifier

@@ -1,4 +1,4 @@
-﻿using CustomUtils.Runtime.Extensions;
+﻿using CustomUtils.Runtime.Extensions.Observables;
 using Cysharp.Threading.Tasks;
 using R3;
 using Source.Scripts.Core.Localization.Translator;
@@ -44,7 +44,7 @@ namespace Source.Scripts.Main.UI.PopUps.Chat
 
             _translateButton.OnClickAsObservable()
                 .Where(this, self => self._wasTranslated is false)
-                .SubscribeAndRegister(this, static self => self.TranslateText().Forget());
+                .SubscribeUntilDestroy(this, static self => self.TranslateText().Forget());
         }
 
         private async UniTask TranslateText()

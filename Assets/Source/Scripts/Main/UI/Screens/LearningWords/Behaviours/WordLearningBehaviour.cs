@@ -1,5 +1,5 @@
 ﻿using System;
-using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.Localization;
 using Cysharp.Text;
 using R3;
@@ -44,7 +44,7 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours
         {
             _plusMinusBehaviour.Init();
 
-            _progressRepository.HasDailyTarget.SubscribeAndRegister(this,
+            _progressRepository.HasDailyTarget.SubscribeUntilDestroy(this,
                 static (canReduce, self) => self._startPracticeButton.interactable = canReduce);
 
             _startPracticeButton.OnClickAsObservable()
@@ -52,11 +52,11 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours
                     static (_, controller) => controller.OpenPopUpByType(PopUpType.WordPractice))
                 .RegisterTo(destroyCancellationToken);
 
-            _progressRepository.ProgressHistory.SubscribeAndRegister(this, static self => self.UpdateProgressText());
+            _progressRepository.ProgressHistory.SubscribeUntilDestroy(this, static self => self.UpdateProgressText());
             _progressRepository.NewWordsDailyTarget
-                .SubscribeAndRegister(this, static self => self.UpdateWordsGoalText());
+                .SubscribeUntilDestroy(this, static self => self.UpdateWordsGoalText());
 
-            LocalizationController.Language.SubscribeAndRegister(this, static self =>
+            LocalizationController.Language.SubscribeUntilDestroy(this, static self =>
             {
                 self.UpdateProgressText();
                 self.UpdateWordsGoalText();

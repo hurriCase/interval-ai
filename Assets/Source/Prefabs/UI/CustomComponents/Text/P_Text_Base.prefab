@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 9019219329772563435}
   - component: {fileID: 8374628234876403437}
   - component: {fileID: 4472915988729569276}
-  - component: {fileID: 3043965504393294886}
+  - component: {fileID: 1406654479539766417}
+  - component: {fileID: 8634908188089244588}
   m_Layer: 5
   m_Name: P_Text_Base
   m_TagString: Untagged
@@ -137,7 +138,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &3043965504393294886
+--- !u!114 &1406654479539766417
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -146,12 +147,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 6025413584709060069}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f34f5868d064babaf33226a3ef47195, type: 3}
+  m_Script: {fileID: 11500000, guid: 2e5265c779e340c8b6f7d9850950b29b, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  <ColorType>k__BackingField: 1
-  <GradientDirection>k__BackingField: 0
-  <ThemeSharedColorName>k__BackingField: 
-  <ThemeSolidColorName>k__BackingField: Text_Main
-  <ThemeGradientColorName>k__BackingField: 
-  _targetComponent: {fileID: 4472915988729569276}
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.Base.ThemeComponent
+  _colorData:
+    <ColorType>k__BackingField: 1
+    <ColorName>k__BackingField: TextPrimary
+--- !u!114 &8634908188089244588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6025413584709060069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8840dbee5a42476db6edcdcd70e84c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.ColorModifiers.SolidColorModifier
+  _graphic: {fileID: 4472915988729569276}

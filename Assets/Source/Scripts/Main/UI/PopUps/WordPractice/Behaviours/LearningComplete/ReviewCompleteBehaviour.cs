@@ -1,4 +1,4 @@
-﻿using CustomUtils.Runtime.Extensions;
+﻿using CustomUtils.Runtime.Extensions.Observables;
 using R3;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Words.Base;
@@ -26,16 +26,16 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
         protected override void OnInit()
         {
             positiveButton.OnClickAsObservable()
-                .SubscribeAndRegister(this, self => self.SetActiveNewWords(true));
+                .SubscribeUntilDestroy(this, self => self.SetActiveNewWords(true));
 
-            _learnButton.OnClickAsObservable().SubscribeAndRegister(this, static self => self.AddNewWords());
+            _learnButton.OnClickAsObservable().SubscribeUntilDestroy(this, static self => self.AddNewWords());
 
             _wordsTimerService.OnAvailabilityTimeUpdated
-                .SubscribeAndRegister(this, static (time, self) =>
+                .SubscribeUntilDestroy(this, static (time, self) =>
                     self.SetState(CompleteType.Complete, time.ToShortTimeString()));
 
-            _exitButton.OnClickAsObservable().SubscribeAndRegister(this, self => self.OpenLearnWords());
-            negativeButton.OnClickAsObservable().SubscribeAndRegister(this, self => self.OpenLearnWords());
+            _exitButton.OnClickAsObservable().SubscribeUntilDestroy(this, self => self.OpenLearnWords());
+            negativeButton.OnClickAsObservable().SubscribeUntilDestroy(this, self => self.OpenLearnWords());
         }
 
         protected override void OnCheckCompleteness(CompleteType completeType)

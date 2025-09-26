@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
-using CustomUtils.Editor.CustomEditorUtilities;
-using CustomUtils.Editor.SheetsDownloader;
+using CustomUtils.Editor.Scripts.CustomEditorUtilities;
+using CustomUtils.Editor.Scripts.SheetsDownloader;
 using CustomUtils.Runtime.CSV;
 using CustomUtils.Runtime.Extensions;
 using Source.Scripts.Core.Repositories.Categories.Category;

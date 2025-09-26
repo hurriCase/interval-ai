@@ -1,4 +1,4 @@
-﻿using CustomUtils.Runtime.Extensions;
+﻿using CustomUtils.Runtime.Extensions.Observables;
 using Cysharp.Text;
 using R3;
 using Source.Scripts.Core.Audio.TextToSpeech;
@@ -23,7 +23,7 @@ namespace Source.Scripts.UI.Components.Button
 
         private void Awake()
         {
-            _buttonComponent.OnClickAsObservable().SubscribeAndRegister(this, self => self.SendAudio());
+            _buttonComponent.OnClickAsObservable().SubscribeUntilDestroy(this, self => self.SendAudio());
         }
 
         private void SendAudio()

@@ -1,4 +1,4 @@
-﻿using CustomUtils.Runtime.Extensions;
+﻿using CustomUtils.Runtime.Extensions.Observables;
 using R3;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.Shared.Progress;
@@ -24,7 +24,7 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours
         internal void Init()
         {
             _achievementPopUpButton.OnClickAsObservable()
-                .SubscribeAndRegister(this, static self => self.OpenAchievementPopUp());
+                .SubscribeUntilDestroy(this, static self => self.OpenAchievementPopUp());
 
             _weekProgressContainer.UpdateCurrentWeeklyProgress();
         }

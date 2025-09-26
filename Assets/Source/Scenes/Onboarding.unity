@@ -119,6 +119,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &141013511 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6878421835050916893, guid: b0b576c6b29f9ea4caff9b93a9468e7f, type: 3}
+  m_PrefabInstance: {fileID: 358030851}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8840dbee5a42476db6edcdcd70e84c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.ColorModifiers.SolidGenericColorModifier
 --- !u!1001 &358030851
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -127,6 +138,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 81484682509294775, guid: b0b576c6b29f9ea4caff9b93a9468e7f, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 81484682509294775, guid: b0b576c6b29f9ea4caff9b93a9468e7f, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6010902400229367974, guid: b0b576c6b29f9ea4caff9b93a9468e7f, type: 3}
+      propertyPath: _currentColorModifier
+      value: 
+      objectReference: {fileID: 141013511}
     - target: {fileID: 8704117777720689728, guid: b0b576c6b29f9ea4caff9b93a9468e7f, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -211,7 +234,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_Canvas
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8994931427748222975, guid: b0b576c6b29f9ea4caff9b93a9468e7f, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5908269230265889705, guid: b0b576c6b29f9ea4caff9b93a9468e7f, type: 3}

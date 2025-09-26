@@ -141,11 +141,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Source.Scripts.Onboarding::Source.Scripts.Onboarding.Source.Scripts.Onboarding.UI.Behaviours.WordCountSelectionBehaviour
   _contentContainer: {fileID: 1801231775297063569}
   _toggleGroup: {fileID: 2479746716129734556}
-  _rowItem: {fileID: 1982598347869655460, guid: 34855857e5d47e44a99cf4aeb53f5a6f, type: 3}
   _wordCountItem: {fileID: 671768619543779952, guid: 1e811714106c93c46b0416b730b7da79, type: 3}
-  _spacing: {fileID: 8159226568114179573, guid: 06dd1662caf37c64d8de0e6752243062, type: 3}
-  _rowSpacingRatio: 28.58333
-  _wordCountSpacingRatio: 0.2790698
 --- !u!114 &9115285232902052115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,6 +281,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1957747629056582313, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+      propertyPath: currentColorName
+      value: TextPrimary
+      objectReference: {fileID: 0}
     - target: {fileID: 4566821120556776672, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
       propertyPath: m_Name
       value: P_Text_HowMany
@@ -321,6 +321,10 @@ PrefabInstance:
       propertyPath: <LocalizationKey>k__BackingField
       value: ui.onboarding.how-many-words
       objectReference: {fileID: 0}
+    - target: {fileID: 9186071019390123412, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+      propertyPath: _currentColorModifier
+      value: 
+      objectReference: {fileID: 5807510659947700842}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -340,6 +344,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5807510659947700842 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1957747629056582313, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+  m_PrefabInstance: {fileID: 5454770869081325763}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8418255371607768099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8840dbee5a42476db6edcdcd70e84c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.ColorModifiers.SolidColorModifier
 --- !u!224 &6514319569782297133 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1284860795548734190, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}

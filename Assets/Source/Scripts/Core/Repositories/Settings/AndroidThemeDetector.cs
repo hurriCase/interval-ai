@@ -1,4 +1,4 @@
-﻿using CustomUtils.Runtime.UI.Theme.Base;
+﻿using CustomUtils.Runtime.UI.Theme;
 
 #if UNITY_ANDROID && !UNITY_EDITOR
 using System;

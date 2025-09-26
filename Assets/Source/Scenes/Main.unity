@@ -488,6 +488,14 @@ PrefabInstance:
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 31
       objectReference: {fileID: 0}
+    - target: {fileID: 6010902400229367974, guid: b0b576c6b29f9ea4caff9b93a9468e7f, type: 3}
+      propertyPath: _currentColorModifier
+      value: 
+      objectReference: {fileID: 1596500360}
+    - target: {fileID: 6878421835050916893, guid: b0b576c6b29f9ea4caff9b93a9468e7f, type: 3}
+      propertyPath: currentColorName
+      value: None
+      objectReference: {fileID: 0}
     - target: {fileID: 8704117777720689728, guid: b0b576c6b29f9ea4caff9b93a9468e7f, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -599,6 +607,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa39b0bfadc24978b0e0acd95426f6de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.DI.MainWindowsController
+--- !u!114 &1596500360 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6878421835050916893, guid: b0b576c6b29f9ea4caff9b93a9468e7f, type: 3}
+  m_PrefabInstance: {fileID: 1076991033}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8840dbee5a42476db6edcdcd70e84c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.ColorModifiers.SolidGenericColorModifier
 --- !u!114 &1788871177 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3077099920118186123, guid: 96d2f1cc0b5ef2b498dd34e1471db7eb, type: 3}

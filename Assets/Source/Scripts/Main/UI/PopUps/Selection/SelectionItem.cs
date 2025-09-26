@@ -1,5 +1,5 @@
 ﻿using System;
-using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.Localization;
 using R3;
 using Source.Scripts.Core.Localization.Base;
@@ -33,13 +33,13 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
             var enumSelectionService = new EnumSelectionService<TEnum>(
                 targetProperty, _localizationKey, _localizationKeysDatabase, customValues);
 
-            LocalizationController.Language.SubscribeAndRegister(this, enumSelectionService,
+            LocalizationController.Language.SubscribeUntilDestroy(this, enumSelectionService,
                 static (enumSelectionService, self) => self.UpdateLocalization(enumSelectionService));
 
             enumSelectionService.TargetProperty
-                .SubscribeAndRegister(this, static (selectedName, self) => self.UpdateText(selectedName));
+                .SubscribeUntilDestroy(this, static (selectedName, self) => self.UpdateText(selectedName));
 
-            _buttonComponent.OnClickAsObservable().SubscribeAndRegister(this, enumSelectionService,
+            _buttonComponent.OnClickAsObservable().SubscribeUntilDestroy(this, enumSelectionService,
                 static (enumSelectionService, self) => self.OpenPopup(enumSelectionService));
         }
 

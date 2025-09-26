@@ -1,4 +1,4 @@
-﻿using CustomUtils.Runtime.Extensions;
+﻿using CustomUtils.Runtime.Extensions.Observables;
 using R3;
 using R3.Triggers;
 using Source.Scripts.Core.Repositories.Settings.Base;
@@ -37,7 +37,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours
                 createdWordItem.Text.text = wordGoal.ToString();
                 createdWordItem.group = _toggleGroup;
                 createdWordItem.OnPointerClickAsObservable()
-                    .SubscribeAndRegister(this, wordGoal, static (wordGoal, self) => self.SelectWordCount(wordGoal));
+                    .SubscribeUntilDestroy(this, wordGoal, static (wordGoal, self) => self.SelectWordCount(wordGoal));
 
                 if (_practiceSettingsRepository.DailyGoal.Value == wordGoal)
                     createdWordItem.isOn = true;

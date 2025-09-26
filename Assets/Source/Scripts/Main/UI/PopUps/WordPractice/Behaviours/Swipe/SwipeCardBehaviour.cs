@@ -1,5 +1,6 @@
-﻿using CustomUtils.Runtime.CustomBehaviours;
+﻿using CustomUtils.Runtime.Attributes;
 using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Extensions.Observables;
 using PrimeTween;
 using R3;
 using Source.Scripts.Core.Configs;
@@ -11,8 +12,11 @@ using VContainer;
 
 namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
 {
-    internal sealed class SwipeCardBehaviour : RectTransformBehaviour
+    [RequireComponent(typeof(RectTransform))]
+    internal sealed class SwipeCardBehaviour : MonoBehaviour
     {
+        [SerializeField, Self] private RectTransform _rectTransform;
+
         public Observable<SwipeDirection> OnSwiped => _swiped;
         private readonly Subject<SwipeDirection> _swiped = new();
 
@@ -45,23 +49,23 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
 
         internal void Init()
         {
-            _originalPosition = RectTransform.anchoredPosition;
+            _originalPosition = _rectTransform.anchoredPosition;
             var canvas = GetComponentInParent<Canvas>();
-            _screenRect = RectTransformUtility.PixelAdjustRect(RectTransform, canvas);
+            _screenRect = RectTransformUtility.PixelAdjustRect(_rectTransform, canvas);
 
             _swipeInputService.OnPointerPressed
                 .Where(this, static self => self._uiSettingsRepository.IsSwipeEnabled.Value)
                 .Where(this, static self => self._windowsController.CurrentPopUpType == PopUpType.WordPractice)
                 .Where(this, static self => self._currentState is not SwipeState.SwipeExecuted)
-                .SubscribeAndRegister(this, self => self.OnPointerPressed());
+                .SubscribeUntilDestroy(this, self => self.OnPointerPressed());
 
             _swipeInputService.OnPointerReleased
                 .Where(this, static self => self._currentState is SwipeState.PointerPressed or SwipeState.Dragging)
-                .SubscribeAndRegister(this, self => self.OnPointerReleased());
+                .SubscribeUntilDestroy(this, self => self.OnPointerReleased());
 
             _swipeInputService.OnPointerPositionChanged
                 .Where(this, static self => self.IsValidForSwipe)
-                .SubscribeAndRegister(this, (position, self) => self.OnPointerPositionChanged(position));
+                .SubscribeUntilDestroy(this, (position, self) => self.OnPointerPositionChanged(position));
         }
 
         private bool IsValidForSwipe => _currentState is SwipeState.PointerPressed or SwipeState.Dragging;
@@ -70,7 +74,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
         {
             var pointerPosition = _swipeInputService.CurrentPointerPosition;
 
-            if (RectTransformUtility.RectangleContainsScreenPoint(RectTransform, pointerPosition) is false)
+            if (RectTransformUtility.RectangleContainsScreenPoint(_rectTransform, pointerPosition) is false)
                 return;
 
             _startPosition = pointerPosition;
@@ -151,7 +155,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
 
             _currentSequence.Stop();
             _currentSequence = Sequence.Create()
-                .Chain(Tween.Scale(RectTransform, _swipeConfig.PickupScale, _swipeConfig.PickupDuration));
+                .Chain(Tween.Scale(_rectTransform, _swipeConfig.PickupScale, _swipeConfig.PickupDuration));
         }
 
         private void ApplyDragVisualEffects(Vector2 deltaPosition)
@@ -161,8 +165,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
             var dragIntensity = Mathf.Clamp01(Mathf.Abs(normalizedDrag));
             var dragDirection = Mathf.Sign(normalizedDrag);
 
-            RectTransform.anchoredPosition = CalculatePosition(deltaPosition, dragIntensity);
-            RectTransform.rotation = CalculateRotation(dragDirection, dragIntensity);
+            _rectTransform.anchoredPosition = CalculatePosition(deltaPosition, dragIntensity);
+            _rectTransform.rotation = CalculateRotation(dragDirection, dragIntensity);
         }
 
         private Vector2 CalculatePosition(Vector2 deltaPosition, float dragIntensity)
@@ -192,7 +196,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
             var targetRotation = GetSwipeTargetRotation(direction);
 
             _currentSwipeDirection = direction;
-            _currentSequence = RectTransform
+            _currentSequence = _rectTransform
                 .TweenPositionAndRotation(targetPosition, targetRotation, _swipeConfig.SwipeExecuteDuration)
                 .OnComplete(this, static self =>
                 {
@@ -219,7 +223,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
         private void ReturnToOriginalPosition()
         {
             _currentSequence.Stop();
-            _currentSequence = RectTransform.TweenToOriginalTransform(_originalPosition, _swipeConfig.ReturnDuration);
+            _currentSequence = _rectTransform.TweenToOriginalTransform(_originalPosition, _swipeConfig.ReturnDuration);
         }
 
         private void ResetCard()
@@ -229,9 +233,9 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
 
             _currentSequence.Stop();
 
-            RectTransform.anchoredPosition = _originalPosition;
-            RectTransform.rotation = Quaternion.identity;
-            RectTransform.localScale = Vector3.one;
+            _rectTransform.anchoredPosition = _originalPosition;
+            _rectTransform.rotation = Quaternion.identity;
+            _rectTransform.localScale = Vector3.one;
         }
     }
 }

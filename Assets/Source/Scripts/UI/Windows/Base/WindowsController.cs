@@ -4,6 +4,7 @@ using System.Threading;
 using CustomUtils.Runtime.AddressableSystem;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Extensions.Observables;
 using Cysharp.Text;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -96,7 +97,7 @@ namespace Source.Scripts.UI.Windows.Base
                 popUpBase.BaseInit();
                 popUpBase.Init();
                 popUpBase.HideImmediately();
-                popUpBase.OnPopUpHidden.SubscribeAndRegister(this, static self => self.HandlePopUpHide());
+                popUpBase.OnPopUpHidden.SubscribeUntilDestroy(this, static self => self.HandlePopUpHide());
             }
         }
 

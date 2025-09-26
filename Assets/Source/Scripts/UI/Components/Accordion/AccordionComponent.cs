@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using CustomUtils.Runtime.CustomBehaviours;
-using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Attributes;
+using CustomUtils.Runtime.Extensions.Observables;
 using R3;
 using Source.Scripts.UI.Components.Animation;
 using Source.Scripts.UI.Components.Animation.Base;
@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 namespace Source.Scripts.UI.Components.Accordion
 {
-    internal sealed class AccordionComponent : RectTransformBehaviour
+    internal sealed class AccordionComponent : MonoBehaviour
     {
         [field: SerializeField] internal ButtonComponent ExpandButton { get; private set; }
         [field: SerializeField] internal RectTransform HiddenContentContainer { get; private set; }
@@ -23,6 +23,8 @@ namespace Source.Scripts.UI.Components.Accordion
 
         [SerializeField] private List<ScaleAnimation<VisibilityState>> _scaleAnimations;
 
+        [SerializeField, Self] private RectTransform _rectTransform;
+
         private VisibilityState _currentState;
 
         private void Awake()
@@ -31,7 +33,7 @@ namespace Source.Scripts.UI.Components.Accordion
 
             ExpandButton.OnClickAsObservable()
                 .Where(this, self => self._isInitiallyReady)
-                .SubscribeAndRegister(this, static self => self.SwitchVisibility());
+                .SubscribeUntilDestroy(this, static self => self.SwitchVisibility());
 
             PlayAnimation(_initiallyState, true);
         }
@@ -56,7 +58,7 @@ namespace Source.Scripts.UI.Components.Accordion
                 var tween = animationComponent.PlayAnimation(visibilityState, isInstant);
                 if (isInstant is false)
                     tween.OnUpdate(this,
-                        static (self, _) => LayoutRebuilder.MarkLayoutForRebuild(self.RectTransform));
+                        static (self, _) => LayoutRebuilder.MarkLayoutForRebuild(self._rectTransform));
             }
 
             foreach (var animationComponent in _animations)

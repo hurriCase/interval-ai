@@ -1,4 +1,4 @@
-﻿using CustomUtils.Runtime.Extensions;
+﻿using CustomUtils.Runtime.Extensions.Observables;
 using Cysharp.Threading.Tasks;
 using PrimeTween;
 using R3;
@@ -44,14 +44,14 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice
             _newWordsTab.OnPointerClickAsObservable()
                 .Where(_practiceStateService.CurrentState,
                     static (_, state) => state.CurrentValue != PracticeState.NewWords)
-                .SubscribeAndRegister(this, static self => self.SwitchToState(PracticeState.NewWords));
+                .SubscribeUntilDestroy(this, static self => self.SwitchToState(PracticeState.NewWords));
 
             _reviewTab.OnPointerClickAsObservable()
                 .Where(_practiceStateService.CurrentState, static (_, state)
                     => state.CurrentValue != PracticeState.Review)
-                .SubscribeAndRegister(this, static self => self.SwitchToState(PracticeState.Review));
+                .SubscribeUntilDestroy(this, static self => self.SwitchToState(PracticeState.Review));
 
-            _practiceStateService.CurrentState.SubscribeAndRegister(this,
+            _practiceStateService.CurrentState.SubscribeUntilDestroy(this,
                 static (state, self) => self.SwitchToState(state));
         }
 

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Extensions.Observables;
 using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Localization.LocalizationTypes;
@@ -61,7 +61,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingPractice
             foreach (var wordPracticeStepData in _practiceSteps)
             {
                 wordPracticeStepData.Init(_hintTextMapping, destroyCancellationToken);
-                wordPracticeStepData.OnSwitched.SubscribeAndRegister(this, static self => self.SwitchStep());
+                wordPracticeStepData.OnSwitched.SubscribeUntilDestroy(this, static self => self.SwitchStep());
             }
         }
 

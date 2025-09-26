@@ -1,5 +1,6 @@
 ﻿using CustomUtils.Runtime.AddressableSystem;
 using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Extensions.Observables;
 using R3;
 using Source.Scripts.Core.Repositories.Categories.Category;
 using Source.Scripts.UI.Components;
@@ -33,11 +34,11 @@ namespace Source.Scripts.Main.UI.Screens.Categories
             selectedCheckbox.isOn = categoryEntry.IsSelected;
 
             selectedCheckbox.OnValueChangedAsObservable()
-                .SubscribeAndRegister(this, static (isOn, self) => self.currentCategoryEntry.IsSelected = isOn);
+                .SubscribeUntilDestroy(this, static (isOn, self) => self.currentCategoryEntry.IsSelected = isOn);
 
             categoryStateMutator.OnCategoryNameChanged
                 .Select(categoryEntry, (currentCategory, changedCategory) => currentCategory == changedCategory)
-                .SubscribeAndRegister(this, static self => self.UpdateName());
+                .SubscribeUntilDestroy(this, static self => self.UpdateName());
 
             OnInit();
         }

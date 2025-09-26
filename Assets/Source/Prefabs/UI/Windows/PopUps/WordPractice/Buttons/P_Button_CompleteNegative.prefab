@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 70218583649260276, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+      propertyPath: _currentColorModifier
+      value: 
+      objectReference: {fileID: 3083319162867279168}
+    - target: {fileID: 70218583649260276, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+      propertyPath: _colorData.<ColorName>k__BackingField
+      value: Primary
+      objectReference: {fileID: 0}
     - target: {fileID: 1815174192101609245, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: <LocalizationKey>k__BackingField
       value: 
@@ -152,6 +160,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_Button_CompleteNegative
       objectReference: {fileID: 0}
+    - target: {fileID: 7253430493676195273, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+      propertyPath: currentColorName
+      value: Primary
+      objectReference: {fileID: 0}
     - target: {fileID: 7950739640804949390, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: m_AnchorMax.x
       value: 1
@@ -199,11 +211,15 @@ PrefabInstance:
     - target: {fileID: 9134864641081789667, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: <GraphicMappings>k__BackingField.Array.data[0]._colorMapping
       value: 
-      objectReference: {fileID: 11400000, guid: 801fb4911bb3c38468dca30c2b90e1f8, type: 2}
+      objectReference: {fileID: 11400000, guid: 921e1472956a3aa40aa10d3a26ef93f8, type: 2}
     - target: {fileID: 9134864641081789667, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: <GraphicMappings>k__BackingField.Array.data[0]._targetGraphic
       value: 
       objectReference: {fileID: 7137501905526464784}
+    - target: {fileID: 9134864641081789667, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+      propertyPath: <GraphicMappings>k__BackingField.Array.data[0]._themeComponent
+      value: 
+      objectReference: {fileID: 5663854349648804477}
     m_RemovedComponents:
     - {fileID: 1815174192101609245, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
     m_RemovedGameObjects:
@@ -211,6 +227,28 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+--- !u!114 &3083319162867279168 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7253430493676195273, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+  m_PrefabInstance: {fileID: 5648493510833580169}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8840dbee5a42476db6edcdcd70e84c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.ColorModifiers.SolidColorModifier
+--- !u!114 &5663854349648804477 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 70218583649260276, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+  m_PrefabInstance: {fileID: 5648493510833580169}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e5265c779e340c8b6f7d9850950b29b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.Base.ThemeComponent
 --- !u!114 &7137501905526464784 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3273829687922624921, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}

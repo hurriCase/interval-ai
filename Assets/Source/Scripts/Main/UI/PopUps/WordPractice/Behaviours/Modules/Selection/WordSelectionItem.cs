@@ -27,7 +27,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Selectio
         internal void Init(WordEntry wordEntry, bool isCorrect)
         {
             _toggle.Text.text = wordEntry.Word.GetHiddenText(_practiceSettingsRepository);
-            _toggle.Image.BorderRatio.Value = isCorrect ? 0 : _incorrectBorderRatio;
+            _toggle.Image.BorderWidth.Value = isCorrect ? 0 : _incorrectBorderRatio;
             _toggle.AdditionalGraphics = isCorrect ? _correctMapping : _incorrectMapping;
             _toggle.isOn = false;
         }

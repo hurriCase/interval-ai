@@ -1,4 +1,4 @@
-﻿using CustomUtils.Runtime.Extensions;
+﻿using CustomUtils.Runtime.Extensions.Observables;
 using R3;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
@@ -31,7 +31,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours.AdditionalItems
         {
             _wordProgressBehaviour.Init();
 
-            _addButton.OnClickAsObservable().SubscribeAndRegister(this, _currentTranslationSet,
+            _addButton.OnClickAsObservable().SubscribeUntilDestroy(this, _currentTranslationSet,
                 static (translationSet, self) => self._wordsRepository.AddWord(translationSet));
         }
 

@@ -1,4 +1,4 @@
-﻿using CustomUtils.Runtime.Extensions;
+﻿using CustomUtils.Runtime.Extensions.Observables;
 using R3;
 using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Main.UI.Base;
@@ -28,7 +28,7 @@ namespace Source.Scripts.Main.UI.PopUps.CategoryCreation
 
         internal override void Init()
         {
-            _saveButton.OnClickAsObservable().SubscribeAndRegister(this, static self => self.CreateCategory());
+            _saveButton.OnClickAsObservable().SubscribeUntilDestroy(this, static self => self.CreateCategory());
         }
 
         private void CreateCategory()

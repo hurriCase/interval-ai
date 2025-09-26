@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 455278396959134595, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
+      propertyPath: <Radius>k__BackingField
+      value: 7.82
+      objectReference: {fileID: 0}
     - target: {fileID: 2635891746716064224, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
       propertyPath: m_AspectMode
       value: 1
@@ -108,13 +112,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7840489426774413637, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
+      propertyPath: <BorderWidth>k__BackingField.value
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5540220392175559969, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
     - {fileID: 377233303332197835, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
     - {fileID: 163968304635786010, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
     m_RemovedGameObjects:
-    - {fileID: 7603372435408060092, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
-    - {fileID: 4803084715300879001, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
+    - {fileID: 0}
+    - {fileID: 0}
     - {fileID: 7389420278343330334, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -123,13 +131,19 @@ PrefabInstance:
       addedObject: {fileID: 5977408382105174003}
     - targetCorrespondingSourceObject: {fileID: 4202609680214102433, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6320501834000866669}
-    - targetCorrespondingSourceObject: {fileID: 4202609680214102433, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 7281976943009342870}
     - targetCorrespondingSourceObject: {fileID: 4202609680214102433, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6648392440371745073}
+    - targetCorrespondingSourceObject: {fileID: 4202609680214102433, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6924894032653248646}
+    - targetCorrespondingSourceObject: {fileID: 4202609680214102433, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8929657608266091231}
+    - targetCorrespondingSourceObject: {fileID: 4202609680214102433, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4280821777310193546}
   m_SourcePrefab: {fileID: 100100000, guid: 76feaa07e0179994aae621938eecd2f5, type: 3}
 --- !u!1 &7052841248445510864 stripped
 GameObject:
@@ -149,7 +163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.09019608, g: 0.09019608, b: 0.09019608, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -170,24 +184,6 @@ MonoBehaviour:
   <RoundedCapResolution>k__BackingField: 8
   <CustomFillOrigin>k__BackingField: 0
   <ThicknessRatio>k__BackingField: 0.2
---- !u!114 &6320501834000866669
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7052841248445510864}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0ba274b51e6439db0f68474a1ce65bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <ColorType>k__BackingField: 1
-  <GradientDirection>k__BackingField: 0
-  <ThemeSharedColorName>k__BackingField: Base_Icons
-  <ThemeSolidColorName>k__BackingField: Text_Main
-  <ThemeGradientColorName>k__BackingField: 
-  targetComponent: {fileID: 5977408382105174003}
 --- !u!222 &7281976943009342870
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -209,4 +205,45 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.Shared.ProgressSectionData
   <RoundedFilledImage>k__BackingField: {fileID: 5977408382105174003}
-  <ImageTheme>k__BackingField: {fileID: 6320501834000866669}
+  <ImageTheme>k__BackingField: {fileID: 6924894032653248646}
+--- !u!114 &6924894032653248646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7052841248445510864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e5265c779e340c8b6f7d9850950b29b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.Base.ThemeComponent
+  _currentColorType:
+    value: 1
+  _currentColorModifier: {fileID: 4280821777310193546}
+--- !u!114 &8929657608266091231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7052841248445510864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c1e79e0a3674a759c20f031a800afc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.Extensions.Observables.ObservableDisableTrigger
+--- !u!114 &4280821777310193546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7052841248445510864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8840dbee5a42476db6edcdcd70e84c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.ColorModifiers.SolidColorModifier
+  colorName: None
+  _graphic: {fileID: 5977408382105174003}

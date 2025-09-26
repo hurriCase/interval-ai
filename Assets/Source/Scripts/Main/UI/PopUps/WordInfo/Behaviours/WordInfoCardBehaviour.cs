@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Extensions.Observables;
 using Cysharp.Text;
 using R3;
 using Source.Scripts.Core.Repositories.Categories.Base;
@@ -55,7 +56,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours
             _wordProgressBehaviour.Init();
 
             _addToCategoryButton.OnClickAsObservable()
-                .SubscribeAndRegister(this, static self => self.ShowCategorySelection());
+                .SubscribeUntilDestroy(this, static self => self.ShowCategorySelection());
         }
 
         private void ShowCategorySelection()

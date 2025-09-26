@@ -1,4 +1,5 @@
 ﻿using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Extensions.Observables;
 using Cysharp.Text;
 using R3;
 using Source.Scripts.Core.Localization.Base;
@@ -48,16 +49,16 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
             _currentPracticeState = practiceState;
 
             _wordAdvanceService.CanUndo
-                .SubscribeAndRegister(this, static (canUndo, self) => self._previousCardButton.SetActive(canUndo));
+                .SubscribeUntilDestroy(this, static (canUndo, self) => self._previousCardButton.SetActive(canUndo));
 
-            _progressRepository.LearnedWordCounts[practiceState].SubscribeAndRegister(this,
+            _progressRepository.LearnedWordCounts[practiceState].SubscribeUntilDestroy(this,
                 static (wordsCount, self) => self.UpdateLearnedText(wordsCount));
 
             _previousCardButton.OnClickAsObservable()
                 .Subscribe(_wordAdvanceService.UndoCommand, static (unit, undo) => undo.Execute(unit))
                 .RegisterTo(destroyCancellationToken);
 
-            _moreButton.OnClickAsObservable().SubscribeAndRegister(this, static self => self.OpenWordControlPopUp());
+            _moreButton.OnClickAsObservable().SubscribeUntilDestroy(this, static self => self.OpenWordControlPopUp());
         }
 
         private void OpenWordControlPopUp()
