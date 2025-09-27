@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using CustomUtils.Runtime.AddressableSystem;
 using CustomUtils.Runtime.Scenes;
+using FirebaseServices.Runtime.Config;
 using Source.Scripts.Bootstrap.Core;
 using Source.Scripts.Core.ApiHelper;
 using Source.Scripts.Core.Audio.Sounds;
 using Source.Scripts.Core.Audio.TextToSpeech;
 using Source.Scripts.Core.Configs;
+using Source.Scripts.Core.GenerativeLanguage;
 using Source.Scripts.Core.Input;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Localization.LanguageDetector;
@@ -43,6 +45,7 @@ namespace Source.Scripts.Bootstrap.DI
         [SerializeField] private TestConfig _testConfig;
         [SerializeField] private AppConfig _appConfig;
 
+        [SerializeField] private GeminiGenerativeLanguageConfig _geminiGenerativeLanguageConfig;
         [SerializeField] private GoogleTextToSpeechConfig _googleTextToSpeechConfig;
         [SerializeField] private AzureTranslationConfig _azureTranslationConfig;
 
@@ -60,13 +63,15 @@ namespace Source.Scripts.Bootstrap.DI
             builder.Register<SceneTransitionController>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.RegisterInstance(_sceneReferences).AsImplementedInterfaces();
 
+            builder.Register<RemoteConfigService>(Lifetime.Singleton).AsImplementedInterfaces();
+
             builder.RegisterInstance(_stepsList);
 
             builder.Register<AddressablesLoader>(Lifetime.Singleton).AsImplementedInterfaces();
 
             builder.Register<AudioHandlerProvider>(Lifetime.Singleton).AsImplementedInterfaces();
 
-            builder.Register<LanguageLanguageDetector>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<LanguageDetector>(Lifetime.Singleton).AsImplementedInterfaces();
 
             builder.RegisterInstance(_spriteReferences).AsImplementedInterfaces();
 
@@ -95,11 +100,14 @@ namespace Source.Scripts.Bootstrap.DI
         {
             builder.Register<ApiHelper>(Lifetime.Singleton).AsImplementedInterfaces();
 
-            builder.RegisterInstance(_googleTextToSpeechConfig).AsImplementedInterfaces();
+            builder.Register<GeminiGenerativeLanguage>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.RegisterComponent(_geminiGenerativeLanguageConfig).AsImplementedInterfaces().As<ApiConfigBase>();
+
             builder.Register<GoogleTextToSpeech>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.RegisterInstance(_googleTextToSpeechConfig).AsImplementedInterfaces().As<ApiConfigBase>();
 
             builder.Register<AzureTranslator>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.RegisterInstance(_azureTranslationConfig).AsImplementedInterfaces();
+            builder.RegisterInstance(_azureTranslationConfig).AsImplementedInterfaces().As<ApiConfigBase>();
         }
 
         private void RegisterRepositories(IContainerBuilder builder)

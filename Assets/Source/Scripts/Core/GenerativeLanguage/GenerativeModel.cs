@@ -1,4 +1,5 @@
 ﻿using Cysharp.Text;
+using Source.Scripts.Core.ApiHelper;
 using UnityEngine;
 
 namespace Source.Scripts.Core.GenerativeLanguage
@@ -7,12 +8,11 @@ namespace Source.Scripts.Core.GenerativeLanguage
         fileName = nameof(GeminiGenerativeLanguageConfig),
         menuName = nameof(GeminiGenerativeLanguageConfig)
     )]
-    internal sealed class GeminiGenerativeLanguageConfig : ScriptableObject
+    internal sealed class GeminiGenerativeLanguageConfig : ApiConfigBase
     {
         [SerializeField] private string _endpointFormat;
         [SerializeField] private string _modelName;
-        [SerializeField] private string _apiKey;
 
-        internal string GetApiUrl() => ZString.Format(_endpointFormat, _modelName, _apiKey);
+        internal string GetApiUrl() => ZString.Format(_endpointFormat, _modelName, ApiKey);
     }
 }

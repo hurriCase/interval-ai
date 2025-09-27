@@ -12,6 +12,9 @@ namespace Source.Scripts.Core.Localization.Translator
 {
     internal sealed class AzureTranslator : ITranslator
     {
+        private const string SubscriptionKeyHeader = "Ocp-Apim-Subscription-Key";
+        private const string SubscriptionRegionHeader = "Ocp-Apim-Subscription-Region";
+
         private readonly ILanguageSettingsRepository _languageSettingsRepository;
         private readonly AzureTranslationConfig _azureTranslationConfig;
         private readonly ILanguageDetector _languageDetector;
@@ -70,8 +73,8 @@ namespace Source.Scripts.Core.Localization.Translator
 
         private void SetAzureHeaders(UnityWebRequest request)
         {
-            request.SetRequestHeader("Ocp-Apim-Subscription-Key", _azureTranslationConfig.SubscriptionKey);
-            request.SetRequestHeader("Ocp-Apim-Subscription-Region", _azureTranslationConfig.Region);
+            request.SetRequestHeader(SubscriptionKeyHeader, _azureTranslationConfig.ApiKey);
+            request.SetRequestHeader(SubscriptionRegionHeader, _azureTranslationConfig.Region);
         }
     }
 }

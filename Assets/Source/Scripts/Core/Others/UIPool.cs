@@ -27,8 +27,6 @@ namespace Source.Scripts.Core.Others
 
     internal readonly struct UIPool<TData, TPrefab> where TPrefab : MonoBehaviour
     {
-        internal IReadOnlyList<TPrefab> PooledItems => _pooledItems;
-
         private readonly TPrefab _prefab;
         private readonly RectTransform _container;
 

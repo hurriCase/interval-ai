@@ -1,5 +1,4 @@
-﻿using Source.Scripts.Core.GenerativeLanguage;
-using Source.Scripts.Core.Repositories.Words;
+﻿using Source.Scripts.Core.Repositories.Words;
 using Source.Scripts.Core.Repositories.Words.Advance;
 using Source.Scripts.Main.Data;
 using Source.Scripts.Main.UI.Base;
@@ -20,8 +19,6 @@ namespace Source.Scripts.Main.DI
 
         [SerializeField] private ProgressGraphSettings _progressGraphSettings;
 
-        [SerializeField] private GeminiGenerativeLanguageConfig _geminiGenerativeLanguageConfig;
-
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterComponent(_windowsController).AsImplementedInterfaces();
@@ -30,9 +27,6 @@ namespace Source.Scripts.Main.DI
             builder.RegisterComponent(_progressDescriptionsDatabase).AsImplementedInterfaces();
 
             builder.RegisterComponent(_progressGraphSettings).AsImplementedInterfaces();
-
-            builder.Register<GeminiGenerativeLanguage>(Lifetime.Scoped).AsImplementedInterfaces();
-            builder.RegisterComponent(_geminiGenerativeLanguageConfig).AsImplementedInterfaces();
 
             builder.Register<PracticeStateService>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.Register<WordsTimerService>(Lifetime.Singleton).AsImplementedInterfaces();
