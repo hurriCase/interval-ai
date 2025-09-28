@@ -19,6 +19,6 @@ namespace Source.Scripts.Core.Localization.Translator
 
         internal override string GetApiUrl() => ZString.Format(endpointFormat, _languageCode);
 
-        internal string ApiKey => apiKey;
+        internal string ApiKey => GetApiKey();
     }
 }
