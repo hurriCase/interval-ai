@@ -10,7 +10,7 @@ using UnityEngine.Networking;
 
 namespace Source.Scripts.Core.Localization.Translator
 {
-    internal sealed class AzureTranslator : ApiServiceBase<AzureTranslationConfig>, ITranslator
+    internal sealed class AzureTranslatorService : ApiServiceBase<AzureTranslationConfig>, ITranslator
     {
         public ReadOnlyReactiveProperty<bool> IsAvailable => _isAvailable;
         private ReactiveProperty<bool> _isAvailable;
@@ -26,7 +26,7 @@ namespace Source.Scripts.Core.Localization.Translator
         private readonly AzureTranslationConfig _azureTranslationConfig;
         private readonly ILanguageDetector _languageDetector;
 
-        internal AzureTranslator(
+        internal AzureTranslatorService(
             ILanguageSettingsRepository languageSettingsRepository,
             IApiAvailabilityChecker apiAvailabilityChecker,
             AzureTranslationConfig azureTranslationConfig,
@@ -59,7 +59,7 @@ namespace Source.Scripts.Core.Localization.Translator
             var requestBody = new[] { new TranslationRequest(normalizedText) };
 
             var response =
-                await GetResponse<AzureTranslator, TranslationRequest[], TranslationResponse[]>(
+                await GetResponse<AzureTranslatorService, TranslationRequest[], TranslationResponse[]>(
                     this,
                     requestBody,
                     token,

@@ -10,7 +10,7 @@ using Source.Scripts.Core.Repositories.Base;
 
 namespace Source.Scripts.Core.GenerativeLanguage
 {
-    internal sealed class GeminiGenerativeLanguage : ApiServiceBase<GeminiGenerativeLanguageConfig>, IGenerativeLanguage
+    internal sealed class GeminiGenerativeLanguageService : ApiServiceBase<GeminiGenerativeLanguageConfig>, IGenerativeLanguage
     {
         public ReadOnlyReactiveProperty<bool> IsAvailable => _isAvailable;
         private ReactiveProperty<bool> _isAvailable;
@@ -22,7 +22,7 @@ namespace Source.Scripts.Core.GenerativeLanguage
 
         private readonly IApiAvailabilityChecker _apiAvailabilityChecker;
 
-        internal GeminiGenerativeLanguage(
+        internal GeminiGenerativeLanguageService(
             GeminiGenerativeLanguageConfig geminiGenerativeLanguageConfig,
             IApiAvailabilityChecker apiAvailabilityChecker,
             IApiClient apiClient)

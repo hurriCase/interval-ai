@@ -101,13 +101,13 @@ namespace Source.Scripts.Bootstrap.DI
             builder.Register<ApiClient>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<ApiAvailabilityChecker>(Lifetime.Singleton).AsImplementedInterfaces();
 
-            builder.Register<GeminiGenerativeLanguage>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<GeminiGenerativeLanguageService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.RegisterComponent(_geminiGenerativeLanguageConfig).AsImplementedInterfaces().As<ApiConfigBase>();
 
-            builder.Register<GoogleTextToSpeech>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<GoogleTextToSpeechService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.RegisterInstance(_googleTextToSpeechConfig).AsImplementedInterfaces().As<ApiConfigBase>();
 
-            builder.Register<AzureTranslator>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<AzureTranslatorService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.RegisterInstance(_azureTranslationConfig).AsImplementedInterfaces().As<ApiConfigBase>();
         }
 

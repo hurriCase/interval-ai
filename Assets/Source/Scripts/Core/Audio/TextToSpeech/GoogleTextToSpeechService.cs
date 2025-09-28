@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Source.Scripts.Core.Audio.TextToSpeech
 {
-    internal sealed class GoogleTextToSpeech : ApiServiceBase<GoogleTextToSpeechConfig>, ITextToSpeech
+    internal sealed class GoogleTextToSpeechService : ApiServiceBase<GoogleTextToSpeechConfig>, ITextToSpeech
     {
         public ReadOnlyReactiveProperty<bool> IsAvailable => _isAvailable;
         private ReactiveProperty<bool> _isAvailable;
@@ -20,7 +20,7 @@ namespace Source.Scripts.Core.Audio.TextToSpeech
         private readonly IAudioHandlerProvider _audioHandlerProvider;
         private readonly IApiAvailabilityChecker _apiAvailabilityChecker;
 
-        internal GoogleTextToSpeech(
+        internal GoogleTextToSpeechService(
             GoogleTextToSpeechConfig googleTextToSpeechConfig,
             IApiAvailabilityChecker apiAvailabilityChecker,
             IAudioHandlerProvider audioHandlerProvider,
