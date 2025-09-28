@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95fe44098bf747d39a6ecee5a02e8076, type: 3}
   m_Name: GoogleTextToSpeechConfig
   m_EditorClassIdentifier: Source.Scripts.Core::Source.Scripts.Core.Audio.TTS.TTSConfig
-  <EncryptionKeyEnvironmentName>k__BackingField: AIzaSyCjiJKxiuPsy3MHY7jiBsAgl4dQMxiggoE
+  <UpdateAvailabilityInterval>k__BackingField: 300
+  <AvailabilityCheckUrl>k__BackingField: https://google.com/generate_204
+  <AvailabilityCode>k__BackingField: 204
   endpointFormat: https://texttospeech.googleapis.com/v1/text:synthesize?key={0}
+  _encryptionKeyEnvironmentName: CLOUD_TEXT_TO_SPEECH_ENCRYPTION_KEY
+  _apiKeyEnvironmentName: CLOUD_TEXT_TO_SPEECH_API_KEY

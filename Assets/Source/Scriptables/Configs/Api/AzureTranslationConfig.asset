@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa6903ece71c4f0a82220e71ae3d587d, type: 3}
   m_Name: AzureTranslationConfig
   m_EditorClassIdentifier: Source.Scripts.Core::Source.Scripts.Core.Localization.Translation.AzureTranslationConfig
-  <EncryptionKeyEnvironmentName>k__BackingField: AZURE_TRANSLATION_SUBSCRIPTION_KEY
+  <UpdateAvailabilityInterval>k__BackingField: 300
+  <AvailabilityCheckUrl>k__BackingField: https://api.cognitive.microsofttranslator.com/languages?api-version=3.0
+  <AvailabilityCode>k__BackingField: 200
   endpointFormat: https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&to={0}
+  _encryptionKeyEnvironmentName: AZURE_TRANSLATION_ENCRYPTION_KEY
+  _apiKeyEnvironmentName: AZURE_TRANSLATION_SUBSCRIPTION_KEY
   <Region>k__BackingField: westeurope

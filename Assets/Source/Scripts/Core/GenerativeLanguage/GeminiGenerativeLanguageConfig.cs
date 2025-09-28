@@ -12,7 +12,7 @@ namespace Source.Scripts.Core.GenerativeLanguage
     {
         [SerializeField] private string _modelName;
 
-        internal override bool IsValidUrl() => base.IsValidUrl() && string.IsNullOrEmpty(_modelName) is false;
+        internal override bool IsValid() => base.IsValid() && string.IsNullOrEmpty(_modelName) is false;
         internal override string GetApiUrl() => ZString.Format(endpointFormat, _modelName, GetApiKey());
     }
 }

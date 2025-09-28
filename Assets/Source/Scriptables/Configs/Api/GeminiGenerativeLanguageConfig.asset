@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6db702ad79034347aac5ea5c6af65faa, type: 3}
   m_Name: GeminiGenerativeLanguageConfig
   m_EditorClassIdentifier: Source.Scripts.Core::Source.Scripts.Core.AI.GeminiGenerativeLanguageConfig
-  <EncryptionKeyEnvironmentName>k__BackingField: GEMINI_GENERATIVE_LANGUAGE_API_KEY
+  <UpdateAvailabilityInterval>k__BackingField: 300
+  <AvailabilityCheckUrl>k__BackingField: https://google.com/generate_204
+  <AvailabilityCode>k__BackingField: 204
   endpointFormat: https://generativelanguage.googleapis.com/v1beta/models/{0}:generateContent?key={1}
+  _encryptionKeyEnvironmentName: GEMINI_GENERATIVE_LANGUAGE_ENCRYPTION_KEY
+  _apiKeyEnvironmentName: GEMINI_GENERATIVE_LANGUAGE_API_KEY
   _modelName: gemini-2.0-flash

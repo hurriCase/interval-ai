@@ -38,7 +38,7 @@ namespace Source.Scripts.Core.Api.Base
             where TRequest : class
             where TResponse : class, IValidatable
         {
-            if (_config.IsValidUrl() is false)
+            if (_config.IsValid() is false)
                 return new ResponseResult<TResponse>(false);
 
             var url = _config.GetApiUrl();
@@ -55,7 +55,7 @@ namespace Source.Scripts.Core.Api.Base
             where TRequest : class
             where TResponse : class, IValidatable
         {
-            if (_config.IsValidUrl() is false)
+            if (_config.IsValid() is false)
                 return new ResponseResult<TResponse>(false);
 
             var url = _config.GetApiUrl();
