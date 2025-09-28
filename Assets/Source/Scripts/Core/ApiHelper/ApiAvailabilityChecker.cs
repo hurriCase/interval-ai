@@ -31,10 +31,8 @@ namespace Source.Scripts.Core.ApiHelper
             }
             catch (Exception ex)
             {
-                Debug.LogWarning("[GoogleApiServiceBase::IsGoogleApiAvailableAsync] " +
-                                 $"Google API availability check failed: {ex.Message}");
-
-                Debug.LogException(ex);
+                Debug.LogError("[ApiAvailabilityChecker::IsAvailable] " +
+                               $"Api Service isn't available, for url: {url}, with exception: {ex.Message}");
                 return false;
             }
         }

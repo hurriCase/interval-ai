@@ -9,6 +9,8 @@ namespace Source.Scripts.Core.ApiHelper
     {
         [field: SerializeField] internal string EncryptionKeyEnvironmentName { get; private set; }
         [field: SerializeField] internal float UpdateAvailabilityInterval { get; private set; }
+        [field: SerializeField] internal string AvailabilityCheckUrl { get; private set; }
+        [field: SerializeField] internal long AvailabilityCode { get; private set; }
 
         [SerializeField] protected string endpointFormat;
 

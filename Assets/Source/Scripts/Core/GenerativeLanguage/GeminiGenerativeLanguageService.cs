@@ -1,45 +1,27 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using CustomUtils.Runtime.Storage;
-using Cysharp.Text;
 using Cysharp.Threading.Tasks;
-using R3;
 using Source.Scripts.Core.ApiHelper;
 using Source.Scripts.Core.GenerativeLanguage.Data;
 using Source.Scripts.Core.Repositories.Base;
 
 namespace Source.Scripts.Core.GenerativeLanguage
 {
-    internal sealed class GeminiGenerativeLanguageService : ApiServiceBase<GeminiGenerativeLanguageConfig>, IGenerativeLanguage
+    internal sealed class GeminiGenerativeLanguageService : ApiServiceBase<GeminiGenerativeLanguageConfig>,
+        IGenerativeLanguage
     {
-        public ReadOnlyReactiveProperty<bool> IsAvailable => _isAvailable;
-        private ReactiveProperty<bool> _isAvailable;
-
-        private const string UrlPattern = "https://www.google.com/generate_{0}";
-        private const long NoContentCode = 204;
-
         private readonly PersistentReactiveProperty<List<Content>> _chatHistory = new();
-
-        private readonly IApiAvailabilityChecker _apiAvailabilityChecker;
 
         internal GeminiGenerativeLanguageService(
             GeminiGenerativeLanguageConfig geminiGenerativeLanguageConfig,
             IApiAvailabilityChecker apiAvailabilityChecker,
             IApiClient apiClient)
-            : base(apiClient, geminiGenerativeLanguageConfig)
-        {
-            _apiAvailabilityChecker = apiAvailabilityChecker;
-        }
+            : base(apiAvailabilityChecker, apiClient, geminiGenerativeLanguageConfig) { }
 
         public async UniTask InitAsync(CancellationToken token)
         {
             await _chatHistory.InitAsync(PersistentKeys.ChatHistoryKey, token, new List<Content>());
-        }
-
-        public override async UniTask UpdateAvailable(CancellationToken token)
-        {
-            var url = ZString.Format(UrlPattern, NoContentCode);
-            _isAvailable.Value = await _apiAvailabilityChecker.IsAvailable(url, NoContentCode, token);
         }
 
         public async UniTask<string> SendPromptWithChatHistoryAsync(string message, CancellationToken token)

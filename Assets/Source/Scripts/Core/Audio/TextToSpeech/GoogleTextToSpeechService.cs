@@ -1,7 +1,5 @@
 ﻿using System.Threading;
-using Cysharp.Text;
 using Cysharp.Threading.Tasks;
-using R3;
 using Source.Scripts.Core.ApiHelper;
 using Source.Scripts.Core.Audio.Sounds.Base;
 using Source.Scripts.Core.Audio.TextToSpeech.Data;
@@ -11,30 +9,16 @@ namespace Source.Scripts.Core.Audio.TextToSpeech
 {
     internal sealed class GoogleTextToSpeechService : ApiServiceBase<GoogleTextToSpeechConfig>, ITextToSpeech
     {
-        public ReadOnlyReactiveProperty<bool> IsAvailable => _isAvailable;
-        private ReactiveProperty<bool> _isAvailable;
-
-        private const string UrlPattern = "https://www.google.com/generate_{0}";
-        private const long NoContentCode = 204;
-
         private readonly IAudioHandlerProvider _audioHandlerProvider;
-        private readonly IApiAvailabilityChecker _apiAvailabilityChecker;
 
         internal GoogleTextToSpeechService(
             GoogleTextToSpeechConfig googleTextToSpeechConfig,
             IApiAvailabilityChecker apiAvailabilityChecker,
             IAudioHandlerProvider audioHandlerProvider,
             IApiClient apiClient)
-            : base(apiClient, googleTextToSpeechConfig)
+            : base(apiAvailabilityChecker, apiClient, googleTextToSpeechConfig)
         {
-            _apiAvailabilityChecker = apiAvailabilityChecker;
             _audioHandlerProvider = audioHandlerProvider;
-        }
-
-        public override async UniTask UpdateAvailable(CancellationToken token)
-        {
-            var url = ZString.Format(UrlPattern, NoContentCode);
-            _isAvailable.Value = await _apiAvailabilityChecker.IsAvailable(url, NoContentCode, token);
         }
 
         public async UniTask SpeechTextAsync(string text, CancellationToken token)
