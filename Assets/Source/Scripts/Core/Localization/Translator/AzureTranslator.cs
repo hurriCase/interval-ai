@@ -1,5 +1,4 @@
 ﻿using System.Threading;
-using CustomUtils.Runtime.Extensions;
 using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.ApiHelper;
 using Source.Scripts.Core.Localization.LanguageDetector;
@@ -10,7 +9,7 @@ using UnityEngine.Networking;
 
 namespace Source.Scripts.Core.Localization.Translator
 {
-    internal sealed class AzureTranslator : ITranslator
+    internal sealed class AzureTranslator : ApiServiceBase<AzureTranslationConfig>, ITranslator
     {
         private const string SubscriptionKeyHeader = "Ocp-Apim-Subscription-Key";
         private const string SubscriptionRegionHeader = "Ocp-Apim-Subscription-Region";
@@ -18,18 +17,17 @@ namespace Source.Scripts.Core.Localization.Translator
         private readonly ILanguageSettingsRepository _languageSettingsRepository;
         private readonly AzureTranslationConfig _azureTranslationConfig;
         private readonly ILanguageDetector _languageDetector;
-        private readonly IApiHelper _apiHelper;
 
         internal AzureTranslator(
             ILanguageSettingsRepository languageSettingsRepository,
             AzureTranslationConfig azureTranslationConfig,
             ILanguageDetector languageDetector,
             IApiHelper apiHelper)
+            : base(apiHelper, azureTranslationConfig)
         {
             _languageSettingsRepository = languageSettingsRepository;
             _azureTranslationConfig = azureTranslationConfig;
             _languageDetector = languageDetector;
-            _apiHelper = apiHelper;
         }
 
         public async UniTask<string> TranslateTextAsync(
@@ -37,20 +35,18 @@ namespace Source.Scripts.Core.Localization.Translator
             SystemLanguage targetLanguage,
             CancellationToken token)
         {
-            var normalizedText = text?.Trim() ?? string.Empty;
-            var languageCode = targetLanguage.SystemLanguageToISO1();
-
-            if (normalizedText.IsValid() is false)
+            var normalizedText = text?.Trim();
+            if (string.IsNullOrEmpty(normalizedText))
                 return string.Empty;
 
-            var url = _azureTranslationConfig.GetApiUrl(languageCode);
+            _azureTranslationConfig.SetLanguageCode(targetLanguage);
+
             var requestBody = new[] { new TranslationRequest(normalizedText) };
 
             var response =
-                await _apiHelper.PostAsync<AzureTranslator, TranslationRequest[], TranslationResponse[]>(
+                await GetResponse<AzureTranslator, TranslationRequest[], TranslationResponse[]>(
                     this,
                     requestBody,
-                    url,
                     token,
                     static (self, request) => self.SetAzureHeaders(request));
 

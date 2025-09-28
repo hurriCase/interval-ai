@@ -10,9 +10,9 @@ namespace Source.Scripts.Core.GenerativeLanguage
     )]
     internal sealed class GeminiGenerativeLanguageConfig : ApiConfigBase
     {
-        [SerializeField] private string _endpointFormat;
         [SerializeField] private string _modelName;
 
-        internal string GetApiUrl() => ZString.Format(_endpointFormat, _modelName, ApiKey);
+        internal override bool IsValidUrl() => base.IsValidUrl() && string.IsNullOrEmpty(_modelName) is false;
+        internal override string GetApiUrl() => ZString.Format(endpointFormat, _modelName, apiKey);
     }
 }

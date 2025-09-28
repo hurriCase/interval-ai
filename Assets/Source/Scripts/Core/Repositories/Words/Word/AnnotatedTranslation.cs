@@ -1,5 +1,4 @@
-﻿using CustomUtils.Runtime.Extensions;
-using MemoryPack;
+﻿using MemoryPack;
 using Source.Scripts.Core.Repositories.Words.Base;
 
 namespace Source.Scripts.Core.Repositories.Words.Word
@@ -17,6 +16,6 @@ namespace Source.Scripts.Core.Repositories.Words.Word
         }
 
         [MemoryPackIgnore]
-        public bool IsValid => Note.IsValid() && Translation.IsValid;
+        public bool IsValid => string.IsNullOrEmpty(Note) is false && Translation.IsValid;
     }
 }

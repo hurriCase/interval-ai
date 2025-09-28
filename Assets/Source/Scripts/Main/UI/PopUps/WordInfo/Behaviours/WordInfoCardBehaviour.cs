@@ -104,7 +104,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours
 
         private void UpdateText(TMP_Text textComponentWithSpacing, string textToShow, bool additionalRule = true)
         {
-            textComponentWithSpacing.SetActive(textToShow.IsValid() && additionalRule);
+            textComponentWithSpacing.SetActive(string.IsNullOrEmpty(textToShow) is false && additionalRule);
             textComponentWithSpacing.text = textToShow;
         }
     }

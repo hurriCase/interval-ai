@@ -1,5 +1,4 @@
-﻿using CustomUtils.Runtime.Extensions;
-using CustomUtils.Runtime.Extensions.Observables;
+﻿using CustomUtils.Runtime.Extensions.Observables;
 using Cysharp.Threading.Tasks;
 using R3;
 using Source.Scripts.Core.GenerativeLanguage;
@@ -7,7 +6,6 @@ using Source.Scripts.UI.Components.Button;
 using Source.Scripts.UI.Windows.Base;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using VContainer;
 using VContainer.Unity;
 
@@ -42,7 +40,7 @@ namespace Source.Scripts.Main.UI.PopUps.Chat
         {
             var typedText = _messageInputField.text;
 
-            if (typedText.IsValid() is false)
+            if (string.IsNullOrEmpty(typedText))
                 return;
 
             _messageInputField.text = string.Empty;

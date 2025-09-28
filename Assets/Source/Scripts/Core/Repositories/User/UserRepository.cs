@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading;
 using CustomUtils.Runtime.AddressableSystem;
-using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Storage;
 using Cysharp.Threading.Tasks;
 using R3;
@@ -45,7 +44,7 @@ namespace Source.Scripts.Core.Repositories.User
 
         public void SetNickname(string nickname)
         {
-            if (nickname.IsValid())
+            if (string.IsNullOrEmpty(nickname) is false)
                 _nickname.Value = nickname;
         }
 

@@ -7,8 +7,6 @@ namespace Source.Scripts.Core.Audio.TextToSpeech
     [CreateAssetMenu(fileName = nameof(GoogleTextToSpeechConfig), menuName = nameof(GoogleTextToSpeechConfig))]
     internal sealed class GoogleTextToSpeechConfig : ApiConfigBase
     {
-        [SerializeField] private string _endpointFormat;
-
-        internal string GetApiUrl() => ZString.Format(_endpointFormat, ApiKey);
+        internal override string GetApiUrl() => ZString.Format(endpointFormat, apiKey);
     }
 }

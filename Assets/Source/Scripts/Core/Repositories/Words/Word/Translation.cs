@@ -1,5 +1,4 @@
-﻿using CustomUtils.Runtime.Extensions;
-using MemoryPack;
+﻿using MemoryPack;
 using Source.Scripts.Core.Repositories.Words.Base;
 
 namespace Source.Scripts.Core.Repositories.Words.Word
@@ -17,6 +16,6 @@ namespace Source.Scripts.Core.Repositories.Words.Word
         }
 
         [MemoryPackIgnore]
-        public bool IsValid => Native.IsValid() && Learning.IsValid();
+        public bool IsValid => string.IsNullOrEmpty(Native) is false && string.IsNullOrEmpty(Learning) is false;
     }
 }

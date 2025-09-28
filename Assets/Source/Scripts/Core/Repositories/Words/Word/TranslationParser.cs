@@ -61,7 +61,7 @@ namespace Source.Scripts.Core.Repositories.Words.Word
 
             for (var i = 0; i < minCount; i++)
             {
-                if (firstValues[i].IsValid() && secondValues[i].IsValid())
+                if (string.IsNullOrEmpty(firstValues[i]) is false && string.IsNullOrEmpty(secondValues[i]) is false)
                     results.Add(createItem(firstValues[i], secondValues[i]));
             }
 
@@ -87,7 +87,7 @@ namespace Source.Scripts.Core.Repositories.Words.Word
                 var native = nativeValues[i];
                 var learning = learningValues[i];
 
-                if (note.IsValid() is false || native.IsValid() is false || learning.IsValid() is false)
+                if (string.IsNullOrEmpty(note) || string.IsNullOrEmpty(native) || string.IsNullOrEmpty(learning))
                     continue;
 
                 var translation = new Translation(native, learning);

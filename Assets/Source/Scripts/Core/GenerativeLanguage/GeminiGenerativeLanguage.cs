@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
-using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Storage;
 using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.ApiHelper;
@@ -9,20 +8,14 @@ using Source.Scripts.Core.Repositories.Base;
 
 namespace Source.Scripts.Core.GenerativeLanguage
 {
-    internal sealed class GeminiGenerativeLanguage : IGenerativeLanguage
+    internal sealed class GeminiGenerativeLanguage : ApiServiceBase<GeminiGenerativeLanguageConfig>, IGenerativeLanguage
     {
         private readonly PersistentReactiveProperty<List<Content>> _chatHistory = new();
-
-        private readonly GeminiGenerativeLanguageConfig _geminiGenerativeLanguageConfig;
-        private readonly IApiHelper _apiHelper;
 
         internal GeminiGenerativeLanguage(
             GeminiGenerativeLanguageConfig geminiGenerativeLanguageConfig,
             IApiHelper apiHelper)
-        {
-            _geminiGenerativeLanguageConfig = geminiGenerativeLanguageConfig;
-            _apiHelper = apiHelper;
-        }
+            : base(apiHelper, geminiGenerativeLanguageConfig) { }
 
         public async UniTask InitAsync(CancellationToken token)
         {
@@ -39,7 +32,7 @@ namespace Source.Scripts.Core.GenerativeLanguage
 
             var parsedResponse = await GetResponseTextFromRequest(chatRequest, token);
 
-            if (parsedResponse.IsValid() is false)
+            if (string.IsNullOrEmpty(parsedResponse))
                 return parsedResponse;
 
             var botContent = new Content(parsedResponse, Role.Model);
@@ -51,8 +44,7 @@ namespace Source.Scripts.Core.GenerativeLanguage
 
         private async UniTask<string> GetResponseTextFromRequest(ChatRequest chatRequest, CancellationToken token)
         {
-            var url = _geminiGenerativeLanguageConfig.GetApiUrl();
-            var response = await _apiHelper.PostAsync<ChatRequest, Response>(chatRequest, url, token);
+            var response = await GetResponse<ChatRequest, Response>(chatRequest, token);
 
             if (response?.Candidates is { Length: > 0 } &&
                 response.Candidates[0].Content.Parts is { Length: > 0 })

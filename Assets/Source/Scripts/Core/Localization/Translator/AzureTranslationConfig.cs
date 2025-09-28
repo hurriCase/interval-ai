@@ -1,4 +1,5 @@
-﻿using Cysharp.Text;
+﻿using CustomUtils.Runtime.Extensions;
+using Cysharp.Text;
 using Source.Scripts.Core.ApiHelper;
 using UnityEngine;
 
@@ -9,8 +10,15 @@ namespace Source.Scripts.Core.Localization.Translator
     {
         [field: SerializeField] internal string Region { get; private set; }
 
-        [SerializeField] private string _endpointFormat;
+        private string _languageCode;
 
-        internal string GetApiUrl(string languageCode) => ZString.Format(_endpointFormat, languageCode);
+        internal void SetLanguageCode(SystemLanguage targetLanguage)
+        {
+            _languageCode = targetLanguage.SystemLanguageToISO1();
+        }
+
+        internal override string GetApiUrl() => ZString.Format(endpointFormat, _languageCode);
+
+        internal string ApiKey => apiKey;
     }
 }

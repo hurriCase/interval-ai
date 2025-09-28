@@ -1,10 +1,11 @@
 using System;
 using Newtonsoft.Json;
+using Source.Scripts.Core.ApiHelper;
 
 namespace Source.Scripts.Core.Audio.TextToSpeech.Data
 {
     [Serializable]
-    internal sealed class TextToSpeechResponse
+    internal sealed class TextToSpeechResponse : IValidatable
     {
         [JsonProperty("audioContent")] internal string AudioContent { get; private set; }
 
@@ -13,5 +14,7 @@ namespace Source.Scripts.Core.Audio.TextToSpeech.Data
         {
             AudioContent = audioContent;
         }
+
+        public bool IsValid() => string.IsNullOrEmpty(AudioContent) is false;
     }
 }

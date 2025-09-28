@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using CustomUtils.Runtime.Extensions;
 using MemoryPack;
 using Source.Scripts.Core.Repositories.Words.Base;
 
@@ -18,6 +17,8 @@ namespace Source.Scripts.Core.Repositories.Words.Word
         }
 
         [MemoryPackIgnore]
-        public bool IsValid => Learning.IsValid() && Natives is { Count: > 0 } && Natives[0].IsValid();
+        public bool IsValid => string.IsNullOrEmpty(Learning) is false
+                               && Natives is { Count: > 0 }
+                               && string.IsNullOrEmpty(Natives[0]) is false;
     }
 }
