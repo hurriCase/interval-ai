@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
-using Source.Scripts.Core.ApiHelper;
+using Source.Scripts.Core.Api.Base;
+using Source.Scripts.Core.Api.Interfaces;
 using Source.Scripts.Core.Audio.Sounds.Base;
 using Source.Scripts.Core.Audio.TextToSpeech.Data;
 using UnityEngine;
@@ -47,14 +48,14 @@ namespace Source.Scripts.Core.Audio.TextToSpeech
             var request = new TextToSpeechRequest(normalizedText);
             var response = await GetResponse<TextToSpeechRequest, TextToSpeechResponse>(request, token);
 
-            if (response is null || response.IsValid() is false)
+            if (response.Success is false)
                 return null;
 
             var fileExtension = request.Audio.AudioEncoding.ToLowerInvariant();
 
             return await AudioClipCreator.CreateAudioClipAsync(
                 normalizedText,
-                response.AudioContent,
+                response.Data.AudioContent,
                 fileExtension,
                 token);
         }

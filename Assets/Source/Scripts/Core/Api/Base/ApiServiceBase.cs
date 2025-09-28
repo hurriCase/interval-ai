@@ -2,10 +2,11 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using R3;
+using Source.Scripts.Core.Api.Interfaces;
 using UnityEngine.Networking;
 using Observable = R3.Observable;
 
-namespace Source.Scripts.Core.ApiHelper
+namespace Source.Scripts.Core.Api.Base
 {
     internal abstract class ApiServiceBase<TConfig> : IDisposable where TConfig : ApiConfigBase
     {
@@ -31,35 +32,41 @@ namespace Source.Scripts.Core.ApiHelper
                     .Forget());
         }
 
-        internal async UniTask<TResponse> GetResponse<TRequest, TResponse>(TRequest request, CancellationToken token)
+        internal async UniTask<ResponseResult<TResponse>> GetResponse<TRequest, TResponse>(
+            TRequest request,
+            CancellationToken token)
             where TRequest : class
-            where TResponse : class
+            where TResponse : class, IValidatable
         {
             if (_config.IsValidUrl() is false)
-                return null;
+                return new ResponseResult<TResponse>(false);
 
             var url = _config.GetApiUrl();
-            return await _apiClient.PostAsync<TRequest, TResponse>(request, url, token);
+            var response = await _apiClient.PostAsync<TRequest, TResponse>(request, url, token);
+            var success = response != null && response.IsValid();
+            return new ResponseResult<TResponse>(response, success);
         }
 
-        internal async UniTask<TResponse> GetResponse<TSource, TRequest, TResponse>(
+        internal async UniTask<ResponseResult<TResponse>> GetResponse<TSource, TRequest, TResponse>(
             TSource source,
             TRequest request,
             CancellationToken token,
             Action<TSource, UnityWebRequest> additionalHeaders)
             where TRequest : class
-            where TResponse : class
+            where TResponse : class, IValidatable
         {
             if (_config.IsValidUrl() is false)
-                return null;
+                return new ResponseResult<TResponse>(false);
 
             var url = _config.GetApiUrl();
-            return await _apiClient.PostAsync<TSource, TRequest, TResponse>(
+            var response = await _apiClient.PostAsync<TSource, TRequest, TResponse>(
                 source,
                 request,
                 url,
                 token,
                 additionalHeaders);
+            var success = response != null && response.IsValid();
+            return new ResponseResult<TResponse>(response, success);
         }
 
         public async UniTask UpdateAvailable(CancellationToken token)

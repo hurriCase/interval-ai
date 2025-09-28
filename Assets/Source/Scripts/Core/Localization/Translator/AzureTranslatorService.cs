@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
-using Source.Scripts.Core.ApiHelper;
+using Source.Scripts.Core.Api.Base;
+using Source.Scripts.Core.Api.Interfaces;
 using Source.Scripts.Core.Localization.LanguageDetector;
 using Source.Scripts.Core.Localization.Translator.Data;
 using Source.Scripts.Core.Repositories.Settings.Base;
@@ -38,7 +39,7 @@ namespace Source.Scripts.Core.Localization.Translator
             return TranslateTextAsync(text, oppositeLanguage, token);
         }
 
-        public async UniTask<string> TranslateTextAsync(
+        private async UniTask<string> TranslateTextAsync(
             string text,
             SystemLanguage targetLanguage,
             CancellationToken token)
@@ -52,20 +53,13 @@ namespace Source.Scripts.Core.Localization.Translator
             var requestBody = new[] { new TranslationRequest(normalizedText) };
 
             var response =
-                await GetResponse<AzureTranslatorService, TranslationRequest[], TranslationResponse[]>(
+                await GetResponse<AzureTranslatorService, TranslationRequest[], TranslationResponseArray>(
                     this,
                     requestBody,
                     token,
                     static (self, request) => self.SetAzureHeaders(request));
 
-            if (response is null || response.Length == 0)
-                return normalizedText;
-
-            var firstResult = response[0];
-            if (firstResult?.Translations is null || firstResult.Translations.Length == 0)
-                return normalizedText;
-
-            return firstResult.Translations[0].Text;
+            return response.Success is false ? normalizedText : response.Data.GetText();
         }
 
         private void SetAzureHeaders(UnityWebRequest request)

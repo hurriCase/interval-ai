@@ -1,6 +1,6 @@
 using System;
 using Newtonsoft.Json;
-using Source.Scripts.Core.ApiHelper;
+using Source.Scripts.Core.Api.Interfaces;
 
 namespace Source.Scripts.Core.Audio.TextToSpeech.Data
 {

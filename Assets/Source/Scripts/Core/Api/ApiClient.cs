@@ -4,10 +4,11 @@ using System.Threading;
 using Cysharp.Text;
 using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
+using Source.Scripts.Core.Api.Interfaces;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace Source.Scripts.Core.ApiHelper
+namespace Source.Scripts.Core.Api
 {
     internal sealed class ApiClient : IApiClient
     {

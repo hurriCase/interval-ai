@@ -2,7 +2,8 @@
 using System.Threading;
 using CustomUtils.Runtime.Storage;
 using Cysharp.Threading.Tasks;
-using Source.Scripts.Core.ApiHelper;
+using Source.Scripts.Core.Api.Base;
+using Source.Scripts.Core.Api.Interfaces;
 using Source.Scripts.Core.GenerativeLanguage.Data;
 using Source.Scripts.Core.Repositories.Base;
 
@@ -26,33 +27,27 @@ namespace Source.Scripts.Core.GenerativeLanguage
 
         public async UniTask<string> SendPromptWithChatHistoryAsync(string message, CancellationToken token)
         {
-            var userContent = new Content(message, Role.User);
-
-            _chatHistory.Value.Add(userContent);
+            AddChatHistory(message, Role.User);
 
             var chatRequest = new ChatRequest(_chatHistory.Value);
 
-            var parsedResponse = await GetResponseTextFromRequest(chatRequest, token);
+            var response = await GetResponse<ChatRequest, GenerativeLanguageResponse>(chatRequest, token);
 
-            if (string.IsNullOrEmpty(parsedResponse))
-                return parsedResponse;
+            if (response.Success is false)
+                return string.Empty;
 
-            var botContent = new Content(parsedResponse, Role.Model);
+            var text = response.Data.GetText();
 
-            _chatHistory.Value.Add(botContent);
+            AddChatHistory(text, Role.Model);
 
-            return parsedResponse;
+            return text;
         }
 
-        private async UniTask<string> GetResponseTextFromRequest(ChatRequest chatRequest, CancellationToken token)
+        private void AddChatHistory(string message, Role role)
         {
-            var response = await GetResponse<ChatRequest, Response>(chatRequest, token);
+            var userContent = new Content(message, role);
 
-            if (response?.Candidates is { Length: > 0 } &&
-                response.Candidates[0].Content.Parts is { Length: > 0 })
-                return response.Candidates[0].Content.Parts[0].Text;
-
-            return string.Empty;
+            _chatHistory.Value.Add(userContent);
         }
     }
 }

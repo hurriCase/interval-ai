@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
 
-namespace Source.Scripts.Core.ApiHelper
+namespace Source.Scripts.Core.Api.Interfaces
 {
     internal interface IApiAvailabilityChecker
     {

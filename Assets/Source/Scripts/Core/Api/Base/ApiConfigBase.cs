@@ -3,7 +3,7 @@ using CustomUtils.Runtime.Extensions;
 using FirebaseServices.Runtime.Config;
 using UnityEngine;
 
-namespace Source.Scripts.Core.ApiHelper
+namespace Source.Scripts.Core.Api.Base
 {
     internal abstract class ApiConfigBase : ScriptableObject
     {

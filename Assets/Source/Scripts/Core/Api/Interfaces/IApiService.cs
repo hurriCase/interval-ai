@@ -2,7 +2,7 @@
 using Cysharp.Threading.Tasks;
 using R3;
 
-namespace Source.Scripts.Core.ApiHelper
+namespace Source.Scripts.Core.Api.Interfaces
 {
     internal interface IApiService
     {

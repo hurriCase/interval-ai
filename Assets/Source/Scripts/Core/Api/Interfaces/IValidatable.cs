@@ -1,4 +1,4 @@
-namespace Source.Scripts.Core.ApiHelper
+namespace Source.Scripts.Core.Api.Interfaces
 {
     internal interface IValidatable
     {

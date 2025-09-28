@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Source.Scripts.Core.Api.Interfaces;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace Source.Scripts.Core.ApiHelper
+namespace Source.Scripts.Core.Api
 {
     internal sealed class ApiAvailabilityChecker : IApiAvailabilityChecker
     {
