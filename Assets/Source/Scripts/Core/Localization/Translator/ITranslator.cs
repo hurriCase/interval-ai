@@ -1,15 +1,11 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
-using JetBrains.Annotations;
-using R3;
-using UnityEngine;
+using Source.Scripts.Core.ApiHelper;
 
 namespace Source.Scripts.Core.Localization.Translator
 {
-    internal interface ITranslator
+    internal interface ITranslator : IApiService
     {
-        ReadOnlyReactiveProperty<bool> IsAvailable { get; }
-        UniTask UpdateAvailable(CancellationToken token);
         UniTask<string> TranslateTextAsync(string text, CancellationToken token);
     }
 }

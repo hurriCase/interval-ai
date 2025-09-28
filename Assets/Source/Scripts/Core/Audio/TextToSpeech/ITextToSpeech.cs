@@ -1,12 +1,11 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
-using R3;
+using Source.Scripts.Core.ApiHelper;
 
 namespace Source.Scripts.Core.Audio.TextToSpeech
 {
-    internal interface ITextToSpeech
+    internal interface ITextToSpeech : IApiService
     {
-        ReadOnlyReactiveProperty<bool> IsAvailable { get; }
         UniTask SpeechTextAsync(string text, CancellationToken token);
     }
 }

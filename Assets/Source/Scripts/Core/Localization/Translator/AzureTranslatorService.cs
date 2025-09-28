@@ -45,6 +45,13 @@ namespace Source.Scripts.Core.Localization.Translator
             _isAvailable.Value = await _apiAvailabilityChecker.IsAvailable(Url, NoContentCode, token);
         }
 
+        public UniTask<string> TranslateTextAsync(string text, CancellationToken token)
+        {
+            var language = _languageDetector.DetectLanguage(text);
+            var oppositeLanguage = _languageSettingsRepository.GetOppositeLanguage(language);
+            return TranslateTextAsync(text, oppositeLanguage, token);
+        }
+
         public async UniTask<string> TranslateTextAsync(
             string text,
             SystemLanguage targetLanguage,
@@ -73,13 +80,6 @@ namespace Source.Scripts.Core.Localization.Translator
                 return normalizedText;
 
             return firstResult.Translations[0].Text;
-        }
-
-        public UniTask<string> TranslateTextAsync(string text, CancellationToken token)
-        {
-            var language = _languageDetector.DetectLanguage(text);
-            var oppositeLanguage = _languageSettingsRepository.GetOppositeLanguage(language);
-            return TranslateTextAsync(text, oppositeLanguage, token);
         }
 
         private void SetAzureHeaders(UnityWebRequest request)
