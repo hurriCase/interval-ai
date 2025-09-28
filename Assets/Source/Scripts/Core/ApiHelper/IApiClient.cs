@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 
 namespace Source.Scripts.Core.ApiHelper
 {
-    internal interface IApiHelper
+    internal interface IApiClient
     {
         UniTask<TResponse?> PostAsync<TRequest, TResponse>(TRequest request, string url, CancellationToken token)
             where TRequest : class

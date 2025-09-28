@@ -9,7 +9,7 @@ using UnityEngine.Networking;
 
 namespace Source.Scripts.Core.ApiHelper
 {
-    internal sealed class ApiHelper : IApiHelper
+    internal sealed class ApiClient : IApiClient
     {
         public async UniTask<TResponse> PostAsync<TRequest, TResponse>(
             TRequest request,

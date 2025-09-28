@@ -7,12 +7,12 @@ namespace Source.Scripts.Core.ApiHelper
 {
     internal abstract class ApiServiceBase<TConfig> where TConfig : ApiConfigBase
     {
-        private readonly IApiHelper _apiHelper;
+        private readonly IApiClient _apiClient;
         private readonly TConfig _config;
 
-        internal ApiServiceBase(IApiHelper apiHelper, TConfig config)
+        internal ApiServiceBase(IApiClient apiClient, TConfig config)
         {
-            _apiHelper = apiHelper;
+            _apiClient = apiClient;
             _config = config;
         }
 
@@ -24,7 +24,7 @@ namespace Source.Scripts.Core.ApiHelper
                 return null;
 
             var url = _config.GetApiUrl();
-            return await _apiHelper.PostAsync<TRequest, TResponse>(request, url, token);
+            return await _apiClient.PostAsync<TRequest, TResponse>(request, url, token);
         }
 
         internal async UniTask<TResponse> GetResponse<TSource, TRequest, TResponse>(
@@ -39,7 +39,7 @@ namespace Source.Scripts.Core.ApiHelper
                 return null;
 
             var url = _config.GetApiUrl();
-            return await _apiHelper.PostAsync<TSource, TRequest, TResponse>(
+            return await _apiClient.PostAsync<TSource, TRequest, TResponse>(
                 source,
                 request,
                 url,

@@ -14,8 +14,8 @@ namespace Source.Scripts.Core.GenerativeLanguage
 
         internal GeminiGenerativeLanguage(
             GeminiGenerativeLanguageConfig geminiGenerativeLanguageConfig,
-            IApiHelper apiHelper)
-            : base(apiHelper, geminiGenerativeLanguageConfig) { }
+            IApiClient apiClient)
+            : base(apiClient, geminiGenerativeLanguageConfig) { }
 
         public async UniTask InitAsync(CancellationToken token)
         {

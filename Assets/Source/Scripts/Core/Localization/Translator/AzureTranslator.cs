@@ -22,8 +22,8 @@ namespace Source.Scripts.Core.Localization.Translator
             ILanguageSettingsRepository languageSettingsRepository,
             AzureTranslationConfig azureTranslationConfig,
             ILanguageDetector languageDetector,
-            IApiHelper apiHelper)
-            : base(apiHelper, azureTranslationConfig)
+            IApiClient apiClient)
+            : base(apiClient, azureTranslationConfig)
         {
             _languageSettingsRepository = languageSettingsRepository;
             _azureTranslationConfig = azureTranslationConfig;

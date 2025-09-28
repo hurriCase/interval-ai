@@ -14,8 +14,8 @@ namespace Source.Scripts.Core.Audio.TextToSpeech
         internal GoogleTextToSpeech(
             IAudioHandlerProvider audioHandlerProvider,
             GoogleTextToSpeechConfig googleTextToSpeechConfig,
-            IApiHelper apiHelper)
-            : base(apiHelper, googleTextToSpeechConfig)
+            IApiClient apiClient)
+            : base(apiClient, googleTextToSpeechConfig)
         {
             _audioHandlerProvider = audioHandlerProvider;
         }
