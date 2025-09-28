@@ -36,7 +36,7 @@ namespace Source.Scripts.Core.GenerativeLanguage
             await _chatHistory.InitAsync(PersistentKeys.ChatHistoryKey, token, new List<Content>());
         }
 
-        public async UniTask UpdateAvailable(CancellationToken token)
+        public override async UniTask UpdateAvailable(CancellationToken token)
         {
             var url = ZString.Format(UrlPattern, NoContentCode);
             _isAvailable.Value = await _apiAvailabilityChecker.IsAvailable(url, NoContentCode, token);

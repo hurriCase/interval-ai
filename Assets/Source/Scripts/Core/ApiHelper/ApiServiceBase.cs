@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using R3;
 using UnityEngine.Networking;
+using Observable = R3.Observable;
 
 namespace Source.Scripts.Core.ApiHelper
 {
@@ -14,6 +16,10 @@ namespace Source.Scripts.Core.ApiHelper
         {
             _apiClient = apiClient;
             _config = config;
+
+            Observable.Interval(TimeSpan.FromSeconds(_config.UpdateAvailabilityInterval))
+                .AsObservable()
+                .Subscribe(this, static (_, self) => self.UpdateAvailable(CancellationToken.None).Forget());
         }
 
         internal async UniTask<TResponse> GetResponse<TRequest, TResponse>(TRequest request, CancellationToken token)
@@ -46,5 +52,7 @@ namespace Source.Scripts.Core.ApiHelper
                 token,
                 additionalHeaders);
         }
+
+        public abstract UniTask UpdateAvailable(CancellationToken token);
     }
 }

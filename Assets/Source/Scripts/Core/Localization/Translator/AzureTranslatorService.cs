@@ -40,7 +40,7 @@ namespace Source.Scripts.Core.Localization.Translator
             _languageDetector = languageDetector;
         }
 
-        public async UniTask UpdateAvailable(CancellationToken token)
+        public override async UniTask UpdateAvailable(CancellationToken token)
         {
             _isAvailable.Value = await _apiAvailabilityChecker.IsAvailable(Url, NoContentCode, token);
         }

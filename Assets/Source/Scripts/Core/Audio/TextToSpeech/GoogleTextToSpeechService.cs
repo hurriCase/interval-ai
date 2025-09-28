@@ -31,7 +31,7 @@ namespace Source.Scripts.Core.Audio.TextToSpeech
             _audioHandlerProvider = audioHandlerProvider;
         }
 
-        public async UniTask UpdateAvailable(CancellationToken token)
+        public override async UniTask UpdateAvailable(CancellationToken token)
         {
             var url = ZString.Format(UrlPattern, NoContentCode);
             _isAvailable.Value = await _apiAvailabilityChecker.IsAvailable(url, NoContentCode, token);

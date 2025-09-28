@@ -8,6 +8,7 @@ namespace Source.Scripts.Core.ApiHelper
     internal abstract class ApiConfigBase : ScriptableObject
     {
         [field: SerializeField] internal string EncryptionKeyEnvironmentName { get; private set; }
+        [field: SerializeField] internal float UpdateAvailabilityInterval { get; private set; }
 
         [SerializeField] protected string endpointFormat;
 
