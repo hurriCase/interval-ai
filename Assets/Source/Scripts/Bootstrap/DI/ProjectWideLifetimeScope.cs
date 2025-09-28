@@ -99,6 +99,7 @@ namespace Source.Scripts.Bootstrap.DI
         private void RegisterApiServices(IContainerBuilder builder)
         {
             builder.Register<ApiClient>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<ApiAvailabilityChecker>(Lifetime.Singleton).AsImplementedInterfaces();
 
             builder.Register<GeminiGenerativeLanguage>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.RegisterComponent(_geminiGenerativeLanguageConfig).AsImplementedInterfaces().As<ApiConfigBase>();

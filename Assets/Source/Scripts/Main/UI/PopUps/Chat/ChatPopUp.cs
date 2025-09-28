@@ -2,6 +2,7 @@
 using Cysharp.Threading.Tasks;
 using R3;
 using Source.Scripts.Core.GenerativeLanguage;
+using Source.Scripts.Core.Localization.Translator;
 using Source.Scripts.UI.Components.Button;
 using Source.Scripts.UI.Windows.Base;
 using TMPro;
@@ -23,17 +24,29 @@ namespace Source.Scripts.Main.UI.PopUps.Chat
 
         private IGenerativeLanguage _generativeLanguage;
         private IObjectResolver _objectResolver;
+        private ITranslator _translator;
 
         [Inject]
-        internal void Inject(IGenerativeLanguage generativeLanguage, IObjectResolver objectResolver)
+        internal void Inject(
+            IGenerativeLanguage generativeLanguage,
+            IObjectResolver objectResolver,
+            ITranslator translator)
         {
             _generativeLanguage = generativeLanguage;
             _objectResolver = objectResolver;
+            _translator = translator;
         }
 
         internal override void Init()
         {
             _sendMessageButton.OnClickAsObservable().SubscribeUntilDestroy(this, static self => self.SendMessage());
+        }
+
+        internal override UniTask ShowAsync()
+        {
+            _translator.UpdateAvailable(destroyCancellationToken);
+
+            return base.ShowAsync();
         }
 
         private void SendMessage()

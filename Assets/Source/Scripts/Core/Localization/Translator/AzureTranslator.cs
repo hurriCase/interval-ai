@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
+using R3;
 using Source.Scripts.Core.ApiHelper;
 using Source.Scripts.Core.Localization.LanguageDetector;
 using Source.Scripts.Core.Localization.Translator.Data;
@@ -11,23 +12,37 @@ namespace Source.Scripts.Core.Localization.Translator
 {
     internal sealed class AzureTranslator : ApiServiceBase<AzureTranslationConfig>, ITranslator
     {
+        public ReadOnlyReactiveProperty<bool> IsAvailable => _isAvailable;
+        private ReactiveProperty<bool> _isAvailable;
+
+        private const string Url = "https://api.cognitive.microsofttranslator.com/languages?api-version=3.0";
+        private const long NoContentCode = 200;
+
         private const string SubscriptionKeyHeader = "Ocp-Apim-Subscription-Key";
         private const string SubscriptionRegionHeader = "Ocp-Apim-Subscription-Region";
 
         private readonly ILanguageSettingsRepository _languageSettingsRepository;
+        private readonly IApiAvailabilityChecker _apiAvailabilityChecker;
         private readonly AzureTranslationConfig _azureTranslationConfig;
         private readonly ILanguageDetector _languageDetector;
 
         internal AzureTranslator(
             ILanguageSettingsRepository languageSettingsRepository,
+            IApiAvailabilityChecker apiAvailabilityChecker,
             AzureTranslationConfig azureTranslationConfig,
             ILanguageDetector languageDetector,
             IApiClient apiClient)
             : base(apiClient, azureTranslationConfig)
         {
             _languageSettingsRepository = languageSettingsRepository;
+            _apiAvailabilityChecker = apiAvailabilityChecker;
             _azureTranslationConfig = azureTranslationConfig;
             _languageDetector = languageDetector;
+        }
+
+        public async UniTask UpdateAvailable(CancellationToken token)
+        {
+            _isAvailable.Value = await _apiAvailabilityChecker.IsAvailable(Url, NoContentCode, token);
         }
 
         public async UniTask<string> TranslateTextAsync(

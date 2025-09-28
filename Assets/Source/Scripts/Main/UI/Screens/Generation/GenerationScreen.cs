@@ -1,5 +1,7 @@
 ﻿using CustomUtils.Runtime.Extensions.Observables;
+using Cysharp.Threading.Tasks;
 using R3;
+using Source.Scripts.Core.GenerativeLanguage;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.Screens.Generation.Behaviours;
 using Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.CategoryPreview;
@@ -19,11 +21,13 @@ namespace Source.Scripts.Main.UI.Screens.Generation
         [SerializeField] private ButtonComponent _generateButton;
         [SerializeField] private ButtonComponent _chatButton;
 
+        private IGenerativeLanguage _generativeLanguage;
         private IWindowsController _windowsController;
 
         [Inject]
-        public void Inject(IWindowsController windowsController)
+        public void Inject(IGenerativeLanguage generativeLanguage, IWindowsController windowsController)
         {
+            _generativeLanguage = generativeLanguage;
             _windowsController = windowsController;
         }
 
@@ -33,6 +37,16 @@ namespace Source.Scripts.Main.UI.Screens.Generation
             _currentSettingsBehaviour.Init();
 
             _chatButton.OnClickAsObservable().SubscribeUntilDestroy(this, self => self.OpenChatPopUp());
+
+            _generativeLanguage.IsAvailable
+                .SubscribeUntilDestroy(this, static (isAvailable, self) => self._chatButton.interactable = isAvailable);
+        }
+
+        internal override UniTask ShowAsync()
+        {
+            _generativeLanguage.UpdateAvailable(destroyCancellationToken);
+
+            return base.ShowAsync();
         }
 
         private void OpenChatPopUp()
