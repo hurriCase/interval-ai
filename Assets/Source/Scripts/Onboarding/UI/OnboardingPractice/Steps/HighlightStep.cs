@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading;
+using CustomUtils.Runtime.UI.Theme;
 using R3;
 using R3.Triggers;
 using Source.Scripts.Onboarding.UI.OnboardingPractice.Steps.Base;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
@@ -45,9 +45,9 @@ namespace Source.Scripts.Onboarding.UI.OnboardingPractice.Steps
             Object.Destroy(_highlightCanvas);
         }
 
-        protected override void OnUpdateText(TextMeshProUGUI messageText)
+        protected override void OnUpdateText(ThemeComponent themeComponent)
         {
-            //messageText.color = hintTextMapping.GetColorForState(HintTextThemeState.Highlight);
+            hintTextMapping.SetComponentForState(HintTextThemeState.Highlight, themeComponent);
         }
     }
 }

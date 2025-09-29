@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.UI.Theme;
 using R3;
 using TMPro;
 using UnityEngine;
@@ -38,7 +39,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingPractice.Steps.Base
             Dispose();
         }
 
-        internal void UpdateText(TextMeshProUGUI messageText)
+        internal void UpdateText(TextMeshProUGUI messageText, ThemeComponent themeComponent)
         {
             var vector2 = messageText.rectTransform.anchoredPosition;
             vector2.y = _messagePoxY;
@@ -46,10 +47,10 @@ namespace Source.Scripts.Onboarding.UI.OnboardingPractice.Steps.Base
 
             messageText.text = _localizationKey.GetLocalization();
 
-            OnUpdateText(messageText);
+            OnUpdateText(themeComponent);
         }
 
-        protected abstract void OnUpdateText(TextMeshProUGUI messageText);
+        protected abstract void OnUpdateText(ThemeComponent themeComponent);
 
         public void Dispose()
         {

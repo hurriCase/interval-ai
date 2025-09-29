@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using CustomUtils.Runtime.UI.Theme;
 using R3;
 using R3.Triggers;
 using Source.Scripts.Onboarding.UI.OnboardingPractice.Steps.Base;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,9 +32,9 @@ namespace Source.Scripts.Onboarding.UI.OnboardingPractice.Steps
 
         internal override void ActiveStep() => _tintObject.SetActive(false);
 
-        protected override void OnUpdateText(TextMeshProUGUI messageText)
+        protected override void OnUpdateText(ThemeComponent themeComponent)
         {
-            //messageText.color = hintTextMapping.GetColorForState(HintTextThemeState.Plain);
+            hintTextMapping.SetComponentForState(HintTextThemeState.Plain, themeComponent);
         }
     }
 }

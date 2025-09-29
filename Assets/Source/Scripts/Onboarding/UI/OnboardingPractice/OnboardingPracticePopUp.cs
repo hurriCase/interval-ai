@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using CustomUtils.Runtime.Extensions.Observables;
+using CustomUtils.Runtime.UI.Theme;
 using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Localization.LocalizationTypes;
@@ -18,6 +19,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingPractice
     internal sealed class OnboardingPracticePopUp : PopUpBase
     {
         [SerializeField] private TextMeshProUGUI _messageText;
+        [SerializeField] private ThemeComponent _messageTheme;
         [SerializeField] private HintTextMapping _hintTextMapping;
 
         [SerializeReferenceDropdown, SerializeReference] private List<PracticeStepBase> _practiceSteps;
@@ -87,7 +89,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingPractice
         private void UpdateView()
         {
             var currentStep = _practiceSteps[_currentStepIndex];
-            currentStep.UpdateText(_messageText);
+            currentStep.UpdateText(_messageText, _messageTheme);
             currentStep.ActiveStep();
         }
 
