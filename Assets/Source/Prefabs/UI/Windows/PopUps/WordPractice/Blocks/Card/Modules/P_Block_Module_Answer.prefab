@@ -248,6 +248,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 561403775900978418, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7383916017264746215}
+    - targetCorrespondingSourceObject: {fileID: 561403775900978418, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3189730264785057930}
   m_SourcePrefab: {fileID: 100100000, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
 --- !u!1 &1075659947799174252 stripped
 GameObject:
@@ -268,6 +271,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ContentSizeFitter
   m_HorizontalFit: 0
   m_VerticalFit: 2
+--- !u!114 &3189730264785057930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1075659947799174252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41b2b0fcbc7c4202a96474999a8abbc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.ParentSizeChangeNotifier
 --- !u!224 &2331077415329395298 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
@@ -381,7 +396,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6603810977249432654, guid: 8db5ba0e7a00e54479935099246cd77c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -235.78
+      value: -214
       objectReference: {fileID: 0}
     - target: {fileID: 6603810977249432654, guid: 8db5ba0e7a00e54479935099246cd77c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -408,13 +423,33 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6603810977249432654, guid: 8db5ba0e7a00e54479935099246cd77c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5676886100350960024}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8836683348713640655, guid: 8db5ba0e7a00e54479935099246cd77c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5764153218612505961}
   m_SourcePrefab: {fileID: 100100000, guid: 8db5ba0e7a00e54479935099246cd77c, type: 3}
 --- !u!224 &6307359231492374797 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6603810977249432654, guid: 8db5ba0e7a00e54479935099246cd77c, type: 3}
   m_PrefabInstance: {fileID: 877444183322088771}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8543181683112462220 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8836683348713640655, guid: 8db5ba0e7a00e54479935099246cd77c, type: 3}
+  m_PrefabInstance: {fileID: 877444183322088771}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5764153218612505961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8543181683112462220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41b2b0fcbc7c4202a96474999a8abbc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.ParentSizeChangeNotifier
 --- !u!1001 &1627693151856476910
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -904,6 +939,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 561403775900978418, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5002366515369039533}
+    - targetCorrespondingSourceObject: {fileID: 561403775900978418, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2783832827676808188}
   m_SourcePrefab: {fileID: 100100000, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
 --- !u!114 &1004320866727605647 stripped
 MonoBehaviour:
@@ -951,3 +989,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ContentSizeFitter
   m_HorizontalFit: 0
   m_VerticalFit: 2
+--- !u!114 &2783832827676808188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6952568669176999830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41b2b0fcbc7c4202a96474999a8abbc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.ParentSizeChangeNotifier

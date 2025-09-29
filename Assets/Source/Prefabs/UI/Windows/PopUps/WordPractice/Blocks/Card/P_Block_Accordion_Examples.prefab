@@ -34,7 +34,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3005644884808578404, guid: 5eb71127599626844a007672ab4d36f7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0
+      value: -8.47
       objectReference: {fileID: 0}
     - target: {fileID: 5998312713726752366, guid: 5eb71127599626844a007672ab4d36f7, type: 3}
       propertyPath: m_AnchorMax.y
@@ -58,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5998312713726752366, guid: 5eb71127599626844a007672ab4d36f7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0
+      value: -16.94
       objectReference: {fileID: 0}
     - target: {fileID: 7298472707888174782, guid: 5eb71127599626844a007672ab4d36f7, type: 3}
       propertyPath: m_Pivot.x
@@ -150,6 +150,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 629759409871694020, guid: 5eb71127599626844a007672ab4d36f7, type: 3}
       insertIndex: 1
       addedObject: {fileID: 1618174604796781833}
+    - targetCorrespondingSourceObject: {fileID: 629759409871694020, guid: 5eb71127599626844a007672ab4d36f7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5533360478967944735}
+    - targetCorrespondingSourceObject: {fileID: 504992032187980650, guid: 5eb71127599626844a007672ab4d36f7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 188906197156627819}
   m_SourcePrefab: {fileID: 100100000, guid: 5eb71127599626844a007672ab4d36f7, type: 3}
 --- !u!224 &2244265600159059202 stripped
 RectTransform:
@@ -161,7 +167,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7678209983140725107, guid: 5eb71127599626844a007672ab4d36f7, type: 3}
   m_PrefabInstance: {fileID: 5484102374877854572}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 5411468157255671814}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
@@ -186,6 +192,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Answer.ExampleItem
   <ShownExampleText>k__BackingField: {fileID: 2780138522794687007}
   <HiddenExampleText>k__BackingField: {fileID: 712843107451384289}
+--- !u!114 &5533360478967944735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4946686137904452520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41b2b0fcbc7c4202a96474999a8abbc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.ParentSizeChangeNotifier
+--- !u!1 &5411468157255671814 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 504992032187980650, guid: 5eb71127599626844a007672ab4d36f7, type: 3}
+  m_PrefabInstance: {fileID: 5484102374877854572}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &188906197156627819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5411468157255671814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41b2b0fcbc7c4202a96474999a8abbc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.ParentSizeChangeNotifier
 --- !u!1001 &7179417417647138570
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -197,6 +232,10 @@ PrefabInstance:
     - target: {fileID: 561403775900978418, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_Name
       value: P_Text_Hidden
+      objectReference: {fileID: 0}
+    - target: {fileID: 2558408827752567483, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+      propertyPath: currentColorName
+      value: TextPrimary
       objectReference: {fileID: 0}
     - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_Pivot.x
@@ -278,6 +317,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5175023766961360262, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+      propertyPath: _currentColorModifier
+      value: 
+      objectReference: {fileID: 4621574323536557489}
     - target: {fileID: 7658068928977278699, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_text
       value: Text
@@ -333,6 +376,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4621574323536557489 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2558408827752567483, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+  m_PrefabInstance: {fileID: 7179417417647138570}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7235292114705722360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8840dbee5a42476db6edcdcd70e84c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.ColorModifiers.SolidColorModifier
 --- !u!224 &5394413309228451318 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
