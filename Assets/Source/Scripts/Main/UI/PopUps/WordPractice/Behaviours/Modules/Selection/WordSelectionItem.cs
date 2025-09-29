@@ -12,7 +12,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Selectio
     internal sealed class WordSelectionItem : UIBehaviour
     {
         [SerializeField] private StateToggle _toggle;
-        [SerializeField] private float _incorrectBorderRatio;
+        [SerializeField] private float _incorrectBorderWidth;
         [SerializeField] private List<ToggleGraphicMapping> _correctMapping;
         [SerializeField] private List<ToggleGraphicMapping> _incorrectMapping;
 
@@ -27,7 +27,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Selectio
         internal void Init(WordEntry wordEntry, bool isCorrect)
         {
             _toggle.Text.text = wordEntry.Word.GetHiddenText(_practiceSettingsRepository);
-            _toggle.Image.BorderWidth.Value = isCorrect ? 0 : _incorrectBorderRatio;
+            _toggle.Image.BorderWidth.Value = isCorrect ? 0 : _incorrectBorderWidth;
             _toggle.AdditionalGraphics = isCorrect ? _correctMapping : _incorrectMapping;
             _toggle.isOn = false;
         }

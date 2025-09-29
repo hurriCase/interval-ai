@@ -122,11 +122,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3255720388982018935, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
       propertyPath: m_Color.g
-      value: 0.96862745
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3255720388982018935, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
       propertyPath: m_Color.r
-      value: 0.9647059
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3510210791817278697, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
       propertyPath: m_Name
@@ -134,7 +134,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4101788199990331753, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
       propertyPath: currentColorName
-      value: BackgroundSecondary
+      value: BackgroundPrimary
       objectReference: {fileID: 0}
     - target: {fileID: 5165873604016329137, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
       propertyPath: <Radius>k__BackingField
@@ -155,6 +155,10 @@ PrefabInstance:
     - target: {fileID: 6717869542665842416, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
       propertyPath: m_HorizontalAlignment
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7097243681216525270, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
+      propertyPath: _colorData.<ColorName>k__BackingField
+      value: BackgroundPrimary
       objectReference: {fileID: 0}
     - target: {fileID: 7298042655143740413, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
       propertyPath: <ThemeSolidColorName>k__BackingField
@@ -204,6 +208,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2026060872019565148, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
   m_PrefabInstance: {fileID: 415456595488438580}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8461939328453905577 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8119189060624938397, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
+  m_PrefabInstance: {fileID: 415456595488438580}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e5265c779e340c8b6f7d9850950b29b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.Base.ThemeComponent
 --- !u!114 &8793050471423235607 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9206711422655737635, guid: a2bb618b6e181804f9a86ecd264c3601, type: 3}
@@ -233,16 +248,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Selection.WordSelectionItem
   _toggle: {fileID: 8793050471423235607}
-  _incorrectBorderRatio: 0.023529412
+  _incorrectBorderWidth: 2
   _correctMapping:
   - _transitionType: 1
-    _themeComponent: {fileID: 0}
+    _themeComponent: {fileID: 8461939328453905577}
     _colorMapping: {fileID: 11400000, guid: 556cd13a6a5154549a30f3f0593651ef, type: 2}
     _targetImage: {fileID: 0}
     _spriteMapping: {fileID: 0}
   _incorrectMapping:
   - _transitionType: 1
-    _themeComponent: {fileID: 0}
+    _themeComponent: {fileID: 8461939328453905577}
     _colorMapping: {fileID: 11400000, guid: d5c561f0f777a5f45be60456b5cd9a48, type: 2}
     _targetImage: {fileID: 0}
     _spriteMapping: {fileID: 0}
@@ -256,11 +271,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 357119559660804034, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
       propertyPath: m_Color.g
-      value: 1
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 357119559660804034, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0.28235295
       objectReference: {fileID: 0}
     - target: {fileID: 357119559660804034, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
       propertyPath: borderRatio
@@ -276,7 +291,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1240284901445995996, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
       propertyPath: currentColorName
-      value: None
+      value: ButtonPrimaryPressed
       objectReference: {fileID: 0}
     - target: {fileID: 3874249658811506409, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
       propertyPath: m_Pivot.x
@@ -366,6 +381,10 @@ PrefabInstance:
       propertyPath: _currentColorModifier
       value: 
       objectReference: {fileID: 6307471170950265478}
+    - target: {fileID: 5450591052864157539, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
+      propertyPath: _colorData.<ColorName>k__BackingField
+      value: ButtonPrimaryPressed
+      objectReference: {fileID: 0}
     - target: {fileID: 5520780965205886792, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
       propertyPath: <ThemeSolidColorName>k__BackingField
       value: Base_Main
