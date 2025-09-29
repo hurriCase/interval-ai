@@ -22,7 +22,7 @@ namespace Source.Scripts.UI.Components
             if (EditButton)
                 EditButton.OnClickAsObservable().SubscribeUntilDestroy(this, static self => self.SwitchEditingState());
 
-            onEndEdit.AddListener(FinishEditing);
+            onEndEdit.AsObservable().SubscribeUntilDestroy(this, static (text, self) => self.FinishEditing(text));
         }
 
         private void SwitchEditingState()
@@ -43,13 +43,6 @@ namespace Source.Scripts.UI.Components
             readOnly = true;
 
             _textChanged.OnNext(newText);
-        }
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-
-            onEndEdit.RemoveListener(FinishEditing);
         }
     }
 }

@@ -46,8 +46,7 @@ namespace Source.Scripts.Main.UI.PopUps.Chat
                 .Where(this, self => self._wasTranslated is false)
                 .SubscribeUntilDestroy(this, static self => self.TranslateText().Forget());
 
-            _translator.IsAvailable.SubscribeUntilDestroy(this,
-                static (isAvailable, self) => self._translateButton.interactable = isAvailable);
+            _translator.IsAvailable.SubscribeToInteractableUntilDestroy(_translateButton);
         }
 
         private async UniTask TranslateText()

@@ -44,8 +44,7 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours
         {
             _plusMinusBehaviour.Init();
 
-            _progressRepository.HasDailyTarget.SubscribeUntilDestroy(this,
-                static (canReduce, self) => self._startPracticeButton.interactable = canReduce);
+            _progressRepository.HasDailyTarget.SubscribeToInteractableUntilDestroy(_startPracticeButton);
 
             _startPracticeButton.OnClickAsObservable()
                 .Subscribe(_windowsController,

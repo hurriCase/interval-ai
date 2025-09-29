@@ -28,9 +28,8 @@ namespace Source.Scripts.Main.UI.Screens.Settings
 
             foreach (var button in _settingsButtons)
             {
-                button.OnClickAsObservable()
-                    .SubscribeUntilDestroy(this,
-                        static self => self._windowsController.OpenPopUpByType(PopUpType.Settings));
+                button.OnClickAsObservable().SubscribeUntilDestroy(this,
+                    static self => self._windowsController.OpenPopUpByType(PopUpType.Settings));
             }
         }
     }

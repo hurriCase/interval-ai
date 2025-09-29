@@ -25,11 +25,8 @@ namespace Source.Scripts.Main.UI.Shared
 
         internal void Init()
         {
-            _progressRepository.NewWordsDailyTarget.SubscribeUntilDestroy(this,
-                static (wordsTarget, behaviour) => behaviour._dailyWordGoalText.text = wordsTarget.ToString());
-
-            _progressRepository.HasDailyTarget
-                .SubscribeUntilDestroy(this, static (canReduce, self) => self._minusButton.interactable = canReduce);
+            _progressRepository.NewWordsDailyTarget.SubscribeToTextUntilDestroy(_dailyWordGoalText);
+            _progressRepository.HasDailyTarget.SubscribeToInteractableUntilDestroy(_minusButton);
 
             _minusButton.OnClickAsObservable()
                 .SubscribeUntilDestroy(this, static self => self._progressRepository.ChangeDailyTarget(-1));

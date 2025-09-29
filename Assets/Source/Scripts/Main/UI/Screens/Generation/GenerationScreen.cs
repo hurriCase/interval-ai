@@ -38,8 +38,7 @@ namespace Source.Scripts.Main.UI.Screens.Generation
 
             _chatButton.OnClickAsObservable().SubscribeUntilDestroy(this, self => self.OpenChatPopUp());
 
-            _generativeLanguage.IsAvailable
-                .SubscribeUntilDestroy(this, static (isAvailable, self) => self._chatButton.interactable = isAvailable);
+            _generativeLanguage.IsAvailable.SubscribeToInteractableUntilDestroy(_chatButton);
         }
 
         internal override UniTask ShowAsync()

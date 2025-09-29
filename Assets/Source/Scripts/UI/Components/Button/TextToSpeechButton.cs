@@ -25,8 +25,7 @@ namespace Source.Scripts.UI.Components.Button
         {
             _buttonComponent.OnClickAsObservable().SubscribeUntilDestroy(this, self => self.SendAudio());
 
-            _textToSpeech.IsAvailable.SubscribeUntilDestroy(this,
-                static (isAvailable, self) => self._buttonComponent.interactable = isAvailable);
+            _textToSpeech.IsAvailable.SubscribeToInteractableUntilDestroy(_buttonComponent);
         }
 
         private void SendAudio()
