@@ -55,79 +55,78 @@ Assets/Source/
 ```
 
 ### Assembly Definitions
-- **[`Bootstrap`](Assets/Source/Scripts/Bootstrap):** DI configuration and application bootstrap
-- **[`Core`](Assets/Source/Scripts/Core):** Systems, repositories, and utilities
-- **[`Editor`](Assets/Source/Scripts/Editor):** Development tools and data creation utilities
-- **[`Main`](Assets/Source/Scripts/Main):** Primary application screens and functionality
-- **[`Onboarding`](Assets/Source/Scripts/Onboarding):** User onboarding flow
-- **[`UI`](Assets/Source/Scripts/UI):** Core UI components and window controllers
+- **Bootstrap:** DI configuration and application bootstrap
+- **Core:** Systems, repositories, and utilities
+- **Editor:** Development tools and data creation utilities
+- **Main:** Primary application screens and functionality
+- **Onboarding:** User onboarding flow
+- **UI:** Core UI components and window controllers
 
 ## App Flow
-1. **[`ProjectWideLifetimeScope`](Assets/Source/Scripts/Bootstrap/DI/ProjectWideLifetimeScope.cs):** Core dependencies initialization
-2. **[`EntryPoint`](Assets/Source/Scripts/Bootstrap/Core/EntryPoint.cs):** Steps initialization
-3. **[`OnboardingLifetimeScope`](Assets/Source/Scripts/Onboarding/DI/OnboardingLifetimeScope.cs):** Onboarding dependencies (if not completed)
-4. **[`OnboardingEntryPoint`](Assets/Source/Scripts/Onboarding/DI/OnboardingEntryPoint.cs):** Onboarding setup (if not completed)
-5. **[`MainLifetimeScope`](Assets/Source/Scripts/Main/DI/MainLifetimeScope.cs):** Main scene dependencies
-6. **[`MainEntryPoint`](Assets/Source/Scripts/Main/DI/MainEntryPoint.cs):** Main scene setup
-7. **[`WindowsController`](Assets/Source/Scripts/UI/Windows/Base/WindowsController.cs):** UI initialization
+1. [ProjectWideLifetimeScope](Assets/Source/Scripts/Bootstrap/DI/ProjectWideLifetimeScope.cs "ProjectWideLifetimeScope class"): Core dependencies initialization
+2. [EntryPoint](Assets/Source/Scripts/Bootstrap/Core/EntryPoint.cs "EntryPoint class"): Steps initialization
+3. [OnboardingLifetimeScope](Assets/Source/Scripts/Onboarding/DI/OnboardingLifetimeScope.cs "OnboardingLifetimeScope class"): Onboarding dependencies (if not completed)
+4. [OnboardingEntryPoint](Assets/Source/Scripts/Onboarding/DI/OnboardingEntryPoint.cs "OnboardingEntryPoint class"): Onboarding setup (if not completed)
+5. [MainLifetimeScope](Assets/Source/Scripts/Main/DI/MainLifetimeScope.cs "MainLifetimeScope class"): Main scene dependencies
+6. [MainEntryPoint](Assets/Source/Scripts/Main/DI/MainEntryPoint.cs "MainEntryPoint class"): Main scene setup
+7. [WindowsController](Assets/Source/Scripts/UI/Windows/Base/WindowsController.cs "WindowsController class"): UI initialization
 
 ## Systems
 
 ### Dependency Injection ([VContainer](https://vcontainer.hadashikick.jp/))
 
 **Purpose**: Service lifetime management and dependency resolution
-- Global services managed by [`ProjectWideLifetimeScope`](Assets/Source/Scripts/Bootstrap/DI/ProjectWideLifetimeScope.cs)
+- Global services managed by [ProjectWideLifetimeScope](Assets/Source/Scripts/Bootstrap/DI/ProjectWideLifetimeScope.cs "ProjectWideLifetimeScope class")
 - Scene-specific services in dedicated lifetime scopes:
-    - [`OnboardingLifetimeScope`](Assets/Source/Scripts/Onboarding/DI/OnboardingLifetimeScope.cs)
-    - [`MainLifetimeScope`](Assets/Source/Scripts/Main/DI/MainLifetimeScope.cs)
+    - [OnboardingLifetimeScope](Assets/Source/Scripts/Onboarding/DI/OnboardingLifetimeScope.cs "OnboardingLifetimeScope class")
+    - [MainLifetimeScope](Assets/Source/Scripts/Main/DI/MainLifetimeScope.cs "MainLifetimeScope class")
 
 ### Repository Pattern
 
 **Purpose**: Centralized data management with persistent reactive properties and automatic persistence
-- [`CategoriesRepository`](Assets/Source/Scripts/Core/Repositories/Categories/CategoriesRepository.cs) - Category management
-- [`WordsRepository`](Assets/Source/Scripts/Core/Repositories/Words/WordsRepository.cs) - Word entries and progress
+- [CategoriesRepository](Assets/Source/Scripts/Core/Repositories/Categories/CategoriesRepository.cs "CategoriesRepository class") - Category management
+- [WordsRepository](Assets/Source/Scripts/Core/Repositories/Words/WordsRepository.cs "WordsRepository class") - Word entries and progress
 - Settings repositories for different domains:
-    - [`LanguageSettingsRepository`](Assets/Source/Scripts/Core/Repositories/Settings/Repositories/LanguageSettingsRepository.cs)
-    - [`PracticeSettingsRepository`](Assets/Source/Scripts/Core/Repositories/Settings/Repositories/PracticeSettingsRepository.cs)
-    - [`GenerationSettingsRepository`](Assets/Source/Scripts/Core/Repositories/Settings/Repositories/GenerationSettingsRepository.cs)
-    - [`UISettingsRepository`](Assets/Source/Scripts/Core/Repositories/Settings/Repositories/UISettingsRepository.cs)
-- [`ProgressRepository`](Assets/Source/Scripts/Core/Repositories/Progress/ProgressRepository.cs) - Learning progress tracking
-- [`StatisticsRepository`](Assets/Source/Scripts/Core/Repositories/Statistics/StatisticsRepository.cs) - User statistics
-- [`UserRepository`](Assets/Source/Scripts/Core/Repositories/User/UserRepository.cs) - User profile data
+    - [LanguageSettingsRepository](Assets/Source/Scripts/Core/Repositories/Settings/Repositories/LanguageSettingsRepository.cs "LanguageSettingsRepository class")
+    - [PracticeSettingsRepository](Assets/Source/Scripts/Core/Repositories/Settings/Repositories/PracticeSettingsRepository.cs "PracticeSettingsRepository class")
+    - [GenerationSettingsRepository](Assets/Source/Scripts/Core/Repositories/Settings/Repositories/GenerationSettingsRepository.cs "GenerationSettingsRepository class")
+    - [UISettingsRepository](Assets/Source/Scripts/Core/Repositories/Settings/Repositories/UISettingsRepository.cs "UISettingsRepository class")
+- [ProgressRepository](Assets/Source/Scripts/Core/Repositories/Progress/ProgressRepository.cs "ProgressRepository class") - Learning progress tracking
+- [StatisticsRepository](Assets/Source/Scripts/Core/Repositories/Statistics/StatisticsRepository.cs "StatisticsRepository class") - User statistics
+- [UserRepository](Assets/Source/Scripts/Core/Repositories/User/UserRepository.cs "UserRepository class") - User profile data
 
-### WindowsController ([Custom](Assets/Source/Scripts/UI/Windows/Base/WindowsController.cs))
+### WindowsController ([Custom](Assets/Source/Scripts/UI/Windows/Base/WindowsController.cs "WindowsController class"))
 
 **Purpose**: UI navigation and lifecycle management
-- **Screens:** Full-screen UI for primary navigation, see [`LearningWordScreen`](Assets/Source/Scripts/Main/UI/Screens/LearningWords/LearningWordScreen.cs)
-- **PopUps:** Overlay UI with stacking and back navigation, see [`WordPracticePopUp`](Assets/Source/Scripts/Main/UI/PopUps/WordPractice/WordPracticePopUp.cs)
+- **Screens:** Full-screen UI for primary navigation, see [LearningWordScreen](Assets/Source/Scripts/Main/UI/Screens/LearningWords/LearningWordScreen.cs "LearningWordScreen class")
+- **PopUps:** Overlay UI with stacking and back navigation, see [WordPracticePopUp](Assets/Source/Scripts/Main/UI/PopUps/WordPractice/WordPracticePopUp.cs "WordPracticePopUp class")
 - Two popup opening approaches: direct type-based (`OpenPopUpByType`) or generic with parameters (`OpenPopUp<T>`)
-- See [`MenuBehaviour`](Assets/Source/Scripts/Main/UI/Base/MenuBehaviour.cs) for screen navigation example
+- See [MenuBehaviour](Assets/Source/Scripts/Main/UI/Base/MenuBehaviour.cs "MenuBehaviour class") for screen navigation example
 
 ### Localization System ([Custom](https://github.com/hurriCase/CustomUtils/tree/main/Runtime/Localization))
 
 **Purpose**: Provides localization for the entire application based on Google Sheets
-- Static text: Use [`LocalizedTextMeshPro`](https://github.com/hurriCase/CustomUtils/blob/main/Runtime/Localization/LocalizedTextMeshPro.cs) component on UI elements
-- Dynamic text: Use [`LocalizationController`](https://github.com/hurriCase/CustomUtils/blob/main/Runtime/Localization/LocalizationController.cs) for runtime localization. See [`ProgressDescriptionItem`](Assets/Source/Scripts/Main/UI/PopUps/Achievement/Behaviours/LearningStarts/ProgressDescriptionItem.cs) for usage example
+- Static text: Use [LocalizedTextMeshPro](https://github.com/hurriCase/CustomUtils/blob/main/Runtime/Localization/LocalizedTextMeshPro.cs "LocalizedTextMeshPro class") component on UI elements
+- Dynamic text: Use [LocalizationController](https://github.com/hurriCase/CustomUtils/blob/main/Runtime/Localization/LocalizationController.cs "LocalizationController class") for runtime localization. See [ProgressDescriptionItem](Assets/Source/Scripts/Main/UI/PopUps/Achievement/Behaviours/LearningStarts/ProgressDescriptionItem.cs "ProgressDescriptionItem class") for usage example
 
 ### Custom EnumArray collection ([Custom](https://github.com/hurriCase/CustomUtils/tree/main/Runtime/CustomTypes/Collections))
 
 **Purpose**: Collection that uses enum values as keys with struct-based enumeration
-- Use `EnumMode.SkipFirst` for enums starting with None/Default values
 - Supports both enum key and integer index access
-- See [`MenuBehaviour`](Assets/Source/Scripts/Main/UI/Base/MenuBehaviour.cs) for usage example
+- See [MenuBehaviour](Assets/Source/Scripts/Main/UI/Base/MenuBehaviour.cs "MenuBehaviour class") for usage example
 
 ### Audio System ([Custom](https://github.com/hurriCase/CustomUtils/tree/main/Runtime/Audio))
 
 **Purpose**: Sound effects and audio feedback
-- See [`ButtonComponent`](Assets/Source/Scripts/UI/Components/Button/ButtonComponent.cs) for usage example
+- See [ButtonComponent](Assets/Source/Scripts/UI/Components/Button/ButtonComponent.cs "ButtonComponent class") for usage example
 
 ### CSV Data Processing ([Custom](https://github.com/hurriCase/CustomUtils/tree/main/Runtime/CSV))
 
 **Purpose**: Provides the ability to set data for application, for default data and user defined as well
 - Per-type converter approach instead of reflection-based general solution
 - Implement CsvConverterBase inheritance to define type conversion logic.
-  See [`WordConverter`](Assets/Source/Scripts/Core/Repositories/Words/Word/WordEntry.WordConverter.cs) for usage example
-- Pre-serialized data shipping to avoid runtime CSV conversion overhead through [`DefaultDataWindow`](Assets/Source/Scripts/Editor/DefaultDataCreation/DefaultEntriesCreatorWindow.cs)
+  See [WordConverter](Assets/Source/Scripts/Core/Repositories/Words/Word/WordEntry.WordConverter.cs "WordConverter class") for usage example
+- Pre-serialized data shipping to avoid runtime CSV conversion overhead through [DefaultDataWindow](Assets/Source/Scripts/Editor/DefaultDataCreation/DefaultEntriesCreatorWindow.cs "DefaultDataWindow class")
 
 ### Serialization ([MemoryPack](https://github.com/Cysharp/MemoryPack))
 
@@ -139,22 +138,23 @@ and complex data structures.
     - Use `partial` keyword for classes/structs
     - Members inside have `public` accessibility
     - Use `[MemoryPackIgnore]` for computed/non-serializable properties
-    - See [`Translation`](Assets/Source/Scripts/Core/Repositories/Words/Word/Translation.cs) for usage example
+    - See [Translation](Assets/Source/Scripts/Core/Repositories/Words/Word/Translation.cs "Translation class") for usage example
 
 
-### ApiHelper ([Custom](Assets/Source/Scripts/Core/ApiHelper/ApiHelper.cs))
+### API ([Custom](Assets/Source/Scripts/Core/Api/ApiClient.cs "ApiClient class"))
 
 **Purpose**: Third-party service integration with type-safe JSON parsing
 - Examples:
-    - [`GeminiAPI`](Assets/Source/Scripts/Core/AI/GeminiAPI.cs) - AI text generation service
-    - [`GoogleTextToSpeech`](Assets/Source/Scripts/Core/Audio/TextToSpeech/GoogleTextToSpeech.cs) - Text-to-speech functionality
+    - [GeminiGenerativeLanguageService](Assets/Source/Scripts/Core/GenerativeLanguage/GeminiGenerativeLanguageService.cs "GeminiGenerativeLanguageService class") - Generative Language
+    - [GoogleTextToSpeechService](Assets/Source/Scripts/Core/Audio/TextToSpeech/GoogleTextToSpeechService.cs "GoogleTextToSpeechService class") - Text-to-speech
+    - [AzureTranslatorService](Assets/Source/Scripts/Core/Localization/Translator/AzureTranslatorService.cs "AzureTranslatorService class") - Translation
 
 ## Coding Standards
 
 ### General Guidelines
 - Use `var` keyword where type is obvious
-- Use static comparison for boolean negation 
-(except GameObject types where it doesn't check for destruction): `if (isActive is false)`
+- Use static comparison for boolean negation
+  (except GameObject types where it doesn't check for destruction): `if (isActive is false)`
 - Invert if statements to reduce nesting where reasonable
 - Use auto-properties with field serialization: `[field: SerializeField] internal string Name { get; private set; }`
 - Method names should be verbs describing the action performed: `CalculateScore()`, `ValidateInput()`, `UpdatePosition()`
