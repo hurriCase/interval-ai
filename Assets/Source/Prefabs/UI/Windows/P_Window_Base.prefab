@@ -153,10 +153,6 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1578145378762482099, guid: 4601d67b0dfc84b4e81a1c3b8487ade4, type: 3}
-      propertyPath: targetComponent
-      value: 
-      objectReference: {fileID: 5174747207095563520}
-    - target: {fileID: 1578145378762482099, guid: 4601d67b0dfc84b4e81a1c3b8487ade4, type: 3}
       propertyPath: <ColorType>k__BackingField
       value: 1
       objectReference: {fileID: 0}
@@ -237,7 +233,8 @@ PrefabInstance:
       value: BackgroundPrimary
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8745457894249564868, guid: 4601d67b0dfc84b4e81a1c3b8487ade4, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6892560295431722345, guid: 4601d67b0dfc84b4e81a1c3b8487ade4, type: 3}
       insertIndex: -1
@@ -263,17 +260,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8840dbee5a42476db6edcdcd70e84c6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.ColorModifiers.SolidGenericColorModifier
---- !u!114 &5174747207095563520 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1340956828193965922, guid: 4601d67b0dfc84b4e81a1c3b8487ade4, type: 3}
-  m_PrefabInstance: {fileID: 6146406388416574050}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &9206560898391119803 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3064746071077447129, guid: 4601d67b0dfc84b4e81a1c3b8487ade4, type: 3}
