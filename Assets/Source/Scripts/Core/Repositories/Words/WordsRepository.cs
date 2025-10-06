@@ -5,6 +5,7 @@ using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Storage;
 using Cysharp.Threading.Tasks;
 using R3;
+using Source.Scripts.Core.Localization.Translator.Translations;
 using Source.Scripts.Core.Repositories.Base;
 using Source.Scripts.Core.Repositories.Base.Id;
 using Source.Scripts.Core.Repositories.Words.Base;

@@ -32,11 +32,11 @@ RectTransform:
   - {fileID: 4207414571413982774}
   m_Father: {fileID: 7507053723867780289}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.042666666, y: 0.015045204}
-  m_AnchorMax: {x: 1.9146667, y: 0.90699327}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: -343, y: -68}
+  m_SizeDelta: {x: 702, y: 652}
+  m_Pivot: {x: 0, y: 1}
 --- !u!1001 &786776730664022152
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -79,7 +79,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 654252886738576478, guid: f95e58dfe7c8e1b428cdc988bbb64c6f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -490.2508
+      value: -536.23083
       objectReference: {fileID: 0}
     - target: {fileID: 870698836381104960, guid: f95e58dfe7c8e1b428cdc988bbb64c6f, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1017,6 +1017,14 @@ PrefabInstance:
       propertyPath: currentColorName
       value: Primary
       objectReference: {fileID: 0}
+    - target: {fileID: 237148195799982972, guid: 4c71cd910dc9b914ea224d967b9eac72, type: 3}
+      propertyPath: <LocalizationKey>k__BackingField
+      value: ui.word-practice.review
+      objectReference: {fileID: 0}
+    - target: {fileID: 875234461847852094, guid: 4c71cd910dc9b914ea224d967b9eac72, type: 3}
+      propertyPath: m_text
+      value: New words
+      objectReference: {fileID: 0}
     - target: {fileID: 888739929150340047, guid: 4c71cd910dc9b914ea224d967b9eac72, type: 3}
       propertyPath: _currentColorModifier
       value: 
@@ -1043,11 +1051,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2416654668969286283, guid: 4c71cd910dc9b914ea224d967b9eac72, type: 3}
       propertyPath: m_Color.g
-      value: 0.27058825
+      value: 0.8666667
       objectReference: {fileID: 0}
     - target: {fileID: 2416654668969286283, guid: 4c71cd910dc9b914ea224d967b9eac72, type: 3}
       propertyPath: m_Color.r
-      value: 0.34509805
+      value: 0.8666667
       objectReference: {fileID: 0}
     - target: {fileID: 2428276602918211411, guid: 4c71cd910dc9b914ea224d967b9eac72, type: 3}
       propertyPath: _currentColorModifier
@@ -1059,43 +1067,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3768228989603217557, guid: 4c71cd910dc9b914ea224d967b9eac72, type: 3}
       propertyPath: currentColorName
-      value: Primary
+      value: Separator
+      objectReference: {fileID: 0}
+    - target: {fileID: 3968995672654718456, guid: 4c71cd910dc9b914ea224d967b9eac72, type: 3}
+      propertyPath: m_text
+      value: Review
+      objectReference: {fileID: 0}
+    - target: {fileID: 4069922095401980602, guid: 4c71cd910dc9b914ea224d967b9eac72, type: 3}
+      propertyPath: <LocalizationKey>k__BackingField
+      value: ui.word-practice.new-words
       objectReference: {fileID: 0}
     - target: {fileID: 5035819608956784750, guid: 4c71cd910dc9b914ea224d967b9eac72, type: 3}
       propertyPath: currentColorName
-      value: TextPrimary
-      objectReference: {fileID: 0}
-    - target: {fileID: 5304005035263177129, guid: 4c71cd910dc9b914ea224d967b9eac72, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5304005035263177129, guid: 4c71cd910dc9b914ea224d967b9eac72, type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5304005035263177129, guid: 4c71cd910dc9b914ea224d967b9eac72, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5304005035263177129, guid: 4c71cd910dc9b914ea224d967b9eac72, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5304005035263177129, guid: 4c71cd910dc9b914ea224d967b9eac72, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5304005035263177129, guid: 4c71cd910dc9b914ea224d967b9eac72, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0.93964136
-      objectReference: {fileID: 0}
-    - target: {fileID: 5304005035263177129, guid: 4c71cd910dc9b914ea224d967b9eac72, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5304005035263177129, guid: 4c71cd910dc9b914ea224d967b9eac72, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
+      value: TextSecondary
       objectReference: {fileID: 0}
     - target: {fileID: 5304005035263177129, guid: 4c71cd910dc9b914ea224d967b9eac72, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1126,14 +1110,6 @@ PrefabInstance:
       value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5304005035263177129, guid: 4c71cd910dc9b914ea224d967b9eac72, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5304005035263177129, guid: 4c71cd910dc9b914ea224d967b9eac72, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5304005035263177129, guid: 4c71cd910dc9b914ea224d967b9eac72, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
@@ -1153,6 +1129,10 @@ PrefabInstance:
       propertyPath: _colorData.<ColorName>k__BackingField
       value: Primary
       objectReference: {fileID: 0}
+    - target: {fileID: 6331543921432132165, guid: 4c71cd910dc9b914ea224d967b9eac72, type: 3}
+      propertyPath: m_Name
+      value: P_Toggle_Review
+      objectReference: {fileID: 0}
     - target: {fileID: 6782155233563428830, guid: 4c71cd910dc9b914ea224d967b9eac72, type: 3}
       propertyPath: m_Color.g
       value: 0.27058825
@@ -1161,13 +1141,17 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.34509805
       objectReference: {fileID: 0}
+    - target: {fileID: 7849747987889933187, guid: 4c71cd910dc9b914ea224d967b9eac72, type: 3}
+      propertyPath: m_Name
+      value: P_Toggle_NewWords
+      objectReference: {fileID: 0}
     - target: {fileID: 7987542312663841322, guid: 4c71cd910dc9b914ea224d967b9eac72, type: 3}
       propertyPath: _currentColorModifier
       value: 
       objectReference: {fileID: 2582535368292247115}
     - target: {fileID: 7987542312663841322, guid: 4c71cd910dc9b914ea224d967b9eac72, type: 3}
       propertyPath: _colorData.<ColorName>k__BackingField
-      value: Primary
+      value: Separator
       objectReference: {fileID: 0}
     - target: {fileID: 9138668765891420584, guid: 4c71cd910dc9b914ea224d967b9eac72, type: 3}
       propertyPath: currentColorName
@@ -1725,7 +1709,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4142699438041553860, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -490.2508
+      value: -536.23083
       objectReference: {fileID: 0}
     - target: {fileID: 4358599618656306394, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2351,10 +2335,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_PopUp_WordPractice
       objectReference: {fileID: 0}
-    - target: {fileID: 8709391208971021196, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
-      propertyPath: targetComponent
-      value: 
-      objectReference: {fileID: 2672089941875361482}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 5841297947326000989, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
@@ -2397,13 +2377,78 @@ MonoBehaviour:
   canvasGroup: {fileID: 5940572166200358546}
   <IsSingle>k__BackingField: 1
   _closeButton: {fileID: 9206680062725741667}
-  _newWordsTab: {fileID: 9152539149564350957}
-  _reviewTab: {fileID: 4915002034565488683}
-  _newWordsPracticeBehaviour: {fileID: 4274767630860820480}
-  _reviewPracticeBehaviour: {fileID: 4804905693787309515}
-  _cardsContainer: {fileID: 3168988475714948770}
-  _spacingBetweenTabsRatio: 87.75
-  _switchAnimationDuration: 0.1
+  _practiceBehaviours:
+    <Entries>k__BackingField:
+    - <Value>k__BackingField: {fileID: 0}
+    - <Value>k__BackingField: {fileID: 4274767630860820480}
+    - <Value>k__BackingField: {fileID: 4804905693787309515}
+    <EnumMode>k__BackingField: 2
+  _tabsController:
+    <Tabs>k__BackingField:
+      <Entries>k__BackingField:
+      - <Value>k__BackingField: {fileID: 0}
+      - <Value>k__BackingField: {fileID: 9152539149564350957}
+      - <Value>k__BackingField: {fileID: 4915002034565488683}
+      <EnumMode>k__BackingField: 2
+    _tabAnimation:
+      states:
+        <Entries>k__BackingField:
+        - <Value>k__BackingField:
+            <Value>k__BackingField: {x: 0, y: 0}
+            <TweenSettings>k__BackingField:
+              duration: 0
+              ease: 0
+              customEase:
+                serializedVersion: 2
+                m_Curve: []
+                m_PreInfinity: 0
+                m_PostInfinity: 0
+                m_RotationOrder: 0
+              cycles: 0
+              cycleMode: 0
+              startDelay: 0
+              endDelay: 0
+              useUnscaledTime: 0
+              _useFixedUpdate: 0
+              _updateType: 0
+        - <Value>k__BackingField:
+            <Value>k__BackingField: {x: 16, y: -68}
+            <TweenSettings>k__BackingField:
+              duration: 0.3
+              ease: 0
+              customEase:
+                serializedVersion: 2
+                m_Curve: []
+                m_PreInfinity: 0
+                m_PostInfinity: 0
+                m_RotationOrder: 0
+              cycles: 1
+              cycleMode: 0
+              startDelay: 0
+              endDelay: 0
+              useUnscaledTime: 0
+              _useFixedUpdate: 0
+              _updateType: 0
+        - <Value>k__BackingField:
+            <Value>k__BackingField: {x: -343, y: -68}
+            <TweenSettings>k__BackingField:
+              duration: 0.3
+              ease: 0
+              customEase:
+                serializedVersion: 2
+                m_Curve: []
+                m_PreInfinity: 0
+                m_PostInfinity: 0
+                m_RotationOrder: 0
+              cycles: 1
+              cycleMode: 0
+              startDelay: 0
+              endDelay: 0
+              useUnscaledTime: 0
+              _useFixedUpdate: 0
+              _updateType: 0
+        <EnumMode>k__BackingField: 0
+      _target: {fileID: 3168988475714948770}
 --- !u!223 &8532272847415214384
 Canvas:
   m_ObjectHideFlags: 0
@@ -2444,17 +2489,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &2672089941875361482 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9198394243269102941, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
-  m_PrefabInstance: {fileID: 6535401944115940247}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!225 &5940572166200358546 stripped
 CanvasGroup:
   m_CorrespondingSourceObject: {fileID: 631435887277538565, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}

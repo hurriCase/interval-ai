@@ -4,6 +4,7 @@
     {
         None = 0,
         Words = 1,
-        Categories = 2
+        Categories = 2,
+        Exercises = 3
     }
 }

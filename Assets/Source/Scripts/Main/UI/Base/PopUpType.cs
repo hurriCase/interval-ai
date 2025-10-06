@@ -13,6 +13,7 @@
         WordInfo = 8,
         WordControl = 9,
         Modal = 10,
-        GenerationSettings = 11
+        GenerationSettings = 11,
+        Generation = 12
     }
 }

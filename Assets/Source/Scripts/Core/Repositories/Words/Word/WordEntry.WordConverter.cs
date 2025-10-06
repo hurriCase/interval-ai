@@ -1,6 +1,7 @@
 ﻿using CustomUtils.Runtime.CSV.Base;
 using CustomUtils.Runtime.CSV.CSVEntry;
 using CustomUtils.Runtime.Extensions;
+using Source.Scripts.Core.Localization.Translator.Translations;
 
 namespace Source.Scripts.Core.Repositories.Words.Word
 {

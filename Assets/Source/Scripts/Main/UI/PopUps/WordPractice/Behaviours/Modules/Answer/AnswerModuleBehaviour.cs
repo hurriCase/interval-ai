@@ -1,5 +1,5 @@
-﻿using Source.Scripts.Core.Others;
-using Source.Scripts.Core.Repositories.Words.Word;
+﻿using Source.Scripts.Core.Localization.Translator.Translations;
+using Source.Scripts.Core.Others;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base;
 using TMPro;
 using UnityEngine;

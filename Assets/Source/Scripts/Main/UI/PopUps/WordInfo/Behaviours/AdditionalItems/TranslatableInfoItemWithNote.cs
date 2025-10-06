@@ -1,4 +1,4 @@
-﻿using Source.Scripts.Core.Repositories.Words.Word;
+﻿using Source.Scripts.Core.Localization.Translator.Translations;
 using TMPro;
 using UnityEngine;
 

@@ -1,4 +1,5 @@
-﻿using Source.Scripts.Core.Repositories.Settings.Base;
+﻿using Source.Scripts.Core.Localization.Translator.Translations;
+using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.Shared;
 using TMPro;

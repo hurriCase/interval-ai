@@ -36,6 +36,9 @@ namespace Source.Scripts.Main.UI.Screens.Generation
             _categoryPreviewBehaviour.Init();
             _currentSettingsBehaviour.Init();
 
+            _savedGenerationsButton.OnClickAsObservable()
+                .SubscribeUntilDestroy(this, self => self.OpenGenerationPopUp());
+
             _chatButton.OnClickAsObservable().SubscribeUntilDestroy(this, self => self.OpenChatPopUp());
 
             _generativeLanguage.IsAvailable.SubscribeToInteractableUntilDestroy(_chatButton);
@@ -46,6 +49,11 @@ namespace Source.Scripts.Main.UI.Screens.Generation
             _generativeLanguage.UpdateAvailable(destroyCancellationToken);
 
             return base.ShowAsync();
+        }
+
+        private void OpenGenerationPopUp()
+        {
+            _windowsController.OpenPopUpByType(PopUpType.Generation);
         }
 
         private void OpenChatPopUp()

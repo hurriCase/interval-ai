@@ -4,7 +4,9 @@ using CustomUtils.Editor.Scripts.CustomEditorUtilities;
 using CustomUtils.Editor.Scripts.SheetsDownloader;
 using CustomUtils.Runtime.CSV;
 using CustomUtils.Runtime.Extensions;
+using Source.Scripts.Core.Localization.Translator.Translations;
 using Source.Scripts.Core.Repositories.Categories.Category;
+using Source.Scripts.Core.Repositories.Exercises.Exercise;
 using Source.Scripts.Core.Repositories.Words.Word;
 using UnityEditor;
 using UnityEngine;
@@ -104,6 +106,13 @@ namespace Source.Scripts.Editor.DefaultDataCreation
                 case DefaultDataType.Categories:
                     _csvToBinaryConverter.ConvertCSVToBinary(
                         new CategoryEntry.CategoryConverter(),
+                        csvPath,
+                        binaryPath);
+                    break;
+
+                case DefaultDataType.Exercises:
+                    _csvToBinaryConverter.ConvertCSVToBinary(
+                        new ExerciseEntry.ExerciseConverter(new TranslationParser()),
                         csvPath,
                         binaryPath);
                     break;

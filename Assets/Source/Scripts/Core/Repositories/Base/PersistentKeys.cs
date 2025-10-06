@@ -33,6 +33,8 @@
         internal const string TranslateFromLanguageTypeKey = Prefix + "TranslateFromLanguageTypeKey";
         internal const string IsHighlightNewWordsKey = Prefix + "IsHighlightNewWordsKey";
 
+        internal const string ExercisesKey = Prefix + "ExercisesKey";
+
         internal const string IsCompleteOnboardingKey = Prefix + "IsCompleteOnboardingKey";
         internal const string LoginHistoryKey = Prefix + "LoginHistoryKey";
 

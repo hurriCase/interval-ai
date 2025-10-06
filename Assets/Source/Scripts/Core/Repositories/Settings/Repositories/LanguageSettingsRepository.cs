@@ -21,11 +21,11 @@ namespace Source.Scripts.Core.Repositories.Settings.Repositories
         public PersistentReactiveProperty<LanguageType> CardLearnLanguageType { get; } = new();
         public PersistentReactiveProperty<LanguageType> CardReviewLanguageType { get; } = new();
 
-        public ReadOnlyReactiveProperty<EnumArray<LanguageType, SystemLanguage>> LanguageByType
-            => _languageByType.Property;
-
         public EnumArray<LanguageType, ReactiveProperty<SystemLanguage>> LanguageProperties { get; }
             = new(() => new ReactiveProperty<SystemLanguage>(), EnumMode.SkipFirst);
+
+        public ReadOnlyReactiveProperty<EnumArray<LanguageType, SystemLanguage>> LanguageByType
+            => _languageByType.Property;
 
         private readonly PersistentReactiveProperty<EnumArray<LanguageType, SystemLanguage>> _languageByType = new();
 

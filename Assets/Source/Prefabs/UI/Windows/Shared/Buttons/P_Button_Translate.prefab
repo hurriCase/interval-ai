@@ -21,6 +21,10 @@ PrefabInstance:
       value: Base_Icons
       objectReference: {fileID: 0}
     - target: {fileID: 1929861101225414033, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+      propertyPath: _currentColorModifier
+      value: 
+      objectReference: {fileID: 1858826736216668489}
+    - target: {fileID: 1929861101225414033, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: _colorData.<ColorName>k__BackingField
       value: ButtonTranslate
       objectReference: {fileID: 0}
@@ -205,6 +209,9 @@ PrefabInstance:
     - {fileID: 4675464422729192320, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4725090385315607919, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3728116479594448287}
     - targetCorrespondingSourceObject: {fileID: 590419135366053710, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1858826736216668489}
@@ -226,6 +233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8840dbee5a42476db6edcdcd70e84c6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.ColorModifiers.SolidColorModifier
+  currentColorName: ButtonTranslate
   _graphic: {fileID: 4631244343639781229}
 --- !u!114 &4631244343639781229 stripped
 MonoBehaviour:
@@ -236,5 +244,37 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &5284368234239781762 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4725090385315607919, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+  m_PrefabInstance: {fileID: 632540530934406893}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3728116479594448287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5284368234239781762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc1c4f2704d24aa688dcb479779e2916, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.Button.TranslateButton
+  _buttonComponent: {fileID: 8503555570821042702}
+  _textsToTranslate: {fileID: 0}
+  _translatedText: {fileID: 0}
+  _translationAccordion: {fileID: 0}
+--- !u!114 &8503555570821042702 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9134864641081789667, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+  m_PrefabInstance: {fileID: 632540530934406893}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5284368234239781762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

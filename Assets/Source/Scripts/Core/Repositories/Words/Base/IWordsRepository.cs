@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using R3;
+using Source.Scripts.Core.Localization.Translator.Translations;
 using Source.Scripts.Core.Repositories.Words.Word;
 
 namespace Source.Scripts.Core.Repositories.Words.Base

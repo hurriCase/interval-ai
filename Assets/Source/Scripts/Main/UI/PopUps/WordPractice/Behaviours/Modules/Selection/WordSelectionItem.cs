@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using CustomUtils.Runtime.UI.CustomComponents.Selectables.Toggles;
 using CustomUtils.Runtime.UI.CustomComponents.Selectables.Toggles.Mappings;
+using Source.Scripts.Core.Localization.Translator.Translations;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
 using UnityEngine;

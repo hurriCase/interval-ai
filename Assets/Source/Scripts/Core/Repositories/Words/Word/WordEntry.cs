@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using CustomUtils.Runtime.AddressableSystem;
 using MemoryPack;
+using Source.Scripts.Core.Localization.Translator.Translations;
 using Source.Scripts.Core.Repositories.Words.Base;
 
 namespace Source.Scripts.Core.Repositories.Words.Word

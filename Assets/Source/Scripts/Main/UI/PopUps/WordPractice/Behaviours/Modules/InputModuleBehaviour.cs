@@ -1,6 +1,6 @@
 ﻿using CustomUtils.Runtime.Extensions.Observables;
 using R3;
-using Source.Scripts.Core.Repositories.Words.Word;
+using Source.Scripts.Core.Localization.Translator.Translations;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base;
 using Source.Scripts.UI.Components.Button;
 using TMPro;

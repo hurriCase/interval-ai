@@ -134,6 +134,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3728116479594448287, guid: 53e49c9e591930243aac803278f3c16a, type: 3}
+      propertyPath: _translatedText
+      value: 
+      objectReference: {fileID: 1582795337675994059}
+    - target: {fileID: 3728116479594448287, guid: 53e49c9e591930243aac803278f3c16a, type: 3}
+      propertyPath: _textsToTranslate
+      value: 
+      objectReference: {fileID: 227581249460400506}
+    - target: {fileID: 3728116479594448287, guid: 53e49c9e591930243aac803278f3c16a, type: 3}
+      propertyPath: _translationAccordion
+      value: 
+      objectReference: {fileID: 709469250153738331}
     - target: {fileID: 4391866899677402453, guid: 53e49c9e591930243aac803278f3c16a, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -436,17 +448,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2639637644160144888, guid: bed9a904e11bf4a41b23da0abe3ec5e3, type: 3}
   m_PrefabInstance: {fileID: 4032678980144473947}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4752501118958253397 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8503555570821042702, guid: bed9a904e11bf4a41b23da0abe3ec5e3, type: 3}
-  m_PrefabInstance: {fileID: 4032678980144473947}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.ButtonComponent
 --- !u!114 &8262556791078832745 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4998023298060971314, guid: bed9a904e11bf4a41b23da0abe3ec5e3, type: 3}
@@ -979,10 +980,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.PopUps.Chat.Behaviours.MessageItem
   _contentContainer: {fileID: 492212865738257981}
   _messageText: {fileID: 227581249460400506}
-  _pinButton: {fileID: 4752501118958253397}
-  _translateButton: {fileID: 8380856640179894211}
-  _translationAccordion: {fileID: 709469250153738331}
-  _translatedText: {fileID: 1582795337675994059}
   _minWidth: 144
   _maxWidth: 290
   _otherContentWidth: 32

@@ -4,6 +4,7 @@ using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Extensions.Observables;
 using R3;
 using Source.Scripts.Core.Localization.LocalizationTypes;
+using Source.Scripts.Core.Localization.Translator.Translations;
 using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Word;

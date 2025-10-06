@@ -88,7 +88,7 @@ namespace Source.Scripts.Main.UI.PopUps.Category
                     => self._categoryStateMutator.ChangeCategoryName(self._currentCategoryEntry, newName));
 
             _wordReviewSourceType
-                .Where(this, static (_, self) => self._currentCategoryEntry != null)
+                .Where(this, static self => self._currentCategoryEntry != null)
                 .SubscribeUntilDestroy(this, static (newOrder, self) => self.ReorderWordItems(newOrder));
 
             _wordOrderSelectionItem.Init(_wordReviewSourceType);

@@ -18,6 +18,8 @@ using Source.Scripts.Core.Repositories.Base.Id;
 using Source.Scripts.Core.Repositories.Base.Tests;
 using Source.Scripts.Core.Repositories.Categories;
 using Source.Scripts.Core.Repositories.Categories.Category;
+using Source.Scripts.Core.Repositories.Exercises;
+using Source.Scripts.Core.Repositories.Exercises.Exercise;
 using Source.Scripts.Core.Repositories.Progress;
 using Source.Scripts.Core.Repositories.Settings;
 using Source.Scripts.Core.Repositories.Settings.Repositories;
@@ -57,6 +59,8 @@ namespace Source.Scripts.Bootstrap.DI
         [SerializeField] private DefaultSettingsConfig _defaultSettingsConfig;
         [SerializeField] private DefaultUserDataConfig _defaultUserDataConfig;
         [SerializeField] private DefaultWordsDatabase _defaultWordsDatabase;
+        [SerializeField] private DefaultSentencesDatabase _defaultSentencesDatabase;
+        [SerializeField] private DefaultTextsDatabase _defaultTextsDatabase;
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -132,6 +136,7 @@ namespace Source.Scripts.Bootstrap.DI
 
             RegisterCategoriesRepository(builder);
             RegisterWordsRepository(builder);
+            RegisterExercisesRepository(builder);
         }
 
         private void RegisterCategoriesRepository(IContainerBuilder builder)
@@ -153,6 +158,20 @@ namespace Source.Scripts.Bootstrap.DI
             builder.Register<WordEntry.WordConverter>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.RegisterInstance(_defaultWordsDatabase)
                 .As<DefaultWordsDatabase>()
+                .AsImplementedInterfaces();
+        }
+
+        private void RegisterExercisesRepository(IContainerBuilder builder)
+        {
+            builder.Register<IdHandler<ExerciseEntry>>(Lifetime.Singleton).As<IIdHandler<ExerciseEntry>>();
+            builder.Register<ExercisesRepository>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<ExerciseEntry.ExerciseConverter>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.RegisterInstance(_defaultSentencesDatabase)
+                .As<DefaultSentencesDatabase>()
+                .AsImplementedInterfaces();
+
+            builder.RegisterInstance(_defaultTextsDatabase)
+                .As<DefaultTextsDatabase>()
                 .AsImplementedInterfaces();
         }
     }

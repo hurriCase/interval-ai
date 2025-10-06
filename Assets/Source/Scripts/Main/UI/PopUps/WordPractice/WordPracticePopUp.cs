@@ -1,8 +1,6 @@
-﻿using CustomUtils.Runtime.Extensions.Observables;
+﻿using CustomUtils.Runtime.CustomTypes.Collections;
+using CustomUtils.Runtime.Extensions.Observables;
 using Cysharp.Threading.Tasks;
-using PrimeTween;
-using R3;
-using R3.Triggers;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice;
@@ -15,16 +13,10 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice
 {
     internal sealed class WordPracticePopUp : PopUpBase
     {
-        [SerializeField] private ToggleComponent _newWordsTab;
-        [SerializeField] private ToggleComponent _reviewTab;
+        [SerializeField]
+        private EnumArray<PracticeState, PracticeBehaviour> _practiceBehaviours = new(EnumMode.SkipFirst);
 
-        [SerializeField] private PracticeBehaviour _newWordsPracticeBehaviour;
-        [SerializeField] private PracticeBehaviour _reviewPracticeBehaviour;
-
-        [SerializeField] private RectTransform _cardsContainer;
-
-        [SerializeField] private float _spacingBetweenTabsRatio;
-        [SerializeField] private float _switchAnimationDuration;
+        [SerializeField] private TabsController<PracticeState> _tabsController;
 
         private IPracticeStateService _practiceStateService;
         private ICurrentWordsService _currentWordsService;
@@ -38,18 +30,10 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice
 
         internal override void Init()
         {
-            _newWordsPracticeBehaviour.Init();
-            _reviewPracticeBehaviour.Init();
+            _tabsController.Init(_practiceStateService.CurrentState.CurrentValue, destroyCancellationToken);
 
-            _newWordsTab.OnPointerClickAsObservable()
-                .Where(_practiceStateService.CurrentState,
-                    static (_, state) => state.CurrentValue != PracticeState.NewWords)
-                .SubscribeUntilDestroy(this, static self => self.SwitchToState(PracticeState.NewWords));
-
-            _reviewTab.OnPointerClickAsObservable()
-                .Where(_practiceStateService.CurrentState, static (_, state)
-                    => state.CurrentValue != PracticeState.Review)
-                .SubscribeUntilDestroy(this, static self => self.SwitchToState(PracticeState.Review));
+            foreach (var practiceBehaviour in _practiceBehaviours)
+                practiceBehaviour.Init();
 
             _practiceStateService.CurrentState.SubscribeUntilDestroy(this,
                 static (state, self) => self.SwitchToState(state));
@@ -77,16 +61,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice
         {
             _practiceStateService.SetState(state);
 
-            var currentState = _practiceStateService.CurrentState.CurrentValue;
-            var containerWidth = _cardsContainer.rect.width;
-            var endValue = currentState == PracticeState.NewWords
-                ? 0
-                : -(containerWidth / 2 + containerWidth / _spacingBetweenTabsRatio);
-
-            _reviewTab.isOn = currentState == PracticeState.Review;
-            _newWordsTab.isOn = currentState == PracticeState.NewWords;
-
-            Tween.UIAnchoredPositionX(_cardsContainer, endValue, isInstant ? 0 : _switchAnimationDuration);
+            _tabsController.SwitchState(state, isInstant);
         }
     }
 }
