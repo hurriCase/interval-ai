@@ -138,7 +138,7 @@ and complex data structures.
     - Use `partial` keyword for classes/structs
     - Members inside have `public` accessibility
     - Use `[MemoryPackIgnore]` for computed/non-serializable properties
-    - See [Translation](Assets/Source/Scripts/Core/Repositories/Words/Word/Translation.cs "Translation class") for usage example
+    - See [Translation](Assets/Source/Scripts/Core/Localization/Translator/Translations/Translation.cs "Translation class") for usage example
 
 
 ### API ([Custom](Assets/Source/Scripts/Core/Api/ApiClient.cs "ApiClient class"))
@@ -256,5 +256,3 @@ internal sealed class WordRepository : IWordsRepository
 - Encapsulate everything: create get-only properties, nested classes for state mutation
 - Ship project on prefab basis without storing assets directly in scenes
 - Maintain consistent folder structure across features
-
-*Last Updated: 2025-09-11*
