@@ -124,17 +124,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff38820289da4d82ad6b1ed9e4fcf8bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.Shared.UserIconBehaviour
---- !u!114 &4264733202151279095 stripped
+--- !u!114 &6203726756627804723 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3331258375786132860, guid: 80f57b067d3d38c4ead30f31ff8060e8, type: 3}
+  m_CorrespondingSourceObject: {fileID: 4831360790100348600, guid: 80f57b067d3d38c4ead30f31ff8060e8, type: 3}
   m_PrefabInstance: {fileID: 1518946278582287499}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Script: {fileID: 11500000, guid: c136156048c64c37a1d5cfec1a625539, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.UserWelcomeBehaviour
 --- !u!224 &7916803582598696520 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8703843440013193923, guid: 80f57b067d3d38c4ead30f31ff8060e8, type: 3}
@@ -337,7 +337,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6067493406117725661, guid: 52e1b0cb3fc47fe49b63ae77fb43a2b7, type: 3}
       propertyPath: m_Name
-      value: P_Screen_LearningWords
+      value: P_Screen_Main
       objectReference: {fileID: 0}
     - target: {fileID: 6067493406117725661, guid: 52e1b0cb3fc47fe49b63ae77fb43a2b7, type: 3}
       propertyPath: m_IsActive
@@ -363,10 +363,6 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7735646591880233399, guid: 52e1b0cb3fc47fe49b63ae77fb43a2b7, type: 3}
-      propertyPath: targetComponent
-      value: 
-      objectReference: {fileID: 8360518061479304016}
     - target: {fileID: 9209770007749722170, guid: 52e1b0cb3fc47fe49b63ae77fb43a2b7, type: 3}
       propertyPath: _ratioElements.Array.size
       value: 0
@@ -450,7 +446,7 @@ MonoBehaviour:
   _wordLearningBehaviour: {fileID: 6280745981775796522}
   _achievementsBehaviour: {fileID: 8143200516331891077}
   _userIconBehaviour: {fileID: 1367986990636812206}
-  _welcomeText: {fileID: 4264733202151279095}
+  _userWelcomeBehaviour: {fileID: 6203726756627804723}
 --- !u!223 &3588286115727699923
 Canvas:
   m_ObjectHideFlags: 0
@@ -491,17 +487,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &8360518061479304016 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7791282786909202278, guid: 52e1b0cb3fc47fe49b63ae77fb43a2b7, type: 3}
-  m_PrefabInstance: {fileID: 1740276817851366454}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2242829090093912012
 PrefabInstance:
   m_ObjectHideFlags: 0

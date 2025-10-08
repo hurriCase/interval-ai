@@ -34,8 +34,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
                 .SubscribeUntilDestroy(this, static (time, self) =>
                     self.SetState(CompleteType.Complete, time.ToShortTimeString()));
 
-            windowsController.BindScreenOpen(_exitButton, ScreenType.LearningWords);
-            windowsController.BindScreenOpen(negativeButton, ScreenType.LearningWords);
+            windowsController.BindScreenOpen(_exitButton, ScreenType.Main);
+            windowsController.BindScreenOpen(negativeButton, ScreenType.Main);
         }
 
         protected override void OnCheckCompleteness(CompleteType completeType)

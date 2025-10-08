@@ -65,7 +65,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
                 return;
             }
 
-            windowsController.OpenScreenByType(ScreenType.LearningWords);
+            windowsController.OpenScreenByType(ScreenType.Main);
         }
 
         private void UpdateCurrentWord()
