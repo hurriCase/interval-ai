@@ -24,8 +24,7 @@ namespace Source.Scripts.Main.UI.Base
         {
             foreach (var (screenType, themeToggle) in _menuToggles.AsTuples())
             {
-                themeToggle.OnPointerClickAsObservable().SubscribeUntilDestroy(this, screenType,
-                    static (screenType, self) => self._windowsController.OpenScreenByType(screenType));
+                _windowsController.BindScreenOpen(themeToggle, screenType);
 
                 if (screenType == _windowsController.InitialScreenType)
                     themeToggle.isOn = true;

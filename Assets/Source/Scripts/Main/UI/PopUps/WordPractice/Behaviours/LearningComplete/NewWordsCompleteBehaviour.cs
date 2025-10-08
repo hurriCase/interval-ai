@@ -29,8 +29,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
 
         protected override void OnInit()
         {
-            positiveButton.OnClickAsObservable()
-                .SubscribeUntilDestroy(this, self => self.OpenCategorySelection());
+            positiveButton.OnClickAsObservable().SubscribeUntilDestroy(this, self => self.OpenCategorySelection());
             negativeButton.OnClickAsObservable().SubscribeUntilDestroy(this, self => self.TryContinueLearning());
 
             _progressRepository.OnGoalAchieved.SubscribeUntilDestroy(this,

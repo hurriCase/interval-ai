@@ -7,8 +7,12 @@ using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Extensions.Observables;
 using Cysharp.Text;
 using Cysharp.Threading.Tasks;
+using R3;
+using R3.Triggers;
+using Source.Scripts.UI.Components.Button;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.EventSystems;
 using VContainer;
 using VContainer.Unity;
 
@@ -151,6 +155,20 @@ namespace Source.Scripts.UI.Windows.Base
                 typeof(TPopUpType)));
 
             return null;
+        }
+
+        public void BindPopUpOpen(UIBehaviour component, TPopUpEnum popUpType)
+        {
+            component.OnPointerClickAsObservable()
+                .Subscribe((self: this, popUpType), static (_, tuple) => tuple.self.OpenPopUpByType(tuple.popUpType))
+                .RegisterTo(component.destroyCancellationToken);
+        }
+
+        public void BindScreenOpen(UIBehaviour component, TScreenEnum screenType)
+        {
+            component.OnPointerClickAsObservable()
+                .Subscribe((self: this, screenType), static (_, tuple) => tuple.self.OpenScreenByType(tuple.screenType))
+                .RegisterTo(component.destroyCancellationToken);
         }
 
         private async UniTask OpenPopUpAsync(PopUpBase popUpBase, TPopUpEnum popUpEnum)

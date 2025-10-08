@@ -2,7 +2,6 @@
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Extensions.Observables;
-using R3;
 using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Core.Repositories.Categories.Category;
 using Source.Scripts.Main.UI.Base;
@@ -47,8 +46,7 @@ namespace Source.Scripts.Main.UI.Screens.Categories
             foreach (var categoryEntry in _categoriesRepository.CategoryEntries.CurrentValue.Values)
                 CreateCategory(categoryEntry);
 
-            _addCategoryButton.OnClickAsObservable().SubscribeUntilDestroy(this,
-                static self => self._windowsController.OpenPopUpByType(PopUpType.CategoryCreation));
+            _windowsController.BindPopUpOpen(_addCategoryButton, PopUpType.CategoryCreation);
 
             _categoriesRepository.OnCategoryAdded.SubscribeUntilDestroy(this,
                 static (entry, self) => self.CreateCategory(entry));

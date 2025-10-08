@@ -2,7 +2,6 @@
 using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.Localization;
 using Cysharp.Text;
-using R3;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Progress.Base;
@@ -46,10 +45,7 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours
 
             _progressRepository.HasDailyTarget.SubscribeToInteractableUntilDestroy(_startPracticeButton);
 
-            _startPracticeButton.OnClickAsObservable()
-                .Subscribe(_windowsController,
-                    static (_, controller) => controller.OpenPopUpByType(PopUpType.WordPractice))
-                .RegisterTo(destroyCancellationToken);
+            _windowsController.BindPopUpOpen(_startPracticeButton, PopUpType.WordPractice);
 
             _progressRepository.ProgressHistory.SubscribeUntilDestroy(this, static self => self.UpdateProgressText());
             _progressRepository.NewWordsDailyTarget
@@ -79,8 +75,7 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours
         {
             var wordsTarget = _progressRepository.NewWordsDailyTarget;
 
-            var localization =
-                _localizationKeysDatabase.GetLocalization(LocalizationType.LearnGoal);
+            var localization = _localizationKeysDatabase.GetLocalization(LocalizationType.LearnGoal);
 
             _learnGoalText.SetTextFormat(localization, wordsTarget);
         }

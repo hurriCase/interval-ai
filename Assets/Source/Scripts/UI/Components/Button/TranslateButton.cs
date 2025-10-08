@@ -1,8 +1,6 @@
 ﻿using CustomUtils.Runtime.Extensions.Observables;
-using Cysharp.Text;
 using Cysharp.Threading.Tasks;
 using R3;
-using Source.Scripts.Core.Audio.TextToSpeech;
 using Source.Scripts.Core.Localization.Translator;
 using Source.Scripts.UI.Components.Accordion;
 using Source.Scripts.UI.Components.Animation.Base;

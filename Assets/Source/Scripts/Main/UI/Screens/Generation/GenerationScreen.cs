@@ -1,6 +1,5 @@
 ﻿using CustomUtils.Runtime.Extensions.Observables;
 using Cysharp.Threading.Tasks;
-using R3;
 using Source.Scripts.Core.GenerativeLanguage;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.Screens.Generation.Behaviours;
@@ -36,10 +35,8 @@ namespace Source.Scripts.Main.UI.Screens.Generation
             _categoryPreviewBehaviour.Init();
             _currentSettingsBehaviour.Init();
 
-            _savedGenerationsButton.OnClickAsObservable()
-                .SubscribeUntilDestroy(this, self => self.OpenGenerationPopUp());
-
-            _chatButton.OnClickAsObservable().SubscribeUntilDestroy(this, self => self.OpenChatPopUp());
+            _windowsController.BindPopUpOpen(_savedGenerationsButton, PopUpType.Generation);
+            _windowsController.BindPopUpOpen(_chatButton, PopUpType.Chat);
 
             _generativeLanguage.IsAvailable.SubscribeToInteractableUntilDestroy(_chatButton);
         }
@@ -49,16 +46,6 @@ namespace Source.Scripts.Main.UI.Screens.Generation
             _generativeLanguage.UpdateAvailable(destroyCancellationToken);
 
             return base.ShowAsync();
-        }
-
-        private void OpenGenerationPopUp()
-        {
-            _windowsController.OpenPopUpByType(PopUpType.Generation);
-        }
-
-        private void OpenChatPopUp()
-        {
-            _windowsController.OpenPopUpByType(PopUpType.Chat);
         }
     }
 }

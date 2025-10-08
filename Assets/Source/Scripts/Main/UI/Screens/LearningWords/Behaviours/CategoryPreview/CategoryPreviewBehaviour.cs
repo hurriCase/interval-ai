@@ -36,8 +36,7 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.CategoryPrevie
 
         internal void Init()
         {
-            _allCategoriesButton.OnClickAsObservable().SubscribeUntilDestroy(this,
-                static self => self._windowsController.OpenScreenByType(ScreenType.Categories));
+            _windowsController.BindScreenOpen(_allCategoriesButton, ScreenType.Categories);
 
             CreateCategoryItems();
         }

@@ -34,8 +34,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
                 .SubscribeUntilDestroy(this, static (time, self) =>
                     self.SetState(CompleteType.Complete, time.ToShortTimeString()));
 
-            _exitButton.OnClickAsObservable().SubscribeUntilDestroy(this, self => self.OpenLearnWords());
-            negativeButton.OnClickAsObservable().SubscribeUntilDestroy(this, self => self.OpenLearnWords());
+            windowsController.BindScreenOpen(_exitButton, ScreenType.LearningWords);
+            windowsController.BindScreenOpen(negativeButton, ScreenType.LearningWords);
         }
 
         protected override void OnCheckCompleteness(CompleteType completeType)
@@ -52,11 +52,6 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
             practiceStateService.SetState(PracticeState.NewWords);
 
             SetActiveNewWords(false);
-        }
-
-        private void OpenLearnWords()
-        {
-            windowsController.OpenScreenByType(ScreenType.LearningWords);
         }
 
         private void SetActiveNewWords(bool isActive)
