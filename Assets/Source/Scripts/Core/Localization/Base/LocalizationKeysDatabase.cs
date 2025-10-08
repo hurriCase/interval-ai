@@ -52,8 +52,8 @@ namespace Source.Scripts.Core.Localization.Base
             _localizationDatabase = localizationDatabase;
         }
 
-        public string GetLocalization(LocalizationType type) =>
-            LocalizationController.Localize(_localizationData[type]);
+        public string GetLocalization(LocalizationType type)
+            => LocalizationController.Localize(_localizationData[type]);
 
         public string GetLearningStateLocalization(LearningState state) =>
             LocalizationController.Localize(_progressLearningStates[state]);
