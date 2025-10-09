@@ -10,13 +10,33 @@ namespace Source.Scripts.UI.Components.Animation
         where TState : unmanaged, Enum
     {
         [SerializeField] private RectTransform _target;
+        [SerializeField] private AnimationAxis _axis = AnimationAxis.Both;
 
         protected override void SetValueInstant(Vector2 value)
         {
-            _target.anchoredPosition = value;
+            if (_axis == AnimationAxis.None)
+                return;
+
+            _target.anchoredPosition = _axis switch
+            {
+                AnimationAxis.X => new Vector2(value.x, _target.anchoredPosition.y),
+                AnimationAxis.Y => new Vector2(_target.anchoredPosition.x, value.y),
+                _ => value
+            };
         }
 
         protected override Tween CreateTween(AnimationData<Vector2> animationData)
-            => Tween.UIAnchoredPosition(_target, animationData.Value, animationData.TweenSettings);
+        {
+            if (_axis == AnimationAxis.None)
+                return Tween.Delay(0f);
+
+            var endValue = animationData.Value;
+            return _axis switch
+            {
+                AnimationAxis.X => Tween.UIAnchoredPositionX(_target, endValue.x, animationData.TweenSettings),
+                AnimationAxis.Y => Tween.UIAnchoredPositionY(_target, endValue.y, animationData.TweenSettings),
+                _ => Tween.UIAnchoredPosition(_target, endValue, animationData.TweenSettings)
+            };
+        }
     }
 }
