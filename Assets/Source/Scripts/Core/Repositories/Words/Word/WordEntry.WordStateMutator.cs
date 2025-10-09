@@ -33,6 +33,8 @@ namespace Source.Scripts.Core.Repositories.Words.Word
 
             public void AdvanceLearningState(WordEntry word, bool success)
             {
+                using var saveScope = _wordsRepository.CreateSaveScope();
+
                 var oldState = word.LearningState;
 
                 if (success)
@@ -50,7 +52,7 @@ namespace Source.Scripts.Core.Repositories.Words.Word
                 if (oldState != word.LearningState)
                     _wordsRepository.OnWordStateChanged(word, oldState, word.LearningState);
 
-                if (!success)
+                if (success is false)
                     return;
 
                 IncrementProgress(word, TrackConditionType.OnExit);
@@ -60,6 +62,8 @@ namespace Source.Scripts.Core.Repositories.Words.Word
 
             public void HideWord(WordEntry word)
             {
+                using var saveScope = _wordsRepository.CreateSaveScope();
+
                 word.IsHidden = true;
 
                 _wordsRepository.RemoveHiddenWord(word);
@@ -67,6 +71,8 @@ namespace Source.Scripts.Core.Repositories.Words.Word
 
             public void ResetWord(WordEntry word)
             {
+                using var saveScope = _wordsRepository.CreateSaveScope();
+
                 word.LearningState = LearningState.Review;
                 word.ReviewCount = 0;
                 word.Cooldown = DateTime.MinValue;
@@ -79,6 +85,8 @@ namespace Source.Scripts.Core.Repositories.Words.Word
             {
                 if (word.LearningState != LearningState.Review)
                     return;
+
+                using var saveScope = _wordsRepository.CreateSaveScope();
 
                 var cooldownData = _practiceSettingsRepository.RepetitionByCooldown.Value[word.ReviewCount];
                 word.Cooldown = cooldownData.AddToDateTime(DateTime.Now);
@@ -94,17 +102,19 @@ namespace Source.Scripts.Core.Repositories.Words.Word
 
             private void HandleReview(WordEntry word, bool success)
             {
+                using var saveScope = _wordsRepository.CreateSaveScope();
+
                 if (success is false)
                 {
                     word.ReviewCount = Math.Max(0, word.ReviewCount - 1);
+
+                    _wordsRepository.CreateSaveScope();
                     return;
                 }
 
                 word.ReviewCount++;
-                if (word.ReviewCount < _practiceSettingsRepository.RepetitionByCooldown.Value.Count)
-                    return;
-
-                word.LearningState = LearningState.Studied;
+                if (word.ReviewCount > _practiceSettingsRepository.RepetitionByCooldown.Value.Count)
+                    word.LearningState = LearningState.Studied;
             }
         }
     }

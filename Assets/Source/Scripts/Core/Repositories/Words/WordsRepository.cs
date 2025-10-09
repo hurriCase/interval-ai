@@ -82,6 +82,8 @@ namespace Source.Scripts.Core.Repositories.Words
             _sortedWordsByState.OnNext(_sortedWordsByState.Value);
         }
 
+        public SaveScope CreateSaveScope() => new(this, static self => self._wordEntries.SaveAsync());
+
         private void SetSortedWords()
         {
             foreach (var word in _wordEntries.Value.Values)

@@ -10,9 +10,9 @@ namespace Source.Scripts.Core.Repositories.Words.Word
     [MemoryPackable]
     internal sealed partial class WordEntry
     {
+        public TranslationSet Word { get; set; }
         public CachedSprite DescriptiveImage { get; private set; }
         public string Transcription { get; private set; }
-        public TranslationSet Word { get; set; }
         public List<int> CategoryIds { get; private set; } = new();
         public List<Translation> Examples { get; private set; }
         public List<Translation> TranslationVariants { get; private set; }

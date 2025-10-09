@@ -13,5 +13,6 @@ namespace Source.Scripts.Core.Repositories.Words.Base
         void RemoveHiddenWord(WordEntry word);
         List<WordEntry> GetRandomWords(WordEntry wordToSkip, int count);
         void OnWordStateChanged(WordEntry word, LearningState oldState, LearningState newState);
+        SaveScope CreateSaveScope();
     }
 }
