@@ -1,5 +1,6 @@
 ﻿using Source.Scripts.Core.Repositories.Words;
 using Source.Scripts.Core.Repositories.Words.Advance;
+using Source.Scripts.Core.Repositories.Words.ModuleState;
 using Source.Scripts.Main.Data;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.PopUps.Selection.Category;
@@ -29,6 +30,8 @@ namespace Source.Scripts.Main.DI
             builder.RegisterComponent(_progressGraphSettings).AsImplementedInterfaces();
 
             builder.Register<PracticeStateService>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.Register<ModuleStateServiceFactory>(Lifetime.Scoped).AsImplementedInterfaces();
+
             builder.Register<WordsTimerService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<WordAdvanceService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<MainCurrentWordsService>(Lifetime.Scoped).AsImplementedInterfaces();

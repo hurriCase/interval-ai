@@ -1,5 +1,6 @@
 ﻿using CustomUtils.Runtime.Extensions.Observables;
 using R3;
+using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Localization.Translator.Translations;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base;
 using Source.Scripts.UI.Components.Button;
@@ -16,9 +17,9 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules
 
         private int _shownSymbolCount;
 
-        public override void Init(CardBehaviour cardBehaviour)
+        public override void Init(PracticeState practiceState)
         {
-            base.Init(cardBehaviour);
+            base.Init(practiceState);
 
             _hintButton.OnClickAsObservable().SubscribeUntilDestroy(this, self => self.AddHintCharacter());
         }

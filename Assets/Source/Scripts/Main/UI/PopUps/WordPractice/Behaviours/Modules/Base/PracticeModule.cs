@@ -1,4 +1,5 @@
-﻿using Source.Scripts.Core.Localization.Translator.Translations;
+﻿using Source.Scripts.Core.Localization.LocalizationTypes;
+using Source.Scripts.Core.Localization.Translator.Translations;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.Shared;
@@ -17,7 +18,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base
 
         protected WordEntry currentWord;
 
-        public virtual void Init(CardBehaviour cardBehaviour) { }
+        public virtual void Init(PracticeState practiceState) { }
 
         public virtual void SetCurrentWord(WordEntry wordEntry)
         {

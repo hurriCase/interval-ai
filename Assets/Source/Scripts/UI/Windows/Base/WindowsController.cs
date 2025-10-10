@@ -9,7 +9,6 @@ using Cysharp.Text;
 using Cysharp.Threading.Tasks;
 using R3;
 using R3.Triggers;
-using Source.Scripts.UI.Components.Button;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.EventSystems;

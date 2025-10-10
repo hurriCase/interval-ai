@@ -33,14 +33,6 @@ namespace Source.Scripts.Main.Data
             _wordsRepository.SortedWordsByState.Subscribe(this, (_, self) => self.UpdateCurrentWords());
         }
 
-        public void SetCurrentWord(PracticeState practiceState, WordEntry word)
-        {
-            var currentWordsByState = _currentWordsByState.Value;
-            currentWordsByState[practiceState] = word;
-            _currentWordsByState.Value = currentWordsByState;
-            _currentWordsByState.OnNext(currentWordsByState);
-        }
-
         public void UpdateCurrentWords()
         {
             foreach (var (practiceState, learningStates) in
@@ -60,8 +52,13 @@ namespace Source.Scripts.Main.Data
             }
         }
 
-        private bool CheckDailyComplete(LearningState learningState)
-            => LearningState.Default != learningState || _progressRepository.HasDailyTarget.CurrentValue;
+        public void SetCurrentWord(PracticeState practiceState, WordEntry word)
+        {
+            var currentWordsByState = _currentWordsByState.Value;
+            currentWordsByState[practiceState] = word;
+            _currentWordsByState.Value = currentWordsByState;
+            _currentWordsByState.OnNext(currentWordsByState);
+        }
 
         public bool HasWordByState(PracticeState practiceState)
             => CurrentWordsByState.CurrentValue[practiceState] != null;
@@ -72,6 +69,9 @@ namespace Source.Scripts.Main.Data
 
             return learningState == LearningState.Default && practiceState == PracticeState.NewWords;
         }
+
+        private bool CheckDailyComplete(LearningState learningState)
+            => LearningState.Default != learningState || _progressRepository.HasDailyTarget.CurrentValue;
 
         public void Dispose()
         {

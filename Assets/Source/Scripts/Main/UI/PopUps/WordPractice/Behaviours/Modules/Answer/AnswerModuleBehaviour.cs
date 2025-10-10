@@ -1,4 +1,5 @@
-﻿using Source.Scripts.Core.Localization.Translator.Translations;
+﻿using Source.Scripts.Core.Localization.LocalizationTypes;
+using Source.Scripts.Core.Localization.Translator.Translations;
 using Source.Scripts.Core.Others;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base;
 using TMPro;
@@ -15,7 +16,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Answer
 
         private UIPool<ExampleItem> _examplesPool;
 
-        public override void Init(CardBehaviour cardBehaviour)
+        public override void Init(PracticeState practiceState)
         {
             _examplesPool = new UIPool<ExampleItem>(_exampleItem, _exampleContainer);
         }

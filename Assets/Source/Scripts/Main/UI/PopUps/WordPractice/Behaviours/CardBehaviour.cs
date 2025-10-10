@@ -1,10 +1,10 @@
-﻿using System;
-using CustomUtils.Runtime.CustomTypes.Collections;
+﻿using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions.Observables;
 using R3;
 using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Words.Base;
+using Source.Scripts.Core.Repositories.Words.ModuleState;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base;
 using UnityEngine;
@@ -16,55 +16,46 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
     {
         [SerializeField] private EnumArray<ModuleType, PracticeModule> _practiceModules
             = new(EnumMode.SkipFirst);
-        [SerializeField] private WordProgressBehaviour _wordProgressBehaviour;
 
-        internal ReactiveCommand<ModuleType> SwitchModuleCommand { get; } = new();
+        [SerializeField] private WordProgressBehaviour _wordProgressBehaviour;
 
         private WordEntry WordEntry => _currentWordsService.CurrentWordsByState.CurrentValue[_practiceState];
 
         private PracticeState _practiceState;
 
+        private IModuleStateServiceFactory _moduleStateServiceFactory;
         private ICurrentWordsService _currentWordsService;
-        private IAppConfig _appConfig;
+        private IModuleStateService _moduleStateService;
 
         [Inject]
-        internal void Inject(ICurrentWordsService currentWordsService, IAppConfig appConfig)
+        internal void Inject(
+            IModuleStateServiceFactory moduleStateServiceFactory,
+            ICurrentWordsService currentWordsService)
         {
+            _moduleStateServiceFactory = moduleStateServiceFactory;
             _currentWordsService = currentWordsService;
-            _appConfig = appConfig;
         }
 
         internal void Init(PracticeState practiceState)
         {
             _practiceState = practiceState;
 
+            _moduleStateService = _moduleStateServiceFactory.GetOrCreate(practiceState);
+
             _wordProgressBehaviour.Init();
 
             _currentWordsService.CurrentWordsByState
-                .Select(_practiceState, (currentWordsByState, state) => currentWordsByState[state])
+                .Select(practiceState, (currentWordsByState, state) => currentWordsByState[state])
                 .Where(currentWord => currentWord != null)
-                .Subscribe(_wordProgressBehaviour,
-                    static (currentWord, wordProgress) => wordProgress.UpdateProgress(currentWord))
-                .RegisterTo(destroyCancellationToken);
+                .SubscribeUntilDestroy(_wordProgressBehaviour,
+                    static (currentWord, wordProgress) => wordProgress.UpdateProgress(currentWord));
 
             foreach (var module in _practiceModules)
-                module.Init(this);
+                module.Init(practiceState);
 
-            _currentWordsService.CurrentWordsByState
-                .Select(_practiceState, (currentWordsByState, state) => currentWordsByState[state])
-                .SubscribeUntilDestroy(this, self => self.HandleNewWord());
-
-            SwitchModuleCommand.SubscribeUntilDestroy(this, (moduleType, self) => self.SwitchModule(moduleType));
-        }
-
-        private void HandleNewWord()
-        {
-            SwitchModuleCommand.ChangeCanExecute(WordEntry != null && WordEntry.Cooldown <= DateTime.Now);
-
-            if (SwitchModuleCommand.CanExecute() is false)
-                return;
-
-            SwitchModule(_appConfig.PracticeToModuleType[_practiceState]);
+            _moduleStateService.CurrentState
+                .Where(this, (currentState, self) => currentState != ModuleType.None && self.WordEntry != null)
+                .SubscribeUntilDestroy(this, static (state, self) => self.SwitchModule(state));
         }
 
         private void SwitchModule(ModuleType moduleType)

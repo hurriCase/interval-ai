@@ -28,7 +28,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
             var builder = Disposable.CreateBuilder();
 
             _currentWordsService.CurrentWordsByState
-                .Subscribe(this, static (_, self) => self.CheckCompleteness())
+                .Subscribe(this, static (currentWords, self) => self.CheckCompleteness(currentWords))
                 .AddTo(ref builder);
 
             progressRepository.HasDailyTarget
@@ -64,9 +64,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
             _completeStates.OnNext(completeStatesValue);
         }
 
-        private void CheckCompleteness()
+        private void CheckCompleteness(EnumArray<PracticeState, WordEntry> currentWords)
         {
-            var currentWords = _currentWordsService.CurrentWordsByState.CurrentValue;
             foreach (var (practiceState, wordEntry) in currentWords.AsTuples())
                 CheckCompleteness(practiceState, wordEntry);
         }

@@ -1,6 +1,4 @@
 ﻿using CustomUtils.Runtime.CustomTypes.Collections;
-using CustomUtils.Runtime.Extensions.Observables;
-using R3.Triggers;
 using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Menu;
 using UnityEngine;

@@ -45,7 +45,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
             LocalizationController.Language.SubscribeUntilDestroy(this, static self => self.UpdateButtonTexts());
 
             _completeStateService.CompleteStates
-                .Select(_currentPracticeState, (completeTypes, state) => completeTypes[state])
+                .Select(practiceState, (completeTypes, state) => completeTypes[state])
                 .SubscribeUntilDestroy(this, static (completeType, self) => self.CheckCompleteness(completeType));
 
             OnInit();
