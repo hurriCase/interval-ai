@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using CustomUtils.Runtime.CustomTypes.Collections;
+using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.Storage;
 using Cysharp.Threading.Tasks;
 using R3;
@@ -86,13 +87,20 @@ namespace Source.Scripts.Core.Repositories.Progress
 
             await UniTask.WhenAll(initTasks);
 
-            if (_statisticsRepository.LoginHistory.Value.TryGetValue(DateTime.Now, out _) is false)
-                _newWordsDailyTarget.Value = _practiceSettingsRepository.DailyGoal.Value;
+            var newLoginDisposable = _statisticsRepository.OnNewLogin
+                .Subscribe(this, static (_, self) => self.ResetDailyTarget());
 
-            _disposable = _newWordsDailyTarget
+            var newWordsDisposable = _newWordsDailyTarget
                 .Subscribe(this, (newTarget, self) => self._hasDailyTarget.Value = newTarget > 0);
 
+            _disposable = Disposable.Combine(newLoginDisposable, newWordsDisposable);
+
             CheckStreak();
+        }
+
+        private void ResetDailyTarget()
+        {
+            _newWordsDailyTarget.Value = _practiceSettingsRepository.DailyGoal.Value;
         }
 
         public void IncrementDailyProgress(LearningState learningState, DateTime date)

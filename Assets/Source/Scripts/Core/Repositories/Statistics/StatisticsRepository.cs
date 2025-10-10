@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using CustomUtils.Runtime.Storage;
 using Cysharp.Threading.Tasks;
+using R3;
 using Source.Scripts.Core.Repositories.Base;
 
 namespace Source.Scripts.Core.Repositories.Statistics
@@ -11,6 +12,9 @@ namespace Source.Scripts.Core.Repositories.Statistics
     {
         public PersistentReactiveProperty<bool> IsCompleteOnboarding { get; } = new();
         public PersistentReactiveProperty<Dictionary<DateTime, bool>> LoginHistory { get; } = new();
+
+        public Observable<Unit> OnNewLogin => _newLogin;
+        private readonly Subject<Unit> _newLogin = new();
 
         public async UniTask InitAsync(CancellationToken token)
         {
@@ -23,6 +27,9 @@ namespace Source.Scripts.Core.Repositories.Statistics
                     token,
                     new Dictionary<DateTime, bool>())
             };
+
+            if (LoginHistory.Value.TryGetValue(DateTime.Now, out _) is false)
+                _newLogin.OnNext(Unit.Default);
 
             await UniTask.WhenAll(initTasks);
         }
