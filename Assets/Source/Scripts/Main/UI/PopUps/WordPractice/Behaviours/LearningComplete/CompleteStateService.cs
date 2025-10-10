@@ -1,5 +1,4 @@
 ﻿using System;
-using CustomUtils.Runtime.CustomTypes.Collections;
 using R3;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Progress.Base;
@@ -10,75 +9,60 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
 {
     internal sealed class CompleteStateService : ICompleteStateService, IDisposable
     {
-        public ReadOnlyReactiveProperty<EnumArray<PracticeState, CompleteType>> CompleteStates => _completeStates;
-        private readonly ReactiveProperty<EnumArray<PracticeState, CompleteType>> _completeStates
-            = new(new EnumArray<PracticeState, CompleteType>(EnumMode.SkipFirst));
-
-        private readonly ICurrentWordsService _currentWordsService;
+        public ReadOnlyReactiveProperty<CompleteType> CompleteStates => _completeStates;
+        private readonly ReactiveProperty<CompleteType> _completeStates = new();
 
         private readonly IDisposable _disposable;
+
+        private readonly ICurrentWordsService _currentWordsService;
+        private readonly PracticeState _practiceState;
 
         internal CompleteStateService(
             ICurrentWordsService currentWordsService,
             IProgressRepository progressRepository,
-            IWordsTimerService wordsTimerService)
+            IWordsTimerService wordsTimerService,
+            PracticeState practiceState)
         {
             _currentWordsService = currentWordsService;
+            _practiceState = practiceState;
 
-            var builder = Disposable.CreateBuilder();
+            var currentWordsDisposable = _currentWordsService.CurrentWordsByState
+                .Select(_practiceState, static (currentWords, practiceState) => currentWords[practiceState])
+                .Subscribe(this, static (currentWords, self) => self.CheckCompleteness(currentWords));
 
-            _currentWordsService.CurrentWordsByState
-                .Subscribe(this, static (currentWords, self) => self.CheckCompleteness(currentWords))
-                .AddTo(ref builder);
+            var dailyTargetDisposable = progressRepository.HasDailyTarget
+                .Where(practiceState, static (_, state) => state == PracticeState.NewWords)
+                .Subscribe(this, static (hasTarget, self) => self.CheckCompleteness(hasTarget is false));
 
-            progressRepository.HasDailyTarget
-                .Subscribe(this, static (hasTarget, self)
-                    => self.CheckCompleteness(PracticeState.NewWords, hasTarget is false))
-                .AddTo(ref builder);
-
-            wordsTimerService.OnAvailabilityTimeUpdated
+            var timeUpdateDisposable = wordsTimerService.OnAvailabilityTimeUpdated
+                .Where(practiceState, static (_, state) => state == PracticeState.Review)
                 .Subscribe(this, static (cooldown, self)
-                    => self.CheckCompleteness(PracticeState.Review, cooldown > DateTime.Now))
-                .AddTo(ref builder);
+                    => self.CheckCompleteness(cooldown > DateTime.Now));
 
-            _disposable = builder.Build();
+            _disposable = Disposable.Combine(currentWordsDisposable, dailyTargetDisposable, timeUpdateDisposable);
         }
 
-        private void CheckCompleteness(PracticeState practiceState, bool isComplete)
+        private void CheckCompleteness(bool isComplete)
         {
             if (isComplete)
             {
-                SetState(practiceState, CompleteType.Complete);
+                _completeStates.Value = CompleteType.Complete;
                 return;
             }
 
-            var currentWord = _currentWordsService.CurrentWordsByState.CurrentValue[practiceState];
-            CheckCompleteness(practiceState, currentWord);
+            var currentWord = _currentWordsService.CurrentWordsByState.CurrentValue[_practiceState];
+            CheckCompleteness(currentWord);
         }
 
-        private void SetState(PracticeState practiceState, CompleteType completeType)
-        {
-            var completeStatesValue = _completeStates.Value;
-            completeStatesValue[practiceState] = completeType;
-            _completeStates.Value = completeStatesValue;
-            _completeStates.OnNext(completeStatesValue);
-        }
-
-        private void CheckCompleteness(EnumArray<PracticeState, WordEntry> currentWords)
-        {
-            foreach (var (practiceState, wordEntry) in currentWords.AsTuples())
-                CheckCompleteness(practiceState, wordEntry);
-        }
-
-        private void CheckCompleteness(PracticeState practiceState, WordEntry wordEntry)
+        private void CheckCompleteness(WordEntry wordEntry)
         {
             if (wordEntry == null)
             {
-                SetState(practiceState, CompleteType.NoWords);
+                _completeStates.Value = CompleteType.NoWords;
                 return;
             }
 
-            SetState(practiceState, CompleteType.None);
+            _completeStates.Value = CompleteType.None;
         }
 
         public void Dispose()

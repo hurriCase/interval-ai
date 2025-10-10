@@ -2,8 +2,9 @@
 using Cysharp.Threading.Tasks;
 using R3.Triggers;
 using Source.Scripts.Core.Configs;
+using Source.Scripts.Core.DI;
 using Source.Scripts.Core.Localization.LocalizationTypes;
-using Source.Scripts.Core.Repositories.Words.ModuleState;
+using Source.Scripts.Core.Repositories.Words.Base;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using VContainer;
@@ -15,12 +16,12 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base
     {
         [SerializeField] protected TransitionData<TUIBehaviour>[] transitionData;
 
-        private IModuleStateServiceFactory _moduleStateServiceFactory;
+        private IStateFactory<PracticeState, IModuleStateService> _moduleStateFactory;
 
         [Inject]
-        internal void Inject(IModuleStateServiceFactory moduleStateServiceFactory)
+        internal void Inject(IStateFactory<PracticeState, IModuleStateService> moduleStateFactory)
         {
-            _moduleStateServiceFactory = moduleStateServiceFactory;
+            _moduleStateFactory = moduleStateFactory;
         }
 
         private PracticeState _practiceState;
@@ -39,7 +40,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base
 
         protected virtual UniTask SwitchModule(ModuleType moduleType)
         {
-            _moduleStateServiceFactory.GetOrCreate(_practiceState).SetState(moduleType);
+            var moduleStateService = _moduleStateFactory.GetOrCreate(_practiceState);
+            moduleStateService.SetState(moduleType);
 
             return UniTask.CompletedTask;
         }

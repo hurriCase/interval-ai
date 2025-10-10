@@ -2,9 +2,9 @@
 using CustomUtils.Runtime.Extensions.Observables;
 using R3;
 using Source.Scripts.Core.Configs;
+using Source.Scripts.Core.DI;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Words.Base;
-using Source.Scripts.Core.Repositories.Words.ModuleState;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base;
 using UnityEngine;
@@ -23,16 +23,16 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
 
         private PracticeState _practiceState;
 
-        private IModuleStateServiceFactory _moduleStateServiceFactory;
+        private IStateFactory<PracticeState, IModuleStateService> _moduleStateFactory;
         private ICurrentWordsService _currentWordsService;
         private IModuleStateService _moduleStateService;
 
         [Inject]
         internal void Inject(
-            IModuleStateServiceFactory moduleStateServiceFactory,
+            IStateFactory<PracticeState, IModuleStateService> moduleStateFactory,
             ICurrentWordsService currentWordsService)
         {
-            _moduleStateServiceFactory = moduleStateServiceFactory;
+            _moduleStateFactory = moduleStateFactory;
             _currentWordsService = currentWordsService;
         }
 
@@ -40,7 +40,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
         {
             _practiceState = practiceState;
 
-            _moduleStateService = _moduleStateServiceFactory.GetOrCreate(practiceState);
+            _moduleStateService = _moduleStateFactory.GetOrCreate(practiceState);
 
             _wordProgressBehaviour.Init();
 

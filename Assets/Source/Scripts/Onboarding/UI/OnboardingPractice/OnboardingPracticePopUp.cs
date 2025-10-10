@@ -3,9 +3,9 @@ using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.UI.Theme;
 using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.Configs;
+using Source.Scripts.Core.DI;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Words.Base;
-using Source.Scripts.Core.Repositories.Words.ModuleState;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours;
 using Source.Scripts.Onboarding.Data.Config;
 using Source.Scripts.Onboarding.UI.OnboardingPractice.Steps.Base;
@@ -34,17 +34,17 @@ namespace Source.Scripts.Onboarding.UI.OnboardingPractice
 
         private int _currentStepIndex = -1;
 
-        private IModuleStateServiceFactory _moduleStateServiceFactory;
+        private IStateFactory<PracticeState, IModuleStateService> _moduleStateFactory;
         private IPracticeStateService _practiceStateService;
         private IOnboardingConfig _onboardingConfig;
 
         [Inject]
         internal void Inject(
-            IModuleStateServiceFactory moduleStateServiceFactory,
+            IStateFactory<PracticeState, IModuleStateService> moduleStateFactory,
             IPracticeStateService practiceStateService,
             IOnboardingConfig onboardingConfig)
         {
-            _moduleStateServiceFactory = moduleStateServiceFactory;
+            _moduleStateFactory = moduleStateFactory;
             _practiceStateService = practiceStateService;
             _onboardingConfig = onboardingConfig;
         }
@@ -52,7 +52,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingPractice
         internal void SwitchStep(PracticeState practiceState, ModuleType moduleType)
         {
             _practiceStateService.SetState(practiceState);
-            _moduleStateServiceFactory.GetOrCreate(practiceState).SetState(moduleType);
+            _moduleStateFactory.GetOrCreate(practiceState).SetState(moduleType);
             _currentStepIndex++;
 
             UpdateView();

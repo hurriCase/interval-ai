@@ -1,7 +1,7 @@
 ﻿using System;
 using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Extensions.Observables;
-using R3;
+using Source.Scripts.Core.DI;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
@@ -24,17 +24,17 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice
 
         private WordEntry CurrentWord => _currentWordsService.CurrentWordsByState.CurrentValue[_practiceState];
 
-        private ICompleteStateService _completeStateService;
+        private IStateFactory<PracticeState, ICompleteStateService> _completeStateFactory;
         private ICurrentWordsService _currentWordsService;
         private IWordAdvanceService _wordAdvanceService;
 
         [Inject]
         public void Inject(
-            ICompleteStateService completeStateService,
+            IStateFactory<PracticeState, ICompleteStateService> completeStateFactory,
             ICurrentWordsService currentWordsService,
             IWordAdvanceService wordAdvanceService)
         {
-            _completeStateService = completeStateService;
+            _completeStateFactory = completeStateFactory;
             _currentWordsService = currentWordsService;
             _wordAdvanceService = wordAdvanceService;
         }
@@ -47,8 +47,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice
             _controlButtonsBehaviour.Init(_practiceState);
             _learningCompleteBehaviour.Init(_practiceState);
 
-            _completeStateService.CompleteStates
-                .Select(_practiceState, (completeTypes, state) => completeTypes[state])
+            var completeStateService = _completeStateFactory.GetOrCreate(_practiceState);
+            completeStateService.CompleteStates
                 .SubscribeUntilDestroy(this, static (completeType, self) => self.SwitchState(completeType));
 
             _swipeCardBehaviour.OnSwiped

@@ -2,7 +2,7 @@
 using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.Localization;
 using Cysharp.Text;
-using R3;
+using Source.Scripts.Core.DI;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Words.Base;
@@ -32,7 +32,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
         [Inject] protected IWindowsController windowsController;
 
         [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
-        [Inject] private ICompleteStateService _completeStateService;
+        [Inject] private IStateFactory<PracticeState, ICompleteStateService> _completeStateFactory;
 
         private PracticeState _currentPracticeState;
 
@@ -44,8 +44,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
 
             LocalizationController.Language.SubscribeUntilDestroy(this, static self => self.UpdateButtonTexts());
 
-            _completeStateService.CompleteStates
-                .Select(practiceState, (completeTypes, state) => completeTypes[state])
+            var completeStateService = _completeStateFactory.GetOrCreate(practiceState);
+            completeStateService.CompleteStates
                 .SubscribeUntilDestroy(this, static (completeType, self) => self.CheckCompleteness(completeType));
 
             OnInit();

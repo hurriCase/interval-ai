@@ -1,5 +1,10 @@
-﻿using Source.Scripts.Core.Repositories.Words;
+﻿using Source.Scripts.Core.Configs;
+using Source.Scripts.Core.DI;
+using Source.Scripts.Core.Localization.LocalizationTypes;
+using Source.Scripts.Core.Repositories.Progress.Base;
+using Source.Scripts.Core.Repositories.Words;
 using Source.Scripts.Core.Repositories.Words.Advance;
+using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.ModuleState;
 using Source.Scripts.Main.Data;
 using Source.Scripts.Main.UI.Base;
@@ -30,7 +35,18 @@ namespace Source.Scripts.Main.DI
             builder.RegisterComponent(_progressGraphSettings).AsImplementedInterfaces();
 
             builder.Register<PracticeStateService>(Lifetime.Scoped).AsImplementedInterfaces();
-            builder.Register<ModuleStateServiceFactory>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.RegisterStateFactory<PracticeState, IModuleStateService, ModuleStateService>(static (resolver,
+                practiceState) => new ModuleStateService(
+                resolver.Resolve<ICurrentWordsService>(),
+                resolver.Resolve<IAppConfig>(),
+                practiceState));
+
+            builder.RegisterStateFactory<PracticeState, ICompleteStateService, CompleteStateService>(static (resolver,
+                practiceState) => new CompleteStateService(
+                resolver.Resolve<ICurrentWordsService>(),
+                resolver.Resolve<IProgressRepository>(),
+                resolver.Resolve<IWordsTimerService>(),
+                practiceState));
 
             builder.Register<WordsTimerService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<WordAdvanceService>(Lifetime.Singleton).AsImplementedInterfaces();
