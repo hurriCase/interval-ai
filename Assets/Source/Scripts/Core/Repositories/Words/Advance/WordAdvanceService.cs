@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using R3;
+using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Progress;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
@@ -23,15 +24,17 @@ namespace Source.Scripts.Core.Repositories.Words.Advance
         private readonly IWordStateMutator _wordStateMutator;
 
         internal WordAdvanceService(
-            ICurrentWordService currentWordService,
+            PracticeState practiceState,
+            ICurrentWordFactory currentWordFactory,
             IProgressRepository progressRepository,
             IWordsTimerService wordsTimerService,
             IWordStateMutator wordStateMutator)
         {
-            _currentWordService = currentWordService;
             _progressRepository = progressRepository;
             _wordsTimerService = wordsTimerService;
             _wordStateMutator = wordStateMutator;
+
+            _currentWordService = currentWordFactory.GetOrCreate(practiceState);
 
             UndoCommand.Subscribe(this, static (_, self) => self.ExecuteUndo());
         }

@@ -18,12 +18,12 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
         private readonly ICurrentWordService _currentWordService;
 
         internal CompleteStateService(
-            ICurrentWordService currentWordService,
+            ICurrentWordFactory currentWordFactory,
             IProgressRepository progressRepository,
             IWordsTimerService wordsTimerService,
             PracticeState practiceState)
         {
-            _currentWordService = currentWordService;
+            _currentWordService = currentWordFactory.GetOrCreate(practiceState);
 
             var currentWordsDisposable = _currentWordService.CurrentWord
                 .Subscribe(this, static (currentWord, self) => self.CheckCompleteness(currentWord));

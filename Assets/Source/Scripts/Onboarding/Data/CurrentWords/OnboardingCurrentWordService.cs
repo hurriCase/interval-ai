@@ -23,6 +23,8 @@ namespace Source.Scripts.Onboarding.Data.CurrentWords
         {
             _onboardingDatabase = onboardingDatabase;
             _practiceStateService = practiceStateService;
+
+            UpdateCurrentWord();
         }
 
         public void SetCurrentWord(WordEntry word)

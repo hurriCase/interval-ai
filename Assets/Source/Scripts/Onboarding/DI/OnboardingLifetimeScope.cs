@@ -1,7 +1,6 @@
 ﻿using Source.Scripts.Core.Repositories.Words;
 using Source.Scripts.Core.Repositories.Words.Advance;
 using Source.Scripts.Core.Repositories.Words.ModuleState;
-using Source.Scripts.Main.Data.CurrentWord;
 using Source.Scripts.Onboarding.Data.Config;
 using Source.Scripts.Onboarding.Data.CurrentWords;
 using Source.Scripts.Onboarding.UI.Base;
