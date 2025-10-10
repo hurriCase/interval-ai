@@ -30,7 +30,8 @@ namespace Source.Scripts.UI.Windows.Base
         [SerializeField] private Transform _screensContainer;
         [SerializeField] private Transform _popUpsContainer;
 
-        public TScreenEnum InitialScreenType { get; private set; }
+        public ReadOnlyReactiveProperty<TScreenEnum> CurrentScreenType => _currentScreenType;
+        private readonly ReactiveProperty<TScreenEnum> _currentScreenType = new();
         public TPopUpEnum CurrentPopUpType { get; private set; }
 
         private EnumArray<TScreenEnum, ScreenBase> _createdScreens = new(EnumMode.SkipFirst);
@@ -77,7 +78,7 @@ namespace Source.Scripts.UI.Windows.Base
 
                 if (screenBase.InitialWindow)
                 {
-                    InitialScreenType = screenType;
+                    _currentScreenType.Value = screenType;
                     continue;
                 }
 
@@ -121,6 +122,7 @@ namespace Source.Scripts.UI.Windows.Base
                 _currentScreen.HideAsync();
 
             _currentScreen = screenBase;
+            _currentScreenType.Value = screenType;
             screenBase.ShowAsync();
         }
 

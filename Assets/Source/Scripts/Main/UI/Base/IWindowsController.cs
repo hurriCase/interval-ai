@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
+using R3;
 using Source.Scripts.UI.Windows.Base;
 using UnityEngine.EventSystems;
 
@@ -7,7 +8,7 @@ namespace Source.Scripts.Main.UI.Base
 {
     internal interface IWindowsController
     {
-        ScreenType InitialScreenType { get; }
+        ReadOnlyReactiveProperty<ScreenType> CurrentScreenType { get; }
         PopUpType CurrentPopUpType { get; }
         UniTask InitAsync(CancellationToken cancellationToken);
         void OpenScreenByType(ScreenType screenEnum);

@@ -1,4 +1,5 @@
 ﻿using CustomUtils.Runtime.CustomTypes.Collections;
+using CustomUtils.Runtime.Extensions.Observables;
 using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Menu;
 using UnityEngine;
@@ -21,12 +22,10 @@ namespace Source.Scripts.Main.UI.Base
         public void Init()
         {
             foreach (var (screenType, themeToggle) in _menuToggles.AsTuples())
-            {
                 _windowsController.BindScreenOpen(themeToggle, screenType);
 
-                if (screenType == _windowsController.InitialScreenType)
-                    themeToggle.isOn = true;
-            }
+            _windowsController.CurrentScreenType
+                .SubscribeUntilDestroy(this, static (screenType, self) => self._menuToggles[screenType].isOn = true);
         }
     }
 }
