@@ -3,7 +3,6 @@ using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.UI.Theme;
 using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.Configs;
-using Source.Scripts.Core.DI;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours;
@@ -34,14 +33,14 @@ namespace Source.Scripts.Onboarding.UI.OnboardingPractice
 
         private int _currentStepIndex = -1;
 
-        private IStateFactory<PracticeState, IModuleStateService> _moduleStateFactory;
         private IPracticeStateService _practiceStateService;
+        private IModuleStateFactory _moduleStateFactory;
         private IOnboardingConfig _onboardingConfig;
 
         [Inject]
         internal void Inject(
-            IStateFactory<PracticeState, IModuleStateService> moduleStateFactory,
             IPracticeStateService practiceStateService,
+            IModuleStateFactory moduleStateFactory,
             IOnboardingConfig onboardingConfig)
         {
             _moduleStateFactory = moduleStateFactory;

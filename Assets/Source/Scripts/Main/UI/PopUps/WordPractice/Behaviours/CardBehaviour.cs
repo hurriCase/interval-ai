@@ -2,7 +2,6 @@
 using CustomUtils.Runtime.Extensions.Observables;
 using R3;
 using Source.Scripts.Core.Configs;
-using Source.Scripts.Core.DI;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
@@ -23,24 +22,19 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
 
         private PracticeState _practiceState;
 
-        private IStateFactory<PracticeState, IModuleStateService> _moduleStateFactory;
         private ICurrentWordsService _currentWordsService;
-        private IModuleStateService _moduleStateService;
+        private IModuleStateFactory _moduleStateFactory;
 
         [Inject]
-        internal void Inject(
-            IStateFactory<PracticeState, IModuleStateService> moduleStateFactory,
-            ICurrentWordsService currentWordsService)
+        internal void Inject(ICurrentWordsService currentWordsService, IModuleStateFactory moduleStateFactory)
         {
-            _moduleStateFactory = moduleStateFactory;
             _currentWordsService = currentWordsService;
+            _moduleStateFactory = moduleStateFactory;
         }
 
         internal void Init(PracticeState practiceState)
         {
             _practiceState = practiceState;
-
-            _moduleStateService = _moduleStateFactory.GetOrCreate(practiceState);
 
             _wordProgressBehaviour.Init();
 
@@ -53,7 +47,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
             foreach (var module in _practiceModules)
                 module.Init(practiceState);
 
-            _moduleStateService.CurrentState
+            var moduleStateService = _moduleStateFactory.GetOrCreate(practiceState);
+            moduleStateService.CurrentState
                 .Where(this, (currentState, self) => currentState != ModuleType.None && self.WordEntry != null)
                 .SubscribeUntilDestroy(this, static (state, self) => self.SwitchModule(state));
         }

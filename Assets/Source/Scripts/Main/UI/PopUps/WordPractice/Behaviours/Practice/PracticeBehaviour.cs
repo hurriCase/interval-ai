@@ -1,7 +1,6 @@
 ﻿using System;
 using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Extensions.Observables;
-using Source.Scripts.Core.DI;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
@@ -24,13 +23,13 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice
 
         private WordEntry CurrentWord => _currentWordsService.CurrentWordsByState.CurrentValue[_practiceState];
 
-        private IStateFactory<PracticeState, ICompleteStateService> _completeStateFactory;
+        private ICompleteServiceFactory _completeStateFactory;
         private ICurrentWordsService _currentWordsService;
         private IWordAdvanceService _wordAdvanceService;
 
         [Inject]
         public void Inject(
-            IStateFactory<PracticeState, ICompleteStateService> completeStateFactory,
+            ICompleteServiceFactory completeStateFactory,
             ICurrentWordsService currentWordsService,
             IWordAdvanceService wordAdvanceService)
         {

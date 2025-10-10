@@ -2,7 +2,6 @@
 using Cysharp.Threading.Tasks;
 using R3.Triggers;
 using Source.Scripts.Core.Configs;
-using Source.Scripts.Core.DI;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Words.Base;
 using UnityEngine;
@@ -16,10 +15,10 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base
     {
         [SerializeField] protected TransitionData<TUIBehaviour>[] transitionData;
 
-        private IStateFactory<PracticeState, IModuleStateService> _moduleStateFactory;
+        private IModuleStateFactory _moduleStateFactory;
 
         [Inject]
-        internal void Inject(IStateFactory<PracticeState, IModuleStateService> moduleStateFactory)
+        internal void Inject(IModuleStateFactory moduleStateFactory)
         {
             _moduleStateFactory = moduleStateFactory;
         }

@@ -2,7 +2,6 @@
 using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.Localization;
 using Cysharp.Text;
-using Source.Scripts.Core.DI;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Words.Base;
@@ -32,7 +31,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
         [Inject] protected IWindowsController windowsController;
 
         [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
-        [Inject] private IStateFactory<PracticeState, ICompleteStateService> _completeStateFactory;
+        [Inject] private ICompleteServiceFactory _completeStateFactory;
 
         private PracticeState _currentPracticeState;
 
