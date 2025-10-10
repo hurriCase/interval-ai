@@ -2,9 +2,12 @@
 using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Extensions.Observables;
 using Source.Scripts.Core.Localization.LocalizationTypes;
+using Source.Scripts.Core.Repositories.Words.Advance;
 using Source.Scripts.Core.Repositories.Words.Base;
+using Source.Scripts.Core.Repositories.Words.Base.CurrentWord;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete;
+using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete.CompleteState;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe;
 using UnityEngine;
 using VContainer;
@@ -21,21 +24,21 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice
         [SerializeField] private ControlButtonsBehaviour _controlButtonsBehaviour;
         [SerializeField] private LearningCompleteBehaviourBase _learningCompleteBehaviour;
 
-        private WordEntry CurrentWord => _currentWordsService.CurrentWordsByState.CurrentValue[_practiceState];
+        private WordEntry CurrentWord => _currentWordService.CurrentWord.CurrentValue;
 
         private ICompleteServiceFactory _completeStateFactory;
-        private ICurrentWordsService _currentWordsService;
+        private ICurrentWordService _currentWordService;
         private IWordAdvanceService _wordAdvanceService;
 
         [Inject]
         public void Inject(
             ICompleteServiceFactory completeStateFactory,
-            ICurrentWordsService currentWordsService,
-            IWordAdvanceService wordAdvanceService)
+            ICurrentWordFactory currentWordFactory,
+            IWordAdvanceFactory wordAdvanceFactory)
         {
             _completeStateFactory = completeStateFactory;
-            _currentWordsService = currentWordsService;
-            _wordAdvanceService = wordAdvanceService;
+            _currentWordService = currentWordFactory.GetOrCreate(_practiceState);
+            _wordAdvanceService = wordAdvanceFactory.GetOrCreate(_practiceState);
         }
 
         internal void Init()
@@ -71,15 +74,11 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice
             switch (swipeDirection)
             {
                 case SwipeDirection.Left:
-                    _wordAdvanceService.AdvanceWord(
-                        CurrentWord,
-                        _currentWordsService.IsFirstShow(_practiceState));
+                    _wordAdvanceService.AdvanceWord(CurrentWord, _currentWordService.IsFirstShow());
                     break;
 
                 case SwipeDirection.Right:
-                    _wordAdvanceService.AdvanceWord(
-                        CurrentWord,
-                        _currentWordsService.IsFirstShow(_practiceState) is false);
+                    _wordAdvanceService.AdvanceWord(CurrentWord, _currentWordService.IsFirstShow() is false);
                     break;
 
                 default:

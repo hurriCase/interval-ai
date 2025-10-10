@@ -2,9 +2,10 @@
 using Source.Scripts.Core.Repositories.Words.Advance;
 using Source.Scripts.Core.Repositories.Words.ModuleState;
 using Source.Scripts.Main.Data;
+using Source.Scripts.Main.Data.CurrentWord;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.PopUps.Selection.Category;
-using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete;
+using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete.CompleteState;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -31,13 +32,12 @@ namespace Source.Scripts.Main.DI
 
             builder.Register<PracticeStateService>(Lifetime.Scoped).AsImplementedInterfaces();
 
-            builder.Register<ModuleServiceFactory>(Lifetime.Scoped);
-            builder.Register<CompleteServiceFactory>(Lifetime.Scoped);
+            builder.Register<MainCurrentWordFactory>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.Register<ModuleServiceFactory>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.Register<CompleteServiceFactory>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.Register<WordAdvanceFactory>(Lifetime.Singleton).AsImplementedInterfaces();
 
             builder.Register<WordsTimerService>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<WordAdvanceService>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<MainCurrentWordsService>(Lifetime.Scoped).AsImplementedInterfaces();
-            builder.Register<CompleteStateService>(Lifetime.Scoped).AsImplementedInterfaces();
 
             builder.Register<CategorySelectionService>(Lifetime.Scoped).AsSelf();
             builder.Register<WordCategorySelectionService>(Lifetime.Scoped).AsSelf();

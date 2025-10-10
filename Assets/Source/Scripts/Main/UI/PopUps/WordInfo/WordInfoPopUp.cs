@@ -7,6 +7,7 @@ using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Localization.Translator.Translations;
 using Source.Scripts.Core.Others;
 using Source.Scripts.Core.Repositories.Words.Base;
+using Source.Scripts.Core.Repositories.Words.Base.CurrentWord;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours;
@@ -40,17 +41,17 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo
 
         private WordEntry _currentWordEntry;
 
-        private ICurrentWordsService _currentWordsService;
+        private ICurrentWordService _currentWordService;
         private IWindowsController _windowsController;
         private IObjectResolver _objectResolver;
 
         [Inject]
         internal void Inject(
-            ICurrentWordsService currentWordsService,
+            ICurrentWordFactory currentWordFactory,
             IWindowsController windowsController,
             IObjectResolver objectResolver)
         {
-            _currentWordsService = currentWordsService;
+            _currentWordService = currentWordFactory.GetOrCreate(PracticeState.NewWords);
             _windowsController = windowsController;
             _objectResolver = objectResolver;
         }
@@ -147,7 +148,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo
 
         private void StartPracticeForCurrentWord()
         {
-            _currentWordsService.SetCurrentWord(PracticeState.NewWords, _currentWordEntry);
+            _currentWordService.SetCurrentWord(_currentWordEntry);
             _windowsController.OpenPopUp<WordPracticePopUp>();
         }
     }

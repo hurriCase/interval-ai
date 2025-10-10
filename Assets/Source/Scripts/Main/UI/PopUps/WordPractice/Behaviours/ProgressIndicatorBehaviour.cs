@@ -5,7 +5,9 @@ using R3;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Progress.Base;
+using Source.Scripts.Core.Repositories.Words.Advance;
 using Source.Scripts.Core.Repositories.Words.Base;
+using Source.Scripts.Core.Repositories.Words.Base.CurrentWord;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.PopUps.WordControl;
 using Source.Scripts.UI.Components.Button;
@@ -22,8 +24,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
         [SerializeField] private ButtonComponent _moreButton;
 
         private ILocalizationKeysDatabase _localizationKeysDatabase;
-        private ICurrentWordsService _currentWordsService;
-        private IWordAdvanceService _wordAdvanceService;
+        private ICurrentWordFactory _currentWordFactory;
+        private IWordAdvanceFactory _wordAdvanceFactory;
         private IProgressRepository _progressRepository;
         private IWindowsController _windowsController;
 
@@ -32,14 +34,14 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
         [Inject]
         internal void Inject(
             ILocalizationKeysDatabase localizationKeysDatabase,
-            ICurrentWordsService currentWordsService,
-            IWordAdvanceService wordAdvanceService,
+            ICurrentWordFactory currentWordFactory,
+            IWordAdvanceFactory wordAdvanceFactory,
             IProgressRepository progressRepository,
             IWindowsController windowsController)
         {
             _localizationKeysDatabase = localizationKeysDatabase;
-            _currentWordsService = currentWordsService;
-            _wordAdvanceService = wordAdvanceService;
+            _currentWordFactory = currentWordFactory;
+            _wordAdvanceFactory = wordAdvanceFactory;
             _progressRepository = progressRepository;
             _windowsController = windowsController;
         }
@@ -48,14 +50,15 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
         {
             _currentPracticeState = practiceState;
 
-            _wordAdvanceService.CanUndo
+            var wordAdvanceService = _wordAdvanceFactory.GetOrCreate(practiceState);
+            wordAdvanceService.CanUndo
                 .SubscribeUntilDestroy(this, static (canUndo, self) => self._previousCardButton.SetActive(canUndo));
 
             _progressRepository.LearnedWordCounts[practiceState].SubscribeUntilDestroy(this,
                 static (wordsCount, self) => self.UpdateLearnedText(wordsCount));
 
             _previousCardButton.OnClickAsObservable()
-                .Subscribe(_wordAdvanceService.UndoCommand, static (unit, undo) => undo.Execute(unit))
+                .Subscribe(wordAdvanceService.UndoCommand, static (unit, undo) => undo.Execute(unit))
                 .RegisterTo(destroyCancellationToken);
 
             _moreButton.OnClickAsObservable().SubscribeUntilDestroy(this, static self => self.OpenWordControlPopUp());
@@ -64,7 +67,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
         private void OpenWordControlPopUp()
         {
             var wordControlPopUp = _windowsController.OpenPopUp<WordControlPopUp>();
-            var currentWord = _currentWordsService.CurrentWordsByState.CurrentValue[_currentPracticeState];
+            var currentWordService = _currentWordFactory.GetOrCreate(_currentPracticeState);
+            var currentWord = currentWordService.CurrentWord.CurrentValue;
             wordControlPopUp.SetParameters(currentWord);
         }
 

@@ -3,9 +3,10 @@ using R3;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
+using Source.Scripts.Core.Repositories.Words.Base.CurrentWord;
 using Source.Scripts.Core.Repositories.Words.Word;
 
-namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
+namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete.CompleteState
 {
     internal sealed class CompleteStateService : ICompleteStateService, IDisposable
     {
@@ -14,21 +15,18 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
 
         private readonly IDisposable _disposable;
 
-        private readonly ICurrentWordsService _currentWordsService;
-        private readonly PracticeState _practiceState;
+        private readonly ICurrentWordService _currentWordService;
 
         internal CompleteStateService(
-            ICurrentWordsService currentWordsService,
+            ICurrentWordService currentWordService,
             IProgressRepository progressRepository,
             IWordsTimerService wordsTimerService,
             PracticeState practiceState)
         {
-            _currentWordsService = currentWordsService;
-            _practiceState = practiceState;
+            _currentWordService = currentWordService;
 
-            var currentWordsDisposable = _currentWordsService.CurrentWordsByState
-                .Select(_practiceState, static (currentWords, practiceState) => currentWords[practiceState])
-                .Subscribe(this, static (currentWords, self) => self.CheckCompleteness(currentWords));
+            var currentWordsDisposable = _currentWordService.CurrentWord
+                .Subscribe(this, static (currentWord, self) => self.CheckCompleteness(currentWord));
 
             var dailyTargetDisposable = progressRepository.HasDailyTarget
                 .Where(practiceState, static (_, state) => state == PracticeState.NewWords)
@@ -50,8 +48,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
                 return;
             }
 
-            var currentWord = _currentWordsService.CurrentWordsByState.CurrentValue[_practiceState];
-            CheckCompleteness(currentWord);
+            CheckCompleteness(_currentWordService.CurrentWord.CurrentValue);
         }
 
         private void CheckCompleteness(WordEntry wordEntry)

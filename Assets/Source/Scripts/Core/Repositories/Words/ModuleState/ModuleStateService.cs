@@ -3,6 +3,7 @@ using R3;
 using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Words.Base;
+using Source.Scripts.Core.Repositories.Words.Base.CurrentWord;
 
 namespace Source.Scripts.Core.Repositories.Words.ModuleState
 {
@@ -11,12 +12,13 @@ namespace Source.Scripts.Core.Repositories.Words.ModuleState
         public ReadOnlyReactiveProperty<ModuleType> CurrentState => _currentState;
         private readonly ReactiveProperty<ModuleType> _currentState;
 
-        private readonly IAppConfig _appConfig;
-        private readonly PracticeState _practiceState;
         private readonly IDisposable _disposable;
 
+        private readonly IAppConfig _appConfig;
+        private readonly PracticeState _practiceState;
+
         internal ModuleStateService(
-            ICurrentWordsService currentWordsService,
+            ICurrentWordFactory currentWordFactory,
             IAppConfig appConfig,
             PracticeState practiceState)
         {
@@ -25,8 +27,8 @@ namespace Source.Scripts.Core.Repositories.Words.ModuleState
 
             _currentState = new ReactiveProperty<ModuleType>(appConfig.PracticeToModuleType[practiceState]);
 
-            _disposable = currentWordsService.CurrentWordsByState
-                .Select(practiceState, (currentWords, state) => currentWords[state])
+            var currentWordService = currentWordFactory.GetOrCreate(practiceState);
+            _disposable = currentWordService.CurrentWord
                 .Subscribe(this, (_, self) => self.HandleNewWord());
         }
 

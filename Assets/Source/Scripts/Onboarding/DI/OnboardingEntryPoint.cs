@@ -2,7 +2,7 @@
 using CustomUtils.Runtime.Scenes.Base;
 using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.Repositories.Base.DefaultConfig;
-using Source.Scripts.Core.Repositories.Words.Base;
+using Source.Scripts.Core.Repositories.Words.Base.CurrentWord;
 using Source.Scripts.Onboarding.UI.Base;
 using VContainer;
 using VContainer.Unity;
@@ -13,20 +13,20 @@ namespace Source.Scripts.Onboarding.DI
     {
         private readonly ISceneTransitionController _sceneTransitionController;
         private readonly IDefaultDataDatabase _defaultOnboardingDatabase;
-        private readonly ICurrentWordsService _currentWordsService;
+        private readonly ICurrentWordService _currentWordService;
         private readonly IWindowsController _windowsController;
         private readonly IObjectResolver _objectResolver;
 
         internal OnboardingEntryPoint(
             ISceneTransitionController sceneTransitionController,
             IDefaultDataDatabase defaultOnboardingDatabase,
-            ICurrentWordsService currentWordsService,
+            ICurrentWordService currentWordService,
             IWindowsController windowsController,
             IObjectResolver objectResolver)
         {
             _sceneTransitionController = sceneTransitionController;
             _defaultOnboardingDatabase = defaultOnboardingDatabase;
-            _currentWordsService = currentWordsService;
+            _currentWordService = currentWordService;
             _windowsController = windowsController;
             _objectResolver = objectResolver;
         }
@@ -38,7 +38,7 @@ namespace Source.Scripts.Onboarding.DI
             _objectResolver.Inject(_defaultOnboardingDatabase);
             await _defaultOnboardingDatabase.InitAsync(cancellationToken);
 
-            _currentWordsService.UpdateCurrentWords();
+            _currentWordService.UpdateCurrentWord();
 
             _sceneTransitionController.EndTransition();
         }

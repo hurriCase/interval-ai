@@ -1,5 +1,7 @@
 ﻿using Source.Scripts.Core.Repositories.Words;
 using Source.Scripts.Core.Repositories.Words.Advance;
+using Source.Scripts.Core.Repositories.Words.ModuleState;
+using Source.Scripts.Main.Data.CurrentWord;
 using Source.Scripts.Onboarding.Data.Config;
 using Source.Scripts.Onboarding.Data.CurrentWords;
 using Source.Scripts.Onboarding.UI.Base;
@@ -20,10 +22,12 @@ namespace Source.Scripts.Onboarding.DI
             builder.RegisterComponent(_windowsController).AsImplementedInterfaces();
             builder.RegisterInstance(_onboardingConfig).AsImplementedInterfaces();
 
+            builder.Register<ModuleServiceFactory>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.Register<WordAdvanceFactory>(Lifetime.Scoped).AsImplementedInterfaces();
+
             builder.Register<PracticeStateService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<WordsTimerService>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<WordAdvanceService>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<OnboardingCurrentWordsService>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.Register<OnboardingCurrentWordService>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.RegisterInstance(_defaultOnboardingDatabase)
                 .As<DefaultOnboardingDatabase>()
                 .AsImplementedInterfaces();

@@ -2,27 +2,35 @@
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
+using Source.Scripts.Core.Repositories.Words.Base.CurrentWord;
 
-namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
+namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete.CompleteState
 {
     internal sealed class CompleteServiceFactory : StateFactoryBase<PracticeState, ICompleteStateService>,
         ICompleteServiceFactory
     {
-        private readonly ICurrentWordsService _currentWordsService;
+        private readonly ICurrentWordFactory _currentWordFactory;
         private readonly IProgressRepository _progressRepository;
         private readonly IWordsTimerService _wordsTimerService;
 
         internal CompleteServiceFactory(
-            ICurrentWordsService currentWordsService,
+            ICurrentWordFactory currentWordFactory,
             IProgressRepository progressRepository,
             IWordsTimerService wordsTimerService)
         {
-            _currentWordsService = currentWordsService;
+            _currentWordFactory = currentWordFactory;
             _progressRepository = progressRepository;
             _wordsTimerService = wordsTimerService;
         }
 
-        protected override ICompleteStateService CreateService(PracticeState practiceState) =>
-            new CompleteStateService(_currentWordsService, _progressRepository, _wordsTimerService, practiceState);
+        protected override ICompleteStateService CreateService(PracticeState practiceState)
+        {
+            var currentWordService = _currentWordFactory.GetOrCreate(practiceState);
+            return new CompleteStateService(
+                currentWordService,
+                _progressRepository,
+                _wordsTimerService,
+                practiceState);
+        }
     }
 }

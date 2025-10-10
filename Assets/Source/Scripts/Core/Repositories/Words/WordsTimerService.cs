@@ -2,6 +2,7 @@
 using R3;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Words.Base;
+using Source.Scripts.Core.Repositories.Words.Base.CurrentWord;
 using Source.Scripts.Core.Repositories.Words.CooldownSystem;
 
 namespace Source.Scripts.Core.Repositories.Words
@@ -13,21 +14,21 @@ namespace Source.Scripts.Core.Repositories.Words
 
         private AdaptiveTimer? _stateTimers;
 
-        private readonly ICurrentWordsService _currentWordsService;
+        private readonly ICurrentWordService _currentWordService;
 
         private readonly IDisposable _disposable;
 
-        internal WordsTimerService(ICurrentWordsService currentWordsService)
+        internal WordsTimerService(ICurrentWordFactory currentWordFactory)
         {
-            _currentWordsService = currentWordsService;
+            _currentWordService = currentWordFactory.GetOrCreate(PracticeState.Review);
 
-            _disposable = _currentWordsService.CurrentWordsByState
+            _disposable = _currentWordService.CurrentWord
                 .Subscribe(this, (_, self) => self.UpdateTimer());
         }
 
         public void UpdateTimer()
         {
-            var currentWord = _currentWordsService.CurrentWordsByState.CurrentValue[PracticeState.Review];
+            var currentWord = _currentWordService.CurrentWord.CurrentValue;
 
             if (currentWord is null || currentWord.LearningState != LearningState.Review)
             {
@@ -45,7 +46,7 @@ namespace Source.Scripts.Core.Repositories.Words
 
             _stateTimers.Value.OnTimeUpdated.Subscribe(this,
                 static (currentTime, self) => self._availabilityTimeUpdated.OnNext(currentTime),
-                static (_, self) => self._currentWordsService.UpdateCurrentWords());
+                static (_, self) => self._currentWordService.UpdateCurrentWord());
         }
 
         private void DisposeTimer()

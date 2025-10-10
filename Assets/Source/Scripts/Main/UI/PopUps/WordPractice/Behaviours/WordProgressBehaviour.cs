@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using CustomUtils.Runtime.Extensions;
 using Source.Scripts.Core.Repositories.Settings.Base;
-using Source.Scripts.Core.Repositories.Words.Base;
+using Source.Scripts.Core.Repositories.Words.Base.CurrentWord;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.Shared.Activity;
 using Source.Scripts.Main.UI.Shared.Progress;
@@ -23,7 +23,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
         private int _previousSegmentCount;
 
         private IPracticeSettingsRepository _practiceSettingsRepository;
-        private ICurrentWordsService _currentWordsService;
+        private ICurrentWordService _currentWordService;
 
         [Inject]
         internal void Inject(IPracticeSettingsRepository practiceSettingsRepository)

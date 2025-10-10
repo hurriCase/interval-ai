@@ -43,7 +43,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
             if (CompleteType.Complete != completeType)
                 return;
 
-            var currentWord = currentWordsService.CurrentWordsByState.CurrentValue[PracticeState.Review];
+            var currentWord = currentWordService.CurrentWord.CurrentValue;
             SetState(CompleteType.Complete, currentWord.Cooldown.ToShortTimeString());
         }
 

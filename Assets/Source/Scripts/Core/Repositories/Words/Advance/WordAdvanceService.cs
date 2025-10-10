@@ -4,6 +4,7 @@ using R3;
 using Source.Scripts.Core.Repositories.Progress;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
+using Source.Scripts.Core.Repositories.Words.Base.CurrentWord;
 using Source.Scripts.Core.Repositories.Words.Word;
 
 namespace Source.Scripts.Core.Repositories.Words.Advance
@@ -13,26 +14,26 @@ namespace Source.Scripts.Core.Repositories.Words.Advance
         public ReadOnlyReactiveProperty<bool> CanUndo => _canUndo;
         public ReactiveCommand UndoCommand { get; } = new();
 
-        private readonly ICurrentWordsService _currentWordsService;
-        private readonly IWordStateMutator _wordStateMutator;
-        private readonly IWordsTimerService _wordsTimerService;
-        private readonly IProgressRepository _progressRepository;
-
         private readonly Stack<(WordMemento, ProgressRepository.ProgressMemento)> _undoStack = new();
         private readonly ReactiveProperty<bool> _canUndo = new(false);
 
-        internal WordAdvanceService(
-            ICurrentWordsService currentWordsService,
-            IWordStateMutator wordStateMutator,
-            IWordsTimerService wordsTimerService,
-            IProgressRepository progressRepository)
-        {
-            _currentWordsService = currentWordsService;
-            _wordStateMutator = wordStateMutator;
-            _wordsTimerService = wordsTimerService;
-            _progressRepository = progressRepository;
+        private readonly ICurrentWordService _currentWordService;
+        private readonly IProgressRepository _progressRepository;
+        private readonly IWordsTimerService _wordsTimerService;
+        private readonly IWordStateMutator _wordStateMutator;
 
-            UndoCommand.Subscribe(this, static (_, service) => service.ExecuteUndo());
+        internal WordAdvanceService(
+            ICurrentWordService currentWordService,
+            IProgressRepository progressRepository,
+            IWordsTimerService wordsTimerService,
+            IWordStateMutator wordStateMutator)
+        {
+            _currentWordService = currentWordService;
+            _progressRepository = progressRepository;
+            _wordsTimerService = wordsTimerService;
+            _wordStateMutator = wordStateMutator;
+
+            UndoCommand.Subscribe(this, static (_, self) => self.ExecuteUndo());
         }
 
         public void AdvanceWord(WordEntry word, bool success)
@@ -41,7 +42,7 @@ namespace Source.Scripts.Core.Repositories.Words.Advance
 
             _wordStateMutator.AdvanceLearningState(word, success);
             _wordsTimerService.UpdateTimer();
-            _currentWordsService.UpdateCurrentWords();
+            _currentWordService.UpdateCurrentWord();
         }
 
         private void ExecuteUndo()
@@ -49,10 +50,10 @@ namespace Source.Scripts.Core.Repositories.Words.Advance
             if (_undoStack.Count == 0)
                 return;
 
-            var (wordState, progressState) = _undoStack.Pop();
+            var (wordMemento, progressMemento) = _undoStack.Pop();
 
-            wordState.Undo();
-            progressState.Undo();
+            wordMemento.Undo();
+            progressMemento.Undo();
 
             _canUndo.Value = _undoStack.Count > 0;
         }

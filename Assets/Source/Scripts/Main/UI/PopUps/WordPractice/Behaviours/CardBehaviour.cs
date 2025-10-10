@@ -4,6 +4,7 @@ using R3;
 using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Words.Base;
+using Source.Scripts.Core.Repositories.Words.Base.CurrentWord;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base;
 using UnityEngine;
@@ -18,28 +19,27 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
 
         [SerializeField] private WordProgressBehaviour _wordProgressBehaviour;
 
-        private WordEntry WordEntry => _currentWordsService.CurrentWordsByState.CurrentValue[_practiceState];
+        private WordEntry WordEntry => _currentWordService.CurrentWord.CurrentValue;
 
-        private PracticeState _practiceState;
+        private ICurrentWordService _currentWordService;
 
-        private ICurrentWordsService _currentWordsService;
+        private ICurrentWordFactory _currentWordFactory;
         private IModuleStateFactory _moduleStateFactory;
 
         [Inject]
-        internal void Inject(ICurrentWordsService currentWordsService, IModuleStateFactory moduleStateFactory)
+        internal void Inject(ICurrentWordFactory currentWordFactory, IModuleStateFactory moduleStateFactory)
         {
-            _currentWordsService = currentWordsService;
+            _currentWordFactory = currentWordFactory;
             _moduleStateFactory = moduleStateFactory;
         }
 
         internal void Init(PracticeState practiceState)
         {
-            _practiceState = practiceState;
-
             _wordProgressBehaviour.Init();
 
-            _currentWordsService.CurrentWordsByState
-                .Select(practiceState, (currentWordsByState, state) => currentWordsByState[state])
+            _currentWordService = _currentWordFactory.GetOrCreate(practiceState);
+
+            _currentWordService.CurrentWord
                 .Where(currentWord => currentWord != null)
                 .SubscribeUntilDestroy(_wordProgressBehaviour,
                     static (currentWord, wordProgress) => wordProgress.UpdateProgress(currentWord));

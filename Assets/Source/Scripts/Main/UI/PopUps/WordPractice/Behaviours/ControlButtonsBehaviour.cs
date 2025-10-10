@@ -1,7 +1,9 @@
 ﻿using CustomUtils.Runtime.Extensions.Observables;
 using R3;
 using Source.Scripts.Core.Localization.LocalizationTypes;
+using Source.Scripts.Core.Repositories.Words.Advance;
 using Source.Scripts.Core.Repositories.Words.Base;
+using Source.Scripts.Core.Repositories.Words.Base.CurrentWord;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.UI.Components.Button;
 using UnityEngine;
@@ -22,37 +24,38 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
         [SerializeField] private GameObject _firstShowContainer;
         [SerializeField] private GameObject _otherShowContainer;
 
-        private WordEntry CurrentWord => _currentWordsService.CurrentWordsByState.CurrentValue[_currentPracticeState];
+        private WordEntry CurrentWord => _currentWordService.CurrentWord.CurrentValue;
 
-        private PracticeState _currentPracticeState;
+        private ICurrentWordService _currentWordService;
+        private IWordAdvanceFactory _wordAdvanceFactory;
 
         private IPracticeStateService _practiceStateService;
-        private ICurrentWordsService _currentWordsService;
+        private ICurrentWordFactory _currentWordFactory;
         private IWordAdvanceService _wordAdvanceService;
         private IWordStateMutator _wordStateMutator;
 
         [Inject]
         internal void Inject(
             IPracticeStateService practiceStateService,
-            ICurrentWordsService currentWordsService,
-            IWordAdvanceService wordAdvanceService,
+            ICurrentWordFactory currentWordFactory,
+            IWordAdvanceFactory wordAdvanceFactory,
             IWordStateMutator wordStateMutator)
         {
             _practiceStateService = practiceStateService;
-            _wordAdvanceService = wordAdvanceService;
+            _currentWordFactory = currentWordFactory;
+            _wordAdvanceFactory = wordAdvanceFactory;
             _wordStateMutator = wordStateMutator;
-            _currentWordsService = currentWordsService;
         }
 
         internal void Init(PracticeState practiceState)
         {
-            _currentPracticeState = practiceState;
+            _currentWordService = _currentWordFactory.GetOrCreate(practiceState);
+            _wordAdvanceService = _wordAdvanceFactory.GetOrCreate(practiceState);
 
             _hideButton.OnClickAsObservable().SubscribeUntilDestroy(this,
                 static self => self._wordStateMutator.HideWord(self.CurrentWord));
 
-            _currentWordsService.CurrentWordsByState
-                .Select(this, (currentWordsByState, self) => currentWordsByState[self._currentPracticeState])
+            _currentWordService.CurrentWord
                 .Where(currentWord => currentWord != null)
                 .SubscribeUntilDestroy(this, static self => self.UpdateView());
 
@@ -67,7 +70,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
 
         private void UpdateView()
         {
-            var isFirstShow = _currentWordsService.IsFirstShow(_currentPracticeState);
+            var isFirstShow = _currentWordService.IsFirstShow();
 
             _firstShowContainer.SetActive(isFirstShow);
             _otherShowContainer.SetActive(isFirstShow is false);

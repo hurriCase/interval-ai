@@ -5,7 +5,9 @@ using Cysharp.Text;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Words.Base;
+using Source.Scripts.Core.Repositories.Words.Base.CurrentWord;
 using Source.Scripts.Main.UI.Base;
+using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete.CompleteState;
 using Source.Scripts.Main.UI.Shared;
 using Source.Scripts.UI.Components.Button;
 using TMPro;
@@ -27,17 +29,20 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
         [SerializeField] private PlusMinusBehaviour _plusMinusBehaviour;
 
         [Inject] protected IPracticeStateService practiceStateService;
-        [Inject] protected ICurrentWordsService currentWordsService;
         [Inject] protected IWindowsController windowsController;
 
         [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
         [Inject] private ICompleteServiceFactory _completeStateFactory;
+        [Inject] private ICurrentWordFactory _currentWordFactory;
 
+        protected ICurrentWordService currentWordService;
         private PracticeState _currentPracticeState;
 
         internal void Init(PracticeState practiceState)
         {
             _currentPracticeState = practiceState;
+
+            currentWordService = _currentWordFactory.GetOrCreate(practiceState);
 
             _plusMinusBehaviour.Init();
 

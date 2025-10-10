@@ -3,6 +3,7 @@ using CustomUtils.Runtime.Extensions.Observables;
 using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Words.Base;
+using Source.Scripts.Core.Repositories.Words.Base.CurrentWord;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Practice;
 using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base;
@@ -19,13 +20,13 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice
         [SerializeField] private TabsController<PracticeState> _tabsController;
 
         private IPracticeStateService _practiceStateService;
-        private ICurrentWordsService _currentWordsService;
+        private ICurrentWordFactory _currentWordFactory;
 
         [Inject]
-        internal void Inject(IPracticeStateService practiceStateService, ICurrentWordsService currentWordsService)
+        internal void Inject(IPracticeStateService practiceStateService, ICurrentWordFactory currentWordFactory)
         {
             _practiceStateService = practiceStateService;
-            _currentWordsService = currentWordsService;
+            _currentWordFactory = currentWordFactory;
         }
 
         internal override void Init()
@@ -41,10 +42,14 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice
 
         internal override async UniTask ShowAsync()
         {
-            _currentWordsService.UpdateCurrentWords();
+            var newWordsCurrentWord = _currentWordFactory.GetOrCreate(PracticeState.NewWords);
+            var reviewCurrentWord = _currentWordFactory.GetOrCreate(PracticeState.Review);
 
-            var hasNewWords = _currentWordsService.HasWordByState(PracticeState.NewWords);
-            var hasReviewWords = _currentWordsService.HasWordByState(PracticeState.Review);
+            newWordsCurrentWord.UpdateCurrentWord();
+            reviewCurrentWord.UpdateCurrentWord();
+
+            var hasNewWords = newWordsCurrentWord.HasWord();
+            var hasReviewWords = reviewCurrentWord.HasWord();
 
             if (hasNewWords is false && hasReviewWords)
             {
