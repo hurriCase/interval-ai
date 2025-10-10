@@ -9,7 +9,11 @@ namespace Source.Scripts.Core.Repositories.Base.Tests
 {
     internal sealed class TestConfig : ScriptableObject, ITestConfig
     {
-        [field: SerializeField] public EnumArray<LearningState, RandomInt> WordsCountByState { get; private set; }
+        [field: SerializeField] public bool IsCreateTestProgress { get; private set; }
+        [field: SerializeField, ShowIf(nameof(IsCreateTestProgress))]
+        public int DayCountForFakeProgress { get; private set; }
+        [field: SerializeField, ShowIf(nameof(IsCreateTestProgress))]
+        public EnumArray<LearningState, RandomInt> WordsCountByState { get; private set; }
         [field: SerializeField] public bool IsSkipOnboarding { get; private set; }
         [field: SerializeField] public bool UseTestLanguage { get; private set; }
 

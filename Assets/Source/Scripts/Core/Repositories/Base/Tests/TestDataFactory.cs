@@ -25,7 +25,7 @@ namespace Source.Scripts.Core.Repositories.Base.Tests
         {
             var today = DateTime.Now.Date;
 
-            for (var i = 0; i < 30; i++)
+            for (var i = 0; i < _testConfig.DayCountForFakeProgress; i++)
             {
                 if (Random.Range(0, 2) == 0)
                     continue;

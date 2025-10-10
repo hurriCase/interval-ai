@@ -32,7 +32,8 @@ namespace Source.Scripts.Bootstrap.Core.Steps
         protected override UniTask ExecuteInternal(CancellationToken token)
         {
 #if IS_DEBUG && UNITY_EDITOR
-            _testDataFactory.CreateFakeProgress();
+            if (_testConfig.IsCreateTestProgress)
+                _testDataFactory.CreateFakeProgress();
 
             if (_testConfig.UseTestLanguage)
                 LocalizationController.Language.Value = _testConfig.TestLanguage;

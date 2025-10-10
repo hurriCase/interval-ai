@@ -7,6 +7,8 @@ namespace Source.Scripts.Core.Repositories.Base.Tests.Base
 {
     internal interface ITestConfig
     {
+        public bool IsCreateTestProgress { get; }
+        public int DayCountForFakeProgress { get; }
         EnumArray<LearningState, RandomInt> WordsCountByState { get; }
         public bool IsSkipOnboarding { get; }
         public bool UseTestLanguage { get; }
