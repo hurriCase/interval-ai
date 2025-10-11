@@ -4,7 +4,6 @@ using System.Linq;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
-using Source.Scripts.UI.Behaviours.DateLabel.Base;
 using UnityEngine;
 
 namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.GraphProgress
@@ -12,17 +11,15 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
     internal sealed class GraphDataProcessor : IGraphDataProcessor
     {
         private readonly IDateProgressService _dateProgressService;
-        private readonly IDateRangeCalculator _dateRangeCalculator;
 
-        internal GraphDataProcessor(IDateProgressService dateProgressService, IDateRangeCalculator dateRangeCalculator)
+        internal GraphDataProcessor(IDateProgressService dateProgressService)
         {
             _dateProgressService = dateProgressService;
-            _dateRangeCalculator = dateRangeCalculator;
         }
 
         public GraphDisplayData GetDisplayGraphData(int totalDays, int pointsCount)
         {
-            var rangeData = _dateRangeCalculator.Calculate(totalDays, pointsCount);
+            var rangeData = Calculate(totalDays, pointsCount);
             var rawGraphData = GetGraphDataForRange(totalDays, pointsCount);
             var maxProgress = CalculateMaxProgress(rawGraphData);
 
@@ -56,6 +53,32 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
             }
 
             return graphData;
+        }
+
+        private DateTime[] Calculate(int totalDays, int pointsCount)
+        {
+            var endDate = DateTime.Now.Date;
+            var startDate = endDate.AddDays(-totalDays + 1);
+            var datePoints = CalculateDatePoints(startDate, totalDays, pointsCount);
+
+            return datePoints;
+        }
+
+        private DateTime[] CalculateDatePoints(DateTime startDate, int totalDays, int pointsCount)
+        {
+            if (pointsCount == 1)
+                return new[] { startDate };
+
+            var datePoints = new DateTime[pointsCount];
+            var intervalBetweenPoints = totalDays / (pointsCount - 1f);
+
+            for (var i = 0; i < pointsCount; i++)
+            {
+                var daysFromStart = intervalBetweenPoints * i;
+                datePoints[i] = startDate.AddDays(daysFromStart);
+            }
+
+            return datePoints;
         }
 
         private int CalculateMaxProgress(EnumArray<LearningState, int[]> graphData)

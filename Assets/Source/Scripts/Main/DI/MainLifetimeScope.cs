@@ -7,7 +7,6 @@ using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.GraphProgress;
 using Source.Scripts.Main.UI.PopUps.Selection.Category;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete.CompleteState;
-using Source.Scripts.UI.Behaviours.DateLabel.Range;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -45,7 +44,6 @@ namespace Source.Scripts.Main.DI
             builder.Register<WordCategorySelectionService>(Lifetime.Scoped).AsSelf();
 
             builder.Register<GraphDataProcessor>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<DateRangeCalculator>(Lifetime.Singleton).AsImplementedInterfaces();
 
             builder.RegisterEntryPoint<MainEntryPoint>();
         }

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Source.Scripts.UI.Behaviours.DateLabel.Base;
 using UnityEngine;
 
 namespace Source.Scripts.UI.Behaviours.DateLabel
