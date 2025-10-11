@@ -4,6 +4,7 @@ using Source.Scripts.Core.Repositories.Words.ModuleState;
 using Source.Scripts.Main.Data;
 using Source.Scripts.Main.Data.CurrentWord;
 using Source.Scripts.Main.UI.Base;
+using Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.GraphProgress;
 using Source.Scripts.Main.UI.PopUps.Selection.Category;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete.CompleteState;
 using UnityEngine;
@@ -41,6 +42,8 @@ namespace Source.Scripts.Main.DI
 
             builder.Register<CategorySelectionService>(Lifetime.Scoped).AsSelf();
             builder.Register<WordCategorySelectionService>(Lifetime.Scoped).AsSelf();
+
+            builder.Register<GraphDataProcessor>(Lifetime.Singleton).AsImplementedInterfaces();
 
             builder.RegisterEntryPoint<MainEntryPoint>();
         }

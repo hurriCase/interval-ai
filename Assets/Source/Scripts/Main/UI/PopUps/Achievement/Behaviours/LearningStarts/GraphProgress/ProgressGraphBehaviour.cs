@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using CustomUtils.Runtime.CustomTypes.Collections;
+﻿using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.Localization;
 using R3;
 using Source.Scripts.Core.Localization.Base;
-using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.Data.Base;
 using Source.Scripts.Main.UI.Shared.Progress;
@@ -21,33 +18,26 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
     internal sealed class ProgressGraphBehaviour : MonoBehaviour
     {
         [SerializeField] private DateLabelBehaviour _dateLabelBehaviour;
-
         [SerializeField] private TextMeshProUGUI _maxProgressText;
-
         [SerializeField] private RectTransform _graphButtonsContainer;
         [SerializeField] private ToggleGroup _graphButtonsGroup;
         [SerializeField] private ToggleComponent _graphTypeToggle;
-
         [SerializeField] private ProgressColorMapping _progressColorMapping;
-
         [SerializeField] private EnumArray<LearningState, ThemeLineRenderer> _graphLines = new(EnumMode.SkipFirst);
-
-        private readonly Dictionary<LearningState, List<GraphProgressData>> _cashedAllProgressData = new();
-        private readonly List<Vector2> _cashedNormalizedPoints = new();
 
         private ILocalizationKeysDatabase _localizationKeysDatabase;
         private IProgressGraphSettings _progressGraphSettings;
-        private IDateProgressService _dateProgressService;
+        private IGraphDataProcessor _graphDataProcessor;
 
         [Inject]
         internal void Inject(
             ILocalizationKeysDatabase localizationKeysDatabase,
             IProgressGraphSettings progressGraphSettings,
-            IDateProgressService dateProgressService)
+            IGraphDataProcessor graphDataProcessor)
         {
             _localizationKeysDatabase = localizationKeysDatabase;
             _progressGraphSettings = progressGraphSettings;
-            _dateProgressService = dateProgressService;
+            _graphDataProcessor = graphDataProcessor;
         }
 
         internal void Init()
@@ -58,9 +48,10 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
             {
                 var createdGraphType = Instantiate(_graphTypeToggle, _graphButtonsContainer);
                 createdGraphType.group = _graphButtonsGroup;
+
                 createdGraphType.OnValueChangedAsObservable()
                     .Where(isOn => isOn)
-                    .SubscribeUntilDestroy(this, dateRange, static (dateRange, self) => self.UpdateGraph(dateRange));
+                    .SubscribeUntilDestroy(this, dateRange, static (range, self) => self.UpdateGraph(range));
 
                 LocalizationController.Language.SubscribeUntilDestroy(this, (dateRange, createdGraphType.Text),
                     static (tuple, self) => self.UpdateLocalization(tuple.dateRange, tuple.Text));
@@ -69,8 +60,9 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
 
         private void UpdateLocalization(DateRange dateRange, TMP_Text graphTypeText)
         {
-            var localizationKey
-                = _localizationKeysDatabase.GetDateLocalization(dateRange.DateType, dateRange.Amount);
+            var localizationKey = _localizationKeysDatabase.GetDateLocalization(
+                dateRange.DateType,
+                dateRange.Amount);
 
             graphTypeText.SetText(localizationKey, dateRange.Amount);
         }
@@ -79,73 +71,23 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
         {
             _dateLabelBehaviour.CurrentDateType.Value = progressRange;
 
-            var maxProgress = GenerateAllGraphPoints(progressRange);
-            _maxProgressText.text = maxProgress.ToString();
+            var displayData = _graphDataProcessor
+                .GetDisplayGraphData(progressRange, _progressGraphSettings.GraphPointsCount);
 
+            _maxProgressText.text = displayData.MaxProgress.ToString();
+
+            RenderGraphLines(displayData);
+        }
+
+        private void RenderGraphLines(GraphDisplayData displayData)
+        {
             foreach (var (learningState, themeLineRenderer) in _graphLines.AsTuples())
             {
                 _progressColorMapping.SetComponentForState(learningState, themeLineRenderer.ThemeComponent);
 
-                var normalizedPoints = NormalizePoints(
-                    _cashedAllProgressData[learningState],
-                    maxProgress,
-                    _progressGraphSettings.GraphPointsCount);
-
-                themeLineRenderer.LineRenderer.SetPoints(normalizedPoints);
+                var points = displayData.NormalizedPoints[learningState];
+                themeLineRenderer.LineRenderer.SetPoints(points);
             }
-        }
-
-        private int GenerateAllGraphPoints(DateRange progressRange)
-        {
-            var totalDays = progressRange.GetDayCount();
-            var pointsCount = _progressGraphSettings.GraphPointsCount;
-            var daysPerSegment = (float)totalDays / pointsCount;
-            var maxProgress = 0;
-
-            foreach (var (learningState, _) in _graphLines.AsTuples())
-            {
-                if (_cashedAllProgressData
-                        .TryGetValue(learningState, out var progressPoints) is false)
-                {
-                    progressPoints = new List<GraphProgressData>(pointsCount);
-                    _cashedAllProgressData[learningState] = progressPoints;
-                }
-
-                progressPoints.Clear();
-
-                for (var i = 0; i < pointsCount; i++)
-                {
-                    var segmentIndex = pointsCount - 1 - i;
-                    var segmentStart = (int)(daysPerSegment * segmentIndex);
-                    var segmentEnd = (int)(daysPerSegment * (segmentIndex + 1));
-                    var segmentDuration = Math.Max(1, segmentEnd - segmentStart);
-
-                    var progress =
-                        _dateProgressService.GetProgressForRange(segmentStart, segmentDuration, learningState);
-                    progressPoints.Add(new GraphProgressData(i, progress));
-                    maxProgress = Math.Max(maxProgress, progress);
-                }
-            }
-
-            return maxProgress;
-        }
-
-        private List<Vector2> NormalizePoints(List<GraphProgressData> points, int maxProgress, int maxIndex)
-        {
-            _cashedNormalizedPoints.Clear();
-
-            if (maxProgress <= 0)
-                return _cashedNormalizedPoints;
-
-            foreach (var (index, progress) in points)
-            {
-                var normalizedX = (float)index / (maxIndex - 1);
-                var normalizedY = (float)progress / maxProgress;
-
-                _cashedNormalizedPoints.Add(new Vector2(normalizedX, normalizedY));
-            }
-
-            return _cashedNormalizedPoints;
         }
     }
 }
