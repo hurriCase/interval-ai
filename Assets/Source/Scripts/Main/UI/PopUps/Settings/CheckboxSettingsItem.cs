@@ -26,7 +26,7 @@ namespace Source.Scripts.Main.UI.PopUps.Settings
                     targetProperty.Value = targetProperty.Value is false)
                 .RegisterTo(destroyCancellationToken);
 
-            targetProperty.SubscribeAndRegister(this, static (isOn, self) => self._checkbox.isOn = isOn);
+            targetProperty.SubscribeUntilDestroy(this, static (isOn, self) => self._checkbox.isOn = isOn);
         }
     }
 }

@@ -39,13 +39,13 @@ namespace Source.Scripts.Main.UI.Screens.Generation.Behaviours
         internal void Init()
         {
             _generationSettingsRepository.NewWordsPercentage
-                .SubscribeAndRegister(this, static (percent, self) => self.SetPercentText(percent));
+                .SubscribeUntilDestroy(this, static (percent, self) => self.SetPercentText(percent));
 
             _generationSettingsRepository.TranslateFromLanguageType
-                .SubscribeAndRegister(this, static (percent, self) => self.SetLanguageTypeText(percent));
+                .SubscribeUntilDestroy(this, static (percent, self) => self.SetLanguageTypeText(percent));
 
             _generationSettingsRepository.IsHighlightNewWords
-                .SubscribeAndRegister(this, static (percent, self) => self.SetIsHighlightText(percent));
+                .SubscribeUntilDestroy(this, static (percent, self) => self.SetIsHighlightText(percent));
 
             _windowsController.BindPopUpOpen(_changeSettingsButton, PopUpType.GenerationSettings);
         }

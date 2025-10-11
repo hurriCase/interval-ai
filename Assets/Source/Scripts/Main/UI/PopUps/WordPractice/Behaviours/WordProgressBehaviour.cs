@@ -33,7 +33,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
 
         internal void Init()
         {
-            _practiceSettingsRepository.RepetitionByCooldown.SubscribeAndRegister(this,
+            _practiceSettingsRepository.RepetitionByCooldown.SubscribeUntilDestroy(this,
                 static (repetitions, self) => self.CreateSegments(repetitions.Count));
         }
 
