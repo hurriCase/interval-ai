@@ -5,6 +5,7 @@ using CustomUtils.Runtime.CustomTypes.Collections;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.UI.Components.DateLabel;
+using Source.Scripts.UI.Components.DateLabel.Base;
 using UnityEngine;
 
 namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.GraphProgress

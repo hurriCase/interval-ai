@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using Source.Scripts.Core.Localization.LocalizationTypes.Date;
+using Source.Scripts.Core.Repositories.Settings.Base;
 using UnityEngine;
 
 namespace Source.Scripts.UI.Components.DateLabel
@@ -13,14 +14,14 @@ namespace Source.Scripts.UI.Components.DateLabel
 
         private const int DaysInWeek = 7;
 
-        internal int GetDayCount()
+        internal int CalculateDayCount(IUISettingsRepository uiSettingsRepository)
         {
             return DateType switch
             {
                 DateType.Days => Amount,
                 DateType.Weeks => Amount * DaysInWeek,
                 DateType.Months => CalculateTotalDaysInMonths(),
-                DateType.Years => CalculateTotalDaysInYears(),
+                DateType.Years => CalculateTotalDaysInYears(uiSettingsRepository),
                 _ => 0
             };
         }
@@ -39,9 +40,9 @@ namespace Source.Scripts.UI.Components.DateLabel
             return totalDays;
         }
 
-        private int CalculateTotalDaysInYears()
+        private int CalculateTotalDaysInYears(IUISettingsRepository uiSettingsRepository)
         {
-            var calendar = CultureInfo.CurrentCulture.Calendar;
+            var calendar = uiSettingsRepository.CurrentCulture.Value.Calendar;
             var currentDate = DateTime.Now.Date;
             var totalDays = 0;
 

@@ -1,4 +1,5 @@
 ﻿using CustomUtils.Runtime.UI.Theme;
+using Source.Scripts.UI.Components;
 using UnityEngine;
 
 namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.GraphProgress

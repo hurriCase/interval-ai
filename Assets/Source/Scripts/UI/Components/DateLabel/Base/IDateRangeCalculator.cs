@@ -1,4 +1,4 @@
-﻿namespace Source.Scripts.UI.Components.DateLabel
+﻿namespace Source.Scripts.UI.Components.DateLabel.Base
 {
     internal interface IDateRangeCalculator
     {

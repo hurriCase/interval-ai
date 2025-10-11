@@ -3,7 +3,7 @@ using CustomUtils.Runtime.Attributes;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.GraphProgress
+namespace Source.Scripts.UI.Components
 {
     internal sealed class UILineRenderer : Graphic
     {
