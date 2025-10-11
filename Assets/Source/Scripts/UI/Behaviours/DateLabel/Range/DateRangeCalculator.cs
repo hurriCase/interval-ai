@@ -25,13 +25,16 @@ namespace Source.Scripts.UI.Behaviours.DateLabel.Range
 
         private DateTime[] CalculateDatePoints(DateTime startDate, int totalDays, int pointsCount)
         {
+            if (pointsCount == 1)
+                return new[] { startDate };
+
             var datePoints = new DateTime[pointsCount];
+            var intervalBetweenPoints = totalDays / (pointsCount - 1f);
 
             for (var i = 0; i < pointsCount; i++)
             {
-                var progress = pointsCount > 1 ? (float)i / (pointsCount - 1) : 0f;
-                var daysToAdd = (int)Math.Round(totalDays * progress);
-                datePoints[i] = startDate.AddDays(daysToAdd);
+                var daysFromStart = intervalBetweenPoints * i;
+                datePoints[i] = startDate.AddDays(daysFromStart);
             }
 
             return datePoints;
