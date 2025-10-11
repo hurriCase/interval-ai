@@ -27,6 +27,7 @@ using Source.Scripts.Core.Repositories.Statistics;
 using Source.Scripts.Core.Repositories.User;
 using Source.Scripts.Core.Repositories.Words;
 using Source.Scripts.Core.Repositories.Words.Word;
+using Source.Scripts.UI.Components.DateLabel;
 using Source.Scripts.UI.Data;
 using UnityEngine;
 using VContainer;
@@ -45,6 +46,7 @@ namespace Source.Scripts.Bootstrap.DI
         [SerializeField] private SpriteReferences _spriteReferences;
 
         [SerializeField] private AnimationsConfig _animationsConfig;
+        [SerializeField] private DateLabelConfig _dateLabelConfig;
         [SerializeField] private TestConfig _testConfig;
         [SerializeField] private AppConfig _appConfig;
 
@@ -81,6 +83,7 @@ namespace Source.Scripts.Bootstrap.DI
             builder.RegisterInstance(_spriteReferences).AsImplementedInterfaces();
 
             builder.RegisterInstance(_animationsConfig).AsImplementedInterfaces();
+            builder.RegisterInstance(_dateLabelConfig).AsImplementedInterfaces();
             builder.RegisterInstance(_testConfig).AsImplementedInterfaces();
             builder.RegisterInstance(_appConfig).AsImplementedInterfaces();
 

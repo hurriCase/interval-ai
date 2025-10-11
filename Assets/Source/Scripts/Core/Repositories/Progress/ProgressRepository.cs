@@ -117,6 +117,8 @@ namespace Source.Scripts.Core.Repositories.Progress
             CheckLearnedWordsChanges(learningState);
 
             _progressHistory.Value[date.Date] = dailyProgress;
+            _progressHistory.Property.OnNext(_progressHistory.Value);
+
             IncreaseTotalCount(learningState);
         }
 

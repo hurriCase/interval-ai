@@ -13,7 +13,6 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts
     internal sealed class LearningStatsBehaviour : MonoBehaviour
     {
         [SerializeField] private ProgressGraphBehaviour _progressGraphBehaviour;
-        [SerializeField] private WeekDaysBehaviour _weekDaysBehaviour;
         [SerializeField] private ProgressColorMapping _progressColorMapping;
         [SerializeField] private ProgressItem _totalProgressItem;
 
@@ -31,7 +30,6 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts
         internal void Init()
         {
             _progressGraphBehaviour.Init();
-            _weekDaysBehaviour.Init();
 
             _progressRepository.TotalCountByState
                 .SubscribeUntilDestroy(this, static (totalCountByState, self) => self.UpdateProgress(totalCountByState));

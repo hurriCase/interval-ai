@@ -5,13 +5,12 @@ using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.Localization;
 using R3;
 using Source.Scripts.Core.Localization.Base;
-using Source.Scripts.Core.Localization.LocalizationTypes.Date;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.Data.Base;
-using Source.Scripts.Main.UI.Shared;
 using Source.Scripts.Main.UI.Shared.Progress;
 using Source.Scripts.UI.Components;
+using Source.Scripts.UI.Components.DateLabel;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,6 +20,8 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
 {
     internal sealed class ProgressGraphBehaviour : MonoBehaviour
     {
+        [SerializeField] private DateLabelBehaviour _dateLabelBehaviour;
+
         [SerializeField] private TextMeshProUGUI _maxProgressText;
 
         [SerializeField] private RectTransform _graphButtonsContainer;
@@ -33,9 +34,6 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
 
         private readonly Dictionary<LearningState, List<GraphProgressData>> _cashedAllProgressData = new();
         private readonly List<Vector2> _cashedNormalizedPoints = new();
-
-        private const int DaysInLeapYear = 366;
-        private const int DaysInNonLeapYear = 365;
 
         private ILocalizationKeysDatabase _localizationKeysDatabase;
         private IProgressGraphSettings _progressGraphSettings;
@@ -54,11 +52,14 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
 
         internal void Init()
         {
+            _dateLabelBehaviour.Init();
+
             foreach (var dateRange in _progressGraphSettings.GraphProgressRanges)
             {
                 var createdGraphType = Instantiate(_graphTypeToggle, _graphButtonsContainer);
                 createdGraphType.group = _graphButtonsGroup;
                 createdGraphType.OnValueChangedAsObservable()
+                    .Where(isOn => isOn)
                     .SubscribeUntilDestroy(this, dateRange, static (dateRange, self) => self.UpdateGraph(dateRange));
 
                 LocalizationController.Language.SubscribeUntilDestroy(this, (dateRange, createdGraphType.Text),
@@ -76,6 +77,8 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
 
         private void UpdateGraph(DateRange progressRange)
         {
+            _dateLabelBehaviour.CurrentDateType.Value = progressRange;
+
             var maxProgress = GenerateAllGraphPoints(progressRange);
             _maxProgressText.text = maxProgress.ToString();
 
@@ -94,7 +97,7 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
 
         private int GenerateAllGraphPoints(DateRange progressRange)
         {
-            var totalDays = GetTotalDays(progressRange);
+            var totalDays = progressRange.GetDayCount();
             var pointsCount = _progressGraphSettings.GraphPointsCount;
             var daysPerSegment = (float)totalDays / pointsCount;
             var maxProgress = 0;
@@ -130,49 +133,19 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
         private List<Vector2> NormalizePoints(List<GraphProgressData> points, int maxProgress, int maxIndex)
         {
             _cashedNormalizedPoints.Clear();
+
+            if (maxProgress <= 0)
+                return _cashedNormalizedPoints;
+
             foreach (var (index, progress) in points)
             {
                 var normalizedX = (float)index / (maxIndex - 1);
-                var normalizedY = maxProgress > 0 ? (float)progress / maxProgress : 0f;
+                var normalizedY = (float)progress / maxProgress;
 
                 _cashedNormalizedPoints.Add(new Vector2(normalizedX, normalizedY));
             }
 
             return _cashedNormalizedPoints;
-        }
-
-        private int GetTotalDays(DateRange progressRange)
-        {
-            var totalDays = 0;
-
-            if (progressRange.DateType == DateType.Days)
-                return progressRange.Amount;
-
-            for (var i = 0; i < progressRange.Amount; i++)
-            {
-                totalDays += progressRange.DateType switch
-                {
-                    DateType.Months => GetDaysInMonth(i),
-                    DateType.Years => GetDaysInYear(i),
-                    _ => throw new ArgumentOutOfRangeException(nameof(progressRange.DateType),
-                        progressRange.DateType,
-                        "[ProgressGraphBehaviour::GetTotalDays] DateType is not supported")
-                };
-            }
-
-            return totalDays;
-        }
-
-        private int GetDaysInMonth(int monthsBack)
-        {
-            var targetDate = DateTime.Now.AddMonths(-monthsBack);
-            return DateTime.DaysInMonth(targetDate.Year, targetDate.Month);
-        }
-
-        private int GetDaysInYear(int yearsBack)
-        {
-            var targetYear = DateTime.Now.Year - yearsBack;
-            return DateTime.IsLeapYear(targetYear) ? DaysInLeapYear : DaysInNonLeapYear;
         }
     }
 }

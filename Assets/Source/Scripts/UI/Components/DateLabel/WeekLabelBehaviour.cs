@@ -5,11 +5,13 @@ using TMPro;
 using UnityEngine;
 using VContainer;
 
-namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts
+namespace Source.Scripts.UI.Components.DateLabel
 {
-    internal sealed class WeekDaysBehaviour : MonoBehaviour
+    internal sealed class WeekLabelBehaviour : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI[] _weekDayTexts = new TextMeshProUGUI[DaysPerWeek];
+
+        private const int DaysPerWeek = 7;
 
         private IUISettingsRepository _uiSettingsRepository;
 
@@ -18,8 +20,6 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts
         {
             _uiSettingsRepository = uiSettingsRepository;
         }
-
-        private const int DaysPerWeek = 7;
 
         internal void Init()
         {

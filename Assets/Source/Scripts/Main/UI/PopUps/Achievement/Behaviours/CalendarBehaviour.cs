@@ -3,9 +3,9 @@ using CustomUtils.Runtime.Extensions.Observables;
 using R3;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
-using Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts;
 using Source.Scripts.Main.UI.Shared.Progress;
 using Source.Scripts.UI.Components.Button;
+using Source.Scripts.UI.Components.DateLabel;
 using TMPro;
 using UnityEngine;
 using VContainer;
@@ -14,7 +14,7 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours
 {
     internal sealed class CalendarBehaviour : MonoBehaviour
     {
-        [SerializeField] private WeekDaysBehaviour _weekDaysBehaviour;
+        [SerializeField] private WeekLabelBehaviour _weekDaysBehaviour;
         [SerializeField] private TextMeshProUGUI _currentMonthText;
         [SerializeField] private ButtonComponent _previousMonthButton;
         [SerializeField] private ButtonComponent _nextMonthButton;

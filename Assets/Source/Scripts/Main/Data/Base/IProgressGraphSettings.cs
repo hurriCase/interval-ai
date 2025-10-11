@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Source.Scripts.Main.UI.Shared;
+using Source.Scripts.UI.Components.DateLabel;
 
 namespace Source.Scripts.Main.Data.Base
 {

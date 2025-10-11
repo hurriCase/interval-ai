@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using CustomUtils.Runtime.Attributes;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,10 +7,10 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
 {
     internal sealed class UILineRenderer : Graphic
     {
-        [SerializeField] private float _lineWidthPercent;
-        [SerializeField] private float _pointRadiusPercent;
+        [SerializeField] private float _lineWidth;
+        [SerializeField] private float _pointRadius;
         [SerializeField] private bool _drawPoints;
-        [SerializeField] private int _circleSegments;
+        [SerializeField, ShowIf(nameof(_drawPoints))] private int _circleSegments;
         [SerializeField] private List<Vector2> _points = new();
 
 #if UNITY_EDITOR
@@ -45,15 +46,13 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
                 return;
 
             var rect = GetPixelAdjustedRect();
-            var scaledLineWidth = rect.height * _lineWidthPercent * 0.01f;
-            var scaledPointRadius = rect.height * _pointRadiusPercent * 0.01f;
 
             if (_points.Count >= 2)
                 for (var i = 0; i < _points.Count - 1; i++)
                 {
                     var start = ConvertToLocalPoint(_points[i], rect);
                     var end = ConvertToLocalPoint(_points[i + 1], rect);
-                    DrawLine(vh, start, end, scaledLineWidth);
+                    DrawLine(vh, start, end, _lineWidth);
                 }
 
             if (_drawPoints is false)
@@ -62,7 +61,7 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
             foreach (var point in _points)
             {
                 var center = ConvertToLocalPoint(point, rect);
-                DrawCircle(vh, center, scaledPointRadius);
+                DrawCircle(vh, center, _pointRadius);
             }
         }
 
