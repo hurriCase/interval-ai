@@ -12,26 +12,34 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
     internal sealed class GraphDataProcessor : IGraphDataProcessor
     {
         private readonly IDateProgressService _dateProgressService;
+        private readonly IDateRangeCalculator _dateRangeCalculator;
 
-        internal GraphDataProcessor(IDateProgressService dateProgressService)
+        internal GraphDataProcessor(
+            IDateProgressService dateProgressService,
+            IDateRangeCalculator dateRangeCalculator)
         {
             _dateProgressService = dateProgressService;
+            _dateRangeCalculator = dateRangeCalculator;
         }
 
         public GraphDisplayData GetDisplayGraphData(DateRange dateRange, int pointsCount)
         {
-            var rawGraphData = GetGraphDataForRange(dateRange, pointsCount);
+            var rangeData = _dateRangeCalculator.Calculate(dateRange, pointsCount);
+            var rawGraphData = GetGraphDataForRange(rangeData, pointsCount);
             var maxProgress = CalculateMaxProgress(rawGraphData);
+
+            if (maxProgress == 0)
+                return GraphDisplayData.Empty;
+
             var normalizedData = NormalizeAllData(rawGraphData, maxProgress);
 
             return new GraphDisplayData(maxProgress, normalizedData);
         }
 
-        private EnumArray<LearningState, int[]> GetGraphDataForRange(DateRange dateRange, int pointsCount)
+        private EnumArray<LearningState, int[]> GetGraphDataForRange(DateRangeData rangeData, int pointsCount)
         {
-            var totalDays = dateRange.GetDayCount();
-            var daysPerSegment = (float)totalDays / pointsCount;
             var graphData = new EnumArray<LearningState, int[]>(EnumMode.SkipFirst);
+            var daysPerSegment = (float)rangeData.TotalDays / pointsCount;
 
             foreach (var (state, _) in graphData.AsTuples())
             {
@@ -70,26 +78,55 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
             var result = new EnumArray<LearningState, List<Vector2>>(EnumMode.SkipFirst);
 
             foreach (var (state, progressData) in rawData.AsTuples())
-                result[state] = NormalizePoints(progressData, maxProgress);
+            {
+                var trimmedRange = GetNonZeroRange(progressData);
+
+                if (trimmedRange.HasValue is false)
+                {
+                    result[state] = new List<Vector2>();
+                    continue;
+                }
+
+                var (startIndex, endIndex) = trimmedRange.Value;
+
+                var expandedStart = Math.Max(0, startIndex - 1);
+                var expandedEnd = Math.Min(progressData.Length - 1, endIndex + 1);
+
+                var points = new List<Vector2>(expandedEnd - expandedStart + 1);
+
+                for (var i = expandedStart; i <= expandedEnd; i++)
+                {
+                    var normalizedX = (float)i / (progressData.Length - 1);
+                    var normalizedY = (float)progressData[i] / maxProgress;
+                    points.Add(new Vector2(normalizedX, normalizedY));
+                }
+
+                result[state] = points;
+            }
 
             return result;
         }
 
-        private static List<Vector2> NormalizePoints(IReadOnlyList<int> progressData, int maxProgress)
+        private static (int startIndex, int endIndex)? GetNonZeroRange(IReadOnlyList<int> data)
         {
-            var points = new List<Vector2>(progressData.Count);
+            var startIndex = -1;
+            var endIndex = -1;
 
-            if (maxProgress <= 0)
-                return points;
-
-            for (var i = 0; i < progressData.Count; i++)
+            for (var i = 0; i < data.Count; i++)
             {
-                var normalizedX = (float)i / (progressData.Count - 1);
-                var normalizedY = (float)progressData[i] / maxProgress;
-                points.Add(new Vector2(normalizedX, normalizedY));
+                if (data[i] <= 0)
+                    continue;
+
+                if (startIndex == -1)
+                    startIndex = i;
+
+                endIndex = i;
             }
 
-            return points;
+            if (startIndex == -1)
+                return null;
+
+            return (startIndex, endIndex);
         }
     }
 }

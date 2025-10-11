@@ -15,5 +15,8 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
             MaxProgress = maxProgress;
             NormalizedPoints = normalizedPoints;
         }
+
+        internal static GraphDisplayData Empty =>
+            new(0, new EnumArray<LearningState, List<Vector2>>(EnumMode.SkipFirst));
     }
 }

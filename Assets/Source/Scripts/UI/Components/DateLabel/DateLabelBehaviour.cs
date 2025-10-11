@@ -1,5 +1,4 @@
-﻿using System;
-using CustomUtils.Runtime.Extensions;
+﻿using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Extensions.Observables;
 using Cysharp.Text;
 using R3;
@@ -18,12 +17,17 @@ namespace Source.Scripts.UI.Components.DateLabel
 
         private IUISettingsRepository _uiSettingsRepository;
         private IDateLabelConfig _dateLabelConfig;
+        private IDateRangeCalculator _dateRangeCalculator;
 
         [Inject]
-        internal void Inject(IUISettingsRepository uiSettingsRepository, IDateLabelConfig dateLabelConfig)
+        internal void Inject(
+            IUISettingsRepository uiSettingsRepository,
+            IDateLabelConfig dateLabelConfig,
+            IDateRangeCalculator dateRangeCalculator)
         {
             _uiSettingsRepository = uiSettingsRepository;
             _dateLabelConfig = dateLabelConfig;
+            _dateRangeCalculator = dateRangeCalculator;
         }
 
         internal void Init()
@@ -34,12 +38,12 @@ namespace Source.Scripts.UI.Components.DateLabel
 
         private void UpdateLabels()
         {
-            var dayCount = CurrentDateType.Value.GetDayCount();
+            var rangeData = _dateRangeCalculator.Calculate(CurrentDateType.Value, _labels.Length);
 
-            if (TryGetDisplayRuleData(dayCount, out var displayRule) is false)
+            if (TryGetDisplayRuleData(rangeData.TotalDays, out var displayRule) is false)
                 return;
 
-            PopulateDateLabels(dayCount, displayRule.DisplayType);
+            PopulateDateLabels(rangeData, displayRule.DisplayType);
         }
 
         private bool TryGetDisplayRuleData(int dayCount, out DisplayRuleData displayRuleData)
@@ -57,7 +61,7 @@ namespace Source.Scripts.UI.Components.DateLabel
             return false;
         }
 
-        private void PopulateDateLabels(int dayCount, DisplayType displayType)
+        private void PopulateDateLabels(DateRangeData rangeData, DisplayType displayType)
         {
             var dateTimeFormat = _uiSettingsRepository.CurrentCulture.Value.DateTimeFormat;
             var labelCount = _labels.Length;
@@ -65,15 +69,10 @@ namespace Source.Scripts.UI.Components.DateLabel
             if (labelCount <= 0)
                 return;
 
-            var now = DateTime.Now.Date;
-            var startDate = now.AddDays(-dayCount);
-            var totalDays = (now - startDate).Days;
-
             for (var i = 0; i < labelCount; i++)
             {
                 var label = _labels[i];
-                var progress = labelCount > 1 ? (float)i / (labelCount - 1) : 0;
-                var currentDate = startDate.AddDays(totalDays * progress);
+                var currentDate = rangeData.DatePoints[i];
 
                 switch (displayType)
                 {
