@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using CustomUtils.Runtime.CustomTypes.Collections;
+using CustomUtils.Runtime.Extensions;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using UnityEngine;
@@ -10,6 +11,8 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
 {
     internal sealed class GraphDataProcessor : IGraphDataProcessor
     {
+        private const int GraphRangeExpansion = 1;
+
         private readonly IDateProgressService _dateProgressService;
 
         internal GraphDataProcessor(IDateProgressService dateProgressService)
@@ -19,7 +22,7 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
 
         public GraphDisplayData GetDisplayGraphData(int totalDays, int pointsCount)
         {
-            var rangeData = Calculate(totalDays, pointsCount);
+            var rangeData = CalculateDatePointsForRange(totalDays, pointsCount);
             var rawGraphData = GetGraphDataForRange(totalDays, pointsCount);
             var maxProgress = CalculateMaxProgress(rawGraphData);
 
@@ -31,41 +34,11 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
             return new GraphDisplayData(maxProgress, normalizedData, rangeData);
         }
 
-        private EnumArray<LearningState, int[]> GetGraphDataForRange(int totalDays, int pointsCount)
-        {
-            var graphData = new EnumArray<LearningState, int[]>(EnumMode.SkipFirst);
-            var daysPerSegment = (float)totalDays / pointsCount;
-
-            foreach (var (state, _) in graphData.AsTuples())
-            {
-                var progressData = new int[pointsCount];
-
-                for (var i = 0; i < pointsCount; i++)
-                {
-                    var segmentIndex = pointsCount - 1 - i;
-                    var daysBack = (int)(daysPerSegment * segmentIndex);
-                    var duration = Math.Max(1, (int)(daysPerSegment * (segmentIndex + 1)) - daysBack);
-
-                    progressData[i] = _dateProgressService.GetProgressForRange(daysBack, duration, state);
-                }
-
-                graphData[state] = progressData;
-            }
-
-            return graphData;
-        }
-
-        private DateTime[] Calculate(int totalDays, int pointsCount)
+        private DateTime[] CalculateDatePointsForRange(int totalDays, int pointsCount)
         {
             var endDate = DateTime.Now.Date;
             var startDate = endDate.AddDays(-totalDays + 1);
-            var datePoints = CalculateDatePoints(startDate, totalDays, pointsCount);
 
-            return datePoints;
-        }
-
-        private DateTime[] CalculateDatePoints(DateTime startDate, int totalDays, int pointsCount)
-        {
             if (pointsCount == 1)
                 return new[] { startDate };
 
@@ -79,6 +52,27 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
             }
 
             return datePoints;
+        }
+
+        private EnumArray<LearningState, int[]> GetGraphDataForRange(int totalDays, int pointsCount)
+        {
+            var graphData = new EnumArray<LearningState, int[]>(EnumMode.SkipFirst);
+            var daysPerSegment = (float)totalDays / pointsCount;
+
+            foreach (var (state, _) in graphData.AsTuples())
+            {
+                var progressData = new int[pointsCount];
+
+                for (var i = 0; i < pointsCount; i++)
+                {
+                    var (daysBack, duration) = CalculateSegmentRange(i, pointsCount, daysPerSegment);
+                    progressData[i] = _dateProgressService.GetProgressForRange(daysBack, duration, state);
+                }
+
+                graphData[state] = progressData;
+            }
+
+            return graphData;
         }
 
         private int CalculateMaxProgress(EnumArray<LearningState, int[]> graphData)
@@ -100,54 +94,67 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
 
             foreach (var (state, progressData) in rawData.AsTuples())
             {
-                var trimmedRange = GetNonZeroRange(progressData);
+                var displayRange = GetDisplayRange(progressData);
 
-                if (trimmedRange.HasValue is false)
+                if (displayRange.HasValue is false)
                 {
                     result[state] = new List<Vector2>();
                     continue;
                 }
 
-                var (startIndex, endIndex) = trimmedRange.Value;
-
-                var expandedStart = Math.Max(0, startIndex - 1);
-                var expandedEnd = Math.Min(progressData.Length - 1, endIndex + 1);
-
-                var points = new List<Vector2>(expandedEnd - expandedStart + 1);
-
-                for (var i = expandedStart; i <= expandedEnd; i++)
-                {
-                    var normalizedX = (float)i / (progressData.Length - 1);
-                    var normalizedY = (float)progressData[i] / maxProgress;
-                    points.Add(new Vector2(normalizedX, normalizedY));
-                }
-
-                result[state] = points;
+                var (start, end) = displayRange.Value;
+                result[state] = ConvertToNormalizedPoints(progressData, start, end, maxProgress);
             }
 
             return result;
         }
 
-        private (int startIndex, int endIndex)? GetNonZeroRange(IReadOnlyList<int> data)
+        private (int daysBack, int duration) CalculateSegmentRange(
+            int pointIndex,
+            int totalPoints,
+            float daysPerSegment)
         {
-            var startIndex = -1;
-            var endIndex = -1;
+            var segmentFromEnd = totalPoints - 1 - pointIndex;
 
-            for (var i = 0; i < data.Count; i++)
-            {
-                if (data[i] <= 0)
-                    continue;
+            var daysBack = (int)(daysPerSegment * segmentFromEnd);
+            var segmentEnd = (int)(daysPerSegment * (segmentFromEnd + 1));
+            var duration = Math.Max(1, segmentEnd - daysBack);
 
-                if (startIndex == -1)
-                    startIndex = i;
+            return (daysBack, duration);
+        }
 
-                endIndex = i;
-            }
+        private (int start, int end)? GetDisplayRange(IReadOnlyList<int> progressData)
+        {
+            var nonZeroRange = progressData.GetNonZeroRange();
 
-            if (startIndex == -1)
+            if (nonZeroRange.HasValue is false)
                 return null;
 
-            return (startIndex, endIndex);
+            var (start, end) = nonZeroRange.Value;
+
+            var expandedStart = Math.Max(0, start - GraphRangeExpansion);
+            var expandedEnd = Math.Min(progressData.Count - 1, end + GraphRangeExpansion);
+
+            return (expandedStart, expandedEnd);
+        }
+
+        private List<Vector2> ConvertToNormalizedPoints(
+            IReadOnlyList<int> progressData,
+            int startIndex,
+            int endIndex,
+            int maxProgress)
+        {
+            var points = new List<Vector2>(endIndex - startIndex + 1);
+            var maxIndex = progressData.Count - 1;
+
+            for (var i = startIndex; i <= endIndex; i++)
+            {
+                var normalizedX = (float)i / maxIndex;
+                var normalizedY = (float)progressData[i] / maxProgress;
+                points.Add(new Vector2(normalizedX, normalizedY));
+            }
+
+            return points;
         }
     }
 }
