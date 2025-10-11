@@ -1,4 +1,4 @@
-﻿using Source.Scripts.UI.Components.DateLabel;
+﻿using Source.Scripts.UI.Behaviours.DateLabel.Range;
 
 namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.GraphProgress
 {

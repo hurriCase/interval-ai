@@ -7,7 +7,7 @@ using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.GraphProgress;
 using Source.Scripts.Main.UI.PopUps.Selection.Category;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete.CompleteState;
-using Source.Scripts.UI.Components.DateLabel;
+using Source.Scripts.UI.Behaviours.DateLabel.Range;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;

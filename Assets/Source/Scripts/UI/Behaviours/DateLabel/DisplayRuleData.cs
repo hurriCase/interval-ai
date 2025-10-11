@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Source.Scripts.UI.Components.DateLabel
+namespace Source.Scripts.UI.Behaviours.DateLabel
 {
     [Serializable]
     internal sealed class DisplayRuleData

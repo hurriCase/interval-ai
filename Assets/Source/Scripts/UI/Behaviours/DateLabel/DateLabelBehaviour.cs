@@ -3,12 +3,13 @@ using CustomUtils.Runtime.Extensions.Observables;
 using Cysharp.Text;
 using R3;
 using Source.Scripts.Core.Repositories.Settings.Base;
-using Source.Scripts.UI.Components.DateLabel.Base;
+using Source.Scripts.UI.Behaviours.DateLabel.Base;
+using Source.Scripts.UI.Behaviours.DateLabel.Range;
 using TMPro;
 using UnityEngine;
 using VContainer;
 
-namespace Source.Scripts.UI.Components.DateLabel
+namespace Source.Scripts.UI.Behaviours.DateLabel
 {
     internal sealed class DateLabelBehaviour : MonoBehaviour
     {

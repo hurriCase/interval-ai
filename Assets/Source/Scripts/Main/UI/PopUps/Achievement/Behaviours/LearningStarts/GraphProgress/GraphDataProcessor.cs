@@ -4,8 +4,8 @@ using System.Linq;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
-using Source.Scripts.UI.Components.DateLabel;
-using Source.Scripts.UI.Components.DateLabel.Base;
+using Source.Scripts.UI.Behaviours.DateLabel.Base;
+using Source.Scripts.UI.Behaviours.DateLabel.Range;
 using UnityEngine;
 
 namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.GraphProgress
@@ -61,7 +61,7 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
             return graphData;
         }
 
-        private static int CalculateMaxProgress(EnumArray<LearningState, int[]> graphData)
+        private int CalculateMaxProgress(EnumArray<LearningState, int[]> graphData)
         {
             var maxProgress = 0;
 
@@ -72,7 +72,7 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
             return maxProgress;
         }
 
-        private static EnumArray<LearningState, List<Vector2>> NormalizeAllData(
+        private EnumArray<LearningState, List<Vector2>> NormalizeAllData(
             EnumArray<LearningState, int[]> rawData,
             int maxProgress)
         {
@@ -108,7 +108,7 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
             return result;
         }
 
-        private static (int startIndex, int endIndex)? GetNonZeroRange(IReadOnlyList<int> data)
+        private (int startIndex, int endIndex)? GetNonZeroRange(IReadOnlyList<int> data)
         {
             var startIndex = -1;
             var endIndex = -1;

@@ -27,7 +27,7 @@ using Source.Scripts.Core.Repositories.Statistics;
 using Source.Scripts.Core.Repositories.User;
 using Source.Scripts.Core.Repositories.Words;
 using Source.Scripts.Core.Repositories.Words.Word;
-using Source.Scripts.UI.Components.DateLabel;
+using Source.Scripts.UI.Behaviours.DateLabel;
 using Source.Scripts.UI.Data;
 using UnityEngine;
 using VContainer;

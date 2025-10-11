@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Source.Scripts.UI.Components.DateLabel
+namespace Source.Scripts.UI.Behaviours.DateLabel.Range
 {
     internal readonly struct DateRangeData
     {

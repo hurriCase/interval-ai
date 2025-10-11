@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Source.Scripts.UI.Components.DateLabel;
+using Source.Scripts.UI.Behaviours.DateLabel.Range;
 
 namespace Source.Scripts.Main.Data.Base
 {

@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Globalization;
 using Source.Scripts.Core.Localization.LocalizationTypes.Date;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using UnityEngine;
 
-namespace Source.Scripts.UI.Components.DateLabel
+namespace Source.Scripts.UI.Behaviours.DateLabel.Range
 {
     [Serializable]
     internal struct DateRange

@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using VContainer;
 
-namespace Source.Scripts.UI.Components.DateLabel
+namespace Source.Scripts.UI.Behaviours
 {
     internal sealed class WeekLabelBehaviour : MonoBehaviour
     {
