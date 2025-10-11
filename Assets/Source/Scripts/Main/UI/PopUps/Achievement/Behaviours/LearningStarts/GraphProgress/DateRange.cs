@@ -3,7 +3,7 @@ using Source.Scripts.Core.Localization.LocalizationTypes.Date;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using UnityEngine;
 
-namespace Source.Scripts.UI.Behaviours.DateLabel.Range
+namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.GraphProgress
 {
     [Serializable]
     internal struct DateRange

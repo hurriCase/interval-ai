@@ -1,9 +1,9 @@
-﻿using Source.Scripts.UI.Behaviours.DateLabel.Range;
+﻿using System;
 
 namespace Source.Scripts.UI.Behaviours.DateLabel.Base
 {
     internal interface IDateRangeCalculator
     {
-        DateRangeData Calculate(DateRange dateRange, int pointsCount);
+        DateTime[] Calculate(int totalDays, int pointsCount);
     }
 }

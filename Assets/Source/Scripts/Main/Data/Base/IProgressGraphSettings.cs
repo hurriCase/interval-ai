@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Source.Scripts.UI.Behaviours.DateLabel.Range;
+using Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.GraphProgress;
 
 namespace Source.Scripts.Main.Data.Base
 {

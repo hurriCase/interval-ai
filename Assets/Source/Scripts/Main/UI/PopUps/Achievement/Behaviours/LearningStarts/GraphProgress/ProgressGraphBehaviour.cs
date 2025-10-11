@@ -3,11 +3,11 @@ using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.Localization;
 using R3;
 using Source.Scripts.Core.Localization.Base;
+using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.Data.Base;
 using Source.Scripts.Main.UI.Shared.Progress;
 using Source.Scripts.UI.Behaviours.DateLabel;
-using Source.Scripts.UI.Behaviours.DateLabel.Range;
 using Source.Scripts.UI.Components;
 using TMPro;
 using UnityEngine;
@@ -28,23 +28,24 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
 
         private ILocalizationKeysDatabase _localizationKeysDatabase;
         private IProgressGraphSettings _progressGraphSettings;
+        private IUISettingsRepository _uiSettingsRepository;
         private IGraphDataProcessor _graphDataProcessor;
 
         [Inject]
         internal void Inject(
             ILocalizationKeysDatabase localizationKeysDatabase,
             IProgressGraphSettings progressGraphSettings,
+            IUISettingsRepository uiSettingsRepository,
             IGraphDataProcessor graphDataProcessor)
         {
             _localizationKeysDatabase = localizationKeysDatabase;
             _progressGraphSettings = progressGraphSettings;
+            _uiSettingsRepository = uiSettingsRepository;
             _graphDataProcessor = graphDataProcessor;
         }
 
         internal void Init()
         {
-            _dateLabelBehaviour.Init();
-
             foreach (var dateRange in _progressGraphSettings.GraphProgressRanges)
             {
                 var createdGraphType = Instantiate(_graphTypeToggle, _graphButtonsContainer);
@@ -70,10 +71,12 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
 
         private void UpdateGraph(DateRange progressRange)
         {
-            _dateLabelBehaviour.CurrentDateType.Value = progressRange;
+            var totalDays = progressRange.CalculateDayCount(_uiSettingsRepository);
+            var dateTimeFormatInfo = _uiSettingsRepository.CurrentCulture.Value.DateTimeFormat;
+            var pointCount = _progressGraphSettings.GraphPointsCount;
+            var displayData = _graphDataProcessor.GetDisplayGraphData(totalDays, pointCount);
 
-            var displayData = _graphDataProcessor
-                .GetDisplayGraphData(progressRange, _progressGraphSettings.GraphPointsCount);
+            _dateLabelBehaviour.UpdateLabels(totalDays, displayData.RangeData, dateTimeFormatInfo);
 
             _maxProgressText.text = displayData.MaxProgress.ToString();
 

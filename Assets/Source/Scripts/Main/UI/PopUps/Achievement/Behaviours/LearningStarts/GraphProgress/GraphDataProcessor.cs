@@ -5,7 +5,6 @@ using CustomUtils.Runtime.CustomTypes.Collections;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.UI.Behaviours.DateLabel.Base;
-using Source.Scripts.UI.Behaviours.DateLabel.Range;
 using UnityEngine;
 
 namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.GraphProgress
@@ -15,18 +14,16 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
         private readonly IDateProgressService _dateProgressService;
         private readonly IDateRangeCalculator _dateRangeCalculator;
 
-        internal GraphDataProcessor(
-            IDateProgressService dateProgressService,
-            IDateRangeCalculator dateRangeCalculator)
+        internal GraphDataProcessor(IDateProgressService dateProgressService, IDateRangeCalculator dateRangeCalculator)
         {
             _dateProgressService = dateProgressService;
             _dateRangeCalculator = dateRangeCalculator;
         }
 
-        public GraphDisplayData GetDisplayGraphData(DateRange dateRange, int pointsCount)
+        public GraphDisplayData GetDisplayGraphData(int totalDays, int pointsCount)
         {
-            var rangeData = _dateRangeCalculator.Calculate(dateRange, pointsCount);
-            var rawGraphData = GetGraphDataForRange(rangeData, pointsCount);
+            var rangeData = _dateRangeCalculator.Calculate(totalDays, pointsCount);
+            var rawGraphData = GetGraphDataForRange(totalDays, pointsCount);
             var maxProgress = CalculateMaxProgress(rawGraphData);
 
             if (maxProgress == 0)
@@ -34,13 +31,13 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
 
             var normalizedData = NormalizeAllData(rawGraphData, maxProgress);
 
-            return new GraphDisplayData(maxProgress, normalizedData);
+            return new GraphDisplayData(maxProgress, normalizedData, rangeData);
         }
 
-        private EnumArray<LearningState, int[]> GetGraphDataForRange(DateRangeData rangeData, int pointsCount)
+        private EnumArray<LearningState, int[]> GetGraphDataForRange(int totalDays, int pointsCount)
         {
             var graphData = new EnumArray<LearningState, int[]>(EnumMode.SkipFirst);
-            var daysPerSegment = (float)rangeData.TotalDays / pointsCount;
+            var daysPerSegment = (float)totalDays / pointsCount;
 
             foreach (var (state, _) in graphData.AsTuples())
             {

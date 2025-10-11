@@ -1,10 +1,8 @@
-﻿using CustomUtils.Runtime.Extensions;
-using CustomUtils.Runtime.Extensions.Observables;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using Cysharp.Text;
-using R3;
-using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.UI.Behaviours.DateLabel.Base;
-using Source.Scripts.UI.Behaviours.DateLabel.Range;
 using TMPro;
 using UnityEngine;
 using VContainer;
@@ -15,37 +13,20 @@ namespace Source.Scripts.UI.Behaviours.DateLabel
     {
         [SerializeField] private TextMeshProUGUI[] _labels;
 
-        internal ReactiveProperty<DateRange> CurrentDateType { get; } = new();
-
-        private IUISettingsRepository _uiSettingsRepository;
         private IDateLabelConfig _dateLabelConfig;
-        private IDateRangeCalculator _dateRangeCalculator;
 
         [Inject]
-        internal void Inject(
-            IUISettingsRepository uiSettingsRepository,
-            IDateLabelConfig dateLabelConfig,
-            IDateRangeCalculator dateRangeCalculator)
+        internal void Inject(IDateLabelConfig dateLabelConfig)
         {
-            _uiSettingsRepository = uiSettingsRepository;
             _dateLabelConfig = dateLabelConfig;
-            _dateRangeCalculator = dateRangeCalculator;
         }
 
-        internal void Init()
+        internal void UpdateLabels(int totalDays, IReadOnlyList<DateTime> datePoints, DateTimeFormatInfo formatInfo)
         {
-            _uiSettingsRepository.CurrentCulture.SubscribeAndRegister(this, static self => self.UpdateLabels());
-            CurrentDateType.SubscribeUntilDestroy(this, static self => self.UpdateLabels());
-        }
-
-        private void UpdateLabels()
-        {
-            var rangeData = _dateRangeCalculator.Calculate(CurrentDateType.Value, _labels.Length);
-
-            if (TryGetDisplayRuleData(rangeData.TotalDays, out var displayRule) is false)
+            if (TryGetDisplayRuleData(totalDays, out var displayRule) is false)
                 return;
 
-            PopulateDateLabels(rangeData, displayRule.DisplayType);
+            PopulateDateLabels(datePoints, displayRule.DisplayType, formatInfo);
         }
 
         private bool TryGetDisplayRuleData(int dayCount, out DisplayRuleData displayRuleData)
@@ -63,9 +44,11 @@ namespace Source.Scripts.UI.Behaviours.DateLabel
             return false;
         }
 
-        private void PopulateDateLabels(DateRangeData rangeData, DisplayType displayType)
+        private void PopulateDateLabels(
+            IReadOnlyList<DateTime> datePoints,
+            DisplayType displayType,
+            DateTimeFormatInfo formatInfo)
         {
-            var dateTimeFormat = _uiSettingsRepository.CurrentCulture.Value.DateTimeFormat;
             var labelCount = _labels.Length;
 
             if (labelCount <= 0)
@@ -74,21 +57,21 @@ namespace Source.Scripts.UI.Behaviours.DateLabel
             for (var i = 0; i < labelCount; i++)
             {
                 var label = _labels[i];
-                var currentDate = rangeData.DatePoints[i];
+                var currentDate = datePoints[i];
 
                 switch (displayType)
                 {
                     case DisplayType.DayOfWeek:
-                        label.text = dateTimeFormat.GetAbbreviatedDayName(currentDate.DayOfWeek);
+                        label.text = formatInfo.GetAbbreviatedDayName(currentDate.DayOfWeek);
                         break;
 
                     case DisplayType.MonthWithDay:
-                        var monthAbbreviation = dateTimeFormat.GetAbbreviatedMonthName(currentDate.Month);
+                        var monthAbbreviation = formatInfo.GetAbbreviatedMonthName(currentDate.Month);
                         label.SetTextFormat("{0} {1}", currentDate.Day, monthAbbreviation);
                         break;
 
                     case DisplayType.Month:
-                        label.text = dateTimeFormat.GetAbbreviatedMonthName(currentDate.Month);
+                        label.text = formatInfo.GetAbbreviatedMonthName(currentDate.Month);
                         break;
                 }
             }

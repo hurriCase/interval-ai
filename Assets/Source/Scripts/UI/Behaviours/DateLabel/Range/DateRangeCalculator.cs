@@ -1,26 +1,17 @@
 ﻿using System;
-using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.UI.Behaviours.DateLabel.Base;
 
 namespace Source.Scripts.UI.Behaviours.DateLabel.Range
 {
     internal sealed class DateRangeCalculator : IDateRangeCalculator
     {
-        private readonly IUISettingsRepository _uiSettingsRepository;
-
-        internal DateRangeCalculator(IUISettingsRepository uiSettingsRepository)
-        {
-            _uiSettingsRepository = uiSettingsRepository;
-        }
-
-        public DateRangeData Calculate(DateRange dateRange, int pointsCount)
+        public DateTime[] Calculate(int totalDays, int pointsCount)
         {
             var endDate = DateTime.Now.Date;
-            var totalDays = dateRange.CalculateDayCount(_uiSettingsRepository);
             var startDate = endDate.AddDays(-totalDays + 1);
             var datePoints = CalculateDatePoints(startDate, totalDays, pointsCount);
 
-            return new DateRangeData(totalDays, datePoints);
+            return datePoints;
         }
 
         private DateTime[] CalculateDatePoints(DateTime startDate, int totalDays, int pointsCount)
