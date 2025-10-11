@@ -22,7 +22,6 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
 
         public GraphDisplayData GetDisplayGraphData(int totalDays, int pointsCount)
         {
-            var rangeData = CalculateDatePointsForRange(totalDays, pointsCount);
             var rawGraphData = GetGraphDataForRange(totalDays, pointsCount);
             var maxProgress = CalculateMaxProgress(rawGraphData);
 
@@ -31,27 +30,7 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
 
             var normalizedData = NormalizeAllData(rawGraphData, maxProgress);
 
-            return new GraphDisplayData(maxProgress, normalizedData, rangeData);
-        }
-
-        private DateTime[] CalculateDatePointsForRange(int totalDays, int pointsCount)
-        {
-            var endDate = DateTime.Now.Date;
-            var startDate = endDate.AddDays(-totalDays + 1);
-
-            if (pointsCount == 1)
-                return new[] { startDate };
-
-            var datePoints = new DateTime[pointsCount];
-            var intervalBetweenPoints = totalDays / (pointsCount - 1f);
-
-            for (var i = 0; i < pointsCount; i++)
-            {
-                var daysFromStart = intervalBetweenPoints * i;
-                datePoints[i] = startDate.AddDays(daysFromStart);
-            }
-
-            return datePoints;
+            return new GraphDisplayData(maxProgress, normalizedData);
         }
 
         private EnumArray<LearningState, int[]> GetGraphDataForRange(int totalDays, int pointsCount)

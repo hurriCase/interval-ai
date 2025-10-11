@@ -76,7 +76,7 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
             var pointCount = _progressGraphSettings.GraphPointsCount;
             var displayData = _graphDataProcessor.GetDisplayGraphData(totalDays, pointCount);
 
-            _dateLabelBehaviour.UpdateLabels(totalDays, displayData.RangeData, dateTimeFormatInfo);
+            _dateLabelBehaviour.UpdateLabels(totalDays, pointCount, dateTimeFormatInfo);
 
             _maxProgressText.text = displayData.MaxProgress.ToString();
 

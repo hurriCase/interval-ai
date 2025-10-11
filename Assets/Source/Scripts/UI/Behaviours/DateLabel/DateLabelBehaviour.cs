@@ -20,43 +20,24 @@ namespace Source.Scripts.UI.Behaviours.DateLabel
             _dateLabelConfig = dateLabelConfig;
         }
 
-        internal void UpdateLabels(int totalDays, IReadOnlyList<DateTime> datePoints, DateTimeFormatInfo formatInfo)
+        internal void UpdateLabels(int totalDays, int pointCount, DateTimeFormatInfo formatInfo)
         {
-            if (TryGetDisplayRuleData(totalDays, out var displayRule) is false)
+            if (TryGetDisplayRuleData(totalDays, out var displayType) is false)
                 return;
 
-            PopulateDateLabels(datePoints, displayRule.DisplayType, formatInfo);
-        }
-
-        private bool TryGetDisplayRuleData(int dayCount, out DisplayRuleData displayRuleData)
-        {
-            displayRuleData = null;
-            foreach (var ruleData in _dateLabelConfig.DisplayRules)
-            {
-                if (ruleData.DayCount < dayCount)
-                    continue;
-
-                displayRuleData = ruleData;
-                return true;
-            }
-
-            return false;
+            var dateRange = CalculateDatePointsForRange(totalDays, pointCount);
+            PopulateDateLabels(displayType, dateRange, formatInfo);
         }
 
         private void PopulateDateLabels(
-            IReadOnlyList<DateTime> datePoints,
             DisplayType displayType,
+            IReadOnlyList<DateTime> dateRange,
             DateTimeFormatInfo formatInfo)
         {
-            var labelCount = _labels.Length;
-
-            if (labelCount <= 0)
-                return;
-
-            for (var i = 0; i < labelCount; i++)
+            for (var i = 0; i < _labels.Length; i++)
             {
                 var label = _labels[i];
-                var currentDate = datePoints[i];
+                var currentDate = dateRange[i];
 
                 switch (displayType)
                 {
@@ -74,6 +55,41 @@ namespace Source.Scripts.UI.Behaviours.DateLabel
                         break;
                 }
             }
+        }
+
+        private bool TryGetDisplayRuleData(int dayCount, out DisplayType displayType)
+        {
+            displayType = DisplayType.DayOfWeek;
+            foreach (var ruleData in _dateLabelConfig.DisplayRules)
+            {
+                if (ruleData.DayCount < dayCount)
+                    continue;
+
+                displayType = ruleData.DisplayType;
+                return true;
+            }
+
+            return false;
+        }
+
+        private DateTime[] CalculateDatePointsForRange(int totalDays, int pointsCount)
+        {
+            var endDate = DateTime.Now.Date;
+            var startDate = endDate.AddDays(-totalDays + 1);
+
+            if (pointsCount == 1)
+                return new[] { startDate };
+
+            var datePoints = new DateTime[pointsCount];
+            var intervalBetweenPoints = totalDays / (pointsCount - 1f);
+
+            for (var i = 0; i < pointsCount; i++)
+            {
+                var daysFromStart = intervalBetweenPoints * i;
+                datePoints[i] = startDate.AddDays(daysFromStart);
+            }
+
+            return datePoints;
         }
     }
 }
