@@ -39,20 +39,21 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Selectio
         {
             base.UpdateView();
 
-            var randomWords = _wordsRepository.GetRandomWords(currentWord, SelectionCount - 1);
+            using var randomWords =
+                _wordsRepository.GetRandomWords(currentWord, SelectionCount - 1);
+
             _currentIndex = Random.Range(0, SelectionCount);
 
-            var index = -1;
-            foreach (var wordEntry in randomWords)
-            {
-                index++;
-                if (index == _currentIndex)
-                {
-                    index++;
-                    continue;
-                }
+            var randomWordsSpan = randomWords.Span;
+            var transitionIndex = 0;
 
-                InitTransitionObject(index, wordEntry, false);
+            foreach (var wordEntry in randomWordsSpan)
+            {
+                if (transitionIndex == _currentIndex)
+                    transitionIndex++;
+
+                InitTransitionObject(transitionIndex, wordEntry, false);
+                transitionIndex++;
             }
 
             InitTransitionObject(_currentIndex, currentWord, true);

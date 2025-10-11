@@ -95,12 +95,12 @@ namespace Source.Scripts.Core.Repositories.Words
             }
         }
 
-        public List<WordEntry> GetRandomWords(WordEntry wordToSkip, int count) =>
+        public PooledArray<WordEntry> GetRandomWords(WordEntry wordToSkip, int count) =>
             _wordEntries.Value.Values.AsValueEnumerable()
                 .Where(word => word != wordToSkip && word.IsHidden is false)
                 .OrderBy(_ => Random.value)
                 .Take(count)
-                .ToList();
+                .ToArrayPool();
 
         public void Dispose()
         {
