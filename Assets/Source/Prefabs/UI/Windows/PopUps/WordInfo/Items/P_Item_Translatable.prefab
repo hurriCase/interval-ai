@@ -130,6 +130,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3728116479594448287, guid: 53e49c9e591930243aac803278f3c16a, type: 3}
+      propertyPath: _translatedText
+      value: 
+      objectReference: {fileID: 722254819536714300}
+    - target: {fileID: 3728116479594448287, guid: 53e49c9e591930243aac803278f3c16a, type: 3}
+      propertyPath: _textsToTranslate
+      value: 
+      objectReference: {fileID: 7762286497893504738}
+    - target: {fileID: 3728116479594448287, guid: 53e49c9e591930243aac803278f3c16a, type: 3}
+      propertyPath: _translationAccordion
+      value: 
+      objectReference: {fileID: 7010172809663567811}
     - target: {fileID: 5284368234239781762, guid: 53e49c9e591930243aac803278f3c16a, type: 3}
       propertyPath: m_Name
       value: P_Button_Translate
@@ -472,6 +484,14 @@ PrefabInstance:
       propertyPath: targetComponent
       value: 
       objectReference: {fileID: 6012050987670554604}
+    - target: {fileID: 4034234312244808259, guid: 3f02755fe386ce9418b93faea58df5bb, type: 3}
+      propertyPath: currentColorName
+      value: Primary
+      objectReference: {fileID: 0}
+    - target: {fileID: 4315127316133820152, guid: 3f02755fe386ce9418b93faea58df5bb, type: 3}
+      propertyPath: _currentColorModifier
+      value: 
+      objectReference: {fileID: 953484737370507078}
     - target: {fileID: 6969518024441630214, guid: 3f02755fe386ce9418b93faea58df5bb, type: 3}
       propertyPath: m_Name
       value: P_Button_Audio
@@ -481,6 +501,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f02755fe386ce9418b93faea58df5bb, type: 3}
+--- !u!114 &953484737370507078 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4034234312244808259, guid: 3f02755fe386ce9418b93faea58df5bb, type: 3}
+  m_PrefabInstance: {fileID: 4235371474672848133}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8840dbee5a42476db6edcdcd70e84c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.ColorModifiers.SolidGenericColorModifier
 --- !u!224 &4002438687888932217 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 958293847947145340, guid: 3f02755fe386ce9418b93faea58df5bb, type: 3}
@@ -505,6 +536,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3191499188825149133}
     m_Modifications:
+    - target: {fileID: 1301261225333838716, guid: bed9a904e11bf4a41b23da0abe3ec5e3, type: 3}
+      propertyPath: _currentColorModifier
+      value: 
+      objectReference: {fileID: 47952129318145452}
     - target: {fileID: 1851110708190151269, guid: bed9a904e11bf4a41b23da0abe3ec5e3, type: 3}
       propertyPath: targetComponent
       value: 
@@ -589,6 +624,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4998023298060971314, guid: bed9a904e11bf4a41b23da0abe3ec5e3, type: 3}
+      propertyPath: currentColorName
+      value: Primary
+      objectReference: {fileID: 0}
     - target: {fileID: 5284368234239781762, guid: bed9a904e11bf4a41b23da0abe3ec5e3, type: 3}
       propertyPath: m_Name
       value: P_Button_Pin
@@ -598,6 +637,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bed9a904e11bf4a41b23da0abe3ec5e3, type: 3}
+--- !u!114 &47952129318145452 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4998023298060971314, guid: bed9a904e11bf4a41b23da0abe3ec5e3, type: 3}
+  m_PrefabInstance: {fileID: 5041453779224338590}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8840dbee5a42476db6edcdcd70e84c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.ColorModifiers.SolidColorModifier
 --- !u!114 &410860768466571251 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4631244343639781229, guid: bed9a904e11bf4a41b23da0abe3ec5e3, type: 3}
@@ -930,7 +980,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3688328562510994509, guid: c8cac319b9516a549bdf72d616a6fff3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -20.94
+      value: -16.94
       objectReference: {fileID: 0}
     - target: {fileID: 3688328562510994509, guid: c8cac319b9516a549bdf72d616a6fff3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1673,6 +1723,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 385260810748804253, guid: c8cac319b9516a549bdf72d616a6fff3, type: 3}
   m_PrefabInstance: {fileID: 6291990708662115682}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7010172809663567811 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3898014125934267041, guid: c8cac319b9516a549bdf72d616a6fff3, type: 3}
+  m_PrefabInstance: {fileID: 6291990708662115682}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8c24ecf1dde43438556146f9c83e79c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.Accordion.AccordionComponent
 --- !u!224 &7241286272557777199 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3688328562510994509, guid: c8cac319b9516a549bdf72d616a6fff3, type: 3}
@@ -1705,6 +1766,10 @@ PrefabInstance:
     - target: {fileID: 561403775900978418, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_Name
       value: P_Text_Native
+      objectReference: {fileID: 0}
+    - target: {fileID: 2558408827752567483, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+      propertyPath: currentColorName
+      value: TextPrimary
       objectReference: {fileID: 0}
     - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_Pivot.x
@@ -1772,7 +1837,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -16.470001
+      value: -8.47
       objectReference: {fileID: 0}
     - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1786,6 +1851,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5175023766961360262, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+      propertyPath: _currentColorModifier
+      value: 
+      objectReference: {fileID: 4882553686397779564}
     - target: {fileID: 7658068928977278699, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_text
       value: Text
@@ -1841,6 +1910,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4882553686397779564 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2558408827752567483, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+  m_PrefabInstance: {fileID: 6936418583231147223}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7460663793443217445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8840dbee5a42476db6edcdcd70e84c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.ColorModifiers.SolidColorModifier
 --- !u!224 &5277585152116428331 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}

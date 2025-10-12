@@ -36,7 +36,7 @@ namespace Source.Scripts.Main.UI.PopUps.Category
         private readonly ReactiveProperty<WordOrderType> _wordReviewSourceType = new(WordOrderType.Default);
         private CategoryEntry _currentCategoryEntry;
 
-        private UIPool<WordEntry, WordItem> _wordsPool;
+        private UIPoolWithData<WordEntry, WordItem> _wordsPoolWithData;
 
         private ILocalizationDatabase _localizationDatabase;
         private ICategoriesRepository _categoriesRepository;
@@ -70,11 +70,12 @@ namespace Source.Scripts.Main.UI.PopUps.Category
 
         internal override void Init()
         {
-            var poolConfig = new UIPoolEvents<WordEntry, WordItem>(
+            var uiPoolEvents = new UIPoolEvents<WordEntry, WordItem>(
                 (_, wordItem) => wordItem.Init(),
                 (wordEntry, wordItem) => wordItem.UpdateView(wordEntry));
 
-            _wordsPool = new UIPool<WordEntry, WordItem>(_wordItem, _wordsContainer, _objectResolver, poolConfig);
+            _wordsPoolWithData = new UIPoolWithData<WordEntry, WordItem>(
+                _wordItem, _wordsContainer, uiPoolEvents, _objectResolver);
 
             _deleteButton.OnClickAsObservable().SubscribeUntilDestroy(this, static self =>
                 self.OpenWarning(ModalLocalizationType.DeleteCategory, static self => self.RemoveCategory()));
@@ -112,14 +113,14 @@ namespace Source.Scripts.Main.UI.PopUps.Category
         {
             _categoryNameText.text = _currentCategoryEntry.LocalizationKey.GetLocalization();
 
-            _wordsPool.EnsureCount(_currentCategoryEntry.WordEntries);
+            _wordsPoolWithData.EnsureCount(_currentCategoryEntry.WordEntries);
         }
 
         private void ReorderWordItems(WordOrderType newOrder)
         {
             _categoryStateMutator.ChangeWordOrder(_currentCategoryEntry, newOrder);
 
-            _wordsPool.EnsureCount(_currentCategoryEntry.WordEntries);
+            _wordsPoolWithData.EnsureCount(_currentCategoryEntry.WordEntries);
         }
     }
 }

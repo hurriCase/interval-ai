@@ -17,7 +17,7 @@ namespace Source.Scripts.Main.UI.PopUps.Generation.Behaviours
         [SerializeField] private RectTransform _container;
         [SerializeField] private ExerciseItemBehaviourBase _itemPrefab;
 
-        private UIPool<ExerciseEntry, ExerciseItemBehaviourBase> _generationsPool;
+        private UIPoolWithData<ExerciseEntry, ExerciseItemBehaviourBase> _generationsPoolWithData;
 
         private IExercisesRepository _exercisesRepository;
         private IObjectResolver _objectResolver;
@@ -31,7 +31,7 @@ namespace Source.Scripts.Main.UI.PopUps.Generation.Behaviours
 
         internal void Init(ExerciseContainer exercisesPopUp)
         {
-            var data = new UIPoolEvents<ExerciseEntry, ExerciseItemBehaviourBase>(
+            var uiPoolEvents = new UIPoolEvents<ExerciseEntry, ExerciseItemBehaviourBase>(
                 (exercise, prefab) =>
                 {
                     prefab.Init(exercisesPopUp, exercise);
@@ -39,11 +39,11 @@ namespace Source.Scripts.Main.UI.PopUps.Generation.Behaviours
                 },
                 static (exercise, item) => item.UpdateView(exercise));
 
-            _generationsPool = new UIPool<ExerciseEntry, ExerciseItemBehaviourBase>(
+            _generationsPoolWithData = new UIPoolWithData<ExerciseEntry, ExerciseItemBehaviourBase>(
                 _itemPrefab,
                 _container,
-                _objectResolver,
-                data);
+                uiPoolEvents,
+                _objectResolver);
 
             _exercisesRepository.Exercises
                 .Select(this, (exercises, self) => exercises[self._exerciseType])
@@ -52,7 +52,7 @@ namespace Source.Scripts.Main.UI.PopUps.Generation.Behaviours
 
         private void UpdateView(Dictionary<int, ExerciseEntry> exercises)
         {
-            _generationsPool.EnsureCount(exercises.Values.ToList());
+            _generationsPoolWithData.EnsureCount(exercises.Values.ToList());
         }
     }
 }

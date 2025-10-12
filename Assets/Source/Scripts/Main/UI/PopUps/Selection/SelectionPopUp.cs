@@ -22,7 +22,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
 
         private IAnimationsConfig _animationsConfig;
 
-        private UIPool<ToggleComponent> _selectionPool;
+        private UIPoolBase<ToggleComponent> _selectionPoolBase;
 
         private DisposableBag _disposableBag;
 
@@ -34,7 +34,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
 
         internal override void Init()
         {
-            _selectionPool = new UIPool<ToggleComponent>(_selectionItem, _selectionsContainer);
+            _selectionPoolBase = new UIPoolBase<ToggleComponent>(_selectionItem, _selectionsContainer);
         }
 
         public void SetParameters<TValue>(ISelectionService<TValue> service)
@@ -57,7 +57,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
         {
             var selectionValues = service.SelectionValues;
 
-            _selectionPool.EnsureCount(selectionValues.Count);
+            _selectionPoolBase.EnsureCount(selectionValues.Count);
 
             for (var i = 0; i < selectionValues.Count; i++)
             {
@@ -68,7 +68,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
 
         private void SetSelectionItem<TValue>(int index, TValue selectionValue, ISelectionService<TValue> service)
         {
-            var selectionItem = _selectionPool.PooledItems[index];
+            var selectionItem = _selectionPoolBase.PooledItems[index];
 
             selectionItem.Text.text = service.GetSelectionName(selectionValue);
 
@@ -80,7 +80,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
 
         private void SubscribeToChanges<TValue>(int index, TValue selectionValue, ISelectionService<TValue> service)
         {
-            var selectionItem = _selectionPool.PooledItems[index];
+            var selectionItem = _selectionPoolBase.PooledItems[index];
 
             selectionItem.OnValueChangedAsObservable()
                 .Subscribe((selectionValue, service),

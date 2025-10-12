@@ -14,11 +14,11 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Answer
         [SerializeField] private ExampleItem _exampleItem;
         [SerializeField] private RectTransform _exampleContainer;
 
-        private UIPool<ExampleItem> _examplesPool;
+        private UIPoolBase<ExampleItem> _examplesPoolBase;
 
         public override void Init(PracticeState practiceState)
         {
-            _examplesPool = new UIPool<ExampleItem>(_exampleItem, _exampleContainer);
+            _examplesPoolBase = new UIPoolBase<ExampleItem>(_exampleItem, _exampleContainer);
         }
 
         protected override void UpdateView()
@@ -37,12 +37,12 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Answer
                 return;
 
             var examplesCount = examples.Count;
-            _examplesPool.EnsureCount(examplesCount);
+            _examplesPoolBase.EnsureCount(examplesCount);
 
             for (var i = 0; i < examplesCount; i++)
             {
                 var example = examples[i];
-                var item = _examplesPool.PooledItems[i];
+                var item = _examplesPoolBase.PooledItems[i];
 
                 item.ShownExampleText.text = example.GetShownText(practiceSettingsRepository);
                 item.HiddenExampleText.text = example.GetHiddenText(practiceSettingsRepository);

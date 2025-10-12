@@ -10,7 +10,7 @@ using VContainer;
 
 namespace Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours.AdditionalItems
 {
-    internal sealed class AnotherWordItem : MonoBehaviour, IAdditionalInfoItemBase<TranslationSet>
+    internal sealed class AnotherWordItem : AdditionalInfoItemBase<TranslationSet>
     {
         [SerializeField] private WordProgressBehaviour _wordProgressBehaviour;
         [SerializeField] private TextMeshProUGUI _learningWordText;
@@ -27,7 +27,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours.AdditionalItems
             _wordsRepository = wordsRepository;
         }
 
-        public void Init()
+        internal override void Init()
         {
             _wordProgressBehaviour.Init();
 
@@ -35,7 +35,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours.AdditionalItems
                 static (translationSet, self) => self._wordsRepository.AddWord(translationSet));
         }
 
-        public void UpdateView(TranslationSet translationSet)
+        internal override void UpdateView(TranslationSet translationSet)
         {
             _learningWordText.text = translationSet.Learning;
             _translationsText.text = translationSet.GetJoinedNativeWords();
