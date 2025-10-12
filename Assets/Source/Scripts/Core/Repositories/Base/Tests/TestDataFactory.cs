@@ -23,7 +23,7 @@ namespace Source.Scripts.Core.Repositories.Base.Tests
 
         public void CreateFakeProgress()
         {
-            var today = DateTime.Now.Date;
+            var today = DateOnly.FromDateTime(DateTime.Now);
 
             for (var i = 0; i < _testConfig.DayCountForFakeProgress; i++)
             {

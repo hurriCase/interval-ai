@@ -60,11 +60,11 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours
 
         private void UpdateProgressText()
         {
+            var today = DateOnly.FromDateTime(DateTime.Now);
             var progress = _progressRepository.ProgressHistory.CurrentValue;
-            var repeatableCount =
-                progress.TryGetValue(DateTime.Now, out var dailyProgress)
-                    ? Mathf.Max(0, dailyProgress.GetProgressCountData(LearningState.Review))
-                    : 0;
+            var repeatableCount = progress.TryGetValue(today, out var dailyProgress)
+                ? Mathf.Max(0, dailyProgress.GetProgressCountData(LearningState.Review))
+                : 0;
 
             _repetitionText.SetTextFormat(
                 _localizationKeysDatabase.GetLocalization(LocalizationType.RepetitionGoal),

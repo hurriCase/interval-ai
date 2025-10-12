@@ -96,8 +96,11 @@ namespace Source.Scripts.Core.Repositories.Words.Word
             {
                 var trackCondition = _appConfig.TrackConditionTypes[word.LearningState];
 
-                if (trackCondition == targetTrackCondition)
-                    _progressRepository.IncrementDailyProgress(word.LearningState, DateTime.Now);
+                if (trackCondition != targetTrackCondition)
+                    return;
+
+                var today = DateOnly.FromDateTime(DateTime.Now);
+                _progressRepository.IncrementDailyProgress(word.LearningState, today);
             }
 
             private void HandleReview(WordEntry word, bool success)

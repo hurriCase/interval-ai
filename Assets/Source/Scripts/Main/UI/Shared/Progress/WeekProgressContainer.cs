@@ -34,7 +34,7 @@ namespace Source.Scripts.Main.UI.Shared.Progress
             {
                 var dayIndex = weekStart + day;
                 var dailyProgress = monthData[dayIndex];
-                var dayText = dailyProgress.DateTime.Day.ToString();
+                var dayText = dailyProgress.Date.Day.ToString();
                 var isOutsideMonth = isInMonth[dayIndex] is false;
 
                 _progressItems[day].Init(

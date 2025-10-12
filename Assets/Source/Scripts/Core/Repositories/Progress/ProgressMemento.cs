@@ -13,7 +13,7 @@ namespace Source.Scripts.Core.Repositories.Progress
             private readonly int _bestStreak;
             private readonly EnumArray<LearningState, int> _totalCountByState;
             private readonly int _newWordsDailyTarget;
-            private readonly Dictionary<DateTime, DailyProgress> _progressHistory;
+            private readonly Dictionary<DateOnly, DailyProgress> _progressHistory;
 
             private readonly ProgressRepository _progressRepository;
 
@@ -23,7 +23,7 @@ namespace Source.Scripts.Core.Repositories.Progress
                 _bestStreak = progressRepository.BestStreak.CurrentValue;
                 _totalCountByState = progressRepository.TotalCountByState.CurrentValue;
                 _newWordsDailyTarget = progressRepository.NewWordsDailyTarget.CurrentValue;
-                _progressHistory = new Dictionary<DateTime, DailyProgress>(progressRepository.ProgressHistory.CurrentValue);
+                _progressHistory = new Dictionary<DateOnly, DailyProgress>(progressRepository.ProgressHistory.CurrentValue);
 
                 _progressRepository = progressRepository;
             }
@@ -34,7 +34,7 @@ namespace Source.Scripts.Core.Repositories.Progress
                 _progressRepository._bestStreak.Value = _bestStreak;
                 _progressRepository._totalCountByState.Value = _totalCountByState;
                 _progressRepository._newWordsDailyTarget.Value = _newWordsDailyTarget;
-                _progressRepository._progressHistory.Value = new Dictionary<DateTime, DailyProgress>(_progressHistory);
+                _progressRepository._progressHistory.Value = new Dictionary<DateOnly, DailyProgress>(_progressHistory);
             }
         }
     }

@@ -13,11 +13,11 @@ namespace Source.Scripts.Core.Repositories.Progress.Base
         ReadOnlyReactiveProperty<int> NewWordsDailyTarget { get; }
         ReadOnlyReactiveProperty<int> CurrentStreak { get; }
         ReadOnlyReactiveProperty<int> BestStreak { get; }
-        ReadOnlyReactiveProperty<Dictionary<DateTime, DailyProgress>> ProgressHistory { get; }
+        ReadOnlyReactiveProperty<Dictionary<DateOnly, DailyProgress>> ProgressHistory { get; }
         EnumArray<PracticeState, ReadOnlyReactiveProperty<int>> LearnedWordCounts { get; }
         Observable<int> OnGoalAchieved { get; }
         ReadOnlyReactiveProperty<bool> HasDailyTarget { get; }
-        void IncrementDailyProgress(LearningState learningState, DateTime date);
+        void IncrementDailyProgress(LearningState learningState, DateOnly date);
         void ChangeDailyTarget(int valueToAdd);
         ProgressRepository.ProgressMemento CreateMemento();
     }

@@ -30,7 +30,7 @@ namespace Source.Scripts.Core.Repositories.Progress
 
         public DailyProgress[] GetCurrentWeek()
         {
-            var today = DateTime.Now.Date;
+            var today = DateOnly.FromDateTime(DateTime.Now);
             var weekStart = GetFirstDayOfWeek(today);
 
             for (var i = 0; i < DaysPerWeek; i++)
@@ -47,7 +47,7 @@ namespace Source.Scripts.Core.Repositories.Progress
             if (_lastYear == year && _lastMonth == month)
                 return (_monthProgressData, _isInMonth);
 
-            var monthStart = new DateTime(year, month, 1);
+            var monthStart = new DateOnly(year, month, 1);
             var firstWeekStart = GetFirstDayOfWeek(monthStart);
             var calendarEnd = firstWeekStart.AddDays(CalendarWeeks * DaysPerWeek - 1);
             var dayIndex = 0;
@@ -65,19 +65,10 @@ namespace Source.Scripts.Core.Repositories.Progress
             return (_monthProgressData, _isInMonth);
         }
 
-        public int GetProgressForDate(DateTime date, LearningState learningState)
-        {
-            var progressEntry = _progressRepository.ProgressHistory.CurrentValue;
-
-            if (progressEntry.TryGetValue(date.Date, out var dailyProgress) is false)
-                return 0;
-
-            return dailyProgress.GetProgressCountData(learningState);
-        }
-
         public int GetProgressForRange(int daysBack, int daysDuration, LearningState learningState)
         {
-            var endDate = DateTime.Now.Date.AddDays(-daysBack);
+            var now = DateOnly.FromDateTime(DateTime.Now);
+            var endDate = now.AddDays(-daysBack);
             var startDate = endDate.AddDays(-daysDuration + 1);
             var progressEntry = _progressRepository.ProgressHistory.CurrentValue;
             var totalProgress = 0;
@@ -91,7 +82,7 @@ namespace Source.Scripts.Core.Repositories.Progress
             return totalProgress;
         }
 
-        private DailyProgress GetProgressForDateOrDefault(DateTime date)
+        private DailyProgress GetProgressForDateOrDefault(DateOnly date)
         {
             var progressEntry = _progressRepository.ProgressHistory.CurrentValue;
 
@@ -100,13 +91,13 @@ namespace Source.Scripts.Core.Repositories.Progress
                 : new DailyProgress(date);
         }
 
-        private DateTime GetFirstDayOfWeek(DateTime date)
+        private DateOnly GetFirstDayOfWeek(DateOnly date)
         {
             var daysFromFirstDay = GetDayIndexInWeek(date);
             return date.AddDays(-daysFromFirstDay);
         }
 
-        private int GetDayIndexInWeek(DateTime date)
+        private int GetDayIndexInWeek(DateOnly date)
         {
             var firstDayOfWeek = _uiSettingsRepository.CurrentCulture.Value.DateTimeFormat.FirstDayOfWeek;
             return ((int)date.DayOfWeek - (int)firstDayOfWeek + DaysPerWeek) % DaysPerWeek;

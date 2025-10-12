@@ -11,9 +11,10 @@ namespace Source.Scripts.Core.Repositories.Statistics
     internal sealed class StatisticsRepository : IStatisticsRepository, IRepository, IDisposable
     {
         public PersistentReactiveProperty<bool> IsCompleteOnboarding { get; } = new();
-        public PersistentReactiveProperty<Dictionary<DateTime, bool>> LoginHistory { get; } = new();
-
         public Observable<Unit> OnNewLogin => _newLogin;
+
+        private readonly PersistentReactiveProperty<Dictionary<DateOnly, bool>> _loginHistory = new();
+
         private readonly Subject<Unit> _newLogin = new();
 
         public async UniTask InitAsync(CancellationToken token)
@@ -22,22 +23,32 @@ namespace Source.Scripts.Core.Repositories.Statistics
             {
                 IsCompleteOnboarding.InitAsync(PersistentKeys.IsCompleteOnboardingKey, token),
 
-                LoginHistory.InitAsync(
+                _loginHistory.InitAsync(
                     PersistentKeys.LoginHistoryKey,
                     token,
-                    new Dictionary<DateTime, bool>())
+                    new Dictionary<DateOnly, bool>())
             };
 
-            if (LoginHistory.Value.TryGetValue(DateTime.Now, out _) is false)
-                _newLogin.OnNext(Unit.Default);
-
             await UniTask.WhenAll(initTasks);
+        }
+
+        public void MarkNewLogin()
+        {
+            var today = DateOnly.FromDateTime(DateTime.Now);
+            if (_loginHistory.Value.TryGetValue(today, out var isNewLogin) && isNewLogin)
+                return;
+
+            _loginHistory.Value[today] = true;
+            _loginHistory.SaveAsync();
+
+            _newLogin.OnNext(Unit.Default);
         }
 
         public void Dispose()
         {
             IsCompleteOnboarding.Dispose();
-            LoginHistory.Dispose();
+            _loginHistory.Dispose();
+            _newLogin.Dispose();
         }
     }
 }

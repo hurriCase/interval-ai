@@ -40,7 +40,7 @@ namespace Source.Scripts.Bootstrap.Core
         {
             await InitSteps(token);
 
-            _statisticsRepository.LoginHistory.Value[DateTime.Now] = true;
+            _statisticsRepository.MarkNewLogin();
 
             var sceneAddressToLoad = _statisticsRepository.IsCompleteOnboarding.Value
                 ? _sceneReferences.MainMenuScene.Address

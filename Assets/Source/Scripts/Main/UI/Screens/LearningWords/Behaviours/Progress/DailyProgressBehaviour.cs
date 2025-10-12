@@ -61,7 +61,8 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.Progress
             var progressHistory = _progressRepository.ProgressHistory.CurrentValue;
             var dailyGoal = Mathf.Max(1, _progressRepository.NewWordsDailyTarget.CurrentValue);
 
-            var learnedCount = progressHistory.TryGetValue(DateTime.Now, out var dailyProgress)
+            var today = DateOnly.FromDateTime(DateTime.Now);
+            var learnedCount = progressHistory.TryGetValue(today, out var dailyProgress)
                 ? Mathf.Max(0, dailyProgress.GetProgressCountData(LearningState.CurrentlyLearning))
                 : 0;
 

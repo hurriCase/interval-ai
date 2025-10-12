@@ -21,14 +21,14 @@ namespace Source.Scripts.Core.Repositories.Progress
         public ReadOnlyReactiveProperty<int> BestStreak => _bestStreak.Property;
         public ReadOnlyReactiveProperty<int> NewWordsDailyTarget => _newWordsDailyTarget.Property;
         public ReadOnlyReactiveProperty<EnumArray<LearningState, int>> TotalCountByState => _totalCountByState.Property;
-        public ReadOnlyReactiveProperty<Dictionary<DateTime, DailyProgress>> ProgressHistory =>
+        public ReadOnlyReactiveProperty<Dictionary<DateOnly, DailyProgress>> ProgressHistory =>
             _progressHistory.Property;
 
         private readonly PersistentReactiveProperty<int> _currentStreak = new();
         private readonly PersistentReactiveProperty<int> _bestStreak = new();
         private readonly PersistentReactiveProperty<int> _newWordsDailyTarget = new();
         private readonly PersistentReactiveProperty<EnumArray<LearningState, int>> _totalCountByState = new();
-        private readonly PersistentReactiveProperty<Dictionary<DateTime, DailyProgress>> _progressHistory = new();
+        private readonly PersistentReactiveProperty<Dictionary<DateOnly, DailyProgress>> _progressHistory = new();
 
         public EnumArray<PracticeState, ReadOnlyReactiveProperty<int>> LearnedWordCounts { get; }
             = new(EnumMode.SkipFirst);
@@ -81,7 +81,7 @@ namespace Source.Scripts.Core.Repositories.Progress
                 _progressHistory.InitAsync(
                     PersistentKeys.ProgressHistoryKey,
                     token,
-                    new Dictionary<DateTime, DailyProgress>())
+                    new Dictionary<DateOnly, DailyProgress>())
             };
 
             await UniTask.WhenAll(initTasks);
@@ -102,7 +102,7 @@ namespace Source.Scripts.Core.Repositories.Progress
             _newWordsDailyTarget.Value = _practiceSettingsRepository.DailyGoal.Value;
         }
 
-        public void IncrementDailyProgress(LearningState learningState, DateTime date)
+        public void IncrementDailyProgress(LearningState learningState, DateOnly date)
         {
             var dailyProgress = GetOrCreateDailyProgress(date);
 
@@ -116,7 +116,7 @@ namespace Source.Scripts.Core.Repositories.Progress
 
             CheckLearnedWordsChanges(learningState);
 
-            _progressHistory.Value[date.Date] = dailyProgress;
+            _progressHistory.Value[date] = dailyProgress;
             _progressHistory.Property.OnNext(_progressHistory.Value);
 
             IncreaseTotalCount(learningState);
@@ -139,7 +139,8 @@ namespace Source.Scripts.Core.Repositories.Progress
                 if (requestedLearningState != learningState)
                     continue;
 
-                var todayProgress = GetOrCreateDailyProgress(DateTime.Today);
+                var today = DateOnly.FromDateTime(DateTime.Now);
+                var todayProgress = GetOrCreateDailyProgress(today);
                 _learnedWordCounts[practiceState].OnNext(todayProgress.ProgressByState[learningState]);
             }
         }
@@ -162,7 +163,7 @@ namespace Source.Scripts.Core.Repositories.Progress
             _goalAchieved.OnNext(currentCount);
         }
 
-        private DailyProgress GetOrCreateDailyProgress(DateTime date)
+        private DailyProgress GetOrCreateDailyProgress(DateOnly date)
         {
             if (_progressHistory.Value.TryGetValue(date, out var dailyProgress))
                 return dailyProgress;
@@ -175,7 +176,8 @@ namespace Source.Scripts.Core.Repositories.Progress
 
         private void CheckStreak()
         {
-            var yesterdayDate = DateTime.Now.Date.AddDays(-1);
+            var todayDate = DateOnly.FromDateTime(DateTime.Now);
+            var yesterdayDate = todayDate.AddDays(-1);
             _progressHistory.Value.TryGetValue(yesterdayDate, out var lastDayProgress);
 
             if (lastDayProgress.GoalAchieved is false)

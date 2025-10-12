@@ -8,21 +8,21 @@ namespace Source.Scripts.Core.Repositories.Progress
     [MemoryPackable]
     internal partial struct DailyProgress
     {
-        public DateTime DateTime { get; }
+        public DateOnly Date { get; }
         public bool GoalAchieved { get; set; }
         public EnumArray<LearningState, int> ProgressByState { get; private set; }
 
         [MemoryPackConstructor]
-        public DailyProgress(EnumArray<LearningState, int> progressByState, bool goalAchieved, DateTime dateTime)
+        public DailyProgress(EnumArray<LearningState, int> progressByState, bool goalAchieved, DateOnly date)
         {
             ProgressByState = progressByState;
             GoalAchieved = goalAchieved;
-            DateTime = dateTime;
+            Date = date;
         }
 
-        public DailyProgress(DateTime dateTime)
+        public DailyProgress(DateOnly date)
         {
-            DateTime = dateTime;
+            Date = date;
             GoalAchieved = false;
             ProgressByState = new EnumArray<LearningState, int>(EnumMode.SkipFirst);
         }
