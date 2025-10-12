@@ -31,17 +31,17 @@ namespace Source.Scripts.Main.DI
 
             builder.RegisterComponent(_progressGraphSettings).AsImplementedInterfaces();
 
-            builder.Register<PracticeStateService>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.Register<PracticeStateService>(Lifetime.Singleton).AsImplementedInterfaces();
 
-            builder.Register<MainCurrentWordFactory>(Lifetime.Scoped).AsImplementedInterfaces();
-            builder.Register<ModuleServiceFactory>(Lifetime.Scoped).AsImplementedInterfaces();
-            builder.Register<CompleteServiceFactory>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.Register<CurrentWordFactory>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<ModuleServiceFactory>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<CompleteServiceFactory>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<WordAdvanceFactory>(Lifetime.Singleton).AsImplementedInterfaces();
 
             builder.Register<WordsTimerService>(Lifetime.Singleton).AsImplementedInterfaces();
 
-            builder.Register<CategorySelectionService>(Lifetime.Scoped).AsSelf();
-            builder.Register<WordCategorySelectionService>(Lifetime.Scoped).AsSelf();
+            builder.Register<CategorySelectionService>(Lifetime.Singleton).AsSelf();
+            builder.Register<WordCategorySelectionService>(Lifetime.Singleton).AsSelf();
 
             builder.Register<GraphDataProcessor>(Lifetime.Singleton).AsImplementedInterfaces();
 

@@ -5,9 +5,11 @@ using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Base.CurrentWord;
 using Source.Scripts.Core.Repositories.Words.Word;
+using UnityEngine.Scripting;
 
 namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete.CompleteState
 {
+    [Preserve]
     internal sealed class CompleteStateService : ICompleteStateService, IDisposable
     {
         public ReadOnlyReactiveProperty<CompleteType> CompleteStates => _completeStates;
@@ -17,6 +19,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
 
         private readonly ICurrentWordService _currentWordService;
 
+        [Preserve]
         internal CompleteStateService(
             ICurrentWordFactory currentWordFactory,
             IProgressRepository progressRepository,

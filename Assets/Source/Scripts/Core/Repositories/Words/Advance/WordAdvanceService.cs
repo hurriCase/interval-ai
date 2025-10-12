@@ -7,9 +7,11 @@ using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Base.CurrentWord;
 using Source.Scripts.Core.Repositories.Words.Word;
+using UnityEngine.Scripting;
 
 namespace Source.Scripts.Core.Repositories.Words.Advance
 {
+    [Preserve]
     internal sealed class WordAdvanceService : IWordAdvanceService, IDisposable
     {
         public ReadOnlyReactiveProperty<bool> CanUndo => _canUndo;
@@ -23,6 +25,7 @@ namespace Source.Scripts.Core.Repositories.Words.Advance
         private readonly IWordsTimerService _wordsTimerService;
         private readonly IWordStateMutator _wordStateMutator;
 
+        [Preserve]
         internal WordAdvanceService(
             PracticeState practiceState,
             ICurrentWordFactory currentWordFactory,

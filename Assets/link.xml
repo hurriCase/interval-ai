@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<linker>
+    <!-- Preserve LanguageDetection assembly -->
+    <assembly fullname="LanguageDetection" preserve="all">
+        <type fullname="LanguageDetection.LanguageDetector" preserve="all" />
+        <type fullname="LanguageDetection.LanguageDetector+JsonLanguageProfile" preserve="all" />
+    </assembly>
+</linker>

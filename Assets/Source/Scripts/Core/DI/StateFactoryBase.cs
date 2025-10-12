@@ -5,6 +5,7 @@ using VContainer.Unity;
 
 namespace Source.Scripts.Core.DI
 {
+    [Preserve]
     internal abstract class ResolverStateFactory<TKey, TService, TInterface> : IDisposable
         where TService : class
         where TInterface : class
@@ -14,6 +15,7 @@ namespace Source.Scripts.Core.DI
 
         private readonly LifetimeScope _parentScope;
 
+        [Preserve]
         protected ResolverStateFactory(LifetimeScope parentScope)
         {
             _parentScope = parentScope;

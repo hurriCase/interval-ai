@@ -6,10 +6,12 @@ using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Base.CurrentWord;
 using Source.Scripts.Core.Repositories.Words.Word;
+using UnityEngine.Scripting;
 
 namespace Source.Scripts.Main.Data.CurrentWord
 {
-    internal sealed class MainCurrentWordService : ICurrentWordService, IDisposable
+    [Preserve]
+    internal sealed class CurrentWordService : ICurrentWordService, IDisposable
     {
         public ReadOnlyReactiveProperty<WordEntry> CurrentWord => _currentWord;
 
@@ -20,7 +22,8 @@ namespace Source.Scripts.Main.Data.CurrentWord
         private readonly IAppConfig _appConfig;
         private readonly PracticeState _practiceState;
 
-        internal MainCurrentWordService(
+        [Preserve]
+        internal CurrentWordService(
             IProgressRepository progressRepository,
             IWordsRepository wordsRepository,
             IAppConfig appConfig,

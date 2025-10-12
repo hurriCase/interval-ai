@@ -2,11 +2,13 @@
 using CustomUtils.Runtime.CSV.CSVEntry;
 using CustomUtils.Runtime.Extensions;
 using Source.Scripts.Core.Localization.Translator.Translations;
+using UnityEngine.Scripting;
 
 namespace Source.Scripts.Core.Repositories.Words.Word
 {
     internal sealed partial class WordEntry
     {
+        [Preserve]
         internal sealed class WordConverter : CsvConverterBase<WordEntry>
         {
             private const string WordName = "Word";
@@ -21,6 +23,7 @@ namespace Source.Scripts.Core.Repositories.Words.Word
 
             private readonly ITranslationParser _translationParser;
 
+            [Preserve]
             internal WordConverter(ITranslationParser translationParser)
             {
                 _translationParser = translationParser;

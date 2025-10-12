@@ -4,9 +4,11 @@ using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Base.CurrentWord;
+using UnityEngine.Scripting;
 
 namespace Source.Scripts.Core.Repositories.Words.ModuleState
 {
+    [Preserve]
     internal sealed class ModuleStateService : IModuleStateService, IDisposable
     {
         public ReadOnlyReactiveProperty<ModuleType> CurrentState => _currentState;
@@ -17,6 +19,7 @@ namespace Source.Scripts.Core.Repositories.Words.ModuleState
         private readonly IAppConfig _appConfig;
         private readonly PracticeState _practiceState;
 
+        [Preserve]
         internal ModuleStateService(
             ICurrentWordFactory currentWordFactory,
             IAppConfig appConfig,
@@ -35,6 +38,7 @@ namespace Source.Scripts.Core.Repositories.Words.ModuleState
         public void SetState(ModuleType moduleType)
         {
             _currentState.Value = moduleType;
+            _currentState.OnNext(moduleType);
         }
 
         private void HandleNewWord()

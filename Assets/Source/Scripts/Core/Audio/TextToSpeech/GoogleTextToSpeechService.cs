@@ -5,9 +5,11 @@ using Source.Scripts.Core.Api.Interfaces;
 using Source.Scripts.Core.Audio.Sounds.Base;
 using Source.Scripts.Core.Audio.TextToSpeech.Data;
 using UnityEngine;
+using UnityEngine.Scripting;
 
 namespace Source.Scripts.Core.Audio.TextToSpeech
 {
+    [Preserve]
     internal sealed class GoogleTextToSpeechService : ApiServiceBase<GoogleTextToSpeechConfig>, ITextToSpeech
     {
         private readonly IAudioHandlerProvider _audioHandlerProvider;
