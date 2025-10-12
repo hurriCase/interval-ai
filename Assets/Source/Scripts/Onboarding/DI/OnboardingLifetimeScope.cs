@@ -21,12 +21,13 @@ namespace Source.Scripts.Onboarding.DI
             builder.RegisterComponent(_windowsController).AsImplementedInterfaces();
             builder.RegisterInstance(_onboardingConfig).AsImplementedInterfaces();
 
-            builder.Register<ModuleServiceFactory>(Lifetime.Scoped).AsImplementedInterfaces();
-            builder.Register<WordAdvanceFactory>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.Register<ModuleServiceFactory>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<WordAdvanceFactory>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<OnboardingCurrentWordFactory>(Lifetime.Singleton).AsImplementedInterfaces();
 
             builder.Register<PracticeStateService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<WordsTimerService>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<OnboardingCurrentWordService>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.Register<OnboardingCurrentWordService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.RegisterInstance(_defaultOnboardingDatabase)
                 .As<DefaultOnboardingDatabase>()
                 .AsImplementedInterfaces();

@@ -34,8 +34,8 @@ namespace Source.Scripts.Onboarding.UI.OnboardingPractice
         private int _currentStepIndex = -1;
 
         private IPracticeStateService _practiceStateService;
-        private IModuleStateFactory _moduleStateFactory;
-        private IOnboardingConfig _onboardingConfig;
+        private IModuleStateService _moduleStateService;
+        private PracticeState _onboardingPracticeState;
 
         [Inject]
         internal void Inject(
@@ -43,15 +43,16 @@ namespace Source.Scripts.Onboarding.UI.OnboardingPractice
             IModuleStateFactory moduleStateFactory,
             IOnboardingConfig onboardingConfig)
         {
-            _moduleStateFactory = moduleStateFactory;
             _practiceStateService = practiceStateService;
-            _onboardingConfig = onboardingConfig;
+            _onboardingPracticeState = onboardingConfig.OnboardingPracticeState;
+            _moduleStateService = moduleStateFactory.GetOrCreate(_onboardingPracticeState);
         }
 
         internal void SwitchStep(PracticeState practiceState, ModuleType moduleType)
         {
             _practiceStateService.SetState(practiceState);
-            _moduleStateFactory.GetOrCreate(practiceState).SetState(moduleType);
+            _moduleStateService.SetState(moduleType);
+
             _currentStepIndex++;
 
             UpdateView();
@@ -59,10 +60,8 @@ namespace Source.Scripts.Onboarding.UI.OnboardingPractice
 
         internal override void Init()
         {
-            var practiceState = _onboardingConfig.OnboardingPracticeState;
-
-            _cardBehaviour.Init(practiceState);
-            _controlButtonsBehaviour.Init(practiceState);
+            _cardBehaviour.Init(_onboardingPracticeState);
+            _controlButtonsBehaviour.Init(_onboardingPracticeState);
 
             foreach (var wordPracticeStepData in _practiceSteps)
             {
