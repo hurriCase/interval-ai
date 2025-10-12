@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using CustomUtils.Runtime.Extensions;
-using Source.Scripts.Core.Others;
+using Source.Scripts.Core.Others.UIPools;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours.AdditionalItems;
 using Source.Scripts.UI.Components.Accordion;

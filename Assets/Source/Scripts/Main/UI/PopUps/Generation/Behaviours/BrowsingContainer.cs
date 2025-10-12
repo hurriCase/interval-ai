@@ -2,7 +2,7 @@
 using System.Linq;
 using CustomUtils.Runtime.Extensions.Observables;
 using R3;
-using Source.Scripts.Core.Others;
+using Source.Scripts.Core.Others.UIPools;
 using Source.Scripts.Core.Repositories.Exercises;
 using Source.Scripts.Core.Repositories.Exercises.Exercise;
 using Source.Scripts.Main.UI.PopUps.Generation.Behaviours.BrowsingItems;

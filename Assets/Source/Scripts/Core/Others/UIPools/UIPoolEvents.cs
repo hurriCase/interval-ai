@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Source.Scripts.Core.Others
+namespace Source.Scripts.Core.Others.UIPools
 {
     internal readonly struct UIPoolEvents<TData, TPrefab> where TPrefab : MonoBehaviour
     {

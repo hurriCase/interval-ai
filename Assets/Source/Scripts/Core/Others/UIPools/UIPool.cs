@@ -5,28 +5,27 @@ using VContainer;
 using VContainer.Unity;
 using Object = UnityEngine.Object;
 
-namespace Source.Scripts.Core.Others
+namespace Source.Scripts.Core.Others.UIPools
 {
-    internal class UIPoolBase<TPrefab> where TPrefab : MonoBehaviour
+    internal class UIPool<TPrefab> where TPrefab : MonoBehaviour
     {
         internal IReadOnlyList<TPrefab> PooledItems => _pooledItems;
+        private readonly List<TPrefab> _pooledItems;
 
         private readonly TPrefab _prefab;
         private readonly RectTransform _container;
 
-        private readonly List<TPrefab> _pooledItems;
-
         private readonly IObjectResolver _objectResolver;
 
-        internal UIPoolBase(
+        internal UIPool(
             [NotNull] TPrefab prefab,
             [NotNull] RectTransform container,
             IObjectResolver objectResolver = null)
         {
+            _pooledItems = new List<TPrefab>();
             _prefab = prefab;
             _container = container;
             _objectResolver = objectResolver;
-            _pooledItems = new List<TPrefab>();
         }
 
         internal void EnsureCount(int desiredCount)

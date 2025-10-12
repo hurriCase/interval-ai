@@ -1,6 +1,6 @@
 ﻿using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Localization.Translator.Translations;
-using Source.Scripts.Core.Others;
+using Source.Scripts.Core.Others.UIPools;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base;
 using TMPro;
 using UnityEngine;
@@ -14,11 +14,11 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Answer
         [SerializeField] private ExampleItem _exampleItem;
         [SerializeField] private RectTransform _exampleContainer;
 
-        private UIPoolBase<ExampleItem> _examplesPoolBase;
+        private UIPool<ExampleItem> _examplesPool;
 
         public override void Init(PracticeState practiceState)
         {
-            _examplesPoolBase = new UIPoolBase<ExampleItem>(_exampleItem, _exampleContainer);
+            _examplesPool = new UIPool<ExampleItem>(_exampleItem, _exampleContainer);
         }
 
         protected override void UpdateView()
@@ -37,12 +37,12 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Answer
                 return;
 
             var examplesCount = examples.Count;
-            _examplesPoolBase.EnsureCount(examplesCount);
+            _examplesPool.EnsureCount(examplesCount);
 
             for (var i = 0; i < examplesCount; i++)
             {
                 var example = examples[i];
-                var item = _examplesPoolBase.PooledItems[i];
+                var item = _examplesPool.PooledItems[i];
 
                 item.ShownExampleText.text = example.GetShownText(practiceSettingsRepository);
                 item.HiddenExampleText.text = example.GetHiddenText(practiceSettingsRepository);

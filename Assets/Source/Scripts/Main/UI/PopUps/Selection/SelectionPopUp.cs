@@ -1,7 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using PrimeTween;
 using R3;
-using Source.Scripts.Core.Others;
+using Source.Scripts.Core.Others.UIPools;
 using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Data;
 using Source.Scripts.UI.Windows.Base;
@@ -22,7 +22,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
 
         private IAnimationsConfig _animationsConfig;
 
-        private UIPoolBase<ToggleComponent> _selectionPoolBase;
+        private UIPool<ToggleComponent> _selectionPool;
 
         private DisposableBag _disposableBag;
 
@@ -34,7 +34,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
 
         internal override void Init()
         {
-            _selectionPoolBase = new UIPoolBase<ToggleComponent>(_selectionItem, _selectionsContainer);
+            _selectionPool = new UIPool<ToggleComponent>(_selectionItem, _selectionsContainer);
         }
 
         public void SetParameters<TValue>(ISelectionService<TValue> service)
@@ -57,7 +57,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
         {
             var selectionValues = service.SelectionValues;
 
-            _selectionPoolBase.EnsureCount(selectionValues.Count);
+            _selectionPool.EnsureCount(selectionValues.Count);
 
             for (var i = 0; i < selectionValues.Count; i++)
             {
@@ -68,7 +68,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
 
         private void SetSelectionItem<TValue>(int index, TValue selectionValue, ISelectionService<TValue> service)
         {
-            var selectionItem = _selectionPoolBase.PooledItems[index];
+            var selectionItem = _selectionPool.PooledItems[index];
 
             selectionItem.Text.text = service.GetSelectionName(selectionValue);
 
@@ -80,7 +80,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
 
         private void SubscribeToChanges<TValue>(int index, TValue selectionValue, ISelectionService<TValue> service)
         {
-            var selectionItem = _selectionPoolBase.PooledItems[index];
+            var selectionItem = _selectionPool.PooledItems[index];
 
             selectionItem.OnValueChangedAsObservable()
                 .Subscribe((selectionValue, service),

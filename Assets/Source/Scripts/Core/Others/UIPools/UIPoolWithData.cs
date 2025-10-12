@@ -3,9 +3,9 @@ using JetBrains.Annotations;
 using UnityEngine;
 using VContainer;
 
-namespace Source.Scripts.Core.Others
+namespace Source.Scripts.Core.Others.UIPools
 {
-    internal sealed class UIPoolWithData<TData, TPrefab> : UIPoolBase<TPrefab> where TPrefab : MonoBehaviour
+    internal sealed class UIPoolWithData<TData, TPrefab> : UIPool<TPrefab> where TPrefab : MonoBehaviour
     {
         private readonly UIPoolEvents<TData, TPrefab> _uiPoolEvents;
 
