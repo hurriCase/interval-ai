@@ -98,7 +98,7 @@ Assets/Source/
 ### WindowsController ([Custom](Assets/Source/Scripts/UI/Windows/Base/WindowsController.cs "WindowsController class"))
 
 **Purpose**: UI navigation and lifecycle management
-- **Screens:** Full-screen UI for primary navigation, see [LearningWordScreen](Assets/Source/Scripts/Main/UI/Screens/LearningWords/LearningWordScreen.cs "LearningWordScreen class")
+- **Screens:** Full-screen UI for primary navigation, see [MainScreen](Assets/Source/Scripts/Main/UI/Screens/LearningWords/MainScreen.cs "MainScreen class")
 - **PopUps:** Overlay UI with stacking and back navigation, see [WordPracticePopUp](Assets/Source/Scripts/Main/UI/PopUps/WordPractice/WordPracticePopUp.cs "WordPracticePopUp class")
 - Two popup opening approaches: direct type-based (`OpenPopUpByType`) or generic with parameters (`OpenPopUp<T>`)
 - See [MenuBehaviour](Assets/Source/Scripts/Main/UI/Base/MenuBehaviour.cs "MenuBehaviour class") for screen navigation example
