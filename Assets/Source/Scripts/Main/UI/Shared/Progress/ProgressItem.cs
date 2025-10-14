@@ -9,18 +9,16 @@ using ZLinq;
 
 namespace Source.Scripts.Main.UI.Shared.Progress
 {
-    internal sealed class ProgressItem : MonoBehaviour
+    internal class ProgressItem : MonoBehaviour
     {
-        [SerializeField] private GameObject _fireIcon;
-        [SerializeField] private TextMeshProUGUI _dateIdentifierText;
+        [SerializeField] protected TextMeshProUGUI dateIdentifierText;
+        [SerializeField] protected EnumArray<LearningState, ProgressSectionItem> progressSections = new(EnumMode.SkipFirst);
+
         [SerializeField] private ThemeComponent _dateIdentifierTheme;
         [SerializeField] private float _spacingBetweenSections;
         [SerializeField] private float _activeThicknessRatio;
         [SerializeField] private float _inActiveThicknessRatio;
-        [SerializeField] [field: Range(0f, 1f)] private float _alphaForExtraDays;
         [SerializeField] private EnumArray<LearningState, int> _defaultProgressPercentages = new(EnumMode.SkipFirst);
-
-        [SerializeField] private EnumArray<LearningState, ProgressSectionItem> _progressSections = new(EnumMode.SkipFirst);
 
         private const int Circumference = 360;
 
@@ -28,13 +26,12 @@ namespace Source.Scripts.Main.UI.Shared.Progress
             EnumArray<LearningState, int> progress,
             string dateIdentifierText,
             ThemeStateMappingGeneric<LearningState> progressColorMapping,
-            ThemeStateMappingGeneric<ActivityState> dateIdentifierMapping = null,
-            bool isOutsideMonth = false)
+            ThemeStateMappingGeneric<ActivityState> dateIdentifierMapping = null)
         {
-            _dateIdentifierText.text = dateIdentifierText;
+            this.dateIdentifierText.text = dateIdentifierText;
 
             var totalCount = progress.Entries.AsValueEnumerable().Sum(entry => entry.Value);
-            var isActive = totalCount > 0 && isOutsideMonth is false;
+            var isActive = totalCount > 0;
 
             if (isActive)
                 SetProgress(progress, totalCount, progressColorMapping, _activeThicknessRatio);
@@ -45,11 +42,7 @@ namespace Source.Scripts.Main.UI.Shared.Progress
                     _inActiveThicknessRatio,
                     LearningState.Default);
 
-            if (_fireIcon)
-                _fireIcon.SetActive(isActive);
-
-            if (isOutsideMonth)
-                ApplyOutsideMonthEffect();
+            OnInit(isActive);
 
             if (!dateIdentifierMapping)
                 return;
@@ -58,13 +51,7 @@ namespace Source.Scripts.Main.UI.Shared.Progress
             dateIdentifierMapping.SetComponentForState(dateIdentifierColorType, _dateIdentifierTheme);
         }
 
-        private void ApplyOutsideMonthEffect()
-        {
-            foreach (var sectionData in _progressSections)
-                sectionData.RoundedFilledImage.SetAlpha(_alphaForExtraDays);
-
-            _dateIdentifierText.SetAlpha(_alphaForExtraDays);
-        }
+        protected virtual void OnInit(bool isActive) { }
 
         // TODO: <Dmitriy.Sukharev> Fix invisible micro-progress - show minimum visible progress instead of discarding
         private void SetProgress(
@@ -79,7 +66,7 @@ namespace Source.Scripts.Main.UI.Shared.Progress
 
             var progressToDiscard = GetProgressToDiscard(progresses, totalCount, spacing);
             totalCount -= progressToDiscard;
-            foreach (var (state, sectionData) in _progressSections.AsTuples())
+            foreach (var (state, sectionData) in progressSections.AsTuples())
             {
                 var wordCount = progresses[state];
                 var progressRatio = (float)wordCount / totalCount;

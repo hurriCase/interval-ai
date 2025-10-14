@@ -12,7 +12,7 @@ namespace Source.Scripts.Main.UI.Shared.Progress
     {
         [SerializeField] private ProgressColorMapping _progressColorMapping;
         [SerializeField] private ActivityMapping _activityMapping;
-        [SerializeField] private List<ProgressItem> _progressItems;
+        [SerializeField] private List<CalendarProgress> _progressItems;
 
         private const int DaysPerWeek = 7;
 
@@ -41,8 +41,9 @@ namespace Source.Scripts.Main.UI.Shared.Progress
                     dailyProgress.ProgressByState,
                     dayText,
                     _progressColorMapping,
-                    _activityMapping,
-                    isOutsideMonth);
+                    _activityMapping);
+
+                _progressItems[day].UpdateView(isOutsideMonth);
             }
         }
 
