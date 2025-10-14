@@ -12,17 +12,22 @@ namespace Source.Scripts.Main.UI.Base
         [SerializeField] private EnumArray<ScreenType, ToggleComponent> _menuToggles = new(EnumMode.SkipFirst);
 
         private IWindowsController _windowsController;
+        private IObjectResolver _objectResolver;
 
         [Inject]
-        internal void Inject(IWindowsController windowsController)
+        internal void Inject(IWindowsController windowsController, IObjectResolver objectResolver)
         {
             _windowsController = windowsController;
+            _objectResolver = objectResolver;
         }
 
         public void Init()
         {
             foreach (var (screenType, themeToggle) in _menuToggles.AsTuples())
+            {
+                _objectResolver.Inject(themeToggle);
                 _windowsController.BindScreenOpen(themeToggle, screenType);
+            }
 
             _windowsController.CurrentScreenType
                 .SubscribeUntilDestroy(this, static (screenType, self) => self._menuToggles[screenType].isOn = true);

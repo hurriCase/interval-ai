@@ -21,7 +21,7 @@ namespace Source.Scripts.UI.Components.Button
         {
             base.Start();
 
-            if (Application.isEditor)
+            if (Application.isPlaying is false)
                 return;
 
             this.OnClickAsObservable().SubscribeUntilDestroy(this,

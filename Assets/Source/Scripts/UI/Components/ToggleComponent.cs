@@ -12,7 +12,7 @@ namespace Source.Scripts.UI.Components
         private IAudioHandlerProvider _audioHandlerProvider;
 
         [Inject]
-        public void Inject(IAudioHandlerProvider audioHandlerProvider)
+        internal void Inject(IAudioHandlerProvider audioHandlerProvider)
         {
             _audioHandlerProvider = audioHandlerProvider;
         }
@@ -21,7 +21,7 @@ namespace Source.Scripts.UI.Components
         {
             base.Start();
 
-            if (Application.isEditor)
+            if (Application.isPlaying is false)
                 return;
 
             this.OnPointerClickAsObservable().SubscribeUntilDestroy(this,
