@@ -1,4 +1,5 @@
-﻿using CustomUtils.Runtime.CustomTypes.Collections;
+﻿using CustomUtils.Runtime.Constants;
+using CustomUtils.Runtime.CustomTypes.Collections;
 using Source.Scripts.Core.Repositories.Words.Base;
 using TMPro;
 using UnityEngine;
@@ -11,14 +12,11 @@ namespace Source.Scripts.Main.UI.Shared.Progress
         [SerializeField] protected TextMeshProUGUI progressLabel;
         [SerializeField] private ProgressColorMapping _progressColorMapping;
         [SerializeField] protected EnumArray<LearningState, ProgressSectionItem> progressSections = new(EnumMode.SkipFirst);
+
         [SerializeField] private GameObject _activeProgress;
         [SerializeField] private GameObject _inactiveProgress;
 
-        [SerializeField] private float _spacingBetweenSections;
-        [SerializeField] private float _activeThicknessRatio;
-        [SerializeField] private float _inActiveThicknessRatio;
-
-        private const int Circumference = 360;
+        [SerializeField] private float _spaceRatio;
 
         internal void Init(EnumArray<LearningState, int> progress, string labelText)
         {
@@ -33,48 +31,40 @@ namespace Source.Scripts.Main.UI.Shared.Progress
             _inactiveProgress.SetActive(isActive is false);
 
             if (isActive)
-                SetProgress(progress, totalCount, _activeThicknessRatio);
+                SetProgress(progress, totalCount);
         }
 
         protected virtual void OnInit(bool isActive) { }
 
-        private void SetProgress(EnumArray<LearningState, int> progresses, int totalCount, float thicknessRatio)
+        private void SetProgress(EnumArray<LearningState, int> progresses, int totalProgress)
         {
             var offset = 0f;
-            var spacing = _spacingBetweenSections * thicknessRatio;
 
-            var progressToDiscard = GetProgressToDiscard(progresses, totalCount, spacing);
-            totalCount -= progressToDiscard;
+            var validProgressCount = progresses.Entries.AsValueEnumerable()
+                .Count(static progress => progress.Value > 0);
+
+            var spaceRatio = validProgressCount == 1 ? 0 : _spaceRatio;
+            var totalSpaceRatio = spaceRatio * validProgressCount;
+            var totalProgressWithSpace = totalProgress / (1 - totalSpaceRatio);
+
             foreach (var (learningState, sectionData) in progressSections.AsTuples())
             {
-                var wordCount = progresses[learningState];
-                var progressRatio = (float)wordCount / totalCount;
-                var fillAmount = progressRatio - spacing;
-                if (wordCount <= 0 || fillAmount <= 0f)
+                var progress = progresses[learningState];
+                if (progress <= 0)
                 {
                     sectionData.RoundedFilledImage.fillAmount = 0;
                     continue;
                 }
 
-                _progressColorMapping.SetComponentForState(learningState, sectionData.ImageTheme);
+                var progressRatio = progress / totalProgressWithSpace;
+                sectionData.RoundedFilledImage.fillAmount = progressRatio;
 
-                sectionData.RoundedFilledImage.fillAmount = fillAmount;
-                sectionData.RoundedFilledImage.CustomFillOrigin = offset * Circumference;
-                sectionData.RoundedFilledImage.ThicknessRatio = thicknessRatio;
+                offset += spaceRatio;
+                sectionData.RoundedFilledImage.CustomFillOrigin = offset * MathConstants.FullCircleDegrees;
                 offset += progressRatio;
-            }
-        }
 
-        private int GetProgressToDiscard(EnumArray<LearningState, int> progresses, int totalCount, float spacing)
-        {
-            var discardedProgresses = 0;
-            foreach (var progress in progresses)
-            {
-                if ((float)progress / totalCount - spacing <= 0)
-                    discardedProgresses += progress;
+                _progressColorMapping.SetComponentForState(learningState, sectionData.ImageTheme);
             }
-
-            return discardedProgresses;
         }
     }
 }
