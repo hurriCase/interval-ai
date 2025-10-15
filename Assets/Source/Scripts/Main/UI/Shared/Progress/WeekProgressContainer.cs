@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using Source.Scripts.Core.Repositories.Progress;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
-using Source.Scripts.Main.UI.Shared.Activity;
 using UnityEngine;
 using VContainer;
 
@@ -10,9 +8,7 @@ namespace Source.Scripts.Main.UI.Shared.Progress
 {
     internal sealed class WeekProgressContainer : MonoBehaviour
     {
-        [SerializeField] private ProgressColorMapping _progressColorMapping;
-        [SerializeField] private ActivityMapping _activityMapping;
-        [SerializeField] private List<CalendarProgress> _progressItems;
+        [SerializeField] private List<DateProgress> _progressItems;
 
         private const int DaysPerWeek = 7;
 
@@ -24,27 +20,6 @@ namespace Source.Scripts.Main.UI.Shared.Progress
         {
             _uiSettingsRepository = uiSettingsRepository;
             _dateProgressService = dateProgressService;
-        }
-
-        internal void UpdateMonthWeeklyProgress(DailyProgress[] monthData, int weekIndex, bool[] isInMonth)
-        {
-            var weekStart = weekIndex * DaysPerWeek;
-
-            for (var day = 0; day < DaysPerWeek; day++)
-            {
-                var dayIndex = weekStart + day;
-                var dailyProgress = monthData[dayIndex];
-                var dayText = dailyProgress.Date.Day.ToString();
-                var isOutsideMonth = isInMonth[dayIndex] is false;
-
-                _progressItems[day].Init(
-                    dailyProgress.ProgressByState,
-                    dayText,
-                    _progressColorMapping,
-                    _activityMapping);
-
-                _progressItems[day].UpdateView(isOutsideMonth);
-            }
         }
 
         internal void UpdateCurrentWeeklyProgress()
@@ -59,7 +34,7 @@ namespace Source.Scripts.Main.UI.Shared.Progress
                 var dailyProgress = currentWeek[day];
                 var dayText = weekAbbreviatedNames[day];
 
-                _progressItems[day].Init(dailyProgress.ProgressByState, dayText, _progressColorMapping);
+                _progressItems[day].Init(dailyProgress.ProgressByState, dayText);
             }
         }
     }

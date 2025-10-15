@@ -1,8 +1,5 @@
 ﻿using CustomUtils.Runtime.CustomTypes.Collections;
-using CustomUtils.Runtime.Extensions;
-using CustomUtils.Runtime.UI.Theme;
 using Source.Scripts.Core.Repositories.Words.Base;
-using Source.Scripts.Main.UI.Shared.Activity;
 using TMPro;
 using UnityEngine;
 using ZLinq;
@@ -11,10 +8,10 @@ namespace Source.Scripts.Main.UI.Shared.Progress
 {
     internal class ProgressItem : MonoBehaviour
     {
-        [SerializeField] protected TextMeshProUGUI dateIdentifierText;
+        [SerializeField] protected TextMeshProUGUI progressLabel;
+        [SerializeField] private ProgressColorMapping _progressColorMapping;
         [SerializeField] protected EnumArray<LearningState, ProgressSectionItem> progressSections = new(EnumMode.SkipFirst);
 
-        [SerializeField] private ThemeComponent _dateIdentifierTheme;
         [SerializeField] private float _spacingBetweenSections;
         [SerializeField] private float _activeThicknessRatio;
         [SerializeField] private float _inActiveThicknessRatio;
@@ -22,33 +19,25 @@ namespace Source.Scripts.Main.UI.Shared.Progress
 
         private const int Circumference = 360;
 
-        internal void Init(
-            EnumArray<LearningState, int> progress,
-            string dateIdentifierText,
-            ThemeStateMappingGeneric<LearningState> progressColorMapping,
-            ThemeStateMappingGeneric<ActivityState> dateIdentifierMapping = null)
+        internal void Init(EnumArray<LearningState, int> progress, string labelText)
         {
-            this.dateIdentifierText.text = dateIdentifierText;
+            progressLabel.text = labelText;
 
-            var totalCount = progress.Entries.AsValueEnumerable().Sum(entry => entry.Value);
+            var totalCount = progress.Entries.AsValueEnumerable().Sum(static progress => progress.Value);
             var isActive = totalCount > 0;
-
-            if (isActive)
-                SetProgress(progress, totalCount, progressColorMapping, _activeThicknessRatio);
-            else
-                SetProgress(_defaultProgressPercentages,
-                    _defaultProgressPercentages.Entries.AsValueEnumerable().Sum(entry => entry.Value),
-                    progressColorMapping,
-                    _inActiveThicknessRatio,
-                    LearningState.Default);
 
             OnInit(isActive);
 
-            if (!dateIdentifierMapping)
+            if (isActive)
+            {
+                SetProgress(progress, totalCount, _activeThicknessRatio);
                 return;
+            }
 
-            var dateIdentifierColorType = isActive ? ActivityState.Active : ActivityState.InActive;
-            dateIdentifierMapping.SetComponentForState(dateIdentifierColorType, _dateIdentifierTheme);
+            totalCount = _defaultProgressPercentages.Entries.AsValueEnumerable()
+                .Sum(static progress => progress.Value);
+
+            SetProgress(_defaultProgressPercentages, totalCount, _inActiveThicknessRatio, LearningState.Default);
         }
 
         protected virtual void OnInit(bool isActive) { }
@@ -57,7 +46,6 @@ namespace Source.Scripts.Main.UI.Shared.Progress
         private void SetProgress(
             EnumArray<LearningState, int> progresses,
             int totalCount,
-            ThemeStateMappingGeneric<LearningState> progressColorMapping,
             float thicknessRatio,
             LearningState? overrideState = null)
         {
@@ -78,7 +66,7 @@ namespace Source.Scripts.Main.UI.Shared.Progress
                 }
 
                 var learningState = overrideState ?? state;
-                progressColorMapping.SetComponentForState(learningState, sectionData.ImageTheme);
+                _progressColorMapping.SetComponentForState(learningState, sectionData.ImageTheme);
 
                 sectionData.RoundedFilledImage.fillAmount = fillAmount;
                 sectionData.RoundedFilledImage.CustomFillOrigin = offset * Circumference;

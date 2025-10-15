@@ -12,6 +12,14 @@ PrefabInstance:
       propertyPath: _currentColorModifier
       value: 
       objectReference: {fileID: 6554732549508216815}
+    - target: {fileID: 1301261225333838716, guid: 35ddcb97906fd0242b4adec7355dd3f6, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: IconsPrimary
+      objectReference: {fileID: 0}
+    - target: {fileID: 1301261225333838716, guid: 35ddcb97906fd0242b4adec7355dd3f6, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2166532572274077639, guid: 35ddcb97906fd0242b4adec7355dd3f6, type: 3}
       propertyPath: currentColorName
       value: IconsPrimary
@@ -238,7 +246,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 385260810748804253, guid: c8cac319b9516a549bdf72d616a6fff3, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 253
       objectReference: {fileID: 0}
     - target: {fileID: 385260810748804253, guid: c8cac319b9516a549bdf72d616a6fff3, type: 3}
       propertyPath: m_SizeDelta.y
@@ -250,7 +258,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 385260810748804253, guid: c8cac319b9516a549bdf72d616a6fff3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0
+      value: -16.94
       objectReference: {fileID: 0}
     - target: {fileID: 1260735115795353837, guid: c8cac319b9516a549bdf72d616a6fff3, type: 3}
       propertyPath: _currentColorModifier
@@ -439,13 +447,58 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7298472707888174782}
     - target: {fileID: 3898014125934267041, guid: c8cac319b9516a549bdf72d616a6fff3, type: 3}
+      propertyPath: 'managedReferences[-2]'
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3898014125934267041, guid: c8cac319b9516a549bdf72d616a6fff3, type: 3}
+      propertyPath: _animations.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3898014125934267041, guid: c8cac319b9516a549bdf72d616a6fff3, type: 3}
+      propertyPath: '_animations.Array.data[0]'
+      value: 3140846573591986383
+      objectReference: {fileID: 0}
+    - target: {fileID: 3898014125934267041, guid: c8cac319b9516a549bdf72d616a6fff3, type: 3}
       propertyPath: <ExpandButton>k__BackingField
       value: 
       objectReference: {fileID: 3667255969475201574}
     - target: {fileID: 3898014125934267041, guid: c8cac319b9516a549bdf72d616a6fff3, type: 3}
+      propertyPath: 'managedReferences[3140846573591986383]'
+      value: 'CustomUtils CustomUtils.Runtime.Animations.RotationZAnimation`1[[Source.Scripts.UI.Components.VisibilityState,
+        Source.Scripts.UI]]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3898014125934267041, guid: c8cac319b9516a549bdf72d616a6fff3, type: 3}
+      propertyPath: managedReferences[3140846573591986382]._target
+      value: 
+      objectReference: {fileID: 6937767809115950544}
+    - target: {fileID: 3898014125934267041, guid: c8cac319b9516a549bdf72d616a6fff3, type: 3}
+      propertyPath: managedReferences[3140846573591986383]._target
+      value: 
+      objectReference: {fileID: 6937767809115950544}
+    - target: {fileID: 3898014125934267041, guid: c8cac319b9516a549bdf72d616a6fff3, type: 3}
       propertyPath: managedReferences[8271176584008827131]._target
       value: 
       objectReference: {fileID: 6937767809115950544}
+    - target: {fileID: 3898014125934267041, guid: c8cac319b9516a549bdf72d616a6fff3, type: 3}
+      propertyPath: managedReferences[3140846573591986383].states.<EnumMode>k__BackingField
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3898014125934267041, guid: c8cac319b9516a549bdf72d616a6fff3, type: 3}
+      propertyPath: managedReferences[3140846573591986383].states.<Entries>k__BackingField.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3898014125934267041, guid: c8cac319b9516a549bdf72d616a6fff3, type: 3}
+      propertyPath: managedReferences[3140846573591986383].states.<Entries>k__BackingField.Array.data[0].<Value>k__BackingField
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3898014125934267041, guid: c8cac319b9516a549bdf72d616a6fff3, type: 3}
+      propertyPath: managedReferences[3140846573591986383].states.<Entries>k__BackingField.Array.data[1].<Value>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: 1abcaa60a7bb3654a83373df962f3ed6, type: 2}
+    - target: {fileID: 3898014125934267041, guid: c8cac319b9516a549bdf72d616a6fff3, type: 3}
+      propertyPath: managedReferences[3140846573591986383].states.<Entries>k__BackingField.Array.data[2].<Value>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: 68c9a79546f64b94cb97cda490e8674d, type: 2}
     - target: {fileID: 5103096249998039244, guid: c8cac319b9516a549bdf72d616a6fff3, type: 3}
       propertyPath: m_Padding.m_Right
       value: 30
@@ -685,7 +738,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9210075721863004055, guid: c8cac319b9516a549bdf72d616a6fff3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0
+      value: -8.47
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 54456498881566674, guid: c8cac319b9516a549bdf72d616a6fff3, type: 3}

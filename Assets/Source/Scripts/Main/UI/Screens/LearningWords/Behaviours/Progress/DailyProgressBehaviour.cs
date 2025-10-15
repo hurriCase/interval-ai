@@ -2,7 +2,7 @@
 using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.Localization;
-using CustomUtils.Runtime.UI.CustomComponents;
+using CustomUtils.Runtime.UI.CustomComponents.FilledImage;
 using Cysharp.Text;
 using R3;
 using Source.Scripts.Core.Localization.Base;
@@ -21,7 +21,7 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.Progress
         [SerializeField] private TextMeshProUGUI _currentProgressPercentText;
         [SerializeField] private TextMeshProUGUI _titleText;
         [SerializeField] private TextMeshProUGUI _progressDescriptionText;
-        [SerializeField] private RoundedFilledImageComponent _progressComponent;
+        [SerializeField] private RoundedFilledImage _progressComponent;
 
         private IProgressDescriptionsDatabase _progressDescriptionsDatabase;
         private ILocalizationKeysDatabase _localizationKeysDatabase;

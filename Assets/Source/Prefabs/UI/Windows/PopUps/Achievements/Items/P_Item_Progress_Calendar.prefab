@@ -9,6 +9,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1135046813798799953, guid: 32d11c841763dc94f83dbcdc759211af, type: 3}
+      propertyPath: progressLabel
+      value: 
+      objectReference: {fileID: 3409156217429744045}
+    - target: {fileID: 1135046813798799953, guid: 32d11c841763dc94f83dbcdc759211af, type: 3}
       propertyPath: <AlphaForExtraDays>k__BackingField
       value: 0.3
       objectReference: {fileID: 0}
@@ -28,6 +32,14 @@ PrefabInstance:
       propertyPath: _currentColorModifier
       value: 
       objectReference: {fileID: 7388269398642466301}
+    - target: {fileID: 1542051960131823673, guid: 32d11c841763dc94f83dbcdc759211af, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: TextPrimary
+      objectReference: {fileID: 0}
+    - target: {fileID: 1542051960131823673, guid: 32d11c841763dc94f83dbcdc759211af, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1612301533891149227, guid: 32d11c841763dc94f83dbcdc759211af, type: 3}
       propertyPath: m_Name
       value: P_Text_DateIdintifier
@@ -202,7 +214,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5820014998730132722, guid: 32d11c841763dc94f83dbcdc759211af, type: 3}
       propertyPath: m_Name
-      value: P_Item_Progress_WithNumber
+      value: P_Item_Progress_Calendar
       objectReference: {fileID: 0}
     - target: {fileID: 7235588459175827589, guid: 32d11c841763dc94f83dbcdc759211af, type: 3}
       propertyPath: m_SizeDelta.y
@@ -272,11 +284,48 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.09019608
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2730093659435197828, guid: 32d11c841763dc94f83dbcdc759211af, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5820014998730132722, guid: 32d11c841763dc94f83dbcdc759211af, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5786835309010065082}
   m_SourcePrefab: {fileID: 100100000, guid: 32d11c841763dc94f83dbcdc759211af, type: 3}
+--- !u!114 &50084801165120885 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1661788547166846860, guid: 32d11c841763dc94f83dbcdc759211af, type: 3}
+  m_PrefabInstance: {fileID: 1710862346985335545}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a50e0e51237947f6b49effc76d23ffd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.Shared.Progress.ProgressSectionItem
+--- !u!114 &204997531140932288 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1542051960131823673, guid: 32d11c841763dc94f83dbcdc759211af, type: 3}
+  m_PrefabInstance: {fileID: 1710862346985335545}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e5265c779e340c8b6f7d9850950b29b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.Base.ThemeComponent
+--- !u!114 &1005241341335838580 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1895278297692697997, guid: 32d11c841763dc94f83dbcdc759211af, type: 3}
+  m_PrefabInstance: {fileID: 1710862346985335545}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a50e0e51237947f6b49effc76d23ffd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.Shared.Progress.ProgressSectionItem
 --- !u!114 &3409156217429744045 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4103330910832702292, guid: 32d11c841763dc94f83dbcdc759211af, type: 3}
@@ -288,6 +337,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &5150689653504321035 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5820014998730132722, guid: 32d11c841763dc94f83dbcdc759211af, type: 3}
+  m_PrefabInstance: {fileID: 1710862346985335545}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5786835309010065082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5150689653504321035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c637edcd4654a0dbf50bbef99e08762, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.Shared.Progress.CalendarProgress
+  progressLabel: {fileID: 3409156217429744045}
+  _progressColorMapping: {fileID: 11400000, guid: 793ebaa6ea3ed6c42b965a0f6c88dda1, type: 2}
+  progressSections:
+    <Entries>k__BackingField:
+    - <Value>k__BackingField: {fileID: 0}
+    - <Value>k__BackingField: {fileID: 50084801165120885}
+    - <Value>k__BackingField: {fileID: 8872716149678625173}
+    - <Value>k__BackingField: {fileID: 1005241341335838580}
+    - <Value>k__BackingField: {fileID: 8760259283806205527}
+    <EnumMode>k__BackingField: 2
+  _spacingBetweenSections: 0.225
+  _activeThicknessRatio: 0.3
+  _inActiveThicknessRatio: 0.2
+  _defaultProgressPercentages:
+    <Entries>k__BackingField:
+    - <Value>k__BackingField: 0
+    - <Value>k__BackingField: 55
+    - <Value>k__BackingField: 35
+    - <Value>k__BackingField: 20
+    - <Value>k__BackingField: 0
+    <EnumMode>k__BackingField: 2
+  _fireIcon: {fileID: 7314076484045117682}
+  _progressLabelTheme: {fileID: 204997531140932288}
+  _progressColorMapping: {fileID: 11400000, guid: 793ebaa6ea3ed6c42b965a0f6c88dda1, type: 2}
+  _activityMapping: {fileID: 11400000, guid: 9f735318eec67ab46b7dda4466c73cde, type: 2}
+  _alphaForExtraDays: 0.3
+--- !u!1 &7314076484045117682 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8232270000454038027, guid: 32d11c841763dc94f83dbcdc759211af, type: 3}
+  m_PrefabInstance: {fileID: 1710862346985335545}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7388269398642466301 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8157800008937109252, guid: 32d11c841763dc94f83dbcdc759211af, type: 3}
@@ -299,3 +396,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8840dbee5a42476db6edcdcd70e84c6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.ColorModifiers.SolidColorModifier
+--- !u!114 &8760259283806205527 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7938866868703517870, guid: 32d11c841763dc94f83dbcdc759211af, type: 3}
+  m_PrefabInstance: {fileID: 1710862346985335545}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a50e0e51237947f6b49effc76d23ffd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.Shared.Progress.ProgressSectionItem
+--- !u!114 &8872716149678625173 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7826143899282422636, guid: 32d11c841763dc94f83dbcdc759211af, type: 3}
+  m_PrefabInstance: {fileID: 1710862346985335545}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a50e0e51237947f6b49effc76d23ffd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.Shared.Progress.ProgressSectionItem
