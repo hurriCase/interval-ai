@@ -6,7 +6,7 @@ namespace Source.Scripts.Core.GenerativeLanguage
 {
     [CreateAssetMenu(
         fileName = nameof(GeminiGenerativeLanguageConfig),
-        menuName = nameof(GeminiGenerativeLanguageConfig)
+        menuName = ApiConfigPath + nameof(GeminiGenerativeLanguageConfig)
     )]
     internal sealed class GeminiGenerativeLanguageConfig : ApiConfigBase
     {

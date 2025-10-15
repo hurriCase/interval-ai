@@ -5,7 +5,10 @@ using UnityEngine;
 
 namespace Source.Scripts.Core.Localization.Translator
 {
-    [CreateAssetMenu(fileName = nameof(AzureTranslationConfig), menuName = nameof(AzureTranslationConfig))]
+    [CreateAssetMenu(
+        fileName = nameof(AzureTranslationConfig),
+        menuName = ApiConfigPath + nameof(AzureTranslationConfig)
+    )]
     internal sealed class AzureTranslationConfig : ApiConfigBase
     {
         [field: SerializeField] internal string Region { get; private set; }

@@ -16,6 +16,8 @@ namespace Source.Scripts.Core.Api.Base
         [SerializeField] private string _encryptionKeyEnvironmentName;
         [SerializeField] private string _apiKeyEnvironmentName;
 
+        protected const string ApiConfigPath = "Api Configs /";
+
         private string _encryptedApiKey;
         private string _password;
 

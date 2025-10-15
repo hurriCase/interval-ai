@@ -4,7 +4,10 @@ using UnityEngine;
 
 namespace Source.Scripts.Core.Audio.TextToSpeech
 {
-    [CreateAssetMenu(fileName = nameof(GoogleTextToSpeechConfig), menuName = nameof(GoogleTextToSpeechConfig))]
+    [CreateAssetMenu(
+        fileName = nameof(GoogleTextToSpeechConfig),
+        menuName = ApiConfigPath + nameof(GoogleTextToSpeechConfig)
+    )]
     internal sealed class GoogleTextToSpeechConfig : ApiConfigBase
     {
         internal override string GetApiUrl() => ZString.Format(endpointFormat, GetApiKey());
