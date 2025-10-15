@@ -8,7 +8,7 @@ namespace Source.Scripts.Main.UI.Shared.Progress
 {
     internal sealed class WeekProgressContainer : MonoBehaviour
     {
-        [SerializeField] private List<DateProgress> _progressItems;
+        [SerializeField] private List<ProgressItem> _progressItems;
 
         private const int DaysPerWeek = 7;
 

@@ -7,13 +7,10 @@ using UnityEngine;
 
 namespace Source.Scripts.Main.UI.Shared.Progress
 {
-    internal sealed class CalendarProgress : DateProgress
+    internal sealed class CalendarProgress : ProgressItem
     {
         [SerializeField] private ThemeComponent _progressLabelTheme;
-
-        [SerializeField] private ProgressColorMapping _progressColorMapping;
         [SerializeField] private ActivityMapping _activityMapping;
-
         [SerializeField] [field: Range(0f, 1f)] private float _alphaForExtraDays;
 
         private bool _isOutsideMonth;
@@ -27,8 +24,6 @@ namespace Source.Scripts.Main.UI.Shared.Progress
 
         protected override void OnInit(bool isActive)
         {
-            base.OnInit(isActive);
-
             isActive = isActive && _isOutsideMonth is false;
 
             if (_isOutsideMonth)
