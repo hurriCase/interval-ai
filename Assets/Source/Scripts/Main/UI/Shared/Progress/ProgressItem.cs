@@ -18,23 +18,21 @@ namespace Source.Scripts.Main.UI.Shared.Progress
 
         [SerializeField] private float _spaceRatio;
 
-        internal void Init(EnumArray<LearningState, int> progress, string labelText)
+        protected bool IsActive { get; private set; }
+
+        internal virtual void Init(EnumArray<LearningState, int> progress, string labelText, bool isActive = true)
         {
             progressLabel.text = labelText;
 
             var totalCount = progress.Entries.AsValueEnumerable().Sum(static progress => progress.Value);
-            var isActive = totalCount > 0;
+            IsActive = isActive && totalCount > 0;
 
-            OnInit(isActive);
+            _activeProgress.SetActive(IsActive);
+            _inactiveProgress.SetActive(IsActive is false);
 
-            _activeProgress.SetActive(isActive);
-            _inactiveProgress.SetActive(isActive is false);
-
-            if (isActive)
+            if (IsActive)
                 SetProgress(progress, totalCount);
         }
-
-        protected virtual void OnInit(bool isActive) { }
 
         private void SetProgress(EnumArray<LearningState, int> progresses, int totalProgress)
         {

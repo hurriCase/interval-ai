@@ -11,25 +11,20 @@ namespace Source.Scripts.Main.UI.Shared.Progress
     {
         [SerializeField] private ThemeComponent _progressLabelTheme;
         [SerializeField] private ActivityMapping _activityMapping;
-        [SerializeField] [field: Range(0f, 1f)] private float _alphaForExtraDays;
 
-        private bool _isOutsideMonth;
+        [SerializeField] private float _alphaForExtraDays;
 
-        internal void Init(EnumArray<LearningState, int> progress, string labelText, bool isOutsideMonth)
+        internal override void Init(
+            EnumArray<LearningState, int> progress,
+            string labelText,
+            bool isOutsideMonth = true)
         {
-            _isOutsideMonth = isOutsideMonth;
-
-            base.Init(progress, labelText);
-        }
-
-        protected override void OnInit(bool isActive)
-        {
-            isActive = isActive && _isOutsideMonth is false;
-
-            if (_isOutsideMonth)
+            if (isOutsideMonth)
                 ApplyOutsideMonthEffect();
 
-            var dateIdentifierColorType = isActive ? ActivityState.Active : ActivityState.InActive;
+            base.Init(progress, labelText, isOutsideMonth is false);
+
+            var dateIdentifierColorType = IsActive ? ActivityState.Active : ActivityState.InActive;
             _activityMapping.SetComponentForState(dateIdentifierColorType, _progressLabelTheme);
         }
 
