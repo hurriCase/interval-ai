@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
+using CustomUtils.Runtime.Animations;
+using CustomUtils.Runtime.Animations.Base;
 using CustomUtils.Runtime.Attributes;
 using CustomUtils.Runtime.Extensions.Observables;
 using R3;
-using Source.Scripts.UI.Components.Animation;
-using Source.Scripts.UI.Components.Animation.Base;
 using Source.Scripts.UI.Components.Button;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,7 +19,7 @@ namespace Source.Scripts.UI.Components.Accordion
         [SerializeField] private bool _isInitiallyReady = true;
 
         [SerializeReferenceDropdown, SerializeReference]
-        private List<IAnimationComponent<VisibilityState>> _animations;
+        private List<IAnimation<VisibilityState>> _animations;
 
         [SerializeField] private List<ScaleAnimation<VisibilityState>> _scaleAnimations;
 

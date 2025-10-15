@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading;
+using CustomUtils.Runtime.Animations;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using R3;
 using R3.Triggers;
-using Source.Scripts.UI.Components.Animation;
 using UnityEngine;
 
 namespace Source.Scripts.UI.Components

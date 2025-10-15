@@ -1,4 +1,4 @@
-namespace Source.Scripts.UI.Components.Animation.Base
+namespace Source.Scripts.UI.Components
 {
     internal enum VisibilityState
     {

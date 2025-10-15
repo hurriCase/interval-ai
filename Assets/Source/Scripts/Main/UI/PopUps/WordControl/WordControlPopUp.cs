@@ -1,12 +1,12 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using CustomUtils.Runtime.Animations;
+using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.PopUps.Selection;
 using Source.Scripts.Main.UI.PopUps.Selection.Category;
 using Source.Scripts.Main.UI.PopUps.WordInfo;
-using Source.Scripts.UI.Components.Animation;
-using Source.Scripts.UI.Components.Animation.Base;
+using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Components.Button;
 using Source.Scripts.UI.Windows.Base;
 using UnityEngine;

@@ -1,8 +1,8 @@
-﻿using CustomUtils.Runtime.CustomTypes.Collections;
+﻿using CustomUtils.Runtime.Animations;
+using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions.Observables;
 using R3.Triggers;
 using Source.Scripts.Core.Repositories.Settings.Base;
-using Source.Scripts.UI.Components.Animation;
 using UnityEngine;
 
 namespace Source.Scripts.Main.UI.PopUps.GenerationSettings.Behaviours

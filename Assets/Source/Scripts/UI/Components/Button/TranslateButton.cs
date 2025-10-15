@@ -3,7 +3,6 @@ using Cysharp.Threading.Tasks;
 using R3;
 using Source.Scripts.Core.Localization.Translator;
 using Source.Scripts.UI.Components.Accordion;
-using Source.Scripts.UI.Components.Animation.Base;
 using TMPro;
 using UnityEngine;
 using VContainer;
