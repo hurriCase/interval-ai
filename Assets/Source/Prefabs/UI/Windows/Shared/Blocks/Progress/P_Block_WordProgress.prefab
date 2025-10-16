@@ -34,11 +34,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3691833483562493499, guid: f4a7512a7bb93574fbd9d2dd3fa7adfb, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 26
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 3691833483562493499, guid: f4a7512a7bb93574fbd9d2dd3fa7adfb, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 26
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 3691833483562493499, guid: f4a7512a7bb93574fbd9d2dd3fa7adfb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -100,6 +100,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 3874355396795686084}
   m_SourcePrefab: {fileID: 100100000, guid: f4a7512a7bb93574fbd9d2dd3fa7adfb, type: 3}
+--- !u!224 &4097848031433027249 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3691833483562493499, guid: f4a7512a7bb93574fbd9d2dd3fa7adfb, type: 3}
+  m_PrefabInstance: {fileID: 856385335959734410}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6136791694626721995 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6829777437454293057, guid: f4a7512a7bb93574fbd9d2dd3fa7adfb, type: 3}
@@ -117,7 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b21cbc60e440e29554cae5bebc27e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.WordProgress.WordProgressBehaviour
+  _progressSegment: {fileID: 3275229602804983911, guid: 7b4e6cdb230694e4e9dd700283125eae, type: 3}
+  _segmentContainer: {fileID: 4097848031433027249}
   _activityMapping: {fileID: 11400000, guid: f796fae930894f84ab0ea656b715a1c8, type: 2}
-  _progressSegment: {fileID: 3275229602804983911, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
-  _spacingRatio: 0.7
-  _thicknessRatio: 0.4
+  _spacingRatio: 0.55

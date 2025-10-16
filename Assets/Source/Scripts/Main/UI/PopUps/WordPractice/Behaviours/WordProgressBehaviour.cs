@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using CustomUtils.Runtime.Constants;
 using CustomUtils.Runtime.Extensions;
+using Source.Scripts.Core.Others.UIPools;
 using Source.Scripts.Core.Repositories.Settings.Base;
-using Source.Scripts.Core.Repositories.Words.Base.CurrentWord;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.Shared.Activity;
 using Source.Scripts.Main.UI.Shared.Progress;
@@ -12,18 +12,15 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
 {
     internal sealed class WordProgressBehaviour : MonoBehaviour
     {
-        [SerializeField] private ActivityMapping _activityMapping;
         [SerializeField] private ProgressSectionItem _progressSegment;
+        [SerializeField] private RectTransform _segmentContainer;
+        [SerializeField] private ActivityMapping _activityMapping;
+
         [SerializeField] private float _spacingRatio;
-        [SerializeField] private float _thicknessRatio;
 
-        private const int Circumference = 360;
-
-        private readonly List<ProgressSectionItem> _createdSegments = new();
-        private int _previousSegmentCount;
+        private UIPool<ProgressSectionItem> _progressPool;
 
         private IPracticeSettingsRepository _practiceSettingsRepository;
-        private ICurrentWordService _currentWordService;
 
         [Inject]
         internal void Inject(IPracticeSettingsRepository practiceSettingsRepository)
@@ -33,45 +30,34 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
 
         internal void Init()
         {
+            _progressPool = new UIPool<ProgressSectionItem>(_progressSegment, _segmentContainer);
+
             _practiceSettingsRepository.RepetitionByCooldown.SubscribeUntilDestroy(this,
                 static (repetitions, self) => self.CreateSegments(repetitions.Count));
         }
 
         private void CreateSegments(int segmentsCount)
         {
-            if (_previousSegmentCount == segmentsCount)
-                return;
-
-            foreach (var segment in _createdSegments)
-                Destroy(segment.gameObject);
-
-            _createdSegments.Clear();
+            _progressPool.EnsureCount(segmentsCount);
 
             var segmentFill = 1f / segmentsCount;
             var actualSpacing = segmentFill * _spacingRatio;
 
             var offset = 0f;
-            for (var i = 0; i < segmentsCount; i++)
+            foreach (var sectionItem in _progressPool.PooledItems)
             {
-                var createdSegment = Instantiate(_progressSegment, transform);
-
-                createdSegment.RoundedFilledImage.CustomFillOrigin = offset * Circumference;
-                createdSegment.RoundedFilledImage.ThicknessRatio = _thicknessRatio;
-                createdSegment.RoundedFilledImage.fillAmount = segmentFill - actualSpacing;
+                sectionItem.RoundedFilledImage.CustomFillOrigin = offset * MathConstants.FullCircleDegrees;
+                sectionItem.RoundedFilledImage.fillAmount = segmentFill - actualSpacing;
                 offset += segmentFill;
-
-                _createdSegments.Add(createdSegment);
             }
-
-            _previousSegmentCount = segmentsCount;
         }
 
         public void UpdateProgress(WordEntry wordEntry)
         {
-            for (var i = 0; i < _createdSegments.Count; i++)
+            for (var i = 0; i < _progressPool.PooledItems.Count; i++)
             {
                 var state = i < wordEntry.ReviewCount ? ActivityState.Active : ActivityState.InActive;
-                _activityMapping.SetComponentForState(state, _createdSegments[i].ImageTheme);
+                _activityMapping.SetComponentForState(state, _progressPool.PooledItems[i].ImageTheme);
             }
         }
     }

@@ -87,6 +87,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 3485709473577835570}
     m_Modifications:
     - target: {fileID: 2019050437079397225, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
+      propertyPath: _previousCapGeometryType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2019050437079397225, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
+      propertyPath: <CapGeometry>k__BackingField
+      value: 
+      objectReference: {fileID: 6054233316598646999}
+    - target: {fileID: 2019050437079397225, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
       propertyPath: <ThicknessRatio>k__BackingField
       value: 0.25
       objectReference: {fileID: 0}
@@ -177,7 +185,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5168913800792593803, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6054233316598646999}
   m_SourcePrefab: {fileID: 100100000, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
 --- !u!224 &2553499262872630381 stripped
 RectTransform:
@@ -189,12 +200,29 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3275229602804983911, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
   m_PrefabInstance: {fileID: 657605952496181148}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 5664370090396404247}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a50e0e51237947f6b49effc76d23ffd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.Shared.Progress.ProgressSectionItem
+--- !u!1 &5664370090396404247 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5168913800792593803, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
+  m_PrefabInstance: {fileID: 657605952496181148}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6054233316598646999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5664370090396404247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dd225cdc15347118df4e4cb2d0d44e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.FilledImage.Modifier.RoundedCapGeometry
 --- !u!1001 &1218170239329169289
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -372,6 +400,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 3485709473577835570}
     m_Modifications:
     - target: {fileID: 2019050437079397225, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
+      propertyPath: _previousCapGeometryType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2019050437079397225, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
+      propertyPath: <CapGeometry>k__BackingField
+      value: 
+      objectReference: {fileID: 3666271625129391141}
+    - target: {fileID: 2019050437079397225, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
       propertyPath: <ThicknessRatio>k__BackingField
       value: 0.25
       objectReference: {fileID: 0}
@@ -462,14 +498,17 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5168913800792593803, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3666271625129391141}
   m_SourcePrefab: {fileID: 100100000, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
 --- !u!114 &3559679604859517251 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3275229602804983911, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
   m_PrefabInstance: {fileID: 2023653646579945764}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 6606461735556154543}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a50e0e51237947f6b49effc76d23ffd0, type: 3}
@@ -480,6 +519,23 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3048817297474530289, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
   m_PrefabInstance: {fileID: 2023653646579945764}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6606461735556154543 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5168913800792593803, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
+  m_PrefabInstance: {fileID: 2023653646579945764}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3666271625129391141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6606461735556154543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dd225cdc15347118df4e4cb2d0d44e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.FilledImage.Modifier.RoundedCapGeometry
 --- !u!1001 &2525407286853231633
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -759,6 +815,14 @@ PrefabInstance:
       value: 0.1368182
       objectReference: {fileID: 0}
     - target: {fileID: 2019050437079397225, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
+      propertyPath: _previousCapGeometryType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2019050437079397225, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
+      propertyPath: <CapGeometry>k__BackingField
+      value: 
+      objectReference: {fileID: 3857279417243174563}
+    - target: {fileID: 2019050437079397225, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
       propertyPath: <CustomFillOrigin>k__BackingField
       value: 294.5454
       objectReference: {fileID: 0}
@@ -869,14 +933,17 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5168913800792593803, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3857279417243174563}
   m_SourcePrefab: {fileID: 100100000, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
 --- !u!114 &1023338789935440624 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4386505924276793122, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
   m_PrefabInstance: {fileID: 3669412046519193042}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 8455496650919221337}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8840dbee5a42476db6edcdcd70e84c6c, type: 3}
@@ -887,6 +954,23 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3048817297474530289, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
   m_PrefabInstance: {fileID: 3669412046519193042}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8455496650919221337 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5168913800792593803, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
+  m_PrefabInstance: {fileID: 3669412046519193042}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3857279417243174563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8455496650919221337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dd225cdc15347118df4e4cb2d0d44e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.FilledImage.Modifier.RoundedCapGeometry
 --- !u!1001 &4419132941208607963
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -895,6 +979,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3485709473577835570}
     m_Modifications:
+    - target: {fileID: 2019050437079397225, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
+      propertyPath: _previousCapGeometryType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2019050437079397225, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
+      propertyPath: <CapGeometry>k__BackingField
+      value: 
+      objectReference: {fileID: 1806849140013834155}
     - target: {fileID: 2019050437079397225, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
       propertyPath: <ThicknessRatio>k__BackingField
       value: 0.25
@@ -986,14 +1078,17 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5168913800792593803, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1806849140013834155}
   m_SourcePrefab: {fileID: 100100000, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
 --- !u!114 &1161957323896239292 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3275229602804983911, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
   m_PrefabInstance: {fileID: 4419132941208607963}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 8856401544987019600}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a50e0e51237947f6b49effc76d23ffd0, type: 3}
@@ -1004,6 +1099,23 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3048817297474530289, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
   m_PrefabInstance: {fileID: 4419132941208607963}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8856401544987019600 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5168913800792593803, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
+  m_PrefabInstance: {fileID: 4419132941208607963}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1806849140013834155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8856401544987019600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dd225cdc15347118df4e4cb2d0d44e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.FilledImage.Modifier.RoundedCapGeometry
 --- !u!1001 &5342535332273116374
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1028,6 +1140,14 @@ PrefabInstance:
       propertyPath: m_FillAmount
       value: 0.2731818
       objectReference: {fileID: 0}
+    - target: {fileID: 2019050437079397225, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
+      propertyPath: _previousCapGeometryType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2019050437079397225, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
+      propertyPath: <CapGeometry>k__BackingField
+      value: 
+      objectReference: {fileID: 5177070073657802319}
     - target: {fileID: 2019050437079397225, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
       propertyPath: <CustomFillOrigin>k__BackingField
       value: 180
@@ -1139,8 +1259,28 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5168913800792593803, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5177070073657802319}
   m_SourcePrefab: {fileID: 100100000, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
+--- !u!1 &981736490894066013 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5168913800792593803, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
+  m_PrefabInstance: {fileID: 5342535332273116374}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5177070073657802319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 981736490894066013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dd225cdc15347118df4e4cb2d0d44e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.FilledImage.Modifier.RoundedCapGeometry
 --- !u!224 &6947907133372759847 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3048817297474530289, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
@@ -1151,7 +1291,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4386505924276793122, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
   m_PrefabInstance: {fileID: 5342535332273116374}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 981736490894066013}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8840dbee5a42476db6edcdcd70e84c6c, type: 3}
@@ -1181,6 +1321,14 @@ PrefabInstance:
       propertyPath: m_FillAmount
       value: 0.455
       objectReference: {fileID: 0}
+    - target: {fileID: 2019050437079397225, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
+      propertyPath: _previousCapGeometryType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2019050437079397225, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
+      propertyPath: <CapGeometry>k__BackingField
+      value: 
+      objectReference: {fileID: 5314287518470256899}
     - target: {fileID: 3048817297474530289, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
@@ -1288,8 +1436,28 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5168913800792593803, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5314287518470256899}
   m_SourcePrefab: {fileID: 100100000, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
+--- !u!1 &853750438819043411 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5168913800792593803, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
+  m_PrefabInstance: {fileID: 5504113663604149720}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5314287518470256899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 853750438819043411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dd225cdc15347118df4e4cb2d0d44e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.FilledImage.Modifier.RoundedCapGeometry
 --- !u!224 &7362568568694040105 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3048817297474530289, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
@@ -1300,7 +1468,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4386505924276793122, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
   m_PrefabInstance: {fileID: 5504113663604149720}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 853750438819043411}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8840dbee5a42476db6edcdcd70e84c6c, type: 3}
@@ -1314,6 +1482,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3485709473577835570}
     m_Modifications:
+    - target: {fileID: 2019050437079397225, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
+      propertyPath: _previousCapGeometryType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2019050437079397225, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
+      propertyPath: <CapGeometry>k__BackingField
+      value: 
+      objectReference: {fileID: 2551522972923785218}
     - target: {fileID: 2019050437079397225, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
       propertyPath: <ThicknessRatio>k__BackingField
       value: 0.25
@@ -1405,8 +1581,43 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5168913800792593803, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3636821609962186479}
+    - targetCorrespondingSourceObject: {fileID: 5168913800792593803, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2551522972923785218}
   m_SourcePrefab: {fileID: 100100000, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
+--- !u!1 &4460941412395901037 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5168913800792593803, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
+  m_PrefabInstance: {fileID: 8814627641709868518}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3636821609962186479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4460941412395901037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dd225cdc15347118df4e4cb2d0d44e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.FilledImage.Modifier.RoundedCapGeometry
+--- !u!114 &2551522972923785218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4460941412395901037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dd225cdc15347118df4e4cb2d0d44e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.FilledImage.Modifier.RoundedCapGeometry
 --- !u!224 &5772570249098272279 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3048817297474530289, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
@@ -1417,7 +1628,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3275229602804983911, guid: 4dcf56bb69b9a664098bb752c10e7864, type: 3}
   m_PrefabInstance: {fileID: 8814627641709868518}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 4460941412395901037}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a50e0e51237947f6b49effc76d23ffd0, type: 3}
