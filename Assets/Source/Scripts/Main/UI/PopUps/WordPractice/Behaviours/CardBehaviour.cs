@@ -17,6 +17,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
         [SerializeField] private EnumArray<ModuleType, PracticeModule> _practiceModules
             = new(EnumMode.SkipFirst);
 
+        [SerializeField] private GameObject _headerContainer;
         [SerializeField] private WordProgressBehaviour _wordProgressBehaviour;
 
         private WordEntry WordEntry => _currentWordService.CurrentWord.CurrentValue;
@@ -55,6 +56,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
 
         private void SwitchModule(ModuleType moduleType)
         {
+            _headerContainer.SetActive(moduleType != ModuleType.FirstShow);
+
             foreach (var (type, module) in _practiceModules.AsTuples())
             {
                 module.SetCurrentWord(WordEntry);
