@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using CustomUtils.Runtime.Extensions;
 using R3;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Localization.LocalizationTypes;

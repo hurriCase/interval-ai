@@ -1,5 +1,4 @@
 ﻿using CustomUtils.Runtime.AddressableSystem;
-using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.UI.CustomComponents.Selectables.Toggles;
 using R3;
