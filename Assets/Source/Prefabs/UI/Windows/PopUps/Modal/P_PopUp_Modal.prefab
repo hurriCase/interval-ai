@@ -299,6 +299,8 @@ MonoBehaviour:
   <InitialWindow>k__BackingField: 0
   canvasGroup: {fileID: 6115005488127250061}
   <IsSingle>k__BackingField: 0
+  _visibilityAnimation:
+    rid: 3140846641636442330
   _closeButton: {fileID: 8303533049426216478}
   _titleText: {fileID: 4329402818931118479}
   _messageText: {fileID: 8386033163611905293}
@@ -306,6 +308,20 @@ MonoBehaviour:
   _negativeText: {fileID: 728340450579977418}
   _positiveButton: {fileID: 910740243024331828}
   _negativeButton: {fileID: 6512539404993655227}
+  references:
+    version: 2
+    RefIds:
+    - rid: 3140846641636442330
+      type: {class: 'AnchoredPositionAnimation`1[[Source.Scripts.UI.Components.VisibilityState, Source.Scripts.UI]]', ns: CustomUtils.Runtime.Animations, asm: CustomUtils}
+      data:
+        states:
+          <Entries>k__BackingField:
+          - <Value>k__BackingField: {fileID: 0}
+          - <Value>k__BackingField: {fileID: 11400000, guid: d5d908c7663ef514193afa5a88e8d062, type: 2}
+          - <Value>k__BackingField: {fileID: 11400000, guid: 500a2ae1063fefb45a608828d61312cf, type: 2}
+          <EnumMode>k__BackingField: 0
+        _target: {fileID: 8527789852339118612}
+        _axis: 1
 --- !u!225 &6115005488127250061 stripped
 CanvasGroup:
   m_CorrespondingSourceObject: {fileID: 5083459562150440320, guid: 76b86b34186d9c14090583d83216be7d, type: 3}

@@ -1035,12 +1035,33 @@ MonoBehaviour:
   <InitialWindow>k__BackingField: 0
   canvasGroup: {fileID: 7064054097973744431}
   <IsSingle>k__BackingField: 1
+  _visibilityAnimation:
+    rid: 3140846641636442326
   _closeButton: {fileID: 4696862621606790862}
   _translateFromSwitch: {fileID: 555352065192630055}
   _wordSettingBehaviour: {fileID: 3890667236391829887}
+  references:
+    version: 2
+    RefIds:
+    - rid: 3140846641636442326
+      type: {class: 'AnchoredPositionAnimation`1[[Source.Scripts.UI.Components.VisibilityState, Source.Scripts.UI]]', ns: CustomUtils.Runtime.Animations, asm: CustomUtils}
+      data:
+        states:
+          <Entries>k__BackingField:
+          - <Value>k__BackingField: {fileID: 0}
+          - <Value>k__BackingField: {fileID: 11400000, guid: d5d908c7663ef514193afa5a88e8d062, type: 2}
+          - <Value>k__BackingField: {fileID: 11400000, guid: 500a2ae1063fefb45a608828d61312cf, type: 2}
+          <EnumMode>k__BackingField: 0
+        _target: {fileID: 4651261159530774454}
+        _axis: 1
 --- !u!224 &4625619523309309681 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3096858253786931419, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
+  m_PrefabInstance: {fileID: 7695455899867049514}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &4651261159530774454 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3046501804136550812, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
   m_PrefabInstance: {fileID: 7695455899867049514}
   m_PrefabAsset: {fileID: 0}
 --- !u!224 &6365768500048720252 stripped

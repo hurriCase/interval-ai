@@ -2784,6 +2784,8 @@ MonoBehaviour:
   <InitialWindow>k__BackingField: 0
   canvasGroup: {fileID: 6466864625984557760}
   <IsSingle>k__BackingField: 1
+  _visibilityAnimation:
+    rid: 3140846641636442336
   _closeButton: {fileID: 5613281914914767811}
   _themeSelectionItem: {fileID: 8344136603452038807}
   _isSendNotificationsItem: {fileID: 3224092285158463853}
@@ -2796,6 +2798,20 @@ MonoBehaviour:
   _cardLearnLanguageSelectionItem: {fileID: 5363930122782386867}
   _cardReviewLanguageSelectionItem: {fileID: 1671326773918227889}
   _wordReviewSourceSelectionItem: {fileID: 4110662033391510481}
+  references:
+    version: 2
+    RefIds:
+    - rid: 3140846641636442336
+      type: {class: 'AnchoredPositionAnimation`1[[Source.Scripts.UI.Components.VisibilityState, Source.Scripts.UI]]', ns: CustomUtils.Runtime.Animations, asm: CustomUtils}
+      data:
+        states:
+          <Entries>k__BackingField:
+          - <Value>k__BackingField: {fileID: 0}
+          - <Value>k__BackingField: {fileID: 11400000, guid: d5d908c7663ef514193afa5a88e8d062, type: 2}
+          - <Value>k__BackingField: {fileID: 11400000, guid: 500a2ae1063fefb45a608828d61312cf, type: 2}
+          <EnumMode>k__BackingField: 0
+        _target: {fileID: 8879688593688264281}
+        _axis: 1
 --- !u!225 &6466864625984557760 stripped
 CanvasGroup:
   m_CorrespondingSourceObject: {fileID: 631435887277538565, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}

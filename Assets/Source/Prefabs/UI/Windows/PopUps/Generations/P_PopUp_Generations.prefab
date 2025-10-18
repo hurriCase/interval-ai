@@ -1566,6 +1566,8 @@ MonoBehaviour:
   <InitialWindow>k__BackingField: 0
   canvasGroup: {fileID: 7113445095604354543}
   <IsSingle>k__BackingField: 1
+  _visibilityAnimation:
+    rid: 3140846641636442328
   _closeButton: {fileID: 7927705612488995398}
   _exercisesContainers:
     <Entries>k__BackingField:
@@ -1589,6 +1591,20 @@ MonoBehaviour:
         <EnumMode>k__BackingField: 0
       _target: {fileID: 975900243918029579}
       _axis: 3
+  references:
+    version: 2
+    RefIds:
+    - rid: 3140846641636442328
+      type: {class: 'AnchoredPositionAnimation`1[[Source.Scripts.UI.Components.VisibilityState, Source.Scripts.UI]]', ns: CustomUtils.Runtime.Animations, asm: CustomUtils}
+      data:
+        states:
+          <Entries>k__BackingField:
+          - <Value>k__BackingField: {fileID: 0}
+          - <Value>k__BackingField: {fileID: 11400000, guid: d5d908c7663ef514193afa5a88e8d062, type: 2}
+          - <Value>k__BackingField: {fileID: 11400000, guid: 500a2ae1063fefb45a608828d61312cf, type: 2}
+          <EnumMode>k__BackingField: 0
+        _target: {fileID: 4628607535799390582}
+        _axis: 1
 --- !u!224 &4628607535799390582 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3046501804136550812, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}

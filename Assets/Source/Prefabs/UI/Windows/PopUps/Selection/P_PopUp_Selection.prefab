@@ -159,11 +159,26 @@ MonoBehaviour:
   <InitialWindow>k__BackingField: 0
   canvasGroup: {fileID: 3973875911763432411}
   <IsSingle>k__BackingField: 0
+  _visibilityAnimation:
+    rid: 3140846641636442342
   _closeButton: {fileID: 1208870504203787080}
   _selectionNameText: {fileID: 3793256062259673432}
   _selectionsContainer: {fileID: 9174071700348957477}
   _selectionItem: {fileID: 9204254458164522066, guid: cebc2d65bdf9d5a49bb2838b9bac56ef, type: 3}
   _selectionToggleGroup: {fileID: 5071721923386892953}
+  references:
+    version: 2
+    RefIds:
+    - rid: 3140846641636442342
+      type: {class: 'AlphaAnimation`1[[Source.Scripts.UI.Components.VisibilityState, Source.Scripts.UI]]', ns: CustomUtils.Runtime.Animations, asm: CustomUtils}
+      data:
+        states:
+          <Entries>k__BackingField:
+          - <Value>k__BackingField: {fileID: 0}
+          - <Value>k__BackingField: {fileID: 11400000, guid: 9b5e18eda14cc914299bfd3c8e008f2d, type: 2}
+          - <Value>k__BackingField: {fileID: 11400000, guid: 6b4f4909536ee164bbe5a6102b4cf24c, type: 2}
+          <EnumMode>k__BackingField: 0
+        _target: {fileID: 3973875911763432411}
 --- !u!1001 &8901819075813164159
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -3432,10 +3432,26 @@ MonoBehaviour:
   <InitialWindow>k__BackingField: 0
   canvasGroup: {fileID: 6592281064958664919}
   <IsSingle>k__BackingField: 1
+  _visibilityAnimation:
+    rid: 3140846641636442344
   _closeButton: {fileID: 5238194394701177521}
   _achievementProgressBehaviour: {fileID: 1104107115036700420}
   _calendarBehaviour: {fileID: 4998972956716864730}
   _learningStatsBehaviour: {fileID: 7441001381541126648}
+  references:
+    version: 2
+    RefIds:
+    - rid: 3140846641636442344
+      type: {class: 'AnchoredPositionAnimation`1[[Source.Scripts.UI.Components.VisibilityState, Source.Scripts.UI]]', ns: CustomUtils.Runtime.Animations, asm: CustomUtils}
+      data:
+        states:
+          <Entries>k__BackingField:
+          - <Value>k__BackingField: {fileID: 0}
+          - <Value>k__BackingField: {fileID: 11400000, guid: d5d908c7663ef514193afa5a88e8d062, type: 2}
+          - <Value>k__BackingField: {fileID: 11400000, guid: 500a2ae1063fefb45a608828d61312cf, type: 2}
+          <EnumMode>k__BackingField: 0
+        _target: {fileID: 8788891309040208974}
+        _axis: 1
 --- !u!223 &5506377835761872831
 Canvas:
   m_ObjectHideFlags: 0
@@ -3489,6 +3505,11 @@ RectTransform:
 --- !u!224 &8738517126006816009 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3096858253786931419, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
+  m_PrefabInstance: {fileID: 6034598287891848658}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &8788891309040208974 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3046501804136550812, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
   m_PrefabInstance: {fileID: 6034598287891848658}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9167210790606387246

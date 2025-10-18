@@ -124,6 +124,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1951874307724304377, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: BackgroundPrimary
+      objectReference: {fileID: 0}
+    - target: {fileID: 1951874307724304377, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3046501804136550812, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -216,10 +224,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_PopUp_OnboardingPractice
       objectReference: {fileID: 0}
-    - target: {fileID: 8709391208971021196, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
-      propertyPath: targetComponent
-      value: 
-      objectReference: {fileID: 4716986193086690379}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 5841297947326000989, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
@@ -246,22 +250,16 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3646790791868981078, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
   m_PrefabInstance: {fileID: 4526499324877027606}
   m_PrefabAsset: {fileID: 0}
+--- !u!224 &1483375432529242250 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3046501804136550812, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
+  m_PrefabInstance: {fileID: 4526499324877027606}
+  m_PrefabAsset: {fileID: 0}
 --- !u!225 &3896199439287272467 stripped
 CanvasGroup:
   m_CorrespondingSourceObject: {fileID: 631435887277538565, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
   m_PrefabInstance: {fileID: 4526499324877027606}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4716986193086690379 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9198394243269102941, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
-  m_PrefabInstance: {fileID: 4526499324877027606}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8746617757528758000 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5166580558972006374, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
@@ -282,6 +280,8 @@ MonoBehaviour:
   <InitialWindow>k__BackingField: 0
   canvasGroup: {fileID: 3896199439287272467}
   <IsSingle>k__BackingField: 1
+  _visibilityAnimation:
+    rid: 3140846641636442332
   _closeButton: {fileID: 0}
   _messageText: {fileID: 1304059584242376303}
   _messageTheme: {fileID: 4580018877341091074}
@@ -301,13 +301,24 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 3140846641636442332
+      type: {class: 'AnchoredPositionAnimation`1[[Source.Scripts.UI.Components.VisibilityState, Source.Scripts.UI]]', ns: CustomUtils.Runtime.Animations, asm: CustomUtils}
+      data:
+        states:
+          <Entries>k__BackingField:
+          - <Value>k__BackingField: {fileID: 0}
+          - <Value>k__BackingField: {fileID: 11400000, guid: d5d908c7663ef514193afa5a88e8d062, type: 2}
+          - <Value>k__BackingField: {fileID: 11400000, guid: 500a2ae1063fefb45a608828d61312cf, type: 2}
+          <EnumMode>k__BackingField: 0
+        _target: {fileID: 1483375432529242250}
+        _axis: 1
     - rid: 7913753025380352209
       type: {class: HighlightStep, ns: Source.Scripts.Onboarding.UI.OnboardingPractice.Steps, asm: Source.Scripts.Onboarding}
       data:
         <IsTransition>k__BackingField: 0
         _localizationKey: ui.onboarding.press-to-see
         _messagePoxY: -216
-        _switchButton: {fileID: 1777654145483116813}
+        _switchButton: {fileID: 0}
         _mainCanvas: {fileID: 862739600813106080}
     - rid: 7913753025380352210
       type: {class: HighlightStep, ns: Source.Scripts.Onboarding.UI.OnboardingPractice.Steps, asm: Source.Scripts.Onboarding}
@@ -315,7 +326,7 @@ MonoBehaviour:
         <IsTransition>k__BackingField: 0
         _localizationKey: ui.onboarding.swipe-if-know
         _messagePoxY: -216
-        _switchButton: {fileID: 2763948563337084204}
+        _switchButton: {fileID: 0}
         _mainCanvas: {fileID: 862739600813106080}
     - rid: 7913753025380352211
       type: {class: HighlightStep, ns: Source.Scripts.Onboarding.UI.OnboardingPractice.Steps, asm: Source.Scripts.Onboarding}
@@ -323,7 +334,7 @@ MonoBehaviour:
         <IsTransition>k__BackingField: 0
         _localizationKey: ui.onboarding.hide
         _messagePoxY: -216
-        _switchButton: {fileID: 1719331164926505835}
+        _switchButton: {fileID: 0}
         _mainCanvas: {fileID: 862739600813106080}
     - rid: 7913753025380352212
       type: {class: HighlightStep, ns: Source.Scripts.Onboarding.UI.OnboardingPractice.Steps, asm: Source.Scripts.Onboarding}
@@ -331,7 +342,7 @@ MonoBehaviour:
         <IsTransition>k__BackingField: 1
         _localizationKey: ui.onboarding.swipe-to-start-learn
         _messagePoxY: -216
-        _switchButton: {fileID: 1036025075224803146}
+        _switchButton: {fileID: 0}
         _mainCanvas: {fileID: 862739600813106080}
     - rid: 7913753025380352213
       type: {class: HighlightStep, ns: Source.Scripts.Onboarding.UI.OnboardingPractice.Steps, asm: Source.Scripts.Onboarding}
@@ -339,7 +350,7 @@ MonoBehaviour:
         <IsTransition>k__BackingField: 0
         _localizationKey: ui.onboarding.open-by-one-character
         _messagePoxY: -51
-        _switchButton: {fileID: 6765570015572561273}
+        _switchButton: {fileID: 0}
         _mainCanvas: {fileID: 862739600813106080}
     - rid: 7913753025380352214
       type: {class: HighlightStep, ns: Source.Scripts.Onboarding.UI.OnboardingPractice.Steps, asm: Source.Scripts.Onboarding}
@@ -347,7 +358,7 @@ MonoBehaviour:
         <IsTransition>k__BackingField: 0
         _localizationKey: ui.onboarding.select-from-four
         _messagePoxY: -51
-        _switchButton: {fileID: 7213482299694973113}
+        _switchButton: {fileID: 0}
         _mainCanvas: {fileID: 862739600813106080}
     - rid: 7913753025380352215
       type: {class: PlainStep, ns: Source.Scripts.Onboarding.UI.OnboardingPractice.Steps, asm: Source.Scripts.Onboarding}
@@ -356,12 +367,12 @@ MonoBehaviour:
         _localizationKey: ui.onboarding.select-from-four
         _messagePoxY: -28
         _switchButtons:
-        - {fileID: 2997882092235093092}
-        - {fileID: 6437599051395517287}
-        - {fileID: 6955991946595481969}
-        - {fileID: 7401314263183617115}
-        - {fileID: 869488142826324787}
-        - {fileID: 5238861705633667296}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
         _tintObject: {fileID: 1998083779215552910}
     - rid: 7913753025380352216
       type: {class: PlainStep, ns: Source.Scripts.Onboarding.UI.OnboardingPractice.Steps, asm: Source.Scripts.Onboarding}
@@ -370,8 +381,8 @@ MonoBehaviour:
         _localizationKey: ui.onboarding.lets-start-practice
         _messagePoxY: -28
         _switchButtons:
-        - {fileID: 869488142826324787}
-        - {fileID: 5238861705633667296}
+        - {fileID: 0}
+        - {fileID: 0}
         _tintObject: {fileID: 1998083779215552910}
 --- !u!223 &862739600813106080
 Canvas:
@@ -743,7 +754,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4142699438041553860, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -536.23083
+      value: -552.23083
       objectReference: {fileID: 0}
     - target: {fileID: 4358599618656306394, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1090,28 +1101,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
---- !u!114 &869488142826324787 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4999457986973321383, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
-  m_PrefabInstance: {fileID: 5291921250688109460}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1036025075224803146 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5120624696210029790, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
-  m_PrefabInstance: {fileID: 5291921250688109460}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1592084871447528906 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6874910409292009054, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
@@ -1123,50 +1112,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b21cbc60e440e29554cae5bebc27e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.WordProgress.WordProgressBehaviour
---- !u!114 &1719331164926505835 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6822079062772087039, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
-  m_PrefabInstance: {fileID: 5291921250688109460}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1777654145483116813 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5898538278862101145, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
-  m_PrefabInstance: {fileID: 5291921250688109460}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2763948563337084204 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8010543391860553400, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
-  m_PrefabInstance: {fileID: 5291921250688109460}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2997882092235093092 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6983451036832137200, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
-  m_PrefabInstance: {fileID: 5291921250688109460}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af1e312ef8ab4916bd1e7b7352bdb5c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.ToggleComponent
 --- !u!114 &4009069790271423997 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9138856895786503785, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
@@ -1178,77 +1123,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaa5b73e37ba4fe7bfa00e8df1963b48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Cards.ControlsBehaviour
---- !u!114 &5238861705633667296 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 127370313601782644, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
-  m_PrefabInstance: {fileID: 5291921250688109460}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &5301210550151056048 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 63332687948382500, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
   m_PrefabInstance: {fileID: 5291921250688109460}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6437599051395517287 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1163719173961498867, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
-  m_PrefabInstance: {fileID: 5291921250688109460}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af1e312ef8ab4916bd1e7b7352bdb5c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.ToggleComponent
---- !u!114 &6765570015572561273 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1482964399380989677, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
-  m_PrefabInstance: {fileID: 5291921250688109460}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &6955991946595481969 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3024179815031124709, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
-  m_PrefabInstance: {fileID: 5291921250688109460}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af1e312ef8ab4916bd1e7b7352bdb5c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.ToggleComponent
---- !u!114 &7213482299694973113 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3272922550844787501, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
-  m_PrefabInstance: {fileID: 5291921250688109460}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7401314263183617115 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3442560243212249039, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
-  m_PrefabInstance: {fileID: 5291921250688109460}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af1e312ef8ab4916bd1e7b7352bdb5c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.ToggleComponent
 --- !u!114 &8085324428542655047 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4126557213895012819, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
@@ -1360,6 +1239,14 @@ PrefabInstance:
       propertyPath: _currentColorModifier
       value: 
       objectReference: {fileID: 6620103520135289407}
+    - target: {fileID: 5175023766961360262, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: TextPrimary
+      objectReference: {fileID: 0}
+    - target: {fileID: 5175023766961360262, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7658068928977278699, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_fontSize
       value: 46.35

@@ -2747,6 +2747,8 @@ MonoBehaviour:
   <InitialWindow>k__BackingField: 0
   canvasGroup: {fileID: 6224720535696461452}
   <IsSingle>k__BackingField: 1
+  _visibilityAnimation:
+    rid: 3140846641636442339
   _closeButton: {fileID: 5806315605415375595}
   _startLearningButton: {fileID: 2423437417920175563}
   _wordInfoCardBehaviour: {fileID: 1328217287629581221}
@@ -2754,6 +2756,20 @@ MonoBehaviour:
   _translationVariantsContainer: {fileID: 6112446697657793439}
   _synonymsContainer: {fileID: 8012101944670381336}
   _grammarContainer: {fileID: 5286222250351900277}
+  references:
+    version: 2
+    RefIds:
+    - rid: 3140846641636442339
+      type: {class: 'AnchoredPositionAnimation`1[[Source.Scripts.UI.Components.VisibilityState, Source.Scripts.UI]]', ns: CustomUtils.Runtime.Animations, asm: CustomUtils}
+      data:
+        states:
+          <Entries>k__BackingField:
+          - <Value>k__BackingField: {fileID: 0}
+          - <Value>k__BackingField: {fileID: 11400000, guid: d5d908c7663ef514193afa5a88e8d062, type: 2}
+          - <Value>k__BackingField: {fileID: 11400000, guid: 500a2ae1063fefb45a608828d61312cf, type: 2}
+          <EnumMode>k__BackingField: 0
+        _target: {fileID: 8423614762725499413}
+        _axis: 1
 --- !u!225 &6224720535696461452 stripped
 CanvasGroup:
   m_CorrespondingSourceObject: {fileID: 631435887277538565, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
@@ -2767,5 +2783,10 @@ RectTransform:
 --- !u!224 &8384481964025762642 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3096858253786931419, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
+  m_PrefabInstance: {fileID: 6818988325615448969}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &8423614762725499413 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3046501804136550812, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
   m_PrefabInstance: {fileID: 6818988325615448969}
   m_PrefabAsset: {fileID: 0}

@@ -2,8 +2,6 @@
 {
     internal interface IAnimationsConfig
     {
-        float PopUpShowDuration { get; }
-        float PopUpHideDuration { get; }
         float SelectionSwitchDuration { get; }
         float SelectionTransitionDuration { get; }
     }

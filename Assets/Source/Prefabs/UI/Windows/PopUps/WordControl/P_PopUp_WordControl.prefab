@@ -430,6 +430,8 @@ MonoBehaviour:
   <InitialWindow>k__BackingField: 0
   canvasGroup: {fileID: 3271774997361903665}
   <IsSingle>k__BackingField: 1
+  _visibilityAnimation:
+    rid: 3140846641636442337
   _closeButton: {fileID: 758680895705399458}
   _showWordInfoButton: {fileID: 6726064976786865383}
   _editButton: {fileID: 1847266296858430293}
@@ -443,6 +445,19 @@ MonoBehaviour:
       - <Value>k__BackingField: {fileID: 11400000, guid: a5c62a5c41f4f9f478b243e125e2a60c, type: 2}
       <EnumMode>k__BackingField: 0
     _target: {fileID: 1136371861566678551}
+  references:
+    version: 2
+    RefIds:
+    - rid: 3140846641636442337
+      type: {class: 'AlphaAnimation`1[[Source.Scripts.UI.Components.VisibilityState, Source.Scripts.UI]]', ns: CustomUtils.Runtime.Animations, asm: CustomUtils}
+      data:
+        states:
+          <Entries>k__BackingField:
+          - <Value>k__BackingField: {fileID: 0}
+          - <Value>k__BackingField: {fileID: 11400000, guid: 9b5e18eda14cc914299bfd3c8e008f2d, type: 2}
+          - <Value>k__BackingField: {fileID: 11400000, guid: 6b4f4909536ee164bbe5a6102b4cf24c, type: 2}
+          <EnumMode>k__BackingField: 0
+        _target: {fileID: 3271774997361903665}
 --- !u!114 &7852286294962738908 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 509840550005109613, guid: 76b86b34186d9c14090583d83216be7d, type: 3}
