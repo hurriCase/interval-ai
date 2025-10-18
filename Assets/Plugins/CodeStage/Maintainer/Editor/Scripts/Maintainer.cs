@@ -19,7 +19,7 @@ namespace CodeStage.Maintainer
 		/// <summary>
 		/// Current version in X.Y.Z format (using Semantic Versioning 2.0 scheme).
 		/// </summary>
-		public const string Version = "2.0.0";
+		public const string Version = "2.0.1";
 
 		internal const string LogPrefix = "<b>[Maintainer]</b> ";
 		internal const string HomePage = "https://codestage.net/uas/maintainer";

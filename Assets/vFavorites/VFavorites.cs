@@ -1545,7 +1545,7 @@ namespace VFavorites
             mousePressed = false;
 
 
-            if (!draggingItemFromPage) { draggedItem = null; return; }
+            if (!draggingItemFromPage) { draggedItem = null; EditorGUIUtility.hotControl = 0; return; }
 
             data.curPage.items.AddAt(draggedItem, draggingItemFromPageAtIndex);
 
@@ -1612,6 +1612,9 @@ namespace VFavorites
 
                 t_BrowserWindow.SetFieldValue("s_LastInteractedProjectBrowser", wrappedBrowser); // so vTabs can copy its layout setting
 
+
+                wrappedBrowserWasLockedBeforeWrapping = wrappedBrowser.GetMemberValue<bool>("isLocked");
+
             }
             void unwrap()
             {
@@ -1655,6 +1658,8 @@ namespace VFavorites
 
         static EditorWindow wrappedBrowser;
         static System.Delegate origBrowserOnGUIDelegate;
+
+        static bool wrappedBrowserWasLockedBeforeWrapping;
 
         static bool shortcutPressed
         {
@@ -1712,12 +1717,25 @@ namespace VFavorites
                 lockedBrowser.minSize = Vector2.one * 100;
 
             }
+            void setTitle()
+            {
+
+                if (!lockedBrowser) return;
+                if (lockedBrowser.GetFieldValue<int>("m_ViewMode") != 0) return; // one column)
+                if (lockedBrowser.titleContent.text == "vFavorites") return;
+
+                var icon = EditorIcons.GetIcon("Favorite");
+
+                lockedBrowser.titleContent = new GUIContent("vFavorites", icon);
+
+            }
 
             void lock_()
             {
                 if (lockedBrowser) return;
                 if (!wrappedBrowser) return;
                 if (!wrappedBrowser.GetMemberValue<bool>("isLocked")) return;
+                if (wrappedBrowserWasLockedBeforeWrapping) return;
 
                 lockedBrowser = wrappedBrowser;
 
@@ -1732,6 +1750,8 @@ namespace VFavorites
                 if (!lockedBrowser) return;
                 if (lockedBrowser.GetMemberValue<bool>("isLocked")) return;
 
+
+                lockedBrowser.titleContent = lockedBrowser.InvokeMethod<GUIContent>("GetLocalizedTitleContent");
 
                 lockedBrowser = null;
 
@@ -1759,6 +1779,7 @@ namespace VFavorites
             unsetWrappedBrowser();
             markLockedBrowser();
             setMinWidthOnLockedBrowser();
+            setTitle();
 
             lock_();
             unlock();
@@ -1969,7 +1990,7 @@ namespace VFavorites
 
 
 
-        const string version = "2.0.10";
+        const string version = "2.0.11";
 
     }
 }

@@ -11,6 +11,12 @@ Changelog format is based on [Keep a Changelog](https://keepachangelog.com/en/1.
 
 _Please, always remove previous plugin version before updating!_
 
+## [2.0.1] - 2025-10-10
+
+### Fixed
+
+- Fix Issues Finder now properly scans embedded packages
+
 ## [2.0.0] - 2025-08-22
 
 ### Added
