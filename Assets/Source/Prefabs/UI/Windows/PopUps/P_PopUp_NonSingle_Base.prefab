@@ -8,6 +8,39 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 676685043034553739, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
+      propertyPath: _visibilityAnimation
+      value: 3140846641636442347
+      objectReference: {fileID: 0}
+    - target: {fileID: 676685043034553739, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
+      propertyPath: 'managedReferences[3140846641636442347]'
+      value: 'CustomUtils CustomUtils.Runtime.Animations.AlphaAnimation`1[[Source.Scripts.UI.Components.VisibilityState,
+        Source.Scripts.UI]]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 676685043034553739, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
+      propertyPath: managedReferences[3140846641636442347]._target
+      value: 
+      objectReference: {fileID: 5083459562150440320}
+    - target: {fileID: 676685043034553739, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
+      propertyPath: managedReferences[3140846641636442347].states.<EnumMode>k__BackingField
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 676685043034553739, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
+      propertyPath: managedReferences[3140846641636442347].states.<Entries>k__BackingField.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 676685043034553739, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
+      propertyPath: managedReferences[3140846641636442347].states.<Entries>k__BackingField.Array.data[0].<Value>k__BackingField
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 676685043034553739, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
+      propertyPath: managedReferences[3140846641636442347].states.<Entries>k__BackingField.Array.data[1].<Value>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: 9b5e18eda14cc914299bfd3c8e008f2d, type: 2}
+    - target: {fileID: 676685043034553739, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
+      propertyPath: managedReferences[3140846641636442347].states.<Entries>k__BackingField.Array.data[2].<Value>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: 6b4f4909536ee164bbe5a6102b4cf24c, type: 2}
     - target: {fileID: 1951874307724304377, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
       propertyPath: _currentColorModifier
       value: 
@@ -160,6 +193,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!225 &5083459562150440320 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 631435887277538565, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
+  m_PrefabInstance: {fileID: 5642830089819672709}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5161272678215892387 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 716030793023679782, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}

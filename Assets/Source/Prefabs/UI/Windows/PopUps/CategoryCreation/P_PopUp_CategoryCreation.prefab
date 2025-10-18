@@ -164,6 +164,17 @@ CanvasGroup:
   m_CorrespondingSourceObject: {fileID: 631435887277538565, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
   m_PrefabInstance: {fileID: 638431521099312069}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &123914289939322446 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 676685043034553739, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
+  m_PrefabInstance: {fileID: 638431521099312069}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5723876874799432739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57f3b9360d61463a8ab2fa47a8210b92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.Base.PopUpVisibilityHandler
 --- !u!224 &2460771041400425246 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3096858253786931419, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
@@ -194,25 +205,10 @@ MonoBehaviour:
   <InitialWindow>k__BackingField: 0
   canvasGroup: {fileID: 8837384621070016}
   <IsSingle>k__BackingField: 1
-  _visibilityAnimation:
-    rid: 3140846641636442322
+  _popUpVisibilityHandler: {fileID: 123914289939322446}
   _closeButton: {fileID: 3320797328083036242}
   _categoryNameInputField: {fileID: 7069071776404453609}
   _saveButton: {fileID: 2156294599105018257}
-  references:
-    version: 2
-    RefIds:
-    - rid: 3140846641636442322
-      type: {class: 'AnchoredPositionAnimation`1[[Source.Scripts.UI.Components.VisibilityState, Source.Scripts.UI]]', ns: CustomUtils.Runtime.Animations, asm: CustomUtils}
-      data:
-        states:
-          <Entries>k__BackingField:
-          - <Value>k__BackingField: {fileID: 0}
-          - <Value>k__BackingField: {fileID: 11400000, guid: d5d908c7663ef514193afa5a88e8d062, type: 2}
-          - <Value>k__BackingField: {fileID: 11400000, guid: 500a2ae1063fefb45a608828d61312cf, type: 2}
-          <EnumMode>k__BackingField: 0
-        _target: {fileID: 2493713443168467545}
-        _axis: 1
 --- !u!1001 &2146604088952819871
 PrefabInstance:
   m_ObjectHideFlags: 0

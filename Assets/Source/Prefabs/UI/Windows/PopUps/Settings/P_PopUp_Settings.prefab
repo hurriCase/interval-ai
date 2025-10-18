@@ -74,7 +74,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6603810977249432654, guid: 8db5ba0e7a00e54479935099246cd77c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -691
+      value: -24
       objectReference: {fileID: 0}
     - target: {fileID: 6603810977249432654, guid: 8db5ba0e7a00e54479935099246cd77c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2542,7 +2542,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6603810977249432654, guid: 8db5ba0e7a00e54479935099246cd77c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -184
+      value: -8
       objectReference: {fileID: 0}
     - target: {fileID: 6603810977249432654, guid: 8db5ba0e7a00e54479935099246cd77c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2761,7 +2761,7 @@ PrefabInstance:
       addedObject: {fileID: 6428113209199762987}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5166580558972006374, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
-      insertIndex: -1
+      insertIndex: 1
       addedObject: {fileID: 1982510473098860932}
   m_SourcePrefab: {fileID: 100100000, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
 --- !u!1 &1643467656561557539 stripped
@@ -2784,8 +2784,7 @@ MonoBehaviour:
   <InitialWindow>k__BackingField: 0
   canvasGroup: {fileID: 6466864625984557760}
   <IsSingle>k__BackingField: 1
-  _visibilityAnimation:
-    rid: 3140846641636442336
+  _popUpVisibilityHandler: {fileID: 6348305206566048334}
   _closeButton: {fileID: 5613281914914767811}
   _themeSelectionItem: {fileID: 8344136603452038807}
   _isSendNotificationsItem: {fileID: 3224092285158463853}
@@ -2798,20 +2797,17 @@ MonoBehaviour:
   _cardLearnLanguageSelectionItem: {fileID: 5363930122782386867}
   _cardReviewLanguageSelectionItem: {fileID: 1671326773918227889}
   _wordReviewSourceSelectionItem: {fileID: 4110662033391510481}
-  references:
-    version: 2
-    RefIds:
-    - rid: 3140846641636442336
-      type: {class: 'AnchoredPositionAnimation`1[[Source.Scripts.UI.Components.VisibilityState, Source.Scripts.UI]]', ns: CustomUtils.Runtime.Animations, asm: CustomUtils}
-      data:
-        states:
-          <Entries>k__BackingField:
-          - <Value>k__BackingField: {fileID: 0}
-          - <Value>k__BackingField: {fileID: 11400000, guid: d5d908c7663ef514193afa5a88e8d062, type: 2}
-          - <Value>k__BackingField: {fileID: 11400000, guid: 500a2ae1063fefb45a608828d61312cf, type: 2}
-          <EnumMode>k__BackingField: 0
-        _target: {fileID: 8879688593688264281}
-        _axis: 1
+--- !u!114 &6348305206566048334 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 676685043034553739, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
+  m_PrefabInstance: {fileID: 5872030381469151173}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643467656561557539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57f3b9360d61463a8ab2fa47a8210b92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.Base.PopUpVisibilityHandler
 --- !u!225 &6466864625984557760 stripped
 CanvasGroup:
   m_CorrespondingSourceObject: {fileID: 631435887277538565, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}

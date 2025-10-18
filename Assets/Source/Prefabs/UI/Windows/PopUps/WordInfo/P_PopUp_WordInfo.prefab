@@ -1794,7 +1794,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2516632550541356987, guid: 0fce63c8bcafed149a7d6ddb54406928, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -225.01001
+      value: -195.97
       objectReference: {fileID: 0}
     - target: {fileID: 2516632550541356987, guid: 0fce63c8bcafed149a7d6ddb54406928, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2535,7 +2535,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6603810977249432654, guid: 8db5ba0e7a00e54479935099246cd77c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -698.02
+      value: -607.94
       objectReference: {fileID: 0}
     - target: {fileID: 6603810977249432654, guid: 8db5ba0e7a00e54479935099246cd77c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2724,7 +2724,7 @@ PrefabInstance:
       addedObject: {fileID: 109001566634177211}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5166580558972006374, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
-      insertIndex: -1
+      insertIndex: 1
       addedObject: {fileID: 5282543571292447163}
   m_SourcePrefab: {fileID: 100100000, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
 --- !u!1 &1806656371713580143 stripped
@@ -2747,8 +2747,7 @@ MonoBehaviour:
   <InitialWindow>k__BackingField: 0
   canvasGroup: {fileID: 6224720535696461452}
   <IsSingle>k__BackingField: 1
-  _visibilityAnimation:
-    rid: 3140846641636442339
+  _popUpVisibilityHandler: {fileID: 6324734716393868802}
   _closeButton: {fileID: 5806315605415375595}
   _startLearningButton: {fileID: 2423437417920175563}
   _wordInfoCardBehaviour: {fileID: 1328217287629581221}
@@ -2756,25 +2755,22 @@ MonoBehaviour:
   _translationVariantsContainer: {fileID: 6112446697657793439}
   _synonymsContainer: {fileID: 8012101944670381336}
   _grammarContainer: {fileID: 5286222250351900277}
-  references:
-    version: 2
-    RefIds:
-    - rid: 3140846641636442339
-      type: {class: 'AnchoredPositionAnimation`1[[Source.Scripts.UI.Components.VisibilityState, Source.Scripts.UI]]', ns: CustomUtils.Runtime.Animations, asm: CustomUtils}
-      data:
-        states:
-          <Entries>k__BackingField:
-          - <Value>k__BackingField: {fileID: 0}
-          - <Value>k__BackingField: {fileID: 11400000, guid: d5d908c7663ef514193afa5a88e8d062, type: 2}
-          - <Value>k__BackingField: {fileID: 11400000, guid: 500a2ae1063fefb45a608828d61312cf, type: 2}
-          <EnumMode>k__BackingField: 0
-        _target: {fileID: 8423614762725499413}
-        _axis: 1
 --- !u!225 &6224720535696461452 stripped
 CanvasGroup:
   m_CorrespondingSourceObject: {fileID: 631435887277538565, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
   m_PrefabInstance: {fileID: 6818988325615448969}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6324734716393868802 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 676685043034553739, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
+  m_PrefabInstance: {fileID: 6818988325615448969}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806656371713580143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57f3b9360d61463a8ab2fa47a8210b92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.Base.PopUpVisibilityHandler
 --- !u!224 &7799646486548720863 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3646790791868981078, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
@@ -2783,10 +2779,5 @@ RectTransform:
 --- !u!224 &8384481964025762642 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3096858253786931419, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
-  m_PrefabInstance: {fileID: 6818988325615448969}
-  m_PrefabAsset: {fileID: 0}
---- !u!224 &8423614762725499413 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3046501804136550812, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
   m_PrefabInstance: {fileID: 6818988325615448969}
   m_PrefabAsset: {fileID: 0}

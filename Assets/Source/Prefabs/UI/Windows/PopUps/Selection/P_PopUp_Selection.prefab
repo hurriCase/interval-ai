@@ -123,6 +123,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7208016899348824345, guid: 76b86b34186d9c14090583d83216be7d, type: 3}
   m_PrefabInstance: {fileID: 8190385945890930267}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3927514874881282901 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5128277708848147726, guid: 76b86b34186d9c14090583d83216be7d, type: 3}
+  m_PrefabInstance: {fileID: 8190385945890930267}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8671159000526438712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57f3b9360d61463a8ab2fa47a8210b92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.Base.PopUpVisibilityHandler
 --- !u!225 &3973875911763432411 stripped
 CanvasGroup:
   m_CorrespondingSourceObject: {fileID: 5083459562150440320, guid: 76b86b34186d9c14090583d83216be7d, type: 3}
@@ -159,26 +170,20 @@ MonoBehaviour:
   <InitialWindow>k__BackingField: 0
   canvasGroup: {fileID: 3973875911763432411}
   <IsSingle>k__BackingField: 0
-  _visibilityAnimation:
-    rid: 3140846641636442342
+  _popUpVisibilityHandler: {fileID: 3927514874881282901}
   _closeButton: {fileID: 1208870504203787080}
   _selectionNameText: {fileID: 3793256062259673432}
   _selectionsContainer: {fileID: 9174071700348957477}
   _selectionItem: {fileID: 9204254458164522066, guid: cebc2d65bdf9d5a49bb2838b9bac56ef, type: 3}
   _selectionToggleGroup: {fileID: 5071721923386892953}
-  references:
-    version: 2
-    RefIds:
-    - rid: 3140846641636442342
-      type: {class: 'AlphaAnimation`1[[Source.Scripts.UI.Components.VisibilityState, Source.Scripts.UI]]', ns: CustomUtils.Runtime.Animations, asm: CustomUtils}
-      data:
-        states:
-          <Entries>k__BackingField:
-          - <Value>k__BackingField: {fileID: 0}
-          - <Value>k__BackingField: {fileID: 11400000, guid: 9b5e18eda14cc914299bfd3c8e008f2d, type: 2}
-          - <Value>k__BackingField: {fileID: 11400000, guid: 6b4f4909536ee164bbe5a6102b4cf24c, type: 2}
-          <EnumMode>k__BackingField: 0
-        _target: {fileID: 3973875911763432411}
+  _pivotAnimation:
+    states:
+      <Entries>k__BackingField:
+      - <Value>k__BackingField: {fileID: 0}
+      - <Value>k__BackingField: {fileID: 0}
+      - <Value>k__BackingField: {fileID: 0}
+      <EnumMode>k__BackingField: 0
+    _target: {fileID: 0}
 --- !u!1001 &8901819075813164159
 PrefabInstance:
   m_ObjectHideFlags: 0

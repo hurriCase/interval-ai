@@ -2,7 +2,6 @@
 {
     internal interface IAnimationsConfig
     {
-        float SelectionSwitchDuration { get; }
         float SelectionTransitionDuration { get; }
     }
 }

@@ -1,13 +1,9 @@
-﻿using CustomUtils.Runtime.Animations.Base;
-using CustomUtils.Runtime.Extensions;
+﻿using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using Cysharp.Threading.Tasks;
 using R3;
-using Source.Scripts.UI.Components;
-using Source.Scripts.UI.Data;
 using UnityEngine;
-using VContainer;
 
 namespace Source.Scripts.UI.Windows.Base
 {
@@ -15,10 +11,9 @@ namespace Source.Scripts.UI.Windows.Base
     {
         [field: SerializeField] internal bool IsSingle { get; private set; } = true;
 
-        [SerializeReference, SerializeReferenceDropdown] private IAnimation<VisibilityState> _visibilityAnimation;
-        [SerializeField] private ThemeButton _closeButton;
+        [SerializeField] private PopUpVisibilityHandler _popUpVisibilityHandler;
 
-        [Inject] protected IAnimationsConfig animationsConfig;
+        [SerializeField] private ThemeButton _closeButton;
 
         internal Observable<Unit> OnPopUpHidden => _popUpHidden;
         private readonly Subject<Unit> _popUpHidden = new();
@@ -29,18 +24,21 @@ namespace Source.Scripts.UI.Windows.Base
                 .SubscribeUntilDestroy(this, static self => self.HideAsync().Forget());
         }
 
-        internal override async UniTask ShowAsync() => await _visibilityAnimation.PlayAnimation(VisibilityState.Visible);
+        internal override async UniTask ShowAsync()
+        {
+            await _popUpVisibilityHandler.ShowAsync();
+        }
 
         internal override async UniTask HideAsync()
         {
-            await _visibilityAnimation.PlayAnimation(VisibilityState.Hidden);
+            await _popUpVisibilityHandler.HideAsync();
 
             _popUpHidden.OnNext(Unit.Default);
         }
 
         internal override void HideImmediately()
         {
-            _visibilityAnimation.PlayAnimation(VisibilityState.Hidden, true);
+            _popUpVisibilityHandler.HideImmediately();
 
             _popUpHidden.OnNext(Unit.Default);
         }

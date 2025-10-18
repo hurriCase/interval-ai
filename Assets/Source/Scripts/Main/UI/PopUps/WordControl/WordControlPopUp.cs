@@ -53,19 +53,19 @@ namespace Source.Scripts.Main.UI.PopUps.WordControl
             await _pivotAnimation.PlayAnimation(VisibilityState.Visible);
         }
 
+        internal override async UniTask HideAsync()
+        {
+            await _pivotAnimation.PlayAnimation(VisibilityState.Hidden);
+
+            base.HideAsync().Forget();
+        }
+
         internal override void Init()
         {
             _showWordInfoButton.SubscribeWithHide(this, static self => self.ShowWordInfo());
             _editButton.SubscribeWithHide(this, static self => self.ShowWordInfo());
             _hideWordButton.SubscribeWithHide(this, static self => self.HideWord());
             _saveToCategoryButton.SubscribeWithHide(this, static self => self.OpenCategorySelection());
-        }
-
-        internal override async UniTask HideAsync()
-        {
-            await _pivotAnimation.PlayAnimation(VisibilityState.Hidden);
-
-            base.HideAsync().Forget();
         }
 
         private void ShowWordInfo()

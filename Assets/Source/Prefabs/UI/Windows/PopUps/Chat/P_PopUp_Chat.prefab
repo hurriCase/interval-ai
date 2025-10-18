@@ -411,7 +411,7 @@ PrefabInstance:
       addedObject: {fileID: 683264509243145047}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5166580558972006374, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
-      insertIndex: -1
+      insertIndex: 1
       addedObject: {fileID: 696556605885037179}
   m_SourcePrefab: {fileID: 100100000, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
 --- !u!1 &647507548918819678 stripped
@@ -434,36 +434,27 @@ MonoBehaviour:
   <InitialWindow>k__BackingField: 0
   canvasGroup: {fileID: 5155573268020459965}
   <IsSingle>k__BackingField: 1
-  _visibilityAnimation:
-    rid: 3140846641636442324
+  _popUpVisibilityHandler: {fileID: 5056161929465395507}
   _closeButton: {fileID: 4975238749672833589}
   _aiMessageItem: {fileID: 8376302624298031836, guid: 61802740c57eb9745a5943c35c8e8234, type: 3}
   _userMessageItem: {fileID: 389984932675882645, guid: cde830ed1f41f8a4db1e0481880b8733, type: 3}
   _contentContainer: {fileID: 7328844399980536931}
   _messageInputField: {fileID: 3889469538311167096}
   _sendMessageButton: {fileID: 3236670445230833230}
-  references:
-    version: 2
-    RefIds:
-    - rid: 3140846641636442324
-      type: {class: 'AnchoredPositionAnimation`1[[Source.Scripts.UI.Components.VisibilityState, Source.Scripts.UI]]', ns: CustomUtils.Runtime.Animations, asm: CustomUtils}
-      data:
-        states:
-          <Entries>k__BackingField:
-          - <Value>k__BackingField: {fileID: 0}
-          - <Value>k__BackingField: {fileID: 11400000, guid: d5d908c7663ef514193afa5a88e8d062, type: 2}
-          - <Value>k__BackingField: {fileID: 11400000, guid: 500a2ae1063fefb45a608828d61312cf, type: 2}
-          <EnumMode>k__BackingField: 0
-        _target: {fileID: 7280156988781286692}
-        _axis: 1
+--- !u!114 &5056161929465395507 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 676685043034553739, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
+  m_PrefabInstance: {fileID: 5714796392493843640}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647507548918819678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57f3b9360d61463a8ab2fa47a8210b92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.Base.PopUpVisibilityHandler
 --- !u!225 &5155573268020459965 stripped
 CanvasGroup:
   m_CorrespondingSourceObject: {fileID: 631435887277538565, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
-  m_PrefabInstance: {fileID: 5714796392493843640}
-  m_PrefabAsset: {fileID: 0}
---- !u!224 &7280156988781286692 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3046501804136550812, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
   m_PrefabInstance: {fileID: 5714796392493843640}
   m_PrefabAsset: {fileID: 0}
 --- !u!224 &7328844399980536931 stripped

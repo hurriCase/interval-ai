@@ -236,7 +236,7 @@ PrefabInstance:
       addedObject: {fileID: 36889145133129032}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5166580558972006374, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
-      insertIndex: -1
+      insertIndex: 1
       addedObject: {fileID: 7126918496141255050}
     - targetCorrespondingSourceObject: {fileID: 5166580558972006374, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
       insertIndex: -1
@@ -250,16 +250,22 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3646790791868981078, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
   m_PrefabInstance: {fileID: 4526499324877027606}
   m_PrefabAsset: {fileID: 0}
---- !u!224 &1483375432529242250 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3046501804136550812, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
-  m_PrefabInstance: {fileID: 4526499324877027606}
-  m_PrefabAsset: {fileID: 0}
 --- !u!225 &3896199439287272467 stripped
 CanvasGroup:
   m_CorrespondingSourceObject: {fileID: 631435887277538565, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
   m_PrefabInstance: {fileID: 4526499324877027606}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4014196355994207389 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 676685043034553739, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
+  m_PrefabInstance: {fileID: 4526499324877027606}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8746617757528758000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57f3b9360d61463a8ab2fa47a8210b92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.Base.PopUpVisibilityHandler
 --- !u!1 &8746617757528758000 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5166580558972006374, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
@@ -280,8 +286,7 @@ MonoBehaviour:
   <InitialWindow>k__BackingField: 0
   canvasGroup: {fileID: 3896199439287272467}
   <IsSingle>k__BackingField: 1
-  _visibilityAnimation:
-    rid: 3140846641636442332
+  _popUpVisibilityHandler: {fileID: 4014196355994207389}
   _closeButton: {fileID: 0}
   _messageText: {fileID: 1304059584242376303}
   _messageTheme: {fileID: 4580018877341091074}
@@ -301,17 +306,6 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 3140846641636442332
-      type: {class: 'AnchoredPositionAnimation`1[[Source.Scripts.UI.Components.VisibilityState, Source.Scripts.UI]]', ns: CustomUtils.Runtime.Animations, asm: CustomUtils}
-      data:
-        states:
-          <Entries>k__BackingField:
-          - <Value>k__BackingField: {fileID: 0}
-          - <Value>k__BackingField: {fileID: 11400000, guid: d5d908c7663ef514193afa5a88e8d062, type: 2}
-          - <Value>k__BackingField: {fileID: 11400000, guid: 500a2ae1063fefb45a608828d61312cf, type: 2}
-          <EnumMode>k__BackingField: 0
-        _target: {fileID: 1483375432529242250}
-        _axis: 1
     - rid: 7913753025380352209
       type: {class: HighlightStep, ns: Source.Scripts.Onboarding.UI.OnboardingPractice.Steps, asm: Source.Scripts.Onboarding}
       data:
@@ -754,7 +748,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4142699438041553860, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -552.23083
+      value: -506.2508
       objectReference: {fileID: 0}
     - target: {fileID: 4358599618656306394, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
       propertyPath: m_AnchorMax.y

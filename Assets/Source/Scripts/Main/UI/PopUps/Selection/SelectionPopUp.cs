@@ -1,14 +1,13 @@
-﻿using CustomUtils.Runtime.UI.CustomComponents.Selectables.Toggles;
+﻿using CustomUtils.Runtime.Animations;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Toggles;
 using Cysharp.Threading.Tasks;
-using PrimeTween;
 using R3;
 using Source.Scripts.Core.Others.UIPools;
-using Source.Scripts.UI.Data;
+using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using VContainer;
 
 namespace Source.Scripts.Main.UI.PopUps.Selection
 {
@@ -20,17 +19,11 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
         [SerializeField] private StateToggle _selectionItem;
         [SerializeField] private ToggleGroup _selectionToggleGroup;
 
-        private IAnimationsConfig _animationsConfig;
+        [SerializeField] private PivotAnimation<VisibilityState> _pivotAnimation;
 
         private UIPool<StateToggle> _selectionPool;
 
         private DisposableBag _disposableBag;
-
-        [Inject]
-        internal void Inject(IAnimationsConfig animationsConfig)
-        {
-            _animationsConfig = animationsConfig;
-        }
 
         internal override void Init()
         {
@@ -50,7 +43,14 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
         {
             await base.ShowAsync();
 
-            await AnimatePivotAsync(0f);
+            await _pivotAnimation.PlayAnimation(VisibilityState.Visible);
+        }
+
+        internal override async UniTask HideAsync()
+        {
+            await _pivotAnimation.PlayAnimation(VisibilityState.Hidden);
+
+            base.HideAsync().Forget();
         }
 
         private void CreateSelections<TValue>(ISelectionService<TValue> service)
@@ -87,16 +87,6 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
                     static (isOn, tuple) => tuple.service.SetValue(tuple.selectionValue, isOn))
                 .AddTo(ref _disposableBag);
         }
-
-        internal override async UniTask HideAsync()
-        {
-            await AnimatePivotAsync(1f);
-
-            base.HideAsync().Forget();
-        }
-
-        private Tween AnimatePivotAsync(float endValue)
-            => Tween.UIPivotY(_selectionsContainer, endValue, _animationsConfig.SelectionSwitchDuration);
 
         private void OnDestroy()
         {
