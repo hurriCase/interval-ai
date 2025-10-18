@@ -8,6 +8,7 @@ using R3;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Progress.Base;
+using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.Data.Base;
 using TMPro;
@@ -24,16 +25,19 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.Progress
         [SerializeField] private RoundedFilledImage _progressComponent;
 
         private IProgressDescriptionsDatabase _progressDescriptionsDatabase;
+        private IPracticeSettingsRepository _practiceSettingsRepository;
         private ILocalizationKeysDatabase _localizationKeysDatabase;
         private IProgressRepository _progressRepository;
 
         [Inject]
         internal void Inject(
             IProgressDescriptionsDatabase progressDescriptionsDatabase,
+            IPracticeSettingsRepository practiceSettingsRepository,
             ILocalizationKeysDatabase localizationKeysDatabase,
             IProgressRepository progressRepository)
         {
             _progressDescriptionsDatabase = progressDescriptionsDatabase;
+            _practiceSettingsRepository = practiceSettingsRepository;
             _localizationKeysDatabase = localizationKeysDatabase;
             _progressRepository = progressRepository;
         }
@@ -49,24 +53,24 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.Progress
 
         private void UpdateProgress()
         {
-            var (learnedCount, dailyGoal) = GetProgressData();
+            var learnedCount = GetLearnedCount();
+            var dailyGoal = Mathf.Max(1, _practiceSettingsRepository.DailyGoal.Value);
             var progressRatio = (float)learnedCount / dailyGoal;
 
             UpdateProgressUI(progressRatio);
             UpdateDescriptionUI(learnedCount, dailyGoal);
         }
 
-        private (int learnedCount, int dailyGoal) GetProgressData()
+        private int GetLearnedCount()
         {
             var progressHistory = _progressRepository.ProgressHistory.CurrentValue;
-            var dailyGoal = Mathf.Max(1, _progressRepository.NewWordsDailyTarget.CurrentValue);
 
             var today = DateOnly.FromDateTime(DateTime.Now);
             var learnedCount = progressHistory.TryGetValue(today, out var dailyProgress)
                 ? Mathf.Max(0, dailyProgress.GetProgressCountData(LearningState.CurrentlyLearning))
                 : 0;
 
-            return (learnedCount, dailyGoal);
+            return learnedCount;
         }
 
         private void UpdateProgressUI(float progressRatio)
