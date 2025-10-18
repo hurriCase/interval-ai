@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using CustomUtils.Runtime.Extensions.Observables;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using CustomUtils.Runtime.UI.Theme;
 using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.Configs;
@@ -8,7 +9,6 @@ using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours;
 using Source.Scripts.Onboarding.Data.Config;
 using Source.Scripts.Onboarding.UI.OnboardingPractice.Steps.Base;
-using Source.Scripts.UI.Components.Button;
 using Source.Scripts.UI.Windows.Base;
 using TMPro;
 using UnityEngine;
@@ -28,7 +28,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingPractice
         [SerializeField] private WordProgressBehaviour _wordProgressBehaviour;
         [SerializeField] private ControlButtonsBehaviour _controlButtonsBehaviour;
 
-        private ButtonComponent _continueButton;
+        private ThemeButton _continueButton;
         private GameObject _placeholderObject;
 
         private int _currentStepIndex = -1;

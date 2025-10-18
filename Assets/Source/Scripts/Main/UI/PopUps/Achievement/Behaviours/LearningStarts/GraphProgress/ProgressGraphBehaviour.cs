@@ -1,6 +1,7 @@
 ﻿using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.Localization;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Toggles;
 using R3;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
@@ -8,7 +9,6 @@ using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.Data.Base;
 using Source.Scripts.Main.UI.Shared.Progress;
 using Source.Scripts.UI.Behaviours.DateLabel;
-using Source.Scripts.UI.Components;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,7 +22,7 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
         [SerializeField] private TextMeshProUGUI _maxProgressText;
         [SerializeField] private RectTransform _graphButtonsContainer;
         [SerializeField] private ToggleGroup _graphButtonsGroup;
-        [SerializeField] private ToggleComponent _graphTypeToggle;
+        [SerializeField] private StateToggle _graphTypeToggle;
         [SerializeField] private ProgressColorMapping _progressColorMapping;
         [SerializeField] private EnumArray<LearningState, ThemeLineRenderer> _graphLines = new(EnumMode.SkipFirst);
 

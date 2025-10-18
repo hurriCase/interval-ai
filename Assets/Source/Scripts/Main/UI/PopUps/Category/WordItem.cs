@@ -1,11 +1,11 @@
 ﻿using CustomUtils.Runtime.Extensions.Observables;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using Cysharp.Text;
 using R3;
 using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.PopUps.WordInfo;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours;
-using Source.Scripts.UI.Components.Button;
 using TMPro;
 using UnityEngine;
 using VContainer;
@@ -17,7 +17,7 @@ namespace Source.Scripts.Main.UI.PopUps.Category
         [SerializeField] private WordProgressBehaviour _wordProgressBehaviour;
         [SerializeField] private TextMeshProUGUI _learningWordText;
         [SerializeField] private TextMeshProUGUI _translationsText;
-        [SerializeField] private ButtonComponent _wordInfoButton;
+        [SerializeField] private ThemeButton _wordInfoButton;
 
         private WordEntry _currentWordEntry;
 

@@ -1,9 +1,9 @@
 ﻿using CustomUtils.Runtime.Extensions.Observables;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using Cysharp.Threading.Tasks;
 using R3;
 using Source.Scripts.Core.GenerativeLanguage;
 using Source.Scripts.Core.Localization.Translator;
-using Source.Scripts.UI.Components.Button;
 using Source.Scripts.UI.Windows.Base;
 using TMPro;
 using UnityEngine;
@@ -20,7 +20,7 @@ namespace Source.Scripts.Main.UI.PopUps.Chat
         [SerializeField] private RectTransform _contentContainer;
 
         [SerializeField] private TMP_InputField _messageInputField;
-        [SerializeField] private ButtonComponent _sendMessageButton;
+        [SerializeField] private ThemeButton _sendMessageButton;
 
         private IGenerativeLanguage _generativeLanguage;
         private IObjectResolver _objectResolver;

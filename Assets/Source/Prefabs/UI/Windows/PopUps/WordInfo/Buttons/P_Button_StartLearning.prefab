@@ -32,6 +32,14 @@ PrefabInstance:
       propertyPath: _currentColorModifier
       value: 
       objectReference: {fileID: 6521599394433437033}
+    - target: {fileID: 4676303384236494979, guid: 916d9d8c911370d4dac820e83f6ba62e, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: None
+      objectReference: {fileID: 0}
+    - target: {fileID: 4676303384236494979, guid: 916d9d8c911370d4dac820e83f6ba62e, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5429903504238199194, guid: 916d9d8c911370d4dac820e83f6ba62e, type: 3}
       propertyPath: targetComponent
       value: 
@@ -264,6 +272,14 @@ PrefabInstance:
       propertyPath: _currentColorModifier
       value: 
       objectReference: {fileID: 8109114121757944804}
+    - target: {fileID: 3126969301875360903, guid: 9f16e4b6cf1a10e4dad147f102b5723a, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: Separator
+      objectReference: {fileID: 0}
+    - target: {fileID: 3126969301875360903, guid: 9f16e4b6cf1a10e4dad147f102b5723a, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4151355006477514328, guid: 9f16e4b6cf1a10e4dad147f102b5723a, type: 3}
       propertyPath: m_Name
       value: P_Image_Separator
@@ -315,7 +331,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1645552912234213674, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: currentColorName
-      value: None
+      value: Primary
       objectReference: {fileID: 0}
     - target: {fileID: 1815174192101609245, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: <LocalizationKey>k__BackingField
@@ -327,6 +343,10 @@ PrefabInstance:
       objectReference: {fileID: 7548451056200131916}
     - target: {fileID: 1929861101225414033, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: _colorData.<ColorName>k__BackingField
+      value: Primary
+      objectReference: {fileID: 0}
+    - target: {fileID: 1929861101225414033, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
       value: Primary
       objectReference: {fileID: 0}
     - target: {fileID: 3199486689505168149, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
@@ -479,11 +499,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5224809382630289792, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: m_Color.g
-      value: 1
+      value: 0.27058825
       objectReference: {fileID: 0}
     - target: {fileID: 5224809382630289792, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0.34509805
       objectReference: {fileID: 0}
     - target: {fileID: 7253430493676195273, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: currentColorName
@@ -521,6 +541,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9012933293376466152, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+      propertyPath: <GraphicMappings>k__BackingField.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9012933293376466152, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+      propertyPath: <GraphicMappings>k__BackingField.Array.data[0]._colorMapping
+      value: 
+      objectReference: {fileID: 11400000, guid: 921e1472956a3aa40aa10d3a26ef93f8, type: 2}
     - target: {fileID: 9134864641081789667, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: <GraphicMappings>k__BackingField.Array.size
       value: 1

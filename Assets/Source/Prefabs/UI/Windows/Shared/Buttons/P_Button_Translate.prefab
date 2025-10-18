@@ -28,6 +28,10 @@ PrefabInstance:
       propertyPath: _colorData.<ColorName>k__BackingField
       value: ButtonTranslate
       objectReference: {fileID: 0}
+    - target: {fileID: 1929861101225414033, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: ButtonTranslate
+      objectReference: {fileID: 0}
     - target: {fileID: 3199486689505168149, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -132,6 +136,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 02d7e9ea37d82394c97cbc4f42ffc0e7, type: 3}
+    - target: {fileID: 9012933293376466152, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+      propertyPath: <Text>k__BackingField
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 9134864641081789667, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: <Text>k__BackingField
       value: 
@@ -263,18 +271,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc1c4f2704d24aa688dcb479779e2916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.Button.TranslateButton
-  _buttonComponent: {fileID: 8503555570821042702}
+  _buttonComponent: {fileID: 8490238922396217861}
   _textsToTranslate: {fileID: 0}
   _translatedText: {fileID: 0}
   _translationAccordion: {fileID: 0}
---- !u!114 &8503555570821042702 stripped
+--- !u!114 &8490238922396217861 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9134864641081789667, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+  m_CorrespondingSourceObject: {fileID: 9012933293376466152, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
   m_PrefabInstance: {fileID: 632540530934406893}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5284368234239781762}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a2fd26093214446a4fdc024d3545f07, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons.ThemeButton

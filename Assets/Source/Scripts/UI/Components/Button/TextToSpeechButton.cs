@@ -1,4 +1,5 @@
 ﻿using CustomUtils.Runtime.Extensions.Observables;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using Cysharp.Text;
 using R3;
 using Source.Scripts.Core.Audio.TextToSpeech;
@@ -10,7 +11,7 @@ namespace Source.Scripts.UI.Components.Button
 {
     internal sealed class TextToSpeechButton : MonoBehaviour
     {
-        [SerializeField] private ButtonComponent _buttonComponent;
+        [SerializeField] private ThemeButton _buttonComponent;
         [SerializeField] private TextMeshProUGUI[] _textsToSynthesize;
 
         private ITextToSpeech _textToSpeech;

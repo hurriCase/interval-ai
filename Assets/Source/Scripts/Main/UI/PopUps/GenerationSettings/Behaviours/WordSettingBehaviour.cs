@@ -1,8 +1,8 @@
 ﻿using CustomUtils.Runtime.Extensions.Observables;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Toggles;
 using Cysharp.Text;
 using R3;
 using Source.Scripts.Core.Repositories.Settings.Base;
-using Source.Scripts.UI.Components;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,7 +14,7 @@ namespace Source.Scripts.Main.UI.PopUps.GenerationSettings.Behaviours
     {
         [SerializeField] private Slider _percentageSlider;
         [SerializeField] private TextMeshProUGUI _percentText;
-        [SerializeField] private ToggleComponent _isHighlightedCheckbox;
+        [SerializeField] private StateToggle _isHighlightedCheckbox;
 
         private IGenerationSettingsRepository _generationSettingsRepository;
 

@@ -12,8 +12,16 @@ PrefabInstance:
       propertyPath: <ThemeSolidColorName>k__BackingField
       value: Base_Icons_Secondary
       objectReference: {fileID: 0}
+    - target: {fileID: 1645552912234213674, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+      propertyPath: currentColorName
+      value: IconsPrimary
+      objectReference: {fileID: 0}
     - target: {fileID: 1929861101225414033, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: _colorData.<ColorName>k__BackingField
+      value: IconsPrimary
+      objectReference: {fileID: 0}
+    - target: {fileID: 1929861101225414033, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
       value: IconsPrimary
       objectReference: {fileID: 0}
     - target: {fileID: 3199486689505168149, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
@@ -128,6 +136,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 02d7e9ea37d82394c97cbc4f42ffc0e7, type: 3}
+    - target: {fileID: 9012933293376466152, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+      propertyPath: <Text>k__BackingField
+      value: 
+      objectReference: {fileID: 4328174025691788723}
     - target: {fileID: 9134864641081789667, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
       propertyPath: <Text>k__BackingField
       value: 
@@ -273,20 +285,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cee240e49ee49a7a7166f3a2520e700, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.PopUps.Selection.SelectionItem
-  _buttonComponent: {fileID: 8503555570821042702}
+  _buttonComponent: {fileID: 8490238922396217861}
   _selectionNameText: {fileID: 4328174025691788723}
   _localizationKey: 
---- !u!114 &8503555570821042702 stripped
+--- !u!114 &8490238922396217861 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9134864641081789667, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
+  m_CorrespondingSourceObject: {fileID: 9012933293376466152, guid: 4970de7573628814e8ceb3a4bf43c065, type: 3}
   m_PrefabInstance: {fileID: 632540530934406893}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5284368234239781762}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a2fd26093214446a4fdc024d3545f07, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons.ThemeButton
 --- !u!1001 &6221210812876055384
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -298,6 +310,10 @@ PrefabInstance:
     - target: {fileID: 561403775900978418, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_Name
       value: P_Text_OrderName
+      objectReference: {fileID: 0}
+    - target: {fileID: 2558408827752567483, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+      propertyPath: currentColorName
+      value: TextPrimary
       objectReference: {fileID: 0}
     - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_Pivot.x
@@ -379,6 +395,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5175023766961360262, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+      propertyPath: _currentColorModifier
+      value: 
+      objectReference: {fileID: 8491366689313763811}
+    - target: {fileID: 5175023766961360262, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: TextPrimary
+      objectReference: {fileID: 0}
+    - target: {fileID: 5175023766961360262, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7658068928977278699, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_fontSize
       value: 17.35
@@ -419,6 +447,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8491366689313763811 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2558408827752567483, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+  m_PrefabInstance: {fileID: 6221210812876055384}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8840dbee5a42476db6edcdcd70e84c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.ColorModifiers.SolidColorModifier
 --- !u!224 &9162725231857779108 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}

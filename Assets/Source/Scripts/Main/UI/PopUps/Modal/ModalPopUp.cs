@@ -1,10 +1,10 @@
 ﻿using System;
 using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Extensions.Observables;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using Cysharp.Threading.Tasks;
 using R3;
 using Source.Scripts.Core.Localization.LocalizationTypes.Modal;
-using Source.Scripts.UI.Components.Button;
 using Source.Scripts.UI.Windows.Base;
 using TMPro;
 using UnityEngine;
@@ -17,8 +17,8 @@ namespace Source.Scripts.Main.UI.PopUps.Modal
         [SerializeField] private TextMeshProUGUI _messageText;
         [SerializeField] private TextMeshProUGUI _positiveText;
         [SerializeField] private TextMeshProUGUI _negativeText;
-        [SerializeField] private ButtonComponent _positiveButton;
-        [SerializeField] private ButtonComponent _negativeButton;
+        [SerializeField] private ThemeButton _positiveButton;
+        [SerializeField] private ThemeButton _negativeButton;
 
         private IDisposable _disposable;
 

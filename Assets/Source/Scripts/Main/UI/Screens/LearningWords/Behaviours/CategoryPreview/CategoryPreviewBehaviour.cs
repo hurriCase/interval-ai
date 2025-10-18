@@ -1,12 +1,12 @@
 ﻿using CustomUtils.Runtime.AddressableSystem;
 using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Extensions.Observables;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using R3;
 using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Core.Repositories.Categories.Category;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.PopUps.Category;
-using Source.Scripts.UI.Components.Button;
 using UnityEngine;
 using VContainer;
 
@@ -14,10 +14,10 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.CategoryPrevie
 {
     internal sealed class CategoryPreviewBehaviour : MonoBehaviour
     {
-        [SerializeField] private ButtonComponent _allCategoriesButton;
+        [SerializeField] private ThemeButton _allCategoriesButton;
 
         [SerializeField] private RectTransform _contentContainer;
-        [SerializeField] private ButtonComponent _categoryButton;
+        [SerializeField] private ThemeButton _categoryButton;
 
         private ICategoriesRepository _categoriesRepository;
         private IAddressablesLoader _addressablesLoader;

@@ -289,6 +289,14 @@ PrefabInstance:
       propertyPath: _currentColorModifier
       value: 
       objectReference: {fileID: 1392696477349166560}
+    - target: {fileID: 5175023766961360262, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: TextPrimary
+      objectReference: {fileID: 0}
+    - target: {fileID: 5175023766961360262, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7658068928977278699, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_text
       value: '{0} words - {1}%'
@@ -504,7 +512,7 @@ MonoBehaviour:
   progressText: {fileID: 6526978420542962096}
   icon: {fileID: 1478569362359672847}
   categoryOpenArea: {fileID: 3565873145014396176}
-  selectedCheckbox: {fileID: 1453620595624485380}
+  selectedCheckbox: {fileID: 5534681032890555038}
 --- !u!1001 &5126276691970068570
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -605,6 +613,14 @@ PrefabInstance:
       propertyPath: _currentColorModifier
       value: 
       objectReference: {fileID: 7252337171545703137}
+    - target: {fileID: 5175023766961360262, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: TextPrimary
+      objectReference: {fileID: 0}
+    - target: {fileID: 5175023766961360262, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7658068928977278699, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_text
       value: Lyrics from Imagen Dragons songs
@@ -749,6 +765,14 @@ PrefabInstance:
       propertyPath: _currentColorModifier
       value: 
       objectReference: {fileID: 7936925055766392442}
+    - target: {fileID: 3126969301875360903, guid: 9f16e4b6cf1a10e4dad147f102b5723a, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: Separator
+      objectReference: {fileID: 0}
+    - target: {fileID: 3126969301875360903, guid: 9f16e4b6cf1a10e4dad147f102b5723a, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4151355006477514328, guid: 9f16e4b6cf1a10e4dad147f102b5723a, type: 3}
       propertyPath: m_Name
       value: P_Image_Separator
@@ -878,10 +902,26 @@ PrefabInstance:
       propertyPath: _currentColorModifier
       value: 
       objectReference: {fileID: 3736059480951502711}
+    - target: {fileID: 4011132319290219550, guid: 0118ad099cbed294f84e28be60751993, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: Primary
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011132319290219550, guid: 0118ad099cbed294f84e28be60751993, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5614218408372215580, guid: 0118ad099cbed294f84e28be60751993, type: 3}
       propertyPath: _currentColorModifier
       value: 
       objectReference: {fileID: 6078427135116766440}
+    - target: {fileID: 5614218408372215580, guid: 0118ad099cbed294f84e28be60751993, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: White
+      objectReference: {fileID: 0}
+    - target: {fileID: 5614218408372215580, guid: 0118ad099cbed294f84e28be60751993, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5673072479736057698, guid: 0118ad099cbed294f84e28be60751993, type: 3}
       propertyPath: m_Name
       value: P_Toggle_Checkbox
@@ -890,6 +930,10 @@ PrefabInstance:
       propertyPath: _currentColorModifier
       value: 
       objectReference: {fileID: 284367541054171586}
+    - target: {fileID: 6302708514463117095, guid: 0118ad099cbed294f84e28be60751993, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: Primary
+      objectReference: {fileID: 0}
     - target: {fileID: 6706708922986493972, guid: 0118ad099cbed294f84e28be60751993, type: 3}
       propertyPath: currentColorName
       value: Primary
@@ -918,17 +962,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8840dbee5a42476db6edcdcd70e84c6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.ColorModifiers.SolidColorModifier
---- !u!114 &1453620595624485380 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5389980564558296018, guid: 0118ad099cbed294f84e28be60751993, type: 3}
-  m_PrefabInstance: {fileID: 6836819371380314582}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af1e312ef8ab4916bd1e7b7352bdb5c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.ToggleComponent
 --- !u!114 &3736059480951502711 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7870151070494369441, guid: 0118ad099cbed294f84e28be60751993, type: 3}
@@ -940,6 +973,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8840dbee5a42476db6edcdcd70e84c6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.ColorModifiers.SolidColorModifier
+--- !u!114 &5534681032890555038 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1310092214397471560, guid: 0118ad099cbed294f84e28be60751993, type: 3}
+  m_PrefabInstance: {fileID: 6836819371380314582}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c9e8b9661d648b485ac4153d41008f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.Selectables.Toggles.StateToggle
 --- !u!114 &6078427135116766440 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 773400570153729342, guid: 0118ad099cbed294f84e28be60751993, type: 3}

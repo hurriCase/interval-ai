@@ -58,6 +58,14 @@ PrefabInstance:
       propertyPath: _currentColorModifier
       value: 
       objectReference: {fileID: 7998144944422034137}
+    - target: {fileID: 2362284711519059306, guid: 25800398ce5913f4c9b730555450d0d2, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: Primary
+      objectReference: {fileID: 0}
+    - target: {fileID: 2362284711519059306, guid: 25800398ce5913f4c9b730555450d0d2, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2381317425067475489, guid: 25800398ce5913f4c9b730555450d0d2, type: 3}
       propertyPath: m_Name
       value: P_Text_IsHighlighted
@@ -66,6 +74,14 @@ PrefabInstance:
       propertyPath: _currentColorModifier
       value: 
       objectReference: {fileID: 1288716872576696676}
+    - target: {fileID: 6996274831613477717, guid: 25800398ce5913f4c9b730555450d0d2, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: TextPrimary
+      objectReference: {fileID: 0}
+    - target: {fileID: 6996274831613477717, guid: 25800398ce5913f4c9b730555450d0d2, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8041274553896476107, guid: 25800398ce5913f4c9b730555450d0d2, type: 3}
       propertyPath: m_Color.g
       value: 0.27058825
@@ -315,17 +331,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 770262757825077758, guid: 289baa3b3621cad48a15b3c545d45c1f, type: 3}
   m_PrefabInstance: {fileID: 2030976827653637417}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4916995662706844449 stripped
+--- !u!114 &5182935553914241834 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6346652879488509448, guid: 289baa3b3621cad48a15b3c545d45c1f, type: 3}
+  m_CorrespondingSourceObject: {fileID: 6611854654963009027, guid: 289baa3b3621cad48a15b3c545d45c1f, type: 3}
   m_PrefabInstance: {fileID: 2030976827653637417}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a2fd26093214446a4fdc024d3545f07, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons.ThemeButton
 --- !u!1001 &4783771234551590391
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -461,6 +477,14 @@ PrefabInstance:
       propertyPath: _currentColorModifier
       value: 
       objectReference: {fileID: 3988648837566829253}
+    - target: {fileID: 2362284711519059306, guid: 25800398ce5913f4c9b730555450d0d2, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: Primary
+      objectReference: {fileID: 0}
+    - target: {fileID: 2362284711519059306, guid: 25800398ce5913f4c9b730555450d0d2, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2381317425067475489, guid: 25800398ce5913f4c9b730555450d0d2, type: 3}
       propertyPath: m_Name
       value: P_Text_WordPercent
@@ -469,6 +493,14 @@ PrefabInstance:
       propertyPath: _currentColorModifier
       value: 
       objectReference: {fileID: 5208388392031750520}
+    - target: {fileID: 6996274831613477717, guid: 25800398ce5913f4c9b730555450d0d2, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: TextPrimary
+      objectReference: {fileID: 0}
+    - target: {fileID: 6996274831613477717, guid: 25800398ce5913f4c9b730555450d0d2, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8041274553896476107, guid: 25800398ce5913f4c9b730555450d0d2, type: 3}
       propertyPath: m_Color.g
       value: 0.27058825
@@ -668,6 +700,14 @@ PrefabInstance:
       propertyPath: _currentColorModifier
       value: 
       objectReference: {fileID: 4212752179409333983}
+    - target: {fileID: 3281347553749123618, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: BackgroundSecondary
+      objectReference: {fileID: 0}
+    - target: {fileID: 3281347553749123618, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3766352247999521383, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
       propertyPath: m_Name
       value: P_Block_CurrentSetings
@@ -811,7 +851,7 @@ MonoBehaviour:
   _wordPercentText: {fileID: 108174344707755304}
   _showOnLanguageText: {fileID: 2586504229240908030}
   _isHighlightText: {fileID: 6351719730154521908}
-  _changeSettingsButton: {fileID: 4916995662706844449}
+  _changeSettingsButton: {fileID: 5182935553914241834}
 --- !u!225 &5097567495348635765
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -844,6 +884,14 @@ PrefabInstance:
       propertyPath: _currentColorModifier
       value: 
       objectReference: {fileID: 1531174287491004179}
+    - target: {fileID: 2362284711519059306, guid: 25800398ce5913f4c9b730555450d0d2, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: Primary
+      objectReference: {fileID: 0}
+    - target: {fileID: 2362284711519059306, guid: 25800398ce5913f4c9b730555450d0d2, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2381317425067475489, guid: 25800398ce5913f4c9b730555450d0d2, type: 3}
       propertyPath: m_Name
       value: P_Text_ShowOnLanguage
@@ -852,6 +900,14 @@ PrefabInstance:
       propertyPath: _currentColorModifier
       value: 
       objectReference: {fileID: 7647883747290573998}
+    - target: {fileID: 6996274831613477717, guid: 25800398ce5913f4c9b730555450d0d2, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: TextPrimary
+      objectReference: {fileID: 0}
+    - target: {fileID: 6996274831613477717, guid: 25800398ce5913f4c9b730555450d0d2, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8041274553896476107, guid: 25800398ce5913f4c9b730555450d0d2, type: 3}
       propertyPath: m_Color.g
       value: 0.27058825
@@ -1119,6 +1175,14 @@ PrefabInstance:
       propertyPath: _currentColorModifier
       value: 
       objectReference: {fileID: 7099899858955910018}
+    - target: {fileID: 9186071019390123412, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: TextPrimary
+      objectReference: {fileID: 0}
+    - target: {fileID: 9186071019390123412, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -1,10 +1,10 @@
 ﻿using System;
 using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.Localization;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using R3;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Main.UI.Base;
-using Source.Scripts.UI.Components.Button;
 using TMPro;
 using UnityEngine;
 using VContainer;
@@ -13,7 +13,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
 {
     internal sealed class SelectionItem : MonoBehaviour
     {
-        [SerializeField] private ButtonComponent _buttonComponent;
+        [SerializeField] private ThemeButton _buttonComponent;
         [SerializeField] private TextMeshProUGUI _selectionNameText;
         [SerializeField] private string _localizationKey;
 

@@ -1,9 +1,9 @@
 ﻿using CustomUtils.Runtime.Extensions.Observables;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using R3;
 using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.PopUps.Category;
-using Source.Scripts.UI.Components.Button;
 using Source.Scripts.UI.Windows.Base;
 using TMPro;
 using UnityEngine;
@@ -14,7 +14,7 @@ namespace Source.Scripts.Main.UI.PopUps.CategoryCreation
     internal sealed class CategoryCreationPopUp : PopUpBase
     {
         [SerializeField] private TMP_InputField _categoryNameInputField;
-        [SerializeField] private ButtonComponent _saveButton;
+        [SerializeField] private ThemeButton _saveButton;
 
         private IWindowsController _windowsController;
         private ICategoriesRepository _categoriesRepository;

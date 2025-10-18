@@ -225,6 +225,14 @@ PrefabInstance:
       propertyPath: _currentColorModifier
       value: 
       objectReference: {fileID: 3544191348934189933}
+    - target: {fileID: 9186071019390123412, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: TextPrimary
+      objectReference: {fileID: 0}
+    - target: {fileID: 9186071019390123412, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -611,6 +619,14 @@ PrefabInstance:
       propertyPath: _colorData.<ColorName>k__BackingField
       value: Primary
       objectReference: {fileID: 0}
+    - target: {fileID: 5450591052864157539, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: Primary
+      objectReference: {fileID: 0}
+    - target: {fileID: 5450591052864157539, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5520780965205886792, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
       propertyPath: <ThemeSolidColorName>k__BackingField
       value: Base_Main
@@ -703,6 +719,14 @@ PrefabInstance:
     - target: {fileID: 3063291918183295526, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
       propertyPath: m_AspectRatio
       value: 3.2056074
+      objectReference: {fileID: 0}
+    - target: {fileID: 3281347553749123618, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: BackgroundSecondary
+      objectReference: {fileID: 0}
+    - target: {fileID: 3281347553749123618, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3766352247999521383, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
       propertyPath: m_Name
@@ -838,59 +862,9 @@ MonoBehaviour:
   <PositionAnimation>k__BackingField:
     states:
       <Entries>k__BackingField:
-      - <Value>k__BackingField:
-          <Value>k__BackingField: {x: 0, y: 0}
-          <TweenSettings>k__BackingField:
-            duration: 0
-            ease: 0
-            customEase:
-              serializedVersion: 2
-              m_Curve: []
-              m_PreInfinity: 0
-              m_PostInfinity: 0
-              m_RotationOrder: 0
-            cycles: 0
-            cycleMode: 0
-            startDelay: 0
-            endDelay: 0
-            useUnscaledTime: 0
-            _useFixedUpdate: 0
-            _updateType: 0
-      - <Value>k__BackingField:
-          <Value>k__BackingField: {x: 155.5, y: 0}
-          <TweenSettings>k__BackingField:
-            duration: 0.5
-            ease: 0
-            customEase:
-              serializedVersion: 2
-              m_Curve: []
-              m_PreInfinity: 0
-              m_PostInfinity: 0
-              m_RotationOrder: 0
-            cycles: 1
-            cycleMode: 0
-            startDelay: 0
-            endDelay: 0
-            useUnscaledTime: 0
-            _useFixedUpdate: 0
-            _updateType: 0
-      - <Value>k__BackingField:
-          <Value>k__BackingField: {x: 0, y: 0}
-          <TweenSettings>k__BackingField:
-            duration: 0.5
-            ease: 0
-            customEase:
-              serializedVersion: 2
-              m_Curve: []
-              m_PreInfinity: 0
-              m_PostInfinity: 0
-              m_RotationOrder: 0
-            cycles: 1
-            cycleMode: 0
-            startDelay: 0
-            endDelay: 0
-            useUnscaledTime: 0
-            _useFixedUpdate: 0
-            _updateType: 0
+      - <Value>k__BackingField: {fileID: 0}
+      - <Value>k__BackingField: {fileID: 11400000, guid: e49c42d8e1cabff4191ae09e1b4431e4, type: 2}
+      - <Value>k__BackingField: {fileID: 11400000, guid: 050b9b08423a36442a07a588d7fa5054, type: 2}
       <EnumMode>k__BackingField: 0
     _target: {fileID: 6383667326182254452}
+    _axis: 3

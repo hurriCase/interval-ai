@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.PopUps.Generation.Behaviours.BrowsingItems.TextItemBehaviour
   contentText: {fileID: 3121993798146152832}
-  openExerciseButton: {fileID: 8843640326434395785}
+  openExerciseButton: {fileID: 8749154770012026498}
 --- !u!114 &444731812398441224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,6 +276,14 @@ PrefabInstance:
       propertyPath: _currentColorModifier
       value: 
       objectReference: {fileID: 1987986649610625652}
+    - target: {fileID: 5175023766961360262, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: TextPrimary
+      objectReference: {fileID: 0}
+    - target: {fileID: 5175023766961360262, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7658068928977278699, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_fontSize
       value: 16
@@ -477,14 +485,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6214063741272865548, guid: f88d2494a19723441a28af4093d7ba31, type: 3}
   m_PrefabInstance: {fileID: 9089799819642940019}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8843640326434395785 stripped
+--- !u!114 &8749154770012026498 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 333152864011238650, guid: f88d2494a19723441a28af4093d7ba31, type: 3}
+  m_CorrespondingSourceObject: {fileID: 526438669276486897, guid: f88d2494a19723441a28af4093d7ba31, type: 3}
   m_PrefabInstance: {fileID: 9089799819642940019}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a2fd26093214446a4fdc024d3545f07, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons.ThemeButton

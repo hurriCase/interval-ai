@@ -1,4 +1,5 @@
 ﻿using CustomUtils.Runtime.Animations;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
@@ -16,10 +17,10 @@ namespace Source.Scripts.Main.UI.PopUps.WordControl
 {
     internal sealed class WordControlPopUp : PopUpBase
     {
-        [SerializeField] private ButtonComponent _showWordInfoButton;
-        [SerializeField] private ButtonComponent _editButton;
-        [SerializeField] private ButtonComponent _saveToCategoryButton;
-        [SerializeField] private ButtonComponent _hideWordButton;
+        [SerializeField] private ThemeButton _showWordInfoButton;
+        [SerializeField] private ThemeButton _editButton;
+        [SerializeField] private ThemeButton _saveToCategoryButton;
+        [SerializeField] private ThemeButton _hideWordButton;
 
         [SerializeField] private PivotAnimation<VisibilityState> _pivotAnimation;
 

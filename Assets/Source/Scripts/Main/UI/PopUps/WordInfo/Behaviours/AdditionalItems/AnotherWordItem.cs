@@ -1,9 +1,9 @@
 ﻿using CustomUtils.Runtime.Extensions.Observables;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using R3;
 using Source.Scripts.Core.Localization.Translator.Translations;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours;
-using Source.Scripts.UI.Components.Button;
 using TMPro;
 using UnityEngine;
 using VContainer;
@@ -15,7 +15,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours.AdditionalItems
         [SerializeField] private WordProgressBehaviour _wordProgressBehaviour;
         [SerializeField] private TextMeshProUGUI _learningWordText;
         [SerializeField] private TextMeshProUGUI _translationsText;
-        [SerializeField] private ButtonComponent _addButton;
+        [SerializeField] private ThemeButton _addButton;
 
         private TranslationSet _currentTranslationSet;
 

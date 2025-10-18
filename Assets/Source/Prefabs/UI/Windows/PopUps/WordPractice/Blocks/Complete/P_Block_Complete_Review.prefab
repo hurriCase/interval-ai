@@ -48,6 +48,30 @@ PrefabInstance:
       propertyPath: <LocalizationKey>k__BackingField
       value: ui.word-practice.learn-new-words
       objectReference: {fileID: 0}
+    - target: {fileID: 3148815886645947534, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: TextPrimary
+      objectReference: {fileID: 0}
+    - target: {fileID: 3148815886645947534, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3822171418795274842, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: TextPrimary
+      objectReference: {fileID: 0}
+    - target: {fileID: 3822171418795274842, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3911992147320243596, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: BackgroundSecondary
+      objectReference: {fileID: 0}
+    - target: {fileID: 3911992147320243596, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4052125745098519270, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
       propertyPath: m_Color.g
       value: 0.27058825
@@ -150,15 +174,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Cards.LearningComplete.ReviewCompleteBehaviour
   buttonsContainer: {fileID: 1162656413240478428}
-  positiveButton: {fileID: 6293325188179418546}
-  negativeButton: {fileID: 4687684785610053580}
+  positiveButton: {fileID: 6091030568315256249}
+  negativeButton: {fileID: 4818800560234854343}
   _completeText: {fileID: 37703367298376159}
   _noWordsImage: {fileID: 8429401406012125475}
   _completeImage: {fileID: 5619061583503465656}
   _plusMinusBehaviour: {fileID: 5182374828172730811}
   _addNewWordsContainer: {fileID: 2965598969666450421}
-  _exitButton: {fileID: 5112052696076397988}
-  _learnButton: {fileID: 6356608907001784838}
+  _exitButton: {fileID: 4981114479694319023}
+  _learnButton: {fileID: 6622235331630909965}
 --- !u!1 &1162656413240478428 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1621924960916856032, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
@@ -169,28 +193,28 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3424782446924998089, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
   m_PrefabInstance: {fileID: 477568415482943036}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4687684785610053580 stripped
+--- !u!114 &4818800560234854343 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5165252226125709808, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
+  m_CorrespondingSourceObject: {fileID: 4935796094032339451, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
   m_PrefabInstance: {fileID: 477568415482943036}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a2fd26093214446a4fdc024d3545f07, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5112052696076397988 stripped
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons.ThemeButton
+--- !u!114 &4981114479694319023 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4634486754504129432, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
+  m_CorrespondingSourceObject: {fileID: 4864117172075666323, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
   m_PrefabInstance: {fileID: 477568415482943036}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a2fd26093214446a4fdc024d3545f07, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons.ThemeButton
 --- !u!114 &5182374828172730811 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4705091195354216327, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
@@ -207,28 +231,28 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5429726297247582852, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
   m_PrefabInstance: {fileID: 477568415482943036}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6293325188179418546 stripped
+--- !u!114 &6091030568315256249 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5906127983285717902, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5919728780304673669, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
   m_PrefabInstance: {fileID: 477568415482943036}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a2fd26093214446a4fdc024d3545f07, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &6356608907001784838 stripped
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons.ThemeButton
+--- !u!114 &6622235331630909965 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6816092409175374906, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
+  m_CorrespondingSourceObject: {fileID: 6721145269228428337, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
   m_PrefabInstance: {fileID: 477568415482943036}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a2fd26093214446a4fdc024d3545f07, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons.ThemeButton
 --- !u!1 &8429401406012125475 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8240344987695933215, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}

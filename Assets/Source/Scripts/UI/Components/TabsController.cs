@@ -2,6 +2,7 @@
 using System.Threading;
 using CustomUtils.Runtime.Animations;
 using CustomUtils.Runtime.CustomTypes.Collections;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Toggles;
 using R3;
 using R3.Triggers;
 using UnityEngine;
@@ -11,7 +12,7 @@ namespace Source.Scripts.UI.Components
     [Serializable]
     internal sealed class TabsController<TEnum> where TEnum : unmanaged, Enum
     {
-        [field: SerializeField] internal EnumArray<TEnum, ToggleComponent> Tabs { get; private set; } =
+        [field: SerializeField] internal EnumArray<TEnum, StateToggle> Tabs { get; private set; } =
             new(EnumMode.SkipFirst);
 
         [SerializeField] private AnchoredPositionAnimation<TEnum> _tabAnimation;

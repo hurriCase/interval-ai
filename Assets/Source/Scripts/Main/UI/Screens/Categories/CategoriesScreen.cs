@@ -2,10 +2,10 @@
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Extensions.Observables;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Core.Repositories.Categories.Category;
 using Source.Scripts.Main.UI.Base;
-using Source.Scripts.UI.Components.Button;
 using Source.Scripts.UI.Windows.Base;
 using UnityEngine;
 using VContainer;
@@ -15,7 +15,7 @@ namespace Source.Scripts.Main.UI.Screens.Categories
 {
     internal sealed class CategoriesScreen : ScreenBase
     {
-        [SerializeField] private ButtonComponent _addCategoryButton;
+        [SerializeField] private ThemeButton _addCategoryButton;
 
         [SerializeField] private CategoryContainerItem _categoryContainerItemPrefab;
         [SerializeField] private CategoryEntryItem _categoryEntryItem;

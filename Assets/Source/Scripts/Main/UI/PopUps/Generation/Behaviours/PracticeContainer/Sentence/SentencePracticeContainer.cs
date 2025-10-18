@@ -3,12 +3,12 @@ using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.Localization;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using CustomUtils.Runtime.UI.Theme;
 using R3;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Exercises.Exercise;
-using Source.Scripts.UI.Components.Button;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,7 +21,7 @@ namespace Source.Scripts.Main.UI.PopUps.Generation.Behaviours.PracticeContainer.
         [SerializeField] private TextMeshProUGUI _sentenceText;
         [SerializeField] private SentencePracticeMapping _sentencePracticeMapping;
         [SerializeField] private ThemeComponent _practiceTheme;
-        [SerializeField] private ButtonComponent _practiceButton;
+        [SerializeField] private ThemeButton _practiceButton;
         [SerializeField] private TextMeshProUGUI _remarkText;
         [SerializeField] private TMP_InputField _answerInputField;
 

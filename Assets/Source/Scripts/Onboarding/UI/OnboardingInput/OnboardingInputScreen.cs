@@ -2,11 +2,11 @@
 using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.Scenes.Base;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using R3;
 using Source.Scripts.Core.References.Base;
 using Source.Scripts.Core.Repositories.Statistics;
 using Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours;
-using Source.Scripts.UI.Components.Button;
 using Source.Scripts.UI.Windows.Base;
 using UnityEngine;
 using VContainer;
@@ -15,7 +15,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput
 {
     internal sealed class OnboardingInputScreen : ScreenBase
     {
-        [SerializeField] private ButtonComponent _continueButton;
+        [SerializeField] private ThemeButton _continueButton;
 
         [SerializeField] private List<StepBehaviourBase> _inputOnboardingSteps;
 

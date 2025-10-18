@@ -1,9 +1,9 @@
 ﻿using CustomUtils.Runtime.Extensions.Observables;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Toggles;
 using R3;
 using R3.Triggers;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Onboarding.Data.Config;
-using Source.Scripts.UI.Components;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
@@ -14,7 +14,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours
     {
         [SerializeField] private RectTransform _contentContainer;
         [SerializeField] private ToggleGroup _toggleGroup;
-        [SerializeField] private ToggleComponent _wordCountItem;
+        [SerializeField] private StateToggle _wordCountItem;
 
         private IPracticeSettingsRepository _practiceSettingsRepository;
         private IOnboardingConfig _onboardingConfig;

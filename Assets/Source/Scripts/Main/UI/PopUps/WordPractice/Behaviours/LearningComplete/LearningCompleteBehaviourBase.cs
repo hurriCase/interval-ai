@@ -1,6 +1,7 @@
 ﻿using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.Localization;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using Cysharp.Text;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Localization.LocalizationTypes;
@@ -9,7 +10,6 @@ using Source.Scripts.Core.Repositories.Words.Base.CurrentWord;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete.CompleteState;
 using Source.Scripts.Main.UI.Shared;
-using Source.Scripts.UI.Components.Button;
 using TMPro;
 using UnityEngine;
 using VContainer;
@@ -19,8 +19,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
     internal abstract class LearningCompleteBehaviourBase : MonoBehaviour
     {
         [SerializeField] protected GameObject buttonsContainer;
-        [SerializeField] protected ButtonComponent positiveButton;
-        [SerializeField] protected ButtonComponent negativeButton;
+        [SerializeField] protected ThemeButton positiveButton;
+        [SerializeField] protected ThemeButton negativeButton;
 
         [SerializeField] private TextMeshProUGUI _completeText;
         [SerializeField] private GameObject _noWordsImage;

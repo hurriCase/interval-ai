@@ -1,6 +1,7 @@
 ﻿using System;
 using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Extensions.Observables;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using Cysharp.Threading.Tasks;
 using R3;
 using Source.Scripts.Core.Localization.Base;
@@ -13,7 +14,6 @@ using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.PopUps.Modal;
 using Source.Scripts.Main.UI.PopUps.Selection;
 using Source.Scripts.UI.Components;
-using Source.Scripts.UI.Components.Button;
 using Source.Scripts.UI.Windows.Base;
 using UnityEngine;
 using VContainer;
@@ -24,9 +24,8 @@ namespace Source.Scripts.Main.UI.PopUps.Category
     {
         [SerializeField] private InputFieldComponent _categoryNameText;
 
-        [SerializeField] private ButtonComponent _deleteButton;
-
-        [SerializeField] private ButtonComponent _resetProgressButton;
+        [SerializeField] private ThemeButton _deleteButton;
+        [SerializeField] private ThemeButton _resetProgressButton;
 
         [SerializeField] private RectTransform _wordsContainer;
         [SerializeField] private WordItem _wordItem;

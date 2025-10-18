@@ -60,6 +60,30 @@ PrefabInstance:
       propertyPath: <LocalizationKey>k__BackingField
       value: ui.word-practice.add-more-words
       objectReference: {fileID: 0}
+    - target: {fileID: 3148815886645947534, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: TextPrimary
+      objectReference: {fileID: 0}
+    - target: {fileID: 3148815886645947534, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3822171418795274842, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: TextPrimary
+      objectReference: {fileID: 0}
+    - target: {fileID: 3822171418795274842, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3911992147320243596, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: BackgroundSecondary
+      objectReference: {fileID: 0}
+    - target: {fileID: 3911992147320243596, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4392800057353561782, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -150,17 +174,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8240344987695933215, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
   m_PrefabInstance: {fileID: 8698285943993313998}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2972460282775068992 stripped
+--- !u!114 &3067405501094019403 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5906127983285717902, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5919728780304673669, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
   m_PrefabInstance: {fileID: 8698285943993313998}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a2fd26093214446a4fdc024d3545f07, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons.ThemeButton
 --- !u!1 &3741584981939757130 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5429726297247582852, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
@@ -177,17 +201,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33ed2775d8fe4f5bbe7dd217ab90f3eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.Shared.PlusMinusBehaviour
---- !u!114 &4546433797787904830 stripped
+--- !u!114 &4380309870326336309 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5165252226125709808, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
+  m_CorrespondingSourceObject: {fileID: 4935796094032339451, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
   m_PrefabInstance: {fileID: 8698285943993313998}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a2fd26093214446a4fdc024d3545f07, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons.ThemeButton
 --- !u!114 &7380956383381010921 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2222781788427457319, guid: fb24f7e65b65faf489907dcf9d65cd10, type: 3}
@@ -244,8 +268,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Cards.LearningComplete.NewWordsCompleteBehaviour
   buttonsContainer: {fileID: 7941175261984683566}
-  positiveButton: {fileID: 2972460282775068992}
-  negativeButton: {fileID: 4546433797787904830}
+  positiveButton: {fileID: 3067405501094019403}
+  negativeButton: {fileID: 4380309870326336309}
   _completeText: {fileID: 9120877804082683181}
   _noWordsImage: {fileID: 787306264957275601}
   _completeImage: {fileID: 3741584981939757130}

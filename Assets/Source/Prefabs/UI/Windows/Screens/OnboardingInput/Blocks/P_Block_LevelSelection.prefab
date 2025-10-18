@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.Onboarding::Source.Scripts.Onboarding.Source.Scripts.Onboarding.UI.Behaviours.LevelSelectionBehaviour
   _selectionToggleGroup: {fileID: 4864496621528610970}
-  _selectionCheckbox: {fileID: 2786619533092978800, guid: a78d01d4fd337ca4294ed8335c2eab53, type: 3}
+  _selectionCheckbox: {fileID: 9101599587097327850, guid: a78d01d4fd337ca4294ed8335c2eab53, type: 3}
   _levelButtonsContainer: {fileID: 1801231775297063569}
 --- !u!114 &5207501761906104912
 MonoBehaviour:
@@ -328,6 +328,14 @@ PrefabInstance:
       propertyPath: _currentColorModifier
       value: 
       objectReference: {fileID: 7021522604573562187}
+    - target: {fileID: 9186071019390123412, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: TextPrimary
+      objectReference: {fileID: 0}
+    - target: {fileID: 9186071019390123412, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

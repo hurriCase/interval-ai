@@ -1,6 +1,6 @@
 ﻿using CustomUtils.Runtime.Extensions.Observables;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using R3;
-using Source.Scripts.UI.Components.Button;
 using TMPro;
 using UnityEngine;
 
@@ -8,7 +8,7 @@ namespace Source.Scripts.UI.Components
 {
     internal sealed class InputFieldComponent : TMP_InputField
     {
-        [field: SerializeField] internal ButtonComponent EditButton { get; private set; }
+        [field: SerializeField] internal ThemeButton EditButton { get; private set; }
 
         public Observable<string> OnTextChanged => _textChanged;
         private readonly Subject<string> _textChanged = new();

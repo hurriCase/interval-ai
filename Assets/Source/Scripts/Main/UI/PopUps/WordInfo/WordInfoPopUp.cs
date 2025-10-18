@@ -1,5 +1,6 @@
 ﻿using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Extensions.Observables;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using R3;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Words.Base;
@@ -8,7 +9,6 @@ using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours;
 using Source.Scripts.Main.UI.PopUps.WordPractice;
-using Source.Scripts.UI.Components.Button;
 using Source.Scripts.UI.Windows.Base;
 using UnityEngine;
 using VContainer;
@@ -17,7 +17,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo
 {
     internal sealed class WordInfoPopUp : PopUpBase
     {
-        [SerializeField] private ButtonComponent _startLearningButton;
+        [SerializeField] private ThemeButton _startLearningButton;
         [SerializeField] private WordInfoCardBehaviour _wordInfoCardBehaviour;
 
         [SerializeField] private TranslationContainer _examplesContainer;

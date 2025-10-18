@@ -1,9 +1,9 @@
 ﻿using CustomUtils.Runtime.AddressableSystem;
 using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Extensions.Observables;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Toggles;
 using R3;
 using Source.Scripts.Core.Repositories.Categories.Category;
-using Source.Scripts.UI.Components;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,7 +17,7 @@ namespace Source.Scripts.Main.UI.Screens.Categories
         [SerializeField] protected TextMeshProUGUI progressText;
         [SerializeField] protected Image icon;
         [SerializeField] protected Image categoryOpenArea;
-        [SerializeField] protected ToggleComponent selectedCheckbox;
+        [SerializeField] protected StateToggle selectedCheckbox;
 
         [Inject] protected ICategoryStateMutator categoryStateMutator;
         [Inject] protected IAddressablesLoader addressablesLoader;

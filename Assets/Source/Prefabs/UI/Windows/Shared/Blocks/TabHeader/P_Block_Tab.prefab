@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: _colorData.<ColorName>k__BackingField
       value: TextSecondary
       objectReference: {fileID: 0}
+    - target: {fileID: 942652191194370784, guid: 41f18ac3b47f390468ac4f9426c467aa, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: TextSecondary
+      objectReference: {fileID: 0}
     - target: {fileID: 950170487089219384, guid: 41f18ac3b47f390468ac4f9426c467aa, type: 3}
       propertyPath: m_Color.b
       value: 0.8666667
@@ -36,6 +40,10 @@ PrefabInstance:
       propertyPath: currentColorName
       value: Separator
       objectReference: {fileID: 0}
+    - target: {fileID: 2079894597943677466, guid: 41f18ac3b47f390468ac4f9426c467aa, type: 3}
+      propertyPath: m_Group
+      value: 
+      objectReference: {fileID: 754758158201370666}
     - target: {fileID: 2342844337658284429, guid: 41f18ac3b47f390468ac4f9426c467aa, type: 3}
       propertyPath: m_text
       value: New words
@@ -208,13 +216,17 @@ PrefabInstance:
       propertyPath: _currentColorModifier
       value: 
       objectReference: {fileID: 1143262411953375470}
+    - target: {fileID: 942652191194370784, guid: 41f18ac3b47f390468ac4f9426c467aa, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: TextSecondary
+      objectReference: {fileID: 0}
     - target: {fileID: 950170487089219384, guid: 41f18ac3b47f390468ac4f9426c467aa, type: 3}
       propertyPath: m_Color.g
-      value: 0.27058825
+      value: 0.8666667
       objectReference: {fileID: 0}
     - target: {fileID: 950170487089219384, guid: 41f18ac3b47f390468ac4f9426c467aa, type: 3}
       propertyPath: m_Color.r
-      value: 0.34509805
+      value: 0.8666667
       objectReference: {fileID: 0}
     - target: {fileID: 1503433773021499145, guid: 41f18ac3b47f390468ac4f9426c467aa, type: 3}
       propertyPath: <LocalizationKey>k__BackingField
@@ -222,8 +234,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1796216986336124198, guid: 41f18ac3b47f390468ac4f9426c467aa, type: 3}
       propertyPath: currentColorName
-      value: Primary
+      value: Separator
       objectReference: {fileID: 0}
+    - target: {fileID: 2079894597943677466, guid: 41f18ac3b47f390468ac4f9426c467aa, type: 3}
+      propertyPath: m_Group
+      value: 
+      objectReference: {fileID: 754758158201370666}
     - target: {fileID: 2342844337658284429, guid: 41f18ac3b47f390468ac4f9426c467aa, type: 3}
       propertyPath: m_text
       value: Review
@@ -231,6 +247,18 @@ PrefabInstance:
     - target: {fileID: 2342844337658284429, guid: 41f18ac3b47f390468ac4f9426c467aa, type: 3}
       propertyPath: m_fontSize
       value: 18.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2342844337658284429, guid: 41f18ac3b47f390468ac4f9426c467aa, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2342844337658284429, guid: 41f18ac3b47f390468ac4f9426c467aa, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2342844337658284429, guid: 41f18ac3b47f390468ac4f9426c467aa, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 3296020534157994058, guid: 41f18ac3b47f390468ac4f9426c467aa, type: 3}
       propertyPath: m_Pivot.x
@@ -322,7 +350,7 @@ PrefabInstance:
       objectReference: {fileID: 9111921238077888533}
     - target: {fileID: 4791674911599732633, guid: 41f18ac3b47f390468ac4f9426c467aa, type: 3}
       propertyPath: _colorData.<ColorName>k__BackingField
-      value: Primary
+      value: Separator
       objectReference: {fileID: 0}
     - target: {fileID: 4917414247543401088, guid: 41f18ac3b47f390468ac4f9426c467aa, type: 3}
       propertyPath: m_Group
@@ -330,7 +358,7 @@ PrefabInstance:
       objectReference: {fileID: 754758158201370666}
     - target: {fileID: 7585419501435850205, guid: 41f18ac3b47f390468ac4f9426c467aa, type: 3}
       propertyPath: currentColorName
-      value: TextPrimary
+      value: TextSecondary
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

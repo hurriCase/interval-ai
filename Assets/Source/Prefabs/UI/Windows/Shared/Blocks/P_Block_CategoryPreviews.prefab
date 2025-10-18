@@ -28,6 +28,10 @@ PrefabInstance:
       propertyPath: _currentColorModifier
       value: 
       objectReference: {fileID: 7535570115317149177}
+    - target: {fileID: 4055535243944994745, guid: 2f0a7977879e86041bd403f45a647f5b, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: Primary
+      objectReference: {fileID: 0}
     - target: {fileID: 4459513093419998698, guid: 2f0a7977879e86041bd403f45a647f5b, type: 3}
       propertyPath: currentColorName
       value: None
@@ -116,6 +120,10 @@ PrefabInstance:
       propertyPath: _currentColorModifier
       value: 
       objectReference: {fileID: 1329163559803753078}
+    - target: {fileID: 8965423509791391156, guid: 2f0a7977879e86041bd403f45a647f5b, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: White
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -132,17 +140,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8840dbee5a42476db6edcdcd70e84c6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.ColorModifiers.SolidColorModifier
---- !u!114 &1484962151463423631 stripped
+--- !u!114 &1678282284155448964 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2220900067803889264, guid: 2f0a7977879e86041bd403f45a647f5b, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2090771068860849787, guid: 2f0a7977879e86041bd403f45a647f5b, type: 3}
   m_PrefabInstance: {fileID: 741297258166219007}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a2fd26093214446a4fdc024d3545f07, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons.ThemeButton
 --- !u!114 &4011232179411971349 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4459513093419998698, guid: 2f0a7977879e86041bd403f45a647f5b, type: 3}
@@ -562,9 +570,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680de8fe943948798fb9d87fb360bbe1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _allCategoriesButton: {fileID: 1484962151463423631}
+  _allCategoriesButton: {fileID: 1678282284155448964}
   _contentContainer: {fileID: 8765304884259809521}
-  _categoryButton: {fileID: 6950843007671917976, guid: 4a801bbd3e9f0d242a1d0a77a4626c3b, type: 3}
+  _categoryButton: {fileID: 7180861025741241747, guid: 4a801bbd3e9f0d242a1d0a77a4626c3b, type: 3}
 --- !u!224 &6138437702272687446 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3691833483562493499, guid: f4a7512a7bb93574fbd9d2dd3fa7adfb, type: 3}

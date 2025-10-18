@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Extensions.Observables;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using Cysharp.Text;
 using R3;
 using Source.Scripts.Core.Repositories.Categories.Base;
@@ -11,7 +12,6 @@ using Source.Scripts.Main.UI.PopUps.Selection;
 using Source.Scripts.Main.UI.PopUps.Selection.Category;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours;
 using Source.Scripts.Main.UI.Shared;
-using Source.Scripts.UI.Components.Button;
 using TMPro;
 using UnityEngine;
 using VContainer;
@@ -29,7 +29,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours
         [SerializeField] private TextMeshProUGUI _categoryNameText;
         [SerializeField] private TextMeshProUGUI _singleExampleText;
 
-        [SerializeField] private ButtonComponent _addToCategoryButton;
+        [SerializeField] private ThemeButton _addToCategoryButton;
 
         private WordCategorySelectionService _wordCategorySelectionService;
         private ICategoriesRepository _categoriesRepository;

@@ -116,17 +116,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 4417050341087288861}
   m_SourcePrefab: {fileID: 100100000, guid: f8af58c015148c64fb26c2915538f5b0, type: 3}
---- !u!114 &1840375676698240589 stripped
+--- !u!114 &1899254607261206086 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2867249672566331593, guid: f8af58c015148c64fb26c2915538f5b0, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2601767283254753474, guid: f8af58c015148c64fb26c2915538f5b0, type: 3}
   m_PrefabInstance: {fileID: 4485822240615956100}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2800458009765175233}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a2fd26093214446a4fdc024d3545f07, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons.ThemeButton
 --- !u!1 &2800458009765175233 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1773835750006497605, guid: f8af58c015148c64fb26c2915538f5b0, type: 3}
@@ -144,8 +144,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a916ad749a734294a9b598ee415f2ea2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.PopUps.Settings.CheckboxSettingsItem
-  _checkbox: {fileID: 440337881850017102}
-  _button: {fileID: 1840375676698240589}
+  _checkbox: {fileID: 6845202954429550036}
+  _button: {fileID: 1899254607261206086}
 --- !u!224 &5415861272625357243 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8460529415973297983, guid: f8af58c015148c64fb26c2915538f5b0, type: 3}
@@ -276,17 +276,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0118ad099cbed294f84e28be60751993, type: 3}
---- !u!114 &440337881850017102 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5389980564558296018, guid: 0118ad099cbed294f84e28be60751993, type: 3}
-  m_PrefabInstance: {fileID: 5535322224356017820}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af1e312ef8ab4916bd1e7b7352bdb5c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.ToggleComponent
 --- !u!114 &1279706220514360968 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6706708922986493972, guid: 0118ad099cbed294f84e28be60751993, type: 3}
@@ -320,6 +309,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8840dbee5a42476db6edcdcd70e84c6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.ColorModifiers.SolidColorModifier
+--- !u!114 &6845202954429550036 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1310092214397471560, guid: 0118ad099cbed294f84e28be60751993, type: 3}
+  m_PrefabInstance: {fileID: 5535322224356017820}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c9e8b9661d648b485ac4153d41008f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.Selectables.Toggles.StateToggle
 --- !u!224 &8043323357148804996 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2544241070404022552, guid: 0118ad099cbed294f84e28be60751993, type: 3}

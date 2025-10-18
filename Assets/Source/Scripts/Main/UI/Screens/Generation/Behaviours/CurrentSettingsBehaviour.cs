@@ -1,10 +1,10 @@
 ﻿using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using Cysharp.Text;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Main.UI.Base;
-using Source.Scripts.UI.Components.Button;
 using TMPro;
 using UnityEngine;
 using VContainer;
@@ -16,7 +16,7 @@ namespace Source.Scripts.Main.UI.Screens.Generation.Behaviours
         [SerializeField] private TextMeshProUGUI _wordPercentText;
         [SerializeField] private TextMeshProUGUI _showOnLanguageText;
         [SerializeField] private TextMeshProUGUI _isHighlightText;
-        [SerializeField] private ButtonComponent _changeSettingsButton;
+        [SerializeField] private ThemeButton _changeSettingsButton;
 
         private IGenerationSettingsRepository _generationSettingsRepository;
         private ILanguageSettingsRepository _languageSettingsRepository;

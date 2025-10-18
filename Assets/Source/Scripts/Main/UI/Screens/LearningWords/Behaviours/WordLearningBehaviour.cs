@@ -1,6 +1,7 @@
 ﻿using System;
 using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.Localization;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using Cysharp.Text;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Localization.LocalizationTypes;
@@ -8,7 +9,6 @@ using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.Shared;
-using Source.Scripts.UI.Components.Button;
 using TMPro;
 using UnityEngine;
 using VContainer;
@@ -17,7 +17,7 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours
 {
     internal sealed class WordLearningBehaviour : MonoBehaviour
     {
-        [SerializeField] private ButtonComponent _startPracticeButton;
+        [SerializeField] private ThemeButton _startPracticeButton;
 
         [SerializeField] private TextMeshProUGUI _learnGoalText;
         [SerializeField] private TextMeshProUGUI _repetitionText;

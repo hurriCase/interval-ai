@@ -1,10 +1,10 @@
 ﻿using CustomUtils.Runtime.Extensions.Observables;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.GenerativeLanguage;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.Screens.Generation.Behaviours;
 using Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.CategoryPreview;
-using Source.Scripts.UI.Components.Button;
 using Source.Scripts.UI.Windows.Base;
 using UnityEngine;
 using VContainer;
@@ -16,9 +16,9 @@ namespace Source.Scripts.Main.UI.Screens.Generation
         [SerializeField] private CategoryPreviewBehaviour _categoryPreviewBehaviour;
         [SerializeField] private CurrentSettingsBehaviour _currentSettingsBehaviour;
 
-        [SerializeField] private ButtonComponent _savedGenerationsButton;
-        [SerializeField] private ButtonComponent _generateButton;
-        [SerializeField] private ButtonComponent _chatButton;
+        [SerializeField] private ThemeButton _savedGenerationsButton;
+        [SerializeField] private ThemeButton _generateButton;
+        [SerializeField] private ThemeButton _chatButton;
 
         private IGenerativeLanguage _generativeLanguage;
         private IWindowsController _windowsController;

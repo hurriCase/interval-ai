@@ -149,7 +149,7 @@ MonoBehaviour:
   _wordProgressBehaviour: {fileID: 8390293963054874957}
   _learningWordText: {fileID: 2131537229114757407}
   _translationsText: {fileID: 2038055159262215146}
-  _addButton: {fileID: 775212266711367032}
+  _addButton: {fileID: 0}
 --- !u!114 &5671085128496701274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -436,17 +436,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2539688447292140715}
   m_SourcePrefab: {fileID: 100100000, guid: 2548238d484168b4183ccfb40293d4cc, type: 3}
---- !u!114 &775212266711367032 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6101360894184310674, guid: 2548238d484168b4183ccfb40293d4cc, type: 3}
-  m_PrefabInstance: {fileID: 6804508145143773930}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3861116666389087476}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3861116666389087476 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7780822941075095070, guid: 2548238d484168b4183ccfb40293d4cc, type: 3}
@@ -559,7 +548,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -2
+      value: -34.47
       objectReference: {fileID: 0}
     - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -577,6 +566,14 @@ PrefabInstance:
       propertyPath: _currentColorModifier
       value: 
       objectReference: {fileID: 6165153035337482170}
+    - target: {fileID: 5175023766961360262, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: TextPrimary
+      objectReference: {fileID: 0}
+    - target: {fileID: 5175023766961360262, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7658068928977278699, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_fontSize
       value: 14
@@ -741,7 +738,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0
+      value: -12
       objectReference: {fileID: 0}
     - target: {fileID: 2990007833999680252, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -759,6 +756,14 @@ PrefabInstance:
       propertyPath: _currentColorModifier
       value: 
       objectReference: {fileID: 6076230606061573455}
+    - target: {fileID: 5175023766961360262, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: TextPrimary
+      objectReference: {fileID: 0}
+    - target: {fileID: 5175023766961360262, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7658068928977278699, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_fontSize
       value: 16

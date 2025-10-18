@@ -1,11 +1,11 @@
 ﻿using CustomUtils.Runtime.Extensions.Observables;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using R3;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Words.Advance;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Base.CurrentWord;
 using Source.Scripts.Core.Repositories.Words.Word;
-using Source.Scripts.UI.Components.Button;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
@@ -14,12 +14,12 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
 {
     internal sealed class ControlButtonsBehaviour : MonoBehaviour
     {
-        [SerializeField] private ButtonComponent _alreadyKnowButton;
-        [SerializeField] private ButtonComponent _hideButton;
-        [SerializeField] private ButtonComponent _learnButton;
+        [SerializeField] private ThemeButton _alreadyKnowButton;
+        [SerializeField] private ThemeButton _hideButton;
+        [SerializeField] private ThemeButton _learnButton;
 
-        [SerializeField] private ButtonComponent _memorizedButton;
-        [SerializeField] private ButtonComponent _forgotButton;
+        [SerializeField] private ThemeButton _memorizedButton;
+        [SerializeField] private ThemeButton _forgotButton;
 
         [SerializeField] private GameObject _firstShowContainer;
         [SerializeField] private GameObject _otherShowContainer;

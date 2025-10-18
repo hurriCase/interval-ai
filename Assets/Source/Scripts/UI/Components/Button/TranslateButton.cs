@@ -1,4 +1,5 @@
 ﻿using CustomUtils.Runtime.Extensions.Observables;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using Cysharp.Threading.Tasks;
 using R3;
 using Source.Scripts.Core.Localization.Translator;
@@ -11,7 +12,7 @@ namespace Source.Scripts.UI.Components.Button
 {
     internal sealed class TranslateButton : MonoBehaviour
     {
-        [SerializeField] private ButtonComponent _buttonComponent;
+        [SerializeField] private ThemeButton _buttonComponent;
         [SerializeField] private TextMeshProUGUI _textsToTranslate;
         [SerializeField] private TextMeshProUGUI _translatedText;
 

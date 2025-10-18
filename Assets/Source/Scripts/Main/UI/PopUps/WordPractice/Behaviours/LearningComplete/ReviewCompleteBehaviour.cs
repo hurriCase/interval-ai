@@ -1,9 +1,9 @@
 ﻿using CustomUtils.Runtime.Extensions.Observables;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using R3;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.UI.Base;
-using Source.Scripts.UI.Components.Button;
 using UnityEngine;
 using VContainer;
 
@@ -12,8 +12,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
     internal sealed class ReviewCompleteBehaviour : LearningCompleteBehaviourBase
     {
         [SerializeField] private GameObject _addNewWordsContainer;
-        [SerializeField] private ButtonComponent _exitButton;
-        [SerializeField] private ButtonComponent _learnButton;
+        [SerializeField] private ThemeButton _exitButton;
+        [SerializeField] private ThemeButton _learnButton;
 
         private IWordsTimerService _wordsTimerService;
 

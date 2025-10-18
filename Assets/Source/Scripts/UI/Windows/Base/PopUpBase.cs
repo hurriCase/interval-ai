@@ -1,9 +1,9 @@
 ﻿using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Extensions.Observables;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using Cysharp.Threading.Tasks;
 using PrimeTween;
 using R3;
-using Source.Scripts.UI.Components.Button;
 using Source.Scripts.UI.Data;
 using UnityEngine;
 using VContainer;
@@ -14,7 +14,7 @@ namespace Source.Scripts.UI.Windows.Base
     {
         [field: SerializeField] internal bool IsSingle { get; private set; } = true;
 
-        [SerializeField] private ButtonComponent _closeButton;
+        [SerializeField] private ThemeButton _closeButton;
 
         [Inject] protected IAnimationsConfig animationsConfig;
 

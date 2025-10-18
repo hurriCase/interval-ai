@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using CustomUtils.Runtime.AddressableSystem;
 using CustomUtils.Runtime.Extensions.Observables;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Toggles;
 using R3;
 using R3.Triggers;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.References.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
-using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Components.Accordion;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,9 +18,9 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours.LanguageSelect
     {
         [SerializeField] private AccordionComponent _accordionComponent;
         [SerializeField] private ToggleGroup _toggleGroup;
-        [SerializeField] private ToggleComponent _languageSelectionItem;
+        [SerializeField] private StateToggle _languageSelectionItem;
 
-        private readonly Dictionary<SystemLanguage, ToggleComponent> _createdLanguageItems = new();
+        private readonly Dictionary<SystemLanguage, StateToggle> _createdLanguageItems = new();
 
         private LanguageType _currentLanguageType;
 

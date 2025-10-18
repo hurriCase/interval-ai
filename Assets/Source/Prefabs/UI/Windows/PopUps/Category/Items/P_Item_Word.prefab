@@ -336,17 +336,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0960de82118fe942b9330a2955d6951, type: 3}
---- !u!114 &576665303680369763 stripped
+--- !u!114 &851580432102417512 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2666752638321695648, guid: e0960de82118fe942b9330a2955d6951, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2797831069683563435, guid: e0960de82118fe942b9330a2955d6951, type: 3}
   m_PrefabInstance: {fileID: 3243312379624775619}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a2fd26093214446a4fdc024d3545f07, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons.ThemeButton
 --- !u!114 &4493289559021597364 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1394374673828769143, guid: e0960de82118fe942b9330a2955d6951, type: 3}
@@ -463,6 +463,14 @@ PrefabInstance:
       propertyPath: _currentColorModifier
       value: 
       objectReference: {fileID: 7122667912460519443}
+    - target: {fileID: 5175023766961360262, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: TextPrimary
+      objectReference: {fileID: 0}
+    - target: {fileID: 5175023766961360262, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7658068928977278699, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_fontSize
       value: 14
@@ -560,7 +568,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41b2b0fcbc7c4202a96474999a8abbc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.TextChangeNotifier
-  _text: {fileID: 3107319784355105859}
 --- !u!114 &7122667912460519443 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2558408827752567483, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
@@ -677,6 +684,14 @@ PrefabInstance:
       propertyPath: _currentColorModifier
       value: 
       objectReference: {fileID: 5379508566602465820}
+    - target: {fileID: 5175023766961360262, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: TextPrimary
+      objectReference: {fileID: 0}
+    - target: {fileID: 5175023766961360262, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7658068928977278699, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_fontSize
       value: 16
@@ -825,7 +840,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41b2b0fcbc7c4202a96474999a8abbc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.TextChangeNotifier
-  _text: {fileID: 243331620789880396}
 --- !u!1001 &9112269624294114500
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -970,7 +984,7 @@ MonoBehaviour:
   _wordProgressBehaviour: {fileID: 2207976517397906587}
   _learningWordText: {fileID: 243331620789880396}
   _translationsText: {fileID: 3107319784355105859}
-  _wordInfoButton: {fileID: 576665303680369763}
+  _wordInfoButton: {fileID: 851580432102417512}
 --- !u!114 &3334434182771590166
 MonoBehaviour:
   m_ObjectHideFlags: 0

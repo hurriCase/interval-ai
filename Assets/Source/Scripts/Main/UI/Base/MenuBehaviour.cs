@@ -1,6 +1,6 @@
 ﻿using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions.Observables;
-using Source.Scripts.UI.Components;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Toggles;
 using Source.Scripts.UI.Windows.Menu;
 using UnityEngine;
 using VContainer;
@@ -9,7 +9,7 @@ namespace Source.Scripts.Main.UI.Base
 {
     internal sealed class MenuBehaviour : MonoBehaviour, IMenuBehaviour
     {
-        [SerializeField] private EnumArray<ScreenType, ToggleComponent> _menuToggles = new(EnumMode.SkipFirst);
+        [SerializeField] private EnumArray<ScreenType, StateToggle> _menuToggles = new(EnumMode.SkipFirst);
 
         private IWindowsController _windowsController;
         private IObjectResolver _objectResolver;

@@ -90,7 +90,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6829777437454293057, guid: f4a7512a7bb93574fbd9d2dd3fa7adfb, type: 3}
       propertyPath: m_Name
-      value: P_Block_Progress
+      value: P_Block_Progress_Rounded
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -114,6 +114,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6829777437454293057, guid: f4a7512a7bb93574fbd9d2dd3fa7adfb, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4386505924276793122}
+    - targetCorrespondingSourceObject: {fileID: 6829777437454293057, guid: f4a7512a7bb93574fbd9d2dd3fa7adfb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7602780929547981205}
   m_SourcePrefab: {fileID: 100100000, guid: f4a7512a7bb93574fbd9d2dd3fa7adfb, type: 3}
 --- !u!1 &5168913800792593803 stripped
 GameObject:
@@ -164,8 +167,8 @@ MonoBehaviour:
   <IsRoundedCaps>k__BackingField: 1
   <RoundedCapResolution>k__BackingField: 15
   <CapGeometryType>k__BackingField: 1
-  <CapGeometry>k__BackingField: {fileID: 0}
-  _previousCapGeometryType: 0
+  <CapGeometry>k__BackingField: {fileID: 7602780929547981205}
+  _previousCapGeometryType: 1
 --- !u!114 &3275229602804983911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,3 +228,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.ColorModifiers.SolidColorModifier
   currentColorName: 
   _graphic: {fileID: 2019050437079397225}
+--- !u!114 &7602780929547981205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5168913800792593803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dd225cdc15347118df4e4cb2d0d44e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.FilledImage.Modifier.RoundedCapGeometry

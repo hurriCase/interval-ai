@@ -1,8 +1,8 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using CustomUtils.Runtime.UI.CustomComponents.Selectables.Toggles;
+using Cysharp.Threading.Tasks;
 using PrimeTween;
 using R3;
 using Source.Scripts.Core.Others.UIPools;
-using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Data;
 using Source.Scripts.UI.Windows.Base;
 using TMPro;
@@ -17,12 +17,12 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
         [SerializeField] private TextMeshProUGUI _selectionNameText;
 
         [SerializeField] private RectTransform _selectionsContainer;
-        [SerializeField] private ToggleComponent _selectionItem;
+        [SerializeField] private StateToggle _selectionItem;
         [SerializeField] private ToggleGroup _selectionToggleGroup;
 
         private IAnimationsConfig _animationsConfig;
 
-        private UIPool<ToggleComponent> _selectionPool;
+        private UIPool<StateToggle> _selectionPool;
 
         private DisposableBag _disposableBag;
 
@@ -34,7 +34,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
 
         internal override void Init()
         {
-            _selectionPool = new UIPool<ToggleComponent>(_selectionItem, _selectionsContainer);
+            _selectionPool = new UIPool<StateToggle>(_selectionItem, _selectionsContainer);
         }
 
         public void SetParameters<TValue>(ISelectionService<TValue> service)

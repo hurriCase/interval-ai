@@ -97,9 +97,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6355268656206182307}
     - target: {fileID: 6953124868773609554, guid: 5eb71127599626844a007672ab4d36f7, type: 3}
-      propertyPath: <ExpandButton>k__BackingField
+      propertyPath: managedReferences[3140846573591986383]._target
       value: 
-      objectReference: {fileID: 4459201430846645919}
+      objectReference: {fileID: 0}
     - target: {fileID: 6953124868773609554, guid: 5eb71127599626844a007672ab4d36f7, type: 3}
       propertyPath: managedReferences[8271176584008827131]._target
       value: 
@@ -220,7 +220,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Source.Scripts.Onboarding::Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours.LanguageSelection.LanguageAccordionItem
   _accordionComponent: {fileID: 6702877226858619215}
   _toggleGroup: {fileID: 9061719349628466866}
-  _languageSelectionItem: {fileID: 1810418670445930971, guid: 1df35f69b3d69a5469afdc811340e2b9, type: 3}
+  _languageSelectionItem: {fileID: 4754826051161493825, guid: 1df35f69b3d69a5469afdc811340e2b9, type: 3}
 --- !u!114 &9061719349628466866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,6 +262,10 @@ PrefabInstance:
       propertyPath: _currentColorModifier
       value: 
       objectReference: {fileID: 6192985271813249878}
+    - target: {fileID: 1301261225333838716, guid: 35ddcb97906fd0242b4adec7355dd3f6, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: IconsPrimary
+      objectReference: {fileID: 0}
     - target: {fileID: 2166532572274077639, guid: 35ddcb97906fd0242b4adec7355dd3f6, type: 3}
       propertyPath: currentColorName
       value: IconsPrimary
@@ -415,17 +419,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35ddcb97906fd0242b4adec7355dd3f6, type: 3}
---- !u!114 &4459201430846645919 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8503555570821042702, guid: 35ddcb97906fd0242b4adec7355dd3f6, type: 3}
-  m_PrefabInstance: {fileID: 5467641182145361041}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16177aca2a08459ca5583963168dbdb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6192985271813249878 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2166532572274077639, guid: 35ddcb97906fd0242b4adec7355dd3f6, type: 3}
@@ -554,6 +547,14 @@ PrefabInstance:
       propertyPath: _currentColorModifier
       value: 
       objectReference: {fileID: 5459461642350370733}
+    - target: {fileID: 9186071019390123412, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: TextPrimary
+      objectReference: {fileID: 0}
+    - target: {fileID: 9186071019390123412, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -697,6 +698,14 @@ PrefabInstance:
     - target: {fileID: 5450591052864157539, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
       propertyPath: _colorData.<ColorName>k__BackingField
       value: BackgroundSecondary
+      objectReference: {fileID: 0}
+    - target: {fileID: 5450591052864157539, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: BackgroundSecondary
+      objectReference: {fileID: 0}
+    - target: {fileID: 5450591052864157539, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7956387767605122308, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
       propertyPath: <Radius>k__BackingField

@@ -1,8 +1,8 @@
 ﻿using CustomUtils.Runtime.Extensions.Observables;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using R3;
 using Source.Scripts.Core.Repositories.Exercises.Exercise;
 using Source.Scripts.UI.Components;
-using Source.Scripts.UI.Components.Button;
 using UnityEngine;
 
 namespace Source.Scripts.Main.UI.PopUps.Generation.Behaviours.BrowsingItems
@@ -10,7 +10,7 @@ namespace Source.Scripts.Main.UI.PopUps.Generation.Behaviours.BrowsingItems
     internal class ExerciseItemBehaviourBase : MonoBehaviour
     {
         [SerializeField] protected MaxLinesLimiter contentText;
-        [SerializeField] protected ButtonComponent openExerciseButton;
+        [SerializeField] protected ThemeButton openExerciseButton;
 
         private ExerciseContainer _exerciseContainer;
         private ExerciseEntry _exerciseEntry;

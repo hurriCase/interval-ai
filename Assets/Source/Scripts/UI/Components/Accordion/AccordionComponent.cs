@@ -3,8 +3,8 @@ using CustomUtils.Runtime.Animations;
 using CustomUtils.Runtime.Animations.Base;
 using CustomUtils.Runtime.Attributes;
 using CustomUtils.Runtime.Extensions.Observables;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using R3;
-using Source.Scripts.UI.Components.Button;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,7 +12,7 @@ namespace Source.Scripts.UI.Components.Accordion
 {
     internal sealed class AccordionComponent : MonoBehaviour
     {
-        [field: SerializeField] internal ButtonComponent ExpandButton { get; private set; }
+        [field: SerializeField] internal ThemeButton ExpandButton { get; private set; }
         [field: SerializeField] internal RectTransform HiddenContentContainer { get; private set; }
 
         [SerializeField] private VisibilityState _initiallyState;

@@ -1,8 +1,8 @@
 ﻿using CustomUtils.Runtime.Extensions.Observables;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using R3;
 using Source.Scripts.Core.Repositories.Exercises;
 using Source.Scripts.Core.Repositories.Exercises.Exercise;
-using Source.Scripts.UI.Components.Button;
 using UnityEngine;
 using VContainer;
 
@@ -10,7 +10,7 @@ namespace Source.Scripts.Main.UI.PopUps.Generation.Behaviours.BrowsingItems
 {
     internal sealed class SentenceItemBehaviour : ExerciseItemBehaviourBase
     {
-        [SerializeField] private ButtonComponent _deleteButton;
+        [SerializeField] private ThemeButton _deleteButton;
 
         private ExerciseEntry _currentSentence;
 

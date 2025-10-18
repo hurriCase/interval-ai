@@ -1,11 +1,11 @@
 ﻿using System;
 using CustomUtils.Runtime.Extensions.Observables;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using R3;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Main.UI.Shared.Progress;
 using Source.Scripts.UI.Behaviours;
-using Source.Scripts.UI.Components.Button;
 using TMPro;
 using UnityEngine;
 using VContainer;
@@ -16,8 +16,8 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours
     {
         [SerializeField] private WeekLabelBehaviour _weekDaysBehaviour;
         [SerializeField] private TextMeshProUGUI _currentMonthText;
-        [SerializeField] private ButtonComponent _previousMonthButton;
-        [SerializeField] private ButtonComponent _nextMonthButton;
+        [SerializeField] private ThemeButton _previousMonthButton;
+        [SerializeField] private ThemeButton _nextMonthButton;
         [SerializeField] private CalendarProgress[] _calendarProgress = new CalendarProgress[DaysInCalendar];
 
         private const int MonthsInYear = 12;

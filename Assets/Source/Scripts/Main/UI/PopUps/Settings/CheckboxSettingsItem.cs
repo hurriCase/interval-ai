@@ -1,17 +1,17 @@
 ﻿using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Storage;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Toggles;
 using R3;
 using R3.Triggers;
-using Source.Scripts.UI.Components;
-using Source.Scripts.UI.Components.Button;
 using UnityEngine;
 
 namespace Source.Scripts.Main.UI.PopUps.Settings
 {
     internal sealed class CheckboxSettingsItem : MonoBehaviour
     {
-        [SerializeField] private ToggleComponent _checkbox;
-        [SerializeField] private ButtonComponent _button;
+        [SerializeField] private StateToggle _checkbox;
+        [SerializeField] private ThemeButton _button;
 
         internal void Init(PersistentReactiveProperty<bool> targetProperty)
         {

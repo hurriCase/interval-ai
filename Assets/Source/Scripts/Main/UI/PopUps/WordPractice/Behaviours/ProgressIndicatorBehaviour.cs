@@ -1,5 +1,6 @@
 ﻿using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Extensions.Observables;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using Cysharp.Text;
 using R3;
 using Source.Scripts.Core.Localization.Base;
@@ -9,7 +10,6 @@ using Source.Scripts.Core.Repositories.Words.Advance;
 using Source.Scripts.Core.Repositories.Words.Base.CurrentWord;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.PopUps.WordControl;
-using Source.Scripts.UI.Components.Button;
 using TMPro;
 using UnityEngine;
 using VContainer;
@@ -19,8 +19,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
     internal sealed class ProgressIndicatorBehaviour : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _learnedText;
-        [SerializeField] private ButtonComponent _previousCardButton;
-        [SerializeField] private ButtonComponent _moreButton;
+        [SerializeField] private ThemeButton _previousCardButton;
+        [SerializeField] private ThemeButton _moreButton;
 
         private ILocalizationKeysDatabase _localizationKeysDatabase;
         private ICurrentWordFactory _currentWordFactory;

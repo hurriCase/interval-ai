@@ -1,7 +1,7 @@
 ﻿using CustomUtils.Runtime.Extensions.Observables;
+using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using R3;
 using Source.Scripts.Core.Repositories.Progress.Base;
-using Source.Scripts.UI.Components.Button;
 using TMPro;
 using UnityEngine;
 using VContainer;
@@ -12,8 +12,8 @@ namespace Source.Scripts.Main.UI.Shared
     {
         [SerializeField] private TextMeshProUGUI _dailyWordGoalText;
 
-        [SerializeField] private ButtonComponent _minusButton;
-        [SerializeField] private ButtonComponent _plusButton;
+        [SerializeField] private ThemeButton _minusButton;
+        [SerializeField] private ThemeButton _plusButton;
 
         private IProgressRepository _progressRepository;
 
