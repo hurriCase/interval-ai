@@ -11,7 +11,7 @@ namespace Source.Scripts.Core.Repositories.Words.ModuleState
     [Preserve]
     internal sealed class ModuleStateService : IModuleStateService, IDisposable
     {
-        public ReadOnlyReactiveProperty<ModuleType> CurrentState => _currentState;
+        public ReadOnlyReactiveProperty<ModuleType> CurrentModule => _currentState;
         private readonly ReactiveProperty<ModuleType> _currentState;
 
         private readonly IDisposable _disposable;
