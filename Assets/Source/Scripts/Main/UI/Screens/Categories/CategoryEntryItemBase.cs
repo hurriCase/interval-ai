@@ -29,7 +29,7 @@ namespace Source.Scripts.Main.UI.Screens.Categories
             addressablesLoader.AssignImageAsync(icon, categoryEntry.Icon, destroyCancellationToken);
 
             currentCategoryEntry = categoryEntry;
-            categoryNameText.text = categoryEntry.LocalizationKey.GetLocalization();
+            categoryNameText.text = categoryEntry.Name;
             progressText.text = categoryEntry.WordEntries.Count.ToString();
             selectedCheckbox.isOn = categoryEntry.IsSelected;
 
@@ -47,7 +47,7 @@ namespace Source.Scripts.Main.UI.Screens.Categories
 
         private void UpdateName()
         {
-            categoryNameText.text = currentCategoryEntry.LocalizationKey.GetLocalization();
+            categoryNameText.text = currentCategoryEntry.Name;
         }
     }
 }

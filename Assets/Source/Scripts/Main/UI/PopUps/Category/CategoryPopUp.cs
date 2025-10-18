@@ -110,7 +110,7 @@ namespace Source.Scripts.Main.UI.PopUps.Category
 
         private void UpdateView()
         {
-            _categoryNameText.text = _currentCategoryEntry.LocalizationKey.GetLocalization();
+            _categoryNameText.text = _currentCategoryEntry.Name;
 
             _wordsPoolWithData.EnsureCount(_currentCategoryEntry.WordEntries);
         }

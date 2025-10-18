@@ -47,7 +47,7 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.CategoryPrevie
             {
                 var categoryButton = Instantiate(_categoryButton, _contentContainer);
 
-                categoryButton.Text.text = category.LocalizationKey.GetLocalization();
+                categoryButton.Text.text = category.Name;
                 categoryButton.OnClickAsObservable().SubscribeUntilDestroy(this, category,
                     static (categoryEntry, self) => self.OpenCategoryPopUp(categoryEntry));
 

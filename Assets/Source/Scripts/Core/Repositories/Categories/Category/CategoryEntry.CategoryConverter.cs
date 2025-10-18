@@ -11,13 +11,13 @@ namespace Source.Scripts.Core.Repositories.Categories.Category
         internal sealed class CategoryConverter : CsvConverterBase<CategoryEntry>
         {
             private const string IdName = "Id";
-            private const string LocalizationKeyName = "LocalizationKey";
+            private const string CategoryName = "Name";
 
             protected override CategoryEntry ConvertRow(CsvRow row) =>
                 new()
                 {
                     Id = row.GetValue(IdName).ToInt(),
-                    LocalizationKey = row.GetValue(LocalizationKeyName)
+                    Name = row.GetValue(CategoryName)
                 };
         }
     }

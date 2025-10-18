@@ -31,7 +31,7 @@ namespace Source.Scripts.Core.Repositories.Categories.Category
                 new()
                 {
                     Id = _idHandler.GetId(),
-                    LocalizationKey = name
+                    Name = name
                 };
 
             public void ChangeCategoryName(CategoryEntry categoryEntry, string name)
@@ -39,7 +39,7 @@ namespace Source.Scripts.Core.Repositories.Categories.Category
                 if (string.IsNullOrWhiteSpace(name))
                     return;
 
-                categoryEntry.LocalizationKey = name;
+                categoryEntry.Name = name;
                 _categoryNameChanged.OnNext(categoryEntry);
             }
 

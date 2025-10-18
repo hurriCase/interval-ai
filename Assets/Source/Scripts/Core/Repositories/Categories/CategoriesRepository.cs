@@ -124,9 +124,7 @@ namespace Source.Scripts.Core.Repositories.Categories
 
         [MustUseReturnValue]
         public string GetCategoryName(int categoryId) =>
-            _categoryEntries.Value.TryGetValue(categoryId, out var categoryEntry)
-                ? categoryEntry.LocalizationKey.GetLocalization()
-                : string.Empty;
+            _categoryEntries.Value.TryGetValue(categoryId, out var categoryEntry) ? categoryEntry.Name : string.Empty;
 
         private bool HasWordsToLearn(CategoryEntry categoryEntry)
         {

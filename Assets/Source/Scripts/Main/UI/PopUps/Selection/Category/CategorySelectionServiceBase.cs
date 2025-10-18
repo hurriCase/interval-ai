@@ -38,8 +38,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection.Category
         internal abstract void UpdateData();
         protected abstract void SetCategories(List<int> selectedValues);
 
-        public string GetSelectionName(int categoryId)
-            => currentCategories[categoryId].LocalizationKey.GetLocalization();
+        public string GetSelectionName(int categoryId) => currentCategories[categoryId].Name;
 
         public string GetSelectionTitle() => _selectionTitle;
 

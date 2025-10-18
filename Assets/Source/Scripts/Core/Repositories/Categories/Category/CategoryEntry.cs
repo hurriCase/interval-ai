@@ -11,9 +11,9 @@ namespace Source.Scripts.Core.Repositories.Categories.Category
     internal sealed partial class CategoryEntry : IDefaultEntry
     {
         public int Id { get; private set; }
+        public string Name { get; private set; }
         public CachedSprite Icon { get; private set; }
         public WordOrderType WordOrderType { get; private set; } = WordOrderType.Default;
-        public string LocalizationKey { get; private set; }
         public List<WordEntry> WordEntries { get; private set; } = new();
         public CategoryType CategoryType { get; private set; } = CategoryType.Default;
         public bool IsSelected { get; set; }
