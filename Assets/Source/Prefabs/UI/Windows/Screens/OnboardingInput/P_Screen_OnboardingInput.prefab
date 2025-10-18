@@ -74,7 +74,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1801231775297063569, guid: 164de9461123f08498206759e0cc0812, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -970.5
+      value: -986.5
       objectReference: {fileID: 0}
     - target: {fileID: 1801231775297063569, guid: 164de9461123f08498206759e0cc0812, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -87,18 +87,6 @@ PrefabInstance:
     - target: {fileID: 1801231775297063569, guid: 164de9461123f08498206759e0cc0812, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3803368880349379927, guid: 164de9461123f08498206759e0cc0812, type: 3}
-      propertyPath: _previousColorData.<ColorName>k__BackingField
-      value: TextPrimary
-      objectReference: {fileID: 0}
-    - target: {fileID: 3803368880349379927, guid: 164de9461123f08498206759e0cc0812, type: 3}
-      propertyPath: _previousColorData.<ColorType>k__BackingField
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5961815895158436674, guid: 164de9461123f08498206759e0cc0812, type: 3}
-      propertyPath: _wordCountItem
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8433969260176880875, guid: 164de9461123f08498206759e0cc0812, type: 3}
       propertyPath: m_Name
@@ -133,14 +121,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5612597268548002756}
     m_Modifications:
-    - target: {fileID: 369680479525161590, guid: 5fbdf42b0084edd45932326909d436ea, type: 3}
-      propertyPath: _previousColorData.<ColorName>k__BackingField
-      value: TextPrimary
-      objectReference: {fileID: 0}
-    - target: {fileID: 369680479525161590, guid: 5fbdf42b0084edd45932326909d436ea, type: 3}
-      propertyPath: _previousColorData.<ColorType>k__BackingField
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1801231775297063569, guid: 5fbdf42b0084edd45932326909d436ea, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -207,7 +187,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1801231775297063569, guid: 5fbdf42b0084edd45932326909d436ea, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -747
+      value: -763
       objectReference: {fileID: 0}
     - target: {fileID: 1801231775297063569, guid: 5fbdf42b0084edd45932326909d436ea, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -539,6 +519,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8840dbee5a42476db6edcdcd70e84c6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.ColorModifiers.SolidColorModifier
+--- !u!114 &6113092088410756778 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4858597565495091533, guid: fc6884491410b73459021fb3fe22d414, type: 3}
+  m_PrefabInstance: {fileID: 1710000494443821031}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a2fd26093214446a4fdc024d3545f07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons.ThemeButton
 --- !u!1001 &2764375859460088325
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -744,10 +735,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -350
       objectReference: {fileID: 0}
-    - target: {fileID: 684909765413898347, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
-      propertyPath: _previousColorData.<ColorName>k__BackingField
-      value: IconsPrimary
-      objectReference: {fileID: 0}
     - target: {fileID: 1801231775297063569, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -814,7 +801,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1801231775297063569, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -475
+      value: -483
       objectReference: {fileID: 0}
     - target: {fileID: 1801231775297063569, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -827,38 +814,6 @@ PrefabInstance:
     - target: {fileID: 1801231775297063569, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2625077196491089742, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2625077196491089742, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2625077196491089742, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2625077196491089742, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4237329457549924600, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
-      propertyPath: _previousColorData.<ColorName>k__BackingField
-      value: TextPrimary
-      objectReference: {fileID: 0}
-    - target: {fileID: 4237329457549924600, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
-      propertyPath: _previousColorData.<ColorType>k__BackingField
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4259278140312012174, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
-      propertyPath: _previousColorData.<ColorName>k__BackingField
-      value: BackgroundSecondary
-      objectReference: {fileID: 0}
-    - target: {fileID: 4259278140312012174, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
-      propertyPath: _previousColorData.<ColorType>k__BackingField
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4479926708083702005, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
       propertyPath: m_AnchorMax.y
@@ -903,10 +858,6 @@ PrefabInstance:
     - target: {fileID: 5006741372894637060, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5526546399353732997, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
-      propertyPath: _previousColorData.<ColorName>k__BackingField
-      value: IconsPrimary
       objectReference: {fileID: 0}
     - target: {fileID: 5579884207644602315, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
       propertyPath: m_AnchorMax.y
@@ -932,33 +883,9 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -278
       objectReference: {fileID: 0}
-    - target: {fileID: 7015852492337713312, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7015852492337713312, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7015852492337713312, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7015852492337713312, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8433969260176880875, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
       propertyPath: m_Name
       value: P_Block_LanguageSelection
-      objectReference: {fileID: 0}
-    - target: {fileID: 8511770796070198863, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
-      propertyPath: _previousColorData.<ColorName>k__BackingField
-      value: TextPrimary
-      objectReference: {fileID: 0}
-    - target: {fileID: 8511770796070198863, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
-      propertyPath: _previousColorData.<ColorType>k__BackingField
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8869998878810525467, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
       propertyPath: m_AnchorMax.y
@@ -983,22 +910,6 @@ PrefabInstance:
     - target: {fileID: 8869998878810525467, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -56
-      objectReference: {fileID: 0}
-    - target: {fileID: 9090669230631826016, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
-      propertyPath: _previousColorData.<ColorName>k__BackingField
-      value: BackgroundSecondary
-      objectReference: {fileID: 0}
-    - target: {fileID: 9090669230631826016, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
-      propertyPath: _previousColorData.<ColorType>k__BackingField
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9222652776516923158, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
-      propertyPath: _previousColorData.<ColorName>k__BackingField
-      value: TextPrimary
-      objectReference: {fileID: 0}
-    - target: {fileID: 9222652776516923158, guid: e6ec296b87cb559468d851081687e6e6, type: 3}
-      propertyPath: _previousColorData.<ColorType>k__BackingField
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1095,7 +1006,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1801231775297063569, guid: 5bd992e685655cd4d900ab626111631e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1978.5
+      value: -1994.5
       objectReference: {fileID: 0}
     - target: {fileID: 1801231775297063569, guid: 5bd992e685655cd4d900ab626111631e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1382,7 +1293,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Source.Scripts.Onboarding::Source.Scripts.Onboarding.Source.Scripts.Onboarding.UI.OnboardingScreen
   <InitialWindow>k__BackingField: 1
   canvasGroup: {fileID: 8060032445296754202}
-  _continueButton: {fileID: 0}
+  _continueButton: {fileID: 6113092088410756778}
   _inputOnboardingSteps:
   - {fileID: 1390720765791899444}
   - {fileID: 845851237793844453}

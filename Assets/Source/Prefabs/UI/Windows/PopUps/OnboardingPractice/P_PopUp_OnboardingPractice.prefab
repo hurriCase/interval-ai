@@ -312,7 +312,7 @@ MonoBehaviour:
         <IsTransition>k__BackingField: 0
         _localizationKey: ui.onboarding.press-to-see
         _messagePoxY: -216
-        _switchButton: {fileID: 0}
+        _switchButton: {fileID: 1980087310893428998}
         _mainCanvas: {fileID: 862739600813106080}
     - rid: 7913753025380352210
       type: {class: HighlightStep, ns: Source.Scripts.Onboarding.UI.OnboardingPractice.Steps, asm: Source.Scripts.Onboarding}
@@ -320,7 +320,7 @@ MonoBehaviour:
         <IsTransition>k__BackingField: 0
         _localizationKey: ui.onboarding.swipe-if-know
         _messagePoxY: -216
-        _switchButton: {fileID: 0}
+        _switchButton: {fileID: 2705068529905982759}
         _mainCanvas: {fileID: 862739600813106080}
     - rid: 7913753025380352211
       type: {class: HighlightStep, ns: Source.Scripts.Onboarding.UI.OnboardingPractice.Steps, asm: Source.Scripts.Onboarding}
@@ -328,7 +328,7 @@ MonoBehaviour:
         <IsTransition>k__BackingField: 0
         _localizationKey: ui.onboarding.hide
         _messagePoxY: -216
-        _switchButton: {fileID: 0}
+        _switchButton: {fileID: 1444981996189766496}
         _mainCanvas: {fileID: 862739600813106080}
     - rid: 7913753025380352212
       type: {class: HighlightStep, ns: Source.Scripts.Onboarding.UI.OnboardingPractice.Steps, asm: Source.Scripts.Onboarding}
@@ -336,7 +336,7 @@ MonoBehaviour:
         <IsTransition>k__BackingField: 1
         _localizationKey: ui.onboarding.swipe-to-start-learn
         _messagePoxY: -216
-        _switchButton: {fileID: 0}
+        _switchButton: {fileID: 986678356959418177}
         _mainCanvas: {fileID: 862739600813106080}
     - rid: 7913753025380352213
       type: {class: HighlightStep, ns: Source.Scripts.Onboarding.UI.OnboardingPractice.Steps, asm: Source.Scripts.Onboarding}
@@ -344,7 +344,7 @@ MonoBehaviour:
         <IsTransition>k__BackingField: 0
         _localizationKey: ui.onboarding.open-by-one-character
         _messagePoxY: -51
-        _switchButton: {fileID: 0}
+        _switchButton: {fileID: 6788600262429158770}
         _mainCanvas: {fileID: 862739600813106080}
     - rid: 7913753025380352214
       type: {class: HighlightStep, ns: Source.Scripts.Onboarding.UI.OnboardingPractice.Steps, asm: Source.Scripts.Onboarding}
@@ -352,7 +352,7 @@ MonoBehaviour:
         <IsTransition>k__BackingField: 0
         _localizationKey: ui.onboarding.select-from-four
         _messagePoxY: -51
-        _switchButton: {fileID: 0}
+        _switchButton: {fileID: 7478999051965898930}
         _mainCanvas: {fileID: 862739600813106080}
     - rid: 7913753025380352215
       type: {class: PlainStep, ns: Source.Scripts.Onboarding.UI.OnboardingPractice.Steps, asm: Source.Scripts.Onboarding}
@@ -361,12 +361,12 @@ MonoBehaviour:
         _localizationKey: ui.onboarding.select-from-four
         _messagePoxY: -28
         _switchButtons:
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
+        - {fileID: 8176833541502815486}
+        - {fileID: 123177270259577853}
+        - {fileID: 4065566270360519147}
+        - {fileID: 4491688834517193921}
+        - {fileID: 1135148131149275960}
+        - {fileID: 5433026818346793195}
         _tintObject: {fileID: 1998083779215552910}
     - rid: 7913753025380352216
       type: {class: PlainStep, ns: Source.Scripts.Onboarding.UI.OnboardingPractice.Steps, asm: Source.Scripts.Onboarding}
@@ -375,8 +375,8 @@ MonoBehaviour:
         _localizationKey: ui.onboarding.lets-start-practice
         _messagePoxY: -28
         _switchButtons:
-        - {fileID: 0}
-        - {fileID: 0}
+        - {fileID: 1135148131149275960}
+        - {fileID: 5433026818346793195}
         _tintObject: {fileID: 1998083779215552910}
 --- !u!223 &862739600813106080
 Canvas:
@@ -748,7 +748,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4142699438041553860, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -506.2508
+      value: -552.23083
       objectReference: {fileID: 0}
     - target: {fileID: 4358599618656306394, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1095,6 +1095,50 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
+--- !u!114 &123177270259577853 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5243653716491532393, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
+  m_PrefabInstance: {fileID: 5291921250688109460}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c9e8b9661d648b485ac4153d41008f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.Selectables.Toggles.StateToggle
+--- !u!114 &986678356959418177 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4954466370893569237, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
+  m_PrefabInstance: {fileID: 5291921250688109460}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a2fd26093214446a4fdc024d3545f07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons.ThemeButton
+--- !u!114 &1135148131149275960 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5093700237793618092, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
+  m_PrefabInstance: {fileID: 5291921250688109460}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a2fd26093214446a4fdc024d3545f07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons.ThemeButton
+--- !u!114 &1444981996189766496 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6736599092708956404, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
+  m_PrefabInstance: {fileID: 5291921250688109460}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a2fd26093214446a4fdc024d3545f07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons.ThemeButton
 --- !u!114 &1592084871447528906 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6874910409292009054, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
@@ -1106,6 +1150,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b21cbc60e440e29554cae5bebc27e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.PopUps.WordPractice.Behaviours.WordProgress.WordProgressBehaviour
+--- !u!114 &1980087310893428998 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5911538276393859730, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
+  m_PrefabInstance: {fileID: 5291921250688109460}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a2fd26093214446a4fdc024d3545f07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons.ThemeButton
+--- !u!114 &2705068529905982759 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7852865049570399923, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
+  m_PrefabInstance: {fileID: 5291921250688109460}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a2fd26093214446a4fdc024d3545f07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons.ThemeButton
 --- !u!114 &4009069790271423997 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9138856895786503785, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
@@ -1117,11 +1183,66 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaa5b73e37ba4fe7bfa00e8df1963b48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.PopUps.Practice.Behaviours.Cards.ControlsBehaviour
+--- !u!114 &4065566270360519147 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8150218646950316671, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
+  m_PrefabInstance: {fileID: 5291921250688109460}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c9e8b9661d648b485ac4153d41008f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.Selectables.Toggles.StateToggle
+--- !u!114 &4491688834517193921 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8585269796216987477, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
+  m_PrefabInstance: {fileID: 5291921250688109460}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c9e8b9661d648b485ac4153d41008f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.Selectables.Toggles.StateToggle
 --- !u!224 &5301210550151056048 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 63332687948382500, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
   m_PrefabInstance: {fileID: 5291921250688109460}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5433026818346793195 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 150117756725900159, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
+  m_PrefabInstance: {fileID: 5291921250688109460}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a2fd26093214446a4fdc024d3545f07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons.ThemeButton
+--- !u!114 &6788600262429158770 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1676849439960835814, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
+  m_PrefabInstance: {fileID: 5291921250688109460}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a2fd26093214446a4fdc024d3545f07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons.ThemeButton
+--- !u!114 &7478999051965898930 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3367021632185051942, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
+  m_PrefabInstance: {fileID: 5291921250688109460}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a2fd26093214446a4fdc024d3545f07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons.ThemeButton
 --- !u!114 &8085324428542655047 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4126557213895012819, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
@@ -1133,6 +1254,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d4f34f624c7481e9d57c547b21036bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.CardBehaviour
+--- !u!114 &8176833541502815486 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4037860376507664234, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
+  m_PrefabInstance: {fileID: 5291921250688109460}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c9e8b9661d648b485ac4153d41008f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.Selectables.Toggles.StateToggle
 --- !u!1001 &8673403285963556996
 PrefabInstance:
   m_ObjectHideFlags: 0

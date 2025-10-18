@@ -1,81 +1,36 @@
-﻿using System.Collections.Generic;
-using CustomUtils.Runtime.AddressableSystem;
-using CustomUtils.Runtime.Extensions.Observables;
-using CustomUtils.Runtime.UI.CustomComponents.Selectables.Toggles;
-using R3;
-using R3.Triggers;
-using Source.Scripts.Core.Localization.Base;
-using Source.Scripts.Core.References.Base;
-using Source.Scripts.Core.Repositories.Settings.Base;
+﻿using Source.Scripts.Core.Repositories.Settings.Base;
+using Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours.LevelSelection;
 using Source.Scripts.UI.Components.Accordion;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
+using VContainer.Unity;
 
 namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours.LanguageSelection
 {
     internal sealed class LanguageAccordionItem : MonoBehaviour
     {
         [SerializeField] private AccordionComponent _accordionComponent;
+        [SerializeField] private LanguageSelectionItem _languageSelectionItem;
         [SerializeField] private ToggleGroup _toggleGroup;
-        [SerializeField] private StateToggle _languageSelectionItem;
 
-        private readonly Dictionary<SystemLanguage, StateToggle> _createdLanguageItems = new();
-
-        private LanguageType _currentLanguageType;
-
-        private ILanguageSettingsRepository _languageSettingsRepository;
-        private ILocalizationDatabase _localizationDatabase;
-        private IAddressablesLoader _addressablesLoader;
-        private ISpriteReferences _spriteReferences;
+        private IObjectResolver _objectResolver;
 
         [Inject]
-        internal void Inject(
-            ILanguageSettingsRepository languageSettingsRepository,
-            ILocalizationDatabase localizationDatabase,
-            IAddressablesLoader addressablesLoader,
-            ISpriteReferences spriteReferences)
+        internal void Inject(IObjectResolver objectResolver)
         {
-            _languageSettingsRepository = languageSettingsRepository;
-            _localizationDatabase = localizationDatabase;
-            _addressablesLoader = addressablesLoader;
-            _spriteReferences = spriteReferences;
+            _objectResolver = objectResolver;
         }
 
         internal void Init(LanguageType languageType, SystemLanguage[] languages)
         {
-            _currentLanguageType = languageType;
-
-            CreateLanguageSelectionItems(languages);
-
-            _languageSettingsRepository.LanguageByType
-                .Select(this, static (languageByType, self) => languageByType[self._currentLanguageType])
-                .SubscribeUntilDestroy(this,
-                    static (language, self) => self._createdLanguageItems[language].isOn = true);
-        }
-
-        private void CreateLanguageSelectionItems(SystemLanguage[] languages)
-        {
             foreach (var language in languages)
             {
                 var container = _accordionComponent.HiddenContentContainer;
-                var createdLanguageItem = Instantiate(_languageSelectionItem, container);
+                var createdLanguageItem = _objectResolver.Instantiate(_languageSelectionItem, container);
 
-                createdLanguageItem.Text.text = _localizationDatabase.GetLanguageName(language);
-                createdLanguageItem.group = _toggleGroup;
-                createdLanguageItem.OnPointerClickAsObservable()
-                    .SubscribeUntilDestroy(this, language, static (language, self) => self.SetLanguage(language));
-
-                var sprite = _spriteReferences.LanguageSprites[language];
-                _addressablesLoader.AssignImageAsync(createdLanguageItem.Image, sprite, destroyCancellationToken);
-
-                _createdLanguageItems[language] = createdLanguageItem;
+                createdLanguageItem.Init(_toggleGroup, language, languageType);
             }
-        }
-
-        private void SetLanguage(SystemLanguage systemLanguage)
-        {
-            _languageSettingsRepository.SetLanguage(systemLanguage, _currentLanguageType);
         }
     }
 }

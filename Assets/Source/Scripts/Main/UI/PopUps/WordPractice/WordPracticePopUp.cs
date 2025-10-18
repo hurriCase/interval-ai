@@ -36,8 +36,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice
             foreach (var practiceBehaviour in _practiceBehaviours)
                 practiceBehaviour.Init();
 
-            _practiceStateService.CurrentState.SubscribeUntilDestroy(this,
-                static (state, self) => self.SwitchToState(state));
+            _practiceStateService.CurrentState
+                .SubscribeUntilDestroy(this, static (state, self) => self.SwitchToState(state));
         }
 
         internal override async UniTask ShowAsync()
