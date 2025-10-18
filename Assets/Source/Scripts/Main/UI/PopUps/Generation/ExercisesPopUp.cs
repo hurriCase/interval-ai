@@ -23,7 +23,7 @@ namespace Source.Scripts.Main.UI.PopUps.Generation
 
             foreach (var (state, tab) in _tabsController.Tabs.AsTuples())
             {
-                tab.OnPointerClickAsObservable()
+                tab.SwitchToggle.OnPointerClickAsObservable()
                     .SubscribeUntilDestroy(this, state, static (state, self) => self.ResetExerciseState(state));
             }
 

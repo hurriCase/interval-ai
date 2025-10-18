@@ -2,7 +2,7 @@
 using System.Threading;
 using CustomUtils.Runtime.Animations;
 using CustomUtils.Runtime.CustomTypes.Collections;
-using CustomUtils.Runtime.UI.CustomComponents.Selectables.Toggles;
+using CustomUtils.Runtime.Extensions;
 using R3;
 using R3.Triggers;
 using UnityEngine;
@@ -12,7 +12,7 @@ namespace Source.Scripts.UI.Components
     [Serializable]
     internal sealed class TabsController<TEnum> where TEnum : unmanaged, Enum
     {
-        [field: SerializeField] internal EnumArray<TEnum, StateToggle> Tabs { get; private set; } =
+        [field: SerializeField] internal EnumArray<TEnum, TabItem> Tabs { get; private set; } =
             new(EnumMode.SkipFirst);
 
         [SerializeField] private AnchoredPositionAnimation<TEnum> _tabAnimation;
@@ -23,7 +23,7 @@ namespace Source.Scripts.UI.Components
         {
             foreach (var (state, tab) in Tabs.AsTuples())
             {
-                tab.OnPointerClickAsObservable()
+                tab.SwitchToggle.OnPointerClickAsObservable()
                     .Subscribe((self: this, state), static (_, tuple) => tuple.self.SwitchState(tuple.state))
                     .RegisterTo(token);
             }
@@ -33,8 +33,25 @@ namespace Source.Scripts.UI.Components
 
         internal void SwitchState(TEnum state, bool isInstant = false)
         {
-            _tabAnimation.PlayAnimation(state, isInstant);
-            Tabs[state].isOn = true;
+            _currentState = state;
+
+            var currentTab = Tabs[state];
+            currentTab.CanvasGroup.Show();
+            currentTab.SwitchToggle.isOn = true;
+
+            _tabAnimation.PlayAnimation(state, isInstant)
+                .OnComplete(this, static self => self.HideOtherTabs());
+        }
+
+        private void HideOtherTabs()
+        {
+            foreach (var tab in Tabs)
+            {
+                if (tab == Tabs[_currentState])
+                    continue;
+
+                tab.CanvasGroup.Hide();
+            }
         }
     }
 }

@@ -314,6 +314,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6829777437454293057, guid: f4a7512a7bb93574fbd9d2dd3fa7adfb, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2822119683266068957}
+    - targetCorrespondingSourceObject: {fileID: 6829777437454293057, guid: f4a7512a7bb93574fbd9d2dd3fa7adfb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4660678285278647163}
   m_SourcePrefab: {fileID: 100100000, guid: f4a7512a7bb93574fbd9d2dd3fa7adfb, type: 3}
 --- !u!1 &3608473446095991898 stripped
 GameObject:
@@ -338,6 +341,18 @@ MonoBehaviour:
   _swipeCardBehaviour: {fileID: 1284505072988936242}
   _controlButtonsBehaviour: {fileID: 2437954497155630445}
   _learningCompleteBehaviour: {fileID: 0}
+--- !u!225 &4660678285278647163
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3608473446095991898}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!224 &6910747110873319968 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3691833483562493499, guid: f4a7512a7bb93574fbd9d2dd3fa7adfb, type: 3}
@@ -574,7 +589,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1327921433798147891, guid: 7a3c088fcbb7cac408c526a915aba317, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -490.2508
+      value: -552.23083
       objectReference: {fileID: 0}
     - target: {fileID: 1369508923155613446, guid: 7a3c088fcbb7cac408c526a915aba317, type: 3}
       propertyPath: m_Color.b

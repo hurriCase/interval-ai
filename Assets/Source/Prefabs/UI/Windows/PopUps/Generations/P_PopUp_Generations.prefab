@@ -537,6 +537,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6991929194071623373, guid: 07ec455a43854cf4e85dca4915e2512f, type: 3}
   m_PrefabInstance: {fileID: 1522816584409828127}
   m_PrefabAsset: {fileID: 0}
+--- !u!225 &9023964786831267929 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 7501222041608278854, guid: 07ec455a43854cf4e85dca4915e2512f, type: 3}
+  m_PrefabInstance: {fileID: 1522816584409828127}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3176054316809552065
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -777,7 +782,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1109912330472870242, guid: aad25aaa3bdca8749bb3346226780101, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -201
+      value: -220.36
       objectReference: {fileID: 0}
     - target: {fileID: 1239114732901637557, guid: aad25aaa3bdca8749bb3346226780101, type: 3}
       propertyPath: _previousColorData.<ColorName>k__BackingField
@@ -1411,6 +1416,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f26c11c021d4d999b22327aad67a554, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.PopUps.Generation.Behaviours.ExerciseContainer
+--- !u!225 &8398741686252668030 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 3090932983725280263, guid: aad25aaa3bdca8749bb3346226780101, type: 3}
+  m_PrefabInstance: {fileID: 6803637475674736761}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &9052147471302382069 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2590924481091148172, guid: aad25aaa3bdca8749bb3346226780101, type: 3}
@@ -1577,9 +1587,15 @@ MonoBehaviour:
   _tabsController:
     <Tabs>k__BackingField:
       <Entries>k__BackingField:
-      - <Value>k__BackingField: {fileID: 0}
-      - <Value>k__BackingField: {fileID: 3888449146334750553}
-      - <Value>k__BackingField: {fileID: 1064901714144827039}
+      - <Value>k__BackingField:
+          <CanvasGroup>k__BackingField: {fileID: 0}
+          <SwitchToggle>k__BackingField: {fileID: 0}
+      - <Value>k__BackingField:
+          <CanvasGroup>k__BackingField: {fileID: 8398741686252668030}
+          <SwitchToggle>k__BackingField: {fileID: 3888449146334750553}
+      - <Value>k__BackingField:
+          <CanvasGroup>k__BackingField: {fileID: 9023964786831267929}
+          <SwitchToggle>k__BackingField: {fileID: 1064901714144827039}
       <EnumMode>k__BackingField: 2
     _tabAnimation:
       states:

@@ -116,6 +116,11 @@ PrefabInstance:
       insertIndex: 1
       addedObject: {fileID: 676685043034553739}
   m_SourcePrefab: {fileID: 100100000, guid: 4f37007eb61c358439306e6dd4bb3b23, type: 3}
+--- !u!225 &631435887277538565 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 3509544800295699800, guid: 4f37007eb61c358439306e6dd4bb3b23, type: 3}
+  m_PrefabInstance: {fileID: 4068764763573565533}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &3046501804136550812 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1310686859835795905, guid: 4f37007eb61c358439306e6dd4bb3b23, type: 3}
@@ -138,6 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57f3b9360d61463a8ab2fa47a8210b92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.Base.PopUpVisibilityHandler
+  _canvasGroup: {fileID: 631435887277538565}
   _visibilityAnimation:
     rid: 3140846641636442346
   references:

@@ -1346,6 +1346,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f95e58dfe7c8e1b428cdc988bbb64c6f, type: 3}
+--- !u!225 &2678045932547643245 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 3441143545747679205, guid: f95e58dfe7c8e1b428cdc988bbb64c6f, type: 3}
+  m_PrefabInstance: {fileID: 786776730664022152}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &4207414571413982774 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3497199069580459710, guid: f95e58dfe7c8e1b428cdc988bbb64c6f, type: 3}
@@ -2996,6 +3001,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 63332687948382500, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
   m_PrefabInstance: {fileID: 4863833975690799833}
   m_PrefabAsset: {fileID: 0}
+--- !u!225 &6689857903535551142 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 2281329855114369151, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
+  m_PrefabInstance: {fileID: 4863833975690799833}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7121464336658604959 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2426113288008927558, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
@@ -3163,9 +3173,15 @@ MonoBehaviour:
   _tabsController:
     <Tabs>k__BackingField:
       <Entries>k__BackingField:
-      - <Value>k__BackingField: {fileID: 0}
-      - <Value>k__BackingField: {fileID: 2875327312529238391}
-      - <Value>k__BackingField: {fileID: 2078120299335915697}
+      - <Value>k__BackingField:
+          <CanvasGroup>k__BackingField: {fileID: 0}
+          <SwitchToggle>k__BackingField: {fileID: 0}
+      - <Value>k__BackingField:
+          <CanvasGroup>k__BackingField: {fileID: 6689857903535551142}
+          <SwitchToggle>k__BackingField: {fileID: 2875327312529238391}
+      - <Value>k__BackingField:
+          <CanvasGroup>k__BackingField: {fileID: 2678045932547643245}
+          <SwitchToggle>k__BackingField: {fileID: 2078120299335915697}
       <EnumMode>k__BackingField: 2
     _tabAnimation:
       states:
