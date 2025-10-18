@@ -28,11 +28,11 @@ namespace Source.Scripts.Core.Localization.Base
         [SerializeField] private EnumArray<SystemLanguage, string> _languages = new(EnumMode.SkipFirst);
 
         [SerializeField] private EnumArray<DateType, EnumArray<PluralForm, string>> _date
-            = new(() => new EnumArray<PluralForm, string>(EnumMode.SkipFirst), EnumMode.SkipFirst);
+            = new(static () => new EnumArray<PluralForm, string>(EnumMode.SkipFirst), EnumMode.SkipFirst);
 
         [SerializeField]
         private EnumArray<PracticeState, EnumArray<CompleteType, string>> _learningCompleteDescriptions =
-            new(() => new EnumArray<CompleteType, string>(EnumMode.SkipFirst),
+            new(static () => new EnumArray<CompleteType, string>(EnumMode.SkipFirst),
                 EnumMode.SkipFirst);
 
         [SerializeField] private EnumArray<WordReviewSourceType, string> _wordReviewSourceTypes

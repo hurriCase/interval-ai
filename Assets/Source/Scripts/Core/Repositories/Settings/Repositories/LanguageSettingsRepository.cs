@@ -22,7 +22,7 @@ namespace Source.Scripts.Core.Repositories.Settings.Repositories
         public PersistentReactiveProperty<LanguageType> CardReviewLanguageType { get; } = new();
 
         public EnumArray<LanguageType, ReactiveProperty<SystemLanguage>> LanguageProperties { get; }
-            = new(() => new ReactiveProperty<SystemLanguage>(), EnumMode.SkipFirst);
+            = new(static () => new ReactiveProperty<SystemLanguage>(), EnumMode.SkipFirst);
 
         public ReadOnlyReactiveProperty<EnumArray<LanguageType, SystemLanguage>> LanguageByType
             => _languageByType.Property;
@@ -67,7 +67,7 @@ namespace Source.Scripts.Core.Repositories.Settings.Repositories
             await UniTask.WhenAll(initTasks);
 
             SystemLanguage
-                .Subscribe(newLanguage => LocalizationController.Language.Value = newLanguage)
+                .Subscribe(static newLanguage => LocalizationController.Language.Value = newLanguage)
                 .AddTo(ref _disposableBag);
 
             MapLanguageProperties();

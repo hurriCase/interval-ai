@@ -31,7 +31,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection.Category
             _selectionTitle = localizationKeysDatabase.GetLocalization(LocalizationType.CategorySelectionName);
 
             _disposable = selectedValues
-                .Where(values => values is { Count: > 0 })
+                .Where(static values => values is { Count: > 0 })
                 .Subscribe(this, static (selectedValues, self) => self.SetCategories(selectedValues));
         }
 

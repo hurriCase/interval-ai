@@ -22,7 +22,7 @@ namespace Source.Scripts.Core.Repositories.Words
             => _sortedWordsByState;
 
         private readonly ReactiveProperty<EnumArray<LearningState, SortedSet<WordEntry>>> _sortedWordsByState
-            = new(new EnumArray<LearningState, SortedSet<WordEntry>>(() => new SortedSet<WordEntry>(_comparer)));
+            = new(new EnumArray<LearningState, SortedSet<WordEntry>>(static () => new SortedSet<WordEntry>(_comparer)));
 
         private readonly PersistentReactiveProperty<Dictionary<int, WordEntry>> _wordEntries = new();
         private static readonly WordCooldownComparer _comparer = new();
@@ -98,7 +98,7 @@ namespace Source.Scripts.Core.Repositories.Words
         public PooledArray<WordEntry> GetRandomWords(WordEntry wordToSkip, int count) =>
             _wordEntries.Value.Values.AsValueEnumerable()
                 .Where(word => word != wordToSkip && word.IsHidden is false)
-                .OrderBy(_ => Random.value)
+                .OrderBy(static _ => Random.value)
                 .Take(count)
                 .ToArrayPool();
 

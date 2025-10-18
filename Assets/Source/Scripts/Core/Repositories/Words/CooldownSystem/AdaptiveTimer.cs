@@ -47,7 +47,7 @@ namespace Source.Scripts.Core.Repositories.Words.CooldownSystem
             var updateInterval = GetUpdateInterval(timeRemaining);
 
             _currentTimer = Observable.Timer(updateInterval)
-                .Subscribe(this, (_, timer) => timer.ScheduleNextUpdate());
+                .Subscribe(this, static (_, timer) => timer.ScheduleNextUpdate());
         }
 
         private static TimeSpan GetUpdateInterval(TimeSpan timeRemaining)

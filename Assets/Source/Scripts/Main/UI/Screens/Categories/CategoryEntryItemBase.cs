@@ -37,7 +37,7 @@ namespace Source.Scripts.Main.UI.Screens.Categories
                 .SubscribeUntilDestroy(this, static (isOn, self) => self.currentCategoryEntry.IsSelected = isOn);
 
             categoryStateMutator.OnCategoryNameChanged
-                .Select(categoryEntry, (currentCategory, changedCategory) => currentCategory == changedCategory)
+                .Select(categoryEntry, static (currentCategory, changedCategory) => currentCategory == changedCategory)
                 .SubscribeUntilDestroy(this, static self => self.UpdateName());
 
             OnInit();

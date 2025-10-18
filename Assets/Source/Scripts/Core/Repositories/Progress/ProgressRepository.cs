@@ -34,7 +34,7 @@ namespace Source.Scripts.Core.Repositories.Progress
             = new(EnumMode.SkipFirst);
 
         private readonly EnumArray<PracticeState, ReactiveProperty<int>> _learnedWordCounts =
-            new(() => new ReactiveProperty<int>(), EnumMode.SkipFirst);
+            new(static () => new ReactiveProperty<int>(), EnumMode.SkipFirst);
 
         public ReadOnlyReactiveProperty<bool> HasDailyTarget => _hasDailyTarget;
         private readonly ReactiveProperty<bool> _hasDailyTarget = new(false);
@@ -90,7 +90,7 @@ namespace Source.Scripts.Core.Repositories.Progress
                 .Subscribe(this, static (_, self) => self.ResetDailyTarget());
 
             var newWordsDisposable = _newWordsDailyTarget
-                .Subscribe(this, (newTarget, self) => self._hasDailyTarget.Value = newTarget > 0);
+                .Subscribe(this, static (newTarget, self) => self._hasDailyTarget.Value = newTarget > 0);
 
             _disposable = Disposable.Combine(newLoginDisposable, newWordsDisposable);
 

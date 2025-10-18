@@ -49,7 +49,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours.LanguageSelect
             CreateLanguageSelectionItems(languages);
 
             _languageSettingsRepository.LanguageByType
-                .Select(this, (languageByType, self) => languageByType[self._currentLanguageType])
+                .Select(this, static (languageByType, self) => languageByType[self._currentLanguageType])
                 .SubscribeUntilDestroy(this,
                     static (language, self) => self._createdLanguageItems[language].isOn = true);
         }

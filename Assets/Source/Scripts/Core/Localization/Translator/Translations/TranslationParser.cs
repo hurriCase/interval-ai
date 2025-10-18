@@ -46,7 +46,7 @@ namespace Source.Scripts.Core.Localization.Translator.Translations
             var nativeValues = row.GetValue(nativeName).ToStringList();
 
             return ProcessTranslations(nativeValues, learningValues,
-                (native, learning) => new Translation(native, learning));
+                static (native, learning) => new Translation(native, learning));
         }
 
         public List<TranslationSet> GetTranslatedSetList(CsvRow row, string translationName)
@@ -58,7 +58,7 @@ namespace Source.Scripts.Core.Localization.Translator.Translations
             var nativeValues = row.GetValuesByPattern(nativePattern);
 
             return ProcessTranslations(learningValues, nativeValues,
-                (learning, natives) => new TranslationSet(learning, natives.ToStringList()));
+                static (learning, natives) => new TranslationSet(learning, natives.ToStringList()));
         }
 
         private static List<T> ProcessTranslations<T>(

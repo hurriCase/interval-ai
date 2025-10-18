@@ -41,7 +41,7 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.Progress
         internal void Init()
         {
             _progressRepository.ProgressHistory
-                .DistinctUntilChangedBy(progress => progress)
+                .DistinctUntilChangedBy(static progress => progress)
                 .SubscribeUntilDestroy(this, static self => self.UpdateProgress());
 
             LocalizationController.Language.SubscribeUntilDestroy(this, static self => self.UpdateProgress());

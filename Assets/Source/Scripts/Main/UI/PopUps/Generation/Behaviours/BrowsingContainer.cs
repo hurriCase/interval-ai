@@ -46,7 +46,7 @@ namespace Source.Scripts.Main.UI.PopUps.Generation.Behaviours
                 _objectResolver);
 
             _exercisesRepository.Exercises
-                .Select(this, (exercises, self) => exercises[self._exerciseType])
+                .Select(this, static (exercises, self) => exercises[self._exerciseType])
                 .SubscribeUntilDestroy(this, static (exercises, self) => self.UpdateView(exercises));
         }
 

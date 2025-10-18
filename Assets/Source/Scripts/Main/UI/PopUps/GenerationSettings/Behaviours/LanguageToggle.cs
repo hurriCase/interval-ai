@@ -33,11 +33,11 @@ namespace Source.Scripts.Main.UI.PopUps.GenerationSettings.Behaviours
 
             isOn = _currentLanguageType == _generationSettingsRepository.TranslateFromLanguageType.Value;
             this.OnValueChangedAsObservable()
-                .Where(isOn => isOn)
+                .Where(static isOn => isOn)
                 .SubscribeUntilDestroy(this, static self => self.ChangeLanguageType());
 
             _languageSettingsRepository.LanguageByType
-                .Select(this, (currentLanguages, self) => currentLanguages[self._currentLanguageType])
+                .Select(this, static (currentLanguages, self) => currentLanguages[self._currentLanguageType])
                 .SubscribeUntilDestroy(this, static (language, self) => self.UpdateLanguageTypeTexts(language));
         }
 

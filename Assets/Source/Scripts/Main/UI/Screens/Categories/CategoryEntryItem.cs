@@ -12,7 +12,8 @@ namespace Source.Scripts.Main.UI.Screens.Categories
 
         protected override void OnInit()
         {
-            categoryOpenArea.OnPointerClickAsObservable().SubscribeUntilDestroy(this, self => self.OpenCategoryPopUp());
+            categoryOpenArea.OnPointerClickAsObservable()
+                .SubscribeUntilDestroy(this, static self => self.OpenCategoryPopUp());
         }
 
         private void OpenCategoryPopUp()

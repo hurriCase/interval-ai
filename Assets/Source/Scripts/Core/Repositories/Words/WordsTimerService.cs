@@ -23,7 +23,7 @@ namespace Source.Scripts.Core.Repositories.Words
             _currentWordService = currentWordFactory.GetOrCreate(PracticeState.Review);
 
             _disposable = _currentWordService.CurrentWord
-                .Subscribe(this, (_, self) => self.UpdateTimer());
+                .Subscribe(this, static (_, self) => self.UpdateTimer());
         }
 
         public void UpdateTimer()

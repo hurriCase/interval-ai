@@ -29,8 +29,9 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
 
         protected override void OnInit()
         {
-            positiveButton.OnClickAsObservable().SubscribeUntilDestroy(this, self => self.OpenCategorySelection());
-            negativeButton.OnClickAsObservable().SubscribeUntilDestroy(this, self => self.TryContinueLearning());
+            negativeButton.OnClickAsObservable().SubscribeUntilDestroy(this, static self => self.TryContinueLearning());
+            positiveButton.OnClickAsObservable()
+                .SubscribeUntilDestroy(this, static self => self.OpenCategorySelection());
 
             _progressRepository.OnGoalAchieved.SubscribeUntilDestroy(this,
                 static (wordsCount, self) => self.SetState(CompleteType.Complete, wordsCount.ToString()));
@@ -51,7 +52,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
 
             var selectionPopUp = windowsController.OpenPopUp<SelectionPopUp>();
             selectionPopUp.SetParameters(_categorySelectionService);
-            selectionPopUp.OnPopUpHidden.SubscribeUntilDestroy(this, self => self.UpdateCurrentWord());
+            selectionPopUp.OnPopUpHidden.SubscribeUntilDestroy(this, static self => self.UpdateCurrentWord());
         }
 
         private void TryContinueLearning()

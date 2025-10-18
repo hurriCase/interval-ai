@@ -52,7 +52,7 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
                 createdGraphType.group = _graphButtonsGroup;
 
                 createdGraphType.OnValueChangedAsObservable()
-                    .Where(isOn => isOn)
+                    .Where(static isOn => isOn)
                     .SubscribeUntilDestroy(this, dateRange, static (range, self) => self.UpdateGraph(range));
 
                 LocalizationController.Language.SubscribeUntilDestroy(this, (dateRange, createdGraphType.Text),

@@ -41,7 +41,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
             _currentWordService = _currentWordFactory.GetOrCreate(practiceState);
 
             _currentWordService.CurrentWord
-                .Where(currentWord => currentWord != null)
+                .Where(static currentWord => currentWord != null)
                 .SubscribeUntilDestroy(_wordProgressBehaviour,
                     static (currentWord, wordProgress) => wordProgress.UpdateProgress(currentWord));
 
@@ -49,8 +49,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
                 module.Init(practiceState);
 
             var moduleStateService = _moduleStateFactory.GetOrCreate(practiceState);
-            moduleStateService.CurrentState
-                .Where(this, (currentState, self) => currentState != ModuleType.None && self.WordEntry != null)
+            moduleStateService.CurrentModule
+                .Where(this, static (moduleType, self) => moduleType != ModuleType.None && self.WordEntry != null)
                 .SubscribeUntilDestroy(this, static (state, self) => self.SwitchModule(state));
         }
 

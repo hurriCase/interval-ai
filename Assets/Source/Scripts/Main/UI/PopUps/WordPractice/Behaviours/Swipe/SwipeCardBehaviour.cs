@@ -57,15 +57,15 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Swipe
                 .Where(this, static self => self._uiSettingsRepository.IsSwipeEnabled.Value)
                 .Where(this, static self => self._windowsController.CurrentPopUpType == PopUpType.WordPractice)
                 .Where(this, static self => self._currentState is not SwipeState.SwipeExecuted)
-                .SubscribeUntilDestroy(this, self => self.OnPointerPressed());
+                .SubscribeUntilDestroy(this, static self => self.OnPointerPressed());
 
             _swipeInputService.OnPointerReleased
                 .Where(this, static self => self._currentState is SwipeState.PointerPressed or SwipeState.Dragging)
-                .SubscribeUntilDestroy(this, self => self.OnPointerReleased());
+                .SubscribeUntilDestroy(this, static self => self.OnPointerReleased());
 
             _swipeInputService.OnPointerPositionChanged
                 .Where(this, static self => self.IsValidForSwipe)
-                .SubscribeUntilDestroy(this, (position, self) => self.OnPointerPositionChanged(position));
+                .SubscribeUntilDestroy(this, static (position, self) => self.OnPointerPositionChanged(position));
         }
 
         private bool IsValidForSwipe => _currentState is SwipeState.PointerPressed or SwipeState.Dragging;

@@ -37,7 +37,7 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts
 
         private void UpdateProgress(EnumArray<LearningState, int> totalCountByState)
         {
-            var totalWords = totalCountByState.Entries.AsValueEnumerable().Sum(entry => entry.Value).ToString();
+            var totalWords = totalCountByState.Entries.AsValueEnumerable().Sum(static entry => entry.Value).ToString();
             _totalProgressItem.Init(totalCountByState, totalWords);
 
             foreach (var (state, progressItem) in _progressDescriptionItems.AsTuples())

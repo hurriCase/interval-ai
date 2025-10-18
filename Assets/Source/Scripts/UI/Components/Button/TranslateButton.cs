@@ -31,7 +31,7 @@ namespace Source.Scripts.UI.Components.Button
         private void Awake()
         {
             _buttonComponent.OnClickAsObservable()
-                .Where(this, self => self._wasTranslated is false)
+                .Where(this, static self => self._wasTranslated is false)
                 .SubscribeUntilDestroy(this, static self => self.TranslateText().Forget());
 
             _translator.IsAvailable.SubscribeToInteractableUntilDestroy(_buttonComponent);

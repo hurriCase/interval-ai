@@ -32,7 +32,7 @@ namespace Source.Scripts.Core.Repositories.Words.ModuleState
 
             var currentWordService = currentWordFactory.GetOrCreate(practiceState);
             _disposable = currentWordService.CurrentWord
-                .Subscribe(this, (_, self) => self.HandleNewWord());
+                .Subscribe(this, static (_, self) => self.HandleNewWord());
         }
 
         public void SetState(ModuleType moduleType)

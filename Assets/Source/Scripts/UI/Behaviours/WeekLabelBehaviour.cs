@@ -24,7 +24,7 @@ namespace Source.Scripts.UI.Behaviours
         internal void Init()
         {
             _uiSettingsRepository.CurrentCulture
-                .SubscribeUntilDestroy(this, (culture, self) => self.UpdateWeekDays(culture));
+                .SubscribeUntilDestroy(this, static (culture, self) => self.UpdateWeekDays(culture));
         }
 
         private void UpdateWeekDays(CultureInfo culture)

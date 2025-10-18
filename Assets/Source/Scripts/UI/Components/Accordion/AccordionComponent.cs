@@ -2,11 +2,11 @@
 using CustomUtils.Runtime.Animations;
 using CustomUtils.Runtime.Animations.Base;
 using CustomUtils.Runtime.Attributes;
+using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using R3;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Source.Scripts.UI.Components.Accordion
 {
@@ -32,7 +32,7 @@ namespace Source.Scripts.UI.Components.Accordion
             _currentState = _initiallyState;
 
             ExpandButton.OnClickAsObservable()
-                .Where(this, self => self._isInitiallyReady)
+                .Where(this, static self => self._isInitiallyReady)
                 .SubscribeUntilDestroy(this, static self => self.SwitchVisibility());
 
             PlayAnimation(_initiallyState, true);
@@ -56,9 +56,10 @@ namespace Source.Scripts.UI.Components.Accordion
             foreach (var animationComponent in _scaleAnimations)
             {
                 var tween = animationComponent.PlayAnimation(visibilityState, isInstant);
-                if (isInstant is false)
-                    tween.OnUpdate(this,
-                        static (self, _) => LayoutRebuilder.MarkLayoutForRebuild(self._rectTransform));
+                if (isInstant)
+                    return;
+
+                tween.OnUpdate(this, static (self, _) => self._rectTransform.MarkLayoutForRebuild());
             }
 
             foreach (var animationComponent in _animations)

@@ -48,7 +48,7 @@ namespace Source.Scripts.Core.Repositories.Settings.Repositories
 
             await UniTask.WhenAll(initTasks);
 
-            _disposable = ThemeType.Subscribe(newTheme => ThemeHandler.CurrentThemeType.Value = newTheme);
+            _disposable = ThemeType.Subscribe(static newTheme => ThemeHandler.CurrentThemeType.Value = newTheme);
         }
 
         public void Dispose()

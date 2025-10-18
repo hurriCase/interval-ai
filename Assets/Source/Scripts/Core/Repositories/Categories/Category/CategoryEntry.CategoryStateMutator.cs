@@ -64,18 +64,18 @@ namespace Source.Scripts.Core.Repositories.Categories.Category
 
                 var sortRule = orderType switch
                 {
-                    WordOrderType.Default => (x, y) => y.CreationData.CompareTo(x.CreationData),
-                    WordOrderType.NewlyAdded => (x, y) => y.CreationData.CompareTo(x.CreationData),
-                    WordOrderType.OldlyAdded => (x, y) => x.CreationData.CompareTo(y.CreationData),
+                    WordOrderType.Default => static (x, y) => y.CreationData.CompareTo(x.CreationData),
+                    WordOrderType.NewlyAdded => static (x, y) => y.CreationData.CompareTo(x.CreationData),
+                    WordOrderType.OldlyAdded => static (x, y) => x.CreationData.CompareTo(y.CreationData),
 
-                    WordOrderType.ByLearningState => (x, y)
+                    WordOrderType.ByLearningState => static (x, y)
                         => UnsafeEnumConverter<LearningState>.ToInt32(x.LearningState)
                             .CompareTo(UnsafeEnumConverter<LearningState>.ToInt32(y.LearningState)),
 
-                    WordOrderType.Alphabetically => (x, y)
+                    WordOrderType.Alphabetically => static (x, y)
                         => string.Compare(x.Word.Learning, y.Word.Learning, StringComparison.OrdinalIgnoreCase),
 
-                    WordOrderType.ReviewCount => (Comparison<WordEntry>)((x, y)
+                    WordOrderType.ReviewCount => (Comparison<WordEntry>)(static (x, y)
                         => y.ReviewCount.CompareTo(x.ReviewCount)),
 
                     _ => throw new ArgumentOutOfRangeException(nameof(orderType), orderType, null)

@@ -28,8 +28,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours
         internal void Init()
         {
             var poolEvents = new UIPoolEvents<TTranslation, AdditionalInfoItemBase<TTranslation>>(
-                onCreated: (_, item) => item.Init(),
-                onActivated: (translation, item) => item.UpdateView(translation));
+                onCreated: static (_, item) => item.Init(),
+                onActivated: static (translation, item) => item.UpdateView(translation));
 
             _itemsPoolWithData = new UIPoolWithData<TTranslation, AdditionalInfoItemBase<TTranslation>>(
                 _infoItem, _accordionComponent.HiddenContentContainer, poolEvents, _objectResolver);
@@ -45,7 +45,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours
 
             var validTranslations = translations
                 .AsValueEnumerable()
-                .Where(translation => translation.IsValid)
+                .Where(static translation => translation.IsValid)
                 .ToList();
 
             if (validTranslations.Count == 0)

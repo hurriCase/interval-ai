@@ -70,8 +70,8 @@ namespace Source.Scripts.Main.UI.PopUps.Category
         internal override void Init()
         {
             var uiPoolEvents = new UIPoolEvents<WordEntry, WordItem>(
-                (_, wordItem) => wordItem.Init(),
-                (wordEntry, wordItem) => wordItem.UpdateView(wordEntry));
+                static (_, wordItem) => wordItem.Init(),
+                static (wordEntry, wordItem) => wordItem.UpdateView(wordEntry));
 
             _wordsPoolWithData = new UIPoolWithData<WordEntry, WordItem>(
                 _wordItem, _wordsContainer, uiPoolEvents, _objectResolver);

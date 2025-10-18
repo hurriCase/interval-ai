@@ -32,7 +32,7 @@ namespace Source.Scripts.Main.UI.PopUps.GenerationSettings.Behaviours
 
             _percentageSlider.value = _generationSettingsRepository.NewWordsPercentage.Value;
             _percentageSlider.OnValueChangedAsObservable()
-                .SubscribeUntilDestroy(this, (percent, self) => self.HandlePercentChange(percent));
+                .SubscribeUntilDestroy(this, static (percent, self) => self.HandlePercentChange(percent));
         }
 
         private void HandlePercentChange(float percent)

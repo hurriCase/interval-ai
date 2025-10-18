@@ -26,7 +26,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
         protected override void OnInit()
         {
             positiveButton.OnClickAsObservable()
-                .SubscribeUntilDestroy(this, self => self.SetActiveNewWords(true));
+                .SubscribeUntilDestroy(this, static self => self.SetActiveNewWords(true));
 
             _learnButton.OnClickAsObservable().SubscribeUntilDestroy(this, static self => self.AddNewWords());
 

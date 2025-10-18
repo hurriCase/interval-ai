@@ -34,7 +34,7 @@ namespace Source.Scripts.Main.Data.CurrentWord
             _appConfig = appConfig;
             _practiceState = practiceState;
 
-            _wordsRepository.SortedWordsByState.Subscribe(this, (_, self) => self.UpdateCurrentWord());
+            _wordsRepository.SortedWordsByState.Subscribe(this, static (_, self) => self.UpdateCurrentWord());
         }
 
         public void UpdateCurrentWord()

@@ -21,7 +21,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules
         {
             base.Init(practiceState);
 
-            _hintButton.OnClickAsObservable().SubscribeUntilDestroy(this, self => self.AddHintCharacter());
+            _hintButton.OnClickAsObservable().SubscribeUntilDestroy(this, static self => self.AddHintCharacter());
         }
 
         private void AddHintCharacter()
