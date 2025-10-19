@@ -6,12 +6,15 @@ using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.PopUps.Selection;
 using Source.Scripts.Main.UI.PopUps.Selection.Category;
+using UnityEngine;
 using VContainer;
 
 namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
 {
     internal sealed class NewWordsCompleteBehaviour : LearningCompleteBehaviourBase
     {
+        [SerializeField] private ParticleSystem _confettiParticles;
+
         private CategorySelectionService _categorySelectionService;
         private ICategoriesRepository _categoriesRepository;
         private IProgressRepository _progressRepository;
@@ -33,8 +36,15 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
             positiveButton.OnClickAsObservable()
                 .SubscribeUntilDestroy(this, static self => self.OpenCategorySelection());
 
-            _progressRepository.OnGoalAchieved.SubscribeUntilDestroy(this,
-                static (wordsCount, self) => self.SetState(CompleteType.Complete, wordsCount.ToString()));
+            _progressRepository.OnGoalAchieved
+                .SubscribeUntilDestroy(this, static (wordsCount, self) => self.ObGoalAchieved(wordsCount));
+        }
+
+        private void ObGoalAchieved(int wordsCount)
+        {
+            SetState(CompleteType.Complete, wordsCount.ToString());
+
+            _confettiParticles.Play();
         }
 
         protected override void OnCheckCompleteness(CompleteType completeType)

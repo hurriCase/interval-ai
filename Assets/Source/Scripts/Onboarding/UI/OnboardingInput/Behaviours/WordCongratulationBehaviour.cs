@@ -12,6 +12,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours
 {
     internal sealed class WordCongratulationBehaviour : StepBehaviourBase
     {
+        [SerializeField] private ParticleSystem _confettiParticles;
         [SerializeField] private PracticeState _practiceState;
         [SerializeField] private ModuleType _moduleType;
 
@@ -34,6 +35,8 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours
             var learnedWordCount = _practiceSettingsRepository.DailyGoal.Value * DayInMonths;
 
             _wordCountText.SetTextFormat("{0}{1}", learnedWordCount, "!");
+
+            _confettiParticles.Play();
         }
 
         internal override void HandleContinue()
