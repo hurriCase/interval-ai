@@ -43,7 +43,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput
             {
                 inputOnboardingStep.SetActive(false);
                 inputOnboardingStep.Init();
-                inputOnboardingStep.OnContinue.SubscribeUntilDestroy(this, static self => self.SwitchModule());
+                inputOnboardingStep.OnNextStep.SubscribeUntilDestroy(this, static self => self.SwitchModule());
             }
 
             SwitchSettingsStep(_currentStepIndex, true);
