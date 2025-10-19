@@ -1,21 +1,28 @@
 ﻿using PrimeTween;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Source.Scripts.UI.Other
 {
     internal sealed class SplashAnimation : MonoBehaviour
     {
+        [SerializeField] private CanvasScaler _canvasScaler;
         [SerializeField] private RectTransform _container;
         [SerializeField] private RectTransform _glowCircleImageLeft;
         [SerializeField] private RectTransform _glowCircleImageRight;
+
         [SerializeField] private float _offset;
         [SerializeField] private float _lightSpeed;
 
-        private void Awake()
+        private void Start()
         {
+            Canvas.ForceUpdateCanvases();
+
             var rect = _container.rect;
-            var halfWidth = (rect.width + _offset) / 2f;
-            var halfHeight = (rect.height + _offset) / 2f;
+            var targetWidth = _offset * (_canvasScaler.referenceResolution.x / rect.width);
+            var targetHeight = _offset * (_canvasScaler.referenceResolution.y / rect.height);
+            var halfWidth = (rect.width + targetWidth) * 0.5f;
+            var halfHeight = (rect.height + targetHeight) * 0.5f;
 
             AnimateCircle(_glowCircleImageLeft, halfWidth, halfHeight, -1);
             AnimateCircle(_glowCircleImageRight, halfWidth, halfHeight, 1);
