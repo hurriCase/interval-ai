@@ -15,7 +15,7 @@ namespace Source.Scripts.Core.Repositories.Categories.Category
         public CachedSprite Icon { get; private set; }
         public WordOrderType WordOrderType { get; private set; } = WordOrderType.Default;
         public List<WordEntry> WordEntries { get; private set; } = new();
-        public CategoryType CategoryType { get; private set; } = CategoryType.Default;
+        public CategoryType CategoryType { get; private set; }
         public bool IsSelected { get; set; }
     }
 }

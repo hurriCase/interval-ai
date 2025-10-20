@@ -31,7 +31,8 @@ namespace Source.Scripts.Core.Repositories.Categories.Category
                 new()
                 {
                     Id = _idHandler.GetId(),
-                    Name = name
+                    Name = name,
+                    CategoryType = CategoryType.Created
                 };
 
             public void ChangeCategoryName(CategoryEntry categoryEntry, string name)
