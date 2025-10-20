@@ -44,7 +44,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
             var actualSpacing = segmentFill * _spacingRatio;
 
             var offset = 0f;
-            foreach (var sectionItem in _progressPool.PooledItems)
+            foreach (var sectionItem in _progressPool.ActiveItems)
             {
                 sectionItem.RoundedFilledImage.CustomFillOrigin = offset * MathConstants.FullCircleDegrees;
                 sectionItem.RoundedFilledImage.fillAmount = segmentFill - actualSpacing;
@@ -54,10 +54,10 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
 
         public void UpdateProgress(WordEntry wordEntry)
         {
-            for (var i = 0; i < _progressPool.PooledItems.Count; i++)
+            for (var i = 0; i < _progressPool.ActiveItems.Count; i++)
             {
                 var state = i < wordEntry.ReviewCount ? ActivityState.Active : ActivityState.InActive;
-                _activityMapping.SetComponentForState(state, _progressPool.PooledItems[i].ImageTheme);
+                _activityMapping.SetComponentForState(state, _progressPool.ActiveItems[i].ImageTheme);
             }
         }
     }

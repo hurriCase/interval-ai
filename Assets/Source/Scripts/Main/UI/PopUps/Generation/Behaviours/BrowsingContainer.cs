@@ -46,12 +46,8 @@ namespace Source.Scripts.Main.UI.PopUps.Generation.Behaviours
 
             _exercisesRepository.Exercises
                 .Select(this, static (exercises, self) => exercises[self._exerciseType])
-                .SubscribeUntilDestroy(this, static (exercises, self) => self.UpdateView(exercises));
-        }
-
-        private void UpdateView(Dictionary<int, ExerciseEntry> exercises)
-        {
-            _generationsPoolWithData.EnsureCount(exercises.Values.ToList());
+                .SubscribeUntilDestroy(this,
+                    static (exercises, self) => self._generationsPoolWithData.EnsureCount(exercises.Values));
         }
     }
 }

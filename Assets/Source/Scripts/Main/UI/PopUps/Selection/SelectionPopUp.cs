@@ -68,7 +68,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
 
         private void SetSelectionItem<TValue>(int index, TValue selectionValue, ISelectionService<TValue> service)
         {
-            var selectionItem = _selectionPool.PooledItems[index];
+            var selectionItem = _selectionPool.ActiveItems[index];
 
             selectionItem.Text.text = service.GetSelectionName(selectionValue);
 
@@ -80,7 +80,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
 
         private void SubscribeToChanges<TValue>(int index, TValue selectionValue, ISelectionService<TValue> service)
         {
-            var selectionItem = _selectionPool.PooledItems[index];
+            var selectionItem = _selectionPool.ActiveItems[index];
 
             selectionItem.OnValueChangedAsObservable()
                 .Subscribe((selectionValue, service),

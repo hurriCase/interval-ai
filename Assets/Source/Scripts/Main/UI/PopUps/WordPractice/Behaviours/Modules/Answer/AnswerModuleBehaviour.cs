@@ -42,7 +42,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Answer
             for (var i = 0; i < examplesCount; i++)
             {
                 var example = examples[i];
-                var item = _examplesPool.PooledItems[i];
+                var item = _examplesPool.ActiveItems[i];
 
                 item.ShownExampleText.text = example.GetShownText(practiceSettingsRepository);
                 item.HiddenExampleText.text = example.GetHiddenText(practiceSettingsRepository);

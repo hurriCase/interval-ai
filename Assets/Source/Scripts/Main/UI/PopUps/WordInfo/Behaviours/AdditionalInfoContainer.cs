@@ -43,17 +43,18 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours
                 return;
             }
 
-            var validTranslations = translations
+            using var validTranslations = translations
                 .Where(static translation => translation.IsValid)
-                .ToList();
+                .ToArrayPool();
 
-            if (validTranslations.Count == 0)
+            var validTranslationsSpan = validTranslations.Span;
+            if (validTranslationsSpan.Length == 0)
             {
                 _accordionComponent.SetActive(false);
                 return;
             }
 
-            _itemsPoolWithData.EnsureCount(validTranslations);
+            _itemsPoolWithData.EnsureCount(validTranslationsSpan);
 
             _accordionComponent.SetActive(true);
         }
