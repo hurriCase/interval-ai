@@ -96,7 +96,7 @@ namespace Source.Scripts.Core.Repositories.Words
         }
 
         public PooledArray<WordEntry> GetRandomWords(WordEntry wordToSkip, int count) =>
-            _wordEntries.Value.Values.AsValueEnumerable()
+            _wordEntries.Value.Values
                 .Where(word => word != wordToSkip && word.IsHidden is false)
                 .OrderBy(static _ => Random.value)
                 .Take(count)

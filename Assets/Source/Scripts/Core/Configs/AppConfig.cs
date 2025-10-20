@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using CustomUtils.Runtime.CustomTypes.Collections;
+﻿using CustomUtils.Runtime.CustomTypes.Collections;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
@@ -41,7 +40,6 @@ namespace Source.Scripts.Core.Configs
         [field: SerializeField] public LearningState LearningStateForDailyGoal { get; private set; }
 
         public bool IsTargetLearningState(PracticeState practiceState, LearningState learningState) =>
-            TargetLearningStatesForPractice[practiceState]
-                .Contains(learningState);
+            TargetLearningStatesForPractice[practiceState].Contains(learningState);
     }
 }

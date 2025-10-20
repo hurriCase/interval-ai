@@ -3,7 +3,6 @@ using CustomUtils.Runtime.CustomTypes.Collections;
 using Source.Scripts.Core.Repositories.Words.Base;
 using TMPro;
 using UnityEngine;
-using ZLinq;
 
 namespace Source.Scripts.Main.UI.Shared.Progress
 {
@@ -24,7 +23,7 @@ namespace Source.Scripts.Main.UI.Shared.Progress
         {
             progressLabel.text = labelText;
 
-            var totalCount = progress.Entries.AsValueEnumerable().Sum(static progress => progress.Value);
+            var totalCount = progress.Entries.Sum(static progress => progress.Value);
             IsActive = isActive && totalCount > 0;
 
             _activeProgress.SetActive(IsActive);
@@ -38,8 +37,7 @@ namespace Source.Scripts.Main.UI.Shared.Progress
         {
             var offset = 0f;
 
-            var validProgressCount = progresses.Entries.AsValueEnumerable()
-                .Count(static progress => progress.Value > 0);
+            var validProgressCount = progresses.Entries.Count(static progress => progress.Value > 0);
 
             var spaceRatio = validProgressCount == 1 ? 0 : _spaceRatio;
             var totalSpaceRatio = spaceRatio * validProgressCount;

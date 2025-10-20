@@ -44,7 +44,6 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours
             }
 
             var validTranslations = translations
-                .AsValueEnumerable()
                 .Where(static translation => translation.IsValid)
                 .ToList();
 
