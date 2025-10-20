@@ -34,7 +34,7 @@ namespace Source.Scripts.Main.UI.PopUps.Category
         private readonly ReactiveProperty<WordOrderType> _wordReviewSourceType = new(WordOrderType.Default);
         private CategoryEntry _currentCategoryEntry;
 
-        private UIPoolWithData<WordEntry, WordItem> _wordsPoolWithData;
+        private UIPoolWithData<WordEntry, WordItem> _wordsPool;
 
         private ILocalizationDatabase _localizationDatabase;
         private ICategoriesRepository _categoriesRepository;
@@ -72,7 +72,7 @@ namespace Source.Scripts.Main.UI.PopUps.Category
                 static (_, wordItem) => wordItem.Init(),
                 static (wordEntry, wordItem) => wordItem.UpdateView(wordEntry));
 
-            _wordsPoolWithData = new UIPoolWithData<WordEntry, WordItem>(
+            _wordsPool = new UIPoolWithData<WordEntry, WordItem>(
                 _wordItem, _wordsContainer, uiPoolEvents, _objectResolver);
 
             _deleteButton.OnClickAsObservable().SubscribeUntilDestroy(this, static self =>
@@ -111,14 +111,14 @@ namespace Source.Scripts.Main.UI.PopUps.Category
         {
             _categoryNameText.text = _currentCategoryEntry.Name;
 
-            _wordsPoolWithData.EnsureCount(_currentCategoryEntry.WordEntries);
+            _wordsPool.EnsureCount(_currentCategoryEntry.WordEntries);
         }
 
         private void ReorderWordItems(WordOrderType newOrder)
         {
             _categoryStateMutator.ChangeWordOrder(_currentCategoryEntry, newOrder);
 
-            _wordsPoolWithData.EnsureCount(_currentCategoryEntry.WordEntries);
+            _wordsPool.EnsureCount(_currentCategoryEntry.WordEntries);
         }
     }
 }

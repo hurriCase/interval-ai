@@ -1,97 +1,33 @@
-﻿using System.Collections.Generic;
-using CustomUtils.Runtime.CustomTypes.Collections;
-using CustomUtils.Runtime.Extensions;
-using CustomUtils.Runtime.Extensions.Observables;
-using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
+﻿using System;
 using Source.Scripts.Core.Repositories.Categories.Base;
-using Source.Scripts.Core.Repositories.Categories.Category;
-using Source.Scripts.Main.UI.Base;
 using Source.Scripts.UI.Windows.Base;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
+using ZLinq;
 
 namespace Source.Scripts.Main.UI.Screens.Categories
 {
     internal sealed class CategoriesScreen : ScreenBase
     {
-        [SerializeField] private ThemeButton _addCategoryButton;
+        [SerializeField] private CategoryContainerBehaviour _categoryContainer;
+        [SerializeField] private RectTransform _container;
 
-        [SerializeField] private CategoryContainerItem _categoryContainerItemPrefab;
-        [SerializeField] private CategoryEntryItem _categoryEntryItem;
-        [SerializeField] private RectTransform _categoryItemContainer;
-
-        private EnumArray<CategoryType, CategoryContainerItem> _createdCategoriesByType = new(EnumMode.SkipFirst);
-        private readonly Dictionary<CategoryEntry, CategoryEntryItem> _createdCategoryItems = new();
-
-        private readonly Queue<CategoryEntryItem> _cachedCategoryItems = new();
-
-        private ICategoriesRepository _categoriesRepository;
-        private IWindowsController _windowsController;
         private IObjectResolver _objectResolver;
 
         [Inject]
-        internal void Inject(
-            ICategoriesRepository categoriesRepository,
-            IWindowsController windowsController,
-            IObjectResolver objectResolver)
+        internal void Inject(IObjectResolver objectResolver)
         {
-            _categoriesRepository = categoriesRepository;
-            _windowsController = windowsController;
             _objectResolver = objectResolver;
         }
 
         internal override void Init()
         {
-            foreach (var categoryEntry in _categoriesRepository.CategoryEntries.CurrentValue.Values)
-                CreateCategory(categoryEntry);
-
-            _windowsController.BindPopUpOpen(_addCategoryButton, PopUpType.CategoryCreation);
-
-            _categoriesRepository.OnCategoryAdded.SubscribeUntilDestroy(this,
-                static (entry, self) => self.CreateCategory(entry));
-
-            _categoriesRepository.OnCategoryRemoved.SubscribeUntilDestroy(this,
-                static (entry, self) => self.RemoveCategory(entry));
-        }
-
-        private void CreateCategory(CategoryEntry categoryEntry)
-        {
-            var categoryType = categoryEntry.CategoryType;
-            var categoryContainer = _createdCategoriesByType[categoryType];
-            if (!categoryContainer)
-                categoryContainer = CreateCategoriesContainer(categoryType);
-
-            if (_cachedCategoryItems.TryDequeue(out var createdCategory))
+            foreach (var categoryType in Enum.GetValues(typeof(CategoryType)).OfType<CategoryType>())
             {
-                createdCategory.SetActive(true);
-                createdCategory.transform.SetParent(categoryContainer.CategoryContainer);
+                var categoryContainer = _objectResolver.Instantiate(_categoryContainer, _container);
+                categoryContainer.Init(categoryType);
             }
-            else
-                createdCategory = _objectResolver
-                    .Instantiate(_categoryEntryItem, categoryContainer.CategoryContainer);
-
-            createdCategory.Init(categoryEntry);
-            _createdCategoryItems[categoryEntry] = createdCategory;
-        }
-
-        private void RemoveCategory(CategoryEntry categoryEntry)
-        {
-            if (_createdCategoryItems.TryGetValue(categoryEntry, out var createdCategory) is false)
-                return;
-
-            createdCategory.SetActive(false);
-            _createdCategoryItems.Remove(categoryEntry);
-            _cachedCategoryItems.Enqueue(createdCategory);
-        }
-
-        private CategoryContainerItem CreateCategoriesContainer(CategoryType categoryType)
-        {
-            var categoryContainer = _objectResolver.Instantiate(_categoryContainerItemPrefab, _categoryItemContainer);
-            categoryContainer.Init(categoryType);
-
-            _createdCategoriesByType[categoryType] = categoryContainer;
-            return categoryContainer;
         }
     }
 }
