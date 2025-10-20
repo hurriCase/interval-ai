@@ -118,7 +118,7 @@ Assets/Source/
 ### Audio System ([Custom](https://github.com/hurriCase/CustomUtils/tree/main/Runtime/Audio))
 
 **Purpose**: Sound effects and audio feedback
-- See [ButtonComponent](Assets/Source/Scripts/UI/Components/Button/ButtonComponent.cs "ButtonComponent class") for usage example
+- See [GoogleTextToSpeechService](Assets/Source/Scripts/Core/Audio/TextToSpeech/GoogleTextToSpeechService.cs "GoogleTextToSpeechService class") for usage example
 
 ### CSV Data Processing ([Custom](https://github.com/hurriCase/CustomUtils/tree/main/Runtime/CSV))
 
