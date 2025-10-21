@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using CustomUtils.Runtime.Extensions.Observables;
+﻿using CustomUtils.Runtime.Extensions.Observables;
 using R3;
 using Source.Scripts.Core.Others.UIPools;
 using Source.Scripts.Core.Repositories.Exercises;
