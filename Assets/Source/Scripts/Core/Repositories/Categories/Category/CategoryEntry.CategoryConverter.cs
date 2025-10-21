@@ -1,4 +1,5 @@
 ﻿using System;
+using CustomUtils.Runtime.AddressableSystem;
 using CustomUtils.Runtime.CSV.Base;
 using CustomUtils.Runtime.CSV.CSVEntry;
 using CustomUtils.Runtime.Extensions;
@@ -15,6 +16,7 @@ namespace Source.Scripts.Core.Repositories.Categories.Category
             private const string IdName = "Id";
             private const string CategoryName = "Name";
             private const string CategoryTypeName = "CategoryType";
+            private const string IconName = "Icon";
 
             protected override CategoryEntry ConvertRow(CsvRow row)
             {
@@ -25,7 +27,8 @@ namespace Source.Scripts.Core.Repositories.Categories.Category
                 {
                     Id = row.GetValue(IdName).ToInt(),
                     Name = row.GetValue(CategoryName),
-                    CategoryType = categoryType
+                    CategoryType = categoryType,
+                    Icon = CachedSprite.FromPath(row.GetValue(IconName))
                 };
             }
         }
