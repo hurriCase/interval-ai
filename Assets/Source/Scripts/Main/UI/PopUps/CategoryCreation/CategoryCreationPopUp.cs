@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CustomUtils.Runtime.AddressableSystem;
 using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Extensions.Observables;
@@ -33,9 +34,10 @@ namespace Source.Scripts.Main.UI.PopUps.CategoryCreation
         [SerializeField] private string _iconRequiredLocalizationKey;
 
         private readonly List<StateToggle> _createdIconItems = new();
-        private bool _wasSubscribed;
 
         private AssetReferenceSprite _selectedIcon;
+        private bool _wasFirstClick;
+        private IDisposable _disposable;
 
         private INotificationComponent _notificationComponent;
         private ICategoriesRepository _categoriesRepository;
@@ -71,30 +73,43 @@ namespace Source.Scripts.Main.UI.PopUps.CategoryCreation
                 createdItem.group = _toggleGroup;
                 createdItem.OnPointerClickAsObservable()
                     .Do(this, iconReference, static (iconReference, self) => self._selectedIcon = iconReference)
-                    .Take(1)
-                    .Where(this, static self => self._wasSubscribed is false)
+                    .Where(this, static self => self._wasFirstClick is false)
+                    .Do(this, static self => self._wasFirstClick = true)
                     .SubscribeUntilDestroy(this, static self => self.SubscribeOnValueChanged());
 
                 _createdIconItems.Add(createdItem);
             }
         }
 
+        internal override UniTask ShowAsync()
+        {
+            foreach (var createdIconItem in _createdIconItems)
+                createdIconItem.Image.SetAlpha(1);
+
+            return base.ShowAsync();
+        }
+
         private void SubscribeOnValueChanged()
         {
+            var builder = Disposable.CreateBuilder();
             foreach (var createdIconItem in _createdIconItems)
             {
                 createdIconItem.OnValueChangedAsObservable()
-                    .SubscribeUntilDestroy(this, createdIconItem.Image,
-                        static (isOn, self, image) => self.OnValueChanged(isOn, image));
+                    .Subscribe((self: this, createdIconItem.Image),
+                        static (isOn, tuple) => tuple.self.OnValueChanged(isOn, tuple.Image))
+                    .AddTo(ref builder)
+                    .RegisterTo(destroyCancellationToken);
             }
 
-            _wasSubscribed = true;
+            _disposable = builder.Build();
         }
 
         internal override UniTask HideAsync()
         {
             _categoryNameInputField.text = string.Empty;
             _selectedIcon = null;
+            _wasFirstClick = false;
+            _disposable.Dispose();
 
             return base.HideAsync();
         }
