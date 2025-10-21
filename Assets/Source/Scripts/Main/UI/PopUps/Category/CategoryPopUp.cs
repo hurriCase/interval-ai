@@ -12,8 +12,8 @@ using Source.Scripts.Core.Repositories.Words.Word;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.PopUps.Modal;
 using Source.Scripts.Main.UI.PopUps.Selection;
-using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base;
+using TMPro;
 using UnityEngine;
 using VContainer;
 
@@ -21,7 +21,7 @@ namespace Source.Scripts.Main.UI.PopUps.Category
 {
     internal sealed class CategoryPopUp : PopUpBase
     {
-        [SerializeField] private InputFieldComponent _categoryNameText;
+        [SerializeField] private TMP_InputField _categoryNameText;
 
         [SerializeField] private ThemeButton _deleteButton;
         [SerializeField] private ThemeButton _resetProgressButton;
@@ -82,7 +82,7 @@ namespace Source.Scripts.Main.UI.PopUps.Category
                 self.OpenWarning(ModalLocalizationType.ResetProgress,
                     static self => self._categoryStateMutator.ResetWordsProgress(self._currentCategoryEntry)));
 
-            _categoryNameText.OnTextChanged
+            _categoryNameText.onEndEdit.AsObservable()
                 .SubscribeUntilDestroy(this, static (newName, self)
                     => self._categoryStateMutator.ChangeCategoryName(self._currentCategoryEntry, newName));
 

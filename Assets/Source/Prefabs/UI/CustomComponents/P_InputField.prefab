@@ -62,7 +62,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3451095974414881511}
   - component: {fileID: 8407158571217909341}
-  - component: {fileID: 8706947114170075388}
+  - component: {fileID: 7258903937425645234}
   m_Layer: 5
   m_Name: P_InputField
   m_TagString: Untagged
@@ -99,7 +99,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6707408994701265039}
   m_CullTransparentMesh: 1
---- !u!114 &8706947114170075388
+--- !u!114 &7258903937425645234
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,9 +108,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6707408994701265039}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44e51d0b35b6404984032de4e7537c97, type: 3}
+  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.InputFieldComponent
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TMP_InputField
   m_Navigation:
     m_Mode: 3
     m_WrapAround: 0
@@ -156,8 +156,8 @@ MonoBehaviour:
   m_HideSoftKeyboard: 0
   m_CharacterValidation: 0
   m_RegexValue: 
-  m_GlobalPointSize: 16
-  m_CharacterLimit: 50
+  m_GlobalPointSize: 14
+  m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls: []
@@ -190,7 +190,7 @@ MonoBehaviour:
   m_CaretWidth: 1
   m_ReadOnly: 0
   m_RichText: 1
-  m_GlobalFontAsset: {fileID: 11400000, guid: 4a5abd6c83a51824eaf6bf3d18c247ba, type: 2}
+  m_GlobalFontAsset: {fileID: 0}
   m_OnFocusSelectAll: 1
   m_ResetOnDeActivation: 1
   m_KeepTextSelectionVisible: 0
@@ -200,7 +200,6 @@ MonoBehaviour:
   isAlert: 0
   m_InputValidator: {fileID: 0}
   m_ShouldActivateOnSelect: 1
-  <EditButton>k__BackingField: {fileID: 0}
 --- !u!1001 &792280097028634434
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -285,6 +284,14 @@ PrefabInstance:
       propertyPath: _currentColorModifier
       value: 
       objectReference: {fileID: 3280194317140037502}
+    - target: {fileID: 3126969301875360903, guid: 9f16e4b6cf1a10e4dad147f102b5723a, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: Separator
+      objectReference: {fileID: 0}
+    - target: {fileID: 3126969301875360903, guid: 9f16e4b6cf1a10e4dad147f102b5723a, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4151355006477514328, guid: 9f16e4b6cf1a10e4dad147f102b5723a, type: 3}
       propertyPath: m_Name
       value: P_Image_Separator
@@ -450,6 +457,14 @@ PrefabInstance:
       propertyPath: _colorData.<ColorName>k__BackingField
       value: TextSecondary
       objectReference: {fileID: 0}
+    - target: {fileID: 9186071019390123412, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: TextSecondary
+      objectReference: {fileID: 0}
+    - target: {fileID: 9186071019390123412, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -613,6 +628,14 @@ PrefabInstance:
     - target: {fileID: 5175023766961360262, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: _colorData.<ColorName>k__BackingField
       value: TextSecondary
+      objectReference: {fileID: 0}
+    - target: {fileID: 5175023766961360262, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: TextSecondary
+      objectReference: {fileID: 0}
+    - target: {fileID: 5175023766961360262, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7658068928977278699, guid: ce8f432dbdae71145aef2878aa022673, type: 3}
       propertyPath: m_text
