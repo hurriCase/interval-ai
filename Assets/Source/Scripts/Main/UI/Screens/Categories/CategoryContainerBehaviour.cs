@@ -2,6 +2,7 @@
 using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.Localization;
 using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
+using R3;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Others.UIPools;
 using Source.Scripts.Core.Repositories.Categories.Base;
@@ -56,9 +57,11 @@ namespace Source.Scripts.Main.UI.Screens.Categories
                 _addCategoryButton.SetActive(false);
 
             _categoriesRepository.OnCategoryAdded
+                .Where(this, static (entry, self) => entry.CategoryType == self._currentCategoryType)
                 .SubscribeUntilDestroy(this, static (entry, self) => self._categoriesPool.AddElement(entry));
 
             _categoriesRepository.OnCategoryRemoved
+                .Where(this, static (entry, self) => entry.CategoryType == self._currentCategoryType)
                 .SubscribeUntilDestroy(this, static (entry, self) => self._categoriesPool.RemoveElement(entry));
 
             LocalizationController.Language.SubscribeUntilDestroy(this, static self => self.UpdateTitleText());
