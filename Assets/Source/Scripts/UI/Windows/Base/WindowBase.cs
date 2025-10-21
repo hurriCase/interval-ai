@@ -10,8 +10,6 @@ namespace Source.Scripts.UI.Windows.Base
     [RequireComponent(typeof(CanvasGroup))]
     internal abstract class WindowBase : MonoBehaviour
     {
-        [field: SerializeField] internal bool InitialWindow { get; private set; }
-
         [SerializeField, Self] protected CanvasGroup canvasGroup;
 
         internal virtual void BaseInit() { }
