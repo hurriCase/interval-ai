@@ -25,21 +25,27 @@ namespace Source.Scripts.Main.UI.Screens.Categories
 
         internal void Init(CategoryEntry categoryEntry)
         {
-            addressablesLoader.AssignImageAsync(icon, categoryEntry.Icon, destroyCancellationToken);
-
-            currentCategoryEntry = categoryEntry;
-            categoryNameText.text = categoryEntry.Name;
-            progressText.text = categoryEntry.WordEntries.Count.ToString();
-            selectedCheckbox.isOn = categoryEntry.IsSelected;
+            UpdateView(categoryEntry);
 
             selectedCheckbox.OnValueChangedAsObservable()
                 .SubscribeUntilDestroy(this, static (isOn, self) => self.currentCategoryEntry.IsSelected = isOn);
 
             categoryStateMutator.OnCategoryNameChanged
-                .Select(categoryEntry, static (currentCategory, changedCategory) => currentCategory == changedCategory)
+                .Select(this, static (changedCategory, self) => changedCategory == self.currentCategoryEntry)
                 .SubscribeUntilDestroy(this, static self => self.UpdateName());
 
             OnInit();
+        }
+
+        internal void UpdateView(CategoryEntry categoryEntry)
+        {
+            currentCategoryEntry = categoryEntry;
+
+            addressablesLoader.AssignImageAsync(icon, categoryEntry.Icon, destroyCancellationToken);
+
+            categoryNameText.text = categoryEntry.Name;
+            progressText.text = categoryEntry.WordEntries.Count.ToString();
+            selectedCheckbox.isOn = categoryEntry.IsSelected;
         }
 
         protected abstract void OnInit();

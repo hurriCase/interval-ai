@@ -14,6 +14,7 @@
         WordControl = 9,
         Modal = 10,
         GenerationSettings = 11,
-        Generation = 12
+        Generation = 12,
+        Search = 13,
     }
 }
