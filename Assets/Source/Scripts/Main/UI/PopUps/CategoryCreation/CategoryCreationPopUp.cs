@@ -29,6 +29,8 @@ namespace Source.Scripts.Main.UI.PopUps.CategoryCreation
         [SerializeField] private ToggleGroup _toggleGroup;
         [SerializeField] private StateToggle _iconItem;
         [SerializeField] private float _inactiveAlpha;
+        [SerializeField] private string _textRequiredLocalizationKey;
+        [SerializeField] private string _iconRequiredLocalizationKey;
 
         private readonly List<StateToggle> _createdIconItems = new();
         private bool _wasSubscribed;
@@ -106,13 +108,13 @@ namespace Source.Scripts.Main.UI.PopUps.CategoryCreation
         {
             if (string.IsNullOrWhiteSpace(_categoryNameInputField.text))
             {
-                _notificationComponent.ShowMessage("Please fill all fields");
+                _notificationComponent.ShowMessage(_textRequiredLocalizationKey.GetLocalization());
                 return;
             }
 
             if (_selectedIcon is null)
             {
-                _notificationComponent.ShowMessage("Please select icon");
+                _notificationComponent.ShowMessage(_iconRequiredLocalizationKey.GetLocalization());
                 return;
             }
 
