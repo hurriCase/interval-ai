@@ -1,10 +1,12 @@
 ﻿using System;
+using CustomUtils.Runtime.AddressableSystem;
 using CustomUtils.Unsafe.CustomUtils.Unsafe;
 using R3;
 using Source.Scripts.Core.Repositories.Base.Id;
 using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
+using UnityEngine.AddressableAssets;
 using UnityEngine.Scripting;
 
 namespace Source.Scripts.Core.Repositories.Categories.Category
@@ -27,12 +29,13 @@ namespace Source.Scripts.Core.Repositories.Categories.Category
                 _wordStateMutator = wordStateMutator;
             }
 
-            public CategoryEntry CreateCategoryEntry(string name) =>
+            public CategoryEntry CreateCategoryEntry(string name, AssetReferenceSprite icon) =>
                 new()
                 {
                     Id = _idHandler.GetId(),
                     Name = name,
-                    CategoryType = CategoryType.Created
+                    CategoryType = CategoryType.Created,
+                    Icon = new CachedSprite(icon)
                 };
 
             public void ChangeCategoryName(CategoryEntry categoryEntry, string name)

@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: m_Padding.m_Top
       value: 24
       objectReference: {fileID: 0}
+    - target: {fileID: 216088961018629210, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
+      propertyPath: m_Padding.m_Bottom
+      value: 93
+      objectReference: {fileID: 0}
     - target: {fileID: 404952266673792006, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
       propertyPath: m_Padding.m_Top
       value: 24
@@ -150,10 +154,10 @@ PrefabInstance:
       addedObject: {fileID: 8733098806092468500}
     - targetCorrespondingSourceObject: {fileID: 3096858253786931419, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2239168927684746313}
+      addedObject: {fileID: 3797349462744572107}
     - targetCorrespondingSourceObject: {fileID: 3096858253786931419, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3797349462744572107}
+      addedObject: {fileID: 2239168927684746313}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5166580558972006374, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
       insertIndex: 1
@@ -207,8 +211,12 @@ MonoBehaviour:
   <IsSingle>k__BackingField: 1
   _popUpVisibilityHandler: {fileID: 123914289939322446}
   _closeButton: {fileID: 3320797328083036242}
-  _categoryNameInputField: {fileID: 7069071776404453609}
+  _categoryNameInputField: {fileID: 9111881268401499815}
   _saveButton: {fileID: 2156294599105018257}
+  _iconsContainer: {fileID: 5812089884120516877}
+  _toggleGroup: {fileID: 2965748667477285900}
+  _iconItem: {fileID: 2904500678806412261, guid: c0e6cb2cbe047eb41ae0700c3420f06f, type: 3}
+  _inactiveAlpha: 0.5
 --- !u!1001 &2146604088952819871
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -630,7 +638,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3568311609500863874, guid: 6538e3fe2915cd944be4d82e4c618cbf, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -124
+      value: -162
       objectReference: {fileID: 0}
     - target: {fileID: 3568311609500863874, guid: 6538e3fe2915cd944be4d82e4c618cbf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -684,6 +692,26 @@ PrefabInstance:
       propertyPath: _previousColorData.<ColorType>k__BackingField
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9096884437486622918, guid: 6538e3fe2915cd944be4d82e4c618cbf, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9096884437486622918, guid: 6538e3fe2915cd944be4d82e4c618cbf, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9096884437486622918, guid: 6538e3fe2915cd944be4d82e4c618cbf, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 343
+      objectReference: {fileID: 0}
+    - target: {fileID: 9096884437486622918, guid: 6538e3fe2915cd944be4d82e4c618cbf, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 171.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9096884437486622918, guid: 6538e3fe2915cd944be4d82e4c618cbf, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -44
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -692,6 +720,22 @@ PrefabInstance:
 --- !u!224 &2239168927684746313 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3568311609500863874, guid: 6538e3fe2915cd944be4d82e4c618cbf, type: 3}
+  m_PrefabInstance: {fileID: 3356889016494346699}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2965748667477285900 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 557993858732658119, guid: 6538e3fe2915cd944be4d82e4c618cbf, type: 3}
+  m_PrefabInstance: {fileID: 3356889016494346699}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fafe2cfe61f6974895a912c3755e8f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ToggleGroup
+--- !u!224 &5812089884120516877 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 9096884437486622918, guid: 6538e3fe2915cd944be4d82e4c618cbf, type: 3}
   m_PrefabInstance: {fileID: 3356889016494346699}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3408268208717822110
@@ -823,22 +867,22 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b112de8792fb7ee4d9903d1c7df6da6b, type: 3}
---- !u!114 &7069071776404453609 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5572917237698936951, guid: b112de8792fb7ee4d9903d1c7df6da6b, type: 3}
-  m_PrefabInstance: {fileID: 3408268208717822110}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44e51d0b35b6404984032de4e7537c97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.InputFieldComponent
 --- !u!224 &8733098806092468500 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6232606920120101258, guid: b112de8792fb7ee4d9903d1c7df6da6b, type: 3}
   m_PrefabInstance: {fileID: 3408268208717822110}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &9111881268401499815 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5854536975708231225, guid: b112de8792fb7ee4d9903d1c7df6da6b, type: 3}
+  m_PrefabInstance: {fileID: 3408268208717822110}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TMP_InputField
 --- !u!1001 &6809871708235159772
 PrefabInstance:
   m_ObjectHideFlags: 0

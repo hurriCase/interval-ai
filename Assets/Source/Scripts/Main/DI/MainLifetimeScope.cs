@@ -7,6 +7,7 @@ using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.GraphProgress;
 using Source.Scripts.Main.UI.PopUps.Selection.Category;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete.CompleteState;
+using Source.Scripts.UI.Components;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -17,6 +18,7 @@ namespace Source.Scripts.Main.DI
     {
         [SerializeField] private MainWindowsController _windowsController;
         [SerializeField] private MenuBehaviour _menuBehaviour;
+        [SerializeField] private NotificationComponent _notificationComponent;
 
         [SerializeField] private ProgressDescriptionsDatabase _progressDescriptionsDatabase;
 
@@ -26,6 +28,7 @@ namespace Source.Scripts.Main.DI
         {
             builder.RegisterComponent(_windowsController).AsImplementedInterfaces();
             builder.RegisterComponent(_menuBehaviour).AsImplementedInterfaces();
+            builder.RegisterComponent(_notificationComponent).AsImplementedInterfaces();
 
             builder.RegisterComponent(_progressDescriptionsDatabase).AsImplementedInterfaces();
 

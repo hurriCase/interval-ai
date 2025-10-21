@@ -12,6 +12,7 @@ using Source.Scripts.Core.Repositories.Base.Id;
 using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Core.Repositories.Categories.Category;
 using Source.Scripts.Core.Repositories.Words;
+using UnityEngine.AddressableAssets;
 
 namespace Source.Scripts.Core.Repositories.Categories
 {
@@ -64,9 +65,9 @@ namespace Source.Scripts.Core.Repositories.Categories
             }
         }
 
-        public CategoryEntry CreateCategory(string name)
+        public CategoryEntry CreateCategory(string name, AssetReferenceSprite icon)
         {
-            var category = _categoryStateMutator.CreateCategoryEntry(name);
+            var category = _categoryStateMutator.CreateCategoryEntry(name, icon);
 
             _categoryEntries.Value[category.Id] = category;
             _categoryEntries.SaveAsync();
