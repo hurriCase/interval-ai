@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using CustomUtils.Editor.Scripts.CustomEditorUtilities;
+using CustomUtils.Editor.Scripts.Extensions;
 using CustomUtils.Editor.Scripts.SheetsDownloader;
 using CustomUtils.Runtime.CSV;
 using CustomUtils.Runtime.Extensions;
@@ -10,12 +10,12 @@ using Source.Scripts.Core.Repositories.Exercises.Exercise;
 using Source.Scripts.Core.Repositories.Words.Word;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Source.Scripts.Editor.DefaultDataCreation
 {
     internal sealed class DefaultDataWindow : SheetsDownloaderWindowBase<DefaultDataDatabase, DefaultDataSheet>
     {
-        private Vector2 _scrollPosition;
         private readonly CsvBinarySerializer _csvToBinaryConverter = new();
 
         protected override DefaultDataDatabase Database => DefaultDataDatabase.Instance;
@@ -26,23 +26,11 @@ namespace Source.Scripts.Editor.DefaultDataCreation
             GetWindow<DefaultDataWindow>(nameof(DefaultDataWindow).ToSpacedWords());
         }
 
-        protected override void DrawCustomContent()
+        protected override void CreateCustomContent()
         {
-            using var scrollScope = EditorVisualControls.CreateScrollView(ref _scrollPosition);
+            var convertAllButton = new Button(ConvertAllSheetsToBinary) { text = "Convert All to Binary" };
 
-            DrawCommonSheetsSection();
-
-            EditorGUILayout.Space();
-
-            DrawConversionSection();
-        }
-
-        private void DrawConversionSection()
-        {
-            EditorVisualControls.H1Label("Binary Conversion");
-
-            if (EditorVisualControls.Button("Convert All to Binary"))
-                ConvertAllSheetsToBinary();
+            rootVisualElement.Add(convertAllButton);
         }
 
         private void ConvertAllSheetsToBinary()
@@ -55,8 +43,8 @@ namespace Source.Scripts.Editor.DefaultDataCreation
 
             var convertedCount = 0;
 
-            EnsureFolders(DefaultDataDatabase.BinaryPath);
-            EnsureFolders(Database.GetDownloadPath());
+            DefaultDataDatabase.BinaryPath.CreateFolder();
+            Database.GetDownloadPath().CreateFolder();
 
             foreach (var sheet in Database.Sheets)
             {
@@ -81,12 +69,6 @@ namespace Source.Scripts.Editor.DefaultDataCreation
                 : "No sheets were converted.";
 
             Debug.Log($"[GameDataWindow::ConvertAllSheetsToBinary] {message}");
-        }
-
-        private void EnsureFolders(string path)
-        {
-            if (Directory.Exists(path) is false)
-                Directory.CreateDirectory(path);
         }
 
         private void ConvertSingleSheet(DefaultDataSheet sheet)
