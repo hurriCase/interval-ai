@@ -25,14 +25,14 @@ namespace Source.Scripts.Core.Input
         {
             _inputActions = inputActions;
 
-            _inputActions.UI.PointerPress.performed += HandlePointerPressed;
-            _inputActions.UI.PointerPress.canceled += HandlePointerReleased;
+            inputActions.UI.PointerPress.performed += HandlePointerPressed;
+            inputActions.UI.PointerPress.canceled += HandlePointerReleased;
 
             _disposable = Observable.EveryUpdate()
                 .Where(this, static (_, service) => service._isPointerPressed)
                 .Subscribe(this, static (_, service) => service.HandlePointerPositionChanged());
 
-            _inputActions.Enable();
+            inputActions.Enable();
         }
 
         private void HandlePointerPressed(InputAction.CallbackContext context)
@@ -55,10 +55,14 @@ namespace Source.Scripts.Core.Input
 
         public void Dispose()
         {
-            _disposable?.Dispose();
-            _inputActions?.Dispose();
-            _pointerPressed?.Dispose();
-            _pointerReleased?.Dispose();
+            _inputActions.UI.PointerPress.performed -= HandlePointerPressed;
+            _inputActions.UI.PointerPress.canceled -= HandlePointerReleased;
+
+            _disposable.Dispose();
+            _inputActions.Dispose();
+            _pointerPressed.Dispose();
+            _pointerReleased.Dispose();
+            _pointerPositionChanged.Dispose();
         }
     }
 }
