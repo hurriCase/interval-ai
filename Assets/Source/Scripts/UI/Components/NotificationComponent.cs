@@ -19,7 +19,7 @@ namespace Source.Scripts.UI.Components
 
         private void Awake()
         {
-            _alphaAnimation.PlayAnimation(VisibilityState.Hidden);
+            _alphaAnimation.PlayAnimation(VisibilityState.Hidden, true);
         }
 
         public async UniTask ShowMessage(string message)
