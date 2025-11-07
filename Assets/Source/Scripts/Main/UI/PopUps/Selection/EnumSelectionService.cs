@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Localization;
 using R3;
 using Source.Scripts.Core.Localization.Base;
 
@@ -18,13 +19,13 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
 
         private readonly ReactiveProperty<TEnum> _targetProperty;
 
-        private readonly string _selectionTitleKey;
+        private readonly LocalizationKey _selectionTitleKey;
 
         internal EnumSelectionService(
             ReactiveProperty<TEnum> targetProperty,
-            string selectionTitleKey,
+            LocalizationKey selectionTitleKey,
             ILocalizationKeysDatabase localizationKeysDatabase,
-            TEnum[] customValues = null,
+            IReadOnlyList<TEnum> customValues = null,
             EnumMode enumMode = EnumMode.SkipFirst)
         {
             SelectionValues = customValues ?? enumMode.GetEnumValues<TEnum>();

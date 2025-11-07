@@ -2,7 +2,6 @@
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Extensions.Observables;
-using CustomUtils.Runtime.Localization;
 using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using CustomUtils.Runtime.UI.Theme;
 using R3;
@@ -69,9 +68,9 @@ namespace Source.Scripts.Main.UI.PopUps.Generation.Behaviours.PracticeContainer.
             _practiceIcon.sprite = _practiceImages[practiceState];
 
             var practiceData = _localizationDatabase.SentencePractices[practiceState];
-            _practiceButton.Text.text = LocalizationController.Localize(practiceData.PracticeButtonKey);
+            _practiceButton.Text.text = practiceData.PracticeButtonKey.GetLocalization();
 
-            _remarkText.text = LocalizationController.Localize(practiceData.RemarkKey);
+            _remarkText.text = practiceData.RemarkKey.GetLocalization();
             _remarkText.SetActive(isAnswer);
 
             _practiceButton.interactable = isAnswer is false;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CustomUtils.Runtime.AddressableSystem;
 using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Extensions.Observables;
+using CustomUtils.Runtime.Localization;
 using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using CustomUtils.Runtime.UI.CustomComponents.Selectables.Toggles;
 using Cysharp.Threading.Tasks;
@@ -33,8 +34,8 @@ namespace Source.Scripts.Main.UI.PopUps.CategoryCreation
         [SerializeField] private StateToggle _iconItem;
 
         [SerializeField] private float _inactiveAlpha;
-        [SerializeField] private string _textRequiredLocalizationKey;
-        [SerializeField] private string _iconRequiredLocalizationKey;
+        [SerializeField] private LocalizationKey _textRequiredLocalizationKey;
+        [SerializeField] private LocalizationKey _iconRequiredLocalizationKey;
 
         private readonly List<StateToggle> _iconToggles = new();
 

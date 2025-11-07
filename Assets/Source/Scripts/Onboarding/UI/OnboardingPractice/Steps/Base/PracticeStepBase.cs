@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Localization;
 using CustomUtils.Runtime.UI.Theme;
 using R3;
 using TMPro;
@@ -13,7 +14,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingPractice.Steps.Base
     {
         [field: SerializeField] internal bool IsTransition { get; private set; }
 
-        [SerializeField] private string _localizationKey;
+        [SerializeField] private LocalizationKey _localizationKey;
         [SerializeField] private float _messagePoxY;
 
         internal Observable<Unit> OnSwitched => switched;

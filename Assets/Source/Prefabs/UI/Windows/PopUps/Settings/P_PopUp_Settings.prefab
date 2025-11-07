@@ -74,7 +74,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6603810977249432654, guid: 8db5ba0e7a00e54479935099246cd77c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -24
+      value: -691
       objectReference: {fileID: 0}
     - target: {fileID: 6603810977249432654, guid: 8db5ba0e7a00e54479935099246cd77c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -187,6 +187,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1904100135248541241, guid: a0a4e20be5c5fe64c89d02af3adc54c9, type: 3}
+      propertyPath: <LocalizationKey>k__BackingField.<GUID>k__BackingField
+      value: d7809c82-b961-4d43-b58c-59d10a96b935
+      objectReference: {fileID: 0}
     - target: {fileID: 1992511042369333691, guid: a0a4e20be5c5fe64c89d02af3adc54c9, type: 3}
       propertyPath: _previousColorData.<ColorName>k__BackingField
       value: Primary
@@ -226,6 +230,10 @@ PrefabInstance:
     - target: {fileID: 3570612052764701374, guid: a0a4e20be5c5fe64c89d02af3adc54c9, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4262691594279314685, guid: a0a4e20be5c5fe64c89d02af3adc54c9, type: 3}
+      propertyPath: m_Name
+      value: P_Text_SendReminders
       objectReference: {fileID: 0}
     - target: {fileID: 5415861272625357243, guid: a0a4e20be5c5fe64c89d02af3adc54c9, type: 3}
       propertyPath: m_Pivot.x
@@ -496,6 +504,10 @@ PrefabInstance:
       propertyPath: <LocalizationKey>k__BackingField
       value: ui.settings.interface-language
       objectReference: {fileID: 0}
+    - target: {fileID: 7012320974559190905, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
+      propertyPath: _localizationKey.<GUID>k__BackingField
+      value: 1373e967-5345-4dae-bfec-82c08c9acec4
+      objectReference: {fileID: 0}
     - target: {fileID: 7453466634581804355, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -601,9 +613,14 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
---- !u!114 &1685743217017911419 stripped
+--- !u!224 &8848337437067574886 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7453466634581804355, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
+  m_PrefabInstance: {fileID: 2142469244796435237}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9001376976771310684 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 783453621754397534, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7012320974559190905, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
   m_PrefabInstance: {fileID: 2142469244796435237}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -611,12 +628,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0cee240e49ee49a7a7166f3a2520e700, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.PopUps.Settings.SelectionSettingsItem
---- !u!224 &8848337437067574886 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 7453466634581804355, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
-  m_PrefabInstance: {fileID: 2142469244796435237}
-  m_PrefabAsset: {fileID: 0}
+  m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.PopUps.Selection.SelectionItem
 --- !u!1001 &2156903385311534831
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -733,6 +745,10 @@ PrefabInstance:
       propertyPath: <LocalizationKey>k__BackingField
       value: ui.settings.repeat-word-language
       objectReference: {fileID: 0}
+    - target: {fileID: 7012320974559190905, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
+      propertyPath: _localizationKey.<GUID>k__BackingField
+      value: d3c469f2-1d3d-4cf1-9e11-38aaeb665ff4
+      objectReference: {fileID: 0}
     - target: {fileID: 7453466634581804355, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -838,9 +854,14 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
---- !u!114 &1671326773918227889 stripped
+--- !u!224 &8835733004026207148 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7453466634581804355, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
+  m_PrefabInstance: {fileID: 2156903385311534831}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8988649349035311510 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 783453621754397534, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7012320974559190905, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
   m_PrefabInstance: {fileID: 2156903385311534831}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -848,12 +869,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0cee240e49ee49a7a7166f3a2520e700, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.PopUps.Settings.SelectionSettingsItem
---- !u!224 &8835733004026207148 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 7453466634581804355, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
-  m_PrefabInstance: {fileID: 2156903385311534831}
-  m_PrefabAsset: {fileID: 0}
+  m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.PopUps.Selection.SelectionItem
 --- !u!1001 &3734438175483256975
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -970,6 +986,10 @@ PrefabInstance:
       propertyPath: <LocalizationKey>k__BackingField
       value: ui.settings.repeat-words
       objectReference: {fileID: 0}
+    - target: {fileID: 7012320974559190905, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
+      propertyPath: _localizationKey.<GUID>k__BackingField
+      value: 410913e9-1876-4789-8e8f-aa3d2b64ff33
+      objectReference: {fileID: 0}
     - target: {fileID: 7453466634581804355, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1075,9 +1095,9 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
---- !u!114 &4110662033391510481 stripped
+--- !u!114 &5945780075869339638 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 783453621754397534, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7012320974559190905, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
   m_PrefabInstance: {fileID: 3734438175483256975}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -1085,7 +1105,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0cee240e49ee49a7a7166f3a2520e700, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.PopUps.Settings.SelectionSettingsItem
+  m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.PopUps.Selection.SelectionItem
 --- !u!224 &6098836886958106060 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7453466634581804355, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
@@ -1127,6 +1147,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1904100135248541241, guid: a0a4e20be5c5fe64c89d02af3adc54c9, type: 3}
+      propertyPath: <LocalizationKey>k__BackingField.<GUID>k__BackingField
+      value: 1be2526c-ad6f-4f2e-83a8-cc7326846688
+      objectReference: {fileID: 0}
     - target: {fileID: 1992511042369333691, guid: a0a4e20be5c5fe64c89d02af3adc54c9, type: 3}
       propertyPath: _previousColorData.<ColorName>k__BackingField
       value: Primary
@@ -1166,6 +1190,10 @@ PrefabInstance:
     - target: {fileID: 3570612052764701374, guid: a0a4e20be5c5fe64c89d02af3adc54c9, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4262691594279314685, guid: a0a4e20be5c5fe64c89d02af3adc54c9, type: 3}
+      propertyPath: m_Name
+      value: P_Text_ShowTranscription
       objectReference: {fileID: 0}
     - target: {fileID: 5415861272625357243, guid: a0a4e20be5c5fe64c89d02af3adc54c9, type: 3}
       propertyPath: m_Pivot.x
@@ -1460,6 +1488,10 @@ PrefabInstance:
       propertyPath: <LocalizationKey>k__BackingField
       value: ui.settings.native-language
       objectReference: {fileID: 0}
+    - target: {fileID: 7012320974559190905, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
+      propertyPath: _localizationKey.<GUID>k__BackingField
+      value: 36326f0d-87a8-4f1a-b601-561dd122ecfc
+      objectReference: {fileID: 0}
     - target: {fileID: 7453466634581804355, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1565,17 +1597,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
---- !u!114 &3881618705203929403 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 783453621754397534, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
-  m_PrefabInstance: {fileID: 4539950918646047333}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cee240e49ee49a7a7166f3a2520e700, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.PopUps.Settings.SelectionSettingsItem
 --- !u!224 &6372924595126839078 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7453466634581804355, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
@@ -1696,6 +1717,10 @@ PrefabInstance:
     - target: {fileID: 5666455709055392920, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
       propertyPath: <LocalizationKey>k__BackingField
       value: ui.settings.day-goal
+      objectReference: {fileID: 0}
+    - target: {fileID: 7012320974559190905, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
+      propertyPath: _localizationKey.<GUID>k__BackingField
+      value: 3e7f9b5a-2c46-4aa4-9b79-23f43510072a
       objectReference: {fileID: 0}
     - target: {fileID: 7453466634581804355, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
       propertyPath: m_Pivot.x
@@ -1923,6 +1948,10 @@ PrefabInstance:
       propertyPath: <LocalizationKey>k__BackingField
       value: ui.settings.learn-word-language
       objectReference: {fileID: 0}
+    - target: {fileID: 7012320974559190905, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
+      propertyPath: _localizationKey.<GUID>k__BackingField
+      value: 255f4697-27e8-44c3-9d6c-d68e7d0c1a5c
+      objectReference: {fileID: 0}
     - target: {fileID: 7453466634581804355, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2028,14 +2057,9 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
---- !u!224 &2873270749469453486 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 7453466634581804355, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
-  m_PrefabInstance: {fileID: 4661191443683748333}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &5363930122782386867 stripped
+--- !u!114 &2449716485208356500 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 783453621754397534, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7012320974559190905, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
   m_PrefabInstance: {fileID: 4661191443683748333}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -2043,7 +2067,12 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0cee240e49ee49a7a7166f3a2520e700, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.PopUps.Settings.SelectionSettingsItem
+  m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.PopUps.Selection.SelectionItem
+--- !u!224 &2873270749469453486 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7453466634581804355, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
+  m_PrefabInstance: {fileID: 4661191443683748333}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4702140341520368816
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2095,6 +2124,10 @@ PrefabInstance:
     - target: {fileID: 5922475606856796573, guid: 8412507c6755514479fe23ff62278d71, type: 3}
       propertyPath: currentColorName
       value: BackgroundPrimary
+      objectReference: {fileID: 0}
+    - target: {fileID: 6377521067985592655, guid: 8412507c6755514479fe23ff62278d71, type: 3}
+      propertyPath: <LocalizationKey>k__BackingField.<GUID>k__BackingField
+      value: d829e266-b350-45e2-8382-4b2a908c379d
       objectReference: {fileID: 0}
     - target: {fileID: 6741585781495393730, guid: 8412507c6755514479fe23ff62278d71, type: 3}
       propertyPath: currentColorName
@@ -2347,6 +2380,10 @@ PrefabInstance:
       propertyPath: <LocalizationKey>k__BackingField
       value: ui.settings.show-word-first
       objectReference: {fileID: 0}
+    - target: {fileID: 7012320974559190905, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
+      propertyPath: _localizationKey.<GUID>k__BackingField
+      value: c6b5adbc-5695-48a3-a86c-981801508600
+      objectReference: {fileID: 0}
     - target: {fileID: 7453466634581804355, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2457,9 +2494,9 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7453466634581804355, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
   m_PrefabInstance: {fileID: 5119348513923206871}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5608378682822036873 stripped
+--- !u!114 &2763891442673652142 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 783453621754397534, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7012320974559190905, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
   m_PrefabInstance: {fileID: 5119348513923206871}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -2467,7 +2504,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0cee240e49ee49a7a7166f3a2520e700, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.PopUps.Settings.SelectionSettingsItem
+  m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.PopUps.Selection.SelectionItem
 --- !u!1001 &5365253605208798640
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2542,7 +2579,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6603810977249432654, guid: 8db5ba0e7a00e54479935099246cd77c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -8
+      value: -184
       objectReference: {fileID: 0}
     - target: {fileID: 6603810977249432654, guid: 8db5ba0e7a00e54479935099246cd77c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2781,22 +2818,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d4e9f67261140c3b358f326185e497d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.PopUps.Settings.SettingsPopUp
-  <InitialWindow>k__BackingField: 0
   canvasGroup: {fileID: 6466864625984557760}
   <IsSingle>k__BackingField: 1
   _popUpVisibilityHandler: {fileID: 6348305206566048334}
   _closeButton: {fileID: 5613281914914767811}
-  _themeSelectionItem: {fileID: 8344136603452038807}
+  _themeSelectionItem: {fileID: 1748507321532859056}
   _isSendNotificationsItem: {fileID: 3224092285158463853}
   _isShowTranscriptionItem: {fileID: 598196875858792745}
   _isSwipeEnabledItem: {fileID: 4747791761133126541}
-  _languageSelectionItem: {fileID: 1685743217017911419}
-  _nativeLanguageSelectionItem: {fileID: 3881618705203929403}
-  _learningLanguageSelectionItem: {fileID: 6110828055695779630}
-  _showFirstLanguageSelectionItem: {fileID: 5608378682822036873}
-  _cardLearnLanguageSelectionItem: {fileID: 5363930122782386867}
-  _cardReviewLanguageSelectionItem: {fileID: 1671326773918227889}
-  _wordReviewSourceSelectionItem: {fileID: 4110662033391510481}
+  _languageSelectionItem: {fileID: 9001376976771310684}
+  _nativeLanguageSelectionItem: {fileID: 4558104138659527433}
+  _learningLanguageSelectionItem: {fileID: 4558104138659527433}
+  _showFirstLanguageSelectionItem: {fileID: 2763891442673652142}
+  _cardLearnLanguageSelectionItem: {fileID: 2449716485208356500}
+  _cardReviewLanguageSelectionItem: {fileID: 8988649349035311510}
+  _wordReviewSourceSelectionItem: {fileID: 5945780075869339638}
 --- !u!114 &6348305206566048334 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 676685043034553739, guid: c3b795a7e197664479b92c843a8f94f6, type: 3}
@@ -2938,6 +2974,10 @@ PrefabInstance:
     - target: {fileID: 5666455709055392920, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
       propertyPath: <LocalizationKey>k__BackingField
       value: ui.settings.reminders
+      objectReference: {fileID: 0}
+    - target: {fileID: 7012320974559190905, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
+      propertyPath: _localizationKey.<GUID>k__BackingField
+      value: fd1bbed7-d950-42b9-9381-3911e2860f78
       objectReference: {fileID: 0}
     - target: {fileID: 7453466634581804355, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
       propertyPath: m_Pivot.x
@@ -3177,6 +3217,10 @@ PrefabInstance:
       propertyPath: <LocalizationKey>k__BackingField
       value: ui.settings.spaced-repetition
       objectReference: {fileID: 0}
+    - target: {fileID: 7012320974559190905, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
+      propertyPath: _localizationKey.<GUID>k__BackingField
+      value: 46531f88-009d-4258-a750-1884ad223635
+      objectReference: {fileID: 0}
     - target: {fileID: 7453466634581804355, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3405,6 +3449,10 @@ PrefabInstance:
       propertyPath: <LocalizationKey>k__BackingField
       value: ui.settings.learning-language
       objectReference: {fileID: 0}
+    - target: {fileID: 7012320974559190905, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
+      propertyPath: _localizationKey.<GUID>k__BackingField
+      value: d51d0844-5c55-4072-8f8b-9edce1c62d21
+      objectReference: {fileID: 0}
     - target: {fileID: 7453466634581804355, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3515,9 +3563,9 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7453466634581804355, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
   m_PrefabInstance: {fileID: 6778312535139869808}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6110828055695779630 stripped
+--- !u!114 &4558104138659527433 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 783453621754397534, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7012320974559190905, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
   m_PrefabInstance: {fileID: 6778312535139869808}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -3525,7 +3573,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0cee240e49ee49a7a7166f3a2520e700, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.PopUps.Settings.SelectionSettingsItem
+  m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.PopUps.Selection.SelectionItem
 --- !u!1001 &8724377252147355081
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3549,6 +3597,10 @@ PrefabInstance:
     - target: {fileID: 783453621754397534, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
       propertyPath: _selectionNameKey
       value: ui.settings.interface-theme
+      objectReference: {fileID: 0}
+    - target: {fileID: 783453621754397534, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
+      propertyPath: _localizationKey.<GUID>k__BackingField
+      value: cc5ad0c5-0466-4ea9-ae8b-16eb5c8343be
       objectReference: {fileID: 0}
     - target: {fileID: 831605617880340562, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
       propertyPath: m_fontColor.b
@@ -3666,6 +3718,10 @@ PrefabInstance:
       propertyPath: <LocalizationKey>k__BackingField
       value: ui.settings.interface-theme
       objectReference: {fileID: 0}
+    - target: {fileID: 7012320974559190905, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
+      propertyPath: _localizationKey.<GUID>k__BackingField
+      value: cc5ad0c5-0466-4ea9-ae8b-16eb5c8343be
+      objectReference: {fileID: 0}
     - target: {fileID: 7453466634581804355, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3771,14 +3827,9 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
---- !u!224 &2189662610079897738 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 7453466634581804355, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
-  m_PrefabInstance: {fileID: 8724377252147355081}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &8344136603452038807 stripped
+--- !u!114 &1748507321532859056 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 783453621754397534, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7012320974559190905, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
   m_PrefabInstance: {fileID: 8724377252147355081}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -3786,7 +3837,12 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0cee240e49ee49a7a7166f3a2520e700, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.PopUps.Settings.SelectionSettingsItem
+  m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.PopUps.Selection.SelectionItem
+--- !u!224 &2189662610079897738 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7453466634581804355, guid: ba66eca06254f7a47b12b691a3d09ac9, type: 3}
+  m_PrefabInstance: {fileID: 8724377252147355081}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8984409206301613456
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3835,6 +3891,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1904100135248541241, guid: a0a4e20be5c5fe64c89d02af3adc54c9, type: 3}
+      propertyPath: <LocalizationKey>k__BackingField.<GUID>k__BackingField
+      value: 56e3edc4-2bba-400b-8dc1-cef25babedcd
+      objectReference: {fileID: 0}
     - target: {fileID: 1992511042369333691, guid: a0a4e20be5c5fe64c89d02af3adc54c9, type: 3}
       propertyPath: _previousColorData.<ColorName>k__BackingField
       value: Primary
@@ -3882,6 +3942,10 @@ PrefabInstance:
     - target: {fileID: 3570612052764701374, guid: a0a4e20be5c5fe64c89d02af3adc54c9, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4262691594279314685, guid: a0a4e20be5c5fe64c89d02af3adc54c9, type: 3}
+      propertyPath: m_Name
+      value: P_Text_Swiping
       objectReference: {fileID: 0}
     - target: {fileID: 5415861272625357243, guid: a0a4e20be5c5fe64c89d02af3adc54c9, type: 3}
       propertyPath: m_Pivot.x

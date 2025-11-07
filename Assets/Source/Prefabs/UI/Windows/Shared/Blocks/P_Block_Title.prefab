@@ -88,6 +88,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1957747629056582313, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+      propertyPath: currentColorName
+      value: TextPrimary
+      objectReference: {fileID: 0}
     - target: {fileID: 4566821120556776672, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
       propertyPath: m_Name
       value: P_Text_Title
@@ -108,11 +112,34 @@ PrefabInstance:
       propertyPath: m_HorizontalAlignment
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 9186071019390123412, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+      propertyPath: _currentColorModifier
+      value: 
+      objectReference: {fileID: 3946852351890486401}
+    - target: {fileID: 9186071019390123412, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: TextPrimary
+      objectReference: {fileID: 0}
+    - target: {fileID: 9186071019390123412, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+--- !u!114 &3946852351890486401 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1957747629056582313, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
+  m_PrefabInstance: {fileID: 3309398427218941480}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8840dbee5a42476db6edcdcd70e84c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.ColorModifiers.SolidColorModifier
 --- !u!224 &4339752895178933446 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1284860795548734190, guid: 5b18f71ef027df549b5466433a8a772e, type: 3}
@@ -144,6 +171,14 @@ PrefabInstance:
     - target: {fileID: 3281347553749123618, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
       propertyPath: _colorData.<ColorName>k__BackingField
       value: BackgroundPrimary
+      objectReference: {fileID: 0}
+    - target: {fileID: 3281347553749123618, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: BackgroundPrimary
+      objectReference: {fileID: 0}
+    - target: {fileID: 3281347553749123618, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3766352247999521383, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
       propertyPath: m_Name
@@ -231,11 +266,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7122844962229494403, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
       propertyPath: m_Color.g
-      value: 0.96862745
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7122844962229494403, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
       propertyPath: m_Color.r
-      value: 0.9647059
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8582650405694716061, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
+      propertyPath: currentColorName
+      value: BackgroundPrimary
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

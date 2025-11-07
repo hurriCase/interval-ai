@@ -73,6 +73,14 @@ PrefabInstance:
       propertyPath: _colorData.<ColorName>k__BackingField
       value: BackgroundPrimary
       objectReference: {fileID: 0}
+    - target: {fileID: 3281347553749123618, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: BackgroundPrimary
+      objectReference: {fileID: 0}
+    - target: {fileID: 3281347553749123618, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3766352247999521383, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
       propertyPath: m_Name
       value: P_Block_Header
@@ -167,15 +175,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7122844962229494403, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
       propertyPath: m_Color.g
-      value: 0.96862745
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7122844962229494403, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
       propertyPath: m_Color.r
-      value: 0.9647059
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7537355349041224152, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8582650405694716061, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}
+      propertyPath: currentColorName
+      value: BackgroundPrimary
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2355319010288549667, guid: 4ab45175e3b86554e91b009cd91aee67, type: 3}

@@ -1,6 +1,7 @@
 ﻿using CustomUtils.Runtime.AddressableSystem;
 using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Extensions.Observables;
+using CustomUtils.Runtime.Localization;
 using CustomUtils.Runtime.UI.CustomComponents.Selectables.Toggles;
 using R3.Triggers;
 using Source.Scripts.Core.References.Base;
@@ -31,7 +32,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours.LevelSelection
             _spriteReferences = spriteReferences;
         }
 
-        internal void Init(ToggleGroup toggleGroup, string localizationKey, LanguageLevel languageLevel)
+        internal void Init(ToggleGroup toggleGroup, LocalizationKey localizationKey, LanguageLevel languageLevel)
         {
             _stateToggle.Text.text = localizationKey.GetLocalization();
             _stateToggle.group = toggleGroup;

@@ -1,4 +1,5 @@
-﻿using CustomUtils.Runtime.CustomTypes.Collections;
+﻿    using CustomUtils.Runtime.CustomTypes.Collections;
+using CustomUtils.Runtime.Localization;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Localization.LocalizationTypes.Modal;
 using Source.Scripts.Core.Repositories.Settings.Base;
@@ -10,7 +11,7 @@ namespace Source.Scripts.Core.Localization.Base
     {
         [field: SerializeField] public EnumArray<SystemLanguage, string> Languages { get; private set; }
 
-        [field: SerializeField] public EnumArray<LanguageLevel, string> LanguageLevelKeys { get; private set; } =
+        [field: SerializeField] public EnumArray<LanguageLevel, LocalizationKey> LanguageLevelKeys { get; private set; } =
             new(EnumMode.SkipFirst);
 
         [field: SerializeField]

@@ -959,6 +959,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5518882507173628881}
     m_Modifications:
+    - target: {fileID: 823003278664398908, guid: eb336942d061cb44fb8096abeb2568c2, type: 3}
+      propertyPath: <LocalizationKey>k__BackingField.<GUID>k__BackingField
+      value: 4e97141d-b671-4043-8626-207e6fb258ec
+      objectReference: {fileID: 0}
     - target: {fileID: 1904852016605570020, guid: eb336942d061cb44fb8096abeb2568c2, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -1088,17 +1092,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb336942d061cb44fb8096abeb2568c2, type: 3}
---- !u!114 &3350652279143519799 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8706947114170075388, guid: eb336942d061cb44fb8096abeb2568c2, type: 3}
-  m_PrefabInstance: {fileID: 6244982203462950603}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44e51d0b35b6404984032de4e7537c97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.InputFieldComponent
 --- !u!224 &8741033581629672492 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3451095974414881511, guid: eb336942d061cb44fb8096abeb2568c2, type: 3}
@@ -1375,7 +1368,7 @@ MonoBehaviour:
   _practiceTheme: {fileID: 3414143882435759972}
   _practiceButton: {fileID: 732599242498930342}
   _remarkText: {fileID: 3339747138728976939}
-  _answerInputField: {fileID: 3350652279143519799}
+  _answerInputField: {fileID: 0}
   _practiceImages:
     <Entries>k__BackingField:
     - <Value>k__BackingField: {fileID: 0}

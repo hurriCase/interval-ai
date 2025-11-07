@@ -20,25 +20,25 @@ namespace Source.Scripts.Core.Localization.Base
         public EnumArray<PracticeState, CompleteLocalizationData> LearningCompleteButtons { get; private set; } =
             new(EnumMode.SkipFirst);
 
-        [SerializeField] private EnumArray<LocalizationType, string> _localizationData = new(EnumMode.SkipFirst);
-        [SerializeField] private EnumArray<LearningState, string> _progressLearningStates = new(EnumMode.SkipFirst);
-        [SerializeField] private EnumArray<PluralForm, string> _learnedCounts = new(EnumMode.SkipFirst);
-        [SerializeField] private EnumArray<CategoryType, string> _categoryTypes = new(EnumMode.SkipFirst);
-        [SerializeField] private EnumArray<WordOrderType, string> _wordOrder = new(EnumMode.SkipFirst);
-        [SerializeField] private EnumArray<SystemLanguage, string> _languages = new(EnumMode.SkipFirst);
+        [SerializeField] private EnumArray<LocalizationType, LocalizationKey> _localizationData = new(EnumMode.SkipFirst);
+        [SerializeField] private EnumArray<LearningState, LocalizationKey> _progressLearningStates = new(EnumMode.SkipFirst);
+        [SerializeField] private EnumArray<PluralForm, LocalizationKey> _learnedCounts = new(EnumMode.SkipFirst);
+        [SerializeField] private EnumArray<CategoryType, LocalizationKey> _categoryTypes = new(EnumMode.SkipFirst);
+        [SerializeField] private EnumArray<WordOrderType, LocalizationKey> _wordOrder = new(EnumMode.SkipFirst);
+        [SerializeField] private EnumArray<SystemLanguage, LocalizationKey> _languages = new(EnumMode.SkipFirst);
 
-        [SerializeField] private EnumArray<DateType, EnumArray<PluralForm, string>> _date
-            = new(static () => new EnumArray<PluralForm, string>(EnumMode.SkipFirst), EnumMode.SkipFirst);
+        [SerializeField] private EnumArray<DateType, EnumArray<PluralForm, LocalizationKey>> _date
+            = new(static () => new EnumArray<PluralForm, LocalizationKey>(EnumMode.SkipFirst), EnumMode.SkipFirst);
 
         [SerializeField]
-        private EnumArray<PracticeState, EnumArray<CompleteType, string>> _learningCompleteDescriptions =
-            new(static () => new EnumArray<CompleteType, string>(EnumMode.SkipFirst),
+        private EnumArray<PracticeState, EnumArray<CompleteType, LocalizationKey>> _learningCompleteDescriptions =
+            new(static () => new EnumArray<CompleteType, LocalizationKey>(EnumMode.SkipFirst),
                 EnumMode.SkipFirst);
 
-        [SerializeField] private EnumArray<WordReviewSourceType, string> _wordReviewSourceTypes
+        [SerializeField] private EnumArray<WordReviewSourceType, LocalizationKey> _wordReviewSourceTypes
             = new(EnumMode.SkipFirst);
 
-        [SerializeField] private EnumArray<ThemeType, string> _themeTypes = new(EnumMode.SkipFirst);
+        [SerializeField] private EnumArray<ThemeType, LocalizationKey> _themeTypes = new(EnumMode.SkipFirst);
 
         private ILanguageSettingsRepository _languageSettingsRepository;
         private ILocalizationDatabase _localizationDatabase;
@@ -52,8 +52,7 @@ namespace Source.Scripts.Core.Localization.Base
             _localizationDatabase = localizationDatabase;
         }
 
-        public string GetLocalization(LocalizationType type)
-            => LocalizationController.Localize(_localizationData[type]);
+        public string GetLocalization(LocalizationType type) => LocalizationController.Localize(_localizationData[type]);
 
         public string GetLearningStateLocalization(LearningState state) =>
             LocalizationController.Localize(_progressLearningStates[state]);
@@ -99,7 +98,7 @@ namespace Source.Scripts.Core.Localization.Base
             if (enumType != typeof(LanguageType))
                 return enumType == typeof(SystemLanguage)
                     ? _localizationDatabase.Languages[enumIndex]
-                    : enumIndex.ToString().GetLocalization();
+                    : enumIndex.ToString();
 
             var languageType = _languageSettingsRepository.LanguageByType.CurrentValue[enumIndex];
             return _localizationDatabase.Languages[languageType];

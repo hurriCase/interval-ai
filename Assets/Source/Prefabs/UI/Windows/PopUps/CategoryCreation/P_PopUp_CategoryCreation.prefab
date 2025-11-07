@@ -206,7 +206,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29df1d8255da40958a52341eb6ebd11c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.PopUps.CategoryCreation.CategoryCreationPopUp
-  <InitialWindow>k__BackingField: 0
   canvasGroup: {fileID: 8837384621070016}
   <IsSingle>k__BackingField: 1
   _popUpVisibilityHandler: {fileID: 123914289939322446}
@@ -217,8 +216,10 @@ MonoBehaviour:
   _toggleGroup: {fileID: 2965748667477285900}
   _iconItem: {fileID: 2904500678806412261, guid: c0e6cb2cbe047eb41ae0700c3420f06f, type: 3}
   _inactiveAlpha: 0.5
-  _textRequiredLocalizationKey: ui.category.category-name-required
-  _iconRequiredLocalizationKey: ui.category.select-icon
+  _textRequiredLocalizationKey:
+    <GUID>k__BackingField: 
+  _iconRequiredLocalizationKey:
+    <GUID>k__BackingField: 
 --- !u!1001 &2146604088952819871
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -410,6 +411,10 @@ PrefabInstance:
     - target: {fileID: 5922475606856796573, guid: 8412507c6755514479fe23ff62278d71, type: 3}
       propertyPath: currentColorName
       value: BackgroundPrimary
+      objectReference: {fileID: 0}
+    - target: {fileID: 6377521067985592655, guid: 8412507c6755514479fe23ff62278d71, type: 3}
+      propertyPath: <LocalizationKey>k__BackingField.<GUID>k__BackingField
+      value: cf7b7a2d-bc63-4a7c-8dae-64e2a109ec42
       objectReference: {fileID: 0}
     - target: {fileID: 6741585781495393730, guid: 8412507c6755514479fe23ff62278d71, type: 3}
       propertyPath: currentColorName
@@ -977,6 +982,10 @@ PrefabInstance:
       propertyPath: currentColorName
       value: Primary
       objectReference: {fileID: 0}
+    - target: {fileID: 4853207228640825650, guid: fc6884491410b73459021fb3fe22d414, type: 3}
+      propertyPath: <LocalizationKey>k__BackingField.<GUID>k__BackingField
+      value: 33fe2e24-fc0a-4be7-9d71-3526cefc5842
+      objectReference: {fileID: 0}
     - target: {fileID: 5068066156166520255, guid: fc6884491410b73459021fb3fe22d414, type: 3}
       propertyPath: currentColorName
       value: White
@@ -984,6 +993,10 @@ PrefabInstance:
     - target: {fileID: 5164801132258450748, guid: fc6884491410b73459021fb3fe22d414, type: 3}
       propertyPath: m_PixelsPerUnitMultiplier
       value: Infinity
+      objectReference: {fileID: 0}
+    - target: {fileID: 7070275198891738102, guid: fc6884491410b73459021fb3fe22d414, type: 3}
+      propertyPath: m_Name
+      value: P_Text_SaveCategory
       objectReference: {fileID: 0}
     - target: {fileID: 9217618319187572938, guid: fc6884491410b73459021fb3fe22d414, type: 3}
       propertyPath: m_Name

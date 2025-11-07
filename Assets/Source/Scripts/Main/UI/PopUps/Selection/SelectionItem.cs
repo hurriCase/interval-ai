@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.Localization;
 using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
@@ -15,7 +16,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
     {
         [SerializeField] private ThemeButton _buttonComponent;
         [SerializeField] private TextMeshProUGUI _selectionNameText;
-        [SerializeField] private string _localizationKey;
+        [SerializeField] private LocalizationKey _localizationKey;
 
         private ILocalizationKeysDatabase _localizationKeysDatabase;
         private IWindowsController _windowsController;
@@ -27,7 +28,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
             _windowsController = windowsController;
         }
 
-        internal void Init<TEnum>(ReactiveProperty<TEnum> targetProperty, TEnum[] customValues = null)
+        internal void Init<TEnum>(ReactiveProperty<TEnum> targetProperty, IReadOnlyList<TEnum> customValues = null)
             where TEnum : unmanaged, Enum
         {
             var enumSelectionService = new EnumSelectionService<TEnum>(

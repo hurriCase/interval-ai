@@ -59,7 +59,7 @@ namespace Source.Scripts.Main.UI.PopUps.Settings
         {
             _languageSelectionItem.Init(
                 _languageSettingsRepository.SystemLanguage.Property,
-                LocalizationController.GetAllLanguages());
+                LocalizationRegistry.Instance.SupportedLanguages);
 
             _nativeLanguageSelectionItem.Init(
                 _languageSettingsRepository.LanguageProperties[LanguageType.Native],

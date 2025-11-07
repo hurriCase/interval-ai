@@ -8,9 +8,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1406654479539766417, guid: 5c2532b219af94746aa6085fa4d2865f, type: 3}
+      propertyPath: _currentColorModifier
+      value: 
+      objectReference: {fileID: 1957747629056582313}
+    - target: {fileID: 1406654479539766417, guid: 5c2532b219af94746aa6085fa4d2865f, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: TextPrimary
+      objectReference: {fileID: 0}
+    - target: {fileID: 1406654479539766417, guid: 5c2532b219af94746aa6085fa4d2865f, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6025413584709060069, guid: 5c2532b219af94746aa6085fa4d2865f, type: 3}
       propertyPath: m_Name
       value: P_Text_Localized_
+      objectReference: {fileID: 0}
+    - target: {fileID: 8634908188089244588, guid: 5c2532b219af94746aa6085fa4d2865f, type: 3}
+      propertyPath: currentColorName
+      value: TextPrimary
       objectReference: {fileID: 0}
     - target: {fileID: 9019219329772563435, guid: 5c2532b219af94746aa6085fa4d2865f, type: 3}
       propertyPath: m_Pivot.x
@@ -98,14 +114,25 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6025413584709060069, guid: 5c2532b219af94746aa6085fa4d2865f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7400195723152973949}
+      addedObject: {fileID: 2171926940284710436}
   m_SourcePrefab: {fileID: 100100000, guid: 5c2532b219af94746aa6085fa4d2865f, type: 3}
+--- !u!114 &1957747629056582313 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8634908188089244588, guid: 5c2532b219af94746aa6085fa4d2865f, type: 3}
+  m_PrefabInstance: {fileID: 7853725966138095877}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4566821120556776672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8840dbee5a42476db6edcdcd70e84c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.Theme.ColorModifiers.SolidColorModifier
 --- !u!1 &4566821120556776672 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6025413584709060069, guid: 5c2532b219af94746aa6085fa4d2865f, type: 3}
   m_PrefabInstance: {fileID: 7853725966138095877}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7400195723152973949
+--- !u!114 &2171926940284710436
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,8 +143,9 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eb9f4ce67999da146951a490706733d1, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  <LocalizationKey>k__BackingField: 
+  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.Localization.LocalizedTextMeshPro
+  <LocalizationKey>k__BackingField:
+    <GUID>k__BackingField: 
   <Text>k__BackingField: {fileID: 5975422674569537273}
 --- !u!114 &5975422674569537273 stripped
 MonoBehaviour:

@@ -283,7 +283,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb8520084fae4bbaadea89241e02b71d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.Onboarding::Source.Scripts.Onboarding.UI.PopUp.OnboardingPracticePopUp
-  <InitialWindow>k__BackingField: 0
   canvasGroup: {fileID: 3896199439287272467}
   <IsSingle>k__BackingField: 1
   _popUpVisibilityHandler: {fileID: 4014196355994207389}
@@ -310,7 +309,8 @@ MonoBehaviour:
       type: {class: HighlightStep, ns: Source.Scripts.Onboarding.UI.OnboardingPractice.Steps, asm: Source.Scripts.Onboarding}
       data:
         <IsTransition>k__BackingField: 0
-        _localizationKey: ui.onboarding.press-to-see
+        _localizationKey:
+          <GUID>k__BackingField: 
         _messagePoxY: -216
         _switchButton: {fileID: 1980087310893428998}
         _mainCanvas: {fileID: 862739600813106080}
@@ -318,7 +318,8 @@ MonoBehaviour:
       type: {class: HighlightStep, ns: Source.Scripts.Onboarding.UI.OnboardingPractice.Steps, asm: Source.Scripts.Onboarding}
       data:
         <IsTransition>k__BackingField: 0
-        _localizationKey: ui.onboarding.swipe-if-know
+        _localizationKey:
+          <GUID>k__BackingField: 
         _messagePoxY: -216
         _switchButton: {fileID: 2705068529905982759}
         _mainCanvas: {fileID: 862739600813106080}
@@ -326,7 +327,8 @@ MonoBehaviour:
       type: {class: HighlightStep, ns: Source.Scripts.Onboarding.UI.OnboardingPractice.Steps, asm: Source.Scripts.Onboarding}
       data:
         <IsTransition>k__BackingField: 0
-        _localizationKey: ui.onboarding.hide
+        _localizationKey:
+          <GUID>k__BackingField: 
         _messagePoxY: -216
         _switchButton: {fileID: 1444981996189766496}
         _mainCanvas: {fileID: 862739600813106080}
@@ -334,7 +336,8 @@ MonoBehaviour:
       type: {class: HighlightStep, ns: Source.Scripts.Onboarding.UI.OnboardingPractice.Steps, asm: Source.Scripts.Onboarding}
       data:
         <IsTransition>k__BackingField: 1
-        _localizationKey: ui.onboarding.swipe-to-start-learn
+        _localizationKey:
+          <GUID>k__BackingField: 
         _messagePoxY: -216
         _switchButton: {fileID: 986678356959418177}
         _mainCanvas: {fileID: 862739600813106080}
@@ -342,7 +345,8 @@ MonoBehaviour:
       type: {class: HighlightStep, ns: Source.Scripts.Onboarding.UI.OnboardingPractice.Steps, asm: Source.Scripts.Onboarding}
       data:
         <IsTransition>k__BackingField: 0
-        _localizationKey: ui.onboarding.open-by-one-character
+        _localizationKey:
+          <GUID>k__BackingField: 
         _messagePoxY: -51
         _switchButton: {fileID: 6788600262429158770}
         _mainCanvas: {fileID: 862739600813106080}
@@ -350,7 +354,8 @@ MonoBehaviour:
       type: {class: HighlightStep, ns: Source.Scripts.Onboarding.UI.OnboardingPractice.Steps, asm: Source.Scripts.Onboarding}
       data:
         <IsTransition>k__BackingField: 0
-        _localizationKey: ui.onboarding.select-from-four
+        _localizationKey:
+          <GUID>k__BackingField: 
         _messagePoxY: -51
         _switchButton: {fileID: 7478999051965898930}
         _mainCanvas: {fileID: 862739600813106080}
@@ -358,7 +363,8 @@ MonoBehaviour:
       type: {class: PlainStep, ns: Source.Scripts.Onboarding.UI.OnboardingPractice.Steps, asm: Source.Scripts.Onboarding}
       data:
         <IsTransition>k__BackingField: 0
-        _localizationKey: ui.onboarding.select-from-four
+        _localizationKey:
+          <GUID>k__BackingField: 
         _messagePoxY: -28
         _switchButtons:
         - {fileID: 8176833541502815486}
@@ -372,7 +378,8 @@ MonoBehaviour:
       type: {class: PlainStep, ns: Source.Scripts.Onboarding.UI.OnboardingPractice.Steps, asm: Source.Scripts.Onboarding}
       data:
         <IsTransition>k__BackingField: 1
-        _localizationKey: ui.onboarding.lets-start-practice
+        _localizationKey:
+          <GUID>k__BackingField: 
         _messagePoxY: -28
         _switchButtons:
         - {fileID: 1135148131149275960}
@@ -748,7 +755,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4142699438041553860, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -552.23083
+      value: -506.2508
       objectReference: {fileID: 0}
     - target: {fileID: 4358599618656306394, guid: 1a43be827c2e8c345944053127ecbe37, type: 3}
       propertyPath: m_AnchorMax.y
