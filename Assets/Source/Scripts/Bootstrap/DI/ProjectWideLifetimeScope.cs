@@ -54,9 +54,6 @@ namespace Source.Scripts.Bootstrap.DI
         [SerializeField] private GoogleTextToSpeechConfig _googleTextToSpeechConfig;
         [SerializeField] private AzureTranslationConfig _azureTranslationConfig;
 
-        [SerializeField] private LocalizationKeysDatabase _localizationKeysDatabase;
-        [SerializeField] private LocalizationDatabase _localizationDatabase;
-
         [SerializeField] private DefaultCategoriesDatabase _defaultCategoriesDatabase;
         [SerializeField] private DefaultSettingsConfig _defaultSettingsConfig;
         [SerializeField] private DefaultUserDataConfig _defaultUserDataConfig;
@@ -86,9 +83,6 @@ namespace Source.Scripts.Bootstrap.DI
             builder.RegisterInstance(_dateLabelConfig).AsImplementedInterfaces();
             builder.RegisterInstance(_testConfig).AsImplementedInterfaces();
             builder.RegisterInstance(_appConfig).AsImplementedInterfaces();
-
-            builder.RegisterComponent(_localizationKeysDatabase).AsImplementedInterfaces();
-            builder.RegisterComponent(_localizationDatabase).AsImplementedInterfaces();
 
             RegisterApiServices(builder);
             RegisterInput(builder);

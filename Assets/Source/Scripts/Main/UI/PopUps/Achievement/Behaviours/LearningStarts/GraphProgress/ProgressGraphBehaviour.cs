@@ -1,9 +1,12 @@
 ﻿using CustomUtils.Runtime.CustomTypes.Collections;
+using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.Localization;
 using CustomUtils.Runtime.UI.CustomComponents.Selectables.Toggles;
+using Cysharp.Text;
 using R3;
 using Source.Scripts.Core.Localization.Base;
+using Source.Scripts.Core.Localization.LocalizationTypes.Date;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.Data.Base;
@@ -26,19 +29,18 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
         [SerializeField] private ProgressColorMapping _progressColorMapping;
         [SerializeField] private EnumArray<LearningState, ThemeLineRenderer> _graphLines = new(EnumMode.SkipFirst);
 
-        private ILocalizationKeysDatabase _localizationKeysDatabase;
+        [SerializeField] private DateLocalizationConfig _dateLocalizationConfig;
+
         private IProgressGraphSettings _progressGraphSettings;
         private IUISettingsRepository _uiSettingsRepository;
         private IGraphDataProcessor _graphDataProcessor;
 
         [Inject]
         internal void Inject(
-            ILocalizationKeysDatabase localizationKeysDatabase,
             IProgressGraphSettings progressGraphSettings,
             IUISettingsRepository uiSettingsRepository,
             IGraphDataProcessor graphDataProcessor)
         {
-            _localizationKeysDatabase = localizationKeysDatabase;
             _progressGraphSettings = progressGraphSettings;
             _uiSettingsRepository = uiSettingsRepository;
             _graphDataProcessor = graphDataProcessor;
@@ -55,18 +57,9 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
                     .Where(static isOn => isOn)
                     .SubscribeUntilDestroy(this, dateRange, static (range, self) => self.UpdateGraph(range));
 
-                LocalizationController.Language.SubscribeUntilDestroy(this, (dateRange, createdGraphType.Text),
-                    static (tuple, self) => self.UpdateLocalization(tuple.dateRange, tuple.Text));
+                _dateLocalizationConfig.DateLocalizations[dateRange.DateType]
+                    .SubscribePluralToText(dateRange.Amount, createdGraphType.Text);
             }
-        }
-
-        private void UpdateLocalization(DateRange dateRange, TMP_Text graphTypeText)
-        {
-            var localizationKey = _localizationKeysDatabase.GetDateLocalization(
-                dateRange.DateType,
-                dateRange.Amount);
-
-            graphTypeText.SetText(localizationKey, dateRange.Amount);
         }
 
         private void UpdateGraph(DateRange progressRange)

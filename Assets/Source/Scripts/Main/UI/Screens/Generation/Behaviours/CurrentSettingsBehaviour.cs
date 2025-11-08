@@ -2,9 +2,9 @@
 using CustomUtils.Runtime.Localization;
 using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using Cysharp.Text;
-using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Main.UI.Base;
+using Source.Scripts.Main.UI.PopUps.Selection.LocalizationData;
 using TMPro;
 using UnityEngine;
 using VContainer;
@@ -24,21 +24,20 @@ namespace Source.Scripts.Main.UI.Screens.Generation.Behaviours
 
         [SerializeField] private ThemeButton _changeSettingsButton;
 
+        [SerializeField] private LanguageLocalizationConfig _languageLocalizationConfig;
+
         private IGenerationSettingsRepository _generationSettingsRepository;
         private ILanguageSettingsRepository _languageSettingsRepository;
-        private ILocalizationKeysDatabase _localizationKeysDatabase;
         private IWindowsController _windowsController;
 
         [Inject]
         internal void Inject(
             IGenerationSettingsRepository generationSettingsRepository,
             ILanguageSettingsRepository languageSettingsRepository,
-            ILocalizationKeysDatabase localizationKeysDatabase,
             IWindowsController windowsController)
         {
             _generationSettingsRepository = generationSettingsRepository;
             _languageSettingsRepository = languageSettingsRepository;
-            _localizationKeysDatabase = localizationKeysDatabase;
             _windowsController = windowsController;
         }
 
@@ -65,7 +64,7 @@ namespace Source.Scripts.Main.UI.Screens.Generation.Behaviours
         private void SetLanguageTypeText(LanguageType languageType)
         {
             var systemLanguage = _languageSettingsRepository.LanguageByType.CurrentValue[languageType];
-            var languageLocalization = _localizationKeysDatabase.GetLanguageLocalization(systemLanguage);
+            var languageLocalization = _languageLocalizationConfig.GetLocalization(systemLanguage);
             var translateFromLocalization = _showOnLanguageKey.GetLocalization();
 
             _showOnLanguageText.SetTextFormat(translateFromLocalization, languageLocalization);

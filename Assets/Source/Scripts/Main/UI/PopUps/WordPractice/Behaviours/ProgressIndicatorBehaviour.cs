@@ -1,14 +1,14 @@
 ﻿using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
-using Cysharp.Text;
 using R3;
-using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Localization.LocalizationTypes;
+using Source.Scripts.Core.Localization.LocalizationTypes.Date;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Words.Advance;
 using Source.Scripts.Core.Repositories.Words.Base.CurrentWord;
 using Source.Scripts.Main.UI.Base;
+using Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts;
 using Source.Scripts.Main.UI.PopUps.WordControl;
 using TMPro;
 using UnityEngine;
@@ -22,7 +22,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
         [SerializeField] private ThemeButton _previousCardButton;
         [SerializeField] private ThemeButton _moreButton;
 
-        private ILocalizationKeysDatabase _localizationKeysDatabase;
+        [SerializeField] private PluralLocalization _learnedCounts;
+
         private ICurrentWordFactory _currentWordFactory;
         private IWordAdvanceFactory _wordAdvanceFactory;
         private IProgressRepository _progressRepository;
@@ -32,13 +33,11 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
 
         [Inject]
         internal void Inject(
-            ILocalizationKeysDatabase localizationKeysDatabase,
             ICurrentWordFactory currentWordFactory,
             IWordAdvanceFactory wordAdvanceFactory,
             IProgressRepository progressRepository,
             IWindowsController windowsController)
         {
-            _localizationKeysDatabase = localizationKeysDatabase;
             _currentWordFactory = currentWordFactory;
             _wordAdvanceFactory = wordAdvanceFactory;
             _progressRepository = progressRepository;
@@ -53,8 +52,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
             wordAdvanceService.CanUndo
                 .SubscribeUntilDestroy(this, static (canUndo, self) => self._previousCardButton.SetActive(canUndo));
 
-            _progressRepository.LearnedWordCounts[practiceState].SubscribeUntilDestroy(this,
-                static (wordsCount, self) => self.UpdateLearnedText(wordsCount));
+            _progressRepository.LearnedWordCounts[practiceState].SubscribePluralToText(_learnedCounts, _learnedText);
 
             _previousCardButton.OnClickAsObservable()
                 .Subscribe(wordAdvanceService.UndoCommand, static (unit, undo) => undo.Execute(unit))
@@ -69,12 +67,6 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
             var currentWordService = _currentWordFactory.GetOrCreate(_currentPracticeState);
             var currentWord = currentWordService.CurrentWord.CurrentValue;
             wordControlPopUp.SetParameters(currentWord);
-        }
-
-        private void UpdateLearnedText(int wordsCount)
-        {
-            var localization = _localizationKeysDatabase.GetLearnedCountLocalization(wordsCount);
-            _learnedText.SetTextFormat(localization, wordsCount);
         }
     }
 }

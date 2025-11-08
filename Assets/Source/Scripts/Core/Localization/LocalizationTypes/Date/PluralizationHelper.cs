@@ -1,36 +1,42 @@
 ﻿using System;
+using CustomUtils.Runtime.Localization;
 using UnityEngine;
 
 namespace Source.Scripts.Core.Localization.LocalizationTypes.Date
 {
     internal static class PluralizationHelper
     {
-        internal static PluralForm GetPluralForm(int count, SystemLanguage language) =>
+        internal static LocalizationKey GetPluralForm(
+            PluralLocalization pluralLocalization,
+            int count,
+            SystemLanguage language) =>
             language switch
             {
                 // Supported languages with specific rules
-                SystemLanguage.Russian => GetRussianPluralForm(count),
-                SystemLanguage.English => GetOneBasedPluralForm(count),
-                SystemLanguage.German => GetOneBasedPluralForm(count),
-                SystemLanguage.Spanish => GetOneBasedPluralForm(count),
-                SystemLanguage.Portuguese => GetOneBasedPluralForm(count),
-                SystemLanguage.Italian => GetOneBasedPluralForm(count),
-                SystemLanguage.French => GetFrenchPluralForm(count), // Special: 0,1 → singular
+                SystemLanguage.Russian => GetRussianPluralForm(pluralLocalization, count),
+                SystemLanguage.English => GetOneBasedPluralForm(pluralLocalization, count),
+                SystemLanguage.German => GetOneBasedPluralForm(pluralLocalization, count),
+                SystemLanguage.Spanish => GetOneBasedPluralForm(pluralLocalization, count),
+                SystemLanguage.Portuguese => GetOneBasedPluralForm(pluralLocalization, count),
+                SystemLanguage.Italian => GetOneBasedPluralForm(pluralLocalization, count),
+                SystemLanguage.French => GetFrenchPluralForm(pluralLocalization, count), // Special: 0,1 → singular
 
                 // No pluralization languages (Asian)
-                SystemLanguage.Korean => PluralForm.Singular,
-                SystemLanguage.Japanese => PluralForm.Singular,
-                SystemLanguage.Chinese => PluralForm.Singular,
-                SystemLanguage.Thai => PluralForm.Singular,
-                SystemLanguage.Indonesian => PluralForm.Singular,
+                SystemLanguage.Korean => pluralLocalization.SingularLocalizationKey,
+                SystemLanguage.Japanese => pluralLocalization.SingularLocalizationKey,
+                SystemLanguage.Chinese => pluralLocalization.SingularLocalizationKey,
+                SystemLanguage.Thai => pluralLocalization.SingularLocalizationKey,
+                SystemLanguage.Indonesian => pluralLocalization.SingularLocalizationKey,
 
-                _ => GetOneBasedPluralForm(count)
+                _ => GetOneBasedPluralForm(pluralLocalization, count)
             };
 
-        private static PluralForm GetOneBasedPluralForm(int count)
-            => Math.Abs(count) == 1 ? PluralForm.Singular : PluralForm.Many;
+        private static LocalizationKey GetOneBasedPluralForm(PluralLocalization pluralLocalization, int count)
+            => Math.Abs(count) == 1
+                ? pluralLocalization.SingularLocalizationKey
+                : pluralLocalization.ManyLocalizationKey;
 
-        private static PluralForm GetRussianPluralForm(int count)
+        private static LocalizationKey GetRussianPluralForm(PluralLocalization pluralLocalization, int count)
         {
             var absCount = Math.Abs(count);
             var lastDigit = absCount % 10;
@@ -38,13 +44,15 @@ namespace Source.Scripts.Core.Localization.LocalizationTypes.Date
 
             return lastDigit switch
             {
-                1 when lastTwoDigits != 11 => PluralForm.Singular,
-                >= 2 and <= 4 when lastTwoDigits is < 12 or > 14 => PluralForm.Few,
-                _ => PluralForm.Many
+                1 when lastTwoDigits != 11 => pluralLocalization.SingularLocalizationKey,
+                >= 2 and <= 4 when lastTwoDigits is < 12 or > 14 => pluralLocalization.FewLocalizationKey,
+                _ => pluralLocalization.ManyLocalizationKey
             };
         }
 
-        private static PluralForm GetFrenchPluralForm(int count)
-            => Math.Abs(count) <= 1 ? PluralForm.Singular : PluralForm.Many;
+        private static LocalizationKey GetFrenchPluralForm(PluralLocalization pluralLocalization, int count)
+            => Math.Abs(count) <= 1
+                ? pluralLocalization.SingularLocalizationKey
+                : pluralLocalization.ManyLocalizationKey;
     }
 }

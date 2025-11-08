@@ -3,6 +3,7 @@ using CustomUtils.Runtime.UI.CustomComponents.Selectables.Toggles;
 using R3;
 using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
+using Source.Scripts.Main.UI.PopUps.Selection.LocalizationData;
 using UnityEngine;
 using VContainer;
 
@@ -10,25 +11,24 @@ namespace Source.Scripts.Main.UI.PopUps.GenerationSettings.Behaviours
 {
     internal sealed class LanguageToggle : StateToggle
     {
+        private LanguageLocalizationConfig _languageLocalizationConfig;
         private LanguageType _currentLanguageType;
 
         private IGenerationSettingsRepository _generationSettingsRepository;
         private ILanguageSettingsRepository _languageSettingsRepository;
-        private ILocalizationKeysDatabase _localizationKeysDatabase;
 
         [Inject]
         public void Inject(
             IGenerationSettingsRepository generationSettingsRepository,
-            ILanguageSettingsRepository languageSettingsRepository,
-            ILocalizationKeysDatabase localizationKeysDatabase)
+            ILanguageSettingsRepository languageSettingsRepository)
         {
             _generationSettingsRepository = generationSettingsRepository;
             _languageSettingsRepository = languageSettingsRepository;
-            _localizationKeysDatabase = localizationKeysDatabase;
         }
 
-        internal void Init(LanguageType learningType)
+        internal void Init(LanguageLocalizationConfig languageLocalizationConfig, LanguageType learningType)
         {
+            _languageLocalizationConfig = languageLocalizationConfig;
             _currentLanguageType = learningType;
 
             isOn = _currentLanguageType == _generationSettingsRepository.TranslateFromLanguageType.Value;
@@ -48,7 +48,7 @@ namespace Source.Scripts.Main.UI.PopUps.GenerationSettings.Behaviours
 
         private void UpdateLanguageTypeTexts(SystemLanguage currentLanguages)
         {
-            Text.text = _localizationKeysDatabase.GetLanguageLocalization(currentLanguages);
+            Text.text = _languageLocalizationConfig.GetLocalization(currentLanguages);
         }
     }
 }
