@@ -1,5 +1,4 @@
-﻿using System;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using Source.Scripts.Core.Localization.LocalizationTypes.Date;
 using UnityEngine;
 
@@ -15,9 +14,5 @@ namespace Source.Scripts.Core.Localization.Base
 
         [MustUseReturnValue]
         string GetLanguageLocalization(SystemLanguage systemLanguage);
-
-        [MustUseReturnValue]
-        string GetLocalizationByValue<TEnum>(TEnum enumValue)
-            where TEnum : unmanaged, Enum;
     }
 }

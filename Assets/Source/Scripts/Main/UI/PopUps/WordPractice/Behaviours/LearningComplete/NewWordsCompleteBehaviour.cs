@@ -1,4 +1,6 @@
-﻿using CustomUtils.Runtime.Extensions.Observables;
+﻿using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Extensions.Observables;
+using CustomUtils.Runtime.Localization;
 using R3;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Categories.Base;
@@ -14,6 +16,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
     internal sealed class NewWordsCompleteBehaviour : LearningCompleteBehaviourBase
     {
         [SerializeField] private ParticleSystem _confettiParticles;
+        [SerializeField] private LocalizationKey _categorySelectionTitleKey;
 
         private CategorySelectionService _categorySelectionService;
         private ICategoriesRepository _categoriesRepository;
@@ -61,7 +64,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
             _categorySelectionService.UpdateData();
 
             var selectionPopUp = windowsController.OpenPopUp<SelectionPopUp>();
-            selectionPopUp.SetParameters(_categorySelectionService);
+            selectionPopUp.SetParameters(_categorySelectionService, _categorySelectionTitleKey.GetLocalization());
             selectionPopUp.OnPopUpHidden.SubscribeUntilDestroy(this, static self => self.UpdateCurrentWord());
         }
 

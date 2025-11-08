@@ -1,4 +1,6 @@
 ﻿using CustomUtils.Runtime.Animations;
+using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Localization;
 using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using Cysharp.Threading.Tasks;
 using Source.Scripts.Core.Repositories.Words.Base;
@@ -23,6 +25,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordControl
         [SerializeField] private ThemeButton _hideWordButton;
 
         [SerializeField] private PivotAnimation<VisibilityState> _pivotAnimation;
+
+        [SerializeField] private LocalizationKey _categorySelectionTitleKey;
 
         private WordEntry _currentWordEntry;
 
@@ -85,7 +89,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordControl
             _wordCategorySelectionService.UpdateData();
 
             var selectionPopUp = _windowsController.OpenPopUp<SelectionPopUp>();
-            selectionPopUp.SetParameters(_wordCategorySelectionService);
+            selectionPopUp.SetParameters(_wordCategorySelectionService, _categorySelectionTitleKey.GetLocalization());
         }
     }
 }

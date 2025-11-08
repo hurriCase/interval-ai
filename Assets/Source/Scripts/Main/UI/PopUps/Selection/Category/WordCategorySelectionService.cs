@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Word;
@@ -14,9 +13,8 @@ namespace Source.Scripts.Main.UI.PopUps.Selection.Category
 
         internal WordCategorySelectionService(
             ICategoriesRepository categoriesRepository,
-            ILocalizationKeysDatabase localizationKeysDatabase,
             IWordStateMutator wordStateMutator)
-            : base(categoriesRepository, localizationKeysDatabase)
+            : base(categoriesRepository)
         {
             _wordStateMutator = wordStateMutator;
         }

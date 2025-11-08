@@ -1,5 +1,6 @@
 ﻿using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Extensions.Observables;
+using CustomUtils.Runtime.Localization;
 using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using Cysharp.Text;
 using R3;
@@ -29,6 +30,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours
         [SerializeField] private TextMeshProUGUI _singleExampleText;
 
         [SerializeField] private ThemeButton _addToCategoryButton;
+
+        [SerializeField] private LocalizationKey _categorySelectionTitleKey;
 
         private WordCategorySelectionService _wordCategorySelectionService;
         private ICategoriesRepository _categoriesRepository;
@@ -64,7 +67,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours
             _wordCategorySelectionService.UpdateData();
 
             var selectionPopUp = _windowsController.OpenPopUp<SelectionPopUp>();
-            selectionPopUp.SetParameters(_wordCategorySelectionService);
+            selectionPopUp.SetParameters(_wordCategorySelectionService, _categorySelectionTitleKey.GetLocalization());
         }
 
         internal void UpdateView(WordEntry wordEntry)

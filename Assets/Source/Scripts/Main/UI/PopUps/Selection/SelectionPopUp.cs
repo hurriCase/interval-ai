@@ -30,11 +30,11 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
             _selectionPool = new UIPool<StateToggle>(_selectionItem, _selectionsContainer);
         }
 
-        public void SetParameters<TValue>(ISelectionService<TValue> service)
+        public void SetParameters<TValue>(ISelectionService<TValue> service, string title)
         {
             _disposableBag.Clear();
 
-            _selectionNameText.text = service.GetSelectionTitle();
+            _selectionNameText.text = title;
 
             CreateSelections(service);
         }

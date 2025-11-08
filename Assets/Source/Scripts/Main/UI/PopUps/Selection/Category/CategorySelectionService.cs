@@ -1,15 +1,12 @@
 ﻿using System.Collections.Generic;
-using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Repositories.Categories.Base;
 
 namespace Source.Scripts.Main.UI.PopUps.Selection.Category
 {
     internal sealed class CategorySelectionService : CategorySelectionServiceBase
     {
-        internal CategorySelectionService(
-            ICategoriesRepository categoriesRepository,
-            ILocalizationKeysDatabase localizationKeysDatabase)
-            : base(categoriesRepository, localizationKeysDatabase) { }
+        internal CategorySelectionService(ICategoriesRepository categoriesRepository)
+            : base(categoriesRepository) { }
 
         internal void UpdateData()
         {

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using R3;
-using Source.Scripts.Core.Localization.Base;
-using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Core.Repositories.Categories.Category;
 
@@ -22,12 +20,9 @@ namespace Source.Scripts.Main.UI.PopUps.Selection.Category
 
         private readonly IDisposable _disposable;
 
-        protected CategorySelectionServiceBase(
-            ICategoriesRepository categoriesRepository,
-            ILocalizationKeysDatabase localizationKeysDatabase)
+        protected CategorySelectionServiceBase(ICategoriesRepository categoriesRepository)
         {
             this.categoriesRepository = categoriesRepository;
-            // _selectionTitle = localizationKeysDatabase.GetLocalization(LocalizationType.CategorySelectionName);
 
             _disposable = selectedValues
                 .Where(static values => values is { Count: > 0 })
@@ -37,8 +32,6 @@ namespace Source.Scripts.Main.UI.PopUps.Selection.Category
         protected abstract void SetCategories(List<int> selectedValues);
 
         public string GetSelectionName(int categoryId) => currentCategories[categoryId].Name;
-
-        public string GetSelectionTitle() => _selectionTitle;
 
         public void SetValue(int categoryId, bool isSelected)
         {

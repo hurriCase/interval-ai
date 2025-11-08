@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions;
-using CustomUtils.Runtime.Localization;
 using R3;
 using Source.Scripts.Core.Localization.Base;
+using Source.Scripts.Main.UI.PopUps.Selection.LocalizationData;
 
 namespace Source.Scripts.Main.UI.PopUps.Selection
 {
     internal sealed class EnumSelectionService<TEnum> : ISelectionService<TEnum>
         where TEnum : unmanaged, Enum
     {
-        private readonly ILocalizationKeysDatabase _localizationKeysDatabase;
+        private readonly EnumLocalizationDataBase _localizationData;
 
         public IReadOnlyList<TEnum> SelectionValues { get; }
         public bool IsSingleSelection => true;
@@ -19,24 +19,18 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
 
         private readonly ReactiveProperty<TEnum> _targetProperty;
 
-        private readonly LocalizationKey _selectionTitleKey;
-
         internal EnumSelectionService(
             ReactiveProperty<TEnum> targetProperty,
-            LocalizationKey selectionTitleKey,
-            ILocalizationKeysDatabase localizationKeysDatabase,
+            EnumLocalizationDataBase localizationData,
             IReadOnlyList<TEnum> customValues = null,
             EnumMode enumMode = EnumMode.SkipFirst)
         {
             SelectionValues = customValues ?? enumMode.GetEnumValues<TEnum>();
             _targetProperty = targetProperty;
-            _selectionTitleKey = selectionTitleKey;
-            _localizationKeysDatabase = localizationKeysDatabase;
+            _localizationData = localizationData;
         }
 
-        public string GetSelectionName(TEnum value) => _localizationKeysDatabase.GetLocalizationByValue(value);
-
-        public string GetSelectionTitle() => _selectionTitleKey.GetLocalization();
+        public string GetSelectionName(TEnum value) => _localizationData.GetLocalization(value);
 
         public void SetValue(TEnum value, bool isSelected)
         {
