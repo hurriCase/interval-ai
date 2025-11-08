@@ -1,30 +1,12 @@
 ﻿using System;
-using CustomUtils.Runtime.CustomTypes.Collections;
 using JetBrains.Annotations;
-using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Localization.LocalizationTypes.Date;
-using Source.Scripts.Core.Repositories.Categories.Base;
-using Source.Scripts.Core.Repositories.Words.Base;
 using UnityEngine;
 
 namespace Source.Scripts.Core.Localization.Base
 {
     internal interface ILocalizationKeysDatabase
     {
-        EnumArray<PracticeState, CompleteLocalizationData> LearningCompleteButtons { get; }
-
-        [MustUseReturnValue]
-        string GetLocalization(LocalizationType type);
-
-        [MustUseReturnValue]
-        string GetCompleteDescriptionLocalization(PracticeState practiceState, CompleteType completeType);
-
-        [MustUseReturnValue]
-        string GetLearningStateLocalization(LearningState state);
-
-        [MustUseReturnValue]
-        string GetLearningStateLocalization(CategoryType categoryType);
-
         [MustUseReturnValue]
         string GetDateLocalization(DateType dateType, int count);
 

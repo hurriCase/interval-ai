@@ -1,9 +1,9 @@
 ﻿using System;
+using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using Cysharp.Threading.Tasks;
 using R3;
-using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Localization.LocalizationTypes.Modal;
 using Source.Scripts.Core.Others.UIPools;
 using Source.Scripts.Core.Repositories.Categories.Base;
@@ -31,12 +31,14 @@ namespace Source.Scripts.Main.UI.PopUps.Category
 
         [SerializeField] private SelectionItem _wordOrderSelectionItem;
 
+        [SerializeField]
+        private EnumArray<ModalLocalizationType, ModalLocalizationData> _modalLocalizations = new(EnumMode.SkipFirst);
+
         private readonly ReactiveProperty<WordOrderType> _wordReviewSourceType = new(WordOrderType.Default);
         private CategoryEntry _currentCategoryEntry;
 
         private UIPoolWithData<WordEntry, WordItem> _wordsPool;
 
-        private ILocalizationDatabase _localizationDatabase;
         private ICategoriesRepository _categoriesRepository;
         private ICategoryStateMutator _categoryStateMutator;
         private IWindowsController _windowsController;
@@ -44,13 +46,11 @@ namespace Source.Scripts.Main.UI.PopUps.Category
 
         [Inject]
         public void Inject(
-            ILocalizationDatabase localizationDatabase,
             ICategoriesRepository categoriesRepository,
             ICategoryStateMutator categoryStateMutator,
             IWindowsController windowsController,
             IObjectResolver objectResolver)
         {
-            _localizationDatabase = localizationDatabase;
             _categoriesRepository = categoriesRepository;
             _categoryStateMutator = categoryStateMutator;
             _windowsController = windowsController;
@@ -96,7 +96,7 @@ namespace Source.Scripts.Main.UI.PopUps.Category
         private void OpenWarning(ModalLocalizationType localizationType, Action<CategoryPopUp> positiveAction)
         {
             var modalPopUp = _windowsController.OpenPopUp<ModalPopUp>();
-            var localization = _localizationDatabase.ModalLocalizations[localizationType];
+            var localization = _modalLocalizations[localizationType];
             modalPopUp.SetParameters(localization, this, positiveAction);
         }
 

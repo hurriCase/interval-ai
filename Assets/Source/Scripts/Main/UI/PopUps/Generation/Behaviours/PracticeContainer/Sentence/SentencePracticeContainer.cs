@@ -5,13 +5,11 @@ using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using CustomUtils.Runtime.UI.Theme;
 using R3;
-using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Exercises.Exercise;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using VContainer;
 
 namespace Source.Scripts.Main.UI.PopUps.Generation.Behaviours.PracticeContainer.Sentence
 {
@@ -27,15 +25,10 @@ namespace Source.Scripts.Main.UI.PopUps.Generation.Behaviours.PracticeContainer.
         [SerializeField] private EnumArray<SentencePracticeState, Sprite> _practiceImages;
         [SerializeField] private Image _practiceIcon;
 
-        private ILocalizationDatabase _localizationDatabase;
+        [SerializeField]
+        private EnumArray<SentencePracticeState, SentencePracticeData> _sentencePractices = new(EnumMode.SkipFirst);
 
         private ExerciseEntry _currentExerciseEntry;
-
-        [Inject]
-        internal void Inject(ILocalizationDatabase localizationDatabase)
-        {
-            _localizationDatabase = localizationDatabase;
-        }
 
         internal override void Init()
         {
@@ -67,7 +60,7 @@ namespace Source.Scripts.Main.UI.PopUps.Generation.Behaviours.PracticeContainer.
 
             _practiceIcon.sprite = _practiceImages[practiceState];
 
-            var practiceData = _localizationDatabase.SentencePractices[practiceState];
+            var practiceData = _sentencePractices[practiceState];
             _practiceButton.Text.text = practiceData.PracticeButtonKey.GetLocalization();
 
             _remarkText.text = practiceData.RemarkKey.GetLocalization();

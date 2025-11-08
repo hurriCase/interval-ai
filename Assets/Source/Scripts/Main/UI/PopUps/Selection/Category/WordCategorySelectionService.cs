@@ -26,7 +26,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection.Category
             _currentWordEntry = wordEntry;
         }
 
-        internal override void UpdateData()
+        internal void UpdateData()
         {
             var currentSelectionValues = categoriesRepository.CategoryEntries.CurrentValue;
             SelectionValues = currentSelectionValues.Keys.ToArray();

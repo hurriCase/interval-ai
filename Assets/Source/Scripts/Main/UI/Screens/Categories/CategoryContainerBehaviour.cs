@@ -1,13 +1,14 @@
-﻿using CustomUtils.Runtime.Extensions;
+﻿using CustomUtils.Runtime.CustomTypes.Collections;
+using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.Localization;
 using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using R3;
-using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Others.UIPools;
 using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Core.Repositories.Categories.Category;
 using Source.Scripts.Main.UI.Base;
+using Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts;
 using TMPro;
 using UnityEngine;
 using VContainer;
@@ -23,23 +24,22 @@ namespace Source.Scripts.Main.UI.Screens.Categories
         [SerializeField] private TextMeshProUGUI _titleText;
         [SerializeField] private ThemeButton _addCategoryButton;
 
+        [SerializeField] private EnumArray<CategoryType, LocalizationKey> _categoryTypes = new(EnumMode.SkipFirst);
+
         private CategoryType _currentCategoryType;
 
         private UIPoolWithData<CategoryEntry, CategoryEntryItem> _categoriesPool;
 
-        private ILocalizationKeysDatabase _localizationKeysDatabase;
         private ICategoriesRepository _categoriesRepository;
         private IWindowsController _windowsController;
         private IObjectResolver _objectResolver;
 
         [Inject]
         internal void Inject(
-            ILocalizationKeysDatabase localizationKeysDatabase,
             ICategoriesRepository categoriesRepository,
             IWindowsController windowsController,
             IObjectResolver objectResolver)
         {
-            _localizationKeysDatabase = localizationKeysDatabase;
             _categoriesRepository = categoriesRepository;
             _windowsController = windowsController;
             _objectResolver = objectResolver;
@@ -64,7 +64,7 @@ namespace Source.Scripts.Main.UI.Screens.Categories
                 .Where(this, static (entry, self) => entry.CategoryType == self._currentCategoryType)
                 .SubscribeUntilDestroy(this, static (entry, self) => self._categoriesPool.RemoveElement(entry));
 
-            LocalizationController.Language.SubscribeUntilDestroy(this, static self => self.UpdateTitleText());
+            _categoryTypes[_currentCategoryType].SubscribeToText(_titleText);
         }
 
         private void CreatePool()
@@ -83,11 +83,6 @@ namespace Source.Scripts.Main.UI.Screens.Categories
 
             _categoriesPool.EnsureCount(categoryEntries.Span);
             gameObject.SetActive(categoryEntries.Span.Length > 0);
-        }
-
-        private void UpdateTitleText()
-        {
-            _titleText.text = _localizationKeysDatabase.GetLearningStateLocalization(_currentCategoryType);
         }
     }
 }

@@ -139,6 +139,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.PopUps.Achievement.LearningStarts.ProgressDescriptionItem
   <DescriptionText>k__BackingField: {fileID: 4387270512555807967}
   <StateIndicatorImage>k__BackingField: {fileID: 1451911784154984897}
+  _progressLearningStates:
+    <Entries>k__BackingField:
+    - <Value>k__BackingField:
+        <GUID>k__BackingField: 
+    - <Value>k__BackingField:
+        <GUID>k__BackingField: 826c699d-89b6-427f-a979-299f3dab04e7
+    - <Value>k__BackingField:
+        <GUID>k__BackingField: c952b18a-8002-4770-b699-0071e858e392
+    - <Value>k__BackingField:
+        <GUID>k__BackingField: b02a36a9-519f-43ea-8d46-4d0869ce6145
+    - <Value>k__BackingField:
+        <GUID>k__BackingField: 932a49b8-fba8-499d-a965-33a9268bc96c
+    <EnumMode>k__BackingField: 2
 --- !u!1001 &6243214303274123828
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -399,6 +412,14 @@ PrefabInstance:
       propertyPath: _currentColorModifier
       value: 
       objectReference: {fileID: 5671220743193037694}
+    - target: {fileID: 5450591052864157539, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
+      propertyPath: _previousColorData.<ColorName>k__BackingField
+      value: None
+      objectReference: {fileID: 0}
+    - target: {fileID: 5450591052864157539, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
+      propertyPath: _previousColorData.<ColorType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7956387767605122308, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
     m_RemovedGameObjects: []

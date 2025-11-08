@@ -1,13 +1,11 @@
-﻿using CustomUtils.Runtime.Extensions;
-using CustomUtils.Runtime.Extensions.Observables;
-using CustomUtils.Runtime.Localization;
+﻿using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using Cysharp.Text;
-using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Core.Repositories.Words.Base.CurrentWord;
 using Source.Scripts.Main.UI.Base;
+using Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete.CompleteState;
 using Source.Scripts.Main.UI.Shared;
 using TMPro;
@@ -28,40 +26,38 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
 
         [SerializeField] private PlusMinusBehaviour _plusMinusBehaviour;
 
+        [SerializeField] private CompleteLocalizationDataTemp _completeLocalizationData;
+
         [Inject] protected IPracticeStateService practiceStateService;
         [Inject] protected IWindowsController windowsController;
 
-        [Inject] private ILocalizationKeysDatabase _localizationKeysDatabase;
         [Inject] private ICompleteServiceFactory _completeStateFactory;
         [Inject] private ICurrentWordFactory _currentWordFactory;
 
         protected ICurrentWordService currentWordService;
-        private PracticeState _currentPracticeState;
 
         internal void Init(PracticeState practiceState)
         {
-            _currentPracticeState = practiceState;
-
             currentWordService = _currentWordFactory.GetOrCreate(practiceState);
 
             _plusMinusBehaviour.Init();
 
-            LocalizationController.Language.SubscribeUntilDestroy(this, static self => self.UpdateButtonTexts());
+            _completeLocalizationData.ButtonPositive.SubscribeToText(positiveButton.Text);
+            _completeLocalizationData.ButtonNegative.SubscribeToText(negativeButton.Text);
 
             var completeStateService = _completeStateFactory.GetOrCreate(practiceState);
-            completeStateService.CompleteStates
-                .SubscribeUntilDestroy(this, static (completeType, self) => self.CheckCompleteness(completeType));
+            completeStateService.CompleteStates.SubscribeUntilDestroy(this,
+                static (completeType, self) => self.CheckCompleteness(completeType));
 
             OnInit();
         }
 
         protected abstract void OnInit();
+        protected abstract void OnCheckCompleteness(CompleteType completeType);
 
         protected void SetState(CompleteType completeType, string additionalInfo = null)
         {
-            var localization = _localizationKeysDatabase
-                .GetCompleteDescriptionLocalization(_currentPracticeState, completeType);
-
+            var localization = _completeLocalizationData.GetDescription(completeType);
             _completeText.SetTextFormat(localization, additionalInfo);
 
             _noWordsImage.SetActive(completeType == CompleteType.NoWords);
@@ -77,16 +73,6 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
             }
 
             OnCheckCompleteness(completeType);
-        }
-
-        protected abstract void OnCheckCompleteness(CompleteType completeType);
-
-        private void UpdateButtonTexts()
-        {
-            var localizationByValue = _localizationKeysDatabase.LearningCompleteButtons[_currentPracticeState];
-
-            positiveButton.Text.text = localizationByValue.ButtonPositive.GetLocalization();
-            negativeButton.Text.text = localizationByValue.ButtonNegative.GetLocalization();
         }
     }
 }

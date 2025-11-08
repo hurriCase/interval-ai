@@ -27,14 +27,13 @@ namespace Source.Scripts.Main.UI.PopUps.Selection.Category
             ILocalizationKeysDatabase localizationKeysDatabase)
         {
             this.categoriesRepository = categoriesRepository;
-            _selectionTitle = localizationKeysDatabase.GetLocalization(LocalizationType.CategorySelectionName);
+            // _selectionTitle = localizationKeysDatabase.GetLocalization(LocalizationType.CategorySelectionName);
 
             _disposable = selectedValues
                 .Where(static values => values is { Count: > 0 })
                 .Subscribe(this, static (selectedValues, self) => self.SetCategories(selectedValues));
         }
 
-        internal abstract void UpdateData();
         protected abstract void SetCategories(List<int> selectedValues);
 
         public string GetSelectionName(int categoryId) => currentCategories[categoryId].Name;

@@ -6,7 +6,7 @@ using Source.Scripts.Core.Repositories.Words.Base;
 namespace Source.Scripts.Core.Repositories.Progress
 {
     [MemoryPackable]
-    internal partial struct DailyProgress
+    internal partial struct DailyProgress : IEquatable<DailyProgress>
     {
         public DateOnly Date { get; }
         public bool GoalAchieved { get; set; }
@@ -35,5 +35,18 @@ namespace Source.Scripts.Core.Repositories.Progress
         }
 
         internal readonly int GetProgressCountData(LearningState state) => ProgressByState[state];
+
+        public readonly bool Equals(DailyProgress other) =>
+            Date.Equals(other.Date)
+            && GoalAchieved == other.GoalAchieved
+            && ProgressByState.Equals(other.ProgressByState);
+
+        public readonly override bool Equals(object obj) => obj is DailyProgress other && Equals(other);
+
+        public readonly override int GetHashCode() => HashCode.Combine(Date, GoalAchieved, ProgressByState);
+
+        public static bool operator ==(DailyProgress left, DailyProgress right) => left.Equals(right);
+
+        public static bool operator !=(DailyProgress left, DailyProgress right) => left.Equals(right) is false;
     }
 }

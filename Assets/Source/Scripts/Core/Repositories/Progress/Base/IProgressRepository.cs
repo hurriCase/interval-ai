@@ -14,6 +14,7 @@ namespace Source.Scripts.Core.Repositories.Progress.Base
         ReadOnlyReactiveProperty<int> CurrentStreak { get; }
         ReadOnlyReactiveProperty<int> BestStreak { get; }
         ReadOnlyReactiveProperty<Dictionary<DateOnly, DailyProgress>> ProgressHistory { get; }
+        ReadOnlyReactiveProperty<DailyProgress> TodayProgress { get; }
         EnumArray<PracticeState, ReadOnlyReactiveProperty<int>> LearnedWordCounts { get; }
         Observable<int> OnGoalAchieved { get; }
         ReadOnlyReactiveProperty<bool> HasDailyTarget { get; }

@@ -9,6 +9,5 @@ namespace Source.Scripts.Main.Data.Base
         EnumArray<ProgressDescriptionType, ProgressDescriptionData> Descriptions { get; }
         RandomInt LowMediumTransitionRandom { get; }
         RandomInt MediumHighTransitionRandom { get; }
-        RandomInt DefaultRandomPercent { get; }
     }
 }

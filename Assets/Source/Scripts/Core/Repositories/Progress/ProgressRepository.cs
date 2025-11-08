@@ -23,12 +23,14 @@ namespace Source.Scripts.Core.Repositories.Progress
         public ReadOnlyReactiveProperty<EnumArray<LearningState, int>> TotalCountByState => _totalCountByState.Property;
         public ReadOnlyReactiveProperty<Dictionary<DateOnly, DailyProgress>> ProgressHistory =>
             _progressHistory.Property;
+        public ReadOnlyReactiveProperty<DailyProgress> TodayProgress => _todayProgress;
 
         private readonly PersistentReactiveProperty<int> _currentStreak = new();
         private readonly PersistentReactiveProperty<int> _bestStreak = new();
         private readonly PersistentReactiveProperty<int> _newWordsDailyTarget = new();
         private readonly PersistentReactiveProperty<EnumArray<LearningState, int>> _totalCountByState = new();
         private readonly PersistentReactiveProperty<Dictionary<DateOnly, DailyProgress>> _progressHistory = new();
+        private readonly ReactiveProperty<DailyProgress> _todayProgress = new();
 
         public EnumArray<PracticeState, ReadOnlyReactiveProperty<int>> LearnedWordCounts { get; }
             = new(EnumMode.SkipFirst);
@@ -94,7 +96,19 @@ namespace Source.Scripts.Core.Repositories.Progress
 
             _disposable = Disposable.Combine(newLoginDisposable, newWordsDisposable);
 
+            SubscribeTodayProgressUpdate();
+
             CheckStreak();
+        }
+
+        private void SubscribeTodayProgressUpdate()
+        {
+            var today = DateOnly.FromDateTime(DateTime.Now);
+
+            ProgressHistory
+                .Select(today, static (progress, today) => progress.GetValueOrDefault(today, new DailyProgress(today)))
+                .DistinctUntilChanged()
+                .Subscribe(this, static (todayProgress, self) => self._todayProgress.Value = todayProgress);
         }
 
         private void ResetDailyTarget()

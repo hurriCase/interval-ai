@@ -1,12 +1,9 @@
-﻿using System;
-using CustomUtils.Runtime.Extensions;
+﻿using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.Localization;
 using CustomUtils.Runtime.UI.CustomComponents.FilledImage;
 using Cysharp.Text;
 using R3;
-using Source.Scripts.Core.Localization.Base;
-using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
@@ -26,25 +23,22 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.Progress
 
         private IProgressDescriptionsDatabase _progressDescriptionsDatabase;
         private IPracticeSettingsRepository _practiceSettingsRepository;
-        private ILocalizationKeysDatabase _localizationKeysDatabase;
         private IProgressRepository _progressRepository;
 
         [Inject]
         internal void Inject(
             IProgressDescriptionsDatabase progressDescriptionsDatabase,
             IPracticeSettingsRepository practiceSettingsRepository,
-            ILocalizationKeysDatabase localizationKeysDatabase,
             IProgressRepository progressRepository)
         {
             _progressDescriptionsDatabase = progressDescriptionsDatabase;
             _practiceSettingsRepository = practiceSettingsRepository;
-            _localizationKeysDatabase = localizationKeysDatabase;
             _progressRepository = progressRepository;
         }
 
         internal void Init()
         {
-            _progressRepository.ProgressHistory
+            _progressRepository.TodayProgress
                 .DistinctUntilChangedBy(static progress => progress)
                 .SubscribeUntilDestroy(this, static self => self.UpdateProgress());
 
@@ -53,7 +47,9 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.Progress
 
         private void UpdateProgress()
         {
-            var learnedCount = GetLearnedCount();
+            var learnedCount = _progressRepository.TodayProgress.CurrentValue
+                .GetProgressCountData(LearningState.CurrentlyLearning);
+
             var dailyGoal = Mathf.Max(1, _practiceSettingsRepository.DailyGoal.Value);
             var progressRatio = (float)learnedCount / dailyGoal;
 
@@ -61,25 +57,11 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.Progress
             UpdateDescriptionUI(learnedCount, dailyGoal);
         }
 
-        private int GetLearnedCount()
-        {
-            var progressHistory = _progressRepository.ProgressHistory.CurrentValue;
-
-            var today = DateOnly.FromDateTime(DateTime.Now);
-            var learnedCount = progressHistory.TryGetValue(today, out var dailyProgress)
-                ? Mathf.Max(0, dailyProgress.GetProgressCountData(LearningState.CurrentlyLearning))
-                : 0;
-
-            return learnedCount;
-        }
-
         private void UpdateProgressUI(float progressRatio)
         {
-            var progressPercent = Mathf.RoundToInt(progressRatio * 100);
-            var fillAmount = Mathf.Min(progressRatio, 1.0f);
-
-            _currentProgressPercentText.SetTextFormat("{0}%", progressPercent);
-            _progressComponent.fillAmount = fillAmount;
+            progressRatio = Mathf.Min(progressRatio, 1.0f);
+            _currentProgressPercentText.SetTextFormat("{0:0%}", progressRatio);
+            _progressComponent.fillAmount = progressRatio;
         }
 
         private void UpdateDescriptionUI(int learnedCount, int dailyGoal)
@@ -108,18 +90,8 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours.Progress
         private DescriptionData GetDescriptionData(ProgressDescriptionType progressType)
         {
             var description = _progressDescriptionsDatabase.Descriptions[progressType];
-            var localizations = description.ProgressLocalizationData;
-
-            if (localizations.Count == 0)
-                return new DescriptionData(
-                    _localizationKeysDatabase.GetLocalization(LocalizationType.ProgressTitle),
-                    _localizationKeysDatabase.GetLocalization(LocalizationType.ProgressDescription),
-                    _progressDescriptionsDatabase.DefaultRandomPercent.RandomValue);
-
-            var randomData = localizations.Random();
-            return new DescriptionData(randomData.TitleKey.GetLocalization(),
-                randomData.ProgressDescriptionKey.GetLocalization(),
-                description.Percent.RandomValue);
+            var randomData = description.ProgressLocalizationData.Random();
+            return new DescriptionData(randomData, description.Percent.RandomValue);
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using CustomUtils.Runtime.Extensions;
+using CustomUtils.Runtime.Localization;
 using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using Cysharp.Text;
 using Source.Scripts.Core.Localization.Base;
-using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Main.UI.Base;
 using TMPro;
@@ -16,6 +16,12 @@ namespace Source.Scripts.Main.UI.Screens.Generation.Behaviours
         [SerializeField] private TextMeshProUGUI _wordPercentText;
         [SerializeField] private TextMeshProUGUI _showOnLanguageText;
         [SerializeField] private TextMeshProUGUI _isHighlightText;
+        [SerializeField] private LocalizationKey _wordPercentKey;
+        [SerializeField] private LocalizationKey _showOnLanguageKey;
+        [SerializeField] private LocalizationKey _isHighlightNewWordsKey;
+        [SerializeField] private LocalizationKey _highlightKey;
+        [SerializeField] private LocalizationKey _notHighlightKey;
+
         [SerializeField] private ThemeButton _changeSettingsButton;
 
         private IGenerationSettingsRepository _generationSettingsRepository;
@@ -52,7 +58,7 @@ namespace Source.Scripts.Main.UI.Screens.Generation.Behaviours
 
         private void SetPercentText(float percent)
         {
-            var newWordsLocalization = _localizationKeysDatabase.GetLocalization(LocalizationType.NewWordPercent);
+            var newWordsLocalization = _wordPercentKey.GetLocalization();
             _wordPercentText.SetTextFormat(newWordsLocalization, Mathf.RoundToInt(percent * 100));
         }
 
@@ -60,18 +66,16 @@ namespace Source.Scripts.Main.UI.Screens.Generation.Behaviours
         {
             var systemLanguage = _languageSettingsRepository.LanguageByType.CurrentValue[languageType];
             var languageLocalization = _localizationKeysDatabase.GetLanguageLocalization(systemLanguage);
-            var translateFromLocalization =
-                _localizationKeysDatabase.GetLocalization(LocalizationType.ShowOnLanguage);
+            var translateFromLocalization = _showOnLanguageKey.GetLocalization();
 
             _showOnLanguageText.SetTextFormat(translateFromLocalization, languageLocalization);
         }
 
         private void SetIsHighlightText(bool isHighlight)
         {
-            var highlightType = isHighlight ? LocalizationType.Highlight : LocalizationType.NotHighlight;
-            var isHighlightLocalization = _localizationKeysDatabase.GetLocalization(highlightType);
-            var isHighlightNewWordsLocalization =
-                _localizationKeysDatabase.GetLocalization(LocalizationType.IsHighlightNewWords);
+            var highlightType = isHighlight ? _highlightKey : _notHighlightKey;
+            var isHighlightLocalization = highlightType.GetLocalization();
+            var isHighlightNewWordsLocalization = _isHighlightNewWordsKey.GetLocalization();
 
             _isHighlightText.SetTextFormat(isHighlightNewWordsLocalization, isHighlightLocalization);
         }

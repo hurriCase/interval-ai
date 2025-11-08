@@ -11,7 +11,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection.Category
             ILocalizationKeysDatabase localizationKeysDatabase)
             : base(categoriesRepository, localizationKeysDatabase) { }
 
-        internal override void UpdateData()
+        internal void UpdateData()
         {
             var currentSelectionValues = categoriesRepository.GetUnselectedCategories();
             SelectionValues = currentSelectionValues.Keys.ToArray();

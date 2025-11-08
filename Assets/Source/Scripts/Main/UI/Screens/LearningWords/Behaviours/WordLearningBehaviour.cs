@@ -1,13 +1,11 @@
-﻿using System;
-using CustomUtils.Runtime.Extensions.Observables;
+﻿using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.Localization;
 using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
-using Cysharp.Text;
-using Source.Scripts.Core.Localization.Base;
-using Source.Scripts.Core.Localization.LocalizationTypes;
+using R3;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.UI.Base;
+using Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts;
 using Source.Scripts.Main.UI.Shared;
 using TMPro;
 using UnityEngine;
@@ -20,23 +18,25 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours
         [SerializeField] private ThemeButton _startPracticeButton;
 
         [SerializeField] private TextMeshProUGUI _learnGoalText;
+        [SerializeField] private LocalizationKey _learnGoalKey;
         [SerializeField] private TextMeshProUGUI _repetitionText;
+        [SerializeField] private LocalizationKey _repetitionKey;
 
         [SerializeField] private PlusMinusBehaviour _plusMinusBehaviour;
 
-        private ILocalizationKeysDatabase _localizationKeysDatabase;
         private IProgressRepository _progressRepository;
         private IWindowsController _windowsController;
+        private IWordsRepository _wordsRepository;
 
         [Inject]
         internal void Inject(
-            ILocalizationKeysDatabase localizationKeysDatabase,
             IProgressRepository progressRepository,
-            IWindowsController windowsController)
+            IWindowsController windowsController,
+            IWordsRepository wordsRepository)
         {
-            _localizationKeysDatabase = localizationKeysDatabase;
             _progressRepository = progressRepository;
             _windowsController = windowsController;
+            _wordsRepository = wordsRepository;
         }
 
         internal void Init()
@@ -46,38 +46,10 @@ namespace Source.Scripts.Main.UI.Screens.LearningWords.Behaviours
             _progressRepository.HasDailyTarget.SubscribeToInteractableUntilDestroy(_startPracticeButton);
 
             _windowsController.BindPopUpOpen(_startPracticeButton, PopUpType.WordPractice);
-
-            _progressRepository.ProgressHistory.SubscribeUntilDestroy(this, static self => self.UpdateProgressText());
-            _progressRepository.NewWordsDailyTarget
-                .SubscribeUntilDestroy(this, static self => self.UpdateWordsGoalText());
-
-            LocalizationController.Language.SubscribeUntilDestroy(this, static self =>
-            {
-                self.UpdateProgressText();
-                self.UpdateWordsGoalText();
-            });
-        }
-
-        private void UpdateProgressText()
-        {
-            var today = DateOnly.FromDateTime(DateTime.Now);
-            var progress = _progressRepository.ProgressHistory.CurrentValue;
-            var repeatableCount = progress.TryGetValue(today, out var dailyProgress)
-                ? Mathf.Max(0, dailyProgress.GetProgressCountData(LearningState.Review))
-                : 0;
-
-            _repetitionText.SetTextFormat(
-                _localizationKeysDatabase.GetLocalization(LocalizationType.RepetitionGoal),
-                repeatableCount);
-        }
-
-        private void UpdateWordsGoalText()
-        {
-            var wordsTarget = _progressRepository.NewWordsDailyTarget;
-
-            var localization = _localizationKeysDatabase.GetLocalization(LocalizationType.LearnGoal);
-
-            _learnGoalText.SetTextFormat(localization, wordsTarget);
+            _progressRepository.NewWordsDailyTarget.SubscribeToText(_learnGoalKey, _learnGoalText);
+            _wordsRepository.SortedWordsByState
+                .Select(static wordSets => wordSets[LearningState.Review].Count)
+                .SubscribeToText(_repetitionKey, _repetitionText);
         }
     }
 }

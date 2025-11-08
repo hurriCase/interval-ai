@@ -14,6 +14,5 @@ namespace Source.Scripts.Main.Data
 
         [field: SerializeField] public RandomInt LowMediumTransitionRandom { get; private set; }
         [field: SerializeField] public RandomInt MediumHighTransitionRandom { get; private set; }
-        [field: SerializeField] public RandomInt DefaultRandomPercent { get; private set; }
     }
 }
