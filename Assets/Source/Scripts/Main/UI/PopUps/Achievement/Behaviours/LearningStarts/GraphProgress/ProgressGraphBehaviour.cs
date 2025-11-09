@@ -1,12 +1,8 @@
 ﻿using CustomUtils.Runtime.CustomTypes.Collections;
-using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Extensions.Observables;
-using CustomUtils.Runtime.Localization;
 using CustomUtils.Runtime.UI.CustomComponents.Selectables.Toggles;
-using Cysharp.Text;
 using R3;
 using Source.Scripts.Core.Localization.Base;
-using Source.Scripts.Core.Localization.LocalizationTypes.Date;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Core.Repositories.Words.Base;
 using Source.Scripts.Main.Data.Base;
@@ -27,7 +23,7 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
         [SerializeField] private ToggleGroup _graphButtonsGroup;
         [SerializeField] private StateToggle _graphTypeToggle;
         [SerializeField] private ProgressColorMapping _progressColorMapping;
-        [SerializeField] private EnumArray<LearningState, ThemeLineRenderer> _graphLines = new(EnumMode.SkipFirst);
+        [SerializeField] private EnumArray<LearningState, ThemeLineRenderer> _graphLines;
 
         [SerializeField] private DateLocalizationConfig _dateLocalizationConfig;
 
@@ -80,6 +76,9 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
         {
             foreach (var (learningState, themeLineRenderer) in _graphLines.AsTuples())
             {
+                if (learningState == LearningState.Default)
+                    return;
+
                 _progressColorMapping.SetComponentForState(learningState, themeLineRenderer.ThemeComponent);
 
                 var points = displayData.NormalizedPoints[learningState];

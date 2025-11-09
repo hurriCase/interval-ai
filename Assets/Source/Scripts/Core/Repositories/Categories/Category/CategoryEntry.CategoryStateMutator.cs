@@ -1,6 +1,6 @@
 ﻿using System;
 using CustomUtils.Runtime.AddressableSystem;
-using CustomUtils.Unsafe.CustomUtils.Unsafe;
+using CustomUtils.Unsafe;
 using R3;
 using Source.Scripts.Core.Repositories.Base.Id;
 using Source.Scripts.Core.Repositories.Categories.Base;

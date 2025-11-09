@@ -2,8 +2,7 @@
 {
     internal enum ModalLocalizationType
     {
-        None = 0,
-        ResetProgress = 1,
-        DeleteCategory = 2
+        ResetProgress = 0,
+        DeleteCategory = 1
     }
 }

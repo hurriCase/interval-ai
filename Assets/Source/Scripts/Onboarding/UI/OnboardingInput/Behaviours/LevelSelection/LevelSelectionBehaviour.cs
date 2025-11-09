@@ -14,7 +14,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours.LevelSelection
         [SerializeField] private LevelSelectionItem _levelSelectionItem;
         [SerializeField] private ToggleGroup _toggleGroup;
 
-        [SerializeField] private EnumArray<LanguageLevel, LocalizationKey> _languageLevelKeys = new(EnumMode.SkipFirst);
+        [SerializeField] private EnumArray<LanguageLevel, LocalizationKey> _languageLevelKeys;
 
         private IObjectResolver _objectResolver;
 

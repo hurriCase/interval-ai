@@ -30,8 +30,11 @@ namespace Source.Scripts.Main.UI.Shared.Progress
 
         private void ApplyOutsideMonthEffect()
         {
-            foreach (var sectionData in progressSections)
-                sectionData.RoundedFilledImage.SetAlpha(_alphaForExtraDays);
+            foreach (var (learningState, sectionData) in progressSections.AsTuples())
+            {
+                if (learningState != LearningState.Default)
+                    sectionData.RoundedFilledImage.SetAlpha(_alphaForExtraDays);
+            }
 
             progressLabel.SetAlpha(_alphaForExtraDays);
         }

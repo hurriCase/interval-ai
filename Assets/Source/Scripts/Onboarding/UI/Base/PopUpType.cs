@@ -2,7 +2,6 @@
 {
     internal enum PopUpType
     {
-        None = 0,
-        Practice = 1
+        Practice = 0
     }
 }

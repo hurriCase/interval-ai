@@ -2,10 +2,9 @@
 {
     internal enum ScreenType
     {
-        None = 0,
-        Main = 1,
-        Categories = 2,
-        Generation = 3,
-        Settings = 4,
+        Main = 0,
+        Categories = 1,
+        Generation = 2,
+        Settings = 3,
     }
 }

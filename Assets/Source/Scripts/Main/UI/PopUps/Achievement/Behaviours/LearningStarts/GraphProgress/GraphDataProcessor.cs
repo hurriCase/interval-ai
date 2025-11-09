@@ -34,7 +34,7 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
 
         private EnumArray<LearningState, int[]> GetGraphDataForRange(int totalDays, int pointsCount)
         {
-            var graphData = new EnumArray<LearningState, int[]>(EnumMode.SkipFirst);
+            var graphData = new EnumArray<LearningState, int[]>();
             var daysPerSegment = (float)totalDays / pointsCount;
 
             foreach (var (state, _) in graphData.AsTuples())
@@ -68,7 +68,7 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
             EnumArray<LearningState, int[]> rawData,
             int maxProgress)
         {
-            var result = new EnumArray<LearningState, List<Vector2>>(EnumMode.SkipFirst);
+            var result = new EnumArray<LearningState, List<Vector2>>();
 
             foreach (var (state, progressData) in rawData.AsTuples())
             {

@@ -13,7 +13,7 @@ namespace Source.Scripts.Bootstrap.Core
 
         protected const string InitializationStepsPath = "Initialization Steps/";
 
-        internal virtual async UniTask Execute(int step, CancellationToken token)
+        internal async UniTask Execute(int step, CancellationToken token)
         {
             try
             {

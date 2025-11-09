@@ -14,8 +14,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
 {
     internal sealed class CardBehaviour : MonoBehaviour
     {
-        [SerializeField] private EnumArray<ModuleType, PracticeModule> _practiceModules
-            = new(EnumMode.SkipFirst);
+        [SerializeField] private EnumArray<ModuleType, PracticeModule> _practiceModules;
 
         [SerializeField] private GameObject _headerContainer;
         [SerializeField] private WordProgressBehaviour _wordProgressBehaviour;
@@ -50,7 +49,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
 
             var moduleStateService = _moduleStateFactory.GetOrCreate(practiceState);
             moduleStateService.CurrentModule
-                .Where(this, static (moduleType, self) => moduleType != ModuleType.None && self.WordEntry != null)
+                .Where(this, static (_, self) => self.WordEntry != null)
                 .SubscribeUntilDestroy(this, static (state, self) => self.SwitchModule(state));
         }
 

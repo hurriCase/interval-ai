@@ -32,11 +32,11 @@ namespace Source.Scripts.Core.Repositories.Progress
         private readonly PersistentReactiveProperty<Dictionary<DateOnly, DailyProgress>> _progressHistory = new();
         private readonly ReactiveProperty<DailyProgress> _todayProgress = new();
 
-        public EnumArray<PracticeState, ReadOnlyReactiveProperty<int>> LearnedWordCounts { get; }
-            = new(EnumMode.SkipFirst);
+        public ReadOnlyReactiveProperty<int> GetLearnedWordCount(PracticeState practiceState)
+            => _learnedWordCounts[practiceState];
 
         private readonly EnumArray<PracticeState, ReactiveProperty<int>> _learnedWordCounts =
-            new(static () => new ReactiveProperty<int>(), EnumMode.SkipFirst);
+            new(static () => new ReactiveProperty<int>());
 
         public ReadOnlyReactiveProperty<bool> HasDailyTarget => _hasDailyTarget;
         private readonly ReactiveProperty<bool> _hasDailyTarget = new(false);
@@ -58,13 +58,6 @@ namespace Source.Scripts.Core.Repositories.Progress
             _practiceSettingsRepository = practiceSettingsRepository;
             _statisticsRepository = statisticsRepository;
             _appConfig = appConfig;
-
-            foreach (var (practiceState, learnedCountProperty) in _learnedWordCounts.AsTuples())
-            {
-                var learnedWordCounts = LearnedWordCounts;
-                learnedWordCounts[practiceState] = learnedCountProperty;
-                LearnedWordCounts = learnedWordCounts;
-            }
         }
 
         public async UniTask InitAsync(CancellationToken token)
@@ -74,11 +67,8 @@ namespace Source.Scripts.Core.Repositories.Progress
                 _currentStreak.InitAsync(PersistentKeys.CurrentStreakKey, token),
                 _bestStreak.InitAsync(PersistentKeys.BestStreakKey, token),
                 _newWordsDailyTarget.InitAsync(PersistentKeys.NewWordsDailyTargetKey, token),
-
-                _totalCountByState.InitAsync(
-                    PersistentKeys.TotalCountByStateKey,
-                    token,
-                    new EnumArray<LearningState, int>(EnumMode.SkipFirst)),
+                _totalCountByState.InitAsync(PersistentKeys.TotalCountByStateKey, token,
+                    new EnumArray<LearningState, int>()),
 
                 _progressHistory.InitAsync(
                     PersistentKeys.ProgressHistoryKey,

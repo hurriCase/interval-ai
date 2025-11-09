@@ -2,7 +2,7 @@
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Localization;
-using CustomUtils.Unsafe.CustomUtils.Unsafe;
+using CustomUtils.Unsafe;
 using UnityEngine;
 
 namespace Source.Scripts.Main.UI.PopUps.Selection.LocalizationData
@@ -11,7 +11,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection.LocalizationData
     internal abstract class GenericEnumLocalizationConfig<TEnum> : EnumLocalizationDataBase
         where TEnum : unmanaged, Enum
     {
-        [SerializeField] protected EnumArray<TEnum, LocalizationKey> localizations = new(EnumMode.SkipFirst);
+        [SerializeField] protected EnumArray<TEnum, LocalizationKey> localizations;
 
         internal override string GetLocalization<TEnumParameter>(TEnumParameter currentEnum)
         {

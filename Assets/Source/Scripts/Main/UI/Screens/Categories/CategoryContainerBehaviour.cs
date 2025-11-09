@@ -24,7 +24,7 @@ namespace Source.Scripts.Main.UI.Screens.Categories
         [SerializeField] private TextMeshProUGUI _titleText;
         [SerializeField] private ThemeButton _addCategoryButton;
 
-        [SerializeField] private EnumArray<CategoryType, LocalizationKey> _categoryTypes = new(EnumMode.SkipFirst);
+        [SerializeField] private EnumArray<CategoryType, LocalizationKey> _categoryTypes;
 
         private CategoryType _currentCategoryType;
 

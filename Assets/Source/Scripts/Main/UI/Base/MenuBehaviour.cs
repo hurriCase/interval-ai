@@ -9,7 +9,7 @@ namespace Source.Scripts.Main.UI.Base
 {
     internal sealed class MenuBehaviour : MonoBehaviour, IMenuBehaviour
     {
-        [SerializeField] private EnumArray<ScreenType, StateToggle> _menuToggles = new(EnumMode.SkipFirst);
+        [SerializeField] private EnumArray<ScreenType, StateToggle> _menuToggles;
 
         private IWindowsController _windowsController;
         private IObjectResolver _objectResolver;

@@ -2,19 +2,18 @@
 {
     internal enum PopUpType
     {
-        None = 0,
-        Achievements = 1,
-        WordPractice = 2,
+        Achievements = 0,
+        Category = 1,
+        CategoryCreation = 2,
         Chat = 3,
-        CategoryCreation = 4,
-        Category = 5,
-        Settings = 6,
-        Selection = 7,
-        WordInfo = 8,
-        WordControl = 9,
-        Modal = 10,
-        GenerationSettings = 11,
-        Generation = 12,
-        Search = 13,
+        GenerationSettings = 4,
+        Generation = 5,
+        Modal = 6,
+        Search = 7,
+        Selection = 8,
+        Settings = 9,
+        WordControl = 10,
+        WordInfo = 11,
+        WordPractice = 12
     }
 }

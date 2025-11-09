@@ -9,8 +9,7 @@ namespace Source.Scripts.Main.Data
     internal sealed class ProgressDescriptionsDatabase : ScriptableObject, IProgressDescriptionsDatabase
     {
         [field: SerializeField]
-        public EnumArray<ProgressDescriptionType, ProgressDescriptionData> Descriptions { get; private set; } =
-            new(EnumMode.SkipFirst);
+        public EnumArray<ProgressDescriptionType, ProgressDescriptionData> Descriptions { get; private set; }
 
         [field: SerializeField] public RandomInt LowMediumTransitionRandom { get; private set; }
         [field: SerializeField] public RandomInt MediumHighTransitionRandom { get; private set; }

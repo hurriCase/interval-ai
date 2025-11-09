@@ -12,8 +12,7 @@ namespace Source.Scripts.UI.Components
     [Serializable]
     internal sealed class TabsController<TEnum> where TEnum : unmanaged, Enum
     {
-        [field: SerializeField] internal EnumArray<TEnum, TabItem> Tabs { get; private set; } =
-            new(EnumMode.SkipFirst);
+        [field: SerializeField] internal EnumArray<TEnum, TabItem> Tabs { get; private set; }
 
         [SerializeField] private AnchoredPositionAnimation<TEnum> _tabAnimation;
 

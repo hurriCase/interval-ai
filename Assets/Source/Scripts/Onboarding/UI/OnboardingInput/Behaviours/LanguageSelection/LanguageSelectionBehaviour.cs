@@ -8,8 +8,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours.LanguageSelect
 {
     internal sealed class LanguageSelectionBehaviour : StepBehaviourBase
     {
-        [SerializeField] private EnumArray<LanguageType, LanguageAccordionItem> _languageAccordionItems =
-            new(EnumMode.SkipFirst);
+        [SerializeField] private EnumArray<LanguageType, LanguageAccordionItem> _languageAccordionItems;
 
         private IAppConfig _appConfig;
 

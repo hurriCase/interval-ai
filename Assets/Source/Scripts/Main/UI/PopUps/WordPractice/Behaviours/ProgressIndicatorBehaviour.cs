@@ -52,7 +52,8 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
             wordAdvanceService.CanUndo
                 .SubscribeUntilDestroy(this, static (canUndo, self) => self._previousCardButton.SetActive(canUndo));
 
-            _progressRepository.LearnedWordCounts[practiceState].SubscribePluralToText(_learnedCounts, _learnedText);
+            _progressRepository.GetLearnedWordCount(practiceState)
+                .SubscribePluralToText(_learnedCounts, _learnedText);
 
             _previousCardButton.OnClickAsObservable()
                 .Subscribe(wordAdvanceService.UndoCommand, static (unit, undo) => undo.Execute(unit))

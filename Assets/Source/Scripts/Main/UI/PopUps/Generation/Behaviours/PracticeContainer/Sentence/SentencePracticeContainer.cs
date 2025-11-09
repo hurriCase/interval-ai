@@ -25,8 +25,7 @@ namespace Source.Scripts.Main.UI.PopUps.Generation.Behaviours.PracticeContainer.
         [SerializeField] private EnumArray<SentencePracticeState, Sprite> _practiceImages;
         [SerializeField] private Image _practiceIcon;
 
-        [SerializeField]
-        private EnumArray<SentencePracticeState, SentencePracticeData> _sentencePractices = new(EnumMode.SkipFirst);
+        [SerializeField] private EnumArray<SentencePracticeState, SentencePracticeData> _sentencePractices;
 
         private ExerciseEntry _currentExerciseEntry;
 

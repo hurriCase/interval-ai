@@ -12,9 +12,7 @@ namespace Source.Scripts.Main.UI.PopUps.Generation
 {
     internal sealed class ExercisesPopUp : PopUpBase
     {
-        [SerializeField]
-        private EnumArray<ExerciseType, ExerciseContainer> _exercisesContainers = new(EnumMode.SkipFirst);
-
+        [SerializeField] private EnumArray<ExerciseType, ExerciseContainer> _exercisesContainers;
         [SerializeField] private TabsController<ExerciseType> _tabsController;
 
         internal override void Init()

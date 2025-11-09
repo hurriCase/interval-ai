@@ -13,7 +13,7 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts
         [field: SerializeField] internal TextMeshProUGUI DescriptionText { get; private set; }
         [field: SerializeField] internal ThemeComponent StateIndicatorImage { get; private set; }
 
-        [SerializeField] private EnumArray<LearningState, LocalizationKey> _progressLearningStates = new(EnumMode.SkipFirst);
+        [SerializeField] private EnumArray<LearningState, LocalizationKey> _progressLearningStates;
 
         internal void Init(LearningState state, int progress, ProgressColorMapping progressColorMapping)
         {

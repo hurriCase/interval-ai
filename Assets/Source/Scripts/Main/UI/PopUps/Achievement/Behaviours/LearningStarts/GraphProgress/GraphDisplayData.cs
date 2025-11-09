@@ -19,7 +19,6 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
         }
 
         internal static GraphDisplayData Empty
-            => new(0, new EnumArray<LearningState, List<Vector2>>(
-                static () => new List<Vector2>(), EnumMode.SkipFirst));
+            => new(0, new EnumArray<LearningState, List<Vector2>>(static () => new List<Vector2>()));
     }
 }

@@ -21,11 +21,8 @@ namespace Source.Scripts.UI.Windows.Base
         where TScreenEnum : unmanaged, Enum
         where TPopUpEnum : unmanaged, Enum
     {
-        [SerializeField]
-        private EnumArray<TScreenEnum, AssetReferenceT<GameObject>> _screenReferences = new(EnumMode.SkipFirst);
-
-        [SerializeField]
-        private EnumArray<TPopUpEnum, AssetReferenceT<GameObject>> _popUpReferences = new(EnumMode.SkipFirst);
+        [SerializeField] private EnumArray<TScreenEnum, AssetReferenceT<GameObject>> _screenReferences;
+        [SerializeField] private EnumArray<TPopUpEnum, AssetReferenceT<GameObject>> _popUpReferences;
 
         [SerializeField] private Transform _screensContainer;
         [SerializeField] private Transform _popUpsContainer;
@@ -34,8 +31,8 @@ namespace Source.Scripts.UI.Windows.Base
         private readonly ReactiveProperty<TScreenEnum> _currentScreenType = new();
         public TPopUpEnum CurrentPopUpType { get; private set; }
 
-        private EnumArray<TScreenEnum, ScreenBase> _createdScreens = new(EnumMode.SkipFirst);
-        private EnumArray<TPopUpEnum, PopUpBase> _createdPopUps = new(EnumMode.SkipFirst);
+        private readonly EnumArray<TScreenEnum, ScreenBase> _createdScreens = new();
+        private readonly EnumArray<TPopUpEnum, PopUpBase> _createdPopUps = new();
         private readonly Stack<PopUpBase> _previousOpenedPopUps = new();
 
         private PopUpBase _currentOpenedPopUp;

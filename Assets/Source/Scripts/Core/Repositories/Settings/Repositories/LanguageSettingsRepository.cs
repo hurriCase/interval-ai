@@ -21,7 +21,7 @@ namespace Source.Scripts.Core.Repositories.Settings.Repositories
         public PersistentReactiveProperty<LanguageType> CardReviewLanguageType { get; } = new();
 
         public EnumArray<LanguageType, ReactiveProperty<SystemLanguage>> LanguageProperties { get; }
-            = new(static () => new ReactiveProperty<SystemLanguage>(), EnumMode.SkipFirst);
+            = new(static () => new ReactiveProperty<SystemLanguage>());
 
         public ReadOnlyReactiveProperty<EnumArray<LanguageType, SystemLanguage>> LanguageByType
             => _languageByType.Property;
@@ -87,19 +87,18 @@ namespace Source.Scripts.Core.Repositories.Settings.Repositories
 
         public void SetLanguage(SystemLanguage newLanguage, LanguageType requestedLanguageType)
         {
-            var currentLanguages = _languageByType.Value;
             var oppositeLanguageType = requestedLanguageType == LanguageType.Native
                 ? LanguageType.Learning
                 : LanguageType.Native;
 
-            if (currentLanguages[oppositeLanguageType] == newLanguage)
+            if (_languageByType.Value[oppositeLanguageType] == newLanguage)
             {
-                var previousRequestedLanguage = currentLanguages[requestedLanguageType];
-                currentLanguages[oppositeLanguageType] = previousRequestedLanguage;
+                var previousRequestedLanguage = _languageByType.Value[requestedLanguageType];
+                _languageByType.Value[oppositeLanguageType] = previousRequestedLanguage;
             }
 
-            currentLanguages[requestedLanguageType] = newLanguage;
-            _languageByType.Property.OnNext(currentLanguages);
+            _languageByType.Value[requestedLanguageType] = newLanguage;
+            _languageByType.Property.OnNext(_languageByType.Value);
         }
 
         public SystemLanguage GetOppositeLanguage(SystemLanguage language)
@@ -115,7 +114,7 @@ namespace Source.Scripts.Core.Repositories.Settings.Repositories
                 ? _defaultSettingsConfig.NativeLanguage
                 : _defaultSettingsConfig.LearningLanguage;
 
-            var defaultLanguages = new EnumArray<LanguageType, SystemLanguage>(EnumMode.SkipFirst)
+            var defaultLanguages = new EnumArray<LanguageType, SystemLanguage>
             {
                 [LanguageType.Native] = nativeLanguage,
                 [LanguageType.Learning] = learningLanguage

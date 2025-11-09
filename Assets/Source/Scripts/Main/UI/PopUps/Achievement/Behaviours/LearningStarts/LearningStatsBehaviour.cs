@@ -15,8 +15,7 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts
         [SerializeField] private ProgressColorMapping _progressColorMapping;
         [SerializeField] private ProgressItem _totalProgressItem;
 
-        [SerializeField] private EnumArray<LearningState, ProgressDescriptionItem> _progressDescriptionItems =
-            new(EnumMode.SkipFirst);
+        [SerializeField] private EnumArray<LearningState, ProgressDescriptionItem> _progressDescriptionItems;
 
         private IProgressRepository _progressRepository;
 
@@ -39,8 +38,11 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts
             var totalWords = totalCountByState.Entries.Sum(static entry => entry.Value).ToString();
             _totalProgressItem.Init(totalCountByState, totalWords);
 
-            foreach (var (state, progressItem) in _progressDescriptionItems.AsTuples())
-                progressItem.Init(state, totalCountByState[state], _progressColorMapping);
+            foreach (var (learningState, progressItem) in _progressDescriptionItems.AsTuples())
+            {
+                if (learningState != LearningState.Default)
+                    progressItem.Init(learningState, totalCountByState[learningState], _progressColorMapping);
+            }
         }
     }
 }

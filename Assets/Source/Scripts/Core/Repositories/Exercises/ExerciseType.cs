@@ -2,8 +2,7 @@
 {
     internal enum ExerciseType
     {
-        None = 0,
-        Sentences = 1,
-        Texts = 2
+        Sentences = 0,
+        Texts = 1
     }
 }

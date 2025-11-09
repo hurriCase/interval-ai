@@ -71,9 +71,10 @@ namespace Source.Scripts.Bootstrap.Core
 
         private void LogStepCompletion(StepData stepData)
         {
-            Debug.Log(ZString.Format(
-                "[StartUpService::LogStepCompletion] Step {0} completed: {1}",
-                stepData.Step, stepData.StepName));
+            var message = ZString.Format("[EntryPoint::LogStepCompletion] Step {0} completed: {1}",
+                stepData.Step, stepData.StepName);
+
+            Debug.Log(message);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace Source.Scripts.Core.Repositories.Progress
         {
             Date = date;
             GoalAchieved = false;
-            ProgressByState = new EnumArray<LearningState, int>(EnumMode.SkipFirst);
+            ProgressByState = new EnumArray<LearningState, int>();
         }
 
         internal void AddProgress(LearningState state)

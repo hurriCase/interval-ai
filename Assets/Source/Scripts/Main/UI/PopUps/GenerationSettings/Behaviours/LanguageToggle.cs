@@ -1,7 +1,6 @@
 ﻿using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.UI.CustomComponents.Selectables.Toggles;
 using R3;
-using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using Source.Scripts.Main.UI.PopUps.Selection.LocalizationData;
 using UnityEngine;

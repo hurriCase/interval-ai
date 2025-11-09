@@ -55,7 +55,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
             if (CompleteType.Complete != completeType)
                 return;
 
-            var learnedCount = _progressRepository.LearnedWordCounts[PracticeState.NewWords].ToString();
+            var learnedCount = _progressRepository.GetLearnedWordCount(PracticeState.NewWords).ToString();
             SetState(completeType, learnedCount);
         }
 

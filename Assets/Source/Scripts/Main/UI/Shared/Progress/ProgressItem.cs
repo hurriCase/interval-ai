@@ -10,7 +10,7 @@ namespace Source.Scripts.Main.UI.Shared.Progress
     {
         [SerializeField] protected TextMeshProUGUI progressLabel;
         [SerializeField] private ProgressColorMapping _progressColorMapping;
-        [SerializeField] protected EnumArray<LearningState, ProgressSectionItem> progressSections = new(EnumMode.SkipFirst);
+        [SerializeField] protected EnumArray<LearningState, ProgressSectionItem> progressSections;
 
         [SerializeField] private GameObject _activeProgress;
         [SerializeField] private GameObject _inactiveProgress;

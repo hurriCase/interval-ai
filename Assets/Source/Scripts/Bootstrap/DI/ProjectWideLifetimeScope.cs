@@ -10,7 +10,6 @@ using Source.Scripts.Core.Audio.TextToSpeech;
 using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.GenerativeLanguage;
 using Source.Scripts.Core.Input;
-using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Core.Localization.LanguageDetector;
 using Source.Scripts.Core.Localization.Translator;
 using Source.Scripts.Core.References;

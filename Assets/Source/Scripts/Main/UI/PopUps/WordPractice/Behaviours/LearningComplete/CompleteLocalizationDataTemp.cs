@@ -14,7 +14,6 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
 
         [field: SerializeField]
         internal EnumArray<CompleteType, LocalizationKey> DescriptionLocalizations { get; private set; }
-            = new(EnumMode.SkipFirst);
 
         internal string GetDescription(CompleteType completeType)
             => DescriptionLocalizations[completeType].GetLocalization();

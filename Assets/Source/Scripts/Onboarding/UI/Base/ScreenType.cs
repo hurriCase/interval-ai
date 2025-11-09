@@ -2,7 +2,6 @@
 {
     internal enum ScreenType
     {
-        None = 0,
-        Input = 1
+        Input = 0
     }
 }

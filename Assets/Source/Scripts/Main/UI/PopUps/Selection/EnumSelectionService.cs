@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using CustomUtils.Runtime.CustomTypes.Collections;
-using CustomUtils.Runtime.Extensions;
 using R3;
-using Source.Scripts.Core.Localization.Base;
 using Source.Scripts.Main.UI.PopUps.Selection.LocalizationData;
 
 namespace Source.Scripts.Main.UI.PopUps.Selection
@@ -22,10 +19,9 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
         internal EnumSelectionService(
             ReactiveProperty<TEnum> targetProperty,
             EnumLocalizationDataBase localizationData,
-            IReadOnlyList<TEnum> customValues = null,
-            EnumMode enumMode = EnumMode.SkipFirst)
+            IReadOnlyList<TEnum> customValues = null)
         {
-            SelectionValues = customValues ?? enumMode.GetEnumValues<TEnum>();
+            SelectionValues = customValues ?? (TEnum[])Enum.GetValues(typeof(TEnum));
             _targetProperty = targetProperty;
             _localizationData = localizationData;
         }

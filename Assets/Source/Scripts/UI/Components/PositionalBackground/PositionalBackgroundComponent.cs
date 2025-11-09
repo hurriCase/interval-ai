@@ -9,7 +9,7 @@ namespace Source.Scripts.UI.Components.PositionalBackground
     internal sealed class PositionalBackgroundComponent : MonoBehaviour
     {
         [SerializeField] private PositionType _position;
-        [SerializeField] private EnumArray<PositionType, Sprite> _positionSprites = new(EnumMode.SkipFirst);
+        [SerializeField] private EnumArray<PositionType, Sprite> _positionSprites;
 
         [SerializeField, Self] private Image _image;
 

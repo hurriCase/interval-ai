@@ -10,8 +10,7 @@ namespace Source.Scripts.Main.UI.PopUps.GenerationSettings.Behaviours
 {
     internal sealed class LanguageSettingBehaviour : MonoBehaviour
     {
-        [field: SerializeField] internal EnumArray<LanguageType, LanguageToggle> Toggles { get; private set; } =
-            new(EnumMode.SkipFirst);
+        [field: SerializeField] internal EnumArray<LanguageType, LanguageToggle> Toggles { get; private set; }
         [field: SerializeField] internal AnchoredPositionAnimation<LanguageType> PositionAnimation { get; private set; }
 
         [SerializeField] private LanguageLocalizationConfig _languageLocalizationConfig;

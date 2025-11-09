@@ -2,8 +2,7 @@
 {
     internal enum LanguageType
     {
-        None = 0,
-        Native = 1,
-        Learning = 2
+        Native = 0,
+        Learning = 1
     }
 }

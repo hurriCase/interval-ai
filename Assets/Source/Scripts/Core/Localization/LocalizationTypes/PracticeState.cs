@@ -2,8 +2,7 @@
 {
     internal enum PracticeState
     {
-        None = 0,
-        NewWords = 1,
-        Review = 2
+        NewWords = 0,
+        Review = 1
     }
 }

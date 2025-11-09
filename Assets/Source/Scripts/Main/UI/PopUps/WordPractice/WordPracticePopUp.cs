@@ -14,9 +14,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice
 {
     internal sealed class WordPracticePopUp : PopUpBase
     {
-        [SerializeField]
-        private EnumArray<PracticeState, PracticeBehaviour> _practiceBehaviours = new(EnumMode.SkipFirst);
-
+        [SerializeField] private EnumArray<PracticeState, PracticeBehaviour> _practiceBehaviours;
         [SerializeField] private TabsController<PracticeState> _tabsController;
 
         private IPracticeStateService _practiceStateService;

@@ -44,7 +44,7 @@ namespace Source.Scripts.Core.Repositories.Exercises
 
         private EnumArray<ExerciseType, Dictionary<int, ExerciseEntry>> CrateDefaultExercises()
         {
-            var exercises = new EnumArray<ExerciseType, Dictionary<int, ExerciseEntry>>(EnumMode.SkipFirst)
+            var exercises = new EnumArray<ExerciseType, Dictionary<int, ExerciseEntry>>
             {
                 [ExerciseType.Sentences] = _idHandler.GenerateWithIds(_defaultSentencesDatabase.Defaults),
                 [ExerciseType.Texts] = _idHandler.GenerateWithIds(_defaultTextsDatabase.Defaults)

@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using VContainer;
 
 namespace Source.Scripts.Main.UI.PopUps.Selection.LocalizationData
 {

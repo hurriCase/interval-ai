@@ -31,8 +31,7 @@ namespace Source.Scripts.Main.UI.PopUps.Category
 
         [SerializeField] private SelectionItem _wordOrderSelectionItem;
 
-        [SerializeField]
-        private EnumArray<ModalLocalizationType, ModalLocalizationData> _modalLocalizations = new(EnumMode.SkipFirst);
+        [SerializeField] private EnumArray<ModalLocalizationType, ModalLocalizationData> _modalLocalizations;
 
         private readonly ReactiveProperty<WordOrderType> _wordReviewSourceType = new(WordOrderType.Default);
         private CategoryEntry _currentCategoryEntry;
