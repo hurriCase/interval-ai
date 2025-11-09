@@ -20,11 +20,9 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours
         [SerializeField] private ThemeButton _nextMonthButton;
         [SerializeField] private CalendarProgress[] _calendarProgress = new CalendarProgress[DaysInCalendar];
 
-        private const int MonthsInYear = 12;
         private const int DaysInCalendar = 42;
 
-        private int _currentYear;
-        private int _currentMonth;
+        private DateTime _currentDate = DateTime.Now;
 
         private IDateProgressService _dateProgressService;
         private IUISettingsRepository _uiSettingsRepository;
@@ -40,28 +38,27 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours
         {
             _weekDaysBehaviour.Init();
 
-            var now = DateTime.Now;
-            _currentYear = now.Year;
-            _currentMonth = now.Month;
-
             UpdateCalendarDisplay();
 
             _previousMonthButton.OnClickAsObservable()
-                .SubscribeUntilDestroy(this, static self => self.GoToPreviousMonth());
+                .Do(this, static self => self._currentDate = self._currentDate.AddMonths(-1))
+                .SubscribeUntilDestroy(this, static self => self.UpdateCalendarDisplay());
 
-            _nextMonthButton.OnClickAsObservable().SubscribeUntilDestroy(this, static self => self.GoToNextMonth());
+            _nextMonthButton.OnClickAsObservable()
+                .Do(this, static self => self._currentDate = self._currentDate.AddMonths(1))
+                .SubscribeUntilDestroy(this, static self => self.UpdateCalendarDisplay());
         }
 
         private void UpdateCalendarDisplay()
         {
             var now = DateTime.Now;
-            _nextMonthButton.interactable = _currentMonth != now.Month || _currentYear != now.Year;
+            _nextMonthButton.interactable = _currentDate.Month != now.Month || _currentDate.Year != now.Year;
 
             var (monthData, isInMonth) =
-                _dateProgressService.GetMonthWeeks(_currentYear, _currentMonth);
+                _dateProgressService.GetMonthWeeks(_currentDate.Year, _currentDate.Month);
 
-            _currentMonthText.text =
-                _uiSettingsRepository.CurrentCulture.Value.DateTimeFormat.GetMonthName(_currentMonth);
+            _currentMonthText.text = _uiSettingsRepository.CurrentCulture.Value.DateTimeFormat
+                .GetMonthName(_currentDate.Month);
 
             for (var day = 0; day < DaysInCalendar; day++)
             {
@@ -71,30 +68,6 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours
 
                 _calendarProgress[day].Init(dailyProgress.ProgressByState, dayText, isOutsideMonth);
             }
-        }
-
-        private void GoToPreviousMonth()
-        {
-            _currentMonth--;
-            if (_currentMonth < 1)
-            {
-                _currentMonth = MonthsInYear;
-                _currentYear--;
-            }
-
-            UpdateCalendarDisplay();
-        }
-
-        private void GoToNextMonth()
-        {
-            _currentMonth++;
-            if (_currentMonth > MonthsInYear)
-            {
-                _currentMonth = 1;
-                _currentYear++;
-            }
-
-            UpdateCalendarDisplay();
         }
     }
 }
