@@ -10,34 +10,39 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
 {
     internal sealed class GraphDataProcessor : IGraphDataProcessor
     {
+        public int MaxProgress { get; private set; }
+        public EnumArray<LearningState, List<Vector2>> NormalizedPoints { get; } = new(new List<Vector2>());
+
         private const int GraphRangeExpansion = 1;
 
         private readonly IDateProgressService _dateProgressService;
+
+        private readonly EnumArray<LearningState, int[]> _graphData = new();
 
         internal GraphDataProcessor(IDateProgressService dateProgressService)
         {
             _dateProgressService = dateProgressService;
         }
 
-        public GraphDisplayData GetDisplayGraphData(int totalDays, int pointsCount)
+        public void GetDisplayGraphData(int totalDays, int pointsCount)
         {
-            var rawGraphData = GetGraphDataForRange(totalDays, pointsCount);
-            var maxProgress = CalculateMaxProgress(rawGraphData);
+            UpdateGraphDataForRange(totalDays, pointsCount);
+            UpdateMaxProgress();
 
-            if (maxProgress == 0)
-                return GraphDisplayData.Empty;
+            if (MaxProgress == 0)
+            {
+                NormalizedPoints.Clear();
+                return;
+            }
 
-            var normalizedData = NormalizeAllData(rawGraphData, maxProgress);
-
-            return new GraphDisplayData(maxProgress, normalizedData);
+            UpdateNormalizeAllData();
         }
 
-        private EnumArray<LearningState, int[]> GetGraphDataForRange(int totalDays, int pointsCount)
+        private void UpdateGraphDataForRange(int totalDays, int pointsCount)
         {
-            var graphData = new EnumArray<LearningState, int[]>();
             var daysPerSegment = (float)totalDays / pointsCount;
 
-            foreach (var (state, _) in graphData.AsTuples())
+            foreach (var (state, _) in _graphData.AsTuples())
             {
                 var progressData = new int[pointsCount];
 
@@ -47,44 +52,30 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
                     progressData[i] = _dateProgressService.GetProgressForRange(daysBack, duration, state);
                 }
 
-                graphData[state] = progressData;
+                _graphData[state] = progressData;
             }
-
-            return graphData;
         }
 
-        private int CalculateMaxProgress(EnumArray<LearningState, int[]> graphData)
+        private void UpdateMaxProgress()
         {
-            var maxProgress = 0;
+            MaxProgress = 0;
 
-            // ReSharper disable once ForeachCanBeConvertedToQueryUsingAnotherGetEnumerator | Due to boxing
-            foreach (var progressData in graphData)
-                maxProgress = Math.Max(maxProgress, progressData.Max());
-
-            return maxProgress;
+            // ReSharper disable once ForeachCanBeConvertedToQueryUsingAnotherGetEnumerator | To prevent boxing
+            foreach (var progressData in _graphData)
+                MaxProgress = Math.Max(MaxProgress, progressData.Max());
         }
 
-        private EnumArray<LearningState, List<Vector2>> NormalizeAllData(
-            EnumArray<LearningState, int[]> rawData,
-            int maxProgress)
+        private void UpdateNormalizeAllData()
         {
-            var result = new EnumArray<LearningState, List<Vector2>>();
-
-            foreach (var (state, progressData) in rawData.AsTuples())
+            foreach (var (state, progressData) in _graphData.AsTuples())
             {
                 var displayRange = GetDisplayRange(progressData);
-
                 if (displayRange.HasValue is false)
-                {
-                    result[state] = new List<Vector2>();
                     continue;
-                }
 
                 var (start, end) = displayRange.Value;
-                result[state] = ConvertToNormalizedPoints(progressData, start, end, maxProgress);
+                NormalizedPoints[state] = ConvertToNormalizedPoints(progressData, start, end, MaxProgress);
             }
-
-            return result;
         }
 
         private (int daysBack, int duration) CalculateSegmentRange(
@@ -112,7 +103,6 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
 
             var expandedStart = Math.Max(0, start - GraphRangeExpansion);
             var expandedEnd = Math.Min(progressData.Count - 1, end + GraphRangeExpansion);
-
             return (expandedStart, expandedEnd);
         }
 

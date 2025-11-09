@@ -63,25 +63,25 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
             var totalDays = progressRange.CalculateDayCount(_uiSettingsRepository);
             var dateTimeFormatInfo = _uiSettingsRepository.CurrentCulture.Value.DateTimeFormat;
             var pointCount = _progressGraphSettings.GraphPointsCount;
-            var displayData = _graphDataProcessor.GetDisplayGraphData(totalDays, pointCount);
+            _graphDataProcessor.GetDisplayGraphData(totalDays, pointCount);
 
             _dateLabelBehaviour.UpdateLabels(totalDays, pointCount, dateTimeFormatInfo);
 
-            _maxProgressText.text = displayData.MaxProgress.ToString();
+            _maxProgressText.text = _graphDataProcessor.MaxProgress.ToString();
 
-            RenderGraphLines(displayData);
+            RenderGraphLines();
         }
 
-        private void RenderGraphLines(GraphDisplayData displayData)
+        private void RenderGraphLines()
         {
             foreach (var (learningState, themeLineRenderer) in _graphLines.AsTuples())
             {
                 if (learningState == LearningState.Default)
-                    return;
+                    continue;
 
                 _progressColorMapping.SetComponentForState(learningState, themeLineRenderer.ThemeComponent);
 
-                var points = displayData.NormalizedPoints[learningState];
+                var points = _graphDataProcessor.NormalizedPoints[learningState];
                 themeLineRenderer.LineRenderer.SetPoints(points);
             }
         }
