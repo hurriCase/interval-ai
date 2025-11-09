@@ -45,6 +45,9 @@ namespace Source.Scripts.Main.UI.Shared.Progress
 
             foreach (var (learningState, sectionData) in progressSections.AsTuples())
             {
+                if (learningState == LearningState.Default)
+                    continue;
+
                 var progress = progresses[learningState];
                 if (progress <= 0)
                 {
