@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using CustomUtils.Runtime.Attributes;
+using CustomUtils.Runtime.Attributes.ShowIf;
 using UnityEngine;
 using UnityEngine.UI;
 
