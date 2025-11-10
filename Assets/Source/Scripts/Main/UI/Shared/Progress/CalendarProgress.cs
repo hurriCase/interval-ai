@@ -19,8 +19,7 @@ namespace Source.Scripts.Main.UI.Shared.Progress
             string labelText,
             bool isOutsideMonth = true)
         {
-            if (isOutsideMonth)
-                ApplyOutsideMonthEffect();
+            ApplyOutsideMonthEffect(isOutsideMonth);
 
             base.Init(progress, labelText, isOutsideMonth is false);
 
@@ -28,15 +27,16 @@ namespace Source.Scripts.Main.UI.Shared.Progress
             _activityMapping.SetComponentForState(dateIdentifierColorType, _progressLabelTheme);
         }
 
-        private void ApplyOutsideMonthEffect()
+        private void ApplyOutsideMonthEffect(bool isOutsideMonth = true)
         {
+            var targetAlpha = isOutsideMonth ? _alphaForExtraDays : 1;
             foreach (var (learningState, sectionData) in progressSections.AsTuples())
             {
                 if (learningState != LearningState.Default)
-                    sectionData.RoundedFilledImage.SetAlpha(_alphaForExtraDays);
+                    sectionData.RoundedFilledImage.SetAlpha(targetAlpha);
             }
 
-            progressLabel.SetAlpha(_alphaForExtraDays);
+            progressLabel.SetAlpha(targetAlpha);
         }
     }
 }
