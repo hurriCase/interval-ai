@@ -63,7 +63,7 @@ namespace Source.Scripts.Core.Repositories.Categories.Category
             {
                 var orderType = categoryEntry.WordOrderType;
 
-                if (categoryEntry.WordEntries.Count == 0 || orderType == WordOrderType.None)
+                if (categoryEntry.WordEntries.Count == 0)
                     return;
 
                 var sortRule = orderType switch

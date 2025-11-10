@@ -2,8 +2,7 @@
 {
     internal enum WordReviewSourceType
     {
-        None = 0,
-        Categories = 1,
-        All = 2
+        Categories = 0,
+        All = 1
     }
 }

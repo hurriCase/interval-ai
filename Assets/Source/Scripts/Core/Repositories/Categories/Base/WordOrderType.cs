@@ -2,12 +2,11 @@
 {
     internal enum WordOrderType
     {
-        None = 0,
-        Default = 1,
-        NewlyAdded = 2,
-        OldlyAdded = 3,
-        ByLearningState = 4,
-        Alphabetically = 5,
-        ReviewCount = 6,
+        Default = 0,
+        NewlyAdded = 1,
+        OldlyAdded = 2,
+        ByLearningState = 3,
+        Alphabetically = 4,
+        ReviewCount = 5
     }
 }
