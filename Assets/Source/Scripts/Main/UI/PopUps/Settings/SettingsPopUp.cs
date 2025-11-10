@@ -10,19 +10,19 @@ namespace Source.Scripts.Main.UI.PopUps.Settings
 {
     internal sealed class SettingsPopUp : PopUpBase
     {
-        [SerializeField] private SelectionItem _themeSelectionItem;
+        [SerializeField] private SelectionButton _themeSelection;
 
         [SerializeField] private CheckboxSettingsItem _isSendNotificationsItem;
         [SerializeField] private CheckboxSettingsItem _isShowTranscriptionItem;
         [SerializeField] private CheckboxSettingsItem _isSwipeEnabledItem;
 
-        [SerializeField] private SelectionItem _languageSelectionItem;
-        [SerializeField] private SelectionItem _nativeLanguageSelectionItem;
-        [SerializeField] private SelectionItem _learningLanguageSelectionItem;
-        [SerializeField] private SelectionItem _showFirstLanguageSelectionItem;
-        [SerializeField] private SelectionItem _cardLearnLanguageSelectionItem;
-        [SerializeField] private SelectionItem _cardReviewLanguageSelectionItem;
-        [SerializeField] private SelectionItem _wordReviewSourceSelectionItem;
+        [SerializeField] private SelectionButton _languageSelection;
+        [SerializeField] private SelectionButton _nativeLanguageSelection;
+        [SerializeField] private SelectionButton _learningLanguageSelection;
+        [SerializeField] private SelectionButton _showFirstLanguageSelection;
+        [SerializeField] private SelectionButton _cardLearnLanguageSelection;
+        [SerializeField] private SelectionButton _cardReviewLanguageSelection;
+        [SerializeField] private SelectionButton _wordReviewSourceSelection;
 
         private ILanguageSettingsRepository _languageSettingsRepository;
         private IPracticeSettingsRepository _practiceSettingsRepository;
@@ -44,7 +44,7 @@ namespace Source.Scripts.Main.UI.PopUps.Settings
 
         internal override void Init()
         {
-            _themeSelectionItem.Init(_iuiSettingsRepository.ThemeType.Property);
+            _themeSelection.Init(_iuiSettingsRepository.ThemeType.Property);
 
             _isSendNotificationsItem.Init(_iuiSettingsRepository.IsSendNotifications);
             _isShowTranscriptionItem.Init(_iuiSettingsRepository.IsShowTranscription);
@@ -52,26 +52,26 @@ namespace Source.Scripts.Main.UI.PopUps.Settings
 
             InitLanguageSelection();
 
-            _wordReviewSourceSelectionItem.Init(_practiceSettingsRepository.WordReviewSourceType.Property);
+            _wordReviewSourceSelection.Init(_practiceSettingsRepository.WordReviewSourceType.Property);
         }
 
         private void InitLanguageSelection()
         {
-            _languageSelectionItem.Init(
+            _languageSelection.Init(
                 _languageSettingsRepository.SystemLanguage.Property,
                 LocalizationRegistry.Instance.SupportedLanguages);
 
-            _nativeLanguageSelectionItem.Init(
+            _nativeLanguageSelection.Init(
                 _languageSettingsRepository.LanguageProperties[LanguageType.Native],
                 _appConfig.SupportedLanguages[LanguageType.Native]);
 
-            _learningLanguageSelectionItem.Init(
+            _learningLanguageSelection.Init(
                 _languageSettingsRepository.LanguageProperties[LanguageType.Learning],
                 _appConfig.SupportedLanguages[LanguageType.Learning]);
 
-            _showFirstLanguageSelectionItem.Init(_languageSettingsRepository.FirstShowLanguageType.Property);
-            _cardLearnLanguageSelectionItem.Init(_languageSettingsRepository.CardLearnLanguageType.Property);
-            _cardReviewLanguageSelectionItem.Init(_languageSettingsRepository.CardReviewLanguageType.Property);
+            _showFirstLanguageSelection.Init(_languageSettingsRepository.FirstShowLanguageType.Property);
+            _cardLearnLanguageSelection.Init(_languageSettingsRepository.CardLearnLanguageType.Property);
+            _cardReviewLanguageSelection.Init(_languageSettingsRepository.CardReviewLanguageType.Property);
         }
     }
 }

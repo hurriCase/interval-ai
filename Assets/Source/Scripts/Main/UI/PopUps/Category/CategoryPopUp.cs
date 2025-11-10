@@ -29,7 +29,7 @@ namespace Source.Scripts.Main.UI.PopUps.Category
         [SerializeField] private RectTransform _wordsContainer;
         [SerializeField] private WordItem _wordItem;
 
-        [SerializeField] private SelectionItem _wordOrderSelectionItem;
+        [SerializeField] private SelectionButton _wordOrderSelection;
 
         [SerializeField] private EnumArray<ModalLocalizationType, ModalLocalizationData> _modalLocalizations;
 
@@ -89,7 +89,7 @@ namespace Source.Scripts.Main.UI.PopUps.Category
                 .Where(this, static self => self._currentCategoryEntry != null)
                 .SubscribeUntilDestroy(this, static (newOrder, self) => self.ReorderWordItems(newOrder));
 
-            _wordOrderSelectionItem.Init(_wordReviewSourceType);
+            _wordOrderSelection.Init(_wordReviewSourceType);
         }
 
         private void OpenWarning(ModalLocalizationType localizationType, Action<CategoryPopUp> positiveAction)

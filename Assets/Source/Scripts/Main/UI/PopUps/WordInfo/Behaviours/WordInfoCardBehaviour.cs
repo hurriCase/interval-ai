@@ -66,7 +66,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours
             _wordCategorySelectionService.UpdateWord(_currentWordEntry);
             _wordCategorySelectionService.UpdateData();
 
-            var selectionPopUp = _windowsController.OpenPopUp<SelectionPopUp>();
+            var selectionPopUp = _windowsController.OpenPopUp<CategorySelectionPopUp>();
             selectionPopUp.SetParameters(_wordCategorySelectionService, _categorySelectionTitleKey.GetLocalization());
         }
 

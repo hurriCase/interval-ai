@@ -14,7 +14,7 @@ using VContainer;
 
 namespace Source.Scripts.Main.UI.PopUps.Selection
 {
-    internal sealed class SelectionItem : MonoBehaviour
+    internal sealed class SelectionButton : MonoBehaviour
     {
         [SerializeField] private ThemeButton _buttonComponent;
         [SerializeField] private TextMeshProUGUI _selectionNameText;
@@ -63,7 +63,7 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
 
         private void OpenPopup<T>(ISelectionService<T> selectionService)
         {
-            var selectionPopUp = _windowsController.OpenPopUp<SelectionPopUp>();
+            var selectionPopUp = _windowsController.OpenPopUp<EnumSelectionPopUp>();
             selectionPopUp.SetParameters(selectionService, _titleLocalizationKey.GetLocalization());
         }
     }

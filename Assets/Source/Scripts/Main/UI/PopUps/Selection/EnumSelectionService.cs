@@ -11,7 +11,6 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
         private readonly EnumLocalizationDataBase _localizationData;
 
         public IReadOnlyList<TEnum> SelectionValues { get; }
-        public bool IsSingleSelection => true;
         public ReadOnlyReactiveProperty<TEnum> TargetProperty => _targetProperty;
 
         private readonly ReactiveProperty<TEnum> _targetProperty;

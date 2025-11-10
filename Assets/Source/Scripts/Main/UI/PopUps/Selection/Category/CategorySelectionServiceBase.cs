@@ -11,7 +11,6 @@ namespace Source.Scripts.Main.UI.PopUps.Selection.Category
         protected readonly ICategoriesRepository categoriesRepository;
 
         public IReadOnlyList<int> SelectionValues { get; protected set; }
-        public bool IsSingleSelection => false;
 
         protected readonly ReactiveProperty<List<int>> selectedValues = new();
         protected Dictionary<int, CategoryEntry> currentCategories;

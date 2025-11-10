@@ -114,41 +114,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7208016899348824345, guid: 76b86b34186d9c14090583d83216be7d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 9174071700348957477}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 719517887523553123, guid: 76b86b34186d9c14090583d83216be7d, type: 3}
-      insertIndex: 1
-      addedObject: {fileID: 7529344434287950454}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76b86b34186d9c14090583d83216be7d, type: 3}
---- !u!114 &1208870504203787080 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7020229796410795283, guid: 76b86b34186d9c14090583d83216be7d, type: 3}
-  m_PrefabInstance: {fileID: 8190385945890930267}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a2fd26093214446a4fdc024d3545f07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons.ThemeButton
 --- !u!224 &1558841069932461890 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7208016899348824345, guid: 76b86b34186d9c14090583d83216be7d, type: 3}
-  m_PrefabInstance: {fileID: 8190385945890930267}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &3927514874881282901 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5128277708848147726, guid: 76b86b34186d9c14090583d83216be7d, type: 3}
-  m_PrefabInstance: {fileID: 8190385945890930267}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8671159000526438712}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57f3b9360d61463a8ab2fa47a8210b92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Windows.Base.PopUpVisibilityHandler
---- !u!225 &3973875911763432411 stripped
-CanvasGroup:
-  m_CorrespondingSourceObject: {fileID: 5083459562150440320, guid: 76b86b34186d9c14090583d83216be7d, type: 3}
   m_PrefabInstance: {fileID: 8190385945890930267}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &8554950163071421750 stripped
@@ -162,37 +132,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &8671159000526438712 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 719517887523553123, guid: 76b86b34186d9c14090583d83216be7d, type: 3}
-  m_PrefabInstance: {fileID: 8190385945890930267}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &7529344434287950454
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8671159000526438712}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cdce7dc3ff743abb2967c347022342e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.PopUps.Selection.SelectionPopUp
-  canvasGroup: {fileID: 3973875911763432411}
-  <IsSingle>k__BackingField: 0
-  _popUpVisibilityHandler: {fileID: 3927514874881282901}
-  _closeButton: {fileID: 1208870504203787080}
-  _selectionNameText: {fileID: 3793256062259673432}
-  _selectionsContainer: {fileID: 9174071700348957477}
-  _selectionItem: {fileID: 9204254458164522066, guid: cebc2d65bdf9d5a49bb2838b9bac56ef, type: 3}
-  _selectionToggleGroup: {fileID: 5071721923386892953}
-  _pivotAnimation:
-    states:
-      <Entries>k__BackingField:
-      - <Value>k__BackingField: {fileID: 11400000, guid: 5ec9342a3e0934646814e95a27250e53, type: 2}
-      - <Value>k__BackingField: {fileID: 11400000, guid: a5c62a5c41f4f9f478b243e125e2a60c, type: 2}
-    _target: {fileID: 9174071700348957477}
 --- !u!1001 &8901819075813164159
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -343,17 +282,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ToggleGroup
   m_AllowSwitchOff: 0
---- !u!114 &3793256062259673432 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5705435121225989415, guid: 671002d8e4942e34082daef267dc35fe, type: 3}
-  m_PrefabInstance: {fileID: 8901819075813164159}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &9174071700348957477 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 349386123285411674, guid: 671002d8e4942e34082daef267dc35fe, type: 3}

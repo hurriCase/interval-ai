@@ -88,7 +88,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordControl
             _wordCategorySelectionService.UpdateWord(_currentWordEntry);
             _wordCategorySelectionService.UpdateData();
 
-            var selectionPopUp = _windowsController.OpenPopUp<SelectionPopUp>();
+            var selectionPopUp = _windowsController.OpenPopUp<EnumSelectionPopUp>();
             selectionPopUp.SetParameters(_wordCategorySelectionService, _categorySelectionTitleKey.GetLocalization());
         }
     }

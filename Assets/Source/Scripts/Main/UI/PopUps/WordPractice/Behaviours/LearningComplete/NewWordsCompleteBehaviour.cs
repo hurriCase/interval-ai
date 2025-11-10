@@ -63,7 +63,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete
         {
             _categorySelectionService.UpdateData();
 
-            var selectionPopUp = windowsController.OpenPopUp<SelectionPopUp>();
+            var selectionPopUp = windowsController.OpenPopUp<CategorySelectionPopUp>();
             selectionPopUp.SetParameters(_categorySelectionService, _categorySelectionTitleKey.GetLocalization());
             selectionPopUp.OnPopUpHidden.SubscribeUntilDestroy(this, static self => self.UpdateCurrentWord());
         }
