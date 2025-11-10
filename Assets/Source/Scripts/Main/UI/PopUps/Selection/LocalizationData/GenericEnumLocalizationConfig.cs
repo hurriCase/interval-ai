@@ -11,12 +11,12 @@ namespace Source.Scripts.Main.UI.PopUps.Selection.LocalizationData
     internal abstract class GenericEnumLocalizationConfig<TEnum> : EnumLocalizationDataBase
         where TEnum : unmanaged, Enum
     {
-        [SerializeField] protected EnumArray<TEnum, LocalizationKey> localizations;
+        [SerializeField] private EnumArray<TEnum, LocalizationKey> _localizations;
 
         internal override string GetLocalization<TEnumParameter>(TEnumParameter currentEnum)
         {
             var enumValue = UnsafeEnumConverter<TEnumParameter>.ToInt32(currentEnum);
-            return localizations[enumValue].GetLocalization();
+            return _localizations[enumValue].GetLocalization();
         }
     }
 }

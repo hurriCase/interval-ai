@@ -16,7 +16,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours.LevelSelection
     {
         [SerializeField] private StateToggle _stateToggle;
         [SerializeField] private Image _icon;
-        [SerializeField] private LanguageLocalizationConfig _languageLocalizationConfig;
+        [SerializeField] private LanguageKeyLocalizationConfig _languageKeyLocalizationConfig;
 
         private LanguageType _currentLanguageType;
 
@@ -44,7 +44,7 @@ namespace Source.Scripts.Onboarding.UI.OnboardingInput.Behaviours.LevelSelection
                 .Where(targetLanguage, static (language, targetLanguage) => language == targetLanguage)
                 .SubscribeUntilDestroy(this, static self => self._stateToggle.isOn = true);
 
-            _stateToggle.Text.text = _languageLocalizationConfig.GetLocalization(targetLanguage);
+            _stateToggle.Text.text = _languageKeyLocalizationConfig.GetLocalization(targetLanguage);
             _stateToggle.group = toggleGroup;
             _stateToggle.OnPointerClickAsObservable()
                 .SubscribeUntilDestroy(this, targetLanguage, static (language, self) => self.SetLanguage(language));

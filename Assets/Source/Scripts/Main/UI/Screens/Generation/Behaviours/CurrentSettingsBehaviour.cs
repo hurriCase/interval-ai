@@ -24,7 +24,7 @@ namespace Source.Scripts.Main.UI.Screens.Generation.Behaviours
 
         [SerializeField] private ThemeButton _changeSettingsButton;
 
-        [SerializeField] private LanguageLocalizationConfig _languageLocalizationConfig;
+        [SerializeField] private LanguageKeyLocalizationConfig _languageKeyLocalizationConfig;
 
         private IGenerationSettingsRepository _generationSettingsRepository;
         private ILanguageSettingsRepository _languageSettingsRepository;
@@ -64,7 +64,7 @@ namespace Source.Scripts.Main.UI.Screens.Generation.Behaviours
         private void SetLanguageTypeText(LanguageType languageType)
         {
             var systemLanguage = _languageSettingsRepository.LanguageByType.CurrentValue[languageType];
-            var languageLocalization = _languageLocalizationConfig.GetLocalization(systemLanguage);
+            var languageLocalization = _languageKeyLocalizationConfig.GetLocalization(systemLanguage);
             var translateFromLocalization = _showOnLanguageKey.GetLocalization();
 
             _showOnLanguageText.SetTextFormat(translateFromLocalization, languageLocalization);

@@ -10,7 +10,7 @@ namespace Source.Scripts.Main.UI.PopUps.GenerationSettings.Behaviours
 {
     internal sealed class LanguageToggle : StateToggle
     {
-        private LanguageLocalizationConfig _languageLocalizationConfig;
+        private LanguageKeyLocalizationConfig _languageKeyLocalizationConfig;
         private LanguageType _currentLanguageType;
 
         private IGenerationSettingsRepository _generationSettingsRepository;
@@ -25,9 +25,9 @@ namespace Source.Scripts.Main.UI.PopUps.GenerationSettings.Behaviours
             _languageSettingsRepository = languageSettingsRepository;
         }
 
-        internal void Init(LanguageLocalizationConfig languageLocalizationConfig, LanguageType learningType)
+        internal void Init(LanguageKeyLocalizationConfig languageKeyLocalizationConfig, LanguageType learningType)
         {
-            _languageLocalizationConfig = languageLocalizationConfig;
+            _languageKeyLocalizationConfig = languageKeyLocalizationConfig;
             _currentLanguageType = learningType;
 
             isOn = _currentLanguageType == _generationSettingsRepository.TranslateFromLanguageType.Value;
@@ -47,7 +47,7 @@ namespace Source.Scripts.Main.UI.PopUps.GenerationSettings.Behaviours
 
         private void UpdateLanguageTypeTexts(SystemLanguage currentLanguages)
         {
-            Text.text = _languageLocalizationConfig.GetLocalization(currentLanguages);
+            Text.text = _languageKeyLocalizationConfig.GetLocalization(currentLanguages);
         }
     }
 }
