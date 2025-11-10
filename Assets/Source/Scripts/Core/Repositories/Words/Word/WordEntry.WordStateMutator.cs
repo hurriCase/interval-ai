@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CustomUtils.Runtime.Constants;
 using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
@@ -99,8 +100,7 @@ namespace Source.Scripts.Core.Repositories.Words.Word
                 if (trackCondition != targetTrackCondition)
                     return;
 
-                var today = DateOnly.FromDateTime(DateTime.Now);
-                _progressRepository.IncrementDailyProgress(word.LearningState, today);
+                _progressRepository.IncrementDailyProgress(word.LearningState, Date.Today);
             }
 
             private void HandleReview(WordEntry word, bool success)

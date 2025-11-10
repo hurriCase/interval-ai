@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using CustomUtils.Runtime.Constants;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using CustomUtils.Runtime.Storage;
 using Cysharp.Threading.Tasks;
@@ -86,19 +87,12 @@ namespace Source.Scripts.Core.Repositories.Progress
 
             _disposable = Disposable.Combine(newLoginDisposable, newWordsDisposable);
 
-            SubscribeTodayProgressUpdate();
-
-            CheckStreak();
-        }
-
-        private void SubscribeTodayProgressUpdate()
-        {
-            var today = DateOnly.FromDateTime(DateTime.Now);
-
             ProgressHistory
-                .Select(today, static (progress, today) => progress.GetValueOrDefault(today, new DailyProgress(today)))
+                .Select(static progress => progress.GetValueOrDefault(Date.Today, new DailyProgress(Date.Today)))
                 .DistinctUntilChanged()
                 .Subscribe(this, static (todayProgress, self) => self._todayProgress.Value = todayProgress);
+
+            CheckStreak();
         }
 
         private void ResetDailyTarget()
@@ -143,8 +137,7 @@ namespace Source.Scripts.Core.Repositories.Progress
                 if (requestedLearningState != learningState)
                     continue;
 
-                var today = DateOnly.FromDateTime(DateTime.Now);
-                var todayProgress = GetOrCreateDailyProgress(today);
+                var todayProgress = GetOrCreateDailyProgress(Date.Today);
                 _learnedWordCounts[practiceState].OnNext(todayProgress.ProgressByState[learningState]);
             }
         }
@@ -180,8 +173,7 @@ namespace Source.Scripts.Core.Repositories.Progress
 
         private void CheckStreak()
         {
-            var todayDate = DateOnly.FromDateTime(DateTime.Now);
-            var yesterdayDate = todayDate.AddDays(-1);
+            var yesterdayDate = Date.Today.AddDays(-1);
             _progressHistory.Value.TryGetValue(yesterdayDate, out var lastDayProgress);
 
             if (lastDayProgress.GoalAchieved is false)

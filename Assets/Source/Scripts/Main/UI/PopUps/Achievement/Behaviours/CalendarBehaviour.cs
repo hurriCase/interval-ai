@@ -1,4 +1,5 @@
 ﻿using System;
+using CustomUtils.Runtime.Constants;
 using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using R3;
@@ -18,11 +19,9 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours
         [SerializeField] private TextMeshProUGUI _currentMonthText;
         [SerializeField] private ThemeButton _previousMonthButton;
         [SerializeField] private ThemeButton _nextMonthButton;
-        [SerializeField] private CalendarProgress[] _calendarProgress = new CalendarProgress[DaysInCalendar];
+        [SerializeField] private CalendarProgress[] _calendarProgress = new CalendarProgress[Date.DaysInCalendar];
 
-        private const int DaysInCalendar = 42;
-
-        private DateTime _currentDate = DateTime.Now;
+        private DateOnly _currentDate = Date.Today;
 
         private IDateProgressService _dateProgressService;
         private IUISettingsRepository _uiSettingsRepository;
@@ -51,8 +50,8 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours
 
         private void UpdateCalendarDisplay()
         {
-            var now = DateTime.Now;
-            _nextMonthButton.interactable = _currentDate.Month != now.Month || _currentDate.Year != now.Year;
+            _nextMonthButton.interactable = _currentDate.Month != Date.Today.Month
+                                            || _currentDate.Year != Date.Today.Year;
 
             var (monthData, isInMonth) =
                 _dateProgressService.GetMonthWeeks(_currentDate.Year, _currentDate.Month);
@@ -60,7 +59,7 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours
             _currentMonthText.text = _uiSettingsRepository.CurrentCulture.Value.DateTimeFormat
                 .GetMonthName(_currentDate.Month);
 
-            for (var day = 0; day < DaysInCalendar; day++)
+            for (var day = 0; day < Date.DaysInCalendar; day++)
             {
                 var dailyProgress = monthData[day];
                 var dayText = dailyProgress.Date.Day.ToString();

@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using CustomUtils.Runtime.Constants;
 using CustomUtils.Runtime.Extensions;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using TMPro;
@@ -9,9 +10,7 @@ namespace Source.Scripts.UI.Behaviours
 {
     internal sealed class WeekLabelBehaviour : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI[] _weekDayTexts = new TextMeshProUGUI[DaysPerWeek];
-
-        private const int DaysPerWeek = 7;
+        [SerializeField] private TextMeshProUGUI[] _weekDayTexts = new TextMeshProUGUI[Date.DaysPerWeek];
 
         private IUISettingsRepository _uiSettingsRepository;
 

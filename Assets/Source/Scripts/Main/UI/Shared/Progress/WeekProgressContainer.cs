@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using CustomUtils.Runtime.Constants;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Core.Repositories.Settings.Base;
 using UnityEngine;
@@ -9,8 +10,6 @@ namespace Source.Scripts.Main.UI.Shared.Progress
     internal sealed class WeekProgressContainer : MonoBehaviour
     {
         [SerializeField] private List<ProgressItem> _progressItems;
-
-        private const int DaysPerWeek = 7;
 
         private IUISettingsRepository _uiSettingsRepository;
         private IDateProgressService _dateProgressService;
@@ -29,7 +28,7 @@ namespace Source.Scripts.Main.UI.Shared.Progress
 
             var currentWeek = _dateProgressService.GetCurrentWeek();
 
-            for (var day = 0; day < DaysPerWeek; day++)
+            for (var day = 0; day < Date.DaysPerWeek; day++)
             {
                 var dailyProgress = currentWeek[day];
                 var dayText = weekAbbreviatedNames[day];

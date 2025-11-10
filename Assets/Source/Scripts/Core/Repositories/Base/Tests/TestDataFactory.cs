@@ -1,4 +1,4 @@
-﻿using System;
+﻿using CustomUtils.Runtime.Constants;
 using CustomUtils.Runtime.CustomTypes.Collections;
 using Source.Scripts.Core.Repositories.Base.Tests.Base;
 using Source.Scripts.Core.Repositories.Progress.Base;
@@ -23,7 +23,7 @@ namespace Source.Scripts.Core.Repositories.Base.Tests
 
         public void CreateFakeProgress()
         {
-            var today = DateOnly.FromDateTime(DateTime.Now);
+            var today = Date.Today;
 
             for (var i = 0; i < _testConfig.DayCountForFakeProgress; i++)
             {

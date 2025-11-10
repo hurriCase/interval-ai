@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using CustomUtils.Runtime.Constants;
 using CustomUtils.Runtime.Storage;
 using Cysharp.Threading.Tasks;
 using R3;
@@ -34,11 +35,10 @@ namespace Source.Scripts.Core.Repositories.Statistics
 
         public void MarkNewLogin()
         {
-            var today = DateOnly.FromDateTime(DateTime.Now);
-            if (_loginHistory.Value.TryGetValue(today, out var isNewLogin) && isNewLogin)
+            if (_loginHistory.Value.TryGetValue(Date.Today, out var isNewLogin) && isNewLogin)
                 return;
 
-            _loginHistory.Value[today] = true;
+            _loginHistory.Value[Date.Today] = true;
             _loginHistory.SaveAsync();
 
             _newLogin.OnNext(Unit.Default);
