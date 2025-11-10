@@ -9,27 +9,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
 {
     internal static class GeneratedMenuItems
     {
-        [MenuItem("Scenes/Startup", priority = 1)]
-        private static void OpenSceneStartUp()
-        {
-            if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo() is false)
-                return;
-
-            var scenePath = "Assets/Source/Scenes/StartUp.unity";
-            EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Single);
-        }
-
-        [MenuItem("Scenes/Login", priority = 2)]
-        private static void OpenSceneLogin()
-        {
-            if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo() is false)
-                return;
-
-            var scenePath = "Assets/Source/Scenes/Login.unity";
-            EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Single);
-        }
-
-        [MenuItem("Scenes/Main", priority = 3)]
+        [MenuItem("Scenes/Main", priority = 1)]
         private static void OpenSceneMain()
         {
             if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo() is false)
@@ -39,7 +19,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Single);
         }
 
-        [MenuItem("Scenes/Onboarding", priority = 4)]
+        [MenuItem("Scenes/Onboarding", priority = 2)]
         private static void OpenSceneOnboarding()
         {
             if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo() is false)
@@ -49,7 +29,7 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Single);
         }
 
-        [MenuItem("Scenes/Splash", priority = 5)]
+        [MenuItem("Scenes/Splash", priority = 3)]
         private static void OpenSceneSplash()
         {
             if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo() is false)
@@ -59,45 +39,31 @@ namespace Editor_Default_Resources.CustomMenu.Scripts.Editor
             EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Single);
         }
 
-        [MenuItem("References/Default Categories Database", priority = 0)]
-        private static void SelectAssetDefaultCategoriesDatabase()
+        [MenuItem("References/Test Config", priority = 1)]
+        private static void SelectAssetTestConfig()
         {
-            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Scriptables/Databases/DefaultCategoriesDatabase.asset");
+            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Scriptables/Configs/TestConfig.asset");
             Selection.activeObject = asset;
         }
 
-        [MenuItem("References/Localization Keys Database", priority = 1)]
-        private static void SelectAssetLocalizationKeysDatabase()
+        [MenuItem("References/App Config", priority = 2)]
+        private static void SelectAssetAppConfig()
         {
-            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Scriptables/Databases/LocalizationKeysDatabase.asset");
+            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Scriptables/Configs/AppConfig.asset");
             Selection.activeObject = asset;
         }
 
-        [MenuItem("References/Progress Graph Settings", priority = 3)]
-        private static void SelectAssetProgressGraphSettings()
+        [MenuItem("References/Solid Color Database", priority = 3)]
+        private static void SelectAssetSolidColorDatabase()
         {
-            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Scriptables/Main/ProgressGraphSettings.asset");
+            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Resources/Theme/SolidColorDatabase.asset");
             Selection.activeObject = asset;
         }
 
-        [MenuItem("References/SceneReferences", priority = 4)]
-        private static void SelectAssetSceneReferences()
+        [MenuItem("References/Gradient Color Database", priority = 4)]
+        private static void SelectAssetGradientColorDatabase()
         {
-            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Scriptables/References/SceneReferences.asset");
-            Selection.activeObject = asset;
-        }
-
-        [MenuItem("References/Mappings/Calendar Text Color Mapping", priority = 1)]
-        private static void SelectAssetMapping_Activity_Calendar()
-        {
-            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Scriptables/ColorMappings/Activity/Mapping_Activity_Calendar.asset");
-            Selection.activeObject = asset;
-        }
-
-        [MenuItem("References/Mappings/Progress Color Mapping", priority = 2)]
-        private static void SelectAssetLearningState()
-        {
-            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Source/Scriptables/ColorMappings/Selectables/SolidColor/LearningState.asset");
+            var asset = AssetDatabase.LoadAssetAtPath<Object>("Assets/Resources/Theme/GradientColorDatabase.asset");
             Selection.activeObject = asset;
         }
 
