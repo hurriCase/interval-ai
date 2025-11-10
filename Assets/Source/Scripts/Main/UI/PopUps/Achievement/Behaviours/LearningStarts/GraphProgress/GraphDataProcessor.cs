@@ -31,7 +31,9 @@ namespace Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.Gr
 
             if (MaxProgress == 0)
             {
-                NormalizedPoints.Clear();
+                foreach (var normalizedPoint in NormalizedPoints)
+                    normalizedPoint.Clear();
+
                 return;
             }
 
