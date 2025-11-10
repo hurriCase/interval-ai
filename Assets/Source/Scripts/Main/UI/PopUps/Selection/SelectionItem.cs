@@ -7,6 +7,7 @@ using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using R3;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.PopUps.Selection.LocalizationData;
+using Source.Scripts.Main.UI.PopUps.Selection.PopUps;
 using TMPro;
 using UnityEngine;
 using VContainer;

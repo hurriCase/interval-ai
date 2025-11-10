@@ -6,8 +6,8 @@ using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Categories.Base;
 using Source.Scripts.Core.Repositories.Progress.Base;
 using Source.Scripts.Main.UI.Base;
-using Source.Scripts.Main.UI.PopUps.Selection;
 using Source.Scripts.Main.UI.PopUps.Selection.Category;
+using Source.Scripts.Main.UI.PopUps.Selection.PopUps;
 using UnityEngine;
 using VContainer;
 

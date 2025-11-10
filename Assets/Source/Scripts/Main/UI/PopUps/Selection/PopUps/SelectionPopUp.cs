@@ -2,14 +2,16 @@
 using CustomUtils.Runtime.UI.CustomComponents.Selectables.Toggles;
 using Cysharp.Threading.Tasks;
 using R3;
+using R3.Triggers;
 using Source.Scripts.Core.Others.UIPools;
 using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace Source.Scripts.Main.UI.PopUps.Selection
+namespace Source.Scripts.Main.UI.PopUps.Selection.PopUps
 {
     internal sealed class SelectionPopUp : PopUpBase
     {
@@ -60,10 +62,10 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
             _selectionPool.EnsureCount(selectionValues.Count);
 
             for (var i = 0; i < selectionValues.Count; i++)
-            {
                 SetSelectionItem(i, selectionValues[i], service);
-                SubscribeToChanges(i, selectionValues[i], service);
-            }
+
+            for (var i = 0; i < selectionValues.Count; i++)
+                SubscribeToSelection(i, selectionValues[i], service);
         }
 
         private void SetSelectionItem<TValue>(int index, TValue selectionValue, ISelectionService<TValue> service)
@@ -72,19 +74,42 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
 
             selectionItem.Text.text = service.GetSelectionName(selectionValue);
 
-            if (service.IsSingleSelection)
-                selectionItem.group = _selectionToggleGroup;
-
+            selectionItem.group = service.IsSingleSelection ? _selectionToggleGroup : null;
             selectionItem.isOn = service.GetSelectionState(selectionValue);
         }
 
-        private void SubscribeToChanges<TValue>(int index, TValue selectionValue, ISelectionService<TValue> service)
+        private void SubscribeToSelection<TValue>(int index, TValue selectionValue, ISelectionService<TValue> service)
         {
             var selectionItem = _selectionPool.ActiveItems[index];
 
+            if (service.IsSingleSelection)
+            {
+                SubscribeSingleSelection(selectionItem, selectionValue, service);
+                return;
+            }
+
+            SubscribeMultiSelection(selectionItem, selectionValue, service);
+        }
+
+        private void SubscribeSingleSelection<TValue>(
+            UIBehaviour selectionItem,
+            TValue selectionValue,
+            ISelectionService<TValue> service)
+        {
+            selectionItem.OnPointerClickAsObservable()
+                .Do((selectionValue, service), static (_, tuple) => tuple.service.SetValue(tuple.selectionValue, true))
+                .Subscribe(this, static (_, self) => self.HideAsync().Forget())
+                .AddTo(ref _disposableBag);
+        }
+
+        private void SubscribeMultiSelection<TValue>(
+            Toggle selectionItem,
+            TValue selectionValue,
+            ISelectionService<TValue> service)
+        {
             selectionItem.OnValueChangedAsObservable()
-                .Subscribe((selectionValue, service),
-                    static (isOn, tuple) => tuple.service.SetValue(tuple.selectionValue, isOn))
+                .Subscribe((selectionValue, service), static (isOn, tuple) =>
+                    tuple.service.SetValue(tuple.selectionValue, isOn))
                 .AddTo(ref _disposableBag);
         }
 
