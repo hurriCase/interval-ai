@@ -35,7 +35,7 @@ namespace Source.Scripts.Main.UI.Screens.Generation
             _categoryPreviewBehaviour.Init();
             _currentSettingsBehaviour.Init();
 
-            _windowsController.BindPopUpOpen(_savedGenerationsButton, PopUpType.Generation);
+            _windowsController.BindPopUpOpen(_savedGenerationsButton, PopUpType.Exercise);
             _windowsController.BindPopUpOpen(_chatButton, PopUpType.Chat);
 
             _generativeLanguage.IsAvailable.SubscribeToInteractableUntilDestroy(_chatButton);

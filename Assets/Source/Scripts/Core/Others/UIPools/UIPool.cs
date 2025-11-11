@@ -7,7 +7,7 @@ using Object = UnityEngine.Object;
 
 namespace Source.Scripts.Core.Others.UIPools
 {
-    internal sealed class UIPool<TPrefab> where TPrefab : MonoBehaviour
+    internal sealed class UIPool<TPrefab> where TPrefab : Component
     {
         internal IReadOnlyList<TPrefab> ActiveItems => _activeItems;
 

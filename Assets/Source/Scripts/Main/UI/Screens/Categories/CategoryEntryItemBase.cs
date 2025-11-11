@@ -3,6 +3,7 @@ using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.UI.CustomComponents.Selectables.Toggles;
 using R3;
 using Source.Scripts.Core.Repositories.Categories.Category;
+using Source.Scripts.Main.UI.Shared;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,7 +11,7 @@ using VContainer;
 
 namespace Source.Scripts.Main.UI.Screens.Categories
 {
-    internal abstract class CategoryEntryItemBase : MonoBehaviour
+    internal abstract class CategoryEntryItemBase : View<CategoryEntry>
     {
         [SerializeField] protected TextMeshProUGUI categoryNameText;
         [SerializeField] protected TextMeshProUGUI progressText;
@@ -23,7 +24,7 @@ namespace Source.Scripts.Main.UI.Screens.Categories
 
         protected CategoryEntry currentCategoryEntry;
 
-        internal void Init(CategoryEntry categoryEntry)
+        internal override void Init(CategoryEntry categoryEntry)
         {
             UpdateView(categoryEntry);
 
@@ -37,7 +38,7 @@ namespace Source.Scripts.Main.UI.Screens.Categories
             OnInit();
         }
 
-        internal void UpdateView(CategoryEntry categoryEntry)
+        internal override void UpdateView(CategoryEntry categoryEntry)
         {
             currentCategoryEntry = categoryEntry;
 

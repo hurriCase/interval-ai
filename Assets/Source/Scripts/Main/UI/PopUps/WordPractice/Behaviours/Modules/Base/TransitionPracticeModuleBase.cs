@@ -15,13 +15,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.Modules.Base
     {
         [SerializeField] protected TransitionData<TUIBehaviour>[] transitionData;
 
-        private IModuleStateFactory _moduleStateFactory;
-
-        [Inject]
-        internal void Inject(IModuleStateFactory moduleStateFactory)
-        {
-            _moduleStateFactory = moduleStateFactory;
-        }
+        [Inject] private IModuleStateFactory _moduleStateFactory;
 
         private PracticeState _practiceState;
 

@@ -5,6 +5,7 @@ using Source.Scripts.Main.Data;
 using Source.Scripts.Main.Data.CurrentWord;
 using Source.Scripts.Main.UI.Base;
 using Source.Scripts.Main.UI.PopUps.Achievement.Behaviours.LearningStarts.GraphProgress;
+using Source.Scripts.Main.UI.PopUps.Exercises.Behaviours.ExerciseStates;
 using Source.Scripts.Main.UI.PopUps.Selection.Category;
 using Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours.LearningComplete.CompleteState;
 using Source.Scripts.UI.Components;
@@ -40,6 +41,7 @@ namespace Source.Scripts.Main.DI
             builder.Register<ModuleServiceFactory>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<CompleteServiceFactory>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<WordAdvanceFactory>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<ExerciseStateFactory>(Lifetime.Singleton).AsImplementedInterfaces();
 
             builder.Register<WordsTimerService>(Lifetime.Singleton).AsImplementedInterfaces();
 

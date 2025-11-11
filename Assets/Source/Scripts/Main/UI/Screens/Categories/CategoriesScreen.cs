@@ -32,7 +32,7 @@ namespace Source.Scripts.Main.UI.Screens.Categories
         internal override void Init()
         {
             _windowsController.BindPopUpOpen(_addCategoryButton, PopUpType.CategoryCreation);
-            _windowsController.BindPopUpOpen(_searchBar, PopUpType.Search);
+            _windowsController.BindPopUpOpen(_searchBar, PopUpType.CategorySearch);
 
             foreach (var categoryType in Enum.GetValues(typeof(CategoryType)).OfType<CategoryType>())
             {
