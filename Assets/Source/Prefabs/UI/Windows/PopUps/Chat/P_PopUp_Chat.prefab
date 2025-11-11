@@ -431,7 +431,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0c6277a17b2403f9a8851255c83ecf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.Source.Scripts.Main.UI.Screens.Generation.Behaviours.ChatBehaviour
-  <InitialWindow>k__BackingField: 0
   canvasGroup: {fileID: 5155573268020459965}
   <IsSingle>k__BackingField: 1
   _popUpVisibilityHandler: {fileID: 5056161929465395507}
@@ -439,7 +438,7 @@ MonoBehaviour:
   _aiMessageItem: {fileID: 8376302624298031836, guid: 61802740c57eb9745a5943c35c8e8234, type: 3}
   _userMessageItem: {fileID: 389984932675882645, guid: cde830ed1f41f8a4db1e0481880b8733, type: 3}
   _contentContainer: {fileID: 7328844399980536931}
-  _messageInputField: {fileID: 3889469538311167096}
+  _messageInputField: {fileID: 2995930725640145462}
   _sendMessageButton: {fileID: 3236670445230833230}
 --- !u!114 &5056161929465395507 stripped
 MonoBehaviour:
@@ -593,6 +592,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6493676661100935006, guid: bd30fa419d691d945b5b8a6979c39d7b, type: 3}
   m_PrefabInstance: {fileID: 6009312596828343305}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2995930725640145462 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8860536399025030719, guid: bd30fa419d691d945b5b8a6979c39d7b, type: 3}
+  m_PrefabInstance: {fileID: 6009312596828343305}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TMP_InputField
 --- !u!114 &3236670445230833230 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9191753831288336967, guid: bd30fa419d691d945b5b8a6979c39d7b, type: 3}
@@ -604,14 +614,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a2fd26093214446a4fdc024d3545f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: CustomUtils::CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons.ThemeButton
---- !u!114 &3889469538311167096 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7394758888916422769, guid: bd30fa419d691d945b5b8a6979c39d7b, type: 3}
-  m_PrefabInstance: {fileID: 6009312596828343305}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44e51d0b35b6404984032de4e7537c97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Source.Scripts.UI::Source.Scripts.UI.Components.InputFieldComponent
