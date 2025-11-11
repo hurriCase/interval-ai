@@ -67,7 +67,7 @@ namespace Source.Scripts.Core.Others.UIPools
                 AddElement(data[i]);
 
             for (var i = 0; i < data.Length; i++)
-                _events.OnUpdate?.Invoke(data[i], _activeItems[i]);
+                _events.OnActivated?.Invoke(data[i], _activeItems[i]);
         }
 
         internal void EnsureCount(IReadOnlyCollection<TData> dataList)
@@ -83,7 +83,7 @@ namespace Source.Scripts.Core.Others.UIPools
             var index = 0;
             foreach (var data in dataList)
             {
-                _events.OnUpdate?.Invoke(data, _activeItems[index]);
+                _events.OnActivated?.Invoke(data, _activeItems[index]);
                 index++;
             }
         }

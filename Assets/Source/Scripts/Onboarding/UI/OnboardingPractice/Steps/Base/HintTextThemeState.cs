@@ -2,8 +2,7 @@
 {
     internal enum HintTextThemeState
     {
-        None = 0,
-        Highlight = 1,
-        Plain = 2
+        Highlight = 0,
+        Plain = 1
     }
 }

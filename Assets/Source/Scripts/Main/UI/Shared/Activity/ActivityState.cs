@@ -2,8 +2,7 @@
 {
     internal enum ActivityState
     {
-        None = 0,
-        Active = 1,
-        InActive = 2
+        Active = 0,
+        InActive = 1
     }
 }

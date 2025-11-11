@@ -2,9 +2,8 @@
 {
     internal enum DisplayType
     {
-        None = 0,
-        DayOfWeek = 1,
-        MonthWithDay = 2,
-        Month = 3
+        DayOfWeek = 0,
+        MonthWithDay = 1,
+        Month = 2
     }
 }

@@ -2,11 +2,10 @@
 {
     internal enum LanguageLevel
     {
-        None = 0,
-        Elementary = 1,
-        Base = 2,
-        BeginnerIntermediate = 3,
-        Average = 4,
-        Advanced = 5
+        Elementary = 0,
+        Base = 1,
+        BeginnerIntermediate = 2,
+        Average = 3,
+        Advanced = 4
     }
 }
