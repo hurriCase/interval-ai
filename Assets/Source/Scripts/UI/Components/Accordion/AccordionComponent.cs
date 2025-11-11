@@ -57,7 +57,7 @@ namespace Source.Scripts.UI.Components.Accordion
             {
                 var tween = animationComponent.PlayAnimation(visibilityState, isInstant);
                 if (isInstant)
-                    return;
+                    continue;
 
                 tween.OnUpdate(this, static (self, _) => self._rectTransform.MarkLayoutForRebuild());
             }
