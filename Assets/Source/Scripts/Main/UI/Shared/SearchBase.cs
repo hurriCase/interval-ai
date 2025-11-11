@@ -14,6 +14,7 @@ namespace Source.Scripts.Main.UI.Shared
         [SerializeField] private TMP_InputField _searchInputField;
         [SerializeField] private RectTransform _container;
         [SerializeField] private View<TEntry> _displayItem;
+        [SerializeField] private GameObject _nothingFoundObject;
 
         [Inject] private IObjectResolver _objectResolver;
 
@@ -23,6 +24,8 @@ namespace Source.Scripts.Main.UI.Shared
 
         internal void Init()
         {
+            _nothingFoundObject.SetActive(false);
+
             var poolEvents = new UIPoolEvents<TEntry, View<TEntry>>(
                 static (entry, view) => view.Init(entry),
                 static (entry, view) => view.UpdateView(entry));
@@ -46,6 +49,7 @@ namespace Source.Scripts.Main.UI.Shared
             if (string.IsNullOrWhiteSpace(searchText))
             {
                 _itemsPool.EnsureCount(SearchResults.Values);
+                _nothingFoundObject.SetActive(false);
                 return;
             }
 
@@ -56,6 +60,9 @@ namespace Source.Scripts.Main.UI.Shared
                 .ToArrayPool();
 
             var filteredCategoriesSpan = filteredCategories.Span;
+
+            var isNothingFound = filteredCategoriesSpan.Length == 0;
+            _nothingFoundObject.SetActive(isNothingFound);
             _itemsPool.EnsureCount(filteredCategoriesSpan);
         }
     }
