@@ -40,8 +40,6 @@ namespace Source.Scripts.Core.Others.UIPools
 
             _activeItems.Add(item);
             _activeData.Add(data);
-
-            _events.OnActivated?.Invoke(data, item);
         }
 
         internal void RemoveElement(TData data)
@@ -67,17 +65,27 @@ namespace Source.Scripts.Core.Others.UIPools
 
             for (var i = _activeItems.Count; i < data.Length; i++)
                 AddElement(data[i]);
+
+            for (var i = 0; i < data.Length; i++)
+                _events.OnUpdate?.Invoke(data[i], _activeItems[i]);
         }
 
-        internal void EnsureCount(IReadOnlyCollection<TData> data)
+        internal void EnsureCount(IReadOnlyCollection<TData> dataList)
         {
-            while (_activeItems.Count > data.Count)
+            while (_activeItems.Count > dataList.Count)
             {
                 RemoveElement(_activeData[^1]);
             }
 
-            foreach (var item in data.Skip(_activeItems.Count))
+            foreach (var item in dataList.Skip(_activeItems.Count))
                 AddElement(item);
+
+            var index = 0;
+            foreach (var data in dataList)
+            {
+                _events.OnUpdate?.Invoke(data, _activeItems[index]);
+                index++;
+            }
         }
 
         private TPrefab GetOrCreateItem(TData data)

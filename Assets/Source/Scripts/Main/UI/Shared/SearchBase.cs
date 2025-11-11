@@ -19,11 +19,15 @@ namespace Source.Scripts.Main.UI.Shared
 
         protected abstract Dictionary<int, TEntry> SearchResults { get; }
 
-        private UIPool<View<TEntry>> _itemsPool;
+        private UIPoolWithData<TEntry, View<TEntry>> _itemsPool;
 
         internal void Init()
         {
-            _itemsPool = new UIPool<View<TEntry>>(_displayItem, _container, _objectResolver);
+            var poolEvents = new UIPoolEvents<TEntry, View<TEntry>>(
+                static (entry, view) => view.Init(entry),
+                static (entry, view) => view.UpdateView(entry));
+
+            _itemsPool = new UIPoolWithData<TEntry, View<TEntry>>(_displayItem, _container, poolEvents, _objectResolver);
 
             _searchInputField.OnValueChangedAsObservable()
                 .SubscribeUntilDestroy(this, static (searchText, self) => self.UpdateSearchResults(searchText));
@@ -41,26 +45,10 @@ namespace Source.Scripts.Main.UI.Shared
         {
             if (string.IsNullOrWhiteSpace(searchText))
             {
-                ShowAllCategories();
+                _itemsPool.EnsureCount(SearchResults.Values);
                 return;
             }
 
-            UpdateCategories(searchText);
-        }
-
-        private void ShowAllCategories()
-        {
-            _itemsPool.EnsureCount(SearchResults.Count);
-            var index = 0;
-            foreach (var categoryEntry in SearchResults.Values)
-            {
-                _itemsPool.ActiveItems[index].UpdateView(categoryEntry);
-                index++;
-            }
-        }
-
-        private void UpdateCategories(string searchText)
-        {
             var lowerSearchText = searchText.ToLower();
 
             using var filteredCategories = SearchResults.Values
@@ -68,13 +56,7 @@ namespace Source.Scripts.Main.UI.Shared
                 .ToArrayPool();
 
             var filteredCategoriesSpan = filteredCategories.Span;
-            _itemsPool.EnsureCount(filteredCategoriesSpan.Length);
-
-            for (var i = 0; i < _itemsPool.ActiveItems.Count; i++)
-            {
-                var categoriesPoolActiveItem = _itemsPool.ActiveItems[i];
-                categoriesPoolActiveItem.UpdateView(filteredCategoriesSpan[i]);
-            }
+            _itemsPool.EnsureCount(filteredCategoriesSpan);
         }
     }
 }

@@ -29,7 +29,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordInfo.Behaviours
         {
             var poolEvents = new UIPoolEvents<TTranslation, AdditionalInfoItemBase<TTranslation>>(
                 onCreated: static (_, item) => item.Init(),
-                onActivated: static (translation, item) => item.UpdateView(translation));
+                onUpdate: static (translation, item) => item.UpdateView(translation));
 
             _itemsPoolWithData = new UIPoolWithData<TTranslation, AdditionalInfoItemBase<TTranslation>>(
                 _infoItem, _accordionComponent.HiddenContentContainer, poolEvents, _objectResolver);
