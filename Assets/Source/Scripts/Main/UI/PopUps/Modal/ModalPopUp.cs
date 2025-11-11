@@ -1,10 +1,12 @@
 ﻿using System;
+using CustomUtils.Runtime.Animations;
 using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
 using Cysharp.Threading.Tasks;
 using R3;
 using Source.Scripts.Core.Localization.LocalizationTypes.Modal;
+using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base;
 using TMPro;
 using UnityEngine;
@@ -19,6 +21,7 @@ namespace Source.Scripts.Main.UI.PopUps.Modal
         [SerializeField] private TextMeshProUGUI _negativeText;
         [SerializeField] private ThemeButton _positiveButton;
         [SerializeField] private ThemeButton _negativeButton;
+        [SerializeField] private AlphaAnimation<VisibilityState> _showAnimation;
 
         private IDisposable _disposable;
 
@@ -51,6 +54,22 @@ namespace Source.Scripts.Main.UI.PopUps.Modal
 
             _positiveButton.OnClickAsObservable()
                 .SubscribeUntilDestroy(this, static self => self.HideAsync().Forget());
+
+            _showAnimation.PlayAnimation(VisibilityState.Hidden, true);
+        }
+
+        internal override async UniTask ShowAsync()
+        {
+            await base.ShowAsync();
+
+            await _showAnimation.PlayAnimation(VisibilityState.Visible);
+        }
+
+        internal override async UniTask HideAsync()
+        {
+            await _showAnimation.PlayAnimation(VisibilityState.Hidden);
+
+            await base.HideAsync();
         }
     }
 }

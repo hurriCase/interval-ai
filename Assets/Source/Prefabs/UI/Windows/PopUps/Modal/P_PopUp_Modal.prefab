@@ -51,6 +51,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_Image_Procedural_Theme
       objectReference: {fileID: 0}
+    - target: {fileID: 1060531022162930841, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1240284901445995996, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
       propertyPath: currentColorName
       value: None
@@ -157,14 +161,34 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3874249658811506409, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8442070585819920478}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1060531022162930841, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 972926559133806286}
   m_SourcePrefab: {fileID: 100100000, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
+--- !u!1 &1056580239389109190 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1060531022162930841, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
+  m_PrefabInstance: {fileID: 8577812922468191}
+  m_PrefabAsset: {fileID: 0}
+--- !u!225 &972926559133806286
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1056580239389109190}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!114 &1236266626476247683 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1240284901445995996, guid: 386dfa7c1143c094a84f97b093e3ae6f, type: 3}
   m_PrefabInstance: {fileID: 8577812922468191}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1056580239389109190}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8840dbee5a42476db6edcdcd70e84c6c, type: 3}
@@ -296,7 +320,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf77996ee6174c9dbd4dd7c2614a55fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Source.Scripts.Main::Source.Scripts.Main.UI.PopUps.Modal.ModalPopUp
-  <InitialWindow>k__BackingField: 0
   canvasGroup: {fileID: 6115005488127250061}
   <IsSingle>k__BackingField: 0
   _popUpVisibilityHandler: {fileID: 6159662023750389251}
@@ -307,6 +330,12 @@ MonoBehaviour:
   _negativeText: {fileID: 728340450579977418}
   _positiveButton: {fileID: 910740243024331828}
   _negativeButton: {fileID: 6512539404993655227}
+  _showAnimation:
+    states:
+      <Entries>k__BackingField:
+      - <Value>k__BackingField: {fileID: 11400000, guid: 9b5e18eda14cc914299bfd3c8e008f2d, type: 2}
+      - <Value>k__BackingField: {fileID: 11400000, guid: 6b4f4909536ee164bbe5a6102b4cf24c, type: 2}
+    _target: {fileID: 972926559133806286}
 --- !u!225 &6115005488127250061 stripped
 CanvasGroup:
   m_CorrespondingSourceObject: {fileID: 5083459562150440320, guid: 76b86b34186d9c14090583d83216be7d, type: 3}
@@ -929,15 +958,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3531792562178903523, guid: 73b2d882bc23e9944b41c2f97dbf82fc, type: 3}
       propertyPath: m_Color.b
-      value: 1
+      value: 0.1882353
       objectReference: {fileID: 0}
     - target: {fileID: 3531792562178903523, guid: 73b2d882bc23e9944b41c2f97dbf82fc, type: 3}
       propertyPath: m_Color.g
-      value: 0.96862745
+      value: 0.23137255
       objectReference: {fileID: 0}
     - target: {fileID: 3531792562178903523, guid: 73b2d882bc23e9944b41c2f97dbf82fc, type: 3}
       propertyPath: m_Color.r
-      value: 0.9647059
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6906369471331936497, guid: 73b2d882bc23e9944b41c2f97dbf82fc, type: 3}
       propertyPath: m_PixelsPerUnitMultiplier
