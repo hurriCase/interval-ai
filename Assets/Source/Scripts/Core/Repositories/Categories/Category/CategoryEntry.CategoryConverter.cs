@@ -17,6 +17,7 @@ namespace Source.Scripts.Core.Repositories.Categories.Category
             private const string CategoryName = "Name";
             private const string CategoryTypeName = "CategoryType";
             private const string IconName = "Icon";
+            private const string IsSelectedName = "IsSelected";
 
             protected override CategoryEntry ConvertRow(CsvRow row)
             {
@@ -28,7 +29,8 @@ namespace Source.Scripts.Core.Repositories.Categories.Category
                     Id = row.GetValue(IdName).ToInt(),
                     Name = row.GetValue(CategoryName),
                     CategoryType = categoryType,
-                    Icon = CachedSprite.FromPath(row.GetValue(IconName))
+                    Icon = CachedSprite.FromPath(row.GetValue(IconName)),
+                    IsSelected = row.GetValue(IsSelectedName).ToBool()
                 };
             }
         }
