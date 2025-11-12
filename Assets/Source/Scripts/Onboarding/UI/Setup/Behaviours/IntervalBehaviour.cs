@@ -1,4 +1,6 @@
-﻿using Source.Scripts.Core.Configs;
+﻿using Cysharp.Threading.Tasks;
+using R3;
+using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Onboarding.UI.Base;
 using Source.Scripts.Onboarding.UI.WordPractice;
@@ -20,10 +22,12 @@ namespace Source.Scripts.Onboarding.UI.Setup.Behaviours
             _windowsController = windowsController;
         }
 
-        internal override void HandleContinue()
+        internal override async UniTask HandleContinue()
         {
             var onboardingPracticePopUp = _windowsController.OpenPopUp<WordPracticePopUp>();
             onboardingPracticePopUp.SwitchStep(_practiceState, _moduleType);
+
+            await onboardingPracticePopUp.OnPopUpShown.FirstAsync();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using R3;
+﻿using Cysharp.Threading.Tasks;
+using R3;
 using UnityEngine;
 
 namespace Source.Scripts.Onboarding.UI.Setup.Behaviours
@@ -10,6 +11,6 @@ namespace Source.Scripts.Onboarding.UI.Setup.Behaviours
 
         internal virtual void Init() { }
         internal virtual void UpdateView() { }
-        internal virtual void HandleContinue() { }
+        internal virtual UniTask HandleContinue() => UniTask.CompletedTask;
     }
 }

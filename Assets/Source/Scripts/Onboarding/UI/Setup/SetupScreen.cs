@@ -3,6 +3,7 @@ using CustomUtils.Runtime.Extensions;
 using CustomUtils.Runtime.Extensions.Observables;
 using CustomUtils.Runtime.Scenes.Base;
 using CustomUtils.Runtime.UI.CustomComponents.Selectables.Buttons;
+using Cysharp.Threading.Tasks;
 using R3;
 using Source.Scripts.Core.References.Base;
 using Source.Scripts.Core.Repositories.Statistics;
@@ -43,40 +44,42 @@ namespace Source.Scripts.Onboarding.UI.Setup
             {
                 inputOnboardingStep.SetActive(false);
                 inputOnboardingStep.Init();
-                inputOnboardingStep.OnNextStep.SubscribeUntilDestroy(this, static self => self.SwitchModule());
+                inputOnboardingStep.OnNextStep.SubscribeUntilDestroy(this, static self => self.SwitchModule().Forget());
             }
 
-            SwitchSettingsStep(_currentStepIndex, true);
+            SwitchSettingsStep(_currentStepIndex, true).Forget();
 
-            _continueButton.OnClickAsObservable().SubscribeUntilDestroy(this, static self => self.SwitchModule());
+            _continueButton.OnClickAsObservable()
+                .SubscribeUntilDestroy(this, static self => self.SwitchModule().Forget());
         }
 
-        private void SwitchModule()
+        private async UniTask SwitchModule()
         {
             var nextSTep = _currentStepIndex + 1;
             if (nextSTep >= _inputOnboardingSteps.Count)
             {
                 _statisticsRepository.IsCompleteOnboarding.Value = true;
                 _sceneTransitionController.StartTransition(_sceneReferences.Splash.Address,
-                    _sceneReferences.MainMenuScene.Address);
+                    _sceneReferences.MainMenuScene.Address).Forget();
 
                 return;
             }
 
-            SwitchSettingsStep(_currentStepIndex, false);
+            await SwitchSettingsStep(_currentStepIndex, false);
 
             _currentStepIndex++;
 
-            SwitchSettingsStep(_currentStepIndex, true);
+            SwitchSettingsStep(_currentStepIndex, true).Forget();
         }
 
-        private void SwitchSettingsStep(int index, bool isActive)
+        private async UniTask SwitchSettingsStep(int index, bool isActive)
         {
             var inputStep = _inputOnboardingSteps[index];
+
             if (isActive)
                 inputStep.UpdateView();
             else
-                inputStep.HandleContinue();
+                await inputStep.HandleContinue();
 
             inputStep.SetActive(isActive);
         }

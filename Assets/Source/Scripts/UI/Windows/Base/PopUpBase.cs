@@ -15,6 +15,9 @@ namespace Source.Scripts.UI.Windows.Base
 
         [SerializeField] private ThemeButton _closeButton;
 
+        internal Observable<Unit> OnPopUpShown => _popUpShown;
+        private readonly Subject<Unit> _popUpShown = new();
+
         internal Observable<Unit> OnPopUpHidden => _popUpHidden;
         private readonly Subject<Unit> _popUpHidden = new();
 
@@ -27,6 +30,8 @@ namespace Source.Scripts.UI.Windows.Base
         internal override async UniTask ShowAsync()
         {
             await _popUpVisibilityHandler.ShowAsync();
+
+            _popUpShown.OnNext(Unit.Default);
         }
 
         internal override async UniTask HideAsync()

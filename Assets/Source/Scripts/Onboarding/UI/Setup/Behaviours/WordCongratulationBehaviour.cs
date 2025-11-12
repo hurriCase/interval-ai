@@ -1,4 +1,6 @@
 ﻿using Cysharp.Text;
+using Cysharp.Threading.Tasks;
+using R3;
 using Source.Scripts.Core.Configs;
 using Source.Scripts.Core.Localization.LocalizationTypes;
 using Source.Scripts.Core.Repositories.Settings.Base;
@@ -39,10 +41,12 @@ namespace Source.Scripts.Onboarding.UI.Setup.Behaviours
             _confettiParticles.Play();
         }
 
-        internal override void HandleContinue()
+        internal override async UniTask HandleContinue()
         {
             var onboardingPracticePopUp = _windowsController.OpenPopUp<WordPracticePopUp>();
             onboardingPracticePopUp.SwitchStep(_practiceState, _moduleType);
+
+            await onboardingPracticePopUp.OnPopUpShown.FirstAsync();
         }
     }
 }
