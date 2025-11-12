@@ -1,4 +1,5 @@
-﻿using Cysharp.Text;
+﻿using CustomUtils.Runtime.Constants;
+using Cysharp.Text;
 using Cysharp.Threading.Tasks;
 using R3;
 using Source.Scripts.Core.Configs;
@@ -20,8 +21,6 @@ namespace Source.Scripts.Onboarding.UI.Setup.Behaviours
 
         [SerializeField] private TextMeshProUGUI _wordCountText;
 
-        private const int DayInMonths = 30;
-
         private IPracticeSettingsRepository _practiceSettingsRepository;
         private IWindowsController _windowsController;
 
@@ -34,7 +33,7 @@ namespace Source.Scripts.Onboarding.UI.Setup.Behaviours
 
         internal override void UpdateView()
         {
-            var learnedWordCount = _practiceSettingsRepository.DailyGoal.Value * DayInMonths;
+            var learnedWordCount = _practiceSettingsRepository.DailyGoal.Value * Date.DayInMonths;
 
             _wordCountText.SetTextFormat("{0}{1}", learnedWordCount, "!");
 
