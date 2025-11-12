@@ -62,11 +62,13 @@ namespace Source.Scripts.Main.UI.PopUps.Settings
                 LocalizationRegistry.Instance.SupportedLanguages);
 
             _nativeLanguageSelection.Init(
-                _languageSettingsRepository.LanguageProperties[LanguageType.Native],
+                new IndexedReactiveProperty<LanguageType, SystemLanguage>(
+                    _languageSettingsRepository.LanguageByType, LanguageType.Native),
                 _appConfig.SupportedLanguages[LanguageType.Native]);
 
             _learningLanguageSelection.Init(
-                _languageSettingsRepository.LanguageProperties[LanguageType.Learning],
+                new IndexedReactiveProperty<LanguageType, SystemLanguage>(
+                    _languageSettingsRepository.LanguageByType, LanguageType.Learning),
                 _appConfig.SupportedLanguages[LanguageType.Learning]);
 
             _showFirstLanguageSelection.Init(_languageSettingsRepository.FirstShowLanguageType.Property);

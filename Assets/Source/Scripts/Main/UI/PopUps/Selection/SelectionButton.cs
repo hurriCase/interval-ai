@@ -23,16 +23,20 @@ namespace Source.Scripts.Main.UI.PopUps.Selection
         [SerializeField] private EnumLocalizationDataBase _localizationData;
 
         private IWindowsController _windowsController;
+        private IObjectResolver _objectResolver;
 
         [Inject]
-        internal void Inject(IWindowsController windowsController)
+        internal void Inject(IWindowsController windowsController, IObjectResolver objectResolver)
         {
             _windowsController = windowsController;
+            _objectResolver = objectResolver;
         }
 
         internal void Init<TEnum>(ReactiveProperty<TEnum> targetProperty, IReadOnlyList<TEnum> customValues = null)
             where TEnum : unmanaged, Enum
         {
+            _objectResolver.Inject(_localizationData);
+
             var enumSelectionService = new EnumSelectionService<TEnum>(
                 targetProperty, _localizationData, customValues);
 

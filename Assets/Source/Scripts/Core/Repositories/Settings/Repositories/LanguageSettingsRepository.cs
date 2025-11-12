@@ -20,10 +20,7 @@ namespace Source.Scripts.Core.Repositories.Settings.Repositories
         public PersistentReactiveProperty<LanguageType> CardLearnLanguageType { get; } = new();
         public PersistentReactiveProperty<LanguageType> CardReviewLanguageType { get; } = new();
 
-        public EnumArray<LanguageType, ReactiveProperty<SystemLanguage>> LanguageProperties { get; }
-            = new(static () => new ReactiveProperty<SystemLanguage>());
-
-        public ReadOnlyReactiveProperty<EnumArray<LanguageType, SystemLanguage>> LanguageByType
+        public ReactiveProperty<EnumArray<LanguageType, SystemLanguage>> LanguageByType
             => _languageByType.Property;
 
         private readonly PersistentReactiveProperty<EnumArray<LanguageType, SystemLanguage>> _languageByType = new();
@@ -68,21 +65,6 @@ namespace Source.Scripts.Core.Repositories.Settings.Repositories
             SystemLanguage
                 .Subscribe(static newLanguage => LocalizationController.Language.Value = newLanguage)
                 .AddTo(ref _disposableBag);
-
-            MapLanguageProperties();
-        }
-
-        private void MapLanguageProperties()
-        {
-            foreach (var (languageType, systemLanguage) in _languageByType.Value.AsTuples())
-                LanguageProperties[languageType].Value = systemLanguage;
-
-            foreach (var (languageType, property) in LanguageProperties.AsTuples())
-            {
-                property.Subscribe((self: this, languageType), static (language, tuple)
-                        => tuple.self.SetLanguage(language, tuple.languageType))
-                    .AddTo(ref _disposableBag);
-            }
         }
 
         public void SetLanguage(SystemLanguage newLanguage, LanguageType requestedLanguageType)
