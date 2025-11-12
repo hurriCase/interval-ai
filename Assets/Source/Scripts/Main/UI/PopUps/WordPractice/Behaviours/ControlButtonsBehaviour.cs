@@ -56,6 +56,7 @@ namespace Source.Scripts.Main.UI.PopUps.WordPractice.Behaviours
                 static self => self._wordStateMutator.HideWord(self.CurrentWord));
 
             _currentWordService.CurrentWord
+                .CombineLatest(_practiceStateService.CurrentState, static (currentWord, _) => currentWord)
                 .Where(static currentWord => currentWord != null)
                 .SubscribeUntilDestroy(this, static self => self.UpdateView());
 
