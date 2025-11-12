@@ -1,4 +1,6 @@
-﻿using Source.Scripts.Core.Repositories.User.Base;
+﻿using CustomUtils.Runtime.Extensions.Observables;
+using R3;
+using Source.Scripts.Core.Repositories.User.Base;
 using TMPro;
 using UnityEngine;
 using VContainer;
@@ -21,11 +23,9 @@ namespace Source.Scripts.Onboarding.UI.Setup.Behaviours
         internal override void Init()
         {
             _placeholderText.text = _userRepository.Nickname.CurrentValue;
-        }
 
-        internal override void HandleContinue()
-        {
-            _userRepository.SetNickname(_nicknameInputField.text);
+            _nicknameInputField.onEndEdit.AsObservable().SubscribeUntilDestroy(this,
+                static (text, self) => self._userRepository.SetNickname(text));
         }
     }
 }
