@@ -6,20 +6,20 @@ using UnityEngine;
 
 namespace Source.Scripts.UI.Windows.Base
 {
-    internal sealed class PopUpVisibilityHandler : MonoBehaviour
+    internal class PopUpVisibilityHandler : MonoBehaviour
     {
         [SerializeField] private CanvasGroup _canvasGroup;
 
         [SerializeReference, SerializeReferenceDropdown] private IAnimation<VisibilityState> _visibilityAnimation;
 
-        internal async UniTask ShowAsync()
+        internal virtual async UniTask ShowAsync()
         {
             _canvasGroup.Show();
 
             await _visibilityAnimation.PlayAnimation(VisibilityState.Visible);
         }
 
-        internal async UniTask HideAsync()
+        internal virtual async UniTask HideAsync()
         {
             await _visibilityAnimation.PlayAnimation(VisibilityState.Hidden);
 

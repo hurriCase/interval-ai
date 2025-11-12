@@ -1,9 +1,6 @@
-﻿using CustomUtils.Runtime.Animations;
-using CustomUtils.Runtime.UI.CustomComponents.Selectables.Toggles;
-using Cysharp.Threading.Tasks;
+﻿using CustomUtils.Runtime.UI.CustomComponents.Selectables.Toggles;
 using R3;
 using Source.Scripts.Core.Others.UIPools;
-using Source.Scripts.UI.Components;
 using Source.Scripts.UI.Windows.Base;
 using TMPro;
 using UnityEngine;
@@ -17,8 +14,6 @@ namespace Source.Scripts.Main.UI.PopUps.Selection.PopUps
 
         [SerializeField] private RectTransform _selectionsContainer;
         [SerializeField] private StateToggle _selectionItem;
-
-        [SerializeField] private PivotAnimation<VisibilityState> _pivotAnimation;
 
         private UIPool<StateToggle> _selectionPool;
 
@@ -36,20 +31,6 @@ namespace Source.Scripts.Main.UI.PopUps.Selection.PopUps
             _selectionNameText.text = title;
 
             CreateSelections(service);
-        }
-
-        internal override async UniTask ShowAsync()
-        {
-            await base.ShowAsync();
-
-            await _pivotAnimation.PlayAnimation(VisibilityState.Visible);
-        }
-
-        internal override async UniTask HideAsync()
-        {
-            await _pivotAnimation.PlayAnimation(VisibilityState.Hidden);
-
-            base.HideAsync().Forget();
         }
 
         private void CreateSelections<TValue>(ISelectionService<TValue> service)
