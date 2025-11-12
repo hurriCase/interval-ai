@@ -17,7 +17,7 @@ namespace Source.Scripts.Main.DI
 {
     internal sealed class SceneLifetimeScope : LifetimeScope
     {
-        [SerializeField] private MainWindowsController _windowsController;
+        [SerializeField] private WindowsController _windowsController;
         [SerializeField] private MenuBehaviour _menuBehaviour;
         [SerializeField] private NotificationComponent _notificationComponent;
 
