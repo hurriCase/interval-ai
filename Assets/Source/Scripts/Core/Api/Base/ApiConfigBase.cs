@@ -13,7 +13,7 @@ namespace Source.Scripts.Core.Api.Base
 
         [SerializeField] protected string endpointFormat;
 
-        [SerializeField] private string _encryptionKeyEnvironmentName;
+        [SerializeField] private string _encryptionKeyConfigKey;
         [SerializeField] private string _apiKeyEnvironmentName;
 
         protected const string ApiConfigPath = "Api Configs /";
@@ -26,7 +26,7 @@ namespace Source.Scripts.Core.Api.Base
             if (Application.isEditor)
                 return;
 
-            remoteConfigService.TryGetString(_encryptionKeyEnvironmentName, out _encryptedApiKey);
+            remoteConfigService.TryGetString(_encryptionKeyConfigKey, out _encryptedApiKey);
         }
 
         internal abstract string GetApiUrl();

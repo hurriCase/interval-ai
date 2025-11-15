@@ -1,4 +1,5 @@
-﻿using Source.Scripts.Core.Repositories.Words;
+﻿using Source.Scripts.Core.Audio.AudioRecord;
+using Source.Scripts.Core.Repositories.Words;
 using Source.Scripts.Core.Repositories.Words.Advance;
 using Source.Scripts.Core.Repositories.Words.ModuleState;
 using Source.Scripts.Main.Data;
@@ -47,6 +48,12 @@ namespace Source.Scripts.Main.DI
 
             builder.Register<CategorySelectionService>(Lifetime.Singleton).AsSelf();
             builder.Register<WordCategorySelectionService>(Lifetime.Singleton).AsSelf();
+
+#if UNITY_ANDROID && !UNITY_EDITOR
+            builder.Register<AndroidSpeechRecognizer>(Lifetime.Singleton).AsImplementedInterfaces();
+#else
+            builder.Register<EditorSpeechRecognizer>(Lifetime.Singleton).AsImplementedInterfaces();
+#endif
 
             builder.Register<GraphDataProcessor>(Lifetime.Singleton).AsImplementedInterfaces();
 
