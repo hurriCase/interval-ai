@@ -164,7 +164,7 @@ and complex data structures.
 - Subjects should use clear action-based names: `_dataChanged`, `_validationCompleted`
 - All async methods must have `Async` suffix
 - Use ZString for string manipulations
-- Use None/Default for first enum value; specify explicit integer values for all enum members
+- Specify explicit integer values for all enum members
 - Avoid magic numbers/strings; create named constants for all literal values
 - Avoid public fields; use properties with appropriate access modifiers
 - Use internal accessibility wherever possible instead of public
