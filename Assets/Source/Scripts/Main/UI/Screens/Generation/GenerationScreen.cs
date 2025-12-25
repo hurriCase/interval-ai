@@ -20,13 +20,13 @@ namespace Source.Scripts.Main.UI.Screens.Generation
         [SerializeField] private ThemeButton _generateButton;
         [SerializeField] private ThemeButton _chatButton;
 
-        private IGenerativeLanguage _generativeLanguage;
+        private IGenerativeLanguageService _generativeLanguageService;
         private IWindowsController _windowsController;
 
         [Inject]
-        public void Inject(IGenerativeLanguage generativeLanguage, IWindowsController windowsController)
+        public void Inject(IGenerativeLanguageService generativeLanguageService, IWindowsController windowsController)
         {
-            _generativeLanguage = generativeLanguage;
+            _generativeLanguageService = generativeLanguageService;
             _windowsController = windowsController;
         }
 
@@ -38,12 +38,12 @@ namespace Source.Scripts.Main.UI.Screens.Generation
             _windowsController.BindPopUpOpen(_savedGenerationsButton, PopUpType.Exercise);
             _windowsController.BindPopUpOpen(_chatButton, PopUpType.Chat);
 
-            _generativeLanguage.IsAvailable.SubscribeToInteractableUntilDestroy(_chatButton);
+            _generativeLanguageService.IsAvailable.SubscribeToInteractableUntilDestroy(_chatButton);
         }
 
         internal override UniTask ShowAsync()
         {
-            _generativeLanguage.UpdateAvailable(destroyCancellationToken);
+            _generativeLanguageService.UpdateAvailable(destroyCancellationToken);
 
             return base.ShowAsync();
         }

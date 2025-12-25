@@ -60,7 +60,7 @@ namespace Source.Scripts.Onboarding.UI.Setup
             {
                 _statisticsRepository.IsCompleteOnboarding.Value = true;
                 _sceneTransitionController.StartTransition(_sceneReferences.Splash.Address,
-                    _sceneReferences.MainMenuScene.Address).Forget();
+                    _sceneReferences.Main.Address).Forget();
 
                 return;
             }

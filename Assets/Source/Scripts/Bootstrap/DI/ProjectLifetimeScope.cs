@@ -34,7 +34,7 @@ using VContainer.Unity;
 
 namespace Source.Scripts.Bootstrap.DI
 {
-    internal sealed class ProjectWideLifetimeScope : LifetimeScope
+    internal sealed class ProjectLifetimeScope : LifetimeScope
     {
         [SerializeField] private List<StepBase> _stepsList;
 

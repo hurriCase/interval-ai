@@ -16,7 +16,7 @@ using VContainer.Unity;
 
 namespace Source.Scripts.Main.DI
 {
-    internal sealed class SceneLifetimeScope : LifetimeScope
+    internal sealed class MainLifetimeScope : LifetimeScope
     {
         [SerializeField] private WindowsController _windowsController;
         [SerializeField] private MenuBehaviour _menuBehaviour;
@@ -57,7 +57,7 @@ namespace Source.Scripts.Main.DI
 
             builder.Register<GraphDataProcessor>(Lifetime.Singleton).AsImplementedInterfaces();
 
-            builder.RegisterEntryPoint<SceneEntryPoint>();
+            builder.RegisterEntryPoint<MainEntryPoint>();
         }
     }
 }

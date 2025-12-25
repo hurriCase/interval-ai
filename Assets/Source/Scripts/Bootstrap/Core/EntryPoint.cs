@@ -19,21 +19,20 @@ namespace Source.Scripts.Bootstrap.Core
         private readonly IStatisticsRepository _statisticsRepository;
         private readonly ISceneReferences _sceneReferences;
         private readonly IObjectResolver _objectResolver;
-
-        private readonly List<StepBase> _stepsList;
+        private readonly List<StepBase> _steps;
 
         internal EntryPoint(
             ISceneTransitionController sceneTransitionController,
             IStatisticsRepository statisticsRepository,
             ISceneReferences sceneReferences,
             IObjectResolver objectResolver,
-            List<StepBase> stepsList)
+            List<StepBase> steps)
         {
-            _stepsList = stepsList;
-            _objectResolver = objectResolver;
             _sceneTransitionController = sceneTransitionController;
             _statisticsRepository = statisticsRepository;
             _sceneReferences = sceneReferences;
+            _objectResolver = objectResolver;
+            _steps = steps;
         }
 
         public async UniTask StartAsync(CancellationToken token)
@@ -43,7 +42,7 @@ namespace Source.Scripts.Bootstrap.Core
             _statisticsRepository.MarkNewLogin();
 
             var sceneAddressToLoad = _statisticsRepository.IsCompleteOnboarding.Value
-                ? _sceneReferences.MainMenuScene.Address
+                ? _sceneReferences.Main.Address
                 : _sceneReferences.Onboarding.Address;
 
             _sceneTransitionController.StartTransition(_sceneReferences.Splash.Address, sceneAddressToLoad).Forget();
@@ -53,14 +52,14 @@ namespace Source.Scripts.Bootstrap.Core
         {
             try
             {
-                for (var i = 0; i < _stepsList.Count; i++)
+                for (var i = 0; i < _steps.Count; i++)
                 {
-                    _stepsList[i].OnStepCompletedObservable
+                    _steps[i].OnStepCompletedObservable
                         .Subscribe(this, static (stepData, self) => self.LogStepCompletion(stepData))
                         .RegisterTo(cancellationToken);
 
-                    _objectResolver.Inject(_stepsList[i]);
-                    await _stepsList[i].Execute(i, cancellationToken);
+                    _objectResolver.Inject(_steps[i]);
+                    await _steps[i].Execute(i, cancellationToken);
                 }
             }
             catch (Exception ex)

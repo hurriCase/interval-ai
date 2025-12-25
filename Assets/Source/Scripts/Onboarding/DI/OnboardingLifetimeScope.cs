@@ -11,7 +11,7 @@ using WordsTimerService = Source.Scripts.Core.Repositories.Words.WordsTimerServi
 
 namespace Source.Scripts.Onboarding.DI
 {
-    internal sealed class SceneLifetimeScope : LifetimeScope
+    internal sealed class OnboardingLifetimeScope : LifetimeScope
     {
         [SerializeField] private WindowsController _windowsController;
         [SerializeField] private OnboardingConfig _onboardingConfig;
@@ -33,7 +33,7 @@ namespace Source.Scripts.Onboarding.DI
                 .As<DefaultWordsDatabase>()
                 .AsImplementedInterfaces();
 
-            builder.RegisterEntryPoint<SceneEntryPoint>();
+            builder.RegisterEntryPoint<OnboardingEntryPoint>();
         }
     }
 }

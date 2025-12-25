@@ -8,31 +8,31 @@ using VContainer.Unity;
 
 namespace Source.Scripts.Main.DI
 {
-    internal sealed class SceneEntryPoint : IAsyncStartable
+    internal sealed class MainEntryPoint : IAsyncStartable
     {
         private readonly ISceneTransitionController _sceneTransitionController;
+        private readonly IGenerativeLanguageService _generativeLanguageService;
         private readonly IWindowsController _windowsController;
-        private readonly IGenerativeLanguage _generativeLanguage;
-        private readonly IMenuBehaviour _menuBehaviour;
+        private readonly IMenuBehaviour _menuManuBehaviour;
 
-        internal SceneEntryPoint(
-            ISceneTransitionController sceneTransitionController,
+        internal MainEntryPoint(
+            IGenerativeLanguageService generativeLanguageService,
+            ISceneTransitionController transitionController,
             IWindowsController windowsController,
-            IGenerativeLanguage generativeLanguage,
-            IMenuBehaviour menuBehaviour)
+            IMenuBehaviour manuBehaviour)
         {
-            _sceneTransitionController = sceneTransitionController;
+            _generativeLanguageService = generativeLanguageService;
+            _sceneTransitionController = transitionController;
             _windowsController = windowsController;
-            _generativeLanguage = generativeLanguage;
-            _menuBehaviour = menuBehaviour;
+            _menuManuBehaviour = manuBehaviour;
         }
 
         public async UniTask StartAsync(CancellationToken token)
         {
-            await _generativeLanguage.InitAsync(token);
+            await _generativeLanguageService.InitAsync(token);
             await _windowsController.InitAsync(token);
 
-            _menuBehaviour.Init();
+            _menuManuBehaviour.Init();
 
             _sceneTransitionController.EndTransition();
         }

@@ -9,7 +9,7 @@ using VContainer.Unity;
 
 namespace Source.Scripts.Onboarding.DI
 {
-    internal sealed class SceneEntryPoint : IAsyncStartable
+    internal sealed class OnboardingEntryPoint : IAsyncStartable
     {
         private readonly ISceneTransitionController _sceneTransitionController;
         private readonly IDefaultDataDatabase _defaultOnboardingDatabase;
@@ -17,7 +17,7 @@ namespace Source.Scripts.Onboarding.DI
         private readonly IWindowsController _windowsController;
         private readonly IObjectResolver _objectResolver;
 
-        internal SceneEntryPoint(
+        internal OnboardingEntryPoint(
             ISceneTransitionController sceneTransitionController,
             IDefaultDataDatabase defaultOnboardingDatabase,
             ICurrentWordService currentWordService,

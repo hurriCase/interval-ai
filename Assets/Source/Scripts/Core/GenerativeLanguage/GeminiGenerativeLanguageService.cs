@@ -10,7 +10,7 @@ using Source.Scripts.Core.Repositories.Base;
 namespace Source.Scripts.Core.GenerativeLanguage
 {
     internal sealed class GeminiGenerativeLanguageService : ApiServiceBase<GeminiGenerativeLanguageConfig>,
-        IGenerativeLanguage
+        IGenerativeLanguageService
     {
         private readonly PersistentReactiveProperty<List<Content>> _chatHistory = new();
 
